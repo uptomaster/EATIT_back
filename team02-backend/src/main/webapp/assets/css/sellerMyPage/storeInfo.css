@@ -1,0 +1,472 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  /* box-sizing: border-box; */
+}
+
+main {
+  background-color: #FFF5E4;
+  width: 1920px;
+  height: 1500px;
+  display: flex;
+  flex-direction: row;
+
+}
+
+/* 1100px 영역 */
+.store_info_container {
+  width: 1100px;
+  height: 100%;
+  background-color: #fbe3b9;
+  margin: 0px 410px;
+  display: flex;
+}
+
+
+/* 전체 영역 끝 */
+
+/* 좌측 메뉴 바 */
+.store_info_menu {
+  position: fixed;
+  padding: 0;
+  margin: 100px 20px 0 200px;
+  width: 190px;
+  height: 585px;
+  font-size: 20px;
+  background-color: #a6998080;
+  border-radius: 10px;
+}
+
+.store_info_menu_title {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #FF873C;
+  width: 190px;
+  height: 110px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.store_info_menu_list>li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 15px 0;
+  width: 190px;
+}
+
+.store_info_menu_list>li>a {
+  text-decoration: none;
+  color: white;
+}
+
+.store_info_menu_list>li:hover {
+  width: 190px;
+  background-color: #ff873c8c;
+  border-radius: 10px;
+}
+
+.store_info_menu_list_current {
+  background-color: #FF873C;
+  width: 190px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 좌측 메뉴바 끝 */
+
+/* 가게상세정보 및 상품 구매 영역 */
+.store_info_left_area {
+  width: 550px;
+  height: 1080px;
+  margin-top: 20px;
+}
+
+.store_info_store_info {
+  width: 530px;
+  height: 400px;
+  background-color: white;
+  /* border: 1px solid green; */
+  border-radius: 10px;
+  margin: 0 auto;
+}
+
+/* 가게 이미지 */
+.store_info_store_info>img {
+  width: 530px;
+  height: 300px;
+  /* border: 1px solid blue; */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  object-fit: cover;
+}
+
+/* 가게 찜 하트 */
+.store_info_edit_btns {
+  margin: 10px;
+  display: flex;
+  float: right;
+  flex-direction: column;
+  width: 70px;
+  gap: 6px;
+}
+
+input[type='file']::file-selector-button,
+#edit_store_info_btn {
+  border-radius: 5px;
+  border: none;
+  background-color: #FF873C;
+  color: white;
+  width: 65px;
+  padding: 3px;
+}
+
+/*  */
+.store_info_store_info_detail {
+  width: 250px;
+  height: 100px;
+  /* border: 1px solid hotpink; */
+  margin-left: 30px;
+  position: absolute;
+  top: 425px;
+}
+
+.store_info_store_name {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.store_info_store_address {
+  font-size: 18px;
+}
+
+.store_info_store_open_time {
+  font-size: 16px;
+}
+
+/* 음식 메뉴 목록 영역 *************************/
+.store_info_food {
+  width: 530px;
+  height: 630px;
+  background-color: white;
+  border-radius: 10px;
+  /* border:1px solid black; */
+  margin: 10px auto;
+}
+
+.store_info_food ul {
+  display: flex;
+  list-style: none;
+}
+
+.store_info_food_menu {
+  width: 530px;
+  height: 550px;
+  margin-top: 10px;
+}
+
+.store_info_food_menu_choice {
+  /* border: 1px solid blue; */
+  margin: 5px 0 0 30px;
+}
+
+.store_info_food_menu_choice a {
+  display: block;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+}
+
+/* 새 메뉴 등록 */
+.store_info_food_menu_choice:nth-child(2) a {
+  color: #acacac;
+}
+
+.store_info_food_menu_choice:last-child a {
+  margin-left: 270px;
+}
+
+/* 구매 메뉴 */
+.store_info_food_menu_list {
+  width: 450px;
+  height: 150px;
+  /* border: 1px solid red; */
+  display: flex;
+  margin: 10px auto;
+}
+
+.store_info_food_menu_list img {
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.store_info_food_menu_info_stock {
+  width: 350px;
+  height: 100px;
+  /* border: 1px sold green; */
+}
+
+.store_info_food_stock {
+  width: 100px;
+  height: 30px;
+  background-color: #FF5656;
+  color: white;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 6px;
+  margin-left: 30px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.store_info_food_menu_info {
+  width: 250px;
+  height: 80px;
+  margin-left: 30px;
+}
+
+.store_info_food_stock_choice {
+  width: 260px;
+  margin-left: 30px;
+  display: flex;
+  /* border: 1px solid blue; */
+}
+
+.store_info_food_stock_choice p {
+  margin: 0 10px 0 10px;
+  font-size: 16px;
+}
+
+/* 장바구니 담기 버튼 */
+.store_info_edit_btn {
+  width: 85px;
+  height: 30px;
+  background-color: #202020;
+  color: white;
+  border-radius: 6px;
+  text-align: center;
+  line-height: 30px;
+}
+
+.store_info_food_menu hr {
+  width: 480px;
+  margin: 0 auto;
+}
+
+/* 재료 메뉴 목록 영역 *************************/
+.store_info_ingredient {
+  width: 530px;
+  height: 630px;
+  background-color: white;
+  border-radius: 10px;
+  /* border:1px solid black; */
+  margin: 10px auto;
+}
+
+.store_info_ingredient ul {
+  display: flex;
+  list-style: none;
+}
+
+.store_info_ingredient_menu {
+  width: 530px;
+  height: 550px;
+  margin-top: 10px;
+}
+
+.store_info_ingredient_menu_choice {
+  /* border: 1px solid blue; */
+  margin: 5px 0 0 30px;
+}
+
+.store_info_ingredient_menu_choice a {
+  display: block;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+}
+
+.store_info_ingredient_menu_choice:nth-child(2) a {
+  color: #acacac;
+}
+
+.store_info_ingredient_menu_choice:last-child a {
+  margin-left: 270px;
+}
+
+/* 구매 메뉴 */
+.store_info_ingredient_menu_list {
+  width: 450px;
+  height: 150px;
+  /* border: 1px solid red; */
+  display: flex;
+  margin: 10px auto;
+}
+
+.store_info_ingredient_menu_list img {
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.store_info_ingredient_menu_info_stock {
+  width: 350px;
+  height: 100px;
+  /* border: 1px sold green; */
+}
+
+.store_info_ingredient_stock {
+  width: 100px;
+  height: 30px;
+  background-color: #FF5656;
+  color: white;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 6px;
+  margin-left: 30px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.store_info_ingredient_menu_info {
+  width: 250px;
+  height: 80px;
+  margin-left: 30px;
+}
+
+.store_info_ingredient_stock_choice {
+  width: 260px;
+  margin-left: 30px;
+  display: flex;
+  /* border: 1px solid blue; */
+}
+
+.store_info_ingredient_stock_choice p {
+  margin: 0 10px 0 10px;
+  font-size: 16px;
+}
+
+/* 장바구니 담기 버튼 */
+.store_info_food_edit_btn,
+.store_info_food_view_btn,
+.store_info_ingredient_edit_btn,
+.store_info_ingredient_view_btn,
+.store_info_edit_btn {
+  width: 85px;
+  height: 30px;
+  background-color: #202020;
+  color: white;
+  border-radius: 6px;
+  text-align: center;
+  line-height: 30px;
+}
+
+.store_info_ingredient_menu hr {
+  width: 480px;
+  margin: 0 auto;
+}
+
+.store_info_btns {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* buy 페이지네이션 */
+.store_info_pagenation {
+  width: 290px;
+  height: 32px;
+  margin: 30px auto;
+}
+
+.store_info_pagenation ul {
+  width: 290px;
+  height: 32px;
+  display: flex;
+}
+
+.store_info_pagenation_box {
+  width: 32px;
+  height: 32px;
+  background-color: rgb(226, 226, 226);
+  border-radius: 4px;
+  /* border: 1px solid blue; */
+  text-align: center;
+  line-height: 32px;
+  font-size: 16px;
+  display: inline-block;
+  margin: auto;
+}
+
+.store_info_pagenation_box a {
+  text-decoration: none;
+  color: black;
+  display: block;
+}
+
+/* 지도 API 및 원산지 표기 영역 전체 */
+.store_info_right_area {
+  width: 550px;
+  height: 1200px;
+  margin-top: 20px;
+}
+
+
+/* 원산지, 가게 상세 정보 */
+
+.store_info_detail_container {
+  display: flex;
+  flex-direction: column;
+  width: 530px;
+  height: 200px;
+  background-color: white;
+  /* border: 1px solid red; */
+  border-radius: 10px;
+  margin: 10px auto;
+}
+
+.store_info_detail_title {
+  width: 100%;
+  font-size: 20px;
+  margin: auto 10px;
+  font-weight: bold;
+}
+
+.store_info_detail_list {
+  display: flex;
+}
+
+.store_info_content {
+  list-style: none;
+  width: 150px;
+  height: 130px;
+  margin: 10px 0 10px 30px;
+  font-size: 14px;
+}
+
+.store_info_content>li:first-child {
+  font-weight: bold;
+}
+
+/* 원산지 수정 버튼 */
+#edit_store_origin_btn {
+  border-radius: 5px;
+  border: none;
+  background-color: #FF873C;
+  color: white;
+  width: 90px;
+  padding: 3px;
+  margin: 0px 15px;
+}

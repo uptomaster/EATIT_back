@@ -1,0 +1,69 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  /* box-sizing: border-box; */
+}
+
+main {
+  height: 830px;
+  width: 1920px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff5e4;
+
+}
+/* 1100px 영역 */
+.findPw_fail_container {
+  width: 1100px;
+  height: 100%;
+  background-color: #fbe3b9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* 컨텐츠 영역 */
+.findPw_fail_content_container {
+  width: 600px;
+  height: 500px;
+  background-color: #fff5e4;
+  margin: 115px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+/* 구역나누기 끝 */
+
+/* 비밀번호 찾기 실패 제목 */
+/* 비밀번호 찾기 제목 */
+.findPw_fail_title_container {
+  font-size: 24px;
+}
+
+.findPw_fail_title {
+  font-weight: bold;
+}
+
+/* 비밀번호 찾기 실패 안내 메시지 */
+
+/* 비밀번호찾기, 비밀번호 찾기, 회원가입 */
+.findPw_fail_to_container {
+  /* height: 50px; */
+  display: flex;
+  align-items: center;
+  /* text-decoration: none; */
+  gap: 15px;
+}
+
+.findPw_fail_to_container>div>a:hover {
+  color: #FF7722;
+}
+
+.findPw_fail_to_container>div>a {
+  font-size: 14px;
+  text-decoration: none;
+  color: black;
+}

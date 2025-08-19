@@ -1,0 +1,109 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./../../assets/img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./../../assets/css/header.css">
+  <link rel="stylesheet" href="./../../assets/css/footer.css">
+  <link rel="stylesheet" href="./../../assets/css/sellerMyPage/originList.css">
+  <script defer src="./../../assets/js/sellerMyPage/originList.js"></script>
+  <script>
+    let headerPath = '../../header.html';
+    let footerPath = '../../footer.html';
+  </script>
+  <script defer src="../../assets/js/header.js"></script>
+
+  <title>밥세권</title>
+</head>
+
+<body>
+  <header id="header"></header>
+  <main>
+    <!-- 좌측 사이드 메뉴 -->
+    <div class="origin_menu">
+      <div class="origin_menu_title">마이 페이지</div>
+      <ul class="origin_menu_list">
+        <li><a href="./../sellerMyPage/editSellerInfo.html">내 정보 수정</a></li>
+        <li><a href="./../sellerMyPage/sellerfoodPurchaseList.html">음식 구매 내역</a></li>
+        <li><a href="./../sellerMyPage/selleringredientPurchaseList.html">재료 구매 내역</a></li>
+        <li><a href="./../sellerMyPage/sellerMyPostsList.html">내 글 관리</a></li>
+        <li><a href="./../sellerMyPage/sellerMyCommentsList.html">내 댓글 관리</a></li>
+        <li><a href="./../sellerMyPage/sellerMyReviewsList.html">내 리뷰 관리</a></li>
+        <li class="origin_menu_list_current"><a href="./../sellerMyPage/storeInfo.html">사업장 관리</a></li>
+        <li><a href="./../sellerMyPage/todaySaleList.html">판매 내역</a></li>
+      </ul>
+    </div>
+
+    <div class="origin_container"> <!-- 1100px 영역-->
+      <!-- 페이지 제목/ 추가 버튼 -->
+      <div class="origin_title_container">
+        <!-- 페이지 제목 -->
+        <h2 class="origin_title"> 원산지 </h2>
+        <button type="button" id="add_origin_btn">원산지 추가</button>
+        <button type="button" id="back_to_storeInfo">사업장 관리로</button>
+      </div>
+      <!-- 원산지 목록 -->
+      <div>
+        <!-- 원산지 목록 제목 -->
+        <div class="origin_list_top">
+          <div class="origin_item_top"> 표시품목</div>
+          <div class="origin_origin_top">원산지</div>
+          <div class="origin_menu_top">메뉴명</div>
+          <div class="origin_edit_btns">수정하기</div>
+        </div>
+        <!-- 원산지 목록 내용 -->
+        <div class="origin_list">
+          <div class="origin_list_item"> 배추</div>
+          <div class="origin_list_origin">국내산</div>
+          <div class="origin_list_menu">김치</div>
+          <div class="origin_edit_btns">
+            <button class="edit_btn">수정하기</button>
+          </div>
+        </div>
+        <div class="origin_list">
+          <div class="origin_list_item"> 돼지고기</div>
+          <div class="origin_list_origin">칠레산 </div>
+          <div class="origin_list_menu"> 스테이크</div>
+          <div class="origin_edit_btns">
+            <button class="edit_btn">수정하기</button>
+          </div>
+        </div>
+        <div class="origin_list">
+          <div class="origin_list_item"> 쌀</div>
+          <div class="origin_list_origin">국내산</div>
+          <div class="origin_list_menu">밥ㅇ</div>
+          <div class="origin_edit_btns">
+            <button class="edit_btn">수정하기</button>
+          </div>
+        </div>
+        <!-- 추가버튼 눌렀을때 추가될 영역 -->
+        <div id="origin_list_more"></div>
+      </div> <!-- 목록 끝 -->
+      <!-- 모달창 -->
+      <div id="editModal" class="modal">
+        <div class="modal_content">
+          <span class="close_btn" id="closeModal">&times;</span>
+          <h2>원산지 수정</h2>
+          <form id="editForm">
+            <label for="product">표시품목</label>
+            <input type="text" id="product" name="product" required>
+
+            <label for="origin">원산지</label>
+            <input type="text" id="origin" name="origin" required>
+
+            <label for="foodName">음식명</label>
+            <input type="text" id="foodName" name="foodName" required>
+
+            <button type="submit" class="save_btn">저장</button>
+            <button type="button" id="delete_btn" class="delete_btn">삭제</button>
+          </form>
+        </div>
+      </div> <!-- 모달창 끝-->
+    </div> <!-- 컨텐츠 영역 -->
+    </div><!-- 1100px 영역 끝-->
+  </main>
+</body>
+
+</html>

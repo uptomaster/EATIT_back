@@ -1,0 +1,294 @@
+@charset "UTF-8";
+
+/* 전체 레이아웃 */
+main {
+  display: flex;
+  background-color: #f9f7f1;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.side_bar {
+  width: 410px;
+  background-color: #fff9f0;
+}
+
+/* 메인 컨테이너 */
+.main_container {
+  flex: 1;
+  padding: 30px 40px;
+  background-color: #fff;
+  box-shadow: 0 0 12px rgba(168, 6, 6, 0.438);
+  border-radius: 10px;
+  margin: 30px 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 카테고리 */
+.community_category ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+  display: flex;
+  gap: 20px;
+}
+
+.community_category a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #555;
+  font-size: 1.1rem;
+  padding: 8px 18px;
+  border-radius: 25px;
+  transition: background-color 0.3s, color 0.3s;
+  border: 1.5px solid transparent;
+}
+
+.community_category a:hover,
+.community_category a.active {
+  background-color: #ffd580;
+  color: #6a4e00;
+  border-color: #ffb84d;
+}
+
+/* 게시판 리스트 */
+.community_list {
+  /* flex-grow: 1; */
+  overflow-x: auto;
+  font-size: 1rem;
+  min-height: 500px;
+  margin-bottom: 20px;
+}
+
+/* 리스트 헤더 */
+.list_header {
+  display: flex;
+  background-color: #ffefcc;
+  font-weight: 700;
+  color: #444;
+  padding: 14px 20px;
+  border-radius: 6px 6px 0 0;
+  user-select: none;
+}
+
+/* 리스트 바디 */
+.list_body {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #eee;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+/* 리스트 행 */
+.list_row {
+  display: flex;
+  border-top: 1px solid #eee;
+  padding: 14px 18px;
+  color: #444;
+  align-items: center;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+}
+
+.list_row:first-child {
+  border-top: none;
+}
+
+.list_row:hover {
+  background-color: #fff4d8;
+}
+
+/* 컬럼 공통 */
+.col {
+  padding: 0 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 컬럼별 너비 */
+.col_tag {
+  flex: 0 0 80px;
+  text-align: center;
+  font-weight: 600;
+  color: #6a4e00;
+}
+
+.col_title {
+  flex: 1 1 auto;
+  text-align: left;
+}
+
+.col_title a {
+  color: #5a5a5a;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.col_title a:hover {
+  color: #ffae42;
+  text-decoration: underline;
+}
+
+.col_author {
+  flex: 0 0 100px;
+  text-align: center;
+}
+
+.col_date {
+  flex: 0 0 100px;
+  text-align: center;
+}
+
+.col_views {
+  flex: 0 0 70px;
+  text-align: center;
+}
+
+.col_likes {
+  flex: 0 0 70px;
+  text-align: center;
+}
+
+/* 검색 & 페이지네이션 컨트롤 */
+.controls_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* 글쓰기 버튼 */
+.write_form a {
+  display: inline-block;
+  padding: 8px 14px;
+  background-color: #4caf50;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.write_form a:hover {
+  background-color: #45a049;
+}
+
+
+.function_container {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+/* 검색 박스 */
+.search_box {
+  display: flex;
+  align-items: center;
+}
+
+.search_text {
+  padding: 8px 14px;
+  border: 1.5px solid #ddd;
+  border-right: none;
+  border-radius: 6px 0 0 6px;
+  width: 220px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.search_text:focus {
+  outline: none;
+  border-color: #ffb84d;
+}
+
+.search_btn {
+  background-color: #ffb84d;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+  color: white;
+  font-size: 1.1rem;
+  transition: background-color 0.3s;
+}
+
+.search_btn:hover {
+  background-color: #ffa500;
+}
+
+/* 페이지네이션 */
+.pagination_container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.page {
+  display: inline-block;
+  padding: 8px 14px;
+  background-color: #fff4d8;
+  border-radius: 6px;
+  border: 1px solid #ffdb70;
+  color: #6a4e00;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.page:hover {
+  background-color: #ffd580;
+  color: #4a3000;
+}
+
+.page.active {
+  background-color: #ffb84d;
+  color: white;
+  cursor: default;
+  border-color: #ffae42;
+}
+
+/* 나무 등급 */
+.tree_icon {
+  width: 22px;
+  height: 22px;
+  margin-left: 6px;
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
+}
+
+.tree_icon:hover {
+  transform: scale(1.2);
+}
+
+.tree-tooltip {
+  position: absolute;
+  background: #d4f0c0;
+  color: #3a5a00;
+  border-radius: 12px;
+  padding: 8px 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: normal;
+  z-index: 1000;
+  max-width: 160px;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.tree-tooltip div {
+  margin-bottom: 4px;
+}
+
+.tree-tooltip div:last-child {
+  margin-bottom: 0;
+}

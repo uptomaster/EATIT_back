@@ -1,0 +1,130 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  /* box-sizing: border-box; */
+}
+
+main {
+  height: 830px;
+  width: 1920px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff5e4;
+
+}
+/* 1100px 영역 */
+.findPw_edit_container {
+  width: 1100px;
+  height: 100%;
+  background-color: #fbe3b9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* 컨텐츠 영역 */
+.findPw_edit_content_container {
+  width: 600px;
+  height: 500px;
+  background-color: #fff5e4;
+  margin: 115px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+/* 구역나누기 끝 */
+
+/* 비밀번호 찾기 편집 제목 */
+/* 비밀번호 찾기 제목 */
+.findPw_edit_title_container {
+  font-size: 24px;
+}
+
+.findPw_edit_title {
+  font-weight: bold;
+}
+
+/* 비밀번호 수정 입력 폼 *******/
+.findPw_edit_input_container>div {
+  margin: 15px;
+  font-size: 14px;
+  text-align: right;
+  display: flex;
+  justify-content: center;
+}
+
+.findPw_edit_input_container>div>label {
+  margin-right: 10px;
+}
+
+.findPw_edit_input_container>div>input {
+  width: 200px;
+  height: 30px;
+  border: 0.3px solid black;
+  border-radius: 5px;
+}
+
+/* 경고 메시지 */
+.findPw_edit_warning_message {
+  color: red;
+}
+
+/* 수정하기 버튼 */
+.findPw_edit_btn {
+  width: 115px;
+  height: 35px;
+  background-color: #ff924e;
+  color: white;
+  border-radius: 5px;
+  border: 0.5px solid #000;
+  font-size: 16px;
+  margin: 10px;
+}
+
+/* 메인으로, 로그인 버튼 */
+.findId_clear_btns{
+  display: flex;
+}
+.findId_clear_btns>a>div:hover {
+  background-color: #FF7722;
+}
+
+.findId_clear_btns>a>div {
+  width: 115px;
+  height: 35px;
+  background-color: #ff924e;
+  color: white;
+  border-radius: 5px;
+  border: 0.5px solid #000;
+  font-size: 16px;
+  margin: 10px;
+  text-align: center;
+  line-height: 35px;
+}
+.findId_clear_btns>a{
+  text-decoration: none;
+  color: white;
+}
+
+/* 비밀번호찾기, 비밀번호 찾기, 회원가입 */
+.findPw_edit_to_container {
+  /* height: 50px; */
+  display: flex;
+  align-items: center;
+  /* text-decoration: none; */
+  gap: 15px;
+}
+
+.findPw_edit_to_container>div>a:hover {
+  color: #FF7722;
+}
+
+.findPw_edit_to_container>div>a {
+  font-size: 14px;
+  text-decoration: none;
+  color: black;
+}

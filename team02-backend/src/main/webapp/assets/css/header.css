@@ -1,0 +1,130 @@
+@charset "UTF-8";
+
+*{
+  margin: 0;
+  padding: 0;
+}
+/* 헤더 영역 */
+#header{
+  width: 1920px;
+  height: 100px;
+  background-color: #A69980;
+}
+/* 헤더>로그인 회원가입 */
+#header_login{
+  height: 30px;
+}
+#header_login ul{
+  width: 200px;
+  height: 30px;
+  list-style: none;
+  display: flex;
+  float: right;
+  text-align: center;
+  align-items: center;
+}
+#header_login ul a{
+  color: white;
+  margin: 7px;
+  text-decoration: none;
+  font-size: 12px;
+}
+#header_login ul a:hover{
+  color:#F6D962;
+  z-index: 99;
+}
+
+/* 헤더 1100px 중앙정렬 영역 */
+#header_wrapper{
+  width: 1100px;
+  height: 70px;
+  margin: 0 auto;
+  display: flex;
+  /* border: 1px solid red; */
+}
+/* 헤더>로고 들어갈 영역 */
+#header_logo{
+  width: 200px;
+  height: 70px;
+}
+/* 헤더 메인 로고 이미지 */
+#header_logo img{
+  width: 70px;
+  align-items: center;
+}
+/* 헤더 네비게이션 */
+#header_nav ul{
+  width: 1100px;
+  height: 70px;
+  display: flex;
+}
+#header_nav ul li{
+  list-style: none;
+  width: 200px;
+  height: 70px;
+  display: flex
+}
+#header_nav ul li a{
+  width: 200px;
+  height: 70px;
+  text-align: center;
+  text-decoration: none;
+  align-items: center;
+  line-height: 70px;
+  color: white;
+}
+#header_nav ul li a:hover {
+  color:#F6D962;
+}
+/* 헤더 네비게이션 드롭다운 메뉴 */
+#header_nav_display{
+  display: none;
+}
+.header_nav_dropdown{
+  display: flex;
+  width: 1920px;
+  height: 40px;
+  background-color: #202020;
+  z-index: 99;
+}
+.header_nav_buy{
+  margin-left: 500px;
+  display: none;
+}
+.header_nav_buy li{
+  /* border: 1px solid blue; */
+  width: 150px;
+  height: 40px;
+  list-style: none;
+  text-align: center;
+  line-height: 40px;
+}
+.header_nav_buy li a{
+  /* border: 1px solid red; */
+  width: 150px;
+  height: 40px;
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+}
+.header_nav_buy li a:hover,.header_nav_commu li a:hover {
+  color:#F6D962;
+}
+.header_nav_commu{
+  margin-left: 500px;
+  display: none;
+}
+.header_nav_commu li{
+  width: 150px;
+  height: 40px;
+  list-style: none;
+  text-align: center;
+  line-height: 40px;
+}
+.header_nav_commu li a{
+  width: 150px;
+  height: 40px;
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+}

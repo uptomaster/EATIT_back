@@ -1,0 +1,239 @@
+@charset "UTF-8";
+
+/* 전체 레이아웃 */
+main {
+  display: flex;
+  background-color: #f9f7f1;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.side_bar {
+  width: 410px;
+  background-color: #fff9f0;
+}
+
+.main_container {
+  flex: 1;
+  padding: 30px 40px;
+  background-color: #fff;
+  box-shadow: 0 0 12px rgba(168, 6, 6, 0.438);
+  border-radius: 10px;
+  margin: 30px 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.community_category ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 30px;
+  display: flex;
+  gap: 20px;
+}
+
+.community_category a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #555;
+  font-size: 17.6px;  /* 1.1rem → 17.6px */
+  padding: 8px 18px;
+  border-radius: 25px;
+  transition: background-color 0.3s, color 0.3s;
+  border: 1.5px solid transparent;
+}
+
+.community_category a:hover,
+.community_category a.active {
+  background-color: #ffd580;
+  color: #6a4e00;
+  border-color: #ffb84d;
+}
+
+.community_list {
+  overflow-x: auto;
+  font-size: 16px; /* 1rem → 16px */
+  min-height: 500px;
+  margin-bottom: 20px;
+}
+
+.list_header {
+  display: flex;
+  background-color: #ffefcc;
+  font-weight: 700;
+  color: #444;
+  padding: 14px 20px;
+  border-radius: 6px 6px 0 0;
+  user-select: none;
+}
+
+.list_body {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #eee;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+.list_row {
+  display: flex;
+  border-top: 1px solid #eee;
+  padding: 14px 18px;
+  color: #444;
+  align-items: center;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+}
+
+.list_row:first-child {
+  border-top: none;
+}
+
+.list_row:hover {
+  background-color: #fff4d8;
+}
+
+.col {
+  padding: 0 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.col_tag {
+  flex: 0 0 80px;
+  text-align: center;
+  font-weight: 600;
+  color: #6a4e00;
+}
+
+.col_title {
+  flex: 1 1 auto;
+  text-align: left;
+}
+
+.col_title a {
+  color: #5a5a5a;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.col_title a:hover {
+  color: #ffae42;
+  text-decoration: underline;
+}
+
+.col_author {
+  flex: 0 0 100px;
+  text-align: center;
+}
+
+.col_date {
+  flex: 0 0 100px;
+  text-align: center;
+}
+
+.col_views {
+  flex: 0 0 70px;
+  text-align: center;
+}
+
+.col_likes {
+  flex: 0 0 70px;
+  text-align: center;
+}
+
+.controls_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.write_form a {
+  display: inline-block;
+  padding: 8px 14px;
+  background-color: #4caf50;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.write_form a:hover {
+  background-color: #45a049;
+}
+
+.function_container {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.search_box {
+  display: flex;
+  align-items: center;
+}
+
+.search_text {
+  padding: 8px 14px;
+  border: 1.5px solid #ddd;
+  border-right: none;
+  border-radius: 6px 0 0 6px;
+  width: 220px;
+  font-size: 16px; /* 1rem → 16px */
+  transition: border-color 0.3s;
+}
+
+.search_text:focus {
+  outline: none;
+  border-color: #ffb84d;
+}
+
+.search_btn {
+  background-color: #ffb84d;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+  color: white;
+  font-size: 17.6px; /* 1.1rem → 17.6px */
+  transition: background-color 0.3s;
+}
+
+.search_btn:hover {
+  background-color: #ffa500;
+}
+
+.pagination_container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.page {
+  display: inline-block;
+  padding: 8px 14px;
+  background-color: #fff4d8;
+  border-radius: 6px;
+  border: 1px solid #ffdb70;
+  color: #6a4e00;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.page:hover {
+  background-color: #ffd580;
+  color: #4a3000;
+}
+
+.page.active {
+  background-color: #ffb84d;
+  color: white;
+  cursor: default;
+  border-color: #ffae42;
+}

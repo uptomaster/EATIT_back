@@ -1,0 +1,195 @@
+@charset "UTF-8";
+
+/* 레이아웃 */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f9f7f1;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.side {
+  width: 410px;
+  background-color: #fff9f0;
+}
+
+/* 중앙 컨테이너 */
+.container {
+  flex: 1;
+  background-color: #fff;
+  margin: 30px 20px;
+  padding: 30px 40px;
+  box-shadow: 0 0 12px rgba(168, 6, 6, 0.438);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 상단 제목 영역 */
+.title_section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background-color: #ffefcc;
+  color: #6a4e00;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.profile_tree {
+  font-size: 1.2rem;
+  color: #4caf50;
+  font-weight: 700;
+}
+
+.post_title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ffb84d;
+  flex-grow: 1;
+}
+
+/* 폼 스타일 */
+.write_form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form_group {
+  display: flex;
+  flex-direction: column;
+}
+
+#tagSelect {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1.5px solid #ffb84d;
+  font-weight: bold;
+  color: #ffb84d;
+  cursor: pointer;
+  outline: none;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  width: 100%;          /* 부모 컨테이너 전체 너비 사용 */
+  box-sizing: border-box; /* 패딩 포함 전체 너비 계산 */
+}
+
+#tagSelect:focus {
+  border-color: #ffb84d;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+input[type="text"],
+textarea,
+select {
+  padding: 10px 15px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  resize: vertical;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #ffb84d;
+  box-shadow: 0 0 8px #ffb84daa;
+}
+
+/* 이미지 업로드 */
+input[type="file"] {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1.5px solid #ffb84d;
+  font-weight: bold;
+  color: #ffb84d;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  background-color: #fff5d1;
+}
+
+input[type="file"]:focus {
+  border-color: #ffb84d;
+  background-color: #fff0b8;
+  outline: none;
+}
+
+/* 버튼 그룹 */
+.button_group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+.submit_btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cancel_btn {
+  background-color: #df3131;
+  color: white;
+  padding: 10px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit_btn:hover {
+  background-color: #45a049;
+}
+
+.cancel_btn:hover {
+  background-color: #c91e1e;
+}
+
+/* 글 유형 선택 라디오 */
+input[name="postType"] {
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+input[name="postType"] + label {
+  margin-right: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #555;
+}
+
+#tagSelect option {
+  white-space: nowrap;  /* 옵션 텍스트 줄바꿈 방지 */
+  overflow: hidden;
+  text-overflow: ellipsis; /* 길면 ... 처리 */
+}
+
+/* 각 글 유형에 따른 옵션 스타일 */
+#tagSelect option.inquiry,
+#tagSelect option.report {
+  display: block;
+}

@@ -1,0 +1,208 @@
+@charset "UTF-8";
+
+main {
+  background-color: #FFF5E4;
+  width: 1920px;
+  height: 1500px;
+  display: flex;
+  flex-direction: row;
+}
+
+/* 1100px 영역 */
+.today_sell_page {
+  background-color: #FBE3B9;
+  width: 1100px;
+  margin-left: 410px;
+}
+
+/* 좌측 메뉴 바 */
+.today_sell_menu {
+  position: fixed;
+  padding: 0;
+  margin: 100px 20px 0 200px;
+  width: 190px;
+  height: 585px;
+  font-size: 20px;
+  background-color: #a6998080;
+  border-radius: 10px;
+}
+
+.today_sell_menu_title {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #FF873C;
+  width: 190px;
+  height: 110px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 메뉴바 현재 위치 표시 */
+.today_sell_menu_list_current {
+  background-color: #FF873C;
+  /* width: 190px; */
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.today_sell_menu_list>li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 15px 0;
+  width: 190px;
+}
+
+.today_sell_menu_list>li>a {
+  text-decoration: none;
+  color: white;
+}
+
+
+.today_sell_menu_list>li:hover {
+  width: 190px;
+  background-color: #ff873c8c;
+  border-radius: 10px;
+}
+
+/* 좌측 메뉴바 끝 */
+
+/* 페이지 제목 */
+.today_sell_title {
+  margin: 100px 0 45px 70px;
+  font-size: 30px;
+}
+/* 총판매내역/오늘판매내역 */
+/* 큰틀 */
+.sale_history_categaory_container{
+  margin: 10px 50px;
+  width: 400px;
+  font-size :16px;
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+}
+/* 각 요소 */
+.sale_history_total,
+.sale_history_today{
+  height: 50px;
+  width: 185px;
+  background-color: #FF873C;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 17px;
+}
+.sale_history_total>a,
+.sale_history_today>a{
+  text-decoration: none;
+  color: white;
+}
+
+/* 컨텐츠 컨테이너 */
+.today_sell_container {
+  padding: 15px;
+}
+
+
+/* 최상단 오늘의 판매 건수 */
+.today_sell_summary {
+  background-color: #a6998080;
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  gap: 10px;
+}
+.today_sell_summary>span{
+  margin-right: 20px;
+}
+
+/* 한 주문 묶음 */
+.today_sell_order_wapper{
+  /* margin: 5px 10px; */
+  margin: 20px 0px;
+  background-color: white;
+}
+
+/* 구매자 정보 */
+.today_sell_buyer_info {
+  background-color: #000;
+  color: #fff;
+  padding: 10px;
+  font-size: 14px;
+  align-items: center;
+}
+
+.today_sell_total_price {
+  color: red;
+  font-weight: bold;
+}
+
+/* 상품 정보 */
+.today_sell_product {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  /* align-items: center; */
+}
+
+.today_sell_product_image img {
+  width: 100px;
+  height: auto;
+  border-radius: 5px;
+}
+
+.today_sell_product_info {
+  margin-left: 15px;
+  flex: 1;
+}
+
+.today_sell_product_name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.today_sell_product_qty,
+.today_sell_product_exp {
+  font-size: 14px;
+  margin: 3px 0;
+}
+
+.today_sell_product_price {
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+}
+
+/* 페이지네이션 */
+.today_sell_pagination {
+  display: flex;
+  justify-self: center;
+  position: relative;
+  /* top: 1000px;/ */
+}
+
+.today_sell_pagination>a {
+  width: 32px;
+  height: 32px;
+  background-color: white;
+  display: flex;
+  margin: 0 8px 0 0;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  border: 1px solid #A69980;
+  border-radius: 6px;
+  color: black;
+}
+
+.today_sell_pagination>a:hover {
+  background-color: #FF873C;
+}
