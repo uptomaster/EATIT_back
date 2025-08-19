@@ -1,0 +1,150 @@
+@charset "UTF-8";
+
+/* header {
+  width: 1920px;
+  height: 150px;
+} */
+
+main {
+  background-color: #FFF5E4;
+  width: 1920px;
+  height: 1950px;
+  display: flex;
+  flex-direction: row;
+}
+
+.seller_edit_user_info {
+  background-color: #FBE3B9;
+  width: 1100px;
+  margin-left: 410px;
+}
+
+/*  */
+.seller_my_page_list {
+  position: fixed;
+  padding: 0;
+  margin: 60px 20px 0 200px;
+  width: 190px;
+  height: 585px;
+  font-size: 20px;
+  background-color: #a6998080;
+  border-radius: 10px;
+}
+
+.seller_my_page {
+  padding: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #FF873C;
+  width: 190px;
+  height: 110px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.seller_side_bar>li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  width: 190px;
+}
+
+.seller_my_page_list_main {
+  background-color: #ff873c8c;
+  border-radius: 10px;
+}
+
+.seller_side_bar>li>a {
+  width: 190px;
+  padding: 15px 0;
+  text-decoration: none;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.seller_side_bar>li:hover {
+  width: 100%;
+  background-color: #ff873c8c;
+  border-radius: 10px;
+}
+
+/* 사이드바 끝 */
+/* 컨텐츠 영역 */
+.seller_chk_pw{
+  width: 1000px;
+  height: 300px;
+  justify-self: center;
+}
+
+/* 페이지 제목 */
+.seller_my_info {
+  margin: 25px 0 45px 70px;
+  font-size: 30px;
+}
+/* 비밀번호 입력 칸 */
+.seller_chk_pw_input{
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  width: 990px;
+  height: 83px;
+  border-radius: 10px;
+  align-items: center;
+  margin-bottom: 7px;
+}
+  /* 입력 제목칸 (비밀번호) */
+.seller_chk_pw_info{
+  background-color: rgba(128, 128, 128, 0); 
+  width: 200px;
+  height: 50px;
+  padding: 0;
+  border-radius: 10px;
+  border: none;
+  text-align: center;
+  color: black;
+  line-height: 50px;
+  font-weight: blod;
+}
+
+/* 입력칸을 감싼 회색 박스 */
+.seller_gray_box{
+  width: 615px;
+  height: 50px;
+  background-color: rgba(128, 128, 128, 0.575);
+  border-radius: 10px;
+  margin-left: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+#seller_chk_pw_info{
+  width: 610px;
+}
+
+/* 버튼 */
+#seller_chk_pw_btn,
+.seller_withdraw_buzz,
+.seller_chk_pw_cancel_buzz{
+  width: 138px;
+  height: 50px;
+  background-color: #FF873C;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  margin: 10px;
+  align-self: center;
+}
+.withdraw_cancel_btns{
+  justify-self: center;
+  margin: 20px;
+}
+
+/* 경고메시지 */
+#seller_chk_pw_warning{
+  color: red;
+  margin-top: 10px;
+}

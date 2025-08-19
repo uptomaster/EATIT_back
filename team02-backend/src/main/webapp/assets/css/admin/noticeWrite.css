@@ -1,0 +1,138 @@
+@charset "UTF-8";
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* 회색영역 */
+.admin_innerwrapper{
+  width: 1100px;
+  min-height: 950px;
+  background-color: #d9d9d9;
+  margin: auto;
+  display: flex;
+  position: relative;
+}
+/* 왼쪽 메뉴바 */
+.sidebar{
+  min-width: 220px;
+  min-height: 950px;
+  background-color: #505FA9;
+  justify-content: center;
+  align-items: center;
+}
+/* 로고 */
+.admin_logo{
+  /* border: 1px solid black; */
+  margin-left: 57px;
+  margin-bottom: 10px;
+  width: 100px;
+}
+ul{
+  list-style: none;
+}
+a{
+  text-decoration: none;
+} 
+.sidebar_list{
+  /* border: 1px solid black; */
+  padding: 12px 0 14px;
+  color: white;
+  text-align: center;
+  font-size: 24px;
+  /* margin: 20px auto 20px; */
+  /* background-color: #1e223f;*/
+}
+.sidebar_list:hover{
+  background-color: #1e223f;
+  scale: 110%;
+}
+/* 메인컨텐츠 */
+.admin_inner{
+  /* border: 1px solid black */
+  width: 880px;
+  margin: 20px auto;
+}
+h1{
+  text-align: center;
+  padding-bottom: 20px;
+}
+.admin_pagetitle{
+  /* border: 1px solid black; */
+  font-weight:1000;
+  margin-left: 50px;
+}
+.admin_listwrapper{
+  border: 1px solid black;
+  padding: 10px;
+  margin: auto;
+  width: 800px;
+  min-height: 800px;
+  justify-content: center;
+  background-color: #929292;
+  border-radius: 10px;
+}
+.admin_whitebox{
+  background-color: white;
+  margin: auto;
+  width: 700px;
+  height: 750px;
+  padding-top: 10px;
+}
+.admin_notice_category{
+  background-color: white;
+  width: 50px;
+  margin:auto 10px auto 10px;
+}
+.admin_notice_titlebox{
+  background-color: #d9d9d9;
+  display: flex;
+  margin: auto;
+  width: 650px;
+  height: 30px;
+  text-align: center;
+  align-items: center;
+}
+#title{
+  height: 25px;
+  width: 400px;
+  margin-left: 10px;
+}
+.write_api{
+  margin-left: 25px;
+  width: 600px;
+  height: 30px;
+  background-color: aqua;
+}
+#admin_notice_write{
+  margin-left: 25px;
+  resize: none;
+  width: 650px;
+  min-height: 500px;
+}
+.bottom_btn_area{
+  /* border: 1px solid black; */
+  display: flex;
+  margin: auto;
+  width: 650px;
+  justify-content: space-between;
+}
+#admin_file{
+  /* border: 1px solid black; */
+  width: 70px;
+  height: 30px;
+}
+#admin_notice_dowrite{
+  width: 60px;
+  height: 30px;
+  color: white;
+  background-color: #505FA9;
+}
+#admin_logoutbtn{
+  background-color: #1e223f;
+  color: white;
+  width: 70px;
+  height: 30px;
+  margin: 70px 77px;
+}

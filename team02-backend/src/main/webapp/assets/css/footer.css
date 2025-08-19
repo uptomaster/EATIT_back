@@ -1,0 +1,76 @@
+@charset "UTF-8";
+
+*{
+  margin: 0;
+  padding: 0;
+}
+#footer{
+  width: 1920px;
+  height: 150px;
+  background-color: #A69980;
+}
+/* 푸터 중앙정렬 1100px */
+#footer_wrapper{
+  width: 1100px;
+  height: 150px;
+  margin: 0 auto;
+  display: flex;
+  padding-top:10px;
+}
+/* 푸터 고객센터 영역 */
+.footerbox_left{
+  width: 50%;
+  height: 150px;
+}
+.footer_customer_center{
+  font-size: 16px;
+}
+.footerbox_left span{
+  font-size: 20px;
+  font-weight: bold;
+}
+.footerbox_left span p{
+  font-size: 14px;
+  font-weight: normal;
+}
+.footer_email{
+  font-size: 12px;
+}
+/* 푸터 sns이미지 영역 */
+.footer_sns ul{
+  display: flex;
+  margin-top: 10px;
+  /* border: 1px solid red; */
+}
+.footer_sns ul li{
+  width: 48px;
+  height: 48px;
+  list-style: none;
+}
+.footer_sns ul li img{
+  width: 35px;
+  height: 35px;
+
+}
+/* 푸터 사업자정보 영역 */
+.footerbox_right{
+  width: 50%;
+  height: 150px;
+  margin-top: 20px;
+}
+.footerbox_right ul{
+  display: flex;
+}
+.footerbox_right ul li{
+  list-style: none;
+  margin-right: 10px;
+  padding-bottom: 10px;
+}
+.footerbox_right ul li a{
+  text-decoration: none;
+  color : black;
+  font-size: 14px;
+}
+.footerbox_right p{
+  font-size: 12px;
+}

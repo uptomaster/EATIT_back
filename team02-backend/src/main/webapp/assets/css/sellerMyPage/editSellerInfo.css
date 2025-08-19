@@ -1,0 +1,417 @@
+@charset "UTF-8";
+
+/* header{
+  width : 1920px;
+  height : 150px;
+} */
+main{
+  background-color: #FFF5E4;
+  width: 1920px;
+  height: 1950px;
+  display: flex;
+  flex-direction: row;
+}
+/* 1100px 영역 */
+.seller_edit_user_info{
+  background-color: #FBE3B9;
+  width: 1100px;
+  margin-left: 410px;
+}
+
+/* 좌측 메뉴 바 */
+.seller_my_page_list{
+  position: fixed;
+  padding: 0;
+  margin: 60px 20px 0 200px;
+  width: 190px;
+  height: 585px;
+  font-size: 20px;
+  background-color: #a6998080;
+  border-radius: 10px;
+}
+/* 메뉴바 제목 */
+.seller_my_page{
+  padding: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #FF873C;
+  width: 190px;
+  height: 110px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* 메뉴바 요소 */
+.seller_side_bar > li{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  width: 190px;
+}
+.seller_my_page_list_main{
+ background-color: #ff873c8c;
+ border-radius: 10px;
+}
+.seller_side_bar > li > a{
+  width: 190px;
+  padding: 15px 0;
+  text-decoration: none;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+.seller_side_bar > li:hover{
+  width: 100%;
+  background-color: #ff873c8c;
+  border-radius: 10px;
+}
+/* 메뉴바 끝 */
+
+/* 컨텐츠 영역 */
+.seller_info_area{
+  justify-items: center;
+}
+/* 페이지 제목 */
+.seller_my_info{
+  margin: 25px 0 45px 70px;
+  font-size: 30px;
+}
+/* 프로필 사진 수정 라인 */
+.seller_info_modify_area{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: white;
+  width: 990px;
+  height: 83px;
+  border-radius: 10px;
+  align-items: center;
+  margin-bottom: 7px;
+}
+/* 수정할 수 없는 정보 한줄 */
+.seller_info_unable_modify_area{
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  width: 990px;
+  height: 83px;
+  border-radius: 10px;
+  align-items: center;
+  margin-bottom: 7px;
+}
+/* 수정할 수 있는 라인 */
+.seller_info_able_modify_area{
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  width: 990px;
+  height: 83px;
+  border-radius: 10px;
+  align-items: center;
+  margin-bottom: 7px;
+  }
+  /* 정보 입력 칸 */
+.seller_input_info{
+  background-color: rgba(128, 128, 128, 0); 
+  width: 615px;
+  height: 50px;
+  padding: 0;
+  border-radius: 10px;
+  border: none;
+  text-align: center;
+  color: black;
+}
+.seller_insert_profile{
+  border-radius: 100px;
+  background-color: rgba(128, 128, 128, 0.575);  
+  width: 65px;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* 각 항목 제목  */
+.seller_info_menu{
+  border-radius: 10px;
+  width: 207px;
+  height: 83px;
+  background-color: #FF873C;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: white;
+}
+/* 입력칸을 감싼 회색 박스 */
+.seller_gray_box{
+  width: 615px;
+  height: 50px;
+  background-color: rgba(128, 128, 128, 0.575);
+  border-radius: 10px;
+  margin-left: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+/*프로필 사진 버튼 , 광고정보 수신 동의 버튼 */
+.seller_info_save_buzz{
+  width: 138px;
+  height: 50px;
+  background-color: #FF873C;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  margin: 0 10px;
+  align-self: center;
+}
+.seller_info_save_buzz > a{
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+/* 인증번호 전송 버튼 */
+.seller_info_send_code_buzz{
+  width: 138px;
+  height: 50px;
+  background-color: #FF873C;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  margin: 0 10px;
+  align-self: center;
+}
+.seller_info_send_code_buzz > a{
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+.seller_info_send_code_buzz:hover{
+  background-color: #FF7722;
+}
+/* 인증번호 확인 버튼 */
+.seller_info_check_code_buzz{
+  width: 138px;
+  height: 50px;
+  background-color: #FF873C;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  margin: 0 10px;
+  align-self: center;
+}
+.seller_info_check_code_buzz > a{
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+.seller_info_check_code_buzz:hover{
+  background-color: #FF7722;
+}
+/* 비밀번호 저장 버튼 */
+.seller_info_save_pw_buzz{
+  width: 138px;
+  height: 50px;
+  background-color: #FF873C;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  margin: 0 10px;
+  align-self: center;
+}
+.seller_info_save_pw_buzz > a{
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+
+.seller_info_save_pw_buzz:hover{
+  background-color: #FF7722;
+}
+/* 주소 정보 버튼 */
+.seller_info_save_address_buzz{
+  width: 138px;
+  height: 50px;
+  background-color: #FF873C;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  margin: 0 10px;
+  align-self: center;
+}
+.seller_info_save_address_buzz > a{
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+.seller_info_save_address_buzz:hover{
+  background-color: #FF7722;
+}
+/* 업체 전화번호 저장 버튼 */
+.seller_info_save_phone_buzz{
+  width: 138px;
+  height: 50px;
+  background-color: #FF873C;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  margin: 0 10px;
+  align-self: center;
+}
+.seller_info_save_phone_buzz > a{
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+.seller_info_save_phone_buzz:hover{
+  background-color: #FF7722;
+}
+/* 업체명 저장 버튼 */
+.seller_info_save_store_name_buzz{
+  width: 138px;
+  height: 50px;
+  background-color: #FF873C;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  margin: 0 10px;
+  align-self: center;
+}
+.seller_info_save_store_name_buzz > a{
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+.seller_info_save_store_name_buzz:hover{
+  background-color: #FF7722;
+}
+
+/* 프로필사진, 광고성정보 저장 버튼 */
+.seller_info_save_buzz:hover{
+  background-color: #FF7722;
+}
+
+/* 전체 정보 저장 버튼 */
+.seller_total_info_save_buzz{
+  width: 138px;
+  height: 50px;
+  background-color: #FF873C;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  margin: 0 10px;
+  align-self: center;
+}
+.seller_total_info_save_buzz > a{
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+.seller_total_info_save_buzz:hover{
+  background-color: #FF7722;
+}
+/* 오류 메시지 */
+.seller_notice_input_wrong_info{
+  font-size: 10px;
+  margin: 0 0 0 10px;
+  position: absolute;
+}
+
+/* 탈퇴 버튼 */
+.seller_agreement_buzz{
+  background-color: #FF873C;
+  width: 178px;
+  height: 50px;
+  border-radius: 10px;
+  justify-self: right;
+  margin: 20px 60px 0 0;
+}
+.seller_agreement_buzz > a{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  width: 178px;
+  height: 50px;
+}
+.seller_agreement_buzz:hover{
+  background-color: #FF7722;
+}
+/* 전체 저장 버튼 */
+.seller_total_info_save_buzz{
+  background-color: #FF873C;
+  width: 178px;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  justify-self: right;
+  margin: 20px 60px 0 0;
+  border: none;
+}
+.seller_total_info_save_buzz > a{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  width: 178px;
+  height: 50px;
+}
+/* 광고성정보 수신동의 체크박스 */
+.seller_advertisement_agreement{
+  margin: 0 80px;
+}
+/* 광고성정보 수신동의 컨테이너 */
+.seller_gray_box_adverisement{
+  width: 615px;
+  height: 50px;
+  background-color: white;
+  border-radius: 10px;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+}
+/* 프로필 사진 */
+#profileImage{
+  display: none;
+}
+/* 프로필 사진 제목 */
+#add_ficture{
+  cursor: pointer;
+}

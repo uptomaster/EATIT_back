@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+/* 나무 등급 */
+.tree_icon {
+  width: 22px;
+  height: 22px;
+  margin-left: 6px;
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.tree_icon:hover {
+  transform: scale(1.2);
+}
+
+.tree-tooltip {
+  position: absolute;
+  background: #d4f0c0;
+  color: #3a5a00;
+  border-radius: 12px;
+  padding: 8px 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: normal;
+  z-index: 1000;
+  max-width: 160px;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.tree-tooltip div {
+  margin-bottom: 4px;
+}
+
+.tree-tooltip div:last-child {
+  margin-bottom: 0;
+}

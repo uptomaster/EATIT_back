@@ -1,0 +1,131 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  /* box-sizing: border-box; */
+}
+
+main {
+  /* height: 100vh; */
+  width: 1920px;
+  height: 830px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff5e4;
+
+}
+/* 1100px 영역 */
+.container {
+  width: 1100px;
+  height: 100%;
+  background-color: #fbe3b9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 회원가입 단계 */
+.join_step {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  margin: 65px 30px;
+}
+
+.join_step>li {
+  list-style: none;
+  display: inline-block;
+  margin: 20px;
+  background-color: #d9d9d9;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 120px;
+}
+
+.join_step_agreement {
+  background-color: #ff924e;
+  border-radius: 50%;
+}
+
+/* 약관동의 단계 끝 ****/
+/* 컨텐츠 영역 */
+.user_join_agree_container {
+  /* border: 1px solid black; */
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 650px;
+  height: 640px;
+}
+/* 각 항목 제목 */
+.join_agree_title {
+  width: 450px;
+  /* border: 1px solid black; */
+  font-size: 30px;
+  font-weight: bolder;
+  padding: 10px;
+  margin: 15px;
+}
+
+/* 각 약관 container */
+form>div>div {
+  margin: 5px;
+}
+
+/* 전체 동의 버튼 */
+.join_agree_all:hover {
+  background-color: #FF7722;
+}
+
+.join_agree_all {
+  width: 400px;
+  height: 55px;
+  line-height: 55px;
+  background-color: #ff924e;
+  margin: 20px;
+  text-align: left;
+  font-size: 30px;
+  border-radius: 10px;
+  color: white;
+  border: 1px solid black;
+}
+/* 약관 중간제목 */
+.join_agree_top_title,
+.join_agree_bottom_title {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px;
+}
+/* 약관 광고성정보 수신 동의 */
+#join_agree_bottom_adv_sms,
+#join_agree_bottom_adv_call {
+  margin-left: 35px;
+}
+
+.join_agree_bottom_adv_txt {
+  text-align: right;
+}
+/* 다음페이지로 이동 버튼 */
+.join_agree_next_btn:hover {
+  background-color: #FF7722;
+}
+
+.join_agree_next_btn {
+  width: 400px;
+  height: 60px;
+  line-height: 60px;
+  background-color: #ff924e;
+  margin: 20px;
+  text-align: center;
+  font-size: 30px;
+  color: white;
+  border-radius: 10px;
+}

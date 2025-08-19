@@ -1,0 +1,244 @@
+@charset "UTF-8";
+
+header {
+  width: 1920px;
+  height: 150px;
+}
+
+main {
+  background-color: #FFF5E4;
+  width: 1920px;
+  height: 1500px;
+  display: flex;
+  flex-direction: row;
+}
+
+/* 1100px 영역 */
+.sale_history_page {
+  background-color: #FBE3B9;
+  width: 1100px;
+  margin-left: 410px;
+}
+
+/* 좌측 메뉴 바 */
+.sale_history_menu {
+  position: fixed;
+  padding: 0;
+  margin: 100px 20px 0 200px;
+  width: 190px;
+  height: 585px;
+  font-size: 20px;
+  background-color: #a6998080;
+  border-radius: 10px;
+}
+
+.sale_history_menu_title {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #FF873C;
+  width: 190px;
+  height: 110px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* 메뉴바 현재 위치 표시 */
+.sale_history_menu_list_current {
+  background-color: #FF873C;
+  /* width: 190px; */
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sale_history_menu_list>li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 15px 0;
+  width: 190px;
+}
+
+.sale_history_menu_list>li>a {
+  text-decoration: none;
+  color: white;
+}
+
+
+.sale_history_menu_list>li:hover {
+  width: 190px;
+  background-color: #ff873c8c;
+  border-radius: 10px;
+}
+/* 좌측 메뉴바 끝 */
+
+/* 페이지 제목 */
+.sale_history_title {
+  margin: 100px 0 45px 70px;
+  font-size: 30px;
+}
+
+/* 총판매내역/오늘판매내역 */
+/* 큰틀 */
+.sale_history_categaory_container{
+  margin: 10px 50px;
+  width: 400px;
+  font-size :16px;
+  align-items: center;
+  justify-content: space-evenly;
+  display: flex;
+}
+/* 각 요소 */
+.sale_history_total,
+.sale_history_today{
+  height: 50px;
+  width: 185px;
+  background-color: #FF873C;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 17px;
+}
+.sale_history_total>a,
+.sale_history_today>a{
+  text-decoration: none;
+  color: white;
+}
+
+
+/* 목록 시작 */
+.sale_history_list_top,
+.sale_history_sales_list {
+  margin-left: 50px;
+  background-color: white;
+  width: 1000px;
+  /* height: 50px; */
+  font-size: 16px;
+  align-items: center;
+  display: flex;
+  border: 1px solid black;
+}
+
+/* 목록 제목 */
+.sale_history_list_top {
+  height: 50px;
+}
+
+.sale_history_list_top>div {
+  height: 50px;
+  background-color: #A69980;
+  font-size: 20px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.sale_history_sale_num_top{
+  width: 100px;
+}
+.sale_history_sale_date_top{
+  width: 150px;
+
+}
+.sale_history_buyer_id_top{
+  width: 155px;
+
+}
+.sale_history_idx_top{
+  width: 100px;
+
+}
+.sale_history_category_top{
+  width: 100px;
+
+}
+.sale_history_menu_name_top{
+  width: 200px;
+
+}
+.sale_history_quantity_top{
+  width: 100px;
+
+}
+.sale_history_price_top{
+  width: 120px;
+
+}
+
+
+/* 목록 제목 끝 */
+
+.sale_history_sales_list>div{
+  height: 65px;
+  font-size: 14px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  
+}
+.sale_history_sale_num{
+  width: 100px;
+}
+.sale_history_sale_date{
+  width: 150px;
+
+}
+.sale_history_buyer_id{
+  width: 155px;
+
+}
+.sale_history_idx{
+  width: 100px;
+
+}
+.sale_history_category{
+  width: 100px;
+
+}
+.sale_history_menu_name{
+  width: 200px;
+
+}
+.sale_history_quantity{
+  width: 100px;
+
+}
+.sale_history_price{
+  width: 120px;
+
+}
+
+
+
+/* 페이지네이션 */
+.sale_history_pagination {
+  display: flex;
+  justify-self: center;
+  position: relative;
+  top: 1000px;
+}
+
+.sale_history_pagination>a {
+  width: 32px;
+  height: 32px;
+  background-color: white;
+  display: flex;
+  margin: 0 8px 0 0;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  border: 1px solid #A69980;
+  border-radius: 6px;
+  color: black;
+}
+
+.sale_history_pagination>a:hover {
+  background-color: #FF873C;
+}

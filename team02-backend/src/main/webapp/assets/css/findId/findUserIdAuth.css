@@ -1,0 +1,154 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  /* box-sizing: border-box; */
+}
+
+main {
+  height: 830px;
+  width: 1920px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff5e4;
+
+}
+
+/* 1100px 영역 */
+.container {
+  width: 1100px;
+  height: 100%;
+  background-color: #fbe3b9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 컨텐츠 영역  */
+.content_container {
+  width: 600px;
+  height: 500px;
+  background-color: #fff5e4;
+  margin: 115px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+/* ************************************** */
+/* 아이디 찾기 제목 */
+.findId_title_container {
+  font-size: 24px;
+}
+
+.findId_title {
+  font-weight: bold;
+}
+
+/* 아이디 찾기 입력 폼 ******************/
+.findIdAuth_input_form {
+  width: 380px;
+  ;
+  height: 110px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+/* button:hover */
+.findIdAuth_btn_container>div>button:hover,
+button:hover{
+  background-color: #FF7722;
+}
+/* 아이디 찾기 입력칸 제목 */
+.findIdAuth_type_container>div {
+  width: 80px;
+  height: 40px;
+  /* border: 0.3px solid black; */
+  align-content: center;
+  font-size: 16px;
+}
+
+/* 아이디 찾기 입력칸 */
+.findIdAuth_input_container>div>input {
+  width: 200px;
+  height: 25px;
+  margin: 7px 0px;
+  border: 0.3px solid black;
+}
+.findIdAuth_input_warning{
+  font-size: 14px;
+  color: red;
+}
+
+/* 아이디 찾기 오른쪽 버튼들 */
+.findIdAuth_btn_container>div {
+  width: 70px;
+  height: 39px;
+  display: block;
+}
+
+.findIdAuth_btn_container>div>button {
+  width: 70px;
+  height: 30px;
+  background-color: #ff924e;
+  color: white;
+  border-radius: 5px;
+  border: 0.5px solid #000;
+  margin: 7px 0px;
+}
+
+/*하단의 아이디 찾기 버튼 *************************/
+.findId_btn:hover {
+  background-color: #FF7722;
+}
+
+.findId_btn {
+  width: 115px;
+  height: 35px;
+  background-color: #ff924e;
+  color: white;
+  border-radius: 5px;
+  border: 0.5px solid #000;
+  font-size: 16px;
+}
+
+/* 아이디 찾기 완료 시 뜨는 버튼 */
+.findId_clear_btns>a>div:hover {
+  background-color: #FF7722;
+}
+
+.findId_clear_btns>a>div {
+  width: 115px;
+  height: 35px;
+  background-color: #ff924e;
+  color: white;
+  border-radius: 5px;
+  border: 0.5px solid #000;
+  font-size: 16px;
+  margin: 10px;
+  text-align: center;
+  line-height: 35px;
+}
+.findId_clear_btns>a{
+  text-decoration: none;
+  color: white;
+}
+
+/* 아이디 찾기 다른 곳으로 이동 */
+.findId_to_container {
+  /* height: 50px; */
+  display: flex;
+  align-items: center;
+  /* text-decoration: none; */
+  gap: 15px;
+}
+
+.findId_to_container>div>a{
+  font-size: 14px;
+  text-decoration: none;
+  color: black;
+}

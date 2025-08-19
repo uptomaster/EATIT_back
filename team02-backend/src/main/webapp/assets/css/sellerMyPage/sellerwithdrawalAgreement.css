@@ -1,0 +1,168 @@
+@charset "UTF-8";
+
+main{
+  background-color: #FFF5E4;
+  width: 1920px;
+  height: 800px;
+  display: flex;
+  flex-direction: row;  
+}
+/* 1100px 영역 */
+.seller_withdrawalagreement{ 
+  background-color: #FBE3B9;
+  width: 1100px;
+  margin-left: 410px;
+  display: flex;
+  justify-content: center;
+}
+/* 좌측 메뉴 바 */
+.seller_withdraw_menu {
+  position: fixed;
+  padding: 0;
+  margin: 100px 20px 0 200px;
+  width: 190px;
+  height: 585px;
+  font-size: 20px;
+  background-color: #a6998080;
+  border-radius: 10px;
+}
+
+.seller_withdraw_menu_title {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #FF873C;
+  width: 190px;
+  height: 110px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.seller_withdraw_menu_list_current {
+  background-color: #FF873C;
+  /* width: 190px; */
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.seller_withdraw_menu_list>li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 15px 0;
+  width: 190px;
+}
+
+.seller_withdraw_menu_list>li>a {
+  text-decoration: none;
+  color: white;
+}
+
+
+.seller_withdraw_menu_list>li:hover {
+  width: 190px;
+  background-color: #ff873c8c;
+  border-radius: 10px;
+}
+/* 좌측 메뉴바 끝 */
+
+.seller_withdrawalagreement_agreement_page{
+  background-color: white;
+  width: 900px;
+  height: 550px;
+  margin-top: 100px;
+}
+h2{
+  font-size: 30px;
+  margin: 25px 0 45px 70px;
+}
+.seller_withdrawalagreement_two_box{
+  margin-top: 80px;
+}
+.seller_withdrawalagreement_input_info{
+  border-radius: 10px;
+  margin-left: 57px;
+  width: 500px;
+  height: 50px;
+  font-size: 16px;
+  text-align: center;
+  border: none;
+}
+.seller_withdrawalagreement_box_set{
+  margin: 0 0 15px 46px;
+  display: flex;
+  height: 80px;
+  font-weight: bold;
+}
+.seller_withdrawalagreement_password_now{
+  align-items: center;
+  background-color: #FF873C;
+  font-size: 18px;
+  color: white;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+}
+.seller_withdrawalagreement_gray_box{
+  background-color: gray;
+  width: 650px;
+  border-radius: 10px;
+  justify-items: center;
+  align-content: center;
+  justify-content: center;
+}
+.seller_withdrawalagreement_white_box{
+  background-color: white;
+  width: 530px;
+  height: 50px;
+  border-radius: 10px;
+  justify-items: center;
+  align-content: center;
+}
+.seller_withdrawalagreement_buzz_set{
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.seller_withdrawalagreement_agreement_buzz:hover{
+  background-color: #FF7722;
+}
+.seller_withdrawalagreement_agreement_buzz{
+  background-color: #FF873C;
+  width: 178px;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: right;
+  margin: 20px 60px 0 0;
+  border: none;
+  color: white;
+}
+.seller_withdrawalagreement_cancle_buzz{
+  background-color: #FF873C;
+  width: 178px;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: right;
+  margin: 20px 60px 0 0;
+}
+.seller_withdrawalagreement_cancle_buzz > a{
+  color: white;
+  font-size: 14px;
+  text-decoration: none;
+  width: 178px;
+  height: 50px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+

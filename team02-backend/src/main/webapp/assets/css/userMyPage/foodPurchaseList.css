@@ -1,0 +1,268 @@
+@charset "UTF-8";
+
+/* header{
+  width : 1920px;
+  height : 150px;
+} */
+main{
+  background-color: #FFF5E4;
+  width: 1920px;
+  height: 1500px;
+  display: flex;
+  flex-direction: row;
+}
+/* 1100px 영역 */
+.foodpurchaselist_page{
+  background-color: #FBE3B9;
+  width: 1100px;
+  margin-left: 410px;
+}
+/* 좌측 사이드메뉴 */
+.foodpurchaselist_my_page_list{
+  position: fixed;
+  padding: 0;
+  margin: 100px 20px 0 200px;
+  width: 190px;
+  height: 550px;
+  font-size: 20px;
+  background-color: #a6998080;
+  border-radius: 10px;
+}
+/* 사이드메뉴 제목 */
+.foodpurchaselist_my_page{
+  padding: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #FF873C;
+  width: 190px;
+  height: 110px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* 사이드메뉴 상세메뉴 */
+.foodpurchaselist_side_bar > li{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  width: 190px;
+}
+.foodpurchaselist_side_bar > li > a{
+  width: 190px;
+  text-decoration: none;
+  color: white;
+  display: flex;
+  justify-content: center;
+  padding: 15px 0;
+}
+/* 사이드메뉴 현재위치 표시 */
+.foodpurchaselist_main{
+  background-color: #ff873c8c;
+  border-radius: 10px;
+}
+.foodpurchaselist_side_bar > li:hover{
+  width: 190px;
+  background-color: #ff873c8c;
+  border-radius: 10px;
+}
+/* 사이드메뉴 끝 */
+/* 페이지 제목 */
+.food_purchase_list{
+  margin: 100px 0 45px 70px;
+  font-size: 30px;
+}
+/* 목록 시작 */
+/* 목록 제목 */
+.food_purchase_list_top{
+  display: flex; 
+  margin-left: 40px;
+}
+.food_purchase_list_date{
+  width: 155px;
+  height: 50px;
+  background-color: #A69980;
+  font-size: 20px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.food_purchase_list_img{
+  width: 110px;
+  height: 50px;
+  background-color: #A69980;
+  font-size: 20px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.food_purchase_list_restaurant_name{
+  width: 225px;
+  height: 50px;
+  background-color: #A69980;
+  font-size: 20px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.food_purchase_list_menu_info{
+  width: 225px;
+  height: 50px;
+  background-color: #A69980;
+  font-size: 20px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.food_purchase_list_how_many{
+  width: 55px;
+  height: 50px;
+  background-color: #A69980;
+  font-size: 20px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.food_purchase_list_price{
+  width: 155px;
+  height: 50px;
+  background-color: #A69980;
+  font-size: 20px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.food_purchase_list_review{
+  width: 80px;
+  height: 50px;
+  background-color: #A69980;
+  font-size: 20px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* 목록 더미글 */
+/* 목록 한줄 */
+.foodpurchase_page_list{
+  display: flex;
+  margin-left: 40px;
+}
+/* 목록 한줄의 각 요소들 */
+.food_purchase_date_list{
+  width: 155px;
+  height: 85px;
+  font-size: 14px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+.food_purchase_img_list{
+  width: 110px;
+  height: 85px;
+  font-size: 14px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+.meal_img{
+  width: 70px;
+  height: 70px;
+}
+.food_purchase_restaurant_name_list{
+  width: 225px;
+  height: 85px;
+  font-size: 14px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+.food_purchase_menu_info_list{
+  width: 225px;
+  height: 85px;
+  font-size: 14px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+.food_purchase_how_many_list{
+  width: 55px;
+  height: 85px;
+  font-size: 14px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+.food_purchase_price_list{
+  width: 155px;
+  height: 85px;
+  font-size: 14px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+.food_purchase_review_list{
+  width: 80px;
+  height: 85px;
+  font-size: 14px;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+.food_purchase_review_meal{
+  border: 1px solid black;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 60px;
+  height: 32px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: black;
+}
+/* 페이지네이션 */
+.foodpurchaselist_pagination{
+  display: flex;
+  justify-self: center;
+  position: relative;
+  top: 1000px;
+}
+.foodpurchaselist_pagination > a{
+  width: 32px;
+  height: 32px;
+  background-color: white;
+  display: flex;
+  margin: 0 8px 0 0;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  border: 1px solid #A69980;
+  border-radius: 6px;
+  color: black;
+}
+.foodpurchaselist_pagination > a:hover{
+  background-color: #FF873C;
+}

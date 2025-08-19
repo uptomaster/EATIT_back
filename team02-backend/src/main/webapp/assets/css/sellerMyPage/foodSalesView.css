@@ -1,0 +1,205 @@
+@charset "UTF-8";
+
+header{
+  width : 1920px;
+  height : 150px;
+}
+main{
+  background-color: #FFF5E4;
+  width: 1920px;
+  height: 1950px;
+  display: flex;
+  flex-direction: row;
+}
+
+/* 1100px 영역 */
+.foodsalesview_container {
+  width: 1100px;
+  height: 100%;
+  background-color: #fbe3b9;
+  margin: 0px 410px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 전체 영역 끝 */
+/* 왼쪽 사이드 바 */
+.foodsalesview_my_page_list {
+  position: fixed;
+  padding: 0;
+  margin: 60px 20px 0 200px;
+  width: 190px;
+  height: 585px;
+  font-size: 20px;
+  background-color: #a6998080;
+  border-radius: 10px;
+}
+
+.foodsalesview_my_page {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #FF873C;
+  width: 190px;
+  height: 110px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.foodsalesview_side_bar > li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 15px 0;
+  width: 190px;
+}
+
+.foodsalesview_side_bar > li > a {
+  text-decoration: none;
+  color: white;
+}
+
+.foodsalesview_side_bar > li:hover {
+  width: 190px;
+  background-color: #ff873ca6;
+  border-radius: 10px;
+}
+.foodsalesview_main{
+  width: 190px;
+  background-color: #ff873ca6;
+  border-radius: 10px;
+}
+
+/* 컨텐츠 영역 */
+.foodsalesview_photo_container {
+  width: 700px;
+  height: 400px;
+  background-color: white;
+  margin:   80px 0px;
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: end;
+}
+.foodsalesview_submit_table{
+  width: 700px;
+  display: flex;
+}
+.foodsalesview_box{
+  width: 700px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.foodsalesview_title {
+  font-size: 30px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+/* 내부 컨텐츠 영역 */
+/* 공통 부분 */
+.foodsalesview_content_container > div {
+  /* background-color: #a69980; */
+  display: flex;
+  align-items: center;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+label {
+  background-color: #a69980;
+  color: white;
+  border-radius: 4px;
+  width: 80px;
+  height: 45px;
+  line-height: 45px;
+  text-align: center;
+  margin-right: 10px;
+
+}
+
+input[type="number"] {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 170px;
+  height: 30px;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 500px;
+  height: 30px;
+}
+
+textarea {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  resize: none;
+  width: 500px;
+}
+
+button {
+  background-color: #ff873c;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-left: 10px;
+  cursor: pointer;
+  height: 45px;
+  display: none;
+}
+
+button:hover {
+  background-color: #ff7722;
+}
+
+.foodsalesview_buzz{
+  background-color: #FF873C;
+  width: 155px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: right;
+  margin-top: 50px;
+}
+
+/* 공통부분 끝 */
+/* 사진 미리보기 */
+#image-preview {
+  width: 600px;
+  height: 300px;
+  max-width: 600px;
+  max-height: 300px;
+  object-fit: cover;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  object-fit: contain;
+}
+
+.foodsalesview_quantity_price_container {
+  gap: 20px;
+  /* margin-bottom: 10px; */
+}
+
+.foodsalesview_photo_container {
+  flex-direction: column;
+}
