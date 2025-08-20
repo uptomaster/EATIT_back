@@ -1,6 +1,6 @@
 package com.bapseguen.app.dto;
 
-public class PostLikeDTO {
+public class LikeDTO {
 //	CREATE TABLE TBL_POST_LIKE (
 //			  POST_NUMBER    NUMBER
 //			                    CONSTRAINT FK_PLIKE_POST
