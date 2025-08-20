@@ -9,54 +9,78 @@ public class ReviewDTO {
 	private int reviewRating;
 	private String reviewContent;
 	private String reviewCreateDate;
-	public int getReviewNumber() {
+	
+	//+)추가 리뷰조회
+	private int itemPrice; 
+	private int itemQuantity;
+	
+	protected int getReviewNumber() {
 		return reviewNumber;
 	}
-	public void setReviewNumber(int reviewNumber) {
+	protected void setReviewNumber(int reviewNumber) {
 		this.reviewNumber = reviewNumber;
 	}
-	public int getOrdersNumber() {
+	protected int getOrdersNumber() {
 		return ordersNumber;
 	}
-	public void setOrdersNumber(int ordersNumber) {
+	protected void setOrdersNumber(int ordersNumber) {
 		this.ordersNumber = ordersNumber;
 	}
-	public int getBusinessNumber() {
+	protected int getBusinessNumber() {
 		return businessNumber;
 	}
-	public void setBusinessNumber(int businessNumber) {
+	protected void setBusinessNumber(int businessNumber) {
 		this.businessNumber = businessNumber;
 	}
-	public int getMemberNumber() {
+	protected int getMemberNumber() {
 		return MemberNumber;
 	}
-	public void setMemberNumber(int memberNumber) {
+	protected void setMemberNumber(int memberNumber) {
 		MemberNumber = memberNumber;
 	}
-	public int getReviewRating() {
+	protected int getReviewRating() {
 		return reviewRating;
 	}
-	public void setReviewRating(int reviewRating) {
+	protected void setReviewRating(int reviewRating) {
 		this.reviewRating = reviewRating;
 	}
-	public String getReviewContent() {
+	protected String getReviewContent() {
 		return reviewContent;
 	}
-	public void setReviewContent(String reviewContent) {
+	protected void setReviewContent(String reviewContent) {
 		this.reviewContent = reviewContent;
 	}
-	public String getReviewCreateDate() {
+	protected String getReviewCreateDate() {
 		return reviewCreateDate;
 	}
-	public void setReviewCreateDate(String reviewCreateDate) {
+	protected void setReviewCreateDate(String reviewCreateDate) {
 		this.reviewCreateDate = reviewCreateDate;
 	}
+	protected List<itemImage> getFiles() {
+		return files;
+	}
+	protected void setFiles(List<itemImage> files) {
+		this.files = files;
+	}
+	protected int getItemPrice() {
+		return itemPrice;
+	}
+	protected void setItemPrice(int itemPrice) {
+		this.itemPrice = itemPrice;
+	}
+	protected int getItemQuantity() {
+		return itemQuantity;
+	}
+	protected void setItemQuantity(int itemQuantity) {
+		this.itemQuantity = itemQuantity;
+	}
+	
 	@Override
 	public String toString() {
 		return "ReviewDTO [reviewNumber=" + reviewNumber + ", ordersNumber=" + ordersNumber + ", businessNumber="
 				+ businessNumber + ", MemberNumber=" + MemberNumber + ", reviewRating=" + reviewRating
-				+ ", reviewContent=" + reviewContent + ", reviewCreateDate=" + reviewCreateDate + "]";
+				+ ", reviewContent=" + reviewContent + ", reviewCreateDate=" + reviewCreateDate + ", itemPrice="
+				+ itemPrice + ", itemQuantity=" + itemQuantity + "]";
 	}
-	
 	
 }
