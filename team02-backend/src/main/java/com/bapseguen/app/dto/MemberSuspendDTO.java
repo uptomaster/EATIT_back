@@ -1,20 +1,12 @@
 package com.bapseguen.app.dto;
 
 public class MemberSuspendDTO {
-//	CREATE TABLE TBL_MEMBER_SUSPEND (
-//			  MEMBER_NUMBER  NUMBER
-//			                   CONSTRAINT FK_MSUSP_MEMBER
-//			                   REFERENCES TBL_MEMBER(MEMBER_NUMBER) ON DELETE CASCADE,
-//			  SUSPEND_START_DATE     DATE,
-//			  SUSPEND_END_DATE       DATE,
-//			  SUSPEND_REPORT_COUNT   NUMBER NOT NULL,
-//			  CONSTRAINT PK_MEMBER_SUSPEND PRIMARY KEY (MEMBER_NUMBER, SUSPEND_START_DATE)
-//			);
 	
 	private int memberNumber;
 	private String suspendStartDate;
 	private String suspendEndDate;
 	private int suspendReportCount;
+	
 	public int getMemberNumber() {
 		return memberNumber;
 	}

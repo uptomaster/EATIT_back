@@ -1,19 +1,11 @@
 package com.bapseguen.app.dto;
 
 public class LikeDTO {
-//	CREATE TABLE TBL_POST_LIKE (
-//			  POST_NUMBER    NUMBER
-//			                    CONSTRAINT FK_PLIKE_POST
-//			                    REFERENCES TBL_POST(POST_NUMBER) ON DELETE CASCADE,
-//			  MEMBER_NUMBER  NUMBER
-//			                    CONSTRAINT FK_PLIKE_MEMBER
-//			                    REFERENCES TBL_MEMBER(MEMBER_NUMBER) ON DELETE CASCADE,
-//			  POST_LIKE_CREATED_DATE   DATE DEFAULT SYSDATE NOT NULL,
-//			  					CONSTRAINT PK_POST_LIKE PRIMARY KEY (POST_NUMBER, MEMBER_NUMBER)
-//			);
+
 	private int postNumber;
-	private int MemberNumber;
-	private String postLikeCreatedDate;
+	private int memberNumber;
+	private int likeNumber;
+	
 	public int getPostNumber() {
 		return postNumber;
 	}
@@ -21,22 +13,23 @@ public class LikeDTO {
 		this.postNumber = postNumber;
 	}
 	public int getMemberNumber() {
-		return MemberNumber;
+		return memberNumber;
 	}
 	public void setMemberNumber(int memberNumber) {
-		MemberNumber = memberNumber;
+		this.memberNumber = memberNumber;
 	}
-	public String getPostLikeCreatedDate() {
-		return postLikeCreatedDate;
+	public int getLikeNumber() {
+		return likeNumber;
 	}
-	public void setPostLikeCreatedDate(String postLikeCreatedDate) {
-		this.postLikeCreatedDate = postLikeCreatedDate;
+	public void setLikeNumber(int likeNumber) {
+		this.likeNumber = likeNumber;
 	}
+	
 	@Override
 	public String toString() {
-		return "PostLikeDTO [postNumber=" + postNumber + ", MemberNumber=" + MemberNumber + ", postLikeCreatedDate="
-				+ postLikeCreatedDate + "]";
-	}
-	
-	
+		return "LikeDTO [postNumber=" + postNumber + ", memberNumber=" + memberNumber + ", likeNumber=" + likeNumber
+				+ ", getPostNumber()=" + getPostNumber() + ", getMemberNumber()=" + getMemberNumber()
+				+ ", getLikeNumber()=" + getLikeNumber() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
+	}	
 }
