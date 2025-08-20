@@ -30,6 +30,8 @@ public class ReviewDTO {
 		return businessNumber;
 	}
 	public void setBusinessNumber(String businessNumber) {
+		this.businessNumber = businessNumber;
+	}
 	protected int getMemberNumber() {
 		return MemberNumber;
 	}
