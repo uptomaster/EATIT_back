@@ -1,19 +1,17 @@
 package com.bapseguen.app.dto;
 
 public class StoreFavoriteDTO {
-//	CREATE TABLE TBL_STORE_FAVORITE (
-//			  MEMBER_NUMBER    NUMBER
-//			                     CONSTRAINT FK_SFAV_MEMBER
-//			                     REFERENCES TBL_MEMBER(MEMBER_NUMBER) ON DELETE CASCADE,
-//			  BUSINESS_NUMBER  VARCHAR2(50)
-//			                     CONSTRAINT FK_SFAV_STORE
-//			                     REFERENCES TBL_STORE(BUSINESS_NUMBER) ON DELETE CASCADE,
-//			  STORE_FAVORITE_CREATED_DATE     DATE DEFAULT SYSDATE NOT NULL,
-//			  CONSTRAINT PK_STORE_FAVORITE PRIMARY KEY (MEMBER_NUMBER, BUSINESS_NUMBER)
-//			);
+	
+	private int favoriteNumber;
 	private int memberNumber;
 	private String businessNumber;
-	private String storeFavoriteCreatedDate;
+	private String StoreFavoriteCreatedDate;
+	public int getFavoriteNumber() {
+		return favoriteNumber;
+	}
+	public void setFavoriteNumber(int favoriteNumber) {
+		this.favoriteNumber = favoriteNumber;
+	}
 	public int getMemberNumber() {
 		return memberNumber;
 	}
@@ -27,15 +25,15 @@ public class StoreFavoriteDTO {
 		this.businessNumber = businessNumber;
 	}
 	public String getStoreFavoriteCreatedDate() {
-		return storeFavoriteCreatedDate;
+		return StoreFavoriteCreatedDate;
 	}
 	public void setStoreFavoriteCreatedDate(String storeFavoriteCreatedDate) {
-		this.storeFavoriteCreatedDate = storeFavoriteCreatedDate;
+		StoreFavoriteCreatedDate = storeFavoriteCreatedDate;
 	}
 	@Override
 	public String toString() {
-		return "StoreFavoriteDTO [memberNumber=" + memberNumber + ", businessNumber=" + businessNumber
-				+ ", storeFavoriteCreatedDate=" + storeFavoriteCreatedDate + "]";
+		return "StoreFavoriteDTO [favoriteNumber=" + favoriteNumber + ", memberNumber=" + memberNumber
+				+ ", businessNumber=" + businessNumber + ", StoreFavoriteCreatedDate=" + StoreFavoriteCreatedDate + "]";
 	}
 	
 	

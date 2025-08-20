@@ -1,20 +1,7 @@
 package com.bapseguen.app.dto;
 
 public class StoreDTO {
-//	CREATE TABLE TBL_STORE (
-//			  BUSINESS_NUMBER  VARCHAR2(50) PRIMARY KEY,
-//			  MEMBER_NUMBER    NUMBER NOT NULL
-//			                     CONSTRAINT UQ_STORE_MEMBER UNIQUE
-//			                     CONSTRAINT FK_STORE_SELLER
-//			                     REFERENCES TBL_SELLER_MEMBER(MEMBER_NUMBER),
-//			  STORE_NAME       VARCHAR2(100) NOT NULL,
-//			  STORE_OPEN_DATE        DATE,
-//			  STORE_TEL        VARCHAR2(20),
-//			  STORE_ADDRESS    VARCHAR2(200),
-//			  STORE_ADDRESS_DETAIL   VARCHAR2(200),
-//			  STORE_ZIP_CODE         VARCHAR2(10)
-//			);
-	
+
 	private String businessNumber;
 	private int memberNumber;
 	private String storeName;
@@ -23,7 +10,6 @@ public class StoreDTO {
 	private String storeAddress;
 	private String storeAddressDetail;
 	private String storeZipCode;
-	
 	public String getBusinessNumber() {
 		return businessNumber;
 	}
@@ -78,6 +64,7 @@ public class StoreDTO {
 				+ storeName + ", storeOpenDate=" + storeOpenDate + ", storeTel=" + storeTel + ", storeAddress="
 				+ storeAddress + ", storeAddressDetail=" + storeAddressDetail + ", storeZipCode=" + storeZipCode + "]";
 	}
+	
 	
 	
 }
