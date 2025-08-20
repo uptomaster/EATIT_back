@@ -23,6 +23,8 @@ public class ItemDTO {
 	private int itemQuantity;
 	private String itemOrigin;
 	private String itemExpireDate;
+	
+	
 	public int getItemNumber() {
 		return itemNumber;
 	}

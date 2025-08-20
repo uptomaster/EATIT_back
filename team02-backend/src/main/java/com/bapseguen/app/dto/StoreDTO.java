@@ -23,6 +23,7 @@ public class StoreDTO {
 	private String storeAddress;
 	private String storeAddressDetail;
 	private String storeZipCode;
+	
 	public String getBusinessNumber() {
 		return businessNumber;
 	}
