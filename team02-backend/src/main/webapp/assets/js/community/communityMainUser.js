@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function displayList(page) {
     listBody.innerHTML = "";
-    let start = (page - 1) * rowsPerPage;
-    let end = start + rowsPerPage;
+    let start = (page - 1) * rowsPerPage + 1;
+    let end = (start - 1) + rowsPerPage;
     filteredRows.slice(start, end).forEach(row => listBody.appendChild(row));
     updatePagination();
   }
