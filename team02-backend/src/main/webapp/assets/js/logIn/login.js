@@ -35,7 +35,7 @@ login.addEventListener('submit', function(e) {
 
   if(userid.value === db.id && userpw.value === db.pw){
     alert('로그인 되었습니다 메인페이지로 이동합니다.')
-    window.location.href = './../../main.html';
+    window.location.href = '${pageContext.request.contextPath}/main.jsp';
   }else if(userid.value === blackdb.blackid && userpw.value === blackdb.blackpw){
     alert('정지된 아이디 입니다');
   } else{

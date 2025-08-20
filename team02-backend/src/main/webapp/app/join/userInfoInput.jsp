@@ -14,7 +14,7 @@
     let footerPath = '../../footer.html';
   </script>
   <script defer src="../../assets/js/header.js"></script>
-  <title>밥세권</title>dfdf
+  <title>밥세권</title>
 </head>
 
 <body>
@@ -22,7 +22,7 @@
   <main>
     <div class="container"> <!-- 1100px 영역 -->
       <!-- 회원가입 단계 동그라미 4개 -->
-      <ul class="join_step">s
+      <ul class="join_step">
         <li>
           <div class="join_step_user_type">회원선택</div>
         </li>
@@ -125,4 +125,4 @@
   <footer id="footer"></footer>
 </body>
 
-</html>`
+</html>

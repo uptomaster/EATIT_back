@@ -1,0 +1,114 @@
+@charset "UTF-8";
+
+* {
+  margin: 0;
+  padding: 0;
+  /* box-sizing: border-box; */
+}
+
+main {
+  height: 830px;
+  width: 1920px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff5e4;
+
+}
+/* 1100px 영역 */
+.login_container {
+  width: 1100px;
+  height: 100%;
+  background-color: #fbe3b9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* 컨텐츠 영역 */
+.login_content_container {
+  width: 600px;
+  height: 500px;
+  background-color: #fff5e4;
+  margin: 115px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 10px;
+  /* border: 1px solid blue; */
+}
+
+/* 구역나누기 끝 */
+
+/* 로그인 제목 */
+.login_title_container {
+  font-size: 24px;
+}
+
+.login_title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.login_subtitle{
+  text-align: center;
+}
+
+/* 로그인 입력 폼 */
+.login_input_container>div {
+  margin: 15px;
+  font-size: 14px;
+  text-align: right;
+}
+/* 로그인 입력 항목명 */
+.login_input_container>div>label {
+  margin-right: 10px;
+}
+/* 로그인 입력창 */
+.login_input_container>div>input {
+  width: 200px;
+  height: 30px;
+  border: 0.3px solid black;
+  border-radius: 5px;
+}
+
+/* 경고메시지 */
+#login_warning_message {
+  display: none;
+  margin-top: 3px;
+  font-size: 12px;
+  text-align: center;
+  color: red; 
+}
+
+/* 로그인 버튼 */
+#login_btn {
+  width: 145px;
+  height: 35px;
+  background-color: #ff924e;
+  color: white;
+  border-radius: 5px;
+  border: 0.5px solid #000;
+  font-size: 16px;
+  margin: 10px 0 0 80px;
+}
+
+/* 비밀번호찾기, 로그인, 회원가입 */
+.login_to_container {
+  /* height: 50px; */
+  display: flex;
+  align-items: center;
+  /* text-decoration: none; */
+  gap: 15px;
+}
+
+.login_to_container>div>a:hover {
+  color: #FF7722;
+}
+
+.login_to_container>div>a {
+  font-size: 14px;
+  text-decoration: none;
+  color: black;
+}

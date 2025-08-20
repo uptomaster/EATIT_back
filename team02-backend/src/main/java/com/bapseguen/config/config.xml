@@ -19,6 +19,7 @@
 		<typeAlias type="com.bapseguen.app.dto.CartItemDTO" alias="CartItemDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.OrderItemDTO" alias="OrderItemDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.OrdersDTO" alias="OrdersDTO"></typeAlias>
+		<typeAlias type="com.bapseguen.app.dto.MemberDTO" alias="MemberDTO"></typeAlias>
 	</typeAliases>
 
 	<environments default="oracle">
@@ -35,9 +36,9 @@
 	</environments>
 
 	<!-- mapper.xml 추후 추가 -->
-<!-- 	<mappers>
-		<mapper resource="com/bapseguen/mapper/AdminMapper.xml" />
-	</mappers> -->
+	<mappers>
+		<mapper resource="com/bapseguen/mapper/MemberMapper.xml" />
+	</mappers>
 	
 </configuration>
 

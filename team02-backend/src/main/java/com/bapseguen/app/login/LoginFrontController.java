@@ -1,11 +1,13 @@
 package com.bapseguen.app.login;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.bapseguen.app.Result;
 
 /**
  * Servlet implementation class loginFrontController
@@ -38,7 +40,24 @@ public class LoginFrontController extends HttpServlet {
 	}
 
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setCharacterEncoding("UTF-8");
+	    response.setCharacterEncoding("UTF-8");
+	    
+	    String target = request.getRequestURI().substring(request.getContextPath().length());
+	    System.out.println("현재 경로 : " + target);
+	    Result result = new Result();
+	    
+	    switch (target) {
+	    	case "/login/login.lo":
+	        System.out.println("로그인 페이지 요청");
+//	        request.getRequestDispatcher("/app/member/login.jsp").forward(request, response);
+	        result = new LoginController().execute(request, response);
+	        break;
+	    	case "/login/loginOk.lo":
+	        System.out.println("로그인 처리 요청");
+	        result = new LoginOkController().execute(request, response);
+	        break;
+	    }
 	}
 
 }

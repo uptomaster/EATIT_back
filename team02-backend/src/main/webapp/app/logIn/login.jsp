@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="./../../assets/img/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="./../../assets/css/header.css">
-  <link rel="stylesheet" href="./../../assets/css/footer.css">
-  <link rel="stylesheet" href="./../../assets/css/logIn/login.css">
-  <script defer src="./../../assets/js/logIn/login.js"></script>
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/logIn/login.css">
+  <script defer src="${pageContext.request.contextPath}/assets/js/logIn/login.js"></script>
   <title>밥세권</title>
 </head>
 
@@ -24,7 +24,7 @@
           <div class="login_subtitle">로그인</div>
         </div>
         <!--로그인 입력 폼 -->
-        <form action="" method="post" id="login_form" class="login_input_container">
+        <form action="/login/loginOk.lo" method="post" id="login_form" class="login_input_container">
           <div class="login_input_id_contanier">
             <label for="login_input_id">아이디 : </label>
             <input type="text" name="login_input_id" id="login_input_id" placeholder="아이디를 입력해주세요">
