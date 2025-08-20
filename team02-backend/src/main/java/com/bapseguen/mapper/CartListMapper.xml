@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cart">
+
+  <!-- 회원의 OPEN 카트 번호 조회 (CartDTO.memberNumber) -->
+  <select id="selectOpenCartNumberByMember" parameterType="CartDTO" resultType="int">
+    SELECT CART_NUMBER
+      FROM TBL_CART
+     WHERE MEMBER_NUMBER = #{memberNumber}
+       AND CART_ORDER_STATUS = 'OPEN'
+  </select>
+
+  <!-- 카트 없으면 생성 (시퀀스 사용: CART_NUMBER = SEQ_CART.NEXTVAL) -->
+  <insert id="insertCartIfNotExists" parameterType="CartDTO">
+    INSERT INTO TBL_CART (CART_NUMBER, MEMBER_NUMBER, BUSINESS_NUMBER, CART_ORDER_STATUS)
+    SELECT SEQ_CART.NEXTVAL, #{memberNumber}, #{businessNumber}, 'OPEN'
+      FROM DUAL
+     WHERE NOT EXISTS (
+           SELECT 1
+             FROM TBL_CART
+            WHERE MEMBER_NUMBER   = #{memberNumber}
+              AND BUSINESS_NUMBER = #{businessNumber}
+              AND CART_ORDER_STATUS = 'OPEN'
+     )
+  </insert>
+
+  <!-- 카트 아이템 담기 (시퀀스 사용: CART_ITEM_NUMBER = SEQ_CART_ITEM.NEXTVAL) -->
+  <insert id="insertCartItem" parameterType="CartItemDTO">
+    INSERT INTO TBL_CART_ITEM
+      (CART_ITEM_NUMBER, CART_NUMBER, ITEM_NUMBER, CART_ITEM_PRICE, CART_ITEM_QUANTITY)
+    VALUES
+      (SEQ_CART_ITEM.NEXTVAL, #{cartNumber}, #{itemNumber}, #{cartItemPrice}, #{cartItemQuantity})
+  </insert>
+
+  <!-- 카트 아이템 목록 (CartDTO.memberNumber 기준 OPEN) -->
+  <select id="selectCartItems" parameterType="CartDTO" resultType="CartItemDTO">
+    SELECT
+      ci.CART_ITEM_NUMBER   AS cartItemNumber,
+      ci.CART_NUMBER        AS cartNumber,
+      ci.ITEM_NUMBER        AS itemNumber,
+      ci.CART_ITEM_PRICE    AS cartItemPrice,
+      ci.CART_ITEM_QUANTITY AS cartItemQuantity
+    FROM TBL_CART c
+    JOIN TBL_CART_ITEM ci ON c.CART_NUMBER = ci.CART_NUMBER
+   WHERE c.MEMBER_NUMBER = #{memberNumber}
+     AND c.CART_ORDER_STATUS = 'OPEN'
+   ORDER BY ci.CART_ITEM_NUMBER
+  </select>
+
+  <!-- 카트 아이템 단건 삭제 (CartItemDTO.cartItemNumber) -->
+  <delete id="deleteCartItem" parameterType="CartItemDTO">
+    DELETE FROM TBL_CART_ITEM
+     WHERE CART_ITEM_NUMBER = #{cartItemNumber}
+  </delete>
+
+  <!-- 카트 모든 아이템 삭제 (CartDTO.cartNumber) -->
+  <delete id="deleteCartAllItems" parameterType="CartDTO">
+    DELETE FROM TBL_CART_ITEM
+     WHERE CART_NUMBER = #{cartNumber}
+  </delete>
+
+  <!-- (선택) 사이드 아이콘 뱃지 숫자: 총 수량 합 -->
+  <select id="selectCartItemCount" parameterType="CartDTO" resultType="int">
+    SELECT NVL(SUM(ci.CART_ITEM_QUANTITY), 0)
+      FROM TBL_CART c
+      LEFT JOIN TBL_CART_ITEM ci ON c.CART_NUMBER = ci.CART_NUMBER
+     WHERE c.MEMBER_NUMBER = #{memberNumber}
+       AND c.CART_ORDER_STATUS = 'OPEN'
+  </select>
+
+</mapper>
