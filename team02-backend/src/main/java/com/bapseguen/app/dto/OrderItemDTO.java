@@ -3,7 +3,7 @@ package com.bapseguen.app.dto;
 public class OrderItemDTO {
 
 	private int orderItemNumber;
-	private int orderNumber;
+	private int ordersNumber;
 	private int itemNumber;
 	private int orderItemUnitPrice;
 	private int orderItemQuantity;
@@ -17,10 +17,10 @@ public class OrderItemDTO {
 		this.orderItemNumber = orderItemNumber;
 	}
 	public int getOrderNumber() {
-		return orderNumber;
+		return ordersNumber;
 	}
 	public void setOrderNumber(int orderNumber) {
-		this.orderNumber = orderNumber;
+		this.ordersNumber = orderNumber;
 	}
 	public int getItemNumber() {
 		return itemNumber;
@@ -43,7 +43,7 @@ public class OrderItemDTO {
 	
 	@Override
 	public String toString() {
-		return "OrderItemDTO [orderItemNumber=" + orderItemNumber + ", orderNumber=" + orderNumber + ", itemNumber="
+		return "OrderItemDTO [orderItemNumber=" + orderItemNumber + ", ordersNumber=" + ordersNumber + ", itemNumber="
 				+ itemNumber + ", orderItemUnitPrice=" + orderItemUnitPrice + ", orderItemQuantity=" + orderItemQuantity
 				+ "]";
 	}
