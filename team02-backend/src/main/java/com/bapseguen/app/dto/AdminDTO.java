@@ -7,11 +7,24 @@ public class AdminDTO {
 //);
 
 	private int adminMemberNumber;
-	private int boardNumber;
-	private int inquiryNumber;
+	private String adminTreeGrade;
 	
-	public AdminDTO() {
+	public int getAdminMemberNumber() {
+		return adminMemberNumber;
 	}
-
+	public void setAdminMemberNumber(int adminMemberNumber) {
+		this.adminMemberNumber = adminMemberNumber;
+	}
+	public String getAdminTreeGrade() {
+		return adminTreeGrade;
+	}
+	public void setAdminTreeGrade(String adminTreeGrade) {
+		this.adminTreeGrade = adminTreeGrade;
+	}
+	@Override
+	public String toString() {
+		return "AdminDTO [adminMemberNumber=" + adminMemberNumber + ", adminTreeGrade=" + adminTreeGrade + "]";
+	}
+	
 	
 }
