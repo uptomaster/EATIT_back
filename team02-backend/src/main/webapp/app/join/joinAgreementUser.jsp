@@ -96,8 +96,6 @@
           <button type="button" class="join_agree_next_btn" onclick="goNextPage()">다음</button>
         </div>
       </form>
-
-    </div> <!-- //.user_join_agree_container -->
     </div> <!--//.container-->
   </main>
   <footer id="footer"></footer>
