@@ -1,24 +1,26 @@
 package com.bapseguen.app.dto;
 
 public class GeneralMemberDTO {
-//	CREATE TABLE TBL_GENERAL_MEMBER (
-//			  GENERAL_MEMBER_NUMBER  NUMBER PRIMARY KEY
-//			                   CONSTRAINT FK_GENERAL_MEMBER
-//			                   REFERENCES TBL_MEMBER(MEMBER_NUMBER) ON DELETE CASCADE,
-//			  GENERAL_REPORT_COUNT   NUMBER,
-//			  GENERAL_WARNING_COUNT  NUMBER,
-//			  GENERAL_BLACK_STATE    CHAR(1) DEFAULT 'N' 
-//			                   CONSTRAINT CK_GMEM_BLACK CHECK (BLACK_STATE IN ('Y','N')),
-//			);
-	private int generalMemberNumber;
+
+	private int memberNumber;
 	private int generalReportCount;
 	private int generalWarningCount;
 	private boolean generalBlackState;
-	public int getGeneralMemberNumber() {
-		return generalMemberNumber;
+	private String generalName;
+	private String generalBirthDate;
+	private String generalPhoneNumber;
+	private String generalJoinDate;
+	private String generalUpdatedDate;
+	private String generalTreeGrade;
+	private String generalPaymentAmount;
+	
+	public int getMemberNumber() {
+		return memberNumber;
 	}
-	public void setGeneralMemberNumber(int generalMemberNumber) {
-		this.generalMemberNumber = generalMemberNumber;
+	
+	// getter & setter
+	public void setMemberNumber(int memberNumber) {
+		this.memberNumber = memberNumber;
 	}
 	public int getGeneralReportCount() {
 		return generalReportCount;
@@ -38,14 +40,58 @@ public class GeneralMemberDTO {
 	public void setGeneralBlackState(boolean generalBlackState) {
 		this.generalBlackState = generalBlackState;
 	}
+	public String getGeneralName() {
+		return generalName;
+	}
+	public void setGeneralName(String generalName) {
+		this.generalName = generalName;
+	}
+	public String getGeneralBirthDate() {
+		return generalBirthDate;
+	}
+	public void setGeneralBirthDate(String generalBirthDate) {
+		this.generalBirthDate = generalBirthDate;
+	}
+	public String getGeneralPhoneNumber() {
+		return generalPhoneNumber;
+	}
+	public void setGeneralPhoneNumber(String generalPhoneNumber) {
+		this.generalPhoneNumber = generalPhoneNumber;
+	}
+	public String getGeneralJoinDate() {
+		return generalJoinDate;
+	}
+	public void setGeneralJoinDate(String generalJoinDate) {
+		this.generalJoinDate = generalJoinDate;
+	}
+	public String getGeneralUpdatedDate() {
+		return generalUpdatedDate;
+	}
+	public void setGeneralUpdatedDate(String generalUpdatedDate) {
+		this.generalUpdatedDate = generalUpdatedDate;
+	}
+	public String getGeneralTreeGrade() {
+		return generalTreeGrade;
+	}
+	public void setGeneralTreeGrade(String generalTreeGrade) {
+		this.generalTreeGrade = generalTreeGrade;
+	}
+	public String getGeneralPaymentAmount() {
+		return generalPaymentAmount;
+	}
+	public void setGeneralPaymentAmount(String generalPaymentAmount) {
+		this.generalPaymentAmount = generalPaymentAmount;
+	}
+	
 	@Override
 	public String toString() {
-		return "GeneralMemberDTO [generalMemberNumber=" + generalMemberNumber + ", generalReportCount="
-				+ generalReportCount + ", generalWarningCount=" + generalWarningCount + ", generalBlackState="
-				+ generalBlackState + "]";
+		return "GeneralMemberDTO [memberNumber=" + memberNumber + ", generalReportCount=" + generalReportCount
+				+ ", generalWarningCount=" + generalWarningCount + ", generalBlackState=" + generalBlackState
+				+ ", generalName=" + generalName + ", generalBirthDate=" + generalBirthDate + ", generalPhoneNumber="
+				+ generalPhoneNumber + ", generalJoinDate=" + generalJoinDate + ", generalUpdatedDate="
+				+ generalUpdatedDate + ", generalTreeGrade=" + generalTreeGrade + ", generalPaymentAmount="
+				+ generalPaymentAmount + "]";
 	}
-
-	
 	
 	
 }
