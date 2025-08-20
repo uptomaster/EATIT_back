@@ -4,7 +4,7 @@ public class ReviewDTO {
 
 	private int reviewNumber;
 	private int ordersNumber;
-	private int businessNumber;
+	private String businessNumber;
 	private int MemberNumber;
 	private int reviewRating;
 	private String reviewContent;
@@ -26,10 +26,12 @@ public class ReviewDTO {
 	protected void setOrdersNumber(int ordersNumber) {
 		this.ordersNumber = ordersNumber;
 	}
-	protected int getBusinessNumber() {
+
+	public String getBusinessNumber() {
 		return businessNumber;
 	}
-	protected void setBusinessNumber(int businessNumber) {
+	public void setBusinessNumber(String businessNumber) {
+
 		this.businessNumber = businessNumber;
 	}
 	protected int getMemberNumber() {
