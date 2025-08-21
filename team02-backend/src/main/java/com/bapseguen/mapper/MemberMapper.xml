@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
-   <!-- 회원가입 쿼리작성 -->
-   <insert id="generaljoin" parameterType="MemberDTO">
-		insert into tbl_member(member_number, member_id, member_password, member_name, member_birthdate, member_phone_number)
-		values (seq_member.nextval, #{memberId}, #{memberPassword}, #{memberName}, #{memberBirthdate}, #{memberPhoneNumber})
-   </insert>
-   
 	<!-- 로그인 쿼리작성 -->
 	<select id="login" parameterType="MemberDTO" resultType="int">
 		select member_number from tbl_member
-		where member_id = #{memberId} and member_password = #{memberPassowrd}
+		where member_id = #{memberId} and member_password = #{memberPassword}
 	</select>
+	
+	<!-- 일반회원가입 쿼리작성 -->
+    <insert id="joinGeneral" parameterType="MemberDTO">
+    <selectKey keyProperty="memberNumber" resultType="int" order="BEFORE">
+      	SELECT SEQ_MEMBER_NUMBER.NEXTVAL FROM dual
+    </selectKey>
+    	INSERT INTO TBL_MEMBER (MEMBER_NUMBER, MEMBER_ID, MEMBER_PASSWORD)
+    	VALUES (#{memberNumber}, #{memberId}, #{memberPassword});
+
+    	INSERT INTO TBL_GENERAL_MEMBER(MEMBER_NUMBER, GENERAL_NAME, GENERAL_BIRTHDATE, GENERAL_PHONE_NUMBER, GENERAL_JOIN_DATE)
+    	VALUES(#{memberNumber}, #{name}, #{birthdate}, #{phoneNumber}, SYSDATE)
+  	</insert>
+  	
+  	<!-- 판매자회원가입 쿼리작성 -->
+  	<insert id="joinSeller" parameterType="MemberDTO">
+    <selectKey keyProperty="memberNumber" resultType="int" order="BEFORE">
+      	SELECT SEQ_MEMBER_NUMBER.NEXTVAL FROM dual
+    </selectKey>
+		INSERT INTO TBL_MEMBER (MEMBER_NUMBER, MEMBER_TYPE, MEMBER_ID, MEMBER_PASSWORD)
+    	VALUES (#{memberNumber}, 'SELLER', #{memberId}, #{memberPassword});
+    	
+    	INSERT INTO TBL_SELLER_MEMBER(MEMBER_NUMBER, SELLER_NAME, SELLER_BIRTHDATE, SELLER_PHONE_NUMBER, SELLER_JOIN_DATE)
+    	VALUES(#{memberNumber}, #{name}, #{birthdate}, #{phoneNumber}, SYSDATE);
+    	
+    	INSERT INTO TBL_STORE (BUSINESS_NUMBER, MEMBER_NUMBER, STORE_NAME)
+    	VALUES (#{businessNumber}, #{memberNumber}, #{storeName});
+  	</insert>
 </mapper>
-
-
-<!-- 	private int memberNumber;
-	private String memberType;
-	private String memberId;
-	private String memberPassword;
-	private String memberName;
-	private String memberBirthdate;
-	private String memberPhoneNumber;
-	private String memberJoinDate;
-	private String memberUpdatedDate;
-	private int memberPaymentAmount;
-	private int memberPoint;
-	private String memberTreeGrade; -->
