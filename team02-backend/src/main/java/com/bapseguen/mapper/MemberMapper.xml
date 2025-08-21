@@ -7,30 +7,5 @@
 		where member_id = #{memberId} and member_password = #{memberPassword}
 	</select>
 	
-	<!-- 일반회원가입 쿼리작성 -->
-    <insert id="joinGeneral" parameterType="MemberDTO">
-    <selectKey keyProperty="memberNumber" resultType="int" order="BEFORE">
-      	SELECT SEQ_MEMBER_NUMBER.NEXTVAL FROM dual
-    </selectKey>
-    	INSERT INTO TBL_MEMBER (MEMBER_NUMBER, MEMBER_TYPE, MEMBER_ID, MEMBER_PASSWORD)
-    	VALUES (#{memberNumber}, 'GENERAL' , #{memberId}, #{memberPassword});
-
-    	INSERT INTO TBL_GENERAL_MEMBER(MEMBER_NUMBER, GENERAL_NAME, GENERAL_BIRTHDATE, GENERAL_PHONE_NUMBER, GENERAL_JOIN_DATE)
-    	VALUES(#{memberNumber}, #{generalName}, #{generalBirthDate}, #{generalPhoneNumber}, SYSDATE)
-  	</insert>
-  	
-  	<!-- 판매자회원가입 쿼리작성 -->
-  	<insert id="joinSeller" parameterType="MemberDTO">
-    <selectKey keyProperty="memberNumber" resultType="int" order="BEFORE">
-      	SELECT SEQ_MEMBER_NUMBER.NEXTVAL FROM dual
-    </selectKey>
-		INSERT INTO TBL_MEMBER (MEMBER_NUMBER, MEMBER_TYPE, MEMBER_ID, MEMBER_PASSWORD)
-    	VALUES (#{memberNumber}, 'SELLER', #{memberId}, #{memberPassword});
-    	
-    	INSERT INTO TBL_SELLER_MEMBER(MEMBER_NUMBER, SELLER_NAME, SELLER_BIRTHDATE, SELLER_PHONE_NUMBER, SELLER_JOIN_DATE)
-    	VALUES(#{memberNumber}, #{sellerName}, #{sellerBirthdate}, #{sellerPhoneNumber}, SYSDATE);
-    	<!-- 250821 10:00 작업중입니다 -->
-    	INSERT INTO TBL_STORE (BUSINESS_NUMBER, MEMBER_NUMBER, STORE_NAME, , , , , ,)
-    	VALUES (#{businessNumber}, #{memberNumber}, #{storeName});
-  	</insert>
+	
 </mapper>

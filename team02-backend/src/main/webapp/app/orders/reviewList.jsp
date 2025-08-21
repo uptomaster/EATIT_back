@@ -11,8 +11,8 @@
   <link rel="stylesheet" href="./../../assets/css/buy/storeDetail.css">
   <script defer src="./../../assets/js/header.js"></script>
   <script>
-    let headerPath = '../../header.html';
-    let footerPath = '../../footer.html';
+    let headerPath = '../../header.jsp';
+    let footerPath = '../../footer.jsp';
   </script>
   <!-- 파비콘 -->
   <link rel="shortcut icon" href="./../../assets/img/favicon.ico" type="image/x-icon">

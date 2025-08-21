@@ -11,8 +11,8 @@
   <link rel="stylesheet" href="./../../assets/css/join/selectUserType.css">
   <script defer src="./../../assets/js/join/selectUserType.js"></script>
   <script>
-    let headerPath = '../../header.html';
-    let footerPath = '../../footer.html';
+    let headerPath = '../../header.jsp';
+    let footerPath = '../../footer.jsp';
   </script>
   <script defer src="../../assets/js/header.js"></script>
   <title>밥세권</title>

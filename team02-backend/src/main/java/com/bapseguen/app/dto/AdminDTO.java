@@ -1,19 +1,19 @@
 package com.bapseguen.app.dto;
 
 public class AdminDTO {
-//	  ADMIN_MEMBER_NUMBER  NUMBER PRIMARY KEY
+//	    MEMBER_NUMBER  NUMBER PRIMARY KEY
 //      CONSTRAINT FK_ADMIN_MEMBER
 //      REFERENCES TBL_MEMBER(MEMBER_NUMBER) ON DELETE CASCADE,
 //);
 
-	private int adminMemberNumber;
-	private String adminTreeGrade;
+	private int MemberNumber; //관리자 번호
+	private String adminTreeGrade; //관리자 등급
 	
 	public int getAdminMemberNumber() {
-		return adminMemberNumber;
+		return MemberNumber;
 	}
 	public void setAdminMemberNumber(int adminMemberNumber) {
-		this.adminMemberNumber = adminMemberNumber;
+		this.MemberNumber = adminMemberNumber;
 	}
 	public String getAdminTreeGrade() {
 		return adminTreeGrade;
@@ -23,7 +23,7 @@ public class AdminDTO {
 	}
 	@Override
 	public String toString() {
-		return "AdminDTO [adminMemberNumber=" + adminMemberNumber + ", adminTreeGrade=" + adminTreeGrade + "]";
+		return "AdminDTO [MemberNumber=" + MemberNumber + ", adminTreeGrade=" + adminTreeGrade + "]";
 	}
 	
 	

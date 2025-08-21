@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="./../../assets/css/sellerMyPage/foodsalesview.css">
   <script defer src="./../../assets/js/sellerMyPage/foodsalesview.js"></script>
   <script>
-    let headerPath = '../../header.html';
-    let footerPath = '../../footer.html';
+    let headerPath = '../../header.jsp';
+    let footerPath = '../../footer.jsp';
   </script>
   <title>밥세권</title>
 </head>

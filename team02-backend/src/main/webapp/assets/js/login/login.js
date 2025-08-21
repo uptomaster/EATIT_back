@@ -14,7 +14,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-const login = document.getElementById('login_form');
+/*const login = document.getElementById('login_form');
 const userid = document.getElementById('login_input_id');
 const userpw = document.getElementById('login_input_pw'); 
 const warning = document.getElementById('login_warning_message');
@@ -44,7 +44,7 @@ login.addEventListener('submit', function(e) {
     userpw.focus();
     userpw.select();
   }
-});
+});*/
 
 
 // btn[0].addEventListener('click', () => {

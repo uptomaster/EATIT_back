@@ -17,8 +17,8 @@
   <script defer src="./../../assets/js/community/EditDeletePost.js"></script>
   <script defer src="./../../assets/js/community/loadHeaderFooter.js"></script>
   <script>
-    let headerPath = '../../header_login.html';
-    let footerPath = '../../footer.html';
+    let headerPath = '../../header.jsp';
+    let footerPath = '../../footer.jsp';
   </script>
   <script defer src="../../assets/js/header.js"></script>
 </head>

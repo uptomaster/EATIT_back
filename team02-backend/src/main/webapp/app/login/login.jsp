@@ -11,10 +11,12 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/login/login.css"/>
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/login/login.js"></script>
-  <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
   <title>밥세권</title>
 </head>
-
+<script>
+    let headerPath = './../../header.jsp';
+    let footerPath = './../../footer.jsp';
+</script>
 <body>
   <header id="header"></header>
   <main>

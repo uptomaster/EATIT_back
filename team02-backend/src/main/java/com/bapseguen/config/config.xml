@@ -20,6 +20,8 @@
 		<typeAlias type="com.bapseguen.app.dto.OrderItemDTO" alias="OrderItemDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.OrdersDTO" alias="OrdersDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.MemberDTO" alias="MemberDTO"></typeAlias>
+		<typeAlias type="com.bapseguen.app.dto.GeneralMemberDTO" alias="GeneralMemberDTO"></typeAlias>
+		<typeAlias type="com.bapseguen.app.dto.SellerMemberDTO" alias="SellerMemberDTO"></typeAlias>
 	</typeAliases>
 
 	<environments default="oracle">

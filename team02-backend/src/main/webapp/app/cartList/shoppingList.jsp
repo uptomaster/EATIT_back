@@ -14,7 +14,10 @@
   <!-- JS -->
   <script defer src="${pageContext.request.contextPath}/assets/js/cartList/shoppingList.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-
+  <script>
+    let headerPath = '../../header.jsp';
+    let footerPath = '../../footer.jsp';
+  </script>
   <!-- 파비콘 -->
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
   <title>밥세권 - 장바구니</title>

@@ -15,8 +15,8 @@
   <script defer src="./../../assets/js/community/customerServiceList.js"></script>
   <script defer src="./../../assets/js/community/loadHeaderFooter.js"></script>
   <script>
-    let header_path = '../../header.html';
-    let footer_path = '../../footer.html';
+    let headerPath = '../../header.jsp';
+    let footerPath = '../../footer.jsp';
   </script>
 </head>
 

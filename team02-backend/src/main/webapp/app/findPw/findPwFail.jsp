@@ -11,8 +11,8 @@
   <link rel="stylesheet" href="./../../assets/css/findPW/findPwFail.css">
   <script defer src="./../../assets/js/findPW/findPwFail.js"></script>
   <script>
-    let headerPath = '../../header.html';
-    let footerPath = '../../footer.html';
+    let headerPath = '../../header.jsp';
+    let footerPath = '../../footer.jsp';
   </script>
   <script defer src="../../assets/js/header.js"></script>
   <title>밥세권</title>

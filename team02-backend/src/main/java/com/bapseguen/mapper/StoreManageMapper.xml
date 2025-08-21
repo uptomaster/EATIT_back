@@ -69,6 +69,6 @@
 	<!-- 가게 정보 조회 -->
 	<!-- 가게 사진 수정 -->
 
-	parameterType="" resultType=""
+	<!-- parameterType="" resultType="" -->
 
 </mapper>

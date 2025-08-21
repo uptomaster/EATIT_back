@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="./../../assets/css/sellerMyPage/originList.css">
   <script defer src="./../../assets/js/sellerMyPage/originList.js"></script>
   <script>
-    let headerPath = '../../header.html';
-    let footerPath = '../../footer.html';
+    let headerPath = '../../header.jsp';
+    let footerPath = '../../footer.jsp';
   </script>
   <script defer src="../../assets/js/header.js"></script>
 
