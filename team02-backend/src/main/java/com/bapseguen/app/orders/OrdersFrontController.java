@@ -51,7 +51,7 @@ public class OrdersFrontController extends HttpServlet {
         // -------------------- Cart (장바구니) --------------------
         case "/cart/view.ct":
             System.out.println("장바구니 페이지 요청");
-            result = new CartViewController().execute(request, response);
+            result = new PaymentApproveOkController().execute(request, response);
             break;
         case "/cart/addOk.ct":
             System.out.println("장바구니 담기 처리 요청");
@@ -63,7 +63,7 @@ public class OrdersFrontController extends HttpServlet {
             break;
         case "/cart/removeOk.ct":
             System.out.println("장바구니 항목 삭제 처리 요청");
-            result = new CartRemoveOkController().execute(request, response);
+            result = new PaymentReadyController().execute(request, response);
             break;
 
         // -------------------- Order (주문) --------------------
