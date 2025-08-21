@@ -23,8 +23,8 @@ public class LoginOkController implements Execute{
 		Result result = new Result();
 		String path = null;
 		
-		String memberId = request.getParameter("memberId");
-		String memberPassword = request.getParameter("memberPassword");
+		String memberId = request.getParameter("login_input_id");
+		String memberPassword = request.getParameter("login_input_pw");
 		HttpSession session = request.getSession();
 		
 		memberDTO.setMemberId(memberId);

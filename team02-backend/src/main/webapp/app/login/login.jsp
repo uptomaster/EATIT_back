@@ -7,8 +7,13 @@
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/logIn/login.css">
-  <script defer src="${pageContext.request.contextPath}/assets/js/logIn/login.js"></script>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/login/login.css"/>
+  <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/login/login.js"></script>
+    <script>
+    let headerPath = '${pageContext.request.contextPath}/header.jsp';
+    let footerPath = '${pageContext.request.contextPath}/footer.jsp';
+  </script>
   <title>밥세권</title>
 </head>
 
@@ -50,5 +55,4 @@
   </main>
   <footer id="footer"></footer>
 </body>
-
-</html>`
+</html>

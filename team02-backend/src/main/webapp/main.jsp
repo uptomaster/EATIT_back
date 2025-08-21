@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,13 +13,10 @@
   <link rel="shortcut icon" href="./assets/img/favicon.ico" type="image/x-icon">
 
   <!-- 헤더 js -->
-  <script>
-    let headerPath = './header.html';
-    let footerPath = './footer.html';
-  </script>
-  <script defer src="./assets/js/main.js"></script>
-  <script defer src="./assets/js/footer.js"></script>
-  <script defer src="./assets/js/header.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
+  <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
 
   <title>밥세권</title>
 </head>
@@ -295,7 +293,7 @@
   </main>
 
   <!-------------------- 푸터 ------------------------>
-  <footer id="footer"></footer>
+  <footer id="footer"><jsp:include page="${pageContext.request.contextPath}/footer.jsp" /></footer>
 </body>
 
 </html>
