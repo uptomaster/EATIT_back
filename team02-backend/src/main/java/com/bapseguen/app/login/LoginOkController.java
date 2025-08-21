@@ -32,9 +32,18 @@ public class LoginOkController implements Execute{
 		memberNumber = loginDAO.login(memberDTO);
 		
 		if(memberNumber != -1) {
+			memberDTO.setMemberNumber(memberNumber);
+            String memberType = loginDAO.getMemberType(memberDTO);
+            if(memberType == null || memberType.isEmpty()){
+                memberType = "GENERAL";
+            }
+
+            session.setAttribute("memberNumber", memberNumber);
+            session.setAttribute("memberType", memberType);
+
+            System.out.println("세션값 memberNumber : " + memberNumber);
+            System.out.println("세션값 memberType   : " + memberType);
 			path = "/main.jsp";
-			session.setAttribute("memberNumber", memberNumber);
-			System.out.println("세션값 : " + memberNumber);
 		}else {
 			path = "/login/login.lo?login=fail";
 		}
