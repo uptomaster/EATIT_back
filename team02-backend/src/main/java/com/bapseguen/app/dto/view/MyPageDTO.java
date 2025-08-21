@@ -1,6 +1,6 @@
 package com.bapseguen.app.dto.view;
 
-public class MyPage {
+public class MyPageDTO {
 	
 	private int memberNumber;
 	private String memberId;
