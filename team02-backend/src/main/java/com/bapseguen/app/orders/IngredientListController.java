@@ -15,7 +15,7 @@ public class IngredientListController implements Execute{
 			throws ServletException, IOException {
 		
 		Result result = new Result();
-		
+//		
 		return result;
 	}
 }
