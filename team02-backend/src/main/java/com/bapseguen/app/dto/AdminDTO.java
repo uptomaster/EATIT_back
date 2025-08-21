@@ -9,7 +9,7 @@ public class AdminDTO {
 	private int MemberNumber; //관리자 번호
 	private String adminTreeGrade; //관리자 등급
 	
-	
+	// getter & setter
 	public int getAdminMemberNumber() {
 		return MemberNumber;
 	}
@@ -22,6 +22,8 @@ public class AdminDTO {
 	public void setAdminTreeGrade(String adminTreeGrade) {
 		this.adminTreeGrade = adminTreeGrade;
 	}
+	
+	// toString 오버라이딩
 	@Override
 	public String toString() {
 		return "AdminDTO [MemberNumber=" + MemberNumber + ", adminTreeGrade=" + adminTreeGrade + "]";
