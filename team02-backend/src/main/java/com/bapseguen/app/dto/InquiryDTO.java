@@ -16,80 +16,78 @@ public class InquiryDTO {
 	private String postUpdatedDate;
 	private int postViewCount;
 	private int postLikeCount;
-	
-	protected int getPostNumber() {
+	public int getPostNumber() {
 		return postNumber;
 	}
-	protected void setPostNumber(int postNumber) {
+	public void setPostNumber(int postNumber) {
 		this.postNumber = postNumber;
 	}
-	protected String getInquiryContent() {
+	public String getInquiryContent() {
 		return inquiryContent;
 	}
-	protected void setInquiryContent(String inquiryContent) {
+	public void setInquiryContent(String inquiryContent) {
 		this.inquiryContent = inquiryContent;
 	}
-	protected String getInquiryStatus() {
+	public String getInquiryStatus() {
 		return inquiryStatus;
 	}
-	protected void setInquiryStatus(String inquiryStatus) {
+	public void setInquiryStatus(String inquiryStatus) {
 		this.inquiryStatus = inquiryStatus;
 	}
-	protected String getPostType() {
+	public String getPostType() {
 		return postType;
 	}
-	protected void setPostType(String postType) {
+	public void setPostType(String postType) {
 		this.postType = postType;
 	}
-	protected String getTreeGrade() {
+	public String getTreeGrade() {
 		return treeGrade;
 	}
-	protected void setTreeGrade(String treeGrade) {
+	public void setTreeGrade(String treeGrade) {
 		this.treeGrade = treeGrade;
 	}
-	protected int getMemberNumber() {
+	public int getMemberNumber() {
 		return memberNumber;
 	}
-	protected void setMemberNumber(int memberNumber) {
+	public void setMemberNumber(int memberNumber) {
 		this.memberNumber = memberNumber;
 	}
-	protected String getMemberId() {
+	public String getMemberId() {
 		return memberId;
 	}
-	protected void setMemberId(String memberId) {
+	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-	protected String getPostTitle() {
+	public String getPostTitle() {
 		return postTitle;
 	}
-	protected void setPostTitle(String postTitle) {
+	public void setPostTitle(String postTitle) {
 		this.postTitle = postTitle;
 	}
-	protected String getPostCreatedDate() {
+	public String getPostCreatedDate() {
 		return postCreatedDate;
 	}
-	protected void setPostCreatedDate(String postCreatedDate) {
+	public void setPostCreatedDate(String postCreatedDate) {
 		this.postCreatedDate = postCreatedDate;
 	}
-	protected String getPostUpdatedDate() {
+	public String getPostUpdatedDate() {
 		return postUpdatedDate;
 	}
-	protected void setPostUpdatedDate(String postUpdatedDate) {
+	public void setPostUpdatedDate(String postUpdatedDate) {
 		this.postUpdatedDate = postUpdatedDate;
 	}
-	protected int getPostViewCount() {
+	public int getPostViewCount() {
 		return postViewCount;
 	}
-	protected void setPostViewCount(int postViewCount) {
+	public void setPostViewCount(int postViewCount) {
 		this.postViewCount = postViewCount;
 	}
-	protected int getPostLikeCount() {
+	public int getPostLikeCount() {
 		return postLikeCount;
 	}
-	protected void setPostLikeCount(int postLikeCount) {
+	public void setPostLikeCount(int postLikeCount) {
 		this.postLikeCount = postLikeCount;
 	}
-	
 	@Override
 	public String toString() {
 		return "InquiryDTO [postNumber=" + postNumber + ", inquiryContent=" + inquiryContent + ", inquiryStatus="
@@ -98,6 +96,8 @@ public class InquiryDTO {
 				+ postCreatedDate + ", postUpdatedDate=" + postUpdatedDate + ", postViewCount=" + postViewCount
 				+ ", postLikeCount=" + postLikeCount + "]";
 	}
+	
+	
 	
 	
 
