@@ -9,6 +9,7 @@ public class AdminDTO {
 	private int adminMemberNumber;
 	private String adminTreeGrade;
 	
+	
 	public int getAdminMemberNumber() {
 		return adminMemberNumber;
 	}
