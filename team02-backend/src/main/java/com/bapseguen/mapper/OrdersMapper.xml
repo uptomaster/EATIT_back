@@ -4,7 +4,7 @@
 <mapper namespace="orders">
 
     <!-- 주문 등록 -->
-    <insert id="insertOrder" parameterType="com.bapseguen.app.dto.OrdersDTO">
+    <insert id="insertOrder" parameterType="OrdersDTO">
         INSERT INTO TBL_ORDERS 
         (ORDER_NUMBER, MEMBER_NUMBER, ORDERS_PAYMENT_INFO, ORDERS_DATE, ORDERS_TOTAL_AMOUNT, ORDERS_PAYMENT_STATUS)
         VALUES 
@@ -12,7 +12,7 @@
     </insert>
 
     <!-- 주문 단건 조회 -->
-    <select id="selectOrder" parameterType="int" resultType="com.bapseguen.app.dto.OrdersDTO">
+    <select id="selectOrder" parameterType="int" resultType="OrdersDTO">
         SELECT ORDER_NUMBER, MEMBER_NUMBER, ORDERS_PAYMENT_INFO, TO_CHAR(ORDERS_DATE, 'YYYY-MM-DD') AS ordersDate, 
         ORDERS_TOTAL_AMOUNT, ORDERS_PAYMENT_STATUS
         FROM TBL_ORDERS
@@ -30,7 +30,7 @@
     </select>
 
     <!-- 주문 상태 변경 -->
-    <update id="updateOrderStatus" parameterType="com.bapseguen.app.dto.OrdersDTO">
+    <update id="updateOrderStatus" parameterType="OrdersDTO">
         UPDATE TBL_ORDERS
         SET ORDERS_PAYMENT_STATUS = #{ordersPaymentStatus}
         WHERE ORDER_NUMBER = #{orderNumber}
@@ -44,7 +44,7 @@
 
 
     <!-- 주문 상품 등록 -->
-    <insert id="insertOrderItem" parameterType="com.bapseguen.app.dto.OrderItemDTO">
+    <insert id="insertOrderItem" parameterType="OrderItemDTO">
         INSERT INTO TBL_ORDER_ITEM
         (ORDER_ITEM_NUMBER, ORDER_NUMBER, ITEM_NUMBER, ORDER_ITEM_UNIT_PRICE, ORDER_ITEM_QUANTITY)
         VALUES
@@ -52,7 +52,7 @@
     </insert>
 
     <!-- 특정 주문의 상품 목록 -->
-    <select id="selectOrderItems" parameterType="int" resultType="com.bapseguen.app.dto.OrderItemDTO">
+    <select id="selectOrderItems" parameterType="int" resultType="OrderItemDTO">
         SELECT ORDER_ITEM_NUMBER, ORDER_NUMBER, ITEM_NUMBER, ORDER_ITEM_UNIT_PRICE, ORDER_ITEM_QUANTITY
         FROM TBL_ORDER_ITEM
         WHERE ORDER_NUMBER = #{orderNumber}

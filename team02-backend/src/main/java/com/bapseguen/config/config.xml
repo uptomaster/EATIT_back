@@ -38,6 +38,9 @@
 	<!-- mapper.xml 추후 추가 -->
 	<mappers>
 		<mapper resource="com/bapseguen/mapper/MemberMapper.xml" />
+		<mapper resource="com/bapseguen/mapper/AdminMapper.xml" />
+		<mapper resource="com/bapseguen/mapper/OrdersMapper.xml" />		
+		<mapper resource="com/bapseguen/mapper/CartListMapper.xml" />
 	</mappers>
 	
 </configuration>
