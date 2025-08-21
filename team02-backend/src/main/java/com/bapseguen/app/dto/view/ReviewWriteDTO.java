@@ -15,4 +15,74 @@ public class ReviewWriteDTO {
 	// 메뉴 정보 
 	   private String itemType;
 	   private String itemName;
+	   
+	public int getReviewRating() {
+		return reviewRating;
+	}
+	public void setReviewRating(int reviewRating) {
+		this.reviewRating = reviewRating;
+	}
+	public String getReviewContent() {
+		return reviewContent;
+	}
+	public void setReviewContent(String reviewContent) {
+		this.reviewContent = reviewContent;
+	}
+	public String getReviewCreateDate() {
+		return reviewCreateDate;
+	}
+	public void setReviewCreateDate(String reviewCreateDate) {
+		this.reviewCreateDate = reviewCreateDate;
+	}
+	public String getOrdersDate() {
+		return ordersDate;
+	}
+	public void setOrdersDate(String ordersDate) {
+		this.ordersDate = ordersDate;
+	}
+	public int getOrdersTotalAmount() {
+		return ordersTotalAmount;
+	}
+	public void setOrdersTotalAmount(int ordersTotalAmount) {
+		this.ordersTotalAmount = ordersTotalAmount;
+	}
+	public int getOrderItemNumber() {
+		return orderItemNumber;
+	}
+	public void setOrderItemNumber(int orderItemNumber) {
+		this.orderItemNumber = orderItemNumber;
+	}
+	public int getOrderItemUnitPrice() {
+		return orderItemUnitPrice;
+	}
+	public void setOrderItemUnitPrice(int orderItemUnitPrice) {
+		this.orderItemUnitPrice = orderItemUnitPrice;
+	}
+	public int getOrderItemQuantity() {
+		return orderItemQuantity;
+	}
+	public void setOrderItemQuantity(int orderItemQuantity) {
+		this.orderItemQuantity = orderItemQuantity;
+	}
+	public String getItemType() {
+		return itemType;
+	}
+	public void setItemType(String itemType) {
+		this.itemType = itemType;
+	}
+	public String getItemName() {
+		return itemName;
+	}
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+	@Override
+	public String toString() {
+		return "ReviewWriteDTO [reviewRating=" + reviewRating + ", reviewContent=" + reviewContent
+				+ ", reviewCreateDate=" + reviewCreateDate + ", ordersDate=" + ordersDate + ", ordersTotalAmount="
+				+ ordersTotalAmount + ", orderItemNumber=" + orderItemNumber + ", orderItemUnitPrice="
+				+ orderItemUnitPrice + ", orderItemQuantity=" + orderItemQuantity + ", itemType=" + itemType
+				+ ", itemName=" + itemName + "]";
+	}
+	   
 }
