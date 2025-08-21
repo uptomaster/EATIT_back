@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="post">
+
+	<!-- 전체 게시글 조회 -->
+	<select id="selectAll" resultType="PostDetailDTO">
+	<![CDATA[
+		SELECT*FROM(
+			SELECT ROWNUM AS RNUM,SUBQUERY.*
+			FROM(
+			SELECT M.MEMBER_NUMBER,M.MEMBER_ID,B POST_NUMBER, B POST Title,B BOARD_CONTENT,D.POST_CREATED_DATE,B.POST_VIEW_COUNT
+			FROM TBL_MEMBDER M JOIN TBL_POST B
+			ON M.MEMBER_NUMBER=B.MEMBER_NUMBER
+			ORDER BY B.POST_CREATED_DATE DESC
+		)SUBQUERY
+	)WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+	]]>
+	</select>
+
+
+	<!--조회수 쿼리  -->
+	<update id="updateReadCount" parameterType="int">
+		UPDATE TBL_POST
+		SET POST_READ_COUNT=POST_READ_COUNT+1
+		WHERE POST_NUMBER=#{postNumber}
+	</update>
+	
+	<!-- 게시글 삭제 쿼리 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM TBL_POST
+		WHERE BOARD_NUMBER =#{boardNumber}
+	</delete>
+
+	<!-- 게시글 수정쿼리 -->
+	<update id="update" parameterType="PostDTO">
+		UPDATE TBL_POST
+		SET POST_TITLE=#{postTitle}, FREE_CONTENT=#{freeContent},PROMO_CONTENT=#{promoContent},RECIPE_CONTENT=#{recipeContent}
+		<!-- , board_update = #{boardUpdate} 수정일 -->
+		WHERE POST_NUMBER=#{postNumber}
+	</update>
+	
+	<!-- 게시글 상세(1건조회) -->
+	<select id="select" parameterType="int" resultType="PostDetailDTO">
+		<![CDATA[
+			SELECT M.MEMBER_NUMBER,M.MEMBER_ID, B.POST_NUMBER,B.POST_TITLE,B.POST_CONTENT,B.POST_DATE,B.POST_READ_COUNT
+			FROM TBL_MEMBER M JOIN TBL_POST B
+			ON B.MEMBER_NUMBER=M.MEMBERNUMBER
+			WHERE B.POST_NUMBER= #{postNumber}
+		]]>
+	</select>
+	
+</mapper>
