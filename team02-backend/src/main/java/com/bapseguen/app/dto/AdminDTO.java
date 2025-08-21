@@ -9,6 +9,7 @@ public class AdminDTO {
 	private int MemberNumber; //관리자 번호
 	private String adminTreeGrade; //관리자 등급
 	
+	
 	public int getAdminMemberNumber() {
 		return MemberNumber;
 	}
