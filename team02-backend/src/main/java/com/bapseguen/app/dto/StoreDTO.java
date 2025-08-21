@@ -10,6 +10,8 @@ public class StoreDTO {
 	private String storeAddress;
 	private String storeAddressDetail;
 	private String storeZipCode;
+	private String storeOpenTime;
+	private String storeCloseTime;
 	public String getBusinessNumber() {
 		return businessNumber;
 	}
@@ -58,13 +60,26 @@ public class StoreDTO {
 	public void setStoreZipCode(String storeZipCode) {
 		this.storeZipCode = storeZipCode;
 	}
+	public String getStoreOpenTime() {
+		return storeOpenTime;
+	}
+	public void setStoreOpenTime(String storeOpenTime) {
+		this.storeOpenTime = storeOpenTime;
+	}
+	public String getStoreCloseTime() {
+		return storeCloseTime;
+	}
+	public void setStoreCloseTime(String storeCloseTime) {
+		this.storeCloseTime = storeCloseTime;
+	}
 	@Override
 	public String toString() {
 		return "StoreDTO [businessNumber=" + businessNumber + ", memberNumber=" + memberNumber + ", storeName="
 				+ storeName + ", storeOpenDate=" + storeOpenDate + ", storeTel=" + storeTel + ", storeAddress="
-				+ storeAddress + ", storeAddressDetail=" + storeAddressDetail + ", storeZipCode=" + storeZipCode + "]";
+				+ storeAddress + ", storeAddressDetail=" + storeAddressDetail + ", storeZipCode=" + storeZipCode
+				+ ", storeOpenTime=" + storeOpenTime + ", storeCloseTime=" + storeCloseTime + "]";
 	}
-	
+
 	
 	
 }

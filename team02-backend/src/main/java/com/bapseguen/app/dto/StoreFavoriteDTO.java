@@ -5,7 +5,7 @@ public class StoreFavoriteDTO {
 	private int favoriteNumber;
 	private int memberNumber;
 	private String businessNumber;
-	private String StoreFavoriteCreatedDate;
+	
 	public int getFavoriteNumber() {
 		return favoriteNumber;
 	}
@@ -24,16 +24,11 @@ public class StoreFavoriteDTO {
 	public void setBusinessNumber(String businessNumber) {
 		this.businessNumber = businessNumber;
 	}
-	public String getStoreFavoriteCreatedDate() {
-		return StoreFavoriteCreatedDate;
-	}
-	public void setStoreFavoriteCreatedDate(String storeFavoriteCreatedDate) {
-		StoreFavoriteCreatedDate = storeFavoriteCreatedDate;
-	}
+
 	@Override
 	public String toString() {
 		return "StoreFavoriteDTO [favoriteNumber=" + favoriteNumber + ", memberNumber=" + memberNumber
-				+ ", businessNumber=" + businessNumber + ", StoreFavoriteCreatedDate=" + StoreFavoriteCreatedDate + "]";
+				+ ", businessNumber=" + businessNumber + "]";
 	}
 	
 	
