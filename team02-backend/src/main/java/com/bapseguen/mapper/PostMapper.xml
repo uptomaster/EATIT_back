@@ -49,4 +49,23 @@
 		]]>
 	</select>
 	
+	<!-- 내가 작성한 게시글 조회 -->
+	<select id="selectMyPosts" resultType="PostDTO">
+	<![CDATA[
+	  SELECT * FROM (
+	    SELECT ROWNUM AS RNUM, SUBQUERY.*
+	    FROM (
+	      SELECT POST_NUMBER,POST_TITLE,POST_TYPE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_LIKE_COUNT,POST_DELETE_STATE
+	      FROM TBL_POST
+	      WHERE MEMBER_NUMBER = #{memberNumber}
+	        AND POST_DELETE_STATE = 'N'
+	      ORDER BY POST_CREATED_DATE DESC
+	    ) SUBQUERY
+	  )
+	  WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+	]]>
+	</select>
+	
+	
+	
 </mapper>
