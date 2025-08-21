@@ -11,11 +11,11 @@ public class OrdersDTO {
 	private int ordersTotalAmount;
 	private String ordersPaymentStatus;
 	
+	// getter & setter
 	public int getOrdersNumber() {
 		return ordersNumber;
 	}
 	
-	// getter & setter
 	public void setOrdersNumber(int ordersNumber) {
 		this.ordersNumber = ordersNumber;
 	}
