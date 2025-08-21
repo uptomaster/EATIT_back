@@ -16,8 +16,8 @@
   <script defer src="./../../assets/js/community/loadHeaderFooter.js"></script>
   <script defer src="./../../assets/js/community/mouseoverTreeIcon.js"></script>
   <script>
-    let header_path = '../../header_login.html';
-    let footer_path = '../../footer.html';
+    let headerPath = '../../header.jsp';
+    let footerPath = '../../footer.jsp';
   </script>
 </head>
 

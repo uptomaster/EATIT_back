@@ -14,8 +14,8 @@
   <script defer src="./../../assets/js/community/mouseoverTreeIcon.js"></script>
   <link rel="stylesheet" href="./../../assets/css/community/treeGrade.css">
   <script>
-    let headerPath = '../../header_login.html';
-    let footerPath = '../../footer.html';
+    let headerPath = '../../header.jsp';
+    let footerPath = '../../footer.jsp';
   </script>
   <script defer src="../../assets/js/header.js"></script>
 </head>

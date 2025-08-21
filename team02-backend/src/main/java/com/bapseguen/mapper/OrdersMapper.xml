@@ -20,7 +20,7 @@
     </select>
 
     <!-- 특정 회원의 주문 목록 -->
-    <select id="selectOrdersByMember" parameterType="int" resultType="com.bapseguen.app.dto.OrdersDTO">
+    <select id="selectOrdersByMember" parameterType="int" resultType="OrdersDTO">
         SELECT 
             ORDER_NUMBER, MEMBER_NUMBER, ORDERS_PAYMENT_INFO, TO_CHAR(ORDERS_DATE, 'YYYY-MM-DD') AS ordersDate, 
             ORDERS_TOTAL_AMOUNT, ORDERS_PAYMENT_STATUS

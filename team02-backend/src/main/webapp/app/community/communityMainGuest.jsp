@@ -22,8 +22,8 @@
   <!-- header / footer 경로 설정 
   communityMaingGuest는 webapp기준 2개 폴더 하위이므로 상대경로로 적용 -->
   <script>
-    let headerPath = '../../header.html';
-    let footerPath = '../../footer.html';
+    let headerPath = '../../header.jsp';
+    let footerPath = '../../footer.jsp';
   </script>
   <script defer src="../../assets/js/header.js"></script>
 </head>
