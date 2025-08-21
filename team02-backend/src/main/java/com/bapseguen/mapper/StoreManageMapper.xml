@@ -3,25 +3,36 @@
 <mapper namespace="storeManage">
 	<!-- 음식 판매 등록 -->
 	<insert id="addFood" parameterType="ItemDTO">
-	    <selectKey keyProperty="itemNumebr" resultType="int" order="BEFORE">
-      		SELECT SEQ_ITEM_NUMBER.NEXTVAL FROM dual
-    	</selectKey>
-		INSERT INTO TBL_ITEM ( 
+		<selectKey keyProperty="itemNumebr" resultType="int"
+			order="BEFORE">
+			SELECT SEQ_ITEM_NUMBER.NEXTVAL FROM dual
+		</selectKey>
+		INSERT INTO TBL_ITEM (
 			item_number, business_number,item_type,item_name,item_price,item_content,
-			item_quantity,item_origin,item_expire_date,item_created_date 
-		) VALUES ( 
+			item_quantity,item_origin,item_expire_date,item_created_date
+		) VALUES (
 			#{businessNumber},#{itemType},'FOOD',#{itemPrice},#{itemContent},
-			#{itemQuantity},#{itemOrigin},#{itemExpireDate},SYSDATE 
+			#{itemQuantity},#{itemOrigin},#{itemExpireDate},SYSDATE
 		)
 	</insert>
 	<!-- 음식 판매 상세 조회 -->
-	<select id="detaileFood" parameterType="" resultType="">
-	
-
+	<select id="detaileFood" parameterType="int" >
+		select
+			item_name, item_price, item_content, item_quantity, item_origin, item_expire_date, item_sell_state
+		from tbl_item
+		where item_number = #{itemNumber}
 	</select>
 	<!-- 음식 판매 수정 -->
-	
+	<update id="editFood" parameterType="ItemDTO" >
+		UPDATE TBL_ITEM
+		SET ITEM_NAME = #{itemName}, ITEM_PRICE = #{itemPrice}, ITEM_CONTENT = #{itemContent}, ITEM_QUANTITY = #{itemQuantity}, ITEM_ORIGIN = #{itemOrigin}, ITEM_UPDATED_TIME = SYSDATE
+		WHERE ITEM_NUMBER = #{itemNumber}
+		AND ITEM_TYPE = 'FOOD';
+	</update>
+
 	<!-- 음식 판매 삭제 -->
+
+
 	<!-- 음식 판매 목록 조회 -->
 	<select id="" parameterType="" resultType="">
 		-- 상품 목록 조회
@@ -35,12 +46,16 @@
 		i.item_quantity,
 		i.item_origin,
 		i.item_expire_date,
-		-- s.store_name,
+		--
+		s.store_name,
 		im.item_image_system_name
 		FROM TBL_ITEM i
-		JOIN TBL_STORE s ON i.business_number = s.business_number
-		LEFT JOIN TBL_ITEM_IMAGE im ON i.item_number = im.item_number
-		WHERE i.business_number = #{businessNumber}
+		JOIN TBL_STORE s
+		ON i.business_number = s.business_number
+		LEFT JOIN TBL_ITEM_IMAGE im ON
+		i.item_number = im.item_number
+		WHERE i.business_number =
+		#{businessNumber}
 		ORDER BY i.item_number DESC
 	</select>
 
@@ -52,7 +67,8 @@
 
 	<!-- 움삭 메뉴 중복 확인 -->
 	<select id="alreadyfood" parameterType="" resultType="">
-		select count(item_number) from tbl_item
+		select
+		count(item_number) from tbl_item
 		where item_name = #{itemName};
 	</select>
 
