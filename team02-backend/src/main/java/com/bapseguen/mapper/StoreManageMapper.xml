@@ -3,30 +3,20 @@
 <mapper namespace="storeManage">
 	<!-- 음식 판매 등록 -->
 	<insert id="addFood" parameterType="ItemDTO">
-		INSERT INTO TBL_ITEM (
-		business_number,
-		item_type,
-		item_name,
-		item_price,
-		item_content,
-		item_quantity,
-		item_origin,
-		item_expire_date,
-		item_created_date
-		) VALUES (
-		#{businessNumber},
-		#{itemType},
-		'FOOD',
-		#{itemPrice},
-		#{itemContent},
-		#{itemQuantity},
-		#{itemOrigin},
-		#{itemExpireDate},
-		SYSDATE
+	    <selectKey keyProperty="itemNumebr" resultType="int" order="BEFORE">
+      		SELECT SEQ_ITEM_NUMBER.NEXTVAL FROM dual
+    	</selectKey>
+		INSERT INTO TBL_ITEM ( 
+			item_number, business_number,item_type,item_name,item_price,item_content,
+			item_quantity,item_origin,item_expire_date,item_created_date 
+		) VALUES ( 
+			#{businessNumber},#{itemType},'FOOD',#{itemPrice},#{itemContent},
+			#{itemQuantity},#{itemOrigin},#{itemExpireDate},SYSDATE 
 		)
 	</insert>
 	<!-- 음식 판매 상세 조회 -->
 	<select id="detaileFood" parameterType="" resultType="">
+	
 
 	</select>
 	<!-- 음식 판매 수정 -->
