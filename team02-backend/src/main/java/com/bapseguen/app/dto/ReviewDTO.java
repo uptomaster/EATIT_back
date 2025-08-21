@@ -14,16 +14,16 @@ public class ReviewDTO {
 	private int itemPrice; 
 	private int itemQuantity;
 	
-	protected int getReviewNumber() {
+	public int getReviewNumber() {
 		return reviewNumber;
 	}
-	protected void setReviewNumber(int reviewNumber) {
+	public void setReviewNumber(int reviewNumber) {
 		this.reviewNumber = reviewNumber;
 	}
-	protected int getOrdersNumber() {
+	public int getOrdersNumber() {
 		return ordersNumber;
 	}
-	protected void setOrdersNumber(int ordersNumber) {
+	public void setOrdersNumber(int ordersNumber) {
 		this.ordersNumber = ordersNumber;
 	}
 	public String getBusinessNumber() {
@@ -32,49 +32,42 @@ public class ReviewDTO {
 	public void setBusinessNumber(String businessNumber) {
 		this.businessNumber = businessNumber;
 	}
-	protected int getMemberNumber() {
+	public int getMemberNumber() {
 		return MemberNumber;
 	}
-	protected void setMemberNumber(int memberNumber) {
+	public void setMemberNumber(int memberNumber) {
 		MemberNumber = memberNumber;
 	}
-	protected int getReviewRating() {
+	public int getReviewRating() {
 		return reviewRating;
 	}
-	protected void setReviewRating(int reviewRating) {
+	public void setReviewRating(int reviewRating) {
 		this.reviewRating = reviewRating;
 	}
-	protected String getReviewContent() {
+	public String getReviewContent() {
 		return reviewContent;
 	}
-	protected void setReviewContent(String reviewContent) {
+	public void setReviewContent(String reviewContent) {
 		this.reviewContent = reviewContent;
 	}
-	protected String getReviewCreateDate() {
+	public String getReviewCreateDate() {
 		return reviewCreateDate;
 	}
-	protected void setReviewCreateDate(String reviewCreateDate) {
+	public void setReviewCreateDate(String reviewCreateDate) {
 		this.reviewCreateDate = reviewCreateDate;
 	}
-	protected List<itemImage> getFiles() {
-		return files;
-	}
-	protected void setFiles(List<itemImage> files) {
-		this.files = files;
-	}
-	protected int getItemPrice() {
+	public int getItemPrice() {
 		return itemPrice;
 	}
-	protected void setItemPrice(int itemPrice) {
+	public void setItemPrice(int itemPrice) {
 		this.itemPrice = itemPrice;
 	}
-	protected int getItemQuantity() {
+	public int getItemQuantity() {
 		return itemQuantity;
 	}
-	protected void setItemQuantity(int itemQuantity) {
+	public void setItemQuantity(int itemQuantity) {
 		this.itemQuantity = itemQuantity;
 	}
-	
 	@Override
 	public String toString() {
 		return "ReviewDTO [reviewNumber=" + reviewNumber + ", ordersNumber=" + ordersNumber + ", businessNumber="
@@ -82,5 +75,7 @@ public class ReviewDTO {
 				+ ", reviewContent=" + reviewContent + ", reviewCreateDate=" + reviewCreateDate + ", itemPrice="
 				+ itemPrice + ", itemQuantity=" + itemQuantity + "]";
 	}
+	
+	
 	
 }

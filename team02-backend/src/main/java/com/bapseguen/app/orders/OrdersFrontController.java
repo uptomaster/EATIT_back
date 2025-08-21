@@ -47,25 +47,64 @@ public class OrdersFrontController extends HttpServlet {
 
         Result result = null;
 
-		switch (target) {
-		case "/member/join.me":
-			System.out.println("회원가입 페이지 요청");
-//			request.getRequestDispatcher("/app/member/join.jsp").forward(request, response);
-			break;
-		case "/member/joinOk.me":
-			System.out.println("회원가입 처리 요청");
-//			result = new JoinOkController().execute(request, response);
-			break;
-		}
+        switch (target) {
+        // -------------------- Cart (장바구니) --------------------
+        case "/cart/view.ct":
+            System.out.println("장바구니 페이지 요청");
+            result = new PaymentApproveOkController().execute(request, response);
+            break;
+        case "/cart/addOk.ct":
+            System.out.println("장바구니 담기 처리 요청");
+            result = new CartAddOkController().execute(request, response);
+            break;
+        case "/cart/updateOk.ct":
+            System.out.println("장바구니 수량 변경 처리 요청");
+            result = new CartUpdateOkController().execute(request, response);
+            break;
+        case "/cart/removeOk.ct":
+            System.out.println("장바구니 항목 삭제 처리 요청");
+            result = new PaymentReadyController().execute(request, response);
+            break;
 
-		if (result != null) {
-			if (result.isRedirect()) {
-				response.sendRedirect(result.getPath());
-			} else {
-				request.getRequestDispatcher(result.getPath()).forward(request, response);
-			}
-		}
-		
-	}
+        // -------------------- Order (주문) --------------------
+        case "/order/createOk.or":
+            System.out.println("주문 생성 처리 요청 (장바구니 → 주문)");
+            result = new OrderCreateOkController().execute(request, response);
+            break;
+        case "/order/list.or":
+            System.out.println("주문 목록 페이지 요청");
+            result = new OrderListController().execute(request, response);
+            break;
+        case "/order/detail.or":
+            System.out.println("주문 상세 페이지 요청");
+            result = new OrderDetailController().execute(request, response);
+            break;
+        case "/order/cancelOk.or":
+            System.out.println("주문 취소 처리 요청");
+            result = new OrderCancelOkController().execute(request, response);
+            break;
 
+        // -------------------- Payment (결제) --------------------
+        case "/payment/ready.pm":
+            System.out.println("결제 준비(결제창 진입) 요청");
+            result = new PaymentReadyController().execute(request, response);
+            break;
+        case "/payment/approveOk.pm":
+            System.out.println("결제 승인 처리 요청");
+            result = new PaymentApproveOkController().execute(request, response);
+            break;
+        case "/payment/cancelOk.pm":
+            System.out.println("결제 취소 처리 요청");
+            result = new PaymentCancelOkController().execute(request, response);
+            break;
+    }
+
+    if (result != null) {
+        if (result.isRedirect()) {
+            response.sendRedirect(result.getPath());
+        } else {
+            request.getRequestDispatcher(result.getPath()).forward(request, response);
+        }
+    }
+}
 }
