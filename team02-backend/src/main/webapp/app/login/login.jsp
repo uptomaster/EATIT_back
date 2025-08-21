@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,10 +11,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/login/login.css"/>
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/login/login.js"></script>
-    <script>
-    let headerPath = '${pageContext.request.contextPath}/header.jsp';
-    let footerPath = '${pageContext.request.contextPath}/footer.jsp';
-  </script>
+  <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
   <title>밥세권</title>
 </head>
 
