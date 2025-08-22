@@ -16,4 +16,10 @@ public class LoginDAO {
 		Integer memberNumber = sqlSession.selectOne("member.login", memberDTO);
 		return memberNumber == null ? -1 : memberNumber;
 	}
+	
+	public String getMemberType(MemberDTO memberDTO) {
+	    String type = sqlSession.selectOne("member.getMemberType", memberDTO);
+	    if (type == null || type.isEmpty()) return "GENERAL";
+	    return type;
+	}
 }
