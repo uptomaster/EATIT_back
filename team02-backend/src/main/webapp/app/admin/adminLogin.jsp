@@ -6,8 +6,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>adminLogin</title>
-  <link rel="stylesheet" href="./../../assets/css/admin/adminLogin.css">
-  <script defer src="./../../assets/js/admin/adminLogin.js"></script>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/adminLogin.css">
+  <script defer src="${pageContext.request.contextPath}/assets/js/admin/adminLogin.js"></script>
 </head>
 <body>
   <!-- 회색영역 -->
@@ -15,13 +15,13 @@
     <!-- 좌측 사이드바 -->
     <aside class="sidebar">
       <!-- 관리자페이지 로고 -->
-      <a href="./../../app/admin/adminLogin.html"><img src="./../../assets/img/admin_logo.png" alt="admin_logo"></a>
+      <a href="${pageContext.request.contextPath}/app/admin/adminLogin.html"><img src="${pageContext.request.contextPath}/assets/img/admin_logo.png" alt="admin_logo"></a>
     </aside>
     <!-- 로그인박스 바깥 영역 -->
     <div class="bigbox">
       <!-- 로그인박스 위쪽 -->
       <div class="smallbox"><p class="AdminLogin">Admin Login</p></div>
-      <form id="admin_login_form" action="" method="post">
+      <form id="admin_login_form" action="/admin/login.ad" method="post">
         <!-- 로그인박스 아래쪽 -->
       <div class="bottomWrapper">
         <!-- 아이디 패스워드 입력 영역 -->
