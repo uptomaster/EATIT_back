@@ -16,7 +16,6 @@
   <script defer src="${pageContext.request.contextPath}/assets/js/main.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-  <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
 
 <script>
     let headerPath = './../../header.jsp';
@@ -27,6 +26,7 @@
 
 <body>
   <!-------------------- 헤더 ------------------------>
+  <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
   <!-- <header id="header"></header> -->
 
   <!-------------------- 메인 ------------------------>
