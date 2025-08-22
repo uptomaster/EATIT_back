@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -14,8 +15,8 @@
   <script defer src="./../../assets/js/community/writeFreeBoard.js"></script>
   <script defer src="./../../assets/js/community/mouseoverTreeIcon.js"></script>
   <script>
-    let headerPath = '../../header.jsp';
-    let footerPath = '../../footer.jsp';
+    let headerPath = '../../header_login.html';
+    let footerPath = '../../footer.html';
   </script>
   <script defer src="../../assets/js/header.js"></script>
 </head>
@@ -37,19 +38,6 @@
       </div>
 
       <form action="/submit_post" method="post" class="write_form" enctype="multipart/form-data">
-        <div class="form_group">
-          <label for="tagSelect">태그</label>
-          <select id="tagSelect" name="tagSelect" required>
-            <option value="" disabled selected>태그를 선택하세요</option>
-            <option value="[잡담]">[잡담]</option>
-            <option value="[질문]">[질문]</option>
-            <option value="[정보공유]">[정보공유]</option>
-            <option value="[후기]">[후기]</option>
-            <option value="[일상]">[일상]</option>
-            <option value="[건의사항]">[건의사항]</option>
-            <option value="[이벤트참여]">[이벤트참여]</option>
-          </select>
-        </div>
 
         <div class="form_group">
           <label for="title">제목</label>

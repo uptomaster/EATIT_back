@@ -15,8 +15,8 @@
   <script defer src="./../../assets/js/community/customerServiceList.js"></script>
   <script defer src="./../../assets/js/community/loadHeaderFooter.js"></script>
   <script>
-    let headerPath = '../../header.jsp';
-    let footerPath = '../../footer.jsp';
+    let header_path = '../../header.html';
+    let footer_path = '../../footer.html';
   </script>
 </head>
 
@@ -36,7 +36,6 @@
       <!-- 게시판 목록 가장 위 각 제목들 -->
       <section class="community_list" aria-label="고객센터 게시판 목록">
         <div class="list_header_flex_row" role="rowgroup">
-          <div class="col_tag" role="columnheader">태그</div>
           <div class="col_title" role="columnheader">제목</div>
           <div class="col_author" role="columnheader">글쓴이</div>
           <div class="col_date" role="columnheader">등록일</div>
@@ -49,7 +48,6 @@
 
           <!-- 게시판 한 행 -->
           <div class="list_row_flex_row" role="row">
-            <div class="col_tag" role="cell">공지</div>
             <div class="col_title" role="cell"><a href="./../community/viewOtherPost.html">회원가입은 어떻게 하나요?</a></div>
             <div class="col_author" role="cell">관리자</div>
             <div class="col_date" role="cell">25-07-20</div>
@@ -59,7 +57,6 @@
 
           <!-- 게시판 한 행 -->
           <div class="list_row_flex_row" role="row">
-            <div class="col_tag" role="cell">공지</div>
             <div class="col_title" role="cell"><a href="./../community/viewOtherPost.html">비밀번호를 잊어버렸어요. 어떻게 하나요?</a></div>
             <div class="col_author" role="cell">관리자</div>
             <div class="col_date" role="cell">25-07-22</div>
@@ -69,7 +66,6 @@
 
           <!-- 게시판 한 행 -->
           <div class="list_row_flex_row" role="row">
-            <div class="col_tag" role="cell">공지</div>
             <div class="col_title" role="cell"><a href="./../community/viewOtherPost.html">상품 배송은 얼마나 걸리나요?</a></div>
             <div class="col_author" role="cell">관리자</div>
             <div class="col_date" role="cell">25-07-25</div>
@@ -79,7 +75,6 @@
 
           <!-- 게시판 한 행 -->
           <div class="list_row_flex_row" role="row">
-            <div class="col_tag" role="cell">공지</div>
             <div class="col_title" role="cell"><a href="./../community/viewOtherPost.html">주문 취소 및 환불 절차는 어떻게 되나요?</a></div>
             <div class="col_author" role="cell">관리자</div>
             <div class="col_date" role="cell">25-07-28</div>
@@ -89,7 +84,6 @@
 
           <!-- 게시판 한 행 -->
           <div class="list_row_flex_row" role="row">
-            <div class="col_tag" role="cell">공지</div>
             <div class="col_title" role="cell"><a href="./../community/viewOtherPost.html">회원 탈퇴는 어떻게 하나요?</a></div>
             <div class="col_author" role="cell">관리자</div>
             <div class="col_date" role="cell">25-07-30</div>
@@ -99,7 +93,6 @@
 
           <!-- 게시판 한 행 -->
           <div class="list_row_flex_row" role="row">
-            <div class="col_tag" role="cell">공지</div>
             <div class="col_title" role="cell"><a href="./../community/viewOtherPost.html">이벤트 쿠폰은 어떻게 사용하나요?</a></div>
             <div class="col_author" role="cell">관리자</div>
             <div class="col_date" role="cell">25-08-01</div>
