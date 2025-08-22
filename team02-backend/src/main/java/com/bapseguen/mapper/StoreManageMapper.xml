@@ -36,7 +36,7 @@
 		SYSDATE
 		WHERE ITEM_NUMBER =
 		#{itemNumber}
-		AND ITEM_TYPE = 'FOOD';
+		AND ITEM_TYPE = 'FOOD'
 	</update>
 
 	<!-- 음식 판매 삭제 -->
@@ -44,7 +44,7 @@
 		DELETE FROM tbl_item
 		where
 		item_number = #{itemNumber}
-		and item_type = 'FOOD';
+		and item_type = 'FOOD'
 	</delete>
 
 	<!-- 음식 목록 조회 -->
@@ -142,7 +142,7 @@
 		BUSINESS_NUMBER = #{businessNumber}),
 		#{itemImageSystemName},
 		#{itemImageOriginalName}
-		FROM DUAL;
+		FROM DUAL
 	</insert>
 
 	<!-- 가게 정보 조회 -->
@@ -180,7 +180,7 @@
 	JOIN TBL_ITEM i ON oi.item_number = i.item_number
 	JOIN TBL_MEMBER m ON o.orders_member_number = m.member_number
 	WHERE i.business_number = #{businessNumber}
-    AND TRUNC(o.orders_date) = TRUNC(SYSDATE);
+    AND TRUNC(o.orders_date) = TRUNC(SYSDATE)
 	</select>
 
 	<!-- 총 판매 내역 -->
@@ -198,7 +198,7 @@
 		JOIN TBL_ITEM i ON oi.item_number = i.item_number
 		JOIN TBL_MEMBER m ON o.orders_member_number = m.member_number
 		WHERE i.business_number = #{businessNumber}
-		ORDER BY o.orders_date DESC ;
+		ORDER BY o.orders_date DESC 
 	</select>
 	<!-- parameterType="" resultType="" -->
 	
