@@ -2,10 +2,12 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>공지사항/이벤트(회원)</title>
+
   <!-- css -->
   <link rel="stylesheet" href="./../../assets/css/community/communityMainUser.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
@@ -18,8 +20,8 @@
   <script defer src="./../../assets/js/community/communityMainUser.js"></script>
   <script defer src="./../../assets/js/community/mouseoverTreeIcon.js"></script>
   <script>
-    let headerPath = '../../header.jsp';
-    let footerPath = '../../footer.jsp';
+    let headerPath = '../../header_login.html';
+    let footerPath = '../../footer.html';
   </script>
   <script defer src="../../assets/js/header.js"></script>
 </head>
@@ -49,7 +51,6 @@
       <section class="community_list" aria-label="게시판 목록">
         <!-- 리스트 제목 부분 -->
         <div class="list_header flex_row" role="rowgroup">
-          <div class="col_tag" role="columnheader">태그</div>
           <div class="col_title" role="columnheader">제목</div>
           <div class="col_author" role="columnheader">글쓴이</div>
           <div class="col_date" role="columnheader">등록일</div>
@@ -61,7 +62,6 @@
         <div id="postListBody" class="list_body" role="rowgroup">
           <!-- 게시글 한 줄 -->
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">공지</div>
             <div class="col_title" role="cell"><a href="./../community/viewOtherPost.html">밥세권 앱 신규 기능 업데이트 안내</a></div>
             <div class="col_author" role="cell">
               관리자
@@ -74,7 +74,6 @@
 
           <!-- 계속 복붙된 게시글들 -->
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">공지</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">신규 입점 업체 ‘맛있는 반찬’
                 소개</a></div>
             <div class="col_author" role="cell">
@@ -87,7 +86,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">이벤트</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">여름맞이 대규모 할인 이벤트
                 진행!</a></div>
             <div class="col_author" role="cell">
@@ -100,7 +98,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">공지</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">사용자 리뷰 작성 가이드 및 혜택
                 안내</a></div>
             <div class="col_author" role="cell">
@@ -113,7 +110,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">이벤트</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">친구 초대하고 쿠폰 받자! 추천
                 이벤트</a></div>
             <div class="col_author" role="cell">
@@ -126,7 +122,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">이벤트</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">친구 초대하고 쿠폰 받자! 추천
                 이벤트</a></div>
             <div class="col_author" role="cell">
