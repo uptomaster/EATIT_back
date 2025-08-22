@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+/*window.addEventListener('DOMContentLoaded', () => {
   // 헤더 불러오기
   fetch('${pageContext.request.contextPath}/header.jsp')
     .then(response => response.text())
@@ -13,7 +13,7 @@ window.addEventListener('DOMContentLoaded', () => {
       document.getElementById('footer').innerHTML = data;
     });
 });
-
+*/
 const slideBox = document.querySelector(".main_slide_box");
 const slideImg = document.querySelectorAll(".main_slide_img");
 const prevBtn = document.querySelector(".main_banner_prev");

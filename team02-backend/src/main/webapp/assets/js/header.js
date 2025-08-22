@@ -9,22 +9,6 @@ window.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  // 헤더 로드
-  fetch(headerPath)
-    .then(response => response.text())
-    .then(headerHtml => {
-      document.getElementById('header').innerHTML = headerHtml;
-      bindHeaderDropdown();
-    })
-    .catch(error => console.error('헤더 로드 실패:', error));
-
-  // 푸터 로드
-  fetch(footerPath)
-    .then(response => response.text())
-    .then(footerHtml => {
-      document.getElementById('footer').innerHTML = footerHtml;
-    })
-    .catch(error => console.error('푸터 로드 실패:', error));
 });
 
 //헤더 드롭다운 함수
@@ -67,4 +51,6 @@ function bindHeaderDropdown() {
   dropdown.addEventListener('mouseleave', () => {
     dropdown.style.display = 'none';
   });
+  
 }
+  bindHeaderDropdown();
