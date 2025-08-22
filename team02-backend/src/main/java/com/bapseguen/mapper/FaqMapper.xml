@@ -3,18 +3,37 @@
 <mapper namespace="faq">
 
 	<!-- 자주묻는질문(faq) 목록 조회 -->
-<!-- 	<select id="selectAll" resultType="FaqDTO">
+	<select id="selectAll" resultType="FaqDTO">
 	<![CDATA[
-		SELECT*FROM(
-			SELECT ROWNUM AS RNUM,SUBQUERY.*
-			FROM(
-			SELECT M.MEMBER_NUMBER,M.MEMBER_ID,P.POST_NUMBER, P.POST Title, P.POST_CREATED_DATE, P.POST_VIEW_COUNT,P.POST_TYPE
-			FROM TBL_MEMBER M JOIN TBL_POST
-			ON M.MEMBER_NUMBER=P.MEMBER_NUMBER
-			ORDER BY P.POST_CREATED_DATE DESC
-		)SUBQUERY
-	)WHERE RNUM BETWEEN #{startRow} AND #{endRow}
-	]]>
-	</select> -->
-
+		 SELECT * FROM (
+		    SELECT ROWNUM AS RNUM, SUBQUERY.*
+		    FROM (
+		      SELECT POST_NUMBER,POST_TITLE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_TYPE
+		      FROM TBL_POST
+		      WHERE POST_TYPE = 'FAQ'
+		        AND POST_DELETE_STATE = 'N'
+		      ORDER BY POST_CREATED_DATE DESC
+		    ) SUBQUERY
+		  )
+		  WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+		]]>
+	</select>
+	
+	<!--조회수 쿼리  -->
+	<update id="updateReadCount" parameterType="int">
+		UPDATE TBL_POST
+		SET POST_READ_COUNT=POST_READ_COUNT+1
+		WHERE POST_NUMBER=#{postNumber}
+	</update>
+	
+	<!-- 자주묻는질문 상세(1건조회) -->
+	<select id="select" parameterType="int" resultType="PostDetailDTO">
+		<![CDATA[
+			SELECT M.MEMBER_NUMBER,M.MEMBER_ID, P.POST_NUMBER,P.POST_TITLE,P.POST_CONTENT,P.POST_DATE,P.POST_VIEW_COUNT
+			FROM TBL_MEMBER M JOIN TBL_POST P
+			ON P.MEMBER_NUMBER=M.MEMBERNUMBER
+			WHERE P.POST_NUMBER= #{postNumber}
+		]]>
+	</select>
+	
 </mapper>
