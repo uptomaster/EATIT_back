@@ -54,7 +54,7 @@ public class AdminFrontController extends HttpServlet {
 		    break;
 		
 
-		/* ===================== 대시보드 ===================== */
+		/* ===================== 대시보드(관리자 메인페이지) ===================== */
 		case "/admin/dashboard.ad":
 			System.out.println("[ADMIN] 대시보드 페이지 요청");
 			result = new AdminDashboardController().execute(request, response);

@@ -1,26 +1,34 @@
 package com.bapseguen.app.admin;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 
 public class AdminLoginController implements Execute {
+    @Override
+    public Result execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-	@Override
-	public Result execute(HttpServletRequest request, HttpServletResponse response)
-    System.out.println("[ADMIN] 관리자 로그인 페이지 요청");
+        System.out.println("[ADMIN] 관리자 로그인 페이지 요청");
 
-    Result result = new Result();
-    result.setPath("/app/admin/adminLogin.jsp");
-    result.setRedirect(false);
-    return result;
-	
+        // 이미 로그인된 ADMIN이면 메인으로
+        HttpSession session = request.getSession(false);
+        if (session != null && "ADMIN".equals(String.valueOf(session.getAttribute("memberType")))) {
+            Result redirect = new Result();
+            redirect.setPath(request.getContextPath() + "/admin/main.ad");
+            redirect.setRedirect(true);
+            return redirect;
+        }
 
-	}
-
+        // 로그인 폼 JSP로 forward
+        Result result = new Result();
+        result.setPath("/app/admin/adminLogin.jsp");
+        result.setRedirect(false);
+        return result;
+    }
 }
