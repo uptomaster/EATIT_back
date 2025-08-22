@@ -3,7 +3,7 @@
 <mapper namespace="post">
 
 	<!-- 전체 게시글 조회 -->
-	<select id="selectAll" resultType="PostDetailDTO">
+	<select id="postSelectAll" resultType="PostDetailDTO">
 	<![CDATA[
 		SELECT*FROM(
 			SELECT ROWNUM AS RNUM,SUBQUERY.*
@@ -19,20 +19,20 @@
 
 
 	<!--조회수 쿼리  -->
-	<update id="updateReadCount" parameterType="int">
+	<update id="postUpdateReadCount" parameterType="int">
 		UPDATE TBL_POST
 		SET POST_READ_COUNT=POST_READ_COUNT+1
 		WHERE POST_NUMBER=#{postNumber}
 	</update>
 	
 	<!-- 게시글 삭제 쿼리 -->
-	<delete id="delete" parameterType="int">
+	<delete id="postDelete" parameterType="int">
 		DELETE FROM TBL_POST
 		WHERE POST_NUMBER =#{postNumber}
 	</delete>
 
 	<!-- 게시글 수정쿼리 -->
-	<update id="update" parameterType="PostDTO">
+	<update id="postUpdate" parameterType="PostDTO">
 		UPDATE TBL_POST
 		SET POST_TITLE=#{postTitle}, FREE_CONTENT=#{freeContent},PROMO_CONTENT=#{promoContent},RECIPE_CONTENT=#{recipeContent}
 		<!-- , board_update = #{boardUpdate} 수정일 -->
@@ -40,7 +40,7 @@
 	</update>
 	
 	<!-- 게시글 상세(1건조회) -->
-	<select id="select" parameterType="int" resultType="PostDetailDTO">
+	<select id="postSelect" parameterType="int" resultType="PostDetailDTO">
 		<![CDATA[
 			SELECT M.MEMBER_NUMBER,M.MEMBER_ID, P.POST_NUMBER,P.POST_TITLE,P.POST_CONTENT,P.POST_DATE,P.POST_VIEW_COUNT
 			FROM TBL_MEMBER M JOIN TBL_POST P
@@ -48,5 +48,24 @@
 			WHERE P.POST_NUMBER= #{postNumber}
 		]]>
 	</select>
+	
+	<!-- 내가 작성한 게시글 조회 -->
+	<select id="myPostSelect" resultType="PostDTO">
+	<![CDATA[
+	  SELECT * FROM (
+	    SELECT ROWNUM AS RNUM, SUBQUERY.*
+	    FROM (
+	      SELECT POST_NUMBER,POST_TITLE,POST_TYPE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_LIKE_COUNT,POST_DELETE_STATE
+	      FROM TBL_POST
+	      WHERE MEMBER_NUMBER = #{memberNumber}
+	        AND POST_DELETE_STATE = 'N'
+	      ORDER BY POST_CREATED_DATE DESC
+	    ) SUBQUERY
+	  )
+	  WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+	]]>
+	</select>
+	
+	
 	
 </mapper>

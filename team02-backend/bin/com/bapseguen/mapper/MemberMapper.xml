@@ -1,11 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
-	<!-- 로그인 쿼리작성 -->
+	<!-- 로그인 -->
 	<select id="login" parameterType="MemberDTO" resultType="int">
 		select member_number from tbl_member
 		where member_id = #{memberId} and member_password = #{memberPassword}
 	</select>
 	
+	<!-- 로그인시 멤버유형 분기 -->
+	<select id="getMemberType" parameterType="MemberDTO" resultType="string">
+  		SELECT NVL(MAX('SELLER'), 'GENERAL')
+  		FROM TBL_SELLER_MEMBER
+  		WHERE MEMBER_NUMBER = #{memberNumber}
+	</select>
 	
+	<!-- 회원 아이디 중복 체크 -->
+	<select id="checkId" parameterType="string" resultType="int">
+  		SELECT COUNT(*) 
+  		FROM TBL_MEMBER 
+  		WHERE MEMBER_ID = #{value}
+	</select>
+
+	<!-- 공통 MEMBER -->
+	<insert id="joinMember" parameterType="MemberDTO">
+  		<selectKey keyProperty="memberNumber" resultType="int" order="BEFORE">
+    		SELECT SEQ_MEMBER.NEXTVAL FROM dual
+  		</selectKey>
+  		INSERT INTO TBL_MEMBER (MEMBER_NUMBER, MEMBER_ID, MEMBER_PASSWORD)
+  		VALUES (#{memberNumber}, #{memberId}, #{memberPassword})
+	</insert>
+
+	<!-- 일반회원 상세 -->
+	<insert id="joinGeneral" parameterType="GeneralMemberDTO">
+  		INSERT INTO TBL_GENERAL_MEMBER
+  		(MEMBER_NUMBER, GENERAL_NAME, GENERAL_BIRTH_DATE, GENERAL_PHONE_NUMBER)
+  		VALUES (#{memberNumber}, #{generalName}, TO_DATE(#{generalBirthDate}, 'YYYY-MM-DD'), #{generalPhoneNumber})
+	</insert>
+
+	<!-- 판매자회원 상세 -->
+	<insert id="joinSeller" parameterType="SellerMemberDTO">
+  		INSERT INTO TBL_SELLER_MEMBER
+  		(MEMBER_NUMBER, SELLER_NAME, SELLER_BIRTHDATE, SELLER_PHONE_NUMBER)
+  		VALUES (#{memberNumber}, #{sellerName}, TO_DATE(#{sellerBirthdate}, 'YYYY-MM-DD'), #{sellerPhoneNumber})
+	</insert>
+
+	<!-- 가게 -->
+	<insert id="joinStore" parameterType="StoreDTO">
+  		INSERT INTO TBL_STORE
+  		(BUSINESS_NUMBER, STORE_NAME, STORE_OPEN_DATE, STORE_TEL,
+  	 	STORE_ADDRESS, STORE_ADDRESS_DETAIL, STORE_ZIP_CODE, MEMBER_NUMBER)
+  		VALUES (#{businessNumber}, #{storeName}, TO_DATE(#{storeOpenDate}, 'YYYY-MM-DD'),
+   		#{storeTel}, #{storeAddress}, #{storeAddressDetail}, #{storeZipCode},#{memberNumber})
+	</insert>		
 </mapper>

@@ -16,7 +16,7 @@ public class AdminDashboardController implements Execute {
 
         Result result = new Result();
 
-        // 로그인/권한 체크(선택)
+        // 세션이 없거나, ADMIN 회원유형이 아닌 경우(관리자 페이지는 이거 공통으로 들어갑니다.)
         HttpSession session = request.getSession(false);
         if (session == null || !"ADMIN".equals(String.valueOf(session.getAttribute("memberType")))) {
             result.setPath(request.getContextPath() + "/admin/login.ad");
