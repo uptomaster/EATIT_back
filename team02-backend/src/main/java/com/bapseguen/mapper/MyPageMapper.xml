@@ -3,7 +3,7 @@
 <mapper namespace="myPage">
 
 	<!-- 내 정보 조회 -->
-	<select id="select" resultType="MyPageDTO" parameterType="int">
+	<select id="myPageSelect" resultType="MyPageDTO" parameterType="int">
 	<![CDATA[
 	  SELECT M.MEMBER_NUMBER,M.MEMBER_ID,M.MEMBER_PASSWORD,G.MEMBER_NAME,G.MEMBER_PHONE_NUMBER,G.GENERAL_BIRTHDATE
 	  FROM TBL_MEMBER M JOIN TBL_GENERAL_MEMBER G
@@ -13,7 +13,7 @@
 	</select>
 	
 	<!-- 내 정보 수정 -->
-	<update id="update" parameterType="MyPageDTO">
+	<update id="myPageMemberUpdate" parameterType="MyPageDTO">
 	<![CDATA[
 	  UPDATE TBL_MEMBER
 	  SET 
@@ -23,7 +23,7 @@
 	]]>
 	</update>
 
-	<update id="update" parameterType="MyPageDTO">
+	<update id="myPageGeneralMemberUpdate" parameterType="MyPageDTO">
 	  UPDATE TBL_GENERAL_MEMBER
 	  SET 
 	    MEMBER_NAME = #{memberName},
