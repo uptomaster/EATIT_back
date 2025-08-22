@@ -87,7 +87,7 @@
 		<mapper resource="com/bapseguen/mapper/OriginMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/PostMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/SellerMapper.xml" />
-		<mapper resource="com/bapseguen/mapper/StoreMangeMapper.xml" />
+		<mapper resource="com/bapseguen/mapper/StoreManageMapper.xml" />
 	</mappers>
 	
 </configuration>
