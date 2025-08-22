@@ -4,9 +4,9 @@ public class StoreReivewsDTO {
 	
 	private int reviewNumber; // 리뷰 테이블
 	private int ordersNumber; // 주문 번호
-	private int businessNumber;
-	private int memberNumber;
-	private int reviewRating;
+	private int businessNumber; // 사업자 번호 
+	private int memberNumber; // 사용자 번호
+	private int reviewRating; //
 	private String reviewContent;
 	private String reviewCreateDate;
 	// 구매자 아이디
