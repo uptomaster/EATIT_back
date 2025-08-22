@@ -6,9 +6,12 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.bapseguen.app.dto.FaqDTO;
+import com.bapseguen.app.dto.FreeBoardDTO;
 import com.bapseguen.app.dto.InquiryDTO;
 import com.bapseguen.app.dto.NoticeDTO;
 import com.bapseguen.app.dto.PostDTO;
+import com.bapseguen.app.dto.PromoBoardDTO;
+import com.bapseguen.app.dto.RecipeBoardDTO;
 import com.bapseguen.app.dto.view.PostDetailDTO;
 import com.bapseguen.config.MyBatisConfig;
 
@@ -20,114 +23,103 @@ public class CommunityDAO {
 	}
 
 	// 전체 게시글 목록 조회
-	public List<PostDTO> selectAll(Map<String, Integer> pageMap) {
+	public List<PostDTO> postSelectAll(Map<String, Integer> pageMap) {
 		System.out.println("모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
-		List<PostDTO> list = sqlSession.selectList("board.selectAll", pageMap);
+		List<PostDTO> list = sqlSession.selectList("post.postSelectAll", pageMap);
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
 
-	// 게시글 추가 후 자동으로 생성된 boardNumber 반환 -> 파일 테이블에서도 써야하기 때문에
-	public int insertBoard(PostDTO postDTO) {
-		int insert = sqlSession.insert("board.insert", postDTO);
-		System.out.println(postDTO + "출력");
-		System.out.println(postDTO.getfreeContent() + "출력 === ");
-		System.out.println("게시글 작성 - insertBoard 메소드 실행 ");
-		System.out.println("insert 결과 : " + insert);
-		System.out.println("생성된 postNumber : " + postDTO.getPostNumber());
-		return postDTO.getPostNumber();
+	//자유게시판 목록 조회
+	public List<FreeBoardDTO> selectAll(Map<String, Integer> pageMap) {
+		System.out.println("모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
+		List<FreeBoardDTO> list = sqlSession.selectList("board.freeSelectAll", pageMap);
+		System.out.println("조회결과 : " + list);
+		return list;
 	}
-
-	public int insertBoard(PostDTO postDTO) {
-		int insert = sqlSession.insert("board.insert", postDTO);
-		System.out.println(postDTO + "출력");
-		System.out.println(postDTO.getPromoContent() + "출력 === ");
-		System.out.println("게시글 작성 - insertBoard 메소드 실행 ");
-		System.out.println("insert 결과 : " + insert);
-		System.out.println("생성된 postNumber : " + postDTO.getPostNumber());
-		return postDTO.getPostNumber();
+	//홍보게시판 목록 조회
+	public List<PromoBoardDTO> promoSelectAll(Map<String, Integer> pageMap) {
+		System.out.println("모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
+		List<PromoBoardDTO> list = sqlSession.selectList("board.promoSelectAll", pageMap);
+		System.out.println("조회결과 : " + list);
+		return list;
 	}
-
-	public int insertBoard(PostDTO postDTO) {
-		int insert = sqlSession.insert("board.insert", postDTO);
-		System.out.println(postDTO + "출력");
-		System.out.println(postDTO.getRecipeContent() + "출력 === ");
-		System.out.println("게시글 작성 - insertBoard 메소드 실행 ");
-		System.out.println("insert 결과 : " + insert);
-		System.out.println("생성된 postNumber : " + postDTO.getPostNumber());
-		return postDTO.getPostNumber();
+	//레시피 게시판 목록 조회
+	public List<RecipeBoardDTO> recipeSelectAll(Map<String, Integer> pageMap) {
+		System.out.println("모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
+		List<RecipeBoardDTO> list = sqlSession.selectList("board.recipeSelectAll", pageMap);
+		System.out.println("조회결과 : " + list);
+		return list;
 	}
 
 	// 게시글 상세 조회
 	public PostDetailDTO select(int postNumber) {
-		return sqlSession.selectOne("post.select", postNumber);
+		return sqlSession.selectOne("post.postSelect", postNumber);
 	}
 
 	// 게시글 조회수 증가
 	public void updateReadCount(int postNumber) {
-		sqlSession.update("post.updateReadCount", postNumber);
+		sqlSession.update("post.postUpdateReadCount", postNumber);
 	}
 
 	// 게시글 삭제
 	public void delete(int postNumber) {
-		sqlSession.delete("post.delete", postNumber);
+		sqlSession.delete("post.postDelete", postNumber);
 	}
 
 	// 게시글 수정
 	public void update(PostDTO postDTO) {
-		sqlSession.update("post.update", postDTO);
+		sqlSession.update("post.postUpdate", postDTO);
 	}
 
 	// 내가 작성한 게시글 목록 조회
-	public List<PostDTO> selectAll(Map<String, Integer> pageMap) {
+	public List<PostDTO> myPostSelect(Map<String, Integer> pageMap) {
 		System.out.println("모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
-		List<PostDTO> list = sqlSession.selectList("board.selectAll", pageMap);
+		List<PostDTO> list = sqlSession.selectList("post.myPostSelect", pageMap);
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
 	
-
-	
 	// 고객센터 문의 목록 조회 (페이징 적용)
-	public List<InquiryDTO> selectAll(Map<String, Integer> pageMap) {
+	public List<InquiryDTO> inquirySelectAll(Map<String, Integer> pageMap) {
 		System.out.println("고객센터 모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
-		List<InquiryDTO> list = sqlSession.selectList("inquiry.selectAll", pageMap);
+		List<InquiryDTO> list = sqlSession.selectList("inquiry.inquirySelectAll", pageMap);
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
 
 	// 고객센터 문의글 작성
 	public int insertInquiry(InquiryDTO inquiry) {
-		return sqlSession.insert("inquiry.insertInquiry", inquiry);
+		return sqlSession.insert("inquiry.inquiryInsert", inquiry);
 	}
 
 	// 고객센터 문의글 상세 조회
 	public InquiryDTO selectInquiryDetail(int postNumber) {
-		return sqlSession.selectOne("inquiry.select", postNumber);
+		return sqlSession.selectOne("inquiry.inquirySelect", postNumber);
 	}
 	
 	//공지목록 조회
-	public List<NoticeDTO> selectAll(Map<String, Integer> pageMap) {
+	public List<NoticeDTO> noticeSelectAll(Map<String, Integer> pageMap) {
 		System.out.println("공지 목록 모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
-		List<NoticeDTO> list = sqlSession.selectList("notice.selectAll", pageMap);
+		List<NoticeDTO> list = sqlSession.selectList("notice.noticeSelectAll", pageMap);
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
 	
 	
 	// FAQ 목록 조회
-	public List<FaqDTO> selectAll(Map<String, Integer> pageMap) {
+	public List<FaqDTO> faqSelectAll(Map<String, Integer> pageMap) {
 		System.out.println("고객센터 모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
-		List<FaqDTO> list = sqlSession.selectList("faq.selectAll", pageMap);
+		List<FaqDTO> list = sqlSession.selectList("faq.faqSelectAll", pageMap);
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
 	
 	
 	
-	// FAQ 상세 조회
+	// FAQ 개별 조회
     public FaqDTO selectFaqDetail(int faqNumber) {
-        return sqlSession.selectOne("faq.select", faqNumber);
+        return sqlSession.selectOne("faq.faqSelect", faqNumber);
     }
 	
 	

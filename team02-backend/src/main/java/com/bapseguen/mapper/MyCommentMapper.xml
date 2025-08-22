@@ -3,7 +3,7 @@
 <mapper namespace="myComment">
 
 	<!--내가 작성한 댓글 조회 -->
-	<select id="select" resultType="CommentDTO">
+	<select id="myCommentSelect" resultType="CommentDTO">
 	<![CDATA[
 	  SELECT * FROM (
 	    SELECT ROWNUM AS RNUM, SUBQUERY.*

@@ -3,7 +3,7 @@
 <mapper namespace="withDraw">
 
 	<!-- 회원탈퇴 -->
-	<delete id="delete" parameterType="int">
+	<delete id="withDrawDelete" parameterType="int">
 	  DELETE FROM TBL_MEMBER
 	  WHERE MEMBER_NUMBER = #{memberNumber}
 	</delete>
