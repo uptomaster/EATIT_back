@@ -35,12 +35,13 @@
         <div class="user_input_title">밥세권 개인 회원가입</div>
 
         <!-- 정보 입력 폼 -->
-        <form id="generalJoinForm" action="/join/generalJoinOk/jo" method="post">
+        <form id="generalJoinForm" action="${pageContext.request.contextPath }/join/generalJoinOk/jo" method="post" data-context-path="${pageContext.request.contextPath}"
+			novalidate>
           <!-- 아이디 -->
           <div class="user_input_container_id">
             <div class="user_input_container">
               <label for="user_input_id" class="info_type">아이디 : </label>
-              <input type="text" id="user_input_id" name="user_input_id" placeholder="[필수]">
+              <input type="text" id="user_input_id" name="user_input_id" placeholder="[필수]" required />
               <button type="button" id="btn_user_input_hasSameId">중복확인</button>
             </div>
             <div class="warning_space">
@@ -53,7 +54,7 @@
           <div class="user_input_container_pw">
             <div class="user_input_container">
               <label for="user_input_pw" class="info_type">비밀번호 : </label>
-              <input type="text" id="user_input_pw" name="user_input_pw" placeholder="[필수]">
+              <input type="text" id="user_input_pw" name="user_input_pw" placeholder="[필수]" required />
             </div>
           </div>
 
@@ -89,7 +90,7 @@
           <div class="user_input_container_phone">
             <div class="user_input_container">
               <label for="user_input_phone" class="info_type">휴대폰번호 : </label>
-              <input type="tel" id="user_input_phone" name="user_input_phone" placeholder="[필수] -를 제외하고 입력해주세요">
+              <input type="tel" id="user_input_phone" name="user_input_phone" placeholder="[필수] -를 포함하고 입력해주세요">
               <button type="button" id="btn_user_input_phone">인증요청</button>
             </div>
             <div class="warning_space">
@@ -108,7 +109,7 @@
             <div class="warning_space">
               <span class="empty"></span>
               <div class="warning_message">신분증 상의 이름, 생년월일과 일치하지 않으면 실명인증이 불가합니다.</div>
-              <div class="warning_message" id="warning_message_chk_phone"></div>
+              <div class="warning_message" id="warning_message_chk_code"></div>
             </div>
           </div>
 

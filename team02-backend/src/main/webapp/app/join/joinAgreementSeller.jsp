@@ -5,16 +5,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="./../../assets/img/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="./../../assets/css/header.css">
-  <link rel="stylesheet" href="./../../assets/css/footer.css">
-  <link rel="stylesheet" href="./../../assets/css/join/joinAgreementSeller.css">
-  <script defer src="./../../assets/js/join/joinAgreementSeller.js"></script>
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/join/joinAgreementSeller.css">
+  <script defer src="${pageContext.request.contextPath}/assets/js/join/joinAgreementSeller.js"></script>
   <script>
     let headerPath = '../../header.jsp';
     let footerPath = '../../footer.jsp';
   </script>
-  <script defer src="../../assets/js/header.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
   <title>밥세권</title>
 </head>
 

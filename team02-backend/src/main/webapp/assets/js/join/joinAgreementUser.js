@@ -65,7 +65,7 @@ function goNextPage() {
   console.log(essenCount);
   if(essenCount === essenAgrees.length ){
     //모든 체크박스 체크 시 다음 페이지로 이동
-    location.href = "userInfoInput.html";
+    location.href = "/join/generalJoin.jo";
     return;
   }
   alert("필수 약관에 동의해야 다음단계로 이동할 수 있습니다.");

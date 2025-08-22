@@ -46,10 +46,10 @@
           이제부터 밥세권 서비스를 이용하실 수 있습니다.
         </div>
         <div class="join_final_btns">
-          <a href="./../../main.html">
+          <a href="${pageContext.request.contextPath}/main.jsp">
             <div class="to_main">메인으로 이동</div>
           </a>
-          <a href="./../../app/logIn/login.html">
+          <a href="${pageContext.request.contextPath}/login/login.lo">
             <div class="to_login">로그인</div>
           </a>
         </div>

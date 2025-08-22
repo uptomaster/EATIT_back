@@ -14,33 +14,10 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// 미리 저장한 아이디 값
-const dbId = 'user'
+document.addEventListener("DOMContentLoaded", function () { 
+	const form = document.getElementById("joinForm") || document.querySelector("form"); 
+	const base = (form && form.dataset.contextPath) ? form.dataset.contextPath : ""; // ★ 전역 없이 읽기 });
 
-// ////// 아이디
-let chkIdBtn = document.getElementById('btn_user_input_hasSameId');
-chkIdBtn.addEventListener('click', function () {
-  let sellerInputId = document.getElementById('user_input_id');
-  // 아이디 중복 검사
-  const warningSpan = document.getElementById('warning_message_chk_id');
-  let inputId = sellerInputId.value.trim();
-  console.log(inputId);
-
-  if (!inputId) {
-    warningSpan.textContent = '아이디를 입력하세요';
-    warningSpan.style.display = 'block';
-  } else if (inputId === dbId) {
-    warningSpan.textContent = '중복된 아이디 입니다.';
-    warningSpan.style.display = 'block';
-  } else {
-    warningSpan.textContent = '이 아이디를 사용할 수 있습니다.';
-    warningSpan.style.display = 'block';
-    warningSpan.style.color = 'green';
-    chkIdBtn.disable = true;
-  }
-});
-
-///////// 비밀번호
 
 let newPasswordInput = document.getElementById("user_input_pw");
 let confirmPasswordInput = document.getElementById("user_input_chk_pw");
@@ -160,5 +137,4 @@ function goNextPage() {
     return;
   }
   alert("필수 정보를 모두 입력하셔야 다음단계로 이동할 수 있습니다.");
-  // alert() -> return 일때 return 이 작동 안함 왜?
-}
+
