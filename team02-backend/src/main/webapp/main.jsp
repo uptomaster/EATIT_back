@@ -18,6 +18,10 @@
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
   <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
 
+<script>
+    let headerPath = './../../header.jsp';
+    let footerPath = './../../footer.jsp';
+</script>
   <title>밥세권</title>
 </head>
 
