@@ -19,8 +19,8 @@
   <script defer src="./../../assets/js/community/gotoLogin.js"></script>
   <script defer src="./../../assets/js/community/mouseoverTreeIcon.js"></script>
   <script>
-    let headerPath = '../../header.jsp';
-    let footerPath = '../../footer.jsp';
+    let headerPath = '../../header.html';
+    let footerPath = '../../footer.html';
   </script>
   <script defer src="../../assets/js/header.js"></script>
 </head>
@@ -46,7 +46,6 @@
       <!-- 게시판 목록 -->
       <section class="community_list" aria-label="게시판 목록">
         <div class="list_header flex_row" role="rowgroup">
-          <div class="col_tag" role="columnheader">태그</div>
           <div class="col_title" role="columnheader">제목</div>
           <div class="col_author" role="columnheader">글쓴이</div>
           <div class="col_date" role="columnheader">등록일</div>
@@ -56,7 +55,6 @@
 
         <div id="postListBody" class="list_body" role="rowgroup">
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">잡담</div>
             <div class="col_title" role="cell"><a href="./../community/viewOtherPost.html">최근 자유게시판 소식 안내</a></div>
             <div class="col_author" role="cell">
               kisu
@@ -68,7 +66,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">질문</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">자유게시판 이용 방법 문의</a>
             </div>
             <div class="col_author" role="cell">
@@ -81,7 +78,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">이벤트참여</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">자유게시판 이벤트 참여 안내</a>
             </div>
             <div class="col_author" role="cell">
@@ -94,7 +90,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">건의사항</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">서버 점검 요청 건의</a></div>
             <div class="col_author" role="cell">
               namhyuk
@@ -106,7 +101,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">정보공유</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">유용한 팁 공유</a></div>
             <div class="col_author" role="cell">
               junghoon
@@ -116,6 +110,7 @@
             <div class="col_views" role="cell">80</div>
             <div class="col_likes" role="cell">12</div>
           </div>
+
         </div>
 
       </section>

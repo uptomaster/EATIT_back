@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -17,8 +18,8 @@
   <script defer src="./../../assets/js/community/loadHeaderFooter.js"></script>
   <script defer src="./../../assets/js/community/mouseoverTreeIcon.js"></script>
   <script>
-    let headerPath = '../../header.jsp';
-    let footerPath = '../../footer.jsp';
+    let headerPath = '../../header_login.html';
+    let footerPath = '../../footer.html';
   </script>
   <script defer src="../../assets/js/header.js"></script>
 </head>
@@ -43,7 +44,6 @@
       <!-- 게시판 목록 -->
       <section class="community_list" aria-label="게시판 목록">
         <div class="list_header flex_row" role="rowgroup">
-          <div class="col_tag" role="columnheader">태그</div>
           <div class="col_title" role="columnheader">제목</div>
           <div class="col_author" role="cell">글쓴이</div>
           <div class="col_date" role="columnheader">등록일</div>
@@ -53,7 +53,6 @@
 
         <div id="postListBody" class="list_body" role="rowgroup">
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">한식</div>
             <div class="col_title" role="cell"><a href="./../community/viewOtherPost.html">김치찌개 황금레시피 공개</a></div>
             <div class="col_author" role="cell">
               SonHeungmin
@@ -65,7 +64,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">양식</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">크림 파스타 완벽 가이드</a>
             </div>
             <div class="col_author" role="cell">
@@ -78,7 +76,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">중식</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">짜장면 집에서 쉽게 만들기</a>
             </div>
             <div class="col_author" role="cell">
@@ -91,7 +88,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">일식</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">초밥 만들기 초보 가이드</a>
             </div>
             <div class="col_author" role="cell">
@@ -104,7 +100,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">디저트</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">초코 케이크 레시피</a></div>
             <div class="col_author" role="cell">
               KylianMbappe
