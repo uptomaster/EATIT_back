@@ -15,8 +15,7 @@
 	</insert>
 
 	<!-- 원산지 정보 목록 조회 -->
-	<select id="originList" parameterType="String"
-		resultType="OriginDTO">
+	<select id="originList" parameterType="String" resultType="OriginDTO">
 		SELECT o.origin_number, o.origin_item, o.origin_menu,
 		o.origin_location, s.store_name
 		FROM TBL_ORIGIN o
@@ -25,7 +24,7 @@
 	</select>
 
 	<!-- 원산지 정보 수정 -->
-	<update id="updateOrigin">
+	<update id="updateOrigin" parameterType="OriginDTO">
 		UPDATE TBL_ORIGIN
 		SET origin_item = #{originItem},origin_menu = #{originMenu},
 		origin_location = #{originLocation}
@@ -40,7 +39,7 @@
 	</delete>
 	
 	<!-- 이미 저장된 정보인지 확인 -->
-	<select id="alreadyOrigin" parameterType="OriginItem" resultType="int">
+	<select id="alreadyOrigin" parameterType="OriginDTO" resultType="int">
 		select count(origin_number)
 		from tbl_origin
 		where origin_item = #{originItem} and origin_menu = #{originMenu} and origin_location = #{originLocation}
