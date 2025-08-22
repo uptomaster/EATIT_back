@@ -24,7 +24,6 @@ public class SellerMyPageDAO {
     public int addFood(ItemDTO dto) {
     	System.out.println("음식판매등록 - addFood 메소드 실행 ");
     	System.out.println("itemDTO : "+dto);
-    	
         return sqlSession.insert("storeManage.addFood", dto);
         
     }

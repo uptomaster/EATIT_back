@@ -51,7 +51,7 @@ public class SellerMyPageFrontController extends HttpServlet {
 			break;
 
          // Food
-         case "/seller/food/addOk.se":
+         case "/sellerMyPage/food/addOk.se":
         	 System.out.println("음식 추가 완료 요청");
         	 result = new FoodAddOkController().execute(request, response); 
         	 break;
