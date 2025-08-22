@@ -22,54 +22,92 @@ public class SellerMyPageDAO {
 	
 	// 음식 판매 등록
     public int addFood(ItemDTO dto) {
+    	System.out.println("음식판매등록 - addFood 메소드 실행 ");
+    	System.out.println("itemDTO : "+dto);
+    	
         return sqlSession.insert("storeManage.addFood", dto);
+        
     }
     // 음식 메뉴 상세
     public ItemDTO detaileFood(int itemNumber) {
+    	System.out.println("음식메뉴상세 - detailFood 메소드 실행 ");
+    	System.out.println("itemNumber : "+itemNumber);
+    	
         return sqlSession.selectOne("storeManage.detaileFood", itemNumber);
     }
     // 음식 판매 수정
     public int editFood(ItemDTO dto) {
+    	System.out.println("음식판매 수정 - editFood 메소드 실행");
+    	System.out.println("itemDTO : "+dto);
+    	
         return sqlSession.update("storeManage.editFood", dto);
     }
     // 음식 판매 삭제
     public int deleteFood(int itemNumber) {
+    	System.out.println("음식판매삭제 - deleteFood 메소드 실행");
+    	System.out.println("itemNumber : "+itemNumber);
+    	
         return sqlSession.delete("storeManage.deleteFood", itemNumber);
     }
     //음식 판매 목록
     public List<Map<String, Object>> foodList(String businessNumber) {
+    	System.out.println("음식판매목록 - foodList 메소드 실행");
+    	System.out.println("사업자 번호 : "+businessNumber);
+    	
         return sqlSession.selectList("storeManage.foodList", businessNumber);
     }
     // 이미 준비된 음식
     public int alreadyFood(ItemDTO dto) {
+    	System.out.println("이미 등록한 음식 - alreadyFood 메소드 실행");
+    	System.out.println("itemDTO : "+dto);
+    	
         return sqlSession.selectOne("storeManage.alreadyfood", dto);
     }
 
     // INGREDIENT
     //재료 판매 등록
     public int addIngredient(ItemDTO dto) {
+    	System.out.println("재료판매등록 - addIngredient 메소드 실행");
+    	System.out.println("itemDTO : "+dto);
+    	
         return sqlSession.insert("storeManage.addIngredient", dto);
     }
     // 재료 판매 상세
     public ItemDTO detaileIngredient(int itemNumber) {
+    	System.out.println("재료판매상세 - detailIngredient 메소드 실행");
+    	System.out.println("itemNumber : "+itemNumber);
+    	
         return sqlSession.selectOne("storeManage.detaileIngredient", itemNumber);
     }
     //재료 판매 수정
     public int editIngredient(ItemDTO dto) {
+    	System.out.println("재료판매수정 - editIngredient 메소드 실행");
+    	System.out.println("itemDTO : "+ dto);
+    	
         return sqlSession.update("storeManage.editIngredient", dto);
     }
     //재료 판매 삭제
     public int deleteIngredient(int itemNumber) {
+    	System.out.println("재료판매삭제 - deleteIngredient 메소드 실행");
+    	System.out.println("itemNumber : "+itemNumber);
+    	
         return sqlSession.delete("storeManage.deleteingredient", itemNumber);
     }
     // 재료 판매 목록
     public List<Map<String, Object>> ingredientList(String businessNumber) {
+    	System.out.println("재료판매목록 - ingredientList 메소드 실행");
+    	System.out.println("사업자번호 : "+businessNumber);
+    	
         return sqlSession.selectList("storeManage.ingredientList", businessNumber);
     }
     
     // Item Image - needs businessNumber for MAX(ITEM_NUMBER) subquery
-    // 메슈 사진 저장
+    // 메뉴 사진 저장
     public int addItemImage(ItemImageDTO imageDTO, String businessNumber) {
+    	System.out.println("메뉴 사진 저장 - addItemImage 메소드 실행");
+    	System.out.println("사업자번호 : "+businessNumber);
+    	System.out.println("imageDTO : "+imageDTO);
+    	
         Map<String, Object> param = new HashMap<>();
         param.put("itemImageNumber", imageDTO.getItemImageNumber());
         param.put("itemImageSystemName", imageDTO.getItemImageSystemName());
@@ -78,24 +116,31 @@ public class SellerMyPageDAO {
         return sqlSession.insert("storeManage.addItemImage", param);
     }
 
-    // Store info
+    // 사업장 장보
     public SellerInfoDTO selectStoreInfo(String businessNumber) {
+    	System.out.println("사업장 정보 출력 - selectStoreInfo 메소드 실행");
+    	System.out.println("사업자 번호 : "+businessNumber);
         return sqlSession.selectOne("storeManage.selectStoreInfo", businessNumber);
     }
 
     // 판매 내역
     // 오늘 판매 내역
     public List<Map<String, Object>> todaySaleHistory(String businessNumber) {
+    	System.out.println("오늘판매내역 - todaySalehistory 메소드 실행");
+    	System.out.println("사업자 번호 : "+businessNumber);
         return sqlSession.selectList("storeManage.todaySaleHistory", businessNumber);
     }
     // 총 판매 내역
     public List<Map<String, Object>> totalSaleHistory(String businessNumber) {
+    	System.out.println("총판매내역 - totalSaleHistory 메소드 실행");
+    	System.out.println("사업자 번호 : "+businessNumber);
         return sqlSession.selectList("storeManage.totalSaleHistory", businessNumber);
     }
     
     // 원산지
     //원산지 정보 추가
     public int addOrigin(OriginDTO dto) {
+    	System.out.println();
         return sqlSession.insert("origin.addOrigin", dto);
     }
     // 원산지 정보 목록
