@@ -1,9 +1,9 @@
 package com.bapseguen.app.dto.view;
 
 public class StoreReivewsDTO {
-	// 리뷰 테이블
-	private int reviewNumber;
-	private int ordersNumber;
+	
+	private int reviewNumber; // 리뷰 테이블
+	private int ordersNumber; // 주문 번호
 	private int businessNumber;
 	private int memberNumber;
 	private int reviewRating;
@@ -13,6 +13,7 @@ public class StoreReivewsDTO {
 	private String memberId;
 	// 구매일
 	private String ordersDate;
+	
 	public int getReviewNumber() {
 		return reviewNumber;
 	}
