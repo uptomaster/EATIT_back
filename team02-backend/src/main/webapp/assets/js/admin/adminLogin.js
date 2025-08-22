@@ -1,21 +1,30 @@
-const login = document.getElementById('admin_login_form');
-const adminid = document.getElementById('adminId');
-const adminpw = document.getElementById('adminPw');
-const loginfail = document.getElementById('admin_loginfail');
+// /assets/js/admin/adminLogin.js
+document.addEventListener('DOMContentLoaded', () => {
+  const form  = document.getElementById('admin_login_form');
+  if (!form) return;
 
-const db = {
-  id : 'admin',
-  pw : 'admin123123',
-}
+  const idEl  = document.getElementById('adminId');
+  const pwEl  = document.getElementById('adminPw');
+  const errEl = document.getElementById('admin_loginfail'); // 없을 수도 있음
 
-login.addEventListener('submit', function (e) {
-  e.preventDefault();
+  form.addEventListener('submit', (e) => {
+    const id = idEl?.value.trim() || '';
+    const pw = pwEl?.value.trim() || '';
 
-  if(adminid.value === db.id && adminpw.value === db.pw){
-    window.location.href = './../../app/admin/dashboard.html';
-  }else{
-    loginfail.style.display = 'block';
-    adminpw.focus();
-    adminpw.select();
-  }
+    // 빈 값만 막기
+    if (!id || !pw) {
+      e.preventDefault();
+      if (errEl) {
+        errEl.textContent = '아이디와 비밀번호를 입력하세요.';
+        errEl.style.display = 'block';
+      } else {
+        alert('아이디와 비밀번호를 입력하세요.');
+      }
+      (id ? pwEl : idEl)?.focus();
+      return;
+    }
+
+    // 값 있으면 서버로 그대로 제출 (절대 e.preventDefault() 하지 마)
+    if (errEl) errEl.style.display = 'none';
+  });
 });

@@ -6,15 +6,15 @@ public class AdminDTO {
 //      REFERENCES TBL_MEMBER(MEMBER_NUMBER) ON DELETE CASCADE,
 //);
 
-	private int MemberNumber; //관리자 번호
+	private int memberNumber; //관리자 번호
 	private String adminTreeGrade; //관리자 등급
 	
 	// getter & setter
 	public int getAdminMemberNumber() {
-		return MemberNumber;
+		return memberNumber;
 	}
 	public void setAdminMemberNumber(int adminMemberNumber) {
-		this.MemberNumber = adminMemberNumber;
+		this.memberNumber = adminMemberNumber;
 	}
 	public String getAdminTreeGrade() {
 		return adminTreeGrade;
@@ -26,7 +26,7 @@ public class AdminDTO {
 	// toString 오버라이딩
 	@Override
 	public String toString() {
-		return "AdminDTO [MemberNumber=" + MemberNumber + ", adminTreeGrade=" + adminTreeGrade + "]";
+		return "AdminDTO [MemberNumber=" + memberNumber + ", adminTreeGrade=" + adminTreeGrade + "]";
 	}
 	
 	
