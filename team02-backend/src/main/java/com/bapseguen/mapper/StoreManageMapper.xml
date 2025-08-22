@@ -27,7 +27,7 @@
 	</select>
 
 	<!-- 음식 판매 수정 -->
-	<update id="editFood" parameterType="itemDTO">
+	<update id="editFood" parameterType="ItemDTO">
 		UPDATE TBL_ITEM SET
 		ITEM_NAME= #{itemName}, ITEM_PRICE = #{itemPrice}, ITEM_CONTENT
 		=#{itemContent},
@@ -36,7 +36,7 @@
 		SYSDATE
 		WHERE ITEM_NUMBER =
 		#{itemNumber}
-		AND ITEM_TYPE = 'FOOD';
+		AND ITEM_TYPE = 'FOOD'
 	</update>
 
 	<!-- 음식 판매 삭제 -->
@@ -44,11 +44,11 @@
 		DELETE FROM tbl_item
 		where
 		item_number = #{itemNumber}
-		and item_type = 'FOOD';
+		and item_type = 'FOOD'
 	</delete>
 
 	<!-- 음식 목록 조회 -->
-	<select id="foodList" parameterType="int" resultType="itemWithImgDTO">
+	<select id="foodList" parameterType="int" resultType="ItemWithImgDTO">
 	<![CDATA[
 		SELECT
 			i.item_name,i.item_price,i.item_content,i.item_quantity,i.item_origin,i.item_expire_date,
@@ -87,7 +87,7 @@
 		where item_number =	#{itemNumber}
 	</select>
 	<!-- 재료 판매 수정 -->
-	<update id="editIngredient" parameterType="itemDTO">
+	<update id="editIngredient" parameterType="ItemDTO">
 		UPDATE TBL_ITEM SET
 		ITEM_NAME= #{itemName}, ITEM_PRICE = #{itemPrice}, ITEM_CONTENT	= #{itemContent},
 		ITEM_QUANTITY = #{itemQuantity}, ITEM_ORIGIN = #{itemOrigin}, ITEM_UPDATED_TIME = SYSDATE
@@ -103,7 +103,7 @@
 
 	<!-- 재료 판매 목록 조회 -->
 	<select id="ingredientList" parameterType="int"
-		resultType="itemWithImgDTO">
+		resultType="ItemWithImgDTO">
 	<![CDATA[
 		SELECT
 			i.item_name,i.item_price,i.item_content,i.item_quantity,i.item_origin,i.item_expire_date,
@@ -117,7 +117,7 @@
 	</select>
 
 	<!-- 움삭 메뉴 중복 확인 -->
-	<select id="alreadyfood" parameterType="itemDTO"
+	<select id="alreadyfood" parameterType="ItemDTO"
 		resultType="int">
 		select count(item_number) from tbl_item
 		where item_name =
@@ -126,7 +126,7 @@
 
 	<!-- 음식 사진 등록 -->
 	<insert id="addItemImage" parameterType="ItemImageDTO">
-		<selectKey keyProperty="itemImageNumber" resultType="int">
+		<selectKey keyProperty="ItemImageNumber" resultType="int">
 			select
 			seq_item_image_number.nextval from dual
 		</selectKey>
@@ -142,13 +142,13 @@
 		BUSINESS_NUMBER = #{businessNumber}),
 		#{itemImageSystemName},
 		#{itemImageOriginalName}
-		FROM DUAL;
+		FROM DUAL
 	</insert>
 
 	<!-- 가게 정보 조회 -->
 	<!-- 가게 정보 조회 -->
-	<select id="selectStoreInfo" parameterType="string"
-		resultType="storeInfo">
+	<select id="selectStoreInfo" parameterType="String"
+		resultType="StoreDTO">
 		SELECT
 		business_number,
 		member_number,
@@ -165,7 +165,7 @@
 
 	<!-- 판매내역 -->
 	<!-- 오늘 판매 내역 -->
-	<select id="todaySaleHistory" parameterType="String" resultType="">
+	<select id="todaySaleHistory" parameterType="String">
 	SELECT 
     o.orders_number,
     o.orders_date,
@@ -180,11 +180,11 @@
 	JOIN TBL_ITEM i ON oi.item_number = i.item_number
 	JOIN TBL_MEMBER m ON o.orders_member_number = m.member_number
 	WHERE i.business_number = #{businessNumber}
-    AND TRUNC(o.orders_date) = TRUNC(SYSDATE);
+    AND TRUNC(o.orders_date) = TRUNC(SYSDATE)
 	</select>
 
 	<!-- 총 판매 내역 -->
-	<select id="totalSaleHistory" parameterType="String" resultType="">
+	<select id="totalSaleHistory" parameterType="String">
 		SELECT
 		o.orders_number,
 		o.orders_date,
@@ -198,9 +198,9 @@
 		JOIN TBL_ITEM i ON oi.item_number = i.item_number
 		JOIN TBL_MEMBER m ON o.orders_member_number = m.member_number
 		WHERE i.business_number = #{businessNumber}
-		ORDER BY o.orders_date DESC ;
+		ORDER BY o.orders_date DESC 
 	</select>
-	<!-- parameterType="" resultType="" -->
+	
 	
 	
 </mapper>
