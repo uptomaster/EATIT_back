@@ -15,23 +15,25 @@
          </c:when>
          <c:otherwise>
             <li><a href="${pageContext.request.contextPath}/login/logoutOk.lo">로그아웃</a></li>
-      		<li><a href="${pageContext.request.contextPath}/app/userMyPage/editUserInfo.jsp">마이페이지</a></li>
+      		<li><a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.my">마이페이지</a></li>
          </c:otherwise>
       </c:choose>
     </ul>
   </nav>
-  <!-- 헤더 중앙정렬 영역 -->
+ <!-- 헤더 중앙정렬 영역 -->
   <div id="header_wrapper">
     <!-- 메인 로고 이미지-->
     <div id="header_logo">
-      <a href="${pageContext.request.contextPath}/main.jsp"><img src="${pageContext.request.contextPath}/assets/img/header_logo.png" alt="밥세권 로고"></a>
+      <a href="${pageContext.request.contextPath}/main.jsp">
+      	<img src="${pageContext.request.contextPath}/assets/img/header_logo.png" alt="밥세권 로고">
+      </a>
     </div>
     <!-- 메인 네비게이션 -->
     <nav id="header_nav">
       <ul>
-        <li><a href="${pageContext.request.contextPath}/app/buy/storeList.jsp">구매</a></li>
-        <li><a href="${pageContext.request.contextPath}/app/community/communityMainGuest.jsp">커뮤니티</a></li>
-        <li><a href="${pageContext.request.contextPath}/app/community/customerServiceList.jsp">고객센터</a></li>
+        <li><a href="${pageContext.request.contextPath}/order/storeList.or">구매</a></li>
+        <li><a href="${pageContext.request.contextPath}/community/communityMainGuest.co">커뮤니티</a></li>
+        <li><a href="${pageContext.request.contextPath}/community/customerServiceList.co">고객센터</a></li>
       </ul>
     </nav>
   </div>
@@ -40,13 +42,13 @@
     <div class="header_nav_dropdown">
       <ul class="header_nav_buy">
         <li><a href="${pageContext.request.contextPath}/app/buy/storeList.jsp">음식점 구매</a></li>
-        <li><a href="${pageContext.request.contextPath}/app/buy/ingredientList.jsp">재료 구매</a></li>
+        <li><a href="${pageContext.request.contextPath}/order/ingredientList.or">재료 구매</a></li>
       </ul>
       <ul class="header_nav_commu">
-        <li><a href="${pageContext.request.contextPath}/app/community/communityMainGuest.jsp">공지사항/이벤트</a></li>
-        <li><a href="${pageContext.request.contextPath}/app/community/freeBoardListGuest.jsp">자유게시판</a></li>
-        <li><a href="${pageContext.request.contextPath}/app/community/promoBoardListGuest.jsp">홍보게시판</a></li>
-        <li><a href="${pageContext.request.contextPath}/app/community/recipeListGuest.jsp">레시피공유</a></li>
+        <li><a href="${pageContext.request.contextPath}/community/communityMainGuest.co">공지사항/이벤트</a></li>
+        <li><a href="${pageContext.request.contextPath}/community/freeBoardListGuest.co">자유게시판</a></li>
+        <li><a href="${pageContext.request.contextPath}/community/promoBoardListGuest.co">홍보게시판</a></li>
+        <li><a href="${pageContext.request.contextPath}/community/recipeListGuest.co">레시피공유</a></li>
       </ul>
     </div>
   </div>

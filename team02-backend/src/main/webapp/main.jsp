@@ -6,11 +6,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./assets/css/header.css">
-  <link rel="stylesheet" href="./assets/css/footer.css">
-  <link rel="stylesheet" href="./assets/css/main.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
   <!-- 파비콘 -->
-  <link rel="shortcut icon" href="./assets/img/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
 
   <!-- 헤더 js -->
   <script defer src="${pageContext.request.contextPath}/assets/js/main.js"></script>
@@ -184,8 +184,8 @@
       <!-- 메인 컨텐츠 > 재료판매, 레시피공유 영역 -->
       <div id="main_content_buy_ingr">
         <div class="main_ingredient_buy">
-          <h3>재료 판매🥕</h3>
-          <a href="./app/buy/ingredientList.html">더보기 ></a>
+          <h3>재료 구매🥕</h3>
+          <a href="${pageContext.request.contextPath}/order/ingredientList.or">더보기 ></a>
           <div class="main_ingredient_store">
             <!-- 재료사진 -->
             <article class="main_ingredient_img">

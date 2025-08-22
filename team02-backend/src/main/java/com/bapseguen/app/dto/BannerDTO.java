@@ -2,15 +2,14 @@ package com.bapseguen.app.dto;
 
 public class BannerDTO {
 
-	private int bannerNumber;
-	private String bannerTitle;
-	private int imageNumber;
-	private String bannerEndDate;
-	private boolean bannerIsActive;
-	private int bannerCreatedBy;
-	private int memberNumber;
-	private String bannerCreatedDate;
-	private String bannerUpdatedDate;
+	private int bannerNumber; // 배너 번호
+	private String bannerTitle; // 배너 제목
+	private int imageNumber; // 이미지 번호
+	private String bannerEndDate; // 배너 마감 날짜
+	private boolean bannerIsActive; // 배너 상태
+	private int memberNumber; // 사용자 번호
+	private String bannerCreatedDate; // 배너 생성 일자
+	private String bannerUpdatedDate; // 배너 수정 일자
 	
 	// getter & setter
 	public int getBannerNumber() {
@@ -43,12 +42,6 @@ public class BannerDTO {
 	public void setBannerIsActive(boolean bannerIsActive) {
 		this.bannerIsActive = bannerIsActive;
 	}
-	public int getBannerCreatedBy() {
-		return bannerCreatedBy;
-	}
-	public void setBannerCreatedBy(int bannerCreatedBy) {
-		this.bannerCreatedBy = bannerCreatedBy;
-	}
 	public int getMemberNumber() {
 		return memberNumber;
 	}
@@ -67,15 +60,13 @@ public class BannerDTO {
 	public void setBannerUpdatedDate(String bannerUpdatedDate) {
 		this.bannerUpdatedDate = bannerUpdatedDate;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "BannerDTO [bannerNumber=" + bannerNumber + ", bannerTitle=" + bannerTitle + ", imageNumber="
 				+ imageNumber + ", bannerEndDate=" + bannerEndDate + ", bannerIsActive=" + bannerIsActive
-				+ ", bannerCreatedBy=" + bannerCreatedBy + ", memberNumber=" + memberNumber + ", bannerCreatedDate="
-				+ bannerCreatedDate + ", bannerUpdatedDate=" + bannerUpdatedDate + "]";
+				+ ", memberNumber=" + memberNumber + ", bannerCreatedDate=" + bannerCreatedDate + ", bannerUpdatedDate="
+				+ bannerUpdatedDate + "]";
 	}
-		
-	
 	
 }
