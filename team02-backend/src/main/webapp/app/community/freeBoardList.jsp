@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -17,8 +18,8 @@
   <script defer src="./../../assets/js/community/loadHeaderFooter.js"></script>
   <script defer src="./../../assets/js/community/mouseoverTreeIcon.js"></script>
   <script>
-    let headerPath = '../../header.jsp';
-    let footerPath = '../../footer.jsp';
+    let headerPath = '../../header_login.html';
+    let footerPath = '../../footer.html';
   </script>
   <script defer src="../../assets/js/header.js"></script>
 </head>
@@ -43,7 +44,6 @@
       <!-- 게시판 목록 -->
       <section class="community_list" aria-label="게시판 목록">
         <div class="list_header flex_row" role="rowgroup">
-          <div class="col_tag" role="columnheader">태그</div>
           <div class="col_title" role="columnheader">제목</div>
           <div class="col_author" role="columnheader">글쓴이</div>
           <div class="col_date" role="columnheader">등록일</div>
@@ -53,7 +53,6 @@
 
         <div id="postListBody" class="list_body" role="rowgroup">
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">잡담</div>
             <div class="col_title" role="cell"><a href="./../community/viewOtherPost.html">최근 자유게시판 소식 안내</a></div>
             <div class="col_author" role="cell">
               kisu
@@ -65,7 +64,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">질문</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">자유게시판 이용 방법 문의</a>
             </div>
             <div class="col_author" role="cell">
@@ -78,7 +76,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">이벤트참여</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">자유게시판 이벤트 참여 안내</a>
             </div>
             <div class="col_author" role="cell">
@@ -91,7 +88,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">건의사항</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">서버 점검 요청 건의</a></div>
             <div class="col_author" role="cell">
               namhyuk
@@ -103,7 +99,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">정보공유</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">유용한 팁 공유</a></div>
             <div class="col_author" role="cell">
               junghoon
@@ -114,7 +109,6 @@
             <div class="col_likes" role="cell">12</div>
           </div>
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">후기</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">최근 맛집 방문 후기 공유합니다</a>
             </div>
             <div class="col_author" role="cell">
@@ -127,7 +121,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">일상</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">오늘 하루 어떻게 보내셨어요?</a>
             </div>
             <div class="col_author" role="cell">
@@ -140,7 +133,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">취미</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">최근 시작한 캠핑 이야기</a>
             </div>
             <div class="col_author" role="cell">
@@ -153,7 +145,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">정보공유</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">좋은 카페 찾는 팁 공유합니다</a>
             </div>
             <div class="col_author" role="cell">
@@ -166,7 +157,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">질문</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">자유게시판 글 작성 시 이미지 첨부 방법
                 문의</a></div>
             <div class="col_author" role="cell">

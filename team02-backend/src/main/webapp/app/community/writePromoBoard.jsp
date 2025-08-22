@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -14,8 +15,8 @@
   <script defer src="./../../assets/js/community/mouseoverTreeIcon.js"></script>
   <link rel="stylesheet" href="./../../assets/css/community/treeGrade.css">
   <script>
-    let headerPath = '../../header.jsp';
-    let footerPath = '../../footer.jsp';
+    let headerPath = '../../header_login.html';
+    let footerPath = '../../footer.html';
   </script>
   <script defer src="../../assets/js/header.js"></script>
 </head>
@@ -37,7 +38,7 @@
       </div>
 
       <form action="/submit_post" method="post" class="write_form" enctype="multipart/form-data">
-        <div class="form_group">
+        <!-- <div class="form_group">
           <label for="tagSelect">태그</label>
           <select id="tagSelect" name="tagSelect" required>
             <option value="" disabled selected>태그를 선택하세요</option>
@@ -48,7 +49,7 @@
             <option value="[신규매장]">[신규매장]</option>
             <option value="[프로모션]">[프로모션]</option>
           </select>
-        </div>
+        </div> -->
 
         <div class="form_group">
           <label for="title">제목</label>

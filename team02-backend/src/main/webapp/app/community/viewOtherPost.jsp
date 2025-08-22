@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -16,8 +17,8 @@
   <script defer src="./../../assets/js/community/treeGradeModal.js"></script>
   <script defer src="./../../assets/js/community/loadHeaderFooter.js"></script>
   <script>
-    let headerPath = '../../header.jsp';
-    let footerPath = '../../footer.jsp';
+    let headerPath = '../../header_login.html';
+    let footerPath = '../../footer.html';
   </script>
   <script defer src="../../assets/js/header.js"></script>
 </head>
@@ -43,7 +44,6 @@
       <!-- 게시글 헤더 -->
       <article class="post">
         <div class="post_header">
-          <span class="tag">[잡담]</span>
           <div class="author_box">
             <img class="author_profile" src="./../../assets/img/가지.png" alt="가지" />
             <span class="author_name">gisu</span>
@@ -88,24 +88,18 @@
                 <p class="comment_text">ㅋㅋㅋ 이 빠요 잘 와준듯</p>
               </div>
             </div>
-            <div class="comment_recommend_container">
-              <button class="recommend" title="댓글 추천">
-                <img src="./../../assets/img/like.jpg" alt="댓글 추천 버튼" />
-              </button>
-              <span class="recommend_count" id="recommendCount">0</span>
-            </div>
           </li>
         </ul>
 
         <!-- 다크모드 -->
-        <form class="comment_form" action="#" method="post">
+        <!-- <form class="comment_form" action="#" method="post">
           <img class="comment_profile" src="./../../assets/img/나무.png" alt="나무" />
           <span class="comment_author">namhyuk</span>
           <input type="text" name="comment" placeholder="댓글을 입력하세요" required />
           <button type="submit">등록</button>
-        </form>
+        </form> -->
       </section>
-      <button id="darkModeToggle" title="다크 모드 토글">🌓</button>
+      <!-- <button id="darkModeToggle" title="다크 모드 토글">🌓</button> -->
     </div>
   </main>
 

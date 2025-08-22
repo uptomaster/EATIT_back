@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -16,8 +17,8 @@
   <script defer src="./../../assets/js/community/loadHeaderFooter.js"></script>
   <script defer src="./../../assets/js/community/mouseoverTreeIcon.js"></script>
   <script>
-    let headerPath = '../../header.jsp';
-    let footerPath = '../../footer.jsp';
+    let header_path = '../../header_login.html';
+    let footer_path = '../../footer.html';
   </script>
 </head>
 
@@ -46,7 +47,6 @@
       <!-- FAQ 섹션 -->
       <section id="faq_section" class="community_list" aria-label="FAQ 게시판 목록">
         <div class="list_header_flex_row" role="rowgroup">
-          <div class="col_tag" role="columnheader">태그</div>
           <div class="col_title" role="columnheader">제목</div>
           <div class="col_author" role="columnheader">글쓴이</div>
           <div class="col_date" role="columnheader">등록일</div>
@@ -55,7 +55,6 @@
         </div>
         <div id="faq_list_body" class="list_body" role="rowgroup">
           <div class="list_row_flex_row" role="row">
-            <div class="col_tag" role="cell">공지</div>
             <div class="col_title" role="cell"><a href="./../community/viewOtherPost.html">회원가입은 어떻게 하나요?</a></div>
             <div class="col_author" role="cell">
               <img src="./../../assets/img/관리자.png" alt="관리자" class="tree_icon" />
@@ -66,7 +65,6 @@
             <div class="col_likes" role="cell">25</div>
           </div>
           <div class="list_row_flex_row" role="row">
-            <div class="col_tag" role="cell">공지</div>
             <div class="col_title" role="cell"><a href="./../community/viewOtherPost.html">상품 배송은 얼마나 걸리나요?</a></div>
             <div class="col_author" role="cell">
               <img src="./../../assets/img/관리자.png" alt="관리자" class="tree_icon" />
@@ -82,15 +80,14 @@
       <!-- 문의목록 섹션 -->
       <section id="inquiries_section" class="community_list" aria-label="문의 게시판 목록" style="display:none;">
         <div class="list_header_flex_row" role="rowgroup">
-          <div class="col_tag" role="columnheader">태그</div>
           <div class="col_title" role="columnheader">제목</div>
           <div class="col_author" role="columnheader">글쓴이</div>
           <div class="col_date" role="columnheader">등록일</div>
           <div class="col_status" role="columnheader">답변상태</div>
         </div>
+
         <div id="inquiry_list_body" class="list_body" role="rowgroup">
           <div class="list_row_flex_row" role="row">
-            <div class="col_tag" role="cell"><span class="tag inquiry">문의</span></div>
             <div class="col_title" role="cell"><a href="./../community/viewOtherPost.html">비밀번호를 잊어버렸어요. 어떻게 하나요?</a>
             </div>
             <div class="col_author" role="cell">
@@ -100,8 +97,8 @@
             <div class="col_date" role="cell">25-07-22</div>
             <div class="col_status" role="cell"><span class="status received">접수</span></div>
           </div>
+
           <div class="list_row_flex_row" role="row">
-            <div class="col_tag" role="cell"><span class="tag report">가게신고</span></div>
             <div class="col_title" role="cell"><a href="./../community/viewOtherPost.html">판매자 불친절 관련 신고</a></div>
             <div class="col_author" role="cell">
               <img src="./../../assets/img/나무.png" alt="관리자" class="tree_icon" />
@@ -110,8 +107,8 @@
             <div class="col_date" role="cell">25-07-23</div>
             <div class="col_status" role="cell"><span class="status completed">답변완료</span></div>
           </div>
+
           <div class="list_row_flex_row" role="row">
-            <div class="col_tag" role="cell"><span class="tag etc">기타</span></div>
             <div class="col_title" role="cell"><a href="./../community/viewOtherPost.html">앱 오류 문의</a></div>
             <div class="col_author" role="cell">
               <img src="./../../assets/img/잎새.png" alt="관리자" class="tree_icon" />
@@ -120,6 +117,7 @@
             <div class="col_date" role="cell">25-07-25</div>
             <div class="col_status" role="cell"><span class="status completed">답변완료</span></div>
           </div>
+          
         </div>
       </section>
 
@@ -176,5 +174,3 @@
   </script>
 
 </body>
-
-</

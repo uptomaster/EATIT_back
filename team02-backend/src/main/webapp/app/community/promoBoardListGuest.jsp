@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -18,8 +19,8 @@
   <script defer src="./../../assets/js/community/gotoLogin.js"></script>
   <script defer src="./../../assets/js/community/mouseoverTreeIcon.js"></script>
   <script>
-    let headerPath = '../../header.jsp';
-    let footerPath = '../../footer.jsp';
+    let headerPath = '../../header.html';
+    let footerPath = '../../footer.html';
   </script>
   <script defer src="../../assets/js/header.js"></script>
 </head>
@@ -45,7 +46,6 @@
       <!-- 게시판 목록 -->
       <section class="community_list" aria-label="게시판 목록">
         <div class="list_header flex_row" role="rowgroup">
-          <div class="col_tag" role="columnheader">태그</div>
           <div class="col_title" role="columnheader">제목</div>
           <div class="col_author" role="cell">글쓴이</div>
           <div class="col_date" role="columnheader">등록일</div>
@@ -55,7 +55,6 @@
 
         <div id="postListBody" class="list_body" role="rowgroup">
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">신규매장</div>
             <div class="col_title" role="cell"><a href="./../community/viewOtherPost.html">홍대에 새로 오픈한 이탈리안 레스토랑 소개</a>
             </div>
             <div class="col_author" role="cell">
@@ -68,7 +67,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">프로모션</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">카페 여름 시즌 한정 음료 할인
                 행사</a></div>
             <div class="col_author" role="cell">
@@ -81,7 +79,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">제품소개</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">신선한 유기농 채소 식자재 공급
                 시작</a></div>
             <div class="col_author" role="cell">
@@ -94,7 +91,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">행사안내</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">베이커리 체험단 모집 공고</a>
             </div>
             <div class="col_author" role="cell">
@@ -107,7 +103,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">서비스</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">예약 시스템 신규 도입 안내</a>
             </div>
             <div class="col_author" role="cell">
@@ -120,7 +115,6 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_tag" role="cell">할인정보</div>
             <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">점심시간 스페셜 메뉴 할인 이벤트</a>
             </div>
             <div class="col_author" role="cell">
