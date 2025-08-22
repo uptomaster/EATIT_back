@@ -26,7 +26,7 @@ public class CartListFrontController extends HttpServlet {
 
 		// 장바구니 관련 요청 분기
 		switch (target) {
-			case "/cartList/viewOk.cl":
+			case "/cartList/view.cl":
 				result = new CartListViewController().execute(request, response);
 				break;
 
