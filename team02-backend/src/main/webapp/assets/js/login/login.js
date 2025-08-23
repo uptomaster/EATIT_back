@@ -1,18 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
-  // 헤더 불러오기
-  fetch('${pageContext.request.contextPath}/header.jsp')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('header').innerHTML = data;
-    });
 
-  // 푸터 불러오기
-  fetch('${pageContext.request.contextPath}/footer.jsp')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('footer').innerHTML = data;
-    });
-});
 
 /*const login = document.getElementById('login_form');
 const userid = document.getElementById('login_input_id');

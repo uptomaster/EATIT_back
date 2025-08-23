@@ -83,6 +83,11 @@ public class JoinFrontController extends HttpServlet {
             System.out.println("판매자 회원가입 처리 요청");
             result = new SellerJoinOkController().execute(request, response);
             break;
+            
+        case "/join/successJoin.jo":
+            System.out.println("회원가입성공 페이지 요청");
+            request.getRequestDispatcher("/app/join/successJoin.jsp").forward(request, response);
+            break;        
         }
 
         if (result != null && result.getPath() != null) {

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>     
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,17 +10,17 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/join/selectUserType.css">
-  <script defer src="${pageContext.request.contextPath}/assets/js/join/selectUserType.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-  <script>
-    let headerPath = '../../header.jsp';
-    let footerPath = '../../footer.jsp';
-  </script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/join/selectUserType.js"></script>
   <title>밥세권</title>
+  <script>
+  const ctx = '${pageContext.request.contextPath}';
+  let headerPath = ctx + '/header.jsp';
+  let footerPath = ctx + '/footer.jsp';
+  </script>
 </head>
-
 <body>
-  <div id="header"></div>
+<jsp:include page="/header.jsp" />
   <main>
     <div class="container">
       <!-- 회원가입 단계 동그라미 4개 -->
