@@ -5,10 +5,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./../../assets/css/header.css">
-  <link rel="stylesheet" href="./../../assets/css/footer.css">
-  <link rel="stylesheet" href="./../../assets/css/buy/storeDetail.css">
-  <script defer src="./../../assets/js/header.js"></script>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/buy/storeDetail.css">
+  <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
   <script>
     let headerPath = '../../header.jsp';
     let footerPath = '../../footer.jsp';
@@ -16,7 +16,7 @@
   <!-- 파비콘 -->
   <link rel="shortcut icon" href="./../../assets/img/favicon.ico" type="image/x-icon">
   <title>밥세권</title>
-  <script defer src="./../../assets/js/buy/storeDetail.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/buy/storeDetail.js"></script>
 </head>
 <body>
   <header id="header"></header>
@@ -29,9 +29,9 @@
       <!-- 가게 정보 및 메뉴 영역 -->
       <div class="buy_left_area">
         <div class="buy_store_info">
-          <img src="./../../assets/img/store_gimbab.jpg" alt="가게 이미지">
+          <img src="${pageContext.request.contextPath}/assets/img/store_gimbab.jpg" alt="가게 이미지">
           <div class="buy_add_heart">
-            <img src="./../../assets/img/heart_inactive.png" alt="찜 버튼" id="heartBtn">
+            <img src="${pageContext.request.contextPath}/assets/img/heart_inactive.png" alt="찜 버튼" id="heartBtn">
           </div>
           <div class="buy_store_info_detail">
             <p class="buy_store_name">푸드카페 김밥천국 역삼역점</p>
@@ -43,8 +43,8 @@
         <!-- 메뉴 -->
         <div class="buy_food">
           <ul class="buy_food_menu_choice">
-            <li><a class="link_menu" href="./../buy/storeDetail.html">메뉴</a></li>
-            <li><a class="link_ingredient" href="./../buy/ingredientDetail.html">재료</a></li>
+            <li><a class="link_menu" href="./../orders/storeDetail.html">메뉴</a></li>
+            <li><a class="link_ingredient" href="${pageContext.request.contextPath}/orders/ingredientDetail.html">재료</a></li>
             <li><a class="link_review" href="./reviewList.html">리뷰 보기</a></li>
           </ul>
 
