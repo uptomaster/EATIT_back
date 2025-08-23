@@ -27,7 +27,7 @@ public class FoodDetailOkController implements Execute {
         request.setAttribute("itemDTO", itemDTO);
 
         result.setRedirect(false);
-        result.setPath("/app/store/foodDetail.jsp");
+        result.setPath("/SellerMyPage/storeInfo.se");
         return result;
     }
 }
