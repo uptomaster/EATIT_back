@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="item">
+
+  <!-- 아이템 스냅샷: 장바구니 담기 검증/가격결정용 -->
+  <select id="snapshot" parameterType="int"
+          resultType="com.bapseguen.app.dto.view.ItemSnapshotDTO">
+    SELECT
+      i.ITEM_NUMBER      AS itemNumber,
+      i.BUSINESS_NUMBER  AS businessNumber,
+      i.ITEM_NAME        AS itemName,
+      i.ITEM_PRICE       AS itemPrice,
+      i.ITEM_QUANTITY    AS itemQuantity,
+      i.ITEM_SELL_STATE  AS itemSellState
+    FROM TBL_ITEM i
+    WHERE i.ITEM_NUMBER = #{itemNumber}
+  </select>
+
+</mapper>
