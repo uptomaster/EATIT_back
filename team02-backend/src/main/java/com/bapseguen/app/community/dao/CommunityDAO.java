@@ -51,6 +51,12 @@ public class CommunityDAO {
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
+	
+	// 게시글 총 개수 가져오기
+	public int getTotal() {
+		System.out.println("게시글 총 개수 조회 - getTotal 메소드 실행");
+		return sqlSession.selectOne("notice.noticeGetTotal");
+	}
 
 	// 게시글 상세 조회
 	public PostDetailDTO select(int postNumber) {
@@ -105,6 +111,7 @@ public class CommunityDAO {
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
+	
 	
 	
 	// FAQ 목록 조회
