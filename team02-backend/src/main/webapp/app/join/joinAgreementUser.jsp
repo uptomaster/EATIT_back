@@ -1,25 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="./../../assets/img/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="./../../assets/css/header.css">
-  <link rel="stylesheet" href="./../../assets/css/footer.css">
-  <link rel="stylesheet" href="./../../assets/css/join/joinAgreementUser.css">
-  <script defer src="./../../assets/js/join/joinAgreementUser.js"></script>
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/join/joinAgreementUser.css">
+  <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/join/joinAgreementUser.js"></script>
+  <title>밥세권</title>
   <script>
     let headerPath = '../../header.jsp';
     let footerPath = '../../footer.jsp';
   </script>
-  <script defer src="../../assets/js/header.js"></script>
-  <title>밥세권</title>
 </head>
-
 <body>
-  <header id="header"></header>
+<jsp:include page="/header.jsp" />
   <main>
     <div class="container">
       <!-- 회원가입 단계 동그라미 4개 -->
@@ -39,7 +39,7 @@
       </ul>
       <!--//.join_step-->
       <!-- 약관동의 체크 칸 -->
-      <form action="" method="post" class="join_agree">
+      <form action="${pageContext.request.contextPath}/join/generalJoin.jo" method="post" class="join_agree">
         <div class="join_agree_all">
           <input type="checkbox" name="joinAgreeAll" id="join_agree_all_chkbox" class="">
           <label for="join_agree_all_chkbox">전체 동의</label>
@@ -48,13 +48,13 @@
         <div>
           <div class="join_agree_top_title">서비스 이용 약관 </div>
           <div class="join_agree_top_term_container">
-            <input type="checkbox" name="essenAgree" class="essential" id="join_agree_top_term">
+            <input type="checkbox" name="essenAgree" class="essential" id="join_agree_top_term" required />
             <label for="join_agree_top_term">[필수] 이용 약관 동의</label>
             <!-- <span class="full-agreement">&gt;</span> -->
             <div></div>
           </div>
           <div class="join_agree_top_financial_container">
-            <input type="checkbox" name="essenAgree" class="essential" id="join_agree_top_financial">
+            <input type="checkbox" name="essenAgree" class="essential" id="join_agree_top_financial" required />
             <label for="join_agree_top_financial">[필수] 전자금융거래 이용약관 동의</label>
             <!-- <span>&gt;</span>/ -->
             <div></div>
@@ -69,22 +69,6 @@
             <label for="join_agree_bottom_service">[선택] 서비스/이벤트 제공을 위한 개인정보 수집 이용동의</label>
             <!-- <span class="full-agreement">&gt;</span> -->
           </div>
-          <div class="join_agree_bottom_adv_container">
-            <input type="checkbox" name="agree" class="join_agree_adv" id="join_agree_bottom_adv" class="">
-            <label for="join_agree_bottom_adv">[선택] 광고성 정보 수신 동의</label>
-            <!-- <span class="full-agreement">&gt;</span> -->
-          </div>
-          <div>
-            <span>
-              <input type="checkbox" name="agree" class="join_agree_adv" id="join_agree_bottom_adv_sms" class="">
-              <label for="join_agree_bottom_adv_sms">SMS</label>
-            </span>
-            <span>
-              <input type="checkbox" name="agree" class="join_agree_adv" id="join_agree_bottom_adv_call" class="">
-              <label for="join_agree_bottom_adv_call">전화</label>
-            </span>
-          </div>
-          <div class="join_agree_bottom_adv_txt">밥세권에서 제공하는 서비스의 광고성 정보를 수신합니다.</div>
           <div class="join_agree_bottom_personal">
             <input type="checkbox" name="essenAgree" class="essential" id="join_agree_bottom_peraonal" class="">
             <label for="join_agree_bottom_personal">[필수] 밥세권 회원 연동을 위한 개인정보 수집 이용 동의</label>
