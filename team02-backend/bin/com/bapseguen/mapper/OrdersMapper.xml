@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="orders">
+
+    <!-- 주문 등록 -->
+    <insert id="insertOrder" parameterType="OrdersDTO">
+        INSERT INTO TBL_ORDERS 
+        (ORDER_NUMBER, MEMBER_NUMBER, ORDERS_PAYMENT_INFO, ORDERS_DATE, ORDERS_TOTAL_AMOUNT, ORDERS_PAYMENT_STATUS)
+        VALUES 
+        (ORDERS_SEQ.NEXTVAL, #{memberNumber}, #{ordersPaymentInfo}, SYSDATE, #{ordersTotalAmount}, #{ordersPaymentStatus})
+    </insert>
+
+    <!-- 주문 단건 조회 -->
+    <select id="selectOrder" parameterType="int" resultType="OrdersDTO">
+        SELECT ORDER_NUMBER, MEMBER_NUMBER, ORDERS_PAYMENT_INFO, TO_CHAR(ORDERS_DATE, 'YYYY-MM-DD') AS ordersDate, 
+        ORDERS_TOTAL_AMOUNT, ORDERS_PAYMENT_STATUS
+        FROM TBL_ORDERS
+        WHERE ORDER_NUMBER = #{orderNumber}
+    </select>
+
+    <!-- 특정 회원의 주문 목록 -->
+    <select id="selectOrdersByMember" parameterType="int" resultType="OrdersDTO">
+        SELECT 
+            ORDER_NUMBER, MEMBER_NUMBER, ORDERS_PAYMENT_INFO, TO_CHAR(ORDERS_DATE, 'YYYY-MM-DD') AS ordersDate, 
+            ORDERS_TOTAL_AMOUNT, ORDERS_PAYMENT_STATUS
+        FROM TBL_ORDERS
+        WHERE MEMBER_NUMBER = #{memberNumber}
+        ORDER BY ORDER_NUMBER DESC
+    </select>
+
+    <!-- 주문 상태 변경 -->
+    <update id="updateOrderStatus" parameterType="OrdersDTO">
+        UPDATE TBL_ORDERS
+        SET ORDERS_PAYMENT_STATUS = #{ordersPaymentStatus}
+        WHERE ORDER_NUMBER = #{orderNumber}
+    </update>
+
+    <!-- 주문 삭제 -->
+    <delete id="deleteOrder" parameterType="int">
+        DELETE FROM TBL_ORDERS
+        WHERE ORDER_NUMBER = #{orderNumber}
+    </delete>
+
+
+    <!-- 주문 상품 등록 -->
+    <insert id="insertOrderItem" parameterType="OrderItemDTO">
+        INSERT INTO TBL_ORDER_ITEM
+        (ORDER_ITEM_NUMBER, ORDER_NUMBER, ITEM_NUMBER, ORDER_ITEM_UNIT_PRICE, ORDER_ITEM_QUANTITY)
+        VALUES
+        (ORDER_ITEM_SEQ.NEXTVAL, #{orderNumber}, #{itemNumber}, #{orderItemUnitPrice}, #{orderItemQuantity})
+    </insert>
+
+    <!-- 특정 주문의 상품 목록 -->
+    <select id="selectOrderItems" parameterType="int" resultType="OrderItemDTO">
+        SELECT ORDER_ITEM_NUMBER, ORDER_NUMBER, ITEM_NUMBER, ORDER_ITEM_UNIT_PRICE, ORDER_ITEM_QUANTITY
+        FROM TBL_ORDER_ITEM
+        WHERE ORDER_NUMBER = #{orderNumber}
+    </select>
+
+</mapper>
