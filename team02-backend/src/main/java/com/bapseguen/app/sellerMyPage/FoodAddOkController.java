@@ -1,6 +1,7 @@
 package com.bapseguen.app.sellerMyPage;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,8 @@ import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.dto.ItemDTO;
 import com.bapseguen.app.sellerMyPage.dao.SellerMyPageDAO;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class FoodAddOkController implements Execute {
 	@Override
@@ -80,3 +83,4 @@ public class FoodAddOkController implements Execute {
 	}
 
 }
+	

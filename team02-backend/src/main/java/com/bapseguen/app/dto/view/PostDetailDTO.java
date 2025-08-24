@@ -1,6 +1,7 @@
 package com.bapseguen.app.dto.view;
 
 import java.util.List;
+
 import com.bapseguen.app.dto.PostImageDTO;
 
 public class PostDetailDTO {

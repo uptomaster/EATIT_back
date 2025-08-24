@@ -11,48 +11,48 @@ import com.bapseguen.app.dto.MemberDTO;
 
 public class AdminLoginOkController implements Execute {
 
-	@Override
-	public Result execute(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    @Override
+    public Result execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		System.out.println("[ADMIN] 관리자 로그인 처리 요청");
+        System.out.println("[ADMIN] 관리자 로그인 처리 요청");
 
-		Result result = new Result();
+        Result result = new Result();
 
-		String adminIdInput = request.getParameter("adminId");
-		String adminPwInput = request.getParameter("adminPw");
+        String adminIdInput = request.getParameter("adminId");
+        String adminPwInput = request.getParameter("adminPw");
 
-		if (adminIdInput == null || adminIdInput.isBlank() || adminPwInput == null || adminPwInput.isBlank()) {
-			request.setAttribute("loginError", "아이디와 비밀번호를 입력하세요.");
-			request.setAttribute("inputAdminId", adminIdInput);
-			result.setPath("/app/admin/adminLogin.jsp");
-			result.setRedirect(false);
-			return result;
-		}
+        if (adminIdInput == null || adminIdInput.isBlank() ||
+            adminPwInput == null || adminPwInput.isBlank()) {
+            request.setAttribute("loginError", "아이디와 비밀번호를 입력하세요.");
+            request.setAttribute("inputAdminId", adminIdInput);
+            result.setPath("/app/admin/adminLogin.jsp");
+            result.setRedirect(false);
+            return result;
+        }
 
-		MemberDTO dto = new MemberDTO();
-		dto.setMemberId(adminIdInput);
-		dto.setMemberPassword(adminPwInput);
+        MemberDTO dto = new MemberDTO();
+        dto.setMemberId(adminIdInput);
+        dto.setMemberPassword(adminPwInput);
 
-		AdminDAO dao = new AdminDAO();
-		// 일치하면 회원번호, 아니면 -1
-		int memberNumber = dao.loginAdmin(dto);
+        AdminDAO dao = new AdminDAO();
+        int memberNumber = dao.loginAdmin(dto); // 일치하면 회원번호, 아니면 -1
 
-		if (memberNumber > 0) {
-			HttpSession session = request.getSession();
-			session.setAttribute("adminNumber", memberNumber);
-			session.setAttribute("memberId", adminIdInput);
-			session.setAttribute("memberType", "ADMIN");
+        if (memberNumber > 0) {
+            HttpSession session = request.getSession();
+            session.setAttribute("adminNumber", memberNumber); // 프로젝트에서 쓰는 키 유지
+            session.setAttribute("memberId", adminIdInput);    // DTO/DB 명칭과 통일
+            session.setAttribute("memberType", "ADMIN");       // 통일 포인트
 
-			result.setPath(request.getContextPath() + "/admin/dashboard.ad");
-			result.setRedirect(true);
-		} else {
-			request.setAttribute("loginError", "일치하는 관리자 정보가 없습니다.");
-			request.setAttribute("inputAdminId", adminIdInput);
-			result.setPath("/app/admin/adminLogin.jsp");
-			result.setRedirect(false);
-		}
+            result.setPath(request.getContextPath() + "/admin/main.ad");
+            result.setRedirect(true);
+        } else {
+            request.setAttribute("loginError", "일치하는 관리자 정보가 없습니다.");
+            request.setAttribute("inputAdminId", adminIdInput);
+            result.setPath("/app/admin/adminLogin.jsp");
+            result.setRedirect(false);
+        }
 
-		return result;
-	}
+        return result;
+    }
 }

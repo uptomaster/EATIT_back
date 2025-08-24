@@ -23,7 +23,6 @@ public class SellerJoinOkController implements Execute {
         MemberDTO memberDTO = new MemberDTO();
         memberDTO.setMemberId(request.getParameter("seller_input_id"));
         memberDTO.setMemberPassword(request.getParameter("seller_input_pw"));
-        memberDTO.setMemberType("SELLER");
 
         SellerMemberDTO sellerDTO = new SellerMemberDTO();
         sellerDTO.setSellerName(request.getParameter("seller_input_name"));
@@ -43,7 +42,7 @@ public class SellerJoinOkController implements Execute {
 
         Result result = new Result();
         result.setRedirect(true);
-        result.setPath(request.getContextPath()+ "/join/successJoin.jo");
+        result.setPath(request.getContextPath());
         return result;
     }
 }

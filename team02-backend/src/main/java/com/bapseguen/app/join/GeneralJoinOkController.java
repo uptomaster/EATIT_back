@@ -22,11 +22,10 @@ public class GeneralJoinOkController implements Execute {
         MemberDTO memberDTO = new MemberDTO();
         memberDTO.setMemberId(request.getParameter("user_input_id"));
         memberDTO.setMemberPassword(request.getParameter("user_input_pw"));
-        memberDTO.setMemberType("GENERAL");
 
         GeneralMemberDTO generalDTO = new GeneralMemberDTO();
         generalDTO.setGeneralName(request.getParameter("user_input_name"));
-        generalDTO.setGeneralBirthdate(request.getParameter("user_input_birth"));
+        generalDTO.setGeneralBirthDate(request.getParameter("user_input_birth"));
         generalDTO.setGeneralPhoneNumber(request.getParameter("user_input_phone"));
 
         JoinDAO joinDAO = new JoinDAO();
@@ -34,7 +33,7 @@ public class GeneralJoinOkController implements Execute {
 
         Result result = new Result();
         result.setRedirect(true);
-        result.setPath(request.getContextPath() + "/join/successJoin.jo");
+        result.setPath(request.getContextPath());
         return result;
     }
 }

@@ -53,6 +53,7 @@
 		<typeAlias type="com.bapseguen.app.dto.view.SellerInfoDTO" alias="SellerInfoDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.view.StoreReivewsDTO" alias="StoreReivewsDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.view.WithDrawDTO" alias="WithDrawDTO"></typeAlias>
+		<typeAlias type="com.bapseguen.app.dto.view.ItemSnapshotDTO" alias="ItemSnapshotDTO"></typeAlias>
 	</typeAliases>
 
 	<environments default="oracle">
