@@ -21,7 +21,7 @@ public class CartListDeleteItemOkController implements Execute {
         HttpSession session = request.getSession();
         CartListDAO cartDAO = new CartListDAO();
 
-        // 1. 로그인 체크
+        // 로그인 체크
         Integer memberNumber = (Integer) session.getAttribute("memberNumber");
         if (memberNumber == null) {
             result.setPath(request.getContextPath() + "/member/login.me");
@@ -29,7 +29,7 @@ public class CartListDeleteItemOkController implements Execute {
             return result;
         }
 
-        // 2. cartItemNumber 파라미터 검증
+        // cartItemNumber 파라미터 검증
         int cartItemNumber;
         try {
             cartItemNumber = Integer.parseInt(request.getParameter("cartItemNumber"));
@@ -40,14 +40,13 @@ public class CartListDeleteItemOkController implements Execute {
             return result;
         }
 
-        // 3. 내 카트의 항목인지 확인 로직이 있으면 더 안전 (DAO에 selectOwner 추가 가능)
-        // 지금은 단순 삭제만 처리
+        // 삭제 처리
         CartItemDTO dto = new CartItemDTO();
         dto.setCartItemNumber(cartItemNumber);
 
         cartDAO.deleteCartItem(dto);
 
-        // 4. 완료 메시지 후 장바구니 화면 이동
+        // 완료 메시지 후 장바구니 화면 이동
         session.setAttribute("cartNotice", "상품을 장바구니에서 삭제했습니다.");
         result.setPath(request.getContextPath() + "/cartList/view.cl");
         result.setRedirect(true);
