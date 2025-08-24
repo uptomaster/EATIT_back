@@ -9,8 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 
-//회원의 주문 목록 조회 (마이페이지에서 사용, orderList.jsp forward)
-public class OrderListController implements Execute{
+public class StoreListController implements Execute{
 
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response)

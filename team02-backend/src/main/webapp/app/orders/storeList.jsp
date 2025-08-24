@@ -77,7 +77,7 @@
   </section>
 </div>
 
-<jsp:include page="/app/common/footer.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 
 </body>
 </html>

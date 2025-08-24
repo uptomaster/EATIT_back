@@ -21,7 +21,7 @@ public class CartListClearOkController implements Execute {
         HttpSession session = request.getSession();
         CartListDAO cartDAO = new CartListDAO();
 
-        // 1. 로그인 체크
+        // 로그인 체크
         Integer memberNumber = (Integer) session.getAttribute("memberNumber");
         if (memberNumber == null) {
             result.setPath(request.getContextPath() + "/member/login.me");
@@ -29,7 +29,7 @@ public class CartListClearOkController implements Execute {
             return result;
         }
 
-        // 2. cartNumber 파라미터 파싱
+        // cartNumber 파라미터 파싱
         int cartNumber;
         try {
             cartNumber = Integer.parseInt(request.getParameter("cartNumber"));
@@ -40,7 +40,7 @@ public class CartListClearOkController implements Execute {
             return result;
         }
 
-        // 3. 해당 카트가 내 카트인지 검증
+        // 해당 카트가 내 카트인지 검증
         String cartBN = cartDAO.selectCartBusinessNumberByCartNumber(cartNumber);
         Integer myCartNumber = cartDAO.selectOpenCartNumberByMember(new CartDTO() {{
             setMemberNumber(memberNumber);
@@ -53,12 +53,12 @@ public class CartListClearOkController implements Execute {
             return result;
         }
 
-        // 4. 전체 아이템 삭제
+        // 전체 아이템 삭제
         CartDTO dto = new CartDTO();
         dto.setCartNumber(cartNumber);
         cartDAO.deleteCartAllItems(dto);
 
-        // 5. 완료 처리
+        // 완료 처리
         session.setAttribute("cartNotice", "장바구니를 비웠습니다.");
         result.setPath(request.getContextPath() + "/cartList/view.cl");
         result.setRedirect(true);
