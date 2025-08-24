@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -7,37 +8,54 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>자유게시판 - 게시글 작성</title>
-  <link rel="stylesheet" href="./../../assets/css/community/writeFreeBoard.css" />
-  <link rel="stylesheet" href="./../../assets/css/header.css" />
-  <link rel="stylesheet" href="./../../assets/css/footer.css" />
-  <link rel="stylesheet" href="./../../assets/css/community/treeGrade.css">
-  <script defer src="./../../assets/js/community/loadHeaderFooter.js"></script>
-  <script defer src="./../../assets/js/community/writeFreeBoard.js"></script>
-  <script defer src="./../../assets/js/community/mouseoverTreeIcon.js"></script>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/community/writeFreeBoard.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/community/treeGrade.css">
+  <script defer src="${pageContext.request.contextPath}/assets/js/community/writeFreeBoard.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/community/mouseoverTreeIcon.js"></script>
   <script>
-    let headerPath = '../../header_login.html';
-    let footerPath = '../../footer.html';
+    let headerPath = '../../header.jsp';
+    let footerPath = '../../footer.jsp';
   </script>
-  <script defer src="../../assets/js/header.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
 </head>
 
 <body>
-  <header id="header"></header>
+  <!-- <header id="header"></header> -->
+  <jsp:include page="/header.jsp" />
 
   <main class="layout">
     <aside class="side"></aside>
 
     <section class="container">
       <div class="title_section">
-        <div class="tag">자유 게시판</div>
         <div class="profile_tree">
-          namhyuk
-          <img src="./../../assets/img/나무.png" alt="나무" class="tree_icon author_profile" />
+          ${sessionScope.memberId}
+          <img src="${pageContext.request.contextPath}/assets/img/나무.png" alt="나무" class="tree_icon author_profile" />
         </div>
-        <h1 class="post_title">자유게시글 작성</h1>
+        <h1 class="post_title">
+		    <c:choose>
+		        <c:when test="${postType == 'FREE'}">
+		            자유게시글 작성
+		        </c:when>
+			<%-- <c:when test="${postType == 'NOTICE'}">
+		            공지사항 작성
+		        </c:when> --%>
+		        <c:when test="${postType == 'PROMOTION'}">
+		            프로모션 게시글 작성
+		        </c:when>
+		        <c:when test="${postType == 'RECIPE'}">
+		            레시피 게시글 작성
+		        </c:when>
+		        <c:otherwise>
+		            게시글 작성
+		        </c:otherwise>
+		    </c:choose>
+		</h1>
       </div>
 
-      <form action="/submit_post" method="post" class="write_form" enctype="multipart/form-data">
+      <form action="${pageContext.request.contextPath}/community/writeFreeBoardOK.co" method="post" class="write_form" enctype="multipart/form-data">
 
         <div class="form_group">
           <label for="title">제목</label>
@@ -55,7 +73,8 @@
         </div>
 
         <div class="button_group">
-          <button type="reset" class="cancel_btn">작성 취소</button>
+          <!-- <button type="reset" class="cancel_btn">작성 취소</button> -->
+          <a class="cancel_btn" href="${pageContext.request.contextPath}/community/FreeBoardList.jsp">작성 취소</a>
           <button type="submit" class="submit_btn">작성 완료</button>
         </div>
       </form>
@@ -64,7 +83,8 @@
     <aside class="side"></aside>
   </main>
 
-  <footer id="footer"></footer>
+  <jsp:include page="/footer.jsp" />
+  <!-- <footer id="footer"></footer> -->
 </body>
 
 </html>

@@ -57,10 +57,25 @@ public class CommunityFrontController extends HttpServlet {
 			System.out.println("공지사항/이벤트 게시글 상세 페이지 처리 요청");
 			result = new ViewOwnPostReadOkController().execute(request, response);
 			break;	
+		
+		
+
 		case "/community/freeBoardListOk.co":
 			System.out.println("자유게시판 목록 페이지 처리 요청");
 			result = new FreeBoardListOkController().execute(request, response);
 			break;
+		case "/community/freeBoardReadOk.co":
+			System.out.println("자유게시판 상세 페이지 처리 요청");
+			result = new FreeBoardReadOkController().execute(request, response);
+			break;
+		case "/community/postDeleteOK.co":
+			System.out.println("게시글 삭제 완료 요청");
+			result = new PostDeleteOKController().execute(request, response);
+			break;
+		case "/community/postUpdate.co":
+			System.out.println("게시글 수정 페이지 이동 요청");
+			result = new PostUpdateController().execute(request, response);
+			break;	
 		case "/community/writeFreeBoard.co":
 			System.out.println("자유게시판 게시글 작성페이지 이동 요청");
 			result = new WriteFreeBoardController().execute(request, response);
@@ -68,49 +83,51 @@ public class CommunityFrontController extends HttpServlet {
 		case "/community/writeFreeBoardOK.co":
 			System.out.println("자유게시판 게시글 작성완료 요청");
 			result = new WriteFreeBoardOKController().execute(request, response);
-			break;
-		case "/community/BoardDeleteOK.co":
-			System.out.println("게시글 삭제 완료 요청");
-			result = new BoardDeleteOKController().execute(request, response);
-			break;
-			
-		case "/community/BoardUpdateOK.co":
-			System.out.println("게시글 수정 페이지 이동 요청");
-			result = new BoardUpdateController().execute(request, response);
 			break;	
 			
-			
-			
-		case "/community/promoBoardListOk.co":
-			System.out.println("홍보게시판 목록 페이지 처리 요청");
-			result = new PromoBoardListOkController().execute(request, response);
-			break;
-		case "/community/writePromoBoard.co":
-			System.out.println("홍보게시판 게시글 작성페이지 이동 요청");
-			result = new WritePromoBoardController().execute(request, response);
-			break;	
-		case "/community/writePromoOKBoard.co":
-			System.out.println("홍보게시판 게시글 작성완료 요청");
-			result = new WritePromoBoardOKController().execute(request, response);
+		case "/community/customerServiceListOkController.co":
+			System.out.println("고객센터 목록 페이지 처리 요청");
+			result = new CustomerServiceListOkController().execute(request, response);
 			break;
 			
 			
 			
-		case "/community/recipeListOk.co":
-			System.out.println("레시피게시판 목록페이지 처리 요청");
-			result = new RecipeListOkController().execute(request, response);
-			break;
-		case "/community/writeRecipeBoard.co":
-			System.out.println("홍보게시판 게시글 작성페이지 이동 요청");
-			result = new WriteRecipeBoardController().execute(request, response);
-			break;
-		case "/community/writeRecipeOKBoard.co":
-			System.out.println("홍보게시판 게시글 작성완료 요청");
-			result = new WriteRecipeBoardOKController().execute(request, response);
-			break;
-		
-			
-			
+//			
+//		case "/community/promoBoardListOk.co":
+//			System.out.println("홍보게시판 목록 페이지 처리 요청");
+//			result = new PromoBoardListOkController().execute(request, response);
+//			break;
+//		case "/community/writePromoBoard.co":
+//			System.out.println("홍보게시판 게시글 작성페이지 이동 요청");
+//			result = new WritePromoBoardController().execute(request, response);
+//			break;	
+//		case "/community/writePromoOKBoard.co":
+//			System.out.println("홍보게시판 게시글 작성완료 요청");
+//			result = new WritePromoBoardOKController().execute(request, response);
+//			break;
+//			
+//			
+//		case "/community/recipeListOk.co":
+//			System.out.println("레시피게시판 목록페이지 처리 요청");
+//			result = new RecipeListOkController().execute(request, response);
+//			break;
+//		case "/community/writeRecipeBoard.co":
+//			System.out.println("홍보게시판 게시글 작성페이지 이동 요청");
+//			result = new WriteRecipeBoardController().execute(request, response);
+//			break;
+//		case "/community/writeRecipeOKBoard.co":
+//			System.out.println("홍보게시판 게시글 작성완료 요청");
+//			result = new WriteRecipeBoardOKController().execute(request, response);
+//			break;
 		}
+
+		if (result != null) {
+			if (result.isRedirect()) {
+				response.sendRedirect(result.getPath());
+			} else {
+				request.getRequestDispatcher(result.getPath()).forward(request, response);
+			}
+		}
+	}
 
 }

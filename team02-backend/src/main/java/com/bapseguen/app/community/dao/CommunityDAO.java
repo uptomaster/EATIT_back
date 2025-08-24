@@ -31,7 +31,7 @@ public class CommunityDAO {
 	}
 
 	//자유게시판 목록 조회
-	public List<FreeBoardDTO> selectAll(Map<String, Integer> pageMap) {
+	public List<FreeBoardDTO> freeselectAll(Map<String, Integer> pageMap) {
 		System.out.println("모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
 		List<FreeBoardDTO> list = sqlSession.selectList("board.freeSelectAll", pageMap);
 		System.out.println("조회결과 : " + list);
@@ -51,6 +51,12 @@ public class CommunityDAO {
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
+	
+	// 게시글 총 개수 가져오기
+	public int getTotal() {
+		System.out.println("게시글 총 개수 조회 - getTotal 메소드 실행");
+		return sqlSession.selectOne("post.postGetTotal");
+	}
 
 	// 게시글 상세 조회
 	public PostDetailDTO select(int postNumber) {
@@ -68,8 +74,8 @@ public class CommunityDAO {
 	}
 
 	// 게시글 수정
-	public void update(PostDTO postDTO) {
-		sqlSession.update("post.postUpdate", postDTO);
+	public void update(PostDetailDTO postDetailDTO) {
+		sqlSession.update("post.postUpdate", postDetailDTO);
 	}
 
 	// 내가 작성한 게시글 목록 조회
@@ -105,6 +111,7 @@ public class CommunityDAO {
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
+	
 	
 	
 	// FAQ 목록 조회
