@@ -49,7 +49,7 @@ passwordInput.addEventListener("blur", function () {
       checkPwMsg.textContent = "사용 가능한 비밀번호입니다.";
       checkPwMsg.style.color = "green";
     } else {
-      checkPwMsg.textContent = "비밀번호는 영문, 숫자, 특수문자를 포함하여 8자 이상 입력해야 합니다.";
+      checkPwMsg.textContent = "영문, 숫자, 특수문자를 포함하여 8자 이상 입력해야 합니다.";
       checkPwMsg.style.color = "red";
     }
   });
