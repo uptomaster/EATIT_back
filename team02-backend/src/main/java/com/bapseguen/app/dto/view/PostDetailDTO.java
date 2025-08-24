@@ -20,6 +20,7 @@ public class PostDetailDTO {
 	private int postReportCount;
 	private int commentNumber;
 	private String commentContent;
+	private int commentCount;
 	
 	//게시글 이미지
 	private List<PostImageDTO> files;
@@ -159,6 +160,12 @@ public class PostDetailDTO {
 				+ ", commentNumber=" + commentNumber + ", commentContent=" + commentContent + ", files=" + files
 				+ ", freeContent=" + freeContent + ", promoContent=" + promoContent + ", recipeContent=" + recipeContent
 				+ ", treeGrade=" + treeGrade + ", memberNumber=" + memberNumber + ", memberId=" + memberId + "]";
+	}
+	public int getCommentCount() {
+		return commentCount;
+	}
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
 	}
 	
 	

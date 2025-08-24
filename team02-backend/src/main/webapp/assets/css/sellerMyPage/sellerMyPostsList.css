@@ -1,9 +1,9 @@
 @charset "UTF-8";
 
-header{
+/* header{
   width : 1920px;
   height : 150px;
-}
+} */
 main{
   background-color: #FFF5E4;
   width: 1920px;
@@ -96,6 +96,13 @@ main{
   display: flex;
   border: 1px solid black;  
 }
+.seller_myposts_index{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 150px;
+}
 .seller_myposts_sort{
   display: flex;
   justify-content: center;
@@ -148,9 +155,14 @@ main{
   display: flex;
   justify-self: center;
   position: relative;
-  top: 1000px;
+	margin-top : 15px;
 }
-.seller_myposts_pagination > a{
+.seller_myposts_pagination_ul{
+  display: flex;
+	list-style: none;
+  flex-direction: row;
+}
+.seller_myposts_pagination_ul > li{
   width: 32px;
   height: 32px;
   background-color: white;
@@ -163,6 +175,11 @@ main{
   border-radius: 6px;
   color: black;
 }
-.seller_myposts_pagination > a:hover{
-  background-color: #FF873C;
+.pagination_item{
+  text-decoration: none;
+  color: black;
+}
+.pagination_item:hover{
+  text-decoration: none;
+  color: #FF873C;
 }
