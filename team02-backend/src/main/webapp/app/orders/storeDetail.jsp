@@ -41,7 +41,7 @@
 
           <div class="buy_store_info_detail">
             <p class="buy_store_name">${item.itemName}</p>
-            <p class="buy_store_address">사업자번호: ${item.businessNumber}</p>
+            <p class="buy_store_address">사업자번호 : ${item.businessNumber}</p>
           </div>
         </div>
 
