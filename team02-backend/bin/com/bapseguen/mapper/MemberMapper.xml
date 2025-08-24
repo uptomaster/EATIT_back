@@ -24,7 +24,7 @@
 	<!-- 공통 MEMBER -->
 	<insert id="joinMember" parameterType="MemberDTO">
   		<selectKey keyProperty="memberNumber" resultType="int" order="BEFORE">
-    		SELECT SEQ_MEMBER.NEXTVAL FROM dual
+    		SELECT SEQ_MEMBER_NUMBER.NEXTVAL FROM dual
   		</selectKey>
   		INSERT INTO TBL_MEMBER (MEMBER_NUMBER, MEMBER_ID, MEMBER_PASSWORD)
   		VALUES (#{memberNumber}, #{memberId}, #{memberPassword})

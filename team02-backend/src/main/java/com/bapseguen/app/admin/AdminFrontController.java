@@ -174,6 +174,11 @@ public class AdminFrontController extends HttpServlet {
 			System.out.println("[ADMIN] 블랙리스트 목록 처리 요청");
 			result = new BlacklistListController().execute(request, response);
 			break;
+			
+		case "/admin/memberlistlist.ad":
+			System.out.println("[ADMIN] 회원 목록 처리 요청");
+			result = new MemberListController().execute(request, response);
+			break;
 
 		/* ===================== 기본/예외 ===================== */
 		default:
