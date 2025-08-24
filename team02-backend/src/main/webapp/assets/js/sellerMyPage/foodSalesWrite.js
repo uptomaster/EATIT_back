@@ -12,9 +12,7 @@ window.addEventListener('DOMContentLoaded', () => {
     .then(data => {
       document.getElementById('footer').innerHTML = data;
     });
-    
 });
-
 
 // 이미지 크기 체크 함수
 function checkImageSize(file) {
@@ -39,7 +37,8 @@ function checkImageSize(file) {
 }
 
 // 파일 선택 시 처리
-document.getElementById('food_edit_photo').addEventListener('change', async function (e) {
+const addFileBtn = document.getElementById('food_edit_photo');
+addFileBtn.addEventListener('change', async function (e) {
   const file = e.target.files[0];
   const errorMessage = document.getElementById('error-message');
 
@@ -64,7 +63,6 @@ document.getElementById('food_edit_photo').addEventListener('change', async func
   reader.readAsDataURL(file);
 });
 
-
 // 음식 설명 글자 수 표시
 const description = document.getElementById('food_edit_explain');
 const charCount = document.getElementById('food_edit_char_count');
@@ -72,4 +70,3 @@ const charCount = document.getElementById('food_edit_char_count');
 description.addEventListener('input', function () {
   charCount.textContent = `${description.value.length}/100`;
 });
-

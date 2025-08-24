@@ -55,19 +55,37 @@
 	</select>
 	
 	<!-- 내가 작성한 게시글 조회 -->
-	<select id="myPostSelect" resultType="PostDTO">
+	<select id="myPostSelect" resultType="PostDetailDTO">
 	<![CDATA[
-	  SELECT * FROM (
-	    SELECT ROWNUM AS RNUM, SUBQUERY.*
+	SELECT * FROM (
+	  SELECT ROWNUM AS RNUM, SUBQUERY.*
 	    FROM (
-	      SELECT POST_NUMBER,POST_TITLE,POST_TYPE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_LIKE_COUNT,POST_DELETE_STATE
-	      FROM TBL_POST
-	      WHERE MEMBER_NUMBER = #{memberNumber}
-	        AND POST_DELETE_STATE = 'N'
-	      ORDER BY POST_CREATED_DATE DESC
+	      SELECT p.POST_NUMBER, p.POST_TITLE,p.POST_TYPE,p.POST_CREATED_DATE,p.POST_VIEW_COUNT,p.POST_LIKE_COUNT, p.POST_DELETE_STATE,
+	          (SELECT count(c.COMMENT_NUMBER) FROM TBL_COMMENT c WHERE c.POST_NUMBER = p.POST_NUMBER  ) AS comment_count
+	      FROM TBL_POST p 
+	      WHERE p.MEMBER_NUMBER = #{memberNumber}
+	        AND p.POST_DELETE_STATE = 'N'
+	      ORDER BY p.POST_CREATED_DATE DESC
 	    ) SUBQUERY
 	  )
 	  WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+	]]>
+	</select>
+	
+	<!-- 내가 작성한 게시글 개수 조회 -->
+	<select id="myPostCount" resultType="int">
+	<![CDATA[
+	SELECT count(*) FROM (
+	  SELECT ROWNUM AS RNUM, SUBQUERY.*
+	    FROM (
+	      SELECT p.POST_NUMBER, p.POST_TITLE,p.POST_TYPE,p.POST_CREATED_DATE,p.POST_VIEW_COUNT,p.POST_LIKE_COUNT, p.POST_DELETE_STATE,
+	          (SELECT count(c.COMMENT_NUMBER) FROM TBL_COMMENT c WHERE c.POST_NUMBER = p.POST_NUMBER  ) AS comment_count
+	      FROM TBL_POST p 
+	      WHERE p.MEMBER_NUMBER = #{memberNumber}
+	        AND p.POST_DELETE_STATE = 'N'
+	      ORDER BY p.POST_CREATED_DATE DESC
+	    ) SUBQUERY
+	  )
 	]]>
 	</select>
 	
