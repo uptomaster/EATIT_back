@@ -3,8 +3,7 @@
 <mapper namespace="storeManage">
 	<!-- 음식 판매 등록 -->
 	<insert id="addFood" parameterType="ItemDTO">
-		<selectKey keyProperty="itemNumebr" resultType="int"
-			order="BEFORE">
+		<selectKey keyProperty="itemNumebr" resultType="int" order="BEFORE">
 			SELECT SEQ_ITEM_NUMBER.NEXTVAL FROM dual
 		</selectKey>
 		INSERT INTO TBL_ITEM (
@@ -17,13 +16,16 @@
 	</insert>
 
 	<!-- 음식 판매 상세 조회 -->
-	<select id="detaileFood" parameterType="int">
-		select
-		item_name,item_price, item_content, item_quantity, item_origin,
-		item_expire_date, item_sell_state
-		from tbl_item
-		where item_number =
-		#{itemNumber}
+	<select id="detaileFood" parameterType="int" resultType="ItemWithImgDTO">
+		<![CDATA[
+			select
+				i.item_number, BUSINESS_NUMBER, item_name, item_price, item_content, 
+				item_quantity, item_origin,	item_expire_date, item_sell_state,
+				(SELECT nvl(m.ITEM_IMAGE_SYSTEM_NAME, NULL) FROM tbl_item_image m WHERE i.item_number = m.ITEM_NUMBER) AS image
+			from tbl_item i 
+			--JOIN TBL_ITEM_IMAGE m ON i.item_number = m.ITEM_NUMBER
+			where item_number =	#{itemNumber}
+		]]>
 	</select>
 
 	<!-- 음식 판매 수정 -->
@@ -48,7 +50,7 @@
 	</delete>
 
 	<!-- 음식 목록 조회 -->
-	<select id="foodList" parameterType="int" resultType="ItemWithImgDTO">
+	<select id="foodList" parameterType="String" resultType="ItemWithImgDTO">
 	<![CDATA[
 		SELECT
 			i.item_name,i.item_price,i.item_content,i.item_quantity,i.item_origin,i.item_expire_date,
@@ -102,7 +104,7 @@
 	</delete>
 
 	<!-- 재료 판매 목록 조회 -->
-	<select id="ingredientList" parameterType="int"
+	<select id="ingredientList" parameterType="String"
 		resultType="ItemWithImgDTO">
 	<![CDATA[
 		SELECT
