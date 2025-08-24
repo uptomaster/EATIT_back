@@ -16,7 +16,6 @@
   <script defer src="${pageContext.request.contextPath}/assets/js/main.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/footer.js"></script>	
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-  <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
 
 <script>
     let headerPath = './../../header.jsp';
@@ -27,6 +26,7 @@
 
 <body>
   <!-------------------- 헤더 ------------------------>
+  <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
   <!-- <header id="header"></header> -->
 
   <!-------------------- 메인 ------------------------>
@@ -95,7 +95,7 @@
             </a>
           </article>
           <article class="main_food_buy_article">
-            <a href="./app/buy/storeDetail.html">
+            <a href="${pageContext.request.contextPath}/order/storeDetail.html">
               <!-- 상품이미지(임시) -->
               <img src="./assets/img/dakdoritang.png" alt="상품이미지 설명 추가하기">
               <!-- 가게정보 -->
