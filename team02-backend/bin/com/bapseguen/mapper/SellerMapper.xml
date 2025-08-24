@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="seller">
+<!-- 마이페이지 진입전 비밀번호 확인 -->
+<select id="chkPw" parameterType="SellerInfoDTO" resultType="int">
+	SELECT member_number 
+	FROM TBL_MEMEBER
+	WHERE MEMBER_PASSWORD = #{MEMBER_PASSWORD} AND MEMBER_NUMBER = #{MEMBER_NUMBER}
+</select>
+<!-- 내 정보 조회 -->
+	<select id="getBusinessNumber" parameterType="int" resultType="String">
+		<![CDATA[
+		SELECT
+		s.business_number
+		FROM TBL_MEMBER m
+		INNER JOIN TBL_SELLER_MEMBER sm
+			ON sm.member_number = m.MEMBER_NUMBER
+		INNER JOIN TBL_STORE s
+			ON s.member_number = sm.MEMBER_NUMBER
+		WHERE m.member_number = #{memberNumber}
+		]]>
+	</select>
+<!-- 내 정보 조회 -->
+	<select id="selectSellerinfo" parameterType="int" resultType="SellerInfoDTO">
+	<![CDATA[
+	SELECT
+	  m.member_number, m.member_id, m.member_password,
+	  sm.seller_name,
+	  to_char(sm.seller_birthdate,'YYYY-MM-DD'),
+	  sm.seller_phone_number,
+	  to_char(sm.seller_updated_date,'YYYY-MM-DD'),
+	  s.business_number, s.store_name,
+	  to_char(s.store_open_date,'YYYY-MM-DD'),      
+	  s.store_tel, s.store_address, s.store_address_detail, s.store_zip_code,
+	  s.store_open_time, s.store_close_time
+	FROM TBL_MEMBER m
+	INNER JOIN TBL_SELLER_MEMBER sm
+		ON sm.member_number = m.MEMBER_NUMBER
+	INNER JOIN TBL_STORE s
+		ON s.member_number = sm.MEMBER_NUMBER
+	WHERE m.member_number = #{memberNumber}
+	]]>
+	</select>
+	
+	<!-- 내 정보 수정 -->
+<!-- 	<update id="updateSellerinfo" parameterType="SellerInfoDTO">
+		<![CDATA[
+
+		]]>
+	</update> -->
+	<!-- 전화번호 중복 여부 -->
+	
+	
+	<!-- 쿼리문에 문제가 업다면 일반 사용자의 마이페이지의 맵퍼를 사용하고 싶음 -->
+	<!-- 내 게시글 목록 조회 -->
+	<!-- 내 댓글 목록 조회 -->
+	<!-- 내 리뷰 목록 조회 -->
+	<!-- 구매한 음식 내역 조회 -->
+	<!-- 구매한 재료 내역 조회 -->
+	<!-- 리뷰 작성 -->
+	<!-- 리뷰 작성 여부 확인 -->
+</mapper>

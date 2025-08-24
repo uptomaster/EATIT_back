@@ -1,19 +1,3 @@
-window.addEventListener('DOMContentLoaded', () => {
-  // 헤더 불러오기
-  fetch('./../../header.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('header').innerHTML = data;
-    });
-
-  // 푸터 불러오기
-  fetch('./../../footer.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('footer').innerHTML = data;
-    });
-});
-
 // 미리 저장한 아이디 값
 const dbId = 'user'
 
@@ -118,16 +102,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!isValidPhone(phone)) {
       phoneError.textContent = "전화번호를 형식에 맞춰 입력해주세요.";
     } else {
-<<<<<<< HEAD
     //전화번호 입력 전 인증번호 칸과 버튼을 비활성화
     checkCodeBtn.disabled = false;
     checkCodeBtn.style.color = 'white';
     codeInput.disabled = false;
       alert("인증번호가 전송되었습니다.");
-=======
       checkPwMsg.textContent = "영문, 숫자, 특수문자를 포함하여 8자 이상 입력해야 합니다.";
       checkPwMsg.style.color = "red";
->>>>>>> d182d8ad59917b1633fd463b5f23dabcbf9fb439
     }
   });
 
