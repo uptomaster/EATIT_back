@@ -11,11 +11,7 @@
             <!-- 로그인 페이지 이동처리 -->
       		<li><a href="${pageContext.request.contextPath}/login/login.lo">로그인</a></li>
             <!-- 회원가입 페이지 이동처리 -->
-<<<<<<< HEAD
-      		<li><a href="/app/join/selectUserType.jsp">회원가입</a></li> <!-- 추후수정필요   -->
-=======
       		<li><a href="${pageContext.request.contextPath}/app/join/selectUserType.jsp">회원가입</a></li> <!-- 추후수정필요   -->
->>>>>>> main
          </c:when>
          <c:otherwise>
             <li><a href="${pageContext.request.contextPath}/login/logoutOk.lo">로그아웃</a></li>

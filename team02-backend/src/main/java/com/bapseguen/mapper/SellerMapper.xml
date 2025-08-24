@@ -1,29 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="seller">
+<!-- 마이페이지 진입전 비밀번호 확인 -->
+<select id="chkPw" parameterType="SellerInfoDTO" resultType="int">
+	SELECT member_number 
+	FROM TBL_MEMEBER
+	WHERE MEMBER_PASSWORD = #{MEMBER_PASSWORD} AND MEMBER_NUMBER = #{MEMBER_NUMBER}
+</select>
 <!-- 내 정보 조회 -->
-	<select id="selectMyinfo" resultType="SellerInfoDTO">
+	<select id="getBusinessNumber" parameterType="int" resultType="String">
+		<![CDATA[
+		SELECT
+		s.business_number
+		FROM TBL_MEMBER m
+		INNER JOIN TBL_SELLER_MEMBER sm
+			ON sm.member_number = m.MEMBER_NUMBER
+		INNER JOIN TBL_STORE s
+			ON s.member_number = sm.MEMBER_NUMBER
+		WHERE m.member_number = #{memberNumber}
+		]]>
+	</select>
+<!-- 내 정보 조회 -->
+	<select id="selectSellerinfo" parameterType="int" resultType="SellerInfoDTO">
 	<![CDATA[
-		SELECT MEMBER_NUMBER,MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME,MEMBER_PHONE_NUMBER,MEMBER_BIRTHDATE,
-		FROM(
-		SELECT M.MEMBER_NUMBER,M.MEMBER_ID,M.MEMBER_PASSWORD,G.MEMBER_NAME,G.MEMBER_PHONE_NUMBER,G.MEMBER_BIRTHDATE
-		FROM TBL_MEMBER M JOIN TBL_GENERAL_MEMBER G
-		ON M.MEMBER_NUMBER=G.MEMBER_NUMBER
-		)SUBQUERY
+	SELECT
+	  m.member_number, m.member_id, m.member_password,
+	  sm.seller_name,
+	  to_char(sm.seller_birthdate,'YYYY-MM-DD'),
+	  sm.seller_phone_number,
+	  to_char(sm.seller_updated_date,'YYYY-MM-DD'),
+	  s.business_number, s.store_name,
+	  to_char(s.store_open_date,'YYYY-MM-DD'),      
+	  s.store_tel, s.store_address, s.store_address_detail, s.store_zip_code,
+	  s.store_open_time, s.store_close_time
+	FROM TBL_MEMBER m
+	INNER JOIN TBL_SELLER_MEMBER sm
+		ON sm.member_number = m.MEMBER_NUMBER
+	INNER JOIN TBL_STORE s
+		ON s.member_number = sm.MEMBER_NUMBER
+	WHERE m.member_number = #{memberNumber}
 	]]>
 	</select>
 	
 	<!-- 내 정보 수정 -->
-	<update id="updateMyinfo" parameterType="SellerInfoDTO">
+<!-- 	<update id="updateSellerinfo" parameterType="SellerInfoDTO">
 		<![CDATA[
-		UPDATE MEMBER_NUMBER,MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME,MEMBER_PHONE_NUMBER,MEMBER_BIRTHDATE,
-		SET(
-		UPDATE M.MEMBER_NUMBER,M.MEMBER_ID,M.MEMBER_PASSWORD,G.MEMBER_NAME,G.MEMBER_PHONE_NUMBER,G.MEMBER_BIRTHDATE
-		SET TBL_MEMBER M JOIN TBL_GENERAL_MEMBER G
-		ON M.MEMBER_NUMBER=G.MEMBER_NUMBER
-		)SUBQUERY
-	]]>
-	</update>
+
+		]]>
+	</update> -->
 	<!-- 전화번호 중복 여부 -->
 	
 	
