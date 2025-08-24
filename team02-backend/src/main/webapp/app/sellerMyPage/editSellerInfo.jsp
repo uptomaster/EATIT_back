@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-<link rel="shortcut icon" href="./../../assets/img/favicon.ico" type="image/x-icon">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=, initial-scale=1.0">
-  <link rel="shortcut" href="./../../assets/img/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="./../../assets/css/sellerMyPage/editSellerInfo.css">
+	<link rel="shortcut icon" href="./../../assets/img/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="./../../assets/css/header.css">
   <link rel="stylesheet" href="./../../assets/css/footer.css">
+  <link rel="stylesheet" href="./../../assets/css/sellerMyPage/editSellerInfo.css">
   <script defer src="./../../assets/js/sellerMyPage/editSellerInfo.js"></script>
   <script>
     let headerPath = '../../header.jsp';
@@ -26,14 +25,14 @@
     <div class="seller_my_page_list">
       <div class="seller_my_page">마이 페이지</div>
       <ul class="seller_side_bar">
-        <li class="seller_my_page_list_main"><a href="./../sellerMyPage/editSellerInfo.html">내 정보 수정</a></li>
-        <li><a href="./../sellerMyPage/sellerfoodPurchaseList.html">음식 구매 내역</a></li>
-        <li><a href="./../sellerMyPage/selleringredientPurchaseList.html">재료 구매 내역</a></li>
-        <li><a href="./../sellerMyPage/sellerMyPostsList.html">내 글 관리</a></li>
-        <li><a href="./../sellerMyPage/sellerMyCommentsList.html">내 댓글 관리</a></li>
-        <li><a href="./../sellerMyPage/sellerMyReviewsList.html">내 리뷰 관리</a></li>
-        <li><a href="./../sellerMyPage/storeInfo.html">사업장 관리</a></li>
-        <li><a href="./../sellerMyPage/todaySaleList.html">판매 내역</a></li>
+				<li class="store_info_menu_list_current"><a href="/sellerMyPage/editSellerInfo.se">내 정보 수정</a></li>
+				<li><a href="/sellerMyPage/buiedFood.se">음식 	구매 내역</a></li>
+				<li><a href="/sellerMyPage/buiedIngredient.se">재료 구매 내역</a></li>
+				<li><a href="/sellerMyPage/myPosts.se">내	글 관리</a></li>
+				<li><a href="/sellerMyPage/myComments.se">내 댓글 관리</a></li>
+				<li><a href="/sellerMyPage/myReviews.se">내 리뷰 관리</a></li>
+				<li><a href="/sellerMyPage/storeInfo.se">사업장관리</a></li>
+				<li><a href="/sellerMyPage/todaySaleList.se">판매 내역</a></li>
       </ul>
     </div>
     <!-- 내 정보 수정 창 / 1100px 영역 -->

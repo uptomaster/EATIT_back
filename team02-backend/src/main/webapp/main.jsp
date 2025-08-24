@@ -14,9 +14,8 @@
 
   <!-- 헤더 js -->
   <script defer src="${pageContext.request.contextPath}/assets/js/main.js"></script>
-  <script defer src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/footer.js"></script>	
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-  <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
 
 <script>
     let headerPath = './../../header.jsp';
@@ -27,6 +26,7 @@
 
 <body>
   <!-------------------- 헤더 ------------------------>
+  <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
   <!-- <header id="header"></header> -->
 
   <!-------------------- 메인 ------------------------>
@@ -286,7 +286,7 @@
             d="M305 151.1L320 171.8L335 151.1C360 116.5 400.2 96 442.9 96C516.4 96 576 155.6 576 229.1L576 231.7C576 343.9 436.1 474.2 363.1 529.9C350.7 539.3 335.5 544 320 544C304.5 544 289.2 539.4 276.9 529.9C203.9 474.2 64 343.9 64 231.7L64 229.1C64 155.6 123.6 96 197.1 96C239.8 96 280 116.5 305 151.1z" />
         </svg>
       </a>
-      <a href="./app/cartList/shoppingList.html" class="icon_btn" title="장바구니">
+      <a href="${pageContext.request.contextPath}/cartList/view.cl" class="icon_btn" title="장바구니">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
           <!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
           <path fill="#202020" d="M320 64C326.6 64 332.9 66.7 337.4 71.5L481.4 223.5L481.9 224L560 224C577.7 224 592 238.3 592 256C592 270.5 582.4 282.7 569.2 286.7L523.1 493.9C516.6 523.2 490.6 544 460.6 544L179.3 544C149.3 544 123.3 523.2 116.8 493.9L70.8 286.7C57.6 282.8 48 270.5 48 256C48 238.3 62.3 224 80 224L158.1 224L158.6 223.5L302.6 71.5C307.1 66.7 313.4 64 320 64zM320 122.9L224.2 224L415.8 224L320 122.9zM240 328C240 314.7 229.3 304 216 304C202.7 304 192 314.7 192 328L192 440C192 453.3 202.7 464 216 464C229.3 464 240 453.3 240 440L240 328zM320 304C306.7 304 296 314.7 296 328L296 440C296 453.3 306.7 464 320 464C333.3 464 344 453.3 344 440L344 328C344 314.7 333.3 304 320 304zM448 328C448 314.7 437.3 304 424 304C410.7 304 400 314.7 400 328L400 440C400 453.3 410.7 464 424 464C437.3 464 448 453.3 448 440L448 328z" />

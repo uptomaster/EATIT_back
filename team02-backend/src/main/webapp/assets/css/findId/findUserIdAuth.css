@@ -37,6 +37,7 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+  border-radius: 5px;
 }
 
 /* ************************************** */
@@ -52,9 +53,13 @@ main {
 /* 아이디 찾기 입력 폼 ******************/
 .findIdAuth_input_form {
   width: 380px;
-  ;
   height: 110px;
+  flex-direction: row;
+}
+#wow{
+  width: 380px;
   display: flex;
+  height: 110px;
   flex-direction: row;
   gap: 10px;
 }
@@ -104,6 +109,11 @@ button:hover{
 /*하단의 아이디 찾기 버튼 *************************/
 .findId_btn:hover {
   background-color: #FF7722;
+}
+.findId_btn_container{
+	  justify-content: center;
+	  width : 100px;
+	  margin : 30px auto 0;
 }
 
 .findId_btn {

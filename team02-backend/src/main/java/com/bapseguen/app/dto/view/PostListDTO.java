@@ -3,6 +3,7 @@ package com.bapseguen.app.dto.view;
 public class PostListDTO {
 
 	//게시글정보
+	private String postNumber;
 	private String postType; // ‘NOTICE’,’FREE’,’PROMOTION’,’RECIPE’,’INQUIRY’,’FAQ’
 	private String postTitle;
 	private String postCreatedDate;
@@ -17,6 +18,12 @@ public class PostListDTO {
 	private String memberId;
 	private String treeGrade; //CHECK (MEMBER_TREE_GRADE IN ('씨앗','새싹','잎새','가지','나무'))
 	
+	public String getPostNumber() {
+		return postNumber;
+	}
+	public void setPostNumber(String postNumber) {
+		this.postNumber = postNumber;
+	}
 	public String getPostType() {
 		return postType;
 	}

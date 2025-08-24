@@ -4,11 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="./../../assets/img/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="./../../assets/css/header.css">
-  <link rel="stylesheet" href="./../../assets/css/footer.css">
-  <link rel="stylesheet" href="./../../assets/css/sellerMyPage/foodSaleswrite.css">
-  <script defer src="./../../assets/js/sellerMyPage/foodSalesWrite.js"></script>
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/sellerMyPage/foodSaleswrite.css">
+  <script defer src="${pageContext.request.contextPath}/assets/js/sellerMyPage/foodSalesWrite.js"></script>
   <script>
     let headerPath = '../../header.jsp';
     let footerPath = '../../footer.jsp';
@@ -24,19 +24,21 @@
     <div class="foodsaleswrite_my_page_list">
       <div class="foodsaleswrite_my_page">마이 페이지</div>
       <ul class="foodsaleswrite_side_bar">
-        <li><a href="./../sellerMyPage/editSellerInfo.html">내 정보 등록</a></li>
-        <li><a href="./../sellerMyPage/sellerfoodPurchaseList.html">음식 구매 내역</a></li>
-        <li><a href="./../sellerMyPage/selleringredientPurchaseList.html">재료 구매 내역</a></li>
-        <li><a href="./../sellerMyPage/sellerMyPostsList.html">내 글 관리</a></li>
-        <li><a href="./../sellerMyPage/sellerMyCommentsList.html">내 댓글 관리</a></li>
-        <li><a href="./../sellerMyPage/sellerMyReviewsList.html">내 리뷰 관리</a></li>
-        <li class="foodsaleswrite_main"><a href="./../sellerMyPage/storeInfo.html">사업장 관리</a></li>
-        <li><a href="./../sellerMyPage/todaySaleList.html">판매 내역</a></li>
+				<li><a href="/sellerMyPage/editSellerInfo.se">내 정보 수정</a></li>
+				<li><a href="/sellerMyPage/buiedFood.se">음식 	구매 내역</a></li>
+				<li><a href="/sellerMyPage/buiedIngredient.se">재료 구매 내역</a></li>
+				<li><a href="/sellerMyPage/myPosts.se">내	글 관리</a></li>
+				<li><a href="/sellerMyPage/myComments.se">내 댓글 관리</a></li>
+				<li><a href="/sellerMyPage/myReviews.se">내 리뷰 관리</a></li>
+				<li class="store_info_menu_list_current">
+					<a href="/sellerMyPage/storeInfo.se">사업장관리</a></li>
+				<li><a href="/sellerMyPage/todaySaleList.se">판매 내역</a></li>
       </ul>
     </div>
 
     <div class="foodsaleswrite_container"> <!-- 1100px 영역-->
-      <form action="" method="get" class="foodsaleswrite_content_container"> <!-- 컨텐츠 영역 -->
+      <form action="${pageContext.request.contextPath}/SellerPage/addFoodOk.se "method="post" 
+      enctype="multipart/form-data" class="foodsaleswrite_content_container"> <!-- 컨텐츠 영역 -->
         <div class="foodsaleswrite_title">
           음식 판매 등록
         </div>
@@ -79,7 +81,7 @@
             <button type="button">등록</button>
           </div>
         </div>
-        <button class="foodsaleswrite_buzz" type="button">등록</button>
+        <button class="foodsaleswrite_buzz" type="submmit">등록</button>
     </div> <!-- 컨텐츠 -->
     </form> <!-- 1100px 영역 -->
   </main>

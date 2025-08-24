@@ -2,7 +2,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const recommendBtn = document.getElementById('recommendBtn');
   const likesSpan = document.querySelector('.likes');
   const counterRecommend = document.querySelector('#recommendCount');
-
+  const modifyBtn = document.querySelector(".modify-btn");
+  const deleteBtn = document.querySelector(".delete-btn");
+  const submitBtn = document.querySelector(".submit-btn");
+  
+  
+  
   recommendBtn.addEventListener('click', () => {
     // 현재 '추천 0'에서 숫자만 추출
     let currentLikes = parseInt(likesSpan.textContent.replace('추천 ', ''), 10);
@@ -18,6 +23,34 @@ document.addEventListener('DOMContentLoaded', () => {
       counterRecommend.classList.remove('bump');
     }, 300);
   });
+  
+  //게시글 수정 버튼 클릭시
+  modifyBtn?.addEventListener("click", () => {
+     if (!postNumber) return alert("postNumber가 없습니다");
+     window.location.href = `/community/postUpdateOK.co?postNumber=${encodeURIComponent(postNumber)}`;
+   });
+
+   // ====== 게시글 삭제 ======
+   deleteBtn?.addEventListener("click", async () => {
+     if (!postNumber) return alert("postNumber가 없습니다");
+     if (!confirm("정말 삭제하시겠습니까?")) return;
+
+     try {
+       const res = await fetch(`/community/postDeleteOK.co?postNumber=${encodeURIComponent(postNumber)}`, {
+         method: "GET",
+         headers: { "X-Requested-With": "XMLHttpRequest" },
+       });
+       if (!res.ok) throw new Error("삭제 요청 실패");
+
+       alert("게시글이 삭제되었습니다.");
+       window.location.href = "/community/freeBoardListOk.co";
+     } catch (err) {
+       console.error("게시글 삭제 실패 :", err);
+       alert("게시글 삭제에 실패했습니다.");
+     }
+   });
+  
+  
 });
 
 

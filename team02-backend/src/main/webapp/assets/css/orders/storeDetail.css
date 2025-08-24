@@ -6,6 +6,18 @@
   box-sizing: border-box;
 }
 
+/* 모든 링크 기본 스타일 */
+a {
+  color: #333;             /* 글씨 색 (검정/짙은 회색 추천) */
+  text-decoration: none;   /* 밑줄 제거 */
+}
+
+/* 마우스 올렸을 때 스타일 */
+a:hover {
+  color: #FF924E;          /* 강조 색상 (밥세권 메인 포인트 컬러) */
+}
+
+
 /* 구매 > 가게 상세 정보 */
 #buy_store_detail {
   width: 1920px;

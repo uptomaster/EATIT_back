@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const rowsPerPage = 10;
-  let currentPage = 1;
+/*  const rowsPerPage = 10;
+  let currentPage = 1;*/
 
   const listBody = document.getElementById("postListBody");
   const rows = Array.from(listBody.querySelectorAll(".list_row"));
@@ -8,9 +8,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.querySelector(".search_text");
   const searchBtn = document.querySelector(".search_btn");
 
-  let filteredRows = [...rows];
+  /*let filteredRows = [...rows];*/
 
-  function displayList(page) {
+  /*function displayList(page) {
     listBody.innerHTML = "";
     let start = (page - 1) * rowsPerPage + 1;
     let end = (start - 1) + rowsPerPage;
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       pagination.appendChild(pageLink);
     }
-  }
+  }*/
 
   function searchList() {
     const query = searchInput.value.trim().toLowerCase();

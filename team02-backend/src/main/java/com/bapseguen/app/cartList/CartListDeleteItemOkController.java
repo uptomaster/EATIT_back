@@ -4,6 +4,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
@@ -17,16 +18,37 @@ public class CartListDeleteItemOkController implements Execute {
             throws ServletException, IOException {
 
         Result result = new Result();
-        CartListDAO cartListDAO = new CartListDAO();
+        HttpSession session = request.getSession();
+        CartListDAO cartDAO = new CartListDAO();
 
-        int cartItemNumber = Integer.parseInt(request.getParameter("cartItemNumber"));
+        // 로그인 체크
+        Integer memberNumber = (Integer) session.getAttribute("memberNumber");
+        if (memberNumber == null) {
+            result.setPath(request.getContextPath() + "/member/login.me");
+            result.setRedirect(true);
+            return result;
+        }
 
+        // cartItemNumber 파라미터 검증
+        int cartItemNumber;
+        try {
+            cartItemNumber = Integer.parseInt(request.getParameter("cartItemNumber"));
+        } catch (NumberFormatException e) {
+            session.setAttribute("cartError", "잘못된 장바구니 항목 번호입니다.");
+            result.setPath(request.getContextPath() + "/cartList/view.cl");
+            result.setRedirect(true);
+            return result;
+        }
+
+        // 삭제 처리
         CartItemDTO dto = new CartItemDTO();
         dto.setCartItemNumber(cartItemNumber);
 
-        cartListDAO.deleteCartItem(dto);
+        cartDAO.deleteCartItem(dto);
 
-        result.setPath("/cartList/viewOk.cl");
+        // 완료 메시지 후 장바구니 화면 이동
+        session.setAttribute("cartNotice", "상품을 장바구니에서 삭제했습니다.");
+        result.setPath(request.getContextPath() + "/cartList/view.cl");
         result.setRedirect(true);
 
         return result;

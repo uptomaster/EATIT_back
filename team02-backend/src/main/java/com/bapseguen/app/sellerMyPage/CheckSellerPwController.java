@@ -1,4 +1,4 @@
-package com.bapseguen.app.orders;
+package com.bapseguen.app.sellerMyPage;
 
 import java.io.IOException;
 
@@ -9,14 +9,17 @@ import javax.servlet.http.HttpServletResponse;
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 
-public class FoodListController implements Execute{
+public class CheckSellerPwController implements Execute {
 
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
 		Result result = new Result();
-		
+		result.setPath("/app/sellerMyPage/sellerCheckPw.jsp");
+		result.setRedirect(false);
 		return result;
+		
 	}
+	
 }
