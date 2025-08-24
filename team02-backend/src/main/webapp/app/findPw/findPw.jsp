@@ -9,7 +9,7 @@
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/findPW/findPw.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/findPw/findPw.css">
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/findPW/findPw.js"></script>
   <title>밥세권</title>
@@ -34,11 +34,11 @@
         <form action="" method="post" class="findPw_input_container">
           <div class="findPw_input_id_contanier">
             <label for="findPw_input_id">아이디 : </label>
-            <input type="text" name="" id="findPw_input_id" placeholder="아이디를 입력해주세요">
+            <input type="text" name="findPw_input_id" id="findPw_input_id" placeholder="아이디를 입력해주세요">
           </div>
           <div class="findPw_input_phone_contaner">
             <label for="findPw_input_phone">전화번호 : </label>
-            <input type="text" name="" id="findPw_input_phone" placeholder="전화번호를 입력해주세요.">
+            <input type="text" name="findPw_input_phone" id="findPw_input_phone" placeholder="전화번호를 입력해주세요.">
           </div>
           <div class="warning_space"> <!-- 경고메시지 -->
               <span class="warning_empty"></span>

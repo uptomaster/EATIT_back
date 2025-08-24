@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bapseguen.app.Result;
+import com.bapseguen.app.findId.FindIdOkController;
+
 /**
  * Servlet implementation class findPWFrontController
  */
@@ -37,7 +40,19 @@ public class FindPwFrontController extends HttpServlet {
 	}
 
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+
+		String target = request.getRequestURI().substring(request.getContextPath().length());
+		System.out.println("현재 경로 : " + target);
+		Result result = new Result();	
+		switch (target) {
+		case "/findWd/findWdOk.fi":
+			System.out.println("비밀번호 찾기 요청");
+			result = new FindPwOkController().execute(request, response);
+			break;
 		
+		}
 	}
 
 }

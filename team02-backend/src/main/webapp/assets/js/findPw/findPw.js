@@ -1,6 +1,3 @@
-
-
-
 const btn = document.getElementsByClassName('findPw_btn');
 btn[0].addEventListener('click', () => {
   location.replace('./../../app/findPW/editPw.html');

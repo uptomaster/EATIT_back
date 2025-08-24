@@ -141,3 +141,7 @@ main {
 .join_next:hover {
   background-color: #FF7722;
 }
+#wow{
+		  justify-content: center;
+	  display : flex;
+}
