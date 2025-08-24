@@ -23,11 +23,13 @@ public class FindIdOkController implements Execute{
 		String name = request.getParameter("findIdAuth_input_name");
 		String phone = request.getParameter("findIdAuth_input_phone");
 		String id = findIdDAO.findId(name, phone);
-		result.setRedirect(true);
 		if(id == null) {
+			result.setRedirect(true);
 			result.setPath(request.getContextPath()+ "/app/findId/findUserIdFail.jsp");
 		}else{
-			result.setPath(request.getContextPath() + "/app/login/login.jsp");
+			request.setAttribute("foundId", id);
+			result.setRedirect(false);
+			result.setPath(request.getContextPath()+ "/app/findId/findUserIdAuth.jsp");
 		}
 		return result;
 	}
