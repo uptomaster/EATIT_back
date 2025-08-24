@@ -12,24 +12,19 @@ import com.bapseguen.app.Result;
 public class AdminFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public AdminFrontController() {
-		super();
-	}
+	public AdminFrontController() { super(); }
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request, response);
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request, response);
 	}
 
-	protected void doProcess(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 
@@ -39,24 +34,25 @@ public class AdminFrontController extends HttpServlet {
 		Result result = null;
 
 		switch (target) {
-
-		/* =================== 로그인 ===================== */
-
+		
+		/* =================== 로그인 =====================*/
+		
 		case "/admin/login.ad":
-			System.out.println("[ADMIN] 관리자 로그인 페이지 이동 요청");
-			// 페이지 이동만 하는 컨트롤러 사용
-			result = new AdminLoginController().execute(request, response);
-			break;
+		    System.out.println("[ADMIN] 관리자 로그인 페이지 이동 요청");
+		    // 페이지 이동만 하는 컨트롤러 사용
+		    result = new AdminLoginController().execute(request, response);
+		    break;
 
 		case "/admin/loginOk.ad":
-			System.out.println("[ADMIN] 관리자 로그인 처리 요청");
-			result = new AdminLoginOkController().execute(request, response);
-			break;
+		    System.out.println("[ADMIN] 관리자 로그인 처리 요청");
+		    result = new AdminLoginOkController().execute(request, response);
+		    break;
 
 		case "/admin/logoutOk.ad":
-			System.out.println("[ADMIN] 관리자 로그아웃 처리 요청");
-			result = new AdminLogoutOkController().execute(request, response);
-			break;
+		    System.out.println("[ADMIN] 관리자 로그아웃 처리 요청");
+		    result = new AdminLogoutOkController().execute(request, response);
+		    break;
+		
 
 		/* ===================== 대시보드(관리자 메인페이지) ===================== */
 		case "/admin/dashboard.ad":

@@ -1,6 +1,7 @@
 package com.bapseguen.app.admin.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -12,6 +13,7 @@ import com.bapseguen.app.dto.MemberDTO;
 import com.bapseguen.app.dto.MemberSuspendDTO;
 import com.bapseguen.app.dto.NoticeDTO;
 import com.bapseguen.app.dto.PostReportDTO;
+import com.bapseguen.app.dto.view.MemberListDTO;
 import com.bapseguen.config.MyBatisConfig;
 
 public class AdminDAO {
@@ -157,4 +159,17 @@ public class AdminDAO {
     public List<MemberBlacklistDTO> selectBlacklistList() {
         return sqlSession.selectList("admin.selectBlacklistList");
     }
+    
+ // 회원 목록 가져오기
+ 	public List<MemberListDTO> selectMember(Map<String, Integer> pageMap) {
+ 		System.out.println("모든 회원 조회하기 - selectAll 메소드 실행 : " + pageMap);
+ 		List<MemberListDTO> list = sqlSession.selectList("memberList.selectAll", pageMap);
+ 		System.out.println("조회결과 : " + list);
+ 		return list;
+ 	}
+
+	public int getTotal() {
+		System.out.println("회원정보 총 개수 조회 - getTotal 메소드 실행");
+		return sqlSession.selectOne("memberList.getTotal");
+	}
 }
