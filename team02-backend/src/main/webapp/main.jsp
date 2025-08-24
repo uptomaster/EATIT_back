@@ -14,7 +14,7 @@
 
   <!-- 헤더 js -->
   <script defer src="${pageContext.request.contextPath}/assets/js/main.js"></script>
-  <script defer src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/footer.js"></script>	
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
   <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
 

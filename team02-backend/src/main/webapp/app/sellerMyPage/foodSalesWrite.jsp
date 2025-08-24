@@ -24,14 +24,15 @@
     <div class="foodsaleswrite_my_page_list">
       <div class="foodsaleswrite_my_page">마이 페이지</div>
       <ul class="foodsaleswrite_side_bar">
-        <li><a href="${pageContext.request.contextPath}/app/sellerMyPage/editSellerInfo.jsp">내 정보 등록</a></li>
-        <li><a href="${pageContext.request.contextPath}/app/sellerMyPage/sellerfoodPurchaseList.jsp">음식 구매 내역</a></li>
-        <li><a href="${pageContext.request.contextPath}/app/sellerMyPage/selleringredientPurchaseList.jsp">재료 구매 내역</a></li>
-        <li><a href="${pageContext.request.contextPath}/app/sellerMyPage/sellerMyPostsList.jsp">내 글 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/app/sellerMyPage/sellerMyCommentsList.jsp">내 댓글 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/app/sellerMyPage/sellerMyReviewsList.jsp">내 리뷰 관리</a></li>
-        <li class="foodsaleswrite_main"><a href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.jsp">사업장 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/app/sellerMyPage/todaySaleList.jsp">판매 내역</a></li>
+				<li><a href="/sellerMyPage/editSellerInfo.se">내 정보 수정</a></li>
+				<li><a href="/sellerMyPage/buiedFood.se">음식 	구매 내역</a></li>
+				<li><a href="/sellerMyPage/buiedIngredient.se">재료 구매 내역</a></li>
+				<li><a href="/sellerMyPage/myPosts.se">내	글 관리</a></li>
+				<li><a href="/sellerMyPage/myComments.se">내 댓글 관리</a></li>
+				<li><a href="/sellerMyPage/myReviews.se">내 리뷰 관리</a></li>
+				<li class="store_info_menu_list_current">
+					<a href="/sellerMyPage/storeInfo.se">사업장관리</a></li>
+				<li><a href="/sellerMyPage/todaySaleList.se">판매 내역</a></li>
       </ul>
     </div>
 

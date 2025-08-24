@@ -6,10 +6,13 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.bapseguen.app.dto.CommentDTO;
 import com.bapseguen.app.dto.ItemDTO;
 import com.bapseguen.app.dto.ItemImageDTO;
-import com.bapseguen.app.dto.MemberDTO;
 import com.bapseguen.app.dto.OriginDTO;
+import com.bapseguen.app.dto.ReviewDTO;
+import com.bapseguen.app.dto.view.ItemWithImgDTO;
+import com.bapseguen.app.dto.view.PostDetailDTO;
 import com.bapseguen.app.dto.view.SellerInfoDTO;
 import com.bapseguen.config.MyBatisConfig;
 
@@ -84,11 +87,12 @@ public class SellerMyPageDAO {
         return itemDTO.getItemNumber();
     }
     // 음식 메뉴 상세
-    public ItemDTO detaileFood(int itemNumber) {
+    public ItemWithImgDTO detaileFood(int itemNumber) {
     	System.out.println("[판페DAO] 음식메뉴상세 - detailFood 메소드 실행 ");
     	System.out.println("[판페DAO] itemNumber : "+itemNumber);
     	
-        return sqlSession.selectOne("storeManage.detaileFood", itemNumber);
+    	ItemWithImgDTO answer= sqlSession.selectOne("storeManage.detaileFood", itemNumber);
+    	return answer;
     }
     // 음식 판매 수정
     public int editFood(ItemDTO dto) {
@@ -189,8 +193,51 @@ public class SellerMyPageDAO {
         return sqlSession.selectOne("origin.alreadyOrigin", dto);
     }
 
-	// // 
-//    public int getbusinessNumber() {
-//    	
-//    }
+	// // 내 게시글 관리
+    // 내 게시글 관리
+    public List<PostDetailDTO> selectAllmyPost(Map<String, Integer> pageMap) {
+		System.out.println("모든 게시글 조회하기 - selectAllmypost 메소드 실행 : " + pageMap);
+		List<PostDetailDTO> list = sqlSession.selectList("post.myPostSelect", pageMap);
+		System.out.println("조회결과 : " + list);
+		return list;
+	}
+    // 내 게시글 총 개수
+    public int myPostCount(Map<String, Integer> pageMap) {
+		System.out.println("내 게시글 총 개수 조회 - myPostCount 메소드 실행");
+		int count = sqlSession.selectOne("post.myPostCount",pageMap);
+		System.out.println("[판페DAO] 내 게시글 수 : "+count);
+		return count;
+	}
+    
+    // // 내 댓글 관리 
+    // 내 댓글 관리
+    public List<CommentDTO> selectAllmyComment(Map<String, Integer> pageMap) {
+		System.out.println("모든 게시글 조회하기 - selectAllmypost 메소드 실행 : " + pageMap);
+		List<CommentDTO> list = sqlSession.selectList("myComment.myPostSelect", pageMap);
+		System.out.println("조회결과 : " + list);
+		return list;
+	}
+    // 내 댓글 총 개수
+    public int myCommentCount(Map<String, Integer> pageMap) {
+		System.out.println("내 게시글 총 개수 조회 - myCommentCount 메소드 실행");
+		int count = sqlSession.selectOne("myComment.myCommentCount",pageMap);
+		System.out.println("[판페DAO] 내 댓글 수 : "+count);
+		return count;
+	}
+    // // 내 리뷰 관리 
+    // 내 리뷰 관리
+    public List<ReviewDTO> selectAllmyReview(Map<String, Integer> pageMap) {
+    	System.out.println("내 모든 리뷰 조회하기 - selectAllmyReview 메소드 실행 : " + pageMap);
+    	List<ReviewDTO> list = sqlSession.selectList("myReview.myReviewSelect", pageMap);
+    	System.out.println("조회결과 : " + list);
+    	return list;
+    }
+    // 내 리뷰 총 개수
+    public int myReviewCount(Map<String, Integer> pageMap) {
+    	System.out.println("내 게시글 총 개수 조회 - myReviewCount 메소드 실행");
+    	int count = sqlSession.selectOne("myReview.myReviewCount",pageMap);
+    	System.out.println("[판페DAO] 내 리뷰 수 : "+count);
+    	return count;
+    }
+    
 }
