@@ -38,9 +38,9 @@
 
         <!-- 정렬 -->
         <ul class="buy_array">
-          <li><a href="${pageContext.request.contextPath}/orders/storeList.or?itemType=INGREDIENT&q=${param.q}&sort=recent">최신순</a></li>
-          <li><a href="${pageContext.request.contextPath}/orders/storeList.or?itemType=INGREDIENT&q=${param.q}&sort=priceAsc">가격↑</a></li>
-          <li><a href="${pageContext.request.contextPath}/orders/storeList.or?itemType=INGREDIENT&q=${param.q}&sort=priceDesc">가격↓</a></li>
+          <li><a href="${pageContext.request.contextPath}/orders/ingredientList.or?itemType=INGREDIENT&q=${param.q}&sort=recent">최신순</a></li>
+          <li><a href="${pageContext.request.contextPath}/orders/ingredientList.or?itemType=INGREDIENT&q=${param.q}&sort=priceAsc">가격↑</a></li>
+          <li><a href="${pageContext.request.contextPath}/orders/ingredientList.or?itemType=INGREDIENT&q=${param.q}&sort=priceDesc">가격↓</a></li>
         </ul>
 
         <!-- DB에서 불러온 재료 리스트 -->
