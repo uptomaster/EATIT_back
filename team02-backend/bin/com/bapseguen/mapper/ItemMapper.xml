@@ -134,8 +134,11 @@
 		WHERE I.ITEM_TYPE = #{itemType}
 		AND I.ITEM_SELL_STATE = 'Y'
 		<if test="q != null and q != ''">
-			AND (I.ITEM_NAME LIKE '%' || #{q} || '%' OR I.ITEM_CONTENT LIKE '%' ||
-			#{q} || '%')
+			AND (
+			I.ITEM_NAME LIKE '%' || #{q} || '%'
+			OR I.ITEM_CONTENT LIKE '%' || #{q} || '%'
+			OR S.STORE_NAME LIKE '%' || #{q} || '%'
+			)
 		</if>
 		ORDER BY I.ITEM_NUMBER DESC
 		OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
@@ -143,16 +146,19 @@
 
 
 	<!-- 검색 + 총 개수 -->
-	<select id="countSearchItems" parameterType="map"
-		resultType="int">
-		SELECT COUNT(*)
-		FROM TBL_ITEM I
-		WHERE I.ITEM_TYPE = #{itemType}
-		AND I.ITEM_SELL_STATE = 'Y'
-		<if test="q != null and q != ''">
-			AND (I.ITEM_NAME LIKE '%' || #{q} || '%' OR I.ITEM_CONTENT LIKE '%' ||
-			#{q} || '%')
-		</if>
+	<select id="countSearchItems" parameterType="map" resultType="int">
+	  SELECT COUNT(*)
+	  FROM TBL_ITEM I
+	  JOIN TBL_STORE S ON I.BUSINESS_NUMBER = S.BUSINESS_NUMBER
+	  WHERE I.ITEM_TYPE = #{itemType}
+	    AND I.ITEM_SELL_STATE = 'Y'
+	    <if test="q != null and q != ''">
+	      AND (
+	           I.ITEM_NAME LIKE '%' || #{q} || '%'
+	        OR I.ITEM_CONTENT LIKE '%' || #{q} || '%'
+	        OR S.STORE_NAME LIKE '%' || #{q} || '%'
+	      )
+	    </if>
 	</select>
 
 </mapper>

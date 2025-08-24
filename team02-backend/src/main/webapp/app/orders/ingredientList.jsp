@@ -31,7 +31,7 @@
         <h2>재료 구매 🥕</h2>
 
         <!-- 검색 -->
-        <form method="get" action="${pageContext.request.contextPath}/orders/storeList.or">
+        <form method="get" action="${pageContext.request.contextPath}/orders/ingredientList.or">
           <input type="text" name="q" id="buy_search" value="${q}" placeholder="재료나 가게를 찾아보세요!" autocomplete="off"/>
           <input type="hidden" name="itemType" value="INGREDIENT"/>
         </form>
