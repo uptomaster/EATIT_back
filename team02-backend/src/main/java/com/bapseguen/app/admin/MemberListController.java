@@ -27,7 +27,6 @@ public class MemberListController implements Execute {
 		int rowCount = 10;
 		int pageCount = 5;
 
-		// 페이징 처리
 		int startRow = (page - 1) * rowCount + 1;
 		int endRow = startRow + rowCount - 1;
 

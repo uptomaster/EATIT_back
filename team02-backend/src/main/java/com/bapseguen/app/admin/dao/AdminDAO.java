@@ -163,13 +163,13 @@ public class AdminDAO {
  // 회원 목록 가져오기
  	public List<MemberListDTO> selectMember(Map<String, Integer> pageMap) {
  		System.out.println("모든 회원 조회하기 - selectAll 메소드 실행 : " + pageMap);
- 		List<MemberListDTO> list = sqlSession.selectList("memberList.selectAll", pageMap);
+ 		List<MemberListDTO> list = sqlSession.selectList("admin.selectMemberListList", pageMap);
  		System.out.println("조회결과 : " + list);
  		return list;
  	}
 
 	public int getTotal() {
 		System.out.println("회원정보 총 개수 조회 - getTotal 메소드 실행");
-		return sqlSession.selectOne("memberList.getTotal");
+		return sqlSession.selectOne("admin.getTotal");
 	}
 }
