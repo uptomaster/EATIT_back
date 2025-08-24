@@ -1,24 +1,33 @@
 @charset "UTF-8";
 
-*{
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
+
+body {
+  font-family: "Pretendard", sans-serif;
+}
+
+/* 전체 영역 */
 #shopping_list {
-  width: 1920px;
-  height: 1080px;
+  width: 100%;
+  min-height: 100vh;
   background-color: #FFF5E4;
+  display: flex;
+  flex-direction: column;
 }
-/* 1100px 영역 */
+
+/* 1100px 중앙 컨테이너 */
 #wrap {
   width: 1100px;
-  height: 1080px;
   margin: 0 auto;
   background-color: #FBE3B9;
-  box-sizing: border-box;
   padding: 0 5px;
 }
-/* 장바구니 제목영역  */
+
+/* 장바구니 제목 */
 .shopping_header {
   height: 60px;
   line-height: 60px;
@@ -28,47 +37,40 @@
   padding-top: 40px;
 }
 
-/* content 전체 감싸는영역 */
+/* content 전체 영역 */
 .shopping_content {
   display: flex;
-  gap: 5px;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-/* 왼쪽전체 감싸는 영역 */
+/* ---------------- 왼쪽: 장바구니 ---------------- */
 .shopping_cart_area {
   width: 690px;
-  /* height: 800px; */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-/* 전체선택 체크박스 감싸는 영역 */
+/* 전체선택 영역 */
 .shopping_select_all {
-  width: 690px;
+  width: 100%;
   height: 50px;
-  background-color: white;
+  background-color: #fff;
   border-radius: 6px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
   padding: 0 20px;
-  box-sizing: border-box;
-  gap: 20px;
-  margin-bottom: 5px;
   border: 1px solid #ddd;
   font-weight: bold;
+  gap: 20px;
 }
 
-.shopping_select_all input{
-  margin-right: 0;
+.shopping_select_all input {
+  margin-right: 6px;
 }
 
-/* 전체 체크박스 사이즈 통일 */
-input {
-  width: 20px;
-  height: 20px;
-  margin-left: 0;
-}
-
-/* 선택삭제 btn */
+/* 선택삭제 버튼 */
 .shopping_select_delete {
   background-color: #f0f0f0;
   border: 1px solid #ccc;
@@ -78,150 +80,132 @@ input {
   font-weight: bold;
   margin-left: auto;
 }
-.shopping_select_delete:hover{
+.shopping_select_delete:hover {
   background-color: #d6d6d6;
 }
-/* 장바구니 음식/재료 리스트 전체 감싸는 영역 */
-.shopping_cart_list{
-  width: 690px;
-  height: 450px;
-  background-color: white;
+
+/* 장바구니 리스트 */
+.shopping_cart_list {
+  width: 100%;
+  min-height: 300px;
+  background-color: #fff;
   border-radius: 6px;
   border: 1px solid #ddd;
+  padding: 10px 0;
 }
 
-/* 상품 사진, 상호명, 가격 등 상세 정보 전체 영역 */
-.shopping_cart_store{
-  width: 690px;
-  height: 550px;
+/* 장바구니 비었을 때 */
+.shopping_cart_list .empty {
+  text-align: center;
+  color: #888;
+  padding: 50px 0;
+  font-size: 16px;
 }
 
-/* 가게 전체 체크박스 */
-.shopping_store_header{
-  width: 690px;
-  height: 50px;
-  background-color: white;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0 20px;
-  box-sizing: border-box;
-  gap: 20px;
-  font-weight: bold;
-}
-hr{
-  width: 630px;
-  margin: 0 auto;
-}
-
-/* 상품 정보 영역 */
+/* 상품 단위 */
 .shopping_cart_item {
   display: flex;
   align-items: center;
-  padding: 0 35px;
+  padding: 0 20px;
   gap: 20px;
   height: 150px;
-  background-color: white;
+  background-color: #fff;
   border-radius: 6px;
-  /* border: 1px solid hotpink; */
-  width: 690px;
-  box-sizing: border-box;
-  margin: 30px 0 10px auto;
+  width: 100%;
+  border-bottom: 1px solid #eee;
 }
 
-/* 음식/재료 이미지 영역 */
-.shopping_cart_item img{
-  width: 150px;
-  height: 150px;
+/* 상품 이미지 */
+.shopping_cart_item img {
+  width: 120px;
+  height: 120px;
   border-radius: 6px;
   object-fit: cover;
-  /* border: 1px solid red; */
 }
 
-/* 메뉴명, 소비기한,가격 표기 */
-.shopping_item_info{
-  width: 250px;
-  /* border: 1px solid blue; */
+/* 상품 정보 */
+.shopping_item_info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
-.shopping_stock{
-  background-color: #FF5656;
-  width: 80px;
-  height: 25px;
-  text-align: center;
-  color: white;
+.shopping_item_name {
+  font-size: 18px;
   font-weight: bold;
-  border-radius: 4px;
-  margin-bottom: 8px;
+}
+.shopping_item_price {
+  font-size: 16px;
+  color: #444;
 }
 
-/* 음식 수량 증감 버튼 */
+/* 수량 조절 */
 .shopping_item_cnt {
   display: flex;
   align-items: center;
   gap: 10px;
-  /* border: 1px solid green; */
-  margin: auto;
 }
-
-/* +- 아이콘 사이즈 조절 */
-.shopping_item_cnt svg{
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
+.shopping_item_cnt a {
+  font-size: 20px;
+  text-decoration: none;
+  color: #333;
+  padding: 2px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
-
-/* 오른쪽 전체 감싸는 영역 */
-.shopping_payment_area {
-  width: 390px;
-  height: 500px;
-  display: flex;
-  flex-direction: column;
+.shopping_item_cnt a:hover {
+  background-color: #f5f5f5;
 }
-/* 결제수단 선택 전체 영역 */
-.shopping_payment_method{
-  border: 1px solid #dddddd;
-  border-radius: 8px;
-  padding: 16px 20px;
-  background-color: #fff;
-  width: 390px;
-  height: 220px;
-  box-sizing: border-box;
-  margin-bottom: 5px;
-}
-/* 결제수단 제목 */
-.shopping_payment_title{
-  font-size: 18px;
+.shopping_item_cnt span {
+  font-size: 16px;
   font-weight: bold;
-  margin: 5px 0 0 5px;
-}
-/* 결제 api 공간 */
-.shopping_payment_api {
-  display: flex;
-  flex-direction: column;
-  font-size: 14px;
-  color: #333333;
-  margin-top: 25px;
-  /* border: 1px solid red;s */
-}
-.shopping_payment_api label {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  margin-bottom: 10px;
-  /* border: 1px solid blue; */
 }
 
-/* 결제금액 요약 */
+/* 삭제 버튼 */
+.shopping_item_delete a {
+  color: #FF5656;
+  font-size: 14px;
+  text-decoration: none;
+}
+.shopping_item_delete a:hover {
+  text-decoration: underline;
+}
+
+/* ---------------- 오른쪽: 결제 영역 ---------------- */
+.shopping_payment_area {
+  width: 390px;             /* 고정폭 */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 결제수단 */
+.shopping_payment_method,
 .shopping_payment_summary {
   border: 1px solid #dddddd;
   border-radius: 8px;
   padding: 16px 20px;
   background-color: #fff;
-  width: 390px;
-  box-sizing: border-box;
-  margin-bottom: 5px;
+  width: 100%;              /* 부모(390px)에 맞춤 */
+  box-sizing: border-box;   /* padding 포함해도 390px 넘지 않게 */
 }
+
+.shopping_payment_title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.shopping_payment_method label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 8px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+/* 결제 금액 요약 */
 .shopping_price_row {
   display: flex;
   justify-content: space-between;
@@ -229,29 +213,27 @@ hr{
   padding: 8px 0;
   font-size: 16px;
   color: #333333;
-  margin-top: 20px;
+  margin-top: 10px;
 }
-.shopping_price_row span:nth-child(2){
+.shopping_price_row span:nth-child(2) {
   font-size: 20px;
   font-weight: bold;
 }
 
-/* 결제하기 btn */
-a{
-  text-decoration: none;
-}
+/* 결제하기 버튼 */
 .shopping_payment_btn {
-  width: 390px;
+  display: block;
+  width: 100%;              /* 부모 .shopping_payment_area 너비에 딱 맞게 */
   height: 60px;
   background-color: #FF924E;
   color: white;
   text-align: center;
+  border: none;
   border-radius: 6px;
   font-size: 20px;
   font-weight: bold;
-  line-height: 60px;
-  text-decoration: none;
+  cursor: pointer;
 }
-.shopping_payment_btn:hover{
+.shopping_payment_btn:hover {
   background-color: #ff7722;
 }
