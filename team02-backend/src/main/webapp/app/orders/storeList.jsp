@@ -7,7 +7,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>밥세권 - 음식점 목록</title>
+  <title>밥세권 - 상품 목록</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/orders/storeList.css" />
@@ -15,43 +15,48 @@
 <body>
 
   <!-------------------- 헤더 ------------------------>
-<jsp:include page="${pageContext.request.contextPath}/header.jsp" />
-  <jsp:param name="active" value="purchase"/>
+  <jsp:include page="${pageContext.request.contextPath}/header.jsp">
+    <jsp:param name="active" value="purchase"/>
+  </jsp:include>
 
 <div id="buy">
   <section class="buy_store_list">
-    <h2>음식 목록</h2>
+    <h2>
+      <c:choose>
+        <c:when test="${itemType eq 'INGREDIENT'}">재료 목록</c:when>
+        <c:otherwise>음식 목록</c:otherwise>
+      </c:choose>
+    </h2>
 
     <!-- 검색 -->
-    <form method="get" action="$${pageContext.request.contextPath}/app/orders/storeList.jsp">
+    <form method="get" action="${pageContext.request.contextPath}/orders/storeList.or">
       <input id="buy_search" type="text" name="q" value="${param.q}" placeholder="가게/메뉴 검색" />
+      <input type="hidden" name="itemType" value="${itemType}" />
     </form>
 
     <!-- 정렬 -->
     <ul class="buy_array">
-      <li><a href="$${pageContext.request.contextPath}/app/orders/storeList.jsp?q=${param.q}&sort=recent">최신순</a></li>
-      <li><a href="$${pageContext.request.contextPath}/app/orders/storeList.jsp?q=${param.q}&sort=distance">거리순</a></li>
-      <li><a href="$${pageContext.request.contextPath}/app/orders/storeList.jsp?q=${param.q}&sort=priceAsc">가격↑</a></li>
-      <li><a href="$${pageContext.request.contextPath}/app/orders/storeList.jsp?q=${param.q}&sort=priceDesc">가격↓</a></li>
+      <li><a href="${pageContext.request.contextPath}/orders/storeList.or?itemType=${itemType}&q=${param.q}&sort=recent">최신순</a></li>
+      <li><a href="${pageContext.request.contextPath}/orders/storeList.or?itemType=${itemType}&q=${param.q}&sort=priceAsc">가격↑</a></li>
+      <li><a href="${pageContext.request.contextPath}/orders/storeList.or?itemType=${itemType}&q=${param.q}&sort=priceDesc">가격↓</a></li>
     </ul>
 
     <!-- 카드 리스트 -->
     <div class="buy_area">
       <c:choose>
-        <c:when test="${empty foodList}">
-          <p style="color:#888">표시할 음식이 없습니다.</p>
+        <c:when test="${empty items}">
+          <p style="color:#888">표시할 상품이 없습니다.</p>
         </c:when>
         <c:otherwise>
-          <c:forEach var="food" items="${foodList}">
+          <c:forEach var="item" items="${items}">
             <article class="buy_food_article">
-              <a href="${pageContext.request.contextPath}/app/orders/storeDetail.jsp?businessNumber=${food.businessNumber}&itemNumber=${food.itemNumber}">
-                <img src="${empty food.imagePath ? ph : food.imagePath}" alt="${food.itemName}"/>
+              <a href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${item.itemNumber}">
+                <img src="${empty item.itemImageSystemName ? ph : item.itemImageSystemName}" alt="${item.itemName}"/>
                 <div class="buy_store_info">
-                  <p class="buy_store_name">${food.businessName}</p>
-                  <p class="buy_menu_name">${food.itemName}</p>
-                  <p class="buy_open_time">
-                    <c:out value="${food.openHours}" default="영업시간 정보 없음"/>
-                    <span class="buy_price"><fmt:formatNumber value="${food.itemPrice}" type="number"/>원</span>
+                  <p class="buy_store_name">사업자번호: ${item.businessNumber}</p>
+                  <p class="buy_menu_name">${item.itemName}</p>
+                  <p class="buy_price">
+                    <fmt:formatNumber value="${item.itemPrice}" type="number"/>원
                   </p>
                 </div>
               </a>
@@ -61,13 +66,13 @@
       </c:choose>
     </div>
 
-    <!-- 페이지네이션 (page, totalPages를 컨트롤러에서 세팅했다고 가정) -->
+    <!-- 페이지네이션 -->
     <c:if test="${totalPages > 1}">
       <nav class="buy_pagenation">
         <ul>
           <c:forEach begin="1" end="${totalPages}" var="p">
             <li class="buy_pagenation_box ${p == page ? 'active' : ''}">
-              <a href="${pageContext.request.contextPath}/app/orders/storeList.jsp?page=${p}&q=${param.q}&sort=${param.sort}">${p}</a>
+              <a href="${pageContext.request.contextPath}/orders/storeList.or?page=${p}&itemType=${itemType}&q=${param.q}&sort=${param.sort}">${p}</a>
             </li>
           </c:forEach>
         </ul>

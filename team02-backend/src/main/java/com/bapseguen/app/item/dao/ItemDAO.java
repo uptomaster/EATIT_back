@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.bapseguen.app.dto.ItemDTO;
+import com.bapseguen.app.dto.ItemImageDTO;
 import com.bapseguen.app.dto.view.ItemSnapshotDTO;
 import com.bapseguen.config.MyBatisConfig;
 
@@ -21,7 +22,7 @@ public class ItemDAO {
     public ItemSnapshotDTO selectSnapshot(int itemNumber) {
         return sqlSession.selectOne("item.snapshot", itemNumber);
     }
-    
+
     /** 가게/타입별 아이템 목록 */
     public List<ItemDTO> list(String businessNumber, String itemType, Integer offset, Integer limit) {
         Map<String, Object> p = new HashMap<>();
@@ -32,12 +33,35 @@ public class ItemDAO {
         return sqlSession.selectList("item.list", p);
     }
 
-    /** 총 개수 */
+    /** 특정 가게/타입별 총 개수 */
     public int count(String businessNumber, String itemType) {
         Map<String, Object> p = new HashMap<>();
         p.put("businessNumber", businessNumber);
         p.put("itemType", itemType);
         return sqlSession.selectOne("item.count", p);
     }
-    
+
+    /** 메인 storeList.jsp 용 전체 아이템 목록 (음식/재료 구분) */
+    public List<ItemDTO> selectAllItems(String itemType, Integer offset, Integer limit) {
+        Map<String, Object> p = new HashMap<>();
+        p.put("itemType", itemType);
+        p.put("offset", offset);
+        p.put("limit", limit);
+        return sqlSession.selectList("item.selectAllItems", p);
+    }
+
+    /** 메인 storeList.jsp 전체 개수 */
+    public int countAllItems(String itemType) {
+        return sqlSession.selectOne("item.countAllItems", itemType);
+    }
+
+    /** 상품 상세 조회 */
+    public ItemDTO selectItemDetail(int itemNumber) {
+        return sqlSession.selectOne("item.selectItemDetail", itemNumber);
+    }
+
+    /** 상품 이미지 목록 */
+    public List<ItemImageDTO> selectItemImages(int itemNumber) {
+        return sqlSession.selectList("item.selectItemImages", itemNumber);
+    }
 }

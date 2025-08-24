@@ -1,7 +1,9 @@
 package com.bapseguen.app.cartList;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,14 +34,13 @@ public class CartListViewController implements Execute {
 		// 세션에서 가져온 회원번호
 		cart.setMemberNumber(memberNumber);
 
-		// 회원이 장바구니가 없으면 장바구니 번호 확보하기
-		// public Integer ensureOpenCart(CartDTO dto)
-		Integer cartNumber = dao.ensureOpenCart(cart);
+		// OPEN 상태의 장바구니 번호 조회 (없으면 null)
+		Integer cartNumber = dao.selectOpenCartNumberByMember(cart);
 
 		// 전체 금액 계산(클릭할때 증가시키기)
 		// totalAmount는 금액이 커질 수 있으니 long 사용
-		long totalAmount = 0L;
-		List<CartItemDTO> items = null;
+		List<CartItemDTO> items = Collections.emptyList();
+        Long totalAmount = 0L;
 
 		if (cartNumber != null) {
 			// 목록 조회

@@ -56,5 +56,45 @@
        AND ITEM_TYPE = #{itemType}
        AND ITEM_SELL_STATE = 'Y'
   </select>
+  
+  <!--  전체 음식/재료 목록 (메인 storeList.jsp 용) -->
+  <select id="selectAllItems" parameterType="map" resultType="com.bapseguen.app.dto.ItemDTO">
+    SELECT
+      i.ITEM_NUMBER,
+      i.BUSINESS_NUMBER,
+      i.ITEM_TYPE,
+      i.ITEM_NAME,
+      i.ITEM_PRICE,
+      (SELECT ii.ITEM_IMAGE_SYSTEM_NAME
+         FROM TBL_ITEM_IMAGE ii
+        WHERE ii.ITEM_NUMBER = i.ITEM_NUMBER
+        FETCH FIRST 1 ROWS ONLY) AS itemImageSystemName
+    FROM TBL_ITEM i
+    WHERE i.ITEM_TYPE = #{itemType}   <!-- 'FOOD' or 'INGREDIENT' -->
+      AND i.ITEM_SELL_STATE = 'Y'
+    ORDER BY i.ITEM_NUMBER DESC
+    <if test="offset != null and limit != null">
+      OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
+    </if>
+  </select>
+
+  <!--  전체 개수 -->
+  <select id="countAllItems" parameterType="string" resultType="int">
+    SELECT COUNT(*)
+    FROM TBL_ITEM
+    WHERE ITEM_TYPE = #{itemType}
+      AND ITEM_SELL_STATE = 'Y'
+  </select>
+
+  <!--  상품 이미지 목록 -->
+  <select id="selectItemImages" parameterType="int" resultType="com.bapseguen.app.dto.ItemImageDTO">
+    SELECT ITEM_IMAGE_NUMBER,
+           ITEM_IMAGE_SYSTEM_NAME AS itemImageSystemName,
+           ITEM_IMAGE_ORIGINAL_NAME AS itemImageOriginalName,
+           ITEM_NUMBER
+    FROM TBL_ITEM_IMAGE
+    WHERE ITEM_NUMBER = #{itemNumber}
+    ORDER BY ITEM_IMAGE_NUMBER ASC
+  </select>
 
 </mapper>
