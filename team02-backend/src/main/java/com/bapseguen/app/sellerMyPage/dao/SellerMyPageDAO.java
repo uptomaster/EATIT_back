@@ -12,6 +12,7 @@ import com.bapseguen.app.dto.ItemImageDTO;
 import com.bapseguen.app.dto.OriginDTO;
 import com.bapseguen.app.dto.ReviewDTO;
 import com.bapseguen.app.dto.view.ItemWithImgDTO;
+import com.bapseguen.app.dto.view.MemberListDTO;
 import com.bapseguen.app.dto.view.PostDetailDTO;
 import com.bapseguen.app.dto.view.SellerInfoDTO;
 import com.bapseguen.config.MyBatisConfig;
@@ -68,14 +69,13 @@ public class SellerMyPageDAO {
 //    }
     
     //음식 판매 목록
-    public List<Map<String, Object>> foodList(String businessNumber) {
+    public List<ItemWithImgDTO> foodList(Map<String, Integer> pageMap) {
     	System.out.println("[판페DAO] 음식판매목록 - foodList 메소드 실행");
-    	System.out.println("[판페DAO] 사업자 번호 : "+businessNumber);
+    	System.out.println("[판페DAO] 사업자 번호 : "+pageMap.get("businessNumber"));
     	
-        return sqlSession.selectList("storeManage.foodList", businessNumber);
+        List<ItemWithImgDTO> list = sqlSession.selectList("storeManage.foodList", pageMap);
+        return list;
     }
-	// 비밀번호 확인
-//	public int
 	
 	// 음식 판매 등록
     public int addFood(ItemDTO itemDTO) {
@@ -147,11 +147,12 @@ public class SellerMyPageDAO {
         return sqlSession.delete("storeManage.deleteingredient", itemNumber);
     }
     // 재료 판매 목록
-    public List<Map<String, Object>> ingredientList(String businessNumber) {
+    public List<ItemWithImgDTO> ingredientList(Map<String, Integer> pageMap) {
     	System.out.println("[판페] 재료판매목록 - ingredientList 메소드 실행");
-    	System.out.println("사업자번호 : "+businessNumber);
+    	System.out.println("사업자번호 : "+pageMap.get("businessNumber"));
     	
-        return sqlSession.selectList("storeManage.ingredientList", businessNumber);
+    	List<ItemWithImgDTO> list = sqlSession.selectList("storeManage.ingredientList", pageMap);
+    	return list;
     }
     
 

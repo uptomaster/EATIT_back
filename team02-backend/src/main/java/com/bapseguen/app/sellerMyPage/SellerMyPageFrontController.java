@@ -80,6 +80,14 @@ public class SellerMyPageFrontController extends HttpServlet {
 			result = new SellerStoreInfoController().execute(request, response);
 			break;
 			
+		case "/sellerMyPage/addFood.se":
+			System.out.println("[판페f] 음식 메뉴 상세보기");
+			result = new FoodAddController().execute(request, response);
+			break;
+		case "/sellerMyPage/addFoodOk.se":
+			System.out.println("[판페f] 음식 메뉴 상세보기");
+			result = new FoodAddOkController().execute(request, response);
+			break;
 		case "/sellerMyPage/detailFoodOk.se":
 			System.out.println("[판페f] 음식 메뉴 상세보기");
 			result = new FoodDetailOkController().execute(request, response);
@@ -98,7 +106,11 @@ public class SellerMyPageFrontController extends HttpServlet {
 			System.out.println("[판페f] 내 리뷰 관리 페이지 요청");
 			result = new SellerMyReviewController().execute(request, response);
 			break;
-
+//		case "/sellerMyPage/myReviews.se":
+//			System.out.println("[판페f] 내 리뷰 관리 페이지 요청");
+//			result = new SellerMyReviewController().execute(request, response);
+//			break;
+		
 
 		/********************************************************************/
 

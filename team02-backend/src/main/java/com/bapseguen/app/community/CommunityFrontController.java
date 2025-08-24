@@ -43,10 +43,10 @@ public class CommunityFrontController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 
+		
 		String target = request.getRequestURI().substring(request.getContextPath().length());
 		System.out.println("CommunityFrontController 현재 경로 : " + target);
 		Result result = new Result();
-		
 		
 		switch (target) {
 		case "/community/communityMainOk.co":
@@ -63,6 +63,7 @@ public class CommunityFrontController extends HttpServlet {
 		case "/community/freeBoardListOk.co":
 			System.out.println("자유게시판 목록 페이지 처리 요청");
 			result = new FreeBoardListOkController().execute(request, response);
+			System.out.println(result);
 			break;
 		case "/community/freeBoardReadOk.co":
 			System.out.println("자유게시판 상세 페이지 처리 요청");

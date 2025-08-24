@@ -13,6 +13,7 @@ import com.bapseguen.app.Result;
 import com.bapseguen.app.community.dao.CommunityDAO;
 import com.bapseguen.app.dto.PostImageDTO;
 import com.bapseguen.app.dto.view.PostDetailDTO;
+import com.bapseguen.app.img.dao.PostImageDAO;
 
 public class FreeBoardReadOkController implements Execute{
 
@@ -34,7 +35,7 @@ public class FreeBoardReadOkController implements Execute{
 		int postNumber = Integer.parseInt(postNumberStr);
 		
 		CommunityDAO communityDAO = new CommunityDAO();
-		//FileDAO fileDAO = new FileDAO();-- 추가필요
+		PostImageDAO postImageDAO = new PostImageDAO();
 		PostImageDTO postImageDTO = new PostImageDTO();
 
 		//DB에서 게시글 가져오기
@@ -49,7 +50,7 @@ public class FreeBoardReadOkController implements Execute{
 		}
 		
 		//첨부파일 가져오기
-		List<PostDetailDTO> files = fileDAO.select(postNumber);
+		List<PostImageDTO> files = postImageDAO.select(postNumber);
 		System.out.println("======파일 확인======");
 		System.out.println(files);
 		System.out.println("===================");
@@ -71,7 +72,7 @@ public class FreeBoardReadOkController implements Execute{
 		}
 		
 		request.setAttribute("post", postDetailDTO);
-		result.setPath("/app/community/freeBoardList.jsp");
+		result.setPath("/app/community/viewOtherPost.jsp");
 		result.setRedirect(false);		
 		
 		return result;
