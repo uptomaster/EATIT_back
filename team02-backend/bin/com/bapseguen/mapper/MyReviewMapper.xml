@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myReview">
+
+	<!--내가 작성한 리뷰 조회  -->
+	<select id="myReviewSelect" resultType="ReviewDTO">
+	<![CDATA[
+	  SELECT * FROM (
+	    SELECT ROWNUM AS RNUM, SUBQUERY.*
+	    FROM (
+	      SELECT REVIEW_NUMBER,ORDERS_NUMBER,BUSINESS_NUMBER,MEMBER_NUMBER,REVIEW_RATING,REVIEW_CONTENT,REVIEW_CREATE_DATE
+	      FROM TBL_REVIEW
+	      WHERE MEMBER_NUMBER = #{memberNumber}
+	      ORDER BY REVIEW_CREATE_DATE DESC
+	    ) SUBQUERY
+	  )WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+	]]>
+	</select>
+	
+	<!-- 내가 구매한 상품 리뷰 작성 -->
+	<insert id="myReviewInsert" parameterType="ReviewWriteDTO">
+	  INSERT INTO TBL_REVIEW (REVIEW_NUMBER,ORDERS_NUMBER,BUSINESS_NUMBER,MEMBER_NUMBER,REVIEW_RATING,REVIEW_CONTENT,REVIEW_CREATE_DATE)
+	  VALUES (
+	    SEQ_REVIEW_NUMBER.NEXTVAL,#{ordersNumber},#{businessNumber},#{memberNumber},#{reviewRating},#{reviewContent},SYSDATE
+	  )
+	</insert>
+	
+	
+
+</mapper>

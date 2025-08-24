@@ -11,7 +11,7 @@ public class OrdersDTO {
 	private String ordersPaymentInfo; // 결제 정보 -> 더미값 : CARD:VISA-APPROVED(결제 API배우고 진행)
 	private String ordersDate; // 주문 날짜
 	private int ordersTotalAmount; // 주문 총량
-	private String ordersPaymentStatus; // 결제 상태(success, cancel)
+	private String ordersPaymentStatus; // 결제 상태(success, cancel, fail, pending)
 
 	private List<OrderItemDTO> orderItems; // 주문 상세 (1:N)
 
