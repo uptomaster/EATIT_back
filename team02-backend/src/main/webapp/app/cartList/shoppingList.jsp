@@ -24,7 +24,9 @@
 </head>
 
 <body>
-  <header id="header"></header>
+  <!-------------------- 헤더 ------------------------>
+  <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
+  <!-- <header id="header"></header> -
 
   <main id="shopping_list">
     <div id="wrap">
@@ -39,7 +41,7 @@
           <!-- 전체선택+체크박스 영역 -->
           <div class="shopping_select_all">
             <!-- 전체 선택 체크박스 -->
-            <form action="${pageContext.request.contextPath}/cartList/selectAll.cl" method="post">
+            <form action="${pageContext.request.contextPath}/cartList/deleteItemOk.cl" method="post">
               <input type="checkbox"> 전체선택
               <button type="submit" class="shopping_select_delete">선택삭제</button>
             </form>
