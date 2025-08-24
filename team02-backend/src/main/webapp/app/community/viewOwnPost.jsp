@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -28,7 +29,8 @@
 
 <body>
   <!-- 헤더 -->
-  <header id="header"></header>
+  <!-- <header id="header"></header> -->
+  <jsp:include page="/header.jsp" />
 
   <!-- <aside class="side"></aside>-->
   
@@ -80,7 +82,7 @@
 		      <!-- 작성일 -->
 		      <div class="post_date_area">
 		        <time datetime="2025-08-03T14:13:02">[2025. 8. 3. 오전 12:22:53]</time>
-		        <c:out value="${post.getMemberId() }" />
+		        <c:out value="${post.getPostCreatedDate() }" />
 		      </div>
 		
 		      <!-- 조회수 -->
@@ -197,8 +199,11 @@
 
 
   <!-- 푸터 -->
-  <footer id="footer"></footer>
+  <jsp:include page="/footer.jsp" />
+<!--   <footer id="footer"></footer> -->
   
 </body>
-
+<script>
+    	let memberNumber = "${sessionScope.memberNumber}";
+</script>
 </html>

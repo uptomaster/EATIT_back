@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -19,7 +20,6 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css" />
  <%--  <link rel="stylesheet" href="${pageContext.request.contextPath}/buy/storeList.html"> --%>
   <!-- 스크립트 -->
-  <script defer src="${pageContext.request.contextPath}/assets/js/community/loadHeaderFooter.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/community/communityMainUser.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/community/mouseoverTreeIcon.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
@@ -71,7 +71,7 @@
 	   			<c:choose>
 	   				<c:when test="${not empty noticeList}">
 	   					<c:forEach var="notice" items="${noticeList}">
-		   					 <div class="notice-row">
+		   					 <div class="board-row">
 		   					 	<div class="board-item title">
 		   					 		<c:out value="${notice.getPostTitle()}" />
 		   					 	</div>
@@ -97,7 +97,7 @@
    		
    	
           <!-- 게시글 한 줄 -->
-<%--           <div class="list_row flex_row" role="row">
+		<div class="list_row flex_row" role="row">
             <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/app/community/viewOtherPost.jsp">밥세권 앱 신규 기능 업데이트 안내</a></div>
             <div class="col_author" role="cell">
               관리자
@@ -106,10 +106,10 @@
             <div class="col_date" role="cell">25-08-01</div>
             <div class="col_views" role="cell">120</div>
             <div class="col_likes" role="cell">35</div>
-          </div> --%>
+          </div>
 
           <!-- 계속 복붙된 게시글들 -->
-         <%--  <div class="list_row flex_row" role="row">
+         <div class="list_row flex_row" role="row">
             <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/app/community/viewOtherPost.jsp">신규 입점 업체 ‘맛있는 반찬’
                 소개</a></div>
             <div class="col_author" role="cell">
@@ -252,7 +252,7 @@
             <div class="col_views" role="cell">130</div>
             <div class="col_likes" role="cell">38</div>
           </div>
-        </div> --%>
+        </div>
       </section>
 
       <!-- 페이지네이션 들어가는 자리 -->
@@ -277,7 +277,7 @@
           	</c:choose>
           </c:forEach>
           <c:if test="${next}">
-          	<li><a href="${pageContext.request.contextPath}//community/communityMainOk.co?page=${endPage + 1}" class="next">&gt;</a>
+          	<li><a href="${pageContext.request.contextPath}/community/communityMainOk.co?page=${endPage + 1}" class="next">&gt;</a>
           </c:if>
         </ul>
       </div>

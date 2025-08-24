@@ -13,11 +13,11 @@ public class PostDTO {
 		private String postUpdatedDate;
 		private String postType; // ‘NOTICE’,’FREE’,’PROMOTION’,’RECIPE’,’INQUIRY’,’FAQ’
 		
+		
+		// getter & setter
 		public int getPostNumber() {
 			return postNumber;
 		}
-		
-		// getter & setter
 		public void setPostNumber(int postNumber) {
 			this.postNumber = postNumber;
 		}

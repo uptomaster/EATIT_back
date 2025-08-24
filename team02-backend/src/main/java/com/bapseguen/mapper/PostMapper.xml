@@ -8,7 +8,7 @@
 		SELECT*FROM(
 			SELECT ROWNUM AS RNUM,SUBQUERY.*
 			FROM(
-			SELECT M.MEMBER_NUMBER,M.MEMBER_ID,P.POST_NUMBER, P.POST Title,P.BOARD_CONTENT,P.POST_CREATED_DATE,P.POST_VIEW_COUNT
+			SELECT M.MEMBER_NUMBER,M.MEMBER_ID,P.POST_NUMBER, P.POST_Title,P.POST_CREATED_DATE,P.POST_VIEW_COUNT
 			FROM TBL_MEMBER M JOIN TBL_POST P
 			ON M.MEMBER_NUMBER=P.MEMBER_NUMBER
 			ORDER BY P.POST_CREATED_DATE DESC
@@ -17,6 +17,11 @@
 	]]>
 	</select>
 
+	<!-- 게시글 총 개수 -->
+	<select id="postGetTotal" resultType="int">
+		SELECT COUNT(post_number)
+		FROM TBL_POST
+	</select>
 
 	<!--조회수 쿼리  -->
 	<update id="postUpdateReadCount" parameterType="int">
