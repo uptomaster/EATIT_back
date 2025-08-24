@@ -1,18 +1,3 @@
-window.addEventListener('DOMContentLoaded', () => {
-  // 헤더 불러오기
-  fetch('./../../header.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('header').innerHTML = data;
-    });
-
-  // 푸터 불러오기
-  fetch('./../../footer.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('footer').innerHTML = data;
-    });
-});
 
 //미리 저장된 아이디
 const dbId = 'user'
@@ -45,10 +30,9 @@ let confirmPasswordInput = document.getElementById("seller_input_chk_pw");
 // 비밀번호 유효성 검사 정규표현식
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,16}$/;
 
-<<<<<<< HEAD
 newPasswordInput.addEventListener("input", () => {
   let newPassword = newPasswordInput.value;
-=======
+
 passwordInput.addEventListener("blur", function () {
     const pw = passwordInput.value.trim();
     if (passwordRegex.test(pw)) {
@@ -59,8 +43,6 @@ passwordInput.addEventListener("blur", function () {
       checkPwMsg.style.color = "red";
     }
   });
->>>>>>> d182d8ad59917b1633fd463b5f23dabcbf9fb439
-
   if (!passwordRegex.test(newPassword)) {
     newPasswordError.textContent = "비밀번호는 8~16자의 영문 대/소문자, 숫자, 특수문자를 포함해야 합니다.";
     newPasswordError.style.color = "red";
