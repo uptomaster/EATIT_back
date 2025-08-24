@@ -17,6 +17,21 @@
 	]]>
 	</select>
 	
+	<!--내가 작성한 리뷰 총 개수 조회  -->
+	<select id="myReviewCount" resultType="int">
+	<![CDATA[
+	 SELECT count(*) FROM (
+    SELECT ROWNUM AS RNUM, SUBQUERY.*
+    FROM (
+      SELECT REVIEW_NUMBER,ORDERS_NUMBER,BUSINESS_NUMBER,MEMBER_NUMBER,REVIEW_RATING,REVIEW_CONTENT,REVIEW_CREATE_DATE
+      FROM TBL_REVIEW
+      WHERE MEMBER_NUMBER = #{memberNumber}
+      ORDER BY REVIEW_CREATE_DATE DESC
+    ) SUBQUERY
+  )WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+	]]>
+	</select>
+	
 	<!-- 내가 구매한 상품 리뷰 작성 -->
 	<insert id="myReviewInsert" parameterType="ReviewWriteDTO">
 	  INSERT INTO TBL_REVIEW (REVIEW_NUMBER,ORDERS_NUMBER,BUSINESS_NUMBER,MEMBER_NUMBER,REVIEW_RATING,REVIEW_CONTENT,REVIEW_CREATE_DATE)

@@ -1,4 +1,18 @@
+window.addEventListener('DOMContentLoaded', () => {
+  // 헤더 불러오기
+  fetch('./../../header.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('header').innerHTML = data;
+    });
 
+  // 푸터 불러오기
+  fetch('./../../footer.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('footer').innerHTML = data;
+    });
+});
 
 //미리 저장한 비밀번호
 const dbPw = 'user123123';

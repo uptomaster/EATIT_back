@@ -49,45 +49,30 @@ public class JoinFrontController extends HttpServlet {
 	    Result result = new Result();
 
 	    switch (target) {
-        case "/join/generalAgreement.jo":
-            System.out.println("일반 약관동의 페이지 요청");
-            request.getRequestDispatcher("/app/join/joinAgreementUser.jsp").forward(request, response);
-            break;
-
-        case "/join/sellerAgreement.jo":
-            System.out.println("판매자 약관동의 페이지 요청");
-            request.getRequestDispatcher("/app/join/joinAgreementSeller.jsp").forward(request, response);
-            break;
-            
-        case "/join/generalJoin.jo":
+        case "/join/user/jo":
             System.out.println("일반 회원가입 페이지 요청");
             request.getRequestDispatcher("/app/join/userInfoInput.jsp").forward(request, response);
             break;
 
-        case "/join/sellerJoin.jo":
+        case "/join/seller/jo":
             System.out.println("판매자 회원가입 페이지 요청");
             request.getRequestDispatcher("/app/join/sellerInfoInput.jsp").forward(request, response);
             break;
 
-        case "/join/checkId.jo":
+        case "/join/checkId/jo":
             System.out.println("아이디 중복 체크 요청");
             result = new CheckIdOkController().execute(request, response);
             break;
 
-        case "/join/generalJoinOk.jo":
+        case "/join/generalJoinOk/jo":
             System.out.println("일반 회원가입 처리 요청");
             result = new GeneralJoinOkController().execute(request, response);
             break;
 
-        case "/join/sellerJoinOk.jo":
+        case "/join/sellerJoinOk/jo":
             System.out.println("판매자 회원가입 처리 요청");
             result = new SellerJoinOkController().execute(request, response);
             break;
-            
-        case "/join/successJoin.jo":
-            System.out.println("회원가입성공 페이지 요청");
-            request.getRequestDispatcher("/app/join/successJoin.jsp").forward(request, response);
-            break;        
         }
 
         if (result != null && result.getPath() != null) {
