@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 window.addEventListener('DOMContentLoaded', () => {
   // 헤더 불러오기
   fetch('./../../header.html')
@@ -16,6 +17,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
+=======
+>>>>>>> d182d8ad59917b1633fd463b5f23dabcbf9fb439
 const btn = document.getElementsByClassName('findPw_btn');
 btn[0].addEventListener('click', () => {
   location.replace('./../../app/findPW/editPw.html');

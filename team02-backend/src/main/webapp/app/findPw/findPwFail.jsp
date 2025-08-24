@@ -5,11 +5,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
   <link rel="shortcut icon" href="./../../assets/img/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="./../../assets/css/header.css">
   <link rel="stylesheet" href="./../../assets/css/footer.css">
   <link rel="stylesheet" href="./../../assets/css/findPW/findPwFail.css">
   <script defer src="./../../assets/js/findPW/findPwFail.js"></script>
+=======
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/findPw/findPwFail.css">
+  <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/findPW/findPwFail.js"></script>
+  <title>밥세권</title>
+>>>>>>> d182d8ad59917b1633fd463b5f23dabcbf9fb439
   <script>
     let headerPath = '../../header.jsp';
     let footerPath = '../../footer.jsp';
