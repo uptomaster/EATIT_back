@@ -12,13 +12,13 @@
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/login/login.js"></script>
   <title>밥세권</title>
-</head>
 <script>
-    let headerPath = './../../header.jsp';
-    let footerPath = './../../footer.jsp';
+    let headerPath = './../header.jsp';
+    let footerPath = './../footer.jsp';
 </script>
+</head>
 <body>
-  <header id="header"></header>
+<jsp:include page="/header.jsp" />
   <main>
     <div class="login_container"> <!-- 1100px 영역 -->
       <div class="login_content_container"> <!-- 컨텐츠 영역 -->
@@ -45,9 +45,9 @@
         <!-- 로그인 버튼 -->
         <!-- 아이디 찾기,비밀번호 찾기, 회원가입 -->
         <div class="login_to_container">
-          <div><a href="./../findId/findUserIdAuth.html" class="login_to_findId">아이디 찾기</a></div>
-          <div><a href="./../findPW/findPw.html" class="login_to_findPw">비밀번호 찾기</a></div>
-          <div><a href="./../join/selectUserType.html" class="login_to_join">회원가입</a></div>
+          <div><a href="${pageContext.request.contextPath}/app/findId/findUserIdAuth.jsp" class="login_to_findId">아이디 찾기</a></div>
+          <div><a href="${pageContext.request.contextPath}/app/findPw/findPw.jsp" class="login_to_findPw">비밀번호 찾기</a></div>
+          <div><a href="${pageContext.request.contextPath}/app/join/selectUserType.jsp" class="login_to_join">회원가입</a></div>
         </div>
       </div>
     </div>
