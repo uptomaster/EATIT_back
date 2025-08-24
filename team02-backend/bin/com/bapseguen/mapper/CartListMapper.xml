@@ -42,6 +42,13 @@
    ORDER BY ci.cart_item_number
 	</select>
 	
+	<!-- 회원의 OPEN상태인 장바구니 자체 삭제 -->
+	<delete id="deleteOpenCartByMember" parameterType="int">
+    	DELETE FROM TBL_CART
+     	WHERE MEMBER_NUMBER = #{memberNumber}
+       AND CART_ORDER_STATUS = 'OPEN'
+	</delete>
+	
 	<!-- 항목 단건 삭제 -->
 	<delete id="delItem" parameterType="CartItemDTO">
 		delete from tbl_cart_item
@@ -75,5 +82,20 @@
     	FROM tbl_cart_item
    		WHERE cart_number = #{cartNumber}
 	</select>
+	
+	<!-- cartItemNumber로 소속 cartNumber 찾기 (소유권 검증) -->
+	<select id="cartNoByCartItemNo" parameterType="int" resultType="int">
+  		SELECT CART_NUMBER
+    	FROM TBL_CART_ITEM
+   		WHERE CART_ITEM_NUMBER = #{cartItemNumber}
+	</select>
+
+	<!-- 동일 아이템이면 수량만 증가시키기 -->
+	<update id="increaseQtyIfExists" parameterType="CartItemDTO">
+  		UPDATE TBL_CART_ITEM
+     	SET CART_ITEM_QUANTITY = CART_ITEM_QUANTITY + #{cartItemQuantity}
+   		WHERE CART_NUMBER = #{cartNumber}
+     	AND ITEM_NUMBER  = #{itemNumber}
+	</update>
 	
 </mapper>

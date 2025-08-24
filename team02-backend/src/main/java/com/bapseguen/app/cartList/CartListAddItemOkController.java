@@ -39,7 +39,7 @@ public class CartListAddItemOkController implements Execute {
 		int quantity = parseInt(request.getParameter("quantity"), 1);
 
 		if (itemNumber <= 0 || quantity <= 0) {
-			session.setAttribute("Error", "잘못된 요청입니다.");
+			session.setAttribute("cartError", "잘못된 요청입니다.");
 			result.setPath(request.getContextPath() + "/cartList/view.cl");
 			result.setRedirect(true);
 			return result;
@@ -81,13 +81,13 @@ public class CartListAddItemOkController implements Execute {
 		// 가게번호/가격은 필수 무결성 값 → 없으면 에러 처리
 		if (newBusinessNumber == null || newBusinessNumber.isBlank()) {
 			session.setAttribute("cartError", "가게 정보가 올바르지 않습니다.");
-			result.setPath("/cartList/view.cl");
+			result.setPath(request.getContextPath() + "/cartList/view.cl");
 			result.setRedirect(true);
 			return result;
 		}
 		if (itemPrice == null || itemPrice <= 0) {
 			session.setAttribute("cartError", "가격 정보가 올바르지 않습니다.");
-			result.setPath("/cartList/view.cl");
+			result.setPath(request.getContextPath() + "/cartList/view.cl");
 			result.setRedirect(true);
 			return result;
 		}
@@ -152,7 +152,7 @@ public class CartListAddItemOkController implements Execute {
 
 		// 완료 처리하기
 		session.setAttribute("cartNotice", "장바구니에 담았습니다.");
-		result.setPath("/cartList/view.cl");
+		result.setPath(request.getContextPath() + "/cartList/view.cl");
 		result.setRedirect(true);
 		return result;
 

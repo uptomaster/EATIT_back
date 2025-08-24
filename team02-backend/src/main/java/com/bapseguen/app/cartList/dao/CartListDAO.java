@@ -35,6 +35,11 @@ public class CartListDAO {
         return sqlSession.selectList("cartList.selectItemsList", dto);
     }
 
+    /** 회원의 OPEN 상태 장바구니 삭제 (카트 자체 삭제) */
+    public void deleteOpenCartByMember(Integer memberNumber) {
+        sqlSession.delete("cartList.deleteOpenCartByMember", memberNumber);
+    }
+    
     /** 장바구니에 담긴 메뉴 단건 삭제 */
     public void deleteCartItem(CartItemDTO dto) {
         sqlSession.delete("cartList.delItem", dto);
@@ -68,6 +73,18 @@ public class CartListDAO {
     /** 카트에 담긴 아이템 개수 */
     public Integer selectCartItemCountByCartNumber(Integer cartNumber) {
         return sqlSession.selectOne("cartList.countItems", cartNumber);
+    }
+    
+    /** 추가된 메소드 */
+    
+    // 다른 회원의 cartItem 삭제를 막기 위한 소유권 확인용
+    public Integer selectCartNumberByCartItemNumber(Integer cartItemNumber) {
+        return sqlSession.selectOne("cartList.cartNoByCartItemNo", cartItemNumber);
+    }
+
+    // 동일 상품 담기 시 수량만 증가(업서트: 먼저 UPDATE 시도, 0행이면 INSERT)
+    public int increaseItemQuantityIfExists(CartItemDTO dto) {
+        return sqlSession.update("cartList.increaseQtyIfExists", dto);
     }
     
 }

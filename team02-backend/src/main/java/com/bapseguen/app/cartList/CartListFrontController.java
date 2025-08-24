@@ -12,11 +12,13 @@ import com.bapseguen.app.Result;
 public class CartListFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doProcess(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doProcess(request, response);
 	}
 
@@ -52,6 +54,12 @@ public class CartListFrontController extends HttpServlet {
 			// 가게 변경(빈 OPEN상태의 장바구니일떄만 사업자번호(business_number 변경)
 			// mapper id : cartList.setStore, 
 			// DAO 메소드명 : updateCartBusinessNumber(CartDTO dto)
+			
+			case "/cartList/changeStoreConfirm.cl":
+				result = new CartListChangeStoreConfirmController().execute(request, response); 
+				break;
+				
+				
 			case "/cartList/changeStoreOk.cl":
 				result = new CartListChangeStoreOkController().execute(request, response);
 				break;
