@@ -47,13 +47,6 @@
 	<!-- 가게 -->
 	<insert id="joinStore" parameterType="StoreDTO">
   		INSERT INTO TBL_STORE
-<<<<<<< HEAD
-  		(BUSINESS_NUMBER, STORE_NAME, STORE_OPEN_DATE, STORE_TEL,
-  	 	STORE_ADDRESS, STORE_ADDRESS_DETAIL, STORE_ZIP_CODE, MEMBER_NUMBER)
-  		VALUES (#{businessNumber}, #{storeName}, TO_DATE(#{storeOpenDate}, 'YYYY-MM-DD'),
-   		#{storeTel}, #{storeAddress}, #{storeAddressDetail}, #{storeZipCode},#{memberNumber})
-	</insert>		
-=======
   		(BUSINESS_NUMBER, MEMBER_NUMBER, STORE_NAME, STORE_OPEN_DATE, STORE_TEL, STORE_ADDRESS, STORE_ADDRESS_DETAIL, STORE_ZIP_CODE, STORE_OPEN_TIME, STORE_CLOSE_TIME)
   		VALUES (#{businessNumber}, #{memberNumber}, #{storeName}, TO_DATE(#{storeOpenDate}, 'YYYY-MM-DD'),
    		#{storeTel}, #{storeAddress}, #{storeAddressDetail}, #{storeZipCode}, NULL, NULL)
@@ -104,6 +97,4 @@
 	     SET UPDATED_DATE = SYSDATE
 	   WHERE MEMBER_NUMBER = #{memberNumber}
 	</update>	
-		
->>>>>>> d182d8ad59917b1633fd463b5f23dabcbf9fb439
 </mapper>
