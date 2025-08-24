@@ -9,6 +9,14 @@ public class MemberListDTO {
 	private String SellerName;
 	private String WarningCount;
 	private String TreeGrade;
+	private String MemberName;
+
+	public String getMemberName() {
+		return MemberName;
+	}
+	public void setMemberName(String memberName) {
+		MemberName = memberName;
+	}
 	public int getMemberNumber() {
 		return MemberNumber;
 	}
@@ -56,8 +64,7 @@ public class MemberListDTO {
 	public String toString() {
 		return "MemberListDTO [MemberNumber=" + MemberNumber + ", MemberId=" + MemberId + ", MemberType=" + MemberType
 				+ ", GeneralName=" + GeneralName + ", SellerName=" + SellerName + ", WarningCount=" + WarningCount
-				+ ", TreeGrade=" + TreeGrade + "]";
+				+ ", TreeGrade=" + TreeGrade + ", MemberName=" + MemberName + "]";
 	}
-	
 	
 }

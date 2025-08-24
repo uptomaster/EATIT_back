@@ -8,8 +8,10 @@
 		resultType="int">
 		SELECT MEMBER_NUMBER
 		FROM TBL_MEMBER
-		WHERE MEMBER_ID = #{memberId} AND MEMBER_PASSWORD = #{memberPassword} AND
-		MEMBER_TYPE = 'ADMIN'
+		WHERE MEMBER_ID =
+		#{memberId} AND MEMBER_PASSWORD = #{memberPassword} AND
+		MEMBER_TYPE =
+		'ADMIN'
 	</select>
 
 
@@ -20,30 +22,39 @@
 		(BANNER_NUMBER, BANNER_TITLE, ADMIN_IMAGE_NUMBER, BANNER_END_DATE,
 		BANNER_IS_ACTIVE, MEMBER_NUMBER, BANNER_CREATED_DATE)
 		VALUES
-		(SEQ_BANNER_NUMBER.NEXTVAL, #{bannerTitle}, #{adminImageNumber}, #{bannerEndDate},
-		NVL(#{bannerIsActive}, 'Y'), #{memberNumber}, SYSDATE)
+		(SEQ_BANNER_NUMBER.NEXTVAL, #{bannerTitle}, #{adminImageNumber},
+		#{bannerEndDate},
+		NVL(#{bannerIsActive}, 'Y'), #{memberNumber},
+		SYSDATE)
 	</insert>
 
 	<!-- 배너 목록 조회 -->
 	<select id="selectBannerList" resultType="BannerDTO">
 		SELECT
-		BANNER_NUMBER AS bannerNumber,
+		BANNER_NUMBER AS
+		bannerNumber,
 		BANNER_TITLE AS bannerTitle,
-		ADMIN_IMAGE_NUMBER AS adminImageNumber,
+		ADMIN_IMAGE_NUMBER AS
+		adminImageNumber,
 		BANNER_END_DATE AS bannerEndDate,
-		BANNER_IS_ACTIVE AS bannerIsActive,
+		BANNER_IS_ACTIVE AS
+		bannerIsActive,
 		MEMBER_NUMBER AS memberNumber,
-		BANNER_CREATED_DATE AS bannerCreatedDate,
+		BANNER_CREATED_DATE AS
+		bannerCreatedDate,
 		BANNER_UPDATED_DATE AS bannerUpdatedDate
-		FROM TBL_BANNER
+		FROM
+		TBL_BANNER
 		ORDER BY BANNER_NUMBER DESC
 	</select>
 
 	<!-- 배너 수정 -->
 	<update id="updateBanner" parameterType="BannerDTO">
 		UPDATE TBL_BANNER
-		SET BANNER_TITLE = #{bannerTitle},
-		ADMIN_IMAGE_NUMBER = #{adminImageNumber},
+		SET
+		BANNER_TITLE = #{bannerTitle},
+		ADMIN_IMAGE_NUMBER =
+		#{adminImageNumber},
 		BANNER_END_DATE = #{bannerEndDate},
 		BANNER_IS_ACTIVE = #{bannerIsActive},
 		MEMBER_NUMBER = #{memberNumber},
@@ -62,15 +73,19 @@
 	<!-- 문의글 목록 조회 -->
 	<select id="selectInquiryList" resultType="InquiryDTO">
 		SELECT
-		p.POST_NUMBER AS postNumber,
+		p.POST_NUMBER AS
+		postNumber,
 		p.MEMBER_NUMBER AS memberNumber,
 		p.POST_TITLE AS postTitle,
 		p.POST_CREATED_DATE AS postCreatedDate,
-		i.INQUIRY_CONTENT AS inquiryContent,
+		i.INQUIRY_CONTENT AS
+		inquiryContent,
 		i.INQUIRY_STATUS AS inquiryStatus
 		FROM TBL_POST p
-		JOIN TBL_INQUIRY i ON i.POST_NUMBER = p.POST_NUMBER
-		WHERE p.POST_TYPE = 'INQUIRY'
+		JOIN
+		TBL_INQUIRY i ON i.POST_NUMBER = p.POST_NUMBER
+		WHERE p.POST_TYPE =
+		'INQUIRY'
 		ORDER BY p.POST_NUMBER DESC
 	</select>
 
@@ -79,13 +94,17 @@
 		resultType="InquiryDTO">
 		SELECT
 		p.POST_NUMBER AS postNumber,
-		p.MEMBER_NUMBER AS memberNumber,
+		p.MEMBER_NUMBER AS
+		memberNumber,
 		p.POST_TITLE AS postTitle,
-		p.POST_CREATED_DATE AS postCreatedDate,
+		p.POST_CREATED_DATE AS
+		postCreatedDate,
 		i.INQUIRY_CONTENT AS inquiryContent,
-		i.INQUIRY_STATUS AS inquiryStatus
+		i.INQUIRY_STATUS
+		AS inquiryStatus
 		FROM TBL_POST p
-		JOIN TBL_INQUIRY i ON i.POST_NUMBER = p.POST_NUMBER
+		JOIN TBL_INQUIRY i ON i.POST_NUMBER =
+		p.POST_NUMBER
 		WHERE p.POST_NUMBER = #{postNumber}
 	</select>
 
@@ -101,10 +120,13 @@
 	<!-- 큰 테이블인 POST에 있는 공통 속성부터 먼저 입력(재사용에 좋다고함) -->
 	<insert id="insertNoticePost" parameterType="NoticeDTO">
 		INSERT INTO TBL_POST
-		(POST_NUMBER, MEMBER_NUMBER, POST_TITLE, POST_LIKE_COUNT, POST_VIEW_COUNT,
-		POST_REPORT_COUNT, POST_DELETE_STATE, POST_CREATED_DATE, POST_TYPE)
+		(POST_NUMBER, MEMBER_NUMBER, POST_TITLE, POST_LIKE_COUNT,
+		POST_VIEW_COUNT,
+		POST_REPORT_COUNT, POST_DELETE_STATE,
+		POST_CREATED_DATE, POST_TYPE)
 		VALUES
-		(SEQ_POST_NUMBER.NEXTVAL, #{memberNumber}, #{postTitle}, 0, 0, 0, 'N', SYSDATE, 'NOTICE')
+		(SEQ_POST_NUMBER.NEXTVAL,
+		#{memberNumber}, #{postTitle}, 0, 0, 0, 'N', SYSDATE, 'NOTICE')
 	</insert>
 
 	<!-- 공지글 작성(2): NOTICE 본문 (바로 직후 호출) -->
@@ -112,19 +134,23 @@
 		INSERT INTO TBL_NOTICE
 		(POST_NUMBER, NOTICE_CONTENT)
 		VALUES
-		(SEQ_POST_NUMBER.CURRVAL, #{noticeContent})
+		(SEQ_POST_NUMBER.CURRVAL,
+		#{noticeContent})
 	</insert>
 
 	<!-- 공지글 목록 -->
 	<select id="selectNoticeList" resultType="NoticeDTO">
 		SELECT
-		p.POST_NUMBER AS postNumber,
+		p.POST_NUMBER AS
+		postNumber,
 		p.MEMBER_NUMBER AS memberNumber,
 		p.POST_TITLE AS postTitle,
 		p.POST_CREATED_DATE AS postCreatedDate,
-		n.NOTICE_CONTENT AS noticeContent
+		n.NOTICE_CONTENT AS
+		noticeContent
 		FROM TBL_POST p
-		JOIN TBL_NOTICE n ON n.POST_NUMBER = p.POST_NUMBER
+		JOIN TBL_NOTICE n ON n.POST_NUMBER =
+		p.POST_NUMBER
 		WHERE p.POST_TYPE = 'NOTICE'
 		ORDER BY p.POST_NUMBER DESC
 	</select>
@@ -132,9 +158,11 @@
 	<!-- 공지글 제목 수정 -->
 	<update id="updateNoticeTitle" parameterType="NoticeDTO">
 		UPDATE TBL_POST
-		SET POST_TITLE = #{postTitle},
+		SET
+		POST_TITLE = #{postTitle},
 		POST_UPDATED_DATE = SYSDATE
-		WHERE POST_NUMBER = #{postNumber}
+		WHERE POST_NUMBER
+		= #{postNumber}
 	</update>
 
 	<!-- 공지글 본문 수정 -->
@@ -155,10 +183,13 @@
 	<!-- FAQ 작성(1): POST 생성 -->
 	<insert id="insertFaqPost" parameterType="FaqDTO">
 		INSERT INTO TBL_POST
-		(POST_NUMBER, MEMBER_NUMBER, POST_TITLE, POST_LIKE_COUNT, POST_VIEW_COUNT,
-		POST_REPORT_COUNT, POST_DELETE_STATE, POST_CREATED_DATE, POST_TYPE)
+		(POST_NUMBER, MEMBER_NUMBER, POST_TITLE, POST_LIKE_COUNT,
+		POST_VIEW_COUNT,
+		POST_REPORT_COUNT, POST_DELETE_STATE,
+		POST_CREATED_DATE, POST_TYPE)
 		VALUES
-		(SEQ_POST_NUMBER.NEXTVAL, #{memberNumber}, #{postTitle}, 0, 0, 0, 'N', SYSDATE, 'FAQ')
+		(SEQ_POST_NUMBER.NEXTVAL,
+		#{memberNumber}, #{postTitle}, 0, 0, 0, 'N', SYSDATE, 'FAQ')
 	</insert>
 
 	<!-- FAQ 작성(2): FAQ 본문 -->
@@ -166,20 +197,23 @@
 		INSERT INTO TBL_FAQ
 		(POST_NUMBER, FAQ_CONTENT)
 		VALUES
-		(SEQ_POST_NUMBER.CURRVAL, #{faqContent})
+		(SEQ_POST_NUMBER.CURRVAL,
+		#{faqContent})
 	</insert>
 
 	<!-- FAQ 목록 -->
 	<select id="selectFaqList" resultType="FaqDTO">
 		SELECT
-		p.POST_NUMBER AS postNumber,
+		p.POST_NUMBER AS
+		postNumber,
 		p.MEMBER_NUMBER AS memberNumber,
 		p.POST_TITLE AS postTitle,
 		p.POST_CREATED_DATE AS postCreatedDate,
 		f.FAQ_CONTENT AS faqContent
 		FROM TBL_POST p
 		JOIN TBL_FAQ f ON f.POST_NUMBER = p.POST_NUMBER
-		WHERE p.POST_TYPE = 'FAQ'
+		WHERE
+		p.POST_TYPE = 'FAQ'
 		ORDER BY p.POST_NUMBER DESC
 	</select>
 
@@ -188,34 +222,41 @@
 		resultType="FaqDTO">
 		SELECT
 		p.POST_NUMBER AS postNumber,
-		p.MEMBER_NUMBER AS memberNumber,
+		p.MEMBER_NUMBER AS
+		memberNumber,
 		p.POST_TITLE AS postTitle,
-		p.POST_CREATED_DATE AS postCreatedDate,
+		p.POST_CREATED_DATE AS
+		postCreatedDate,
 		f.FAQ_CONTENT AS faqContent
 		FROM TBL_POST p
-		JOIN TBL_FAQ f ON f.POST_NUMBER = p.POST_NUMBER
+		JOIN TBL_FAQ
+		f ON f.POST_NUMBER = p.POST_NUMBER
 		WHERE p.POST_NUMBER = #{postNumber}
 	</select>
 
 	<!-- FAQ 제목 수정 -->
 	<update id="updateFaqTitle" parameterType="FaqDTO">
 		UPDATE TBL_POST
-		SET POST_TITLE = #{postTitle},
+		SET
+		POST_TITLE = #{postTitle},
 		POST_UPDATED_DATE = SYSDATE
-		WHERE POST_NUMBER = #{postNumber}
+		WHERE POST_NUMBER
+		= #{postNumber}
 	</update>
 
 	<!-- FAQ 본문 수정 -->
 	<update id="updateFaqContent" parameterType="FaqDTO">
 		UPDATE TBL_FAQ
-		SET FAQ_CONTENT = #{faqContent}
+		SET
+		FAQ_CONTENT = #{faqContent}
 		WHERE POST_NUMBER = #{postNumber}
 	</update>
 
 	<!-- FAQ 삭제 -->
 	<delete id="deleteFaq" parameterType="int">
 		DELETE FROM TBL_POST
-		WHERE POST_NUMBER = #{postNumber}
+		WHERE
+		POST_NUMBER = #{postNumber}
 	</delete>
 
 
@@ -236,11 +277,14 @@
 	<!-- 정지 회원 목록 -->
 	<select id="selectSuspendList" resultType="MemberSuspendDTO">
 		SELECT
-		MEMBER_NUMBER AS memberNumber,
+		MEMBER_NUMBER AS
+		memberNumber,
 		SUSPEND_START_DATE AS suspendStartDate,
-		SUSPEND_END_DATE AS suspendEndDate,
+		SUSPEND_END_DATE
+		AS suspendEndDate,
 		SUSPEND_REPORT_COUNT AS suspendReportCount
-		FROM TBL_MEMBER_SUSPEND
+		FROM
+		TBL_MEMBER_SUSPEND
 		ORDER BY SUSPEND_START_DATE DESC
 	</select>
 
@@ -254,7 +298,10 @@
 		ORDER BY BLACKLIST_NUMBER DESC
 	</select>
 	<!-- 회원리스트 목록 -->
-	<select id="" resultType="MemberListDTO">
+	<select id="selectMemberListList" resultType="MemberListDTO">
+		SELECT * FROM (
+		SELECT ROWNUM AS RNUM, SUBQUERY.*
+		FROM (
 		SELECT
 		M.MEMBER_NUMBER,
 		M.MEMBER_ID,
@@ -276,7 +323,49 @@
 		END AS TREE_GRADE
 		FROM TBL_MEMBER M
 		LEFT JOIN TBL_GENERAL_MEMBER G ON M.MEMBER_NUMBER = G.MEMBER_NUMBER
-		LEFT JOIN TBL_SELLER_MEMBER S ON M.MEMBER_NUMBER = S.MEMBER_NUMBER;
+		LEFT JOIN TBL_SELLER_MEMBER S ON M.MEMBER_NUMBER = S.MEMBER_NUMBER
+		ORDER BY MEMBER_NUMBER DESC
+		) SUBQUERY
+		)WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+
+	<select id="memberListCount" resultType="int">
+		SELECT count(*) FROM (
+		SELECT ROWNUM AS RNUM, SUBQUERY.*
+		FROM (
+		SELECT
+		M.MEMBER_NUMBER,
+		M.MEMBER_ID,
+		M.MEMBER_TYPE,
+		CASE
+		WHEN M.MEMBER_TYPE = 'GENERAL' THEN
+		G.GENERAL_NAME
+		WHEN M.MEMBER_TYPE = 'SELLER' THEN S.SELLER_NAME
+		ELSE
+		NULL
+		END AS MEMBER_NAME,
+		CASE
+		WHEN M.MEMBER_TYPE = 'GENERAL' THEN
+		G.GENERAL_WARNING_COUNT
+		WHEN M.MEMBER_TYPE = 'SELLER' THEN
+		S.SELLER_WARNING_COUNT
+		ELSE NULL
+		END AS WARNING_COUNT,
+		CASE
+		WHEN
+		M.MEMBER_TYPE = 'GENERAL' THEN G.GENERAL_TREE_GRADE
+		WHEN M.MEMBER_TYPE
+		= 'SELLER' THEN S.SELLER_TREE_GRADE
+		ELSE NULL
+		END AS TREE_GRADE
+		FROM
+		TBL_MEMBER M
+		LEFT JOIN TBL_GENERAL_MEMBER G ON M.MEMBER_NUMBER =
+		G.MEMBER_NUMBER
+		LEFT JOIN TBL_SELLER_MEMBER S ON M.MEMBER_NUMBER =
+		S.MEMBER_NUMBER
+		) SUBQUERY
+		)
 	</select>
 
 </mapper>

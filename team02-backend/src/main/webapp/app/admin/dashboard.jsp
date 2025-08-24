@@ -17,12 +17,12 @@
       <!-- 관리자페이지 로고 -->
       <a href="./../../app/admin/dashboard.html"><img src="./../../assets/img/admin_logo.png" alt="admin_logo" class="admin_logo"></a>
       <ul class="sidebar_ul">
-        <a href="./../../app/admin/dashboard.html"><li id="sidebar_list_dashboard" class="sidebar_list">대쉬보드</li></a>
-        <a href="./../../app/admin/memberList.html"><li id="sidebar_list_member" class="sidebar_list">회원관리</li></a>
-        <a href="./../../app/admin/postTradeList.html"><li id="sidebar_list_community" class="sidebar_list">게시글 관리</li></a>
-        <a href="./../../app/admin/reportList.html"><li id="sidebar_list_warning"class="sidebar_list">신고관리</li></a>
-        <a href="./../../app/admin/bannerList.html"><li id="sidebar_list_banner"class="sidebar_list">배너/광고</li></a>
-        <a href="./../../app/admin/adminCustomerService.html"><li id="sidebar_list_customerservice"class="sidebar_list">고객센터</li></a>
+        <a href="${pageContext.request.contextPath}/app/admin/dashboard.jsp"><li id="sidebar_list_dashboard" class="sidebar_list">대쉬보드</li></a>
+        <a href="${pageContext.request.contextPath}/app/admin/memberList.jsp"><li id="sidebar_list_member" class="sidebar_list">회원관리</li></a>
+        <a href="${pageContext.request.contextPath}/app/admin/postTradeList.jsp"><li id="sidebar_list_community" class="sidebar_list">게시글 관리</li></a>
+        <a href="${pageContext.request.contextPath}/app/admin/reportList.jsp"><li id="sidebar_list_warning"class="sidebar_list">신고관리</li></a>
+        <a href="${pageContext.request.contextPath}/app/admin/bannerList.jsp"><li id="sidebar_list_banner"class="sidebar_list">배너/광고</li></a>
+        <a href="${pageContext.request.contextPath}/app/admin/adminCustomerService.jsp"><li id="sidebar_list_customerservice"class="sidebar_list">고객센터</li></a>
       </ul>
       <!-- 로그아웃 버튼 -->
       <button id="admin_logoutbtn">로그아웃</button>
