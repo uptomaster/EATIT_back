@@ -23,9 +23,9 @@ public class MemberListController implements Execute {
 		Result result = new Result();
 
 		String temp = request.getParameter("page");
-		int page = (temp == null) ? 1 : Integer.valueOf(temp); // 페이지 번호 기본값 1로 설정
-		int rowCount = 10; // 한 페이지당 게시글 수
-		int pageCount = 5; // 페이지 버튼 수
+		int page = (temp == null) ? 1 : Integer.valueOf(temp);
+		int rowCount = 10;
+		int pageCount = 5;
 
 		// 페이징 처리
 		int startRow = (page - 1) * rowCount + 1;
@@ -37,10 +37,10 @@ public class MemberListController implements Execute {
 
 		// 게시글 목록 조회
 		List<MemberListDTO> memberListList = adminDAO.selectMember(pageMap);
-		request.setAttribute("memberList", memberListList); // null 오류 수정
+		request.setAttribute("memberList", memberListList);
 
 		// 페이징 정보 설정		
-		int total = adminDAO.getTotal(); // static 호출 제거
+		int total = adminDAO.getTotal();
 		int realEndPage = (int) Math.ceil(total / (double) rowCount);
 		int endPage = (int) (Math.ceil(page / (double) pageCount) * pageCount);
 		int startPage = endPage - (pageCount - 1);
@@ -62,7 +62,7 @@ public class MemberListController implements Execute {
 		System.out.println("startPage : " + startPage + ", endPage : " + endPage + ", prev : " + prev + ", next : " + next);
 		System.out.println("====================");
 
-		result.setPath("/app/admin/memberList.jsp"); // 적절한 JSP 경로로 수정
+		result.setPath("/app/admin/memberList.jsp");
 		result.setRedirect(false);
 
 		return result;

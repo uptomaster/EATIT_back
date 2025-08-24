@@ -58,11 +58,9 @@
 		<div class="header_nav_dropdown">
 			<ul class="header_nav_buy">
 				<li><a
-					href="${pageContext.request.contextPath}/app/buy/storeList.jsp">음식점
-						구매</a></li>
+					href="${pageContext.request.contextPath}/app/order/storeList.or">음식 구매</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/order/ingredientList.or">재료
-						구매</a></li>
+					href="${pageContext.request.contextPath}/order/ingredientList.or">재료 구매</a></li>
 			</ul>
 			<ul class="header_nav_commu">
 				<li><a

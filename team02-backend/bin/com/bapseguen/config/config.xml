@@ -44,7 +44,9 @@
 		<typeAlias type="com.bapseguen.app.dto.StoreDTO" alias="StoreDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.StoreFavoriteDTO" alias="StoreFavoriteDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.view.InquiryDetailDTO" alias="InquiryDetailDTO"></typeAlias>
+		<typeAlias type="com.bapseguen.app.dto.view.ItemSnapshotDTO" alias="ItemSnapshotDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.view.ItemWithImgDTO" alias="ItemWithImgDTO"></typeAlias>
+		<typeAlias type="com.bapseguen.app.dto.view.MemberListDTO" alias="MemberListDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.view.MyPageDTO" alias="MyPageDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.view.PostDetailDTO" alias="PostDetailDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.view.PostListDTO" alias="PostListDTO"></typeAlias>
@@ -53,7 +55,6 @@
 		<typeAlias type="com.bapseguen.app.dto.view.SellerInfoDTO" alias="SellerInfoDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.view.StoreReivewsDTO" alias="StoreReivewsDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.view.WithDrawDTO" alias="WithDrawDTO"></typeAlias>
-		<typeAlias type="com.bapseguen.app.dto.view.ItemSnapshotDTO" alias="ItemSnapshotDTO"></typeAlias>
 	</typeAliases>
 
 	<environments default="oracle">
@@ -77,6 +78,7 @@
 		<mapper resource="com/bapseguen/mapper/FaqMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/GeneralWithDrawMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/InquiryMapper.xml" />
+		<mapper resource="com/bapseguen/mapper/ItemMapper.xml" /> 
 		<mapper resource="com/bapseguen/mapper/MemberMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/MyCommentMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/MyOrderListMapper.xml" />

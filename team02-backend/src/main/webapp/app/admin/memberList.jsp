@@ -72,9 +72,9 @@
 										<a href="./../../app/admin/memberDetail.html" class="admin_list_userid_link"><c:out value="${member.getMemberId()}" /></a>
 										</p>
 										<p id="admin_list_username_value" class="admin_list_row"><c:out value="${member.getMemberName()}" /></p>
-										<p id="admin_list_usercase_value" class="admin_list_row">개인</p>
-										<p id="admin_list_warning_value" class="admin_list_row">0</p>
-										<p id="admin_list_grade_value" class="admin_list_row">
+										<p id="admin_list_usercase_value" class="admin_list_row"><c:out value="${member.getMemberType()}" /></p>
+										<p id="admin_list_warning_value" class="admin_list_row"><c:out value="${member.getWarningCount()}" /></p>
+										<p id="admin_list_grade_value" class="admin_list_row"><c:out value="${member.getTreeGrade()}" />
 											<img class="grade_icon" src="./../../assets/img/씨앗.png"
 												alt="">(2000)
 										</p></li>
