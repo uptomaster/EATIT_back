@@ -47,9 +47,63 @@
 	<!-- 가게 -->
 	<insert id="joinStore" parameterType="StoreDTO">
   		INSERT INTO TBL_STORE
+<<<<<<< HEAD
   		(BUSINESS_NUMBER, STORE_NAME, STORE_OPEN_DATE, STORE_TEL,
   	 	STORE_ADDRESS, STORE_ADDRESS_DETAIL, STORE_ZIP_CODE, MEMBER_NUMBER)
   		VALUES (#{businessNumber}, #{storeName}, TO_DATE(#{storeOpenDate}, 'YYYY-MM-DD'),
    		#{storeTel}, #{storeAddress}, #{storeAddressDetail}, #{storeZipCode},#{memberNumber})
 	</insert>		
+=======
+  		(BUSINESS_NUMBER, MEMBER_NUMBER, STORE_NAME, STORE_OPEN_DATE, STORE_TEL, STORE_ADDRESS, STORE_ADDRESS_DETAIL, STORE_ZIP_CODE, STORE_OPEN_TIME, STORE_CLOSE_TIME)
+  		VALUES (#{businessNumber}, #{memberNumber}, #{storeName}, TO_DATE(#{storeOpenDate}, 'YYYY-MM-DD'),
+   		#{storeTel}, #{storeAddress}, #{storeAddressDetail}, #{storeZipCode}, NULL, NULL)
+	</insert>
+	
+	<!-- 아이디찾기 -->	
+	<select id="findId" parameterType="map" resultType="string">
+		SELECT m.MEMBER_ID
+		FROM TBL_MEMBER m
+		JOIN TBL_GENERAL_MEMBER g ON g.MEMBER_NUMBER = m.MEMBER_NUMBER
+		WHERE g.GENERAL_NAME = #{name} AND g.GENERAL_PHONE_NUMBER = REPLACE(#{generalPhoneNumber}, '-', '')
+		UNION
+		SELECT m.MEMBER_ID
+		FROM TBL_MEMBER m
+		JOIN TBL_SELLER_MEMBER s ON s.MEMBER_NUMBER = m.MEMBER_NUMBER
+		WHERE s.SELLER_NAME = #{name} AND s.SELLER_PHONE_NUMBER = REPLACE(#{sellerPhoneNumber}, '-', '')
+	</select>
+
+	<!-- 비밀번호찾기 -->	
+	<select id="findPw" parameterType="map" resultType="int">
+		SELECT m.MEMBER_NUMBER
+		FROM TBL_MEMBER m
+		JOIN TBL_GENERAL_MEMBER g ON g.MEMBER_NUMBER = m.MEMBER_NUMBER
+		WHERE m.MEMBER_ID = #{memberId} AND g.GENERAL_PHONE_NUMBER = REPLACE(#{generalPhoneNumber}, '-', '')
+		UNION
+		SELECT m.MEMBER_NUMBER
+		FROM TBL_MEMBER m
+		JOIN TBL_SELLER_MEMBER s ON s.MEMBER_NUMBER = m.MEMBER_NUMBER
+		WHERE m.MEMBER_ID = #{memberId} AND s.SELLER_PHONE_NUMBER = REPLACE(#{sellerPhoneNumber}, '-', '')
+	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="updatePw" parameterType="map">
+		UPDATE TBL_MEMBER
+		SET MEMBER_PASSWORD = #{memberPassword}
+		WHERE MEMBER_NUMBER = #{memberNumber}
+	</update>
+	<!-- 일반회원 UPDATED_DATE 갱신 -->
+	<update id="generalUpdatedDate" parameterType="map">
+	  UPDATE TBL_GENERAL_MEMBER
+	     SET UPDATED_DATE = SYSDATE
+	   WHERE MEMBER_NUMBER = #{memberNumber}
+	</update>
+	
+	<!-- 판매자 UPDATED_DATE 갱신 -->
+	<update id="sellerUpdatedDate" parameterType="map">
+	  UPDATE TBL_SELLER_MEMBER
+	     SET UPDATED_DATE = SYSDATE
+	   WHERE MEMBER_NUMBER = #{memberNumber}
+	</update>	
+		
+>>>>>>> d182d8ad59917b1633fd463b5f23dabcbf9fb439
 </mapper>
