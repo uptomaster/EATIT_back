@@ -59,7 +59,15 @@ public class OrdersFrontController extends HttpServlet {
          result = new StoreDetailController().execute(request, response);
          break;
 
-
+     // 재료 목록 페이지(ingredientList.jsp forward)
+     case  "/orders/ingredientList.or":
+    	 result = new IngredientListController().execute(request, response);
+    	 break;
+    	 
+     // 재료 상세 페이지(ingredientDetail.jsp forward, 음식 재료 탭 포함)
+     case "/orders/ingredientDetail.or":
+    	 result = new IngredientDetailController().execute(request, response);
+    	 break;
      // -------------------- Order (주문) --------------------
      // 장바구니 → 주문 확정 처리 (DB에 주문/주문상품 insert)
      case "/orders/createOk.or":

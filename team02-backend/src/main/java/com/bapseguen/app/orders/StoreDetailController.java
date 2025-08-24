@@ -11,6 +11,7 @@ import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.dto.ItemDTO;
 import com.bapseguen.app.dto.ItemImageDTO;
+import com.bapseguen.app.dto.view.ItemWithImgDTO;
 import com.bapseguen.app.item.dao.ItemDAO;
 
 public class StoreDetailController implements Execute {
@@ -22,36 +23,33 @@ public class StoreDetailController implements Execute {
         Result result = new Result();
         ItemDAO itemDAO = new ItemDAO();
 
-        // -------------------- 파라미터 --------------------
+        // 파라미터
         int itemNumber = -1;
         try {
             itemNumber = Integer.parseInt(request.getParameter("itemNumber"));
         } catch (NumberFormatException e) {
-            // 잘못된 파라미터 → 목록으로 이동
             result.setPath(request.getContextPath() + "/orders/storeList.or");
             result.setRedirect(true);
             return result;
         }
 
-        // -------------------- DAO 호출 --------------------
-        ItemDTO item = itemDAO.selectItemDetail(itemNumber);
+        // DAO 호출
+        ItemWithImgDTO item = itemDAO.selectItemDetail(itemNumber);
         List<ItemImageDTO> images = itemDAO.selectItemImages(itemNumber);
 
         if (item == null) {
-            // 없는 상품 → 목록으로 이동
             result.setPath(request.getContextPath() + "/orders/storeList.or");
             result.setRedirect(true);
             return result;
         }
 
-        // -------------------- request 바인딩 --------------------
+        // request 바인딩
         request.setAttribute("item", item);
         request.setAttribute("images", images);
 
-        // -------------------- 뷰 지정 --------------------
+        // 뷰 지정 
         result.setPath("/app/orders/storeDetail.jsp");
         result.setRedirect(false);
-
         return result;
     }
 }
