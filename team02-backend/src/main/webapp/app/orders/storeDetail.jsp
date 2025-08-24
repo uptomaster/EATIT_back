@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/buy/storeDetail.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/orders/storeDetail.css">
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
   <script>
     let headerPath = '../../header.jsp';
