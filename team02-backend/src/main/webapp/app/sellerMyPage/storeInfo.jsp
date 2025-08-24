@@ -102,6 +102,7 @@
 						<div class="store_info_food_menu_list">
 						<c:choose>
 						<c:when test="${not empty foodList}">
+						<!-- 반복문 시작 food:itemDTO-->
 							<c:forEach var="food" items="${foodList}">
 								<div class="store_info_food_menu_list">
 									<img src="${pageContext.request.contextPath}/assets/img/store.jpg" alt="">
