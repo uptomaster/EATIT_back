@@ -117,7 +117,7 @@
           </div>
 
           <!-- 가입하기 버튼 -->
-          <div>
+          <div id="wow">
             <button type="submit" class="join_next" id="generalSubmitBtn">가입하기</button>
           </div>
         </form>

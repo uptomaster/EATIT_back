@@ -9,7 +9,7 @@
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/findPW/editPw.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/findPw/editPw.css">
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/findPW/editPw.js"></script>
   <title>밥세권</title>

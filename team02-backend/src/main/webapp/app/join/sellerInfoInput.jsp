@@ -59,6 +59,10 @@
               <label for="seller_input_pw" class="info_type">비밀번호 : </label>
               <input type="password" id="seller_input_pw" name="seller_input_pw" placeholder="[필수]" required />
             </div>
+            <div class="warning_space">
+              <span class="empty"></span>
+              <div class="warning_message" id="warning_message_pw"></div>
+            </div>   
           </div>
 
           <!-- 비밀번호 확인 -->
@@ -174,7 +178,7 @@
           </div>
 
           <!-- 가입하기 버튼 -->
-          <div>
+          <div id="wow">
             <button type="submit" class="join_next" id="sellerSubmitBtn">가입하기</button>
           </div>
         </form>

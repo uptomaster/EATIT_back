@@ -1,37 +1,45 @@
-
-//미리 저장된 아이디
-const dbId = 'user'
-
-const chkIdBtn = document.getElementById('btn_seller_input_hasSameId');
-chkIdBtn.addEventListener('click', function () {
-  const sellerInputId = document.getElementById('seller_input_id');
-  // 아이디 중복 검사
-  const warningSpan = document.getElementById('warning_message_chk_id');
-  const inputId = sellerInputId.value.trim();
-
-  if (!inputId) {
-    warningSpan.textContent = '아이디를 입력하세요';
-    warningSpan.style.display = 'block';
-  } else if (inputId === dbId) {
-    warningSpan.textContent = '중복된 아이디 입니다.';
-    warningSpan.style.display = 'block';
-  } else {
-    warningSpan.textContent = '이 아이디를 사용할 수 있습니다.';
-    warningSpan.style.display = 'block';
-    warningSpan.style.color = 'green';
-  }
+document.addEventListener("DOMContentLoaded", function () { 
+	const form = document.getElementById("sellerJoinForm") || document.querySelector("form"); 
+	const base = (form && form.dataset.contextPath) ? form.dataset.contextPath : ""; 
+	
+	const idInput = document.getElementById("seller_input_id");
+	const passwordInput = document.getElementById("seller_input_pw");
+	const passwordConfirmInput = document.getElementById("seller_input_chk_pw");
+	const sendSMSBtn = document.getElementById("btn_seller_input_phone");
+	const phoneNumberInput = document.getElementById("seller_input_phone");
+	
+	const checkIdMsg = document.getElementById("warning_message_chk_id");
+	const checkPwMsg = document.getElementById("warning_message_pw");
+	const checkPwConfirmMsg = document.getElementById("warning_message_chk_pw");
+	const verificationCodeInput = document.getElementById("seller_input_chk_phone");
+	const verificationStatus = document.getElementById("warning_message_chk_phone");
+	idInput.addEventListener("change", function(){
+		const memberId = idInput.value.trim();
+		if(!memberId){
+			checkIdMsg.textContent = "아이디를 입력해주세요.";
+			checkIdMsg.style.color = "red";
+			return;
+		}
+		fetch(`${base}/join/checkId.jo?memberId=${encodeURIComponent(memberId)}`,{
+			headers:{"Accept":"application/json"}
+		})
+		.then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+		.then(data => {
+		   if (data.available) {
+		     checkIdMsg.textContent = "사용 가능한 아이디입니다.";
+		     checkIdMsg.style.color = "green";
+		   } else {
+		     checkIdMsg.textContent = "이미 사용 중인 아이디입니다.";
+		     checkIdMsg.style.color = "red";
+		   }
+		 })
+		 .catch(() => {
+		   checkIdMsg.textContent = "아이디 중복 검사 중 오류가 발생했습니다.";
+		   checkIdMsg.style.color = "red";
+	});
 });
-
-//비밀번호 입력값
-const newPasswordError = document.getElementById("warning_message_chk_pw");
-let newPasswordInput = document.getElementById("seller_input_pw");
-let confirmPasswordInput = document.getElementById("seller_input_chk_pw");
-
-// 비밀번호 유효성 검사 정규표현식
+// ===== 비밀번호 유효성/일치 =====
 const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,16}$/;
-
-newPasswordInput.addEventListener("input", () => {
-  let newPassword = newPasswordInput.value;
 
 passwordInput.addEventListener("blur", function () {
     const pw = passwordInput.value.trim();
@@ -43,103 +51,114 @@ passwordInput.addEventListener("blur", function () {
       checkPwMsg.style.color = "red";
     }
   });
-  if (!passwordRegex.test(newPassword)) {
-    newPasswordError.textContent = "비밀번호는 8~16자의 영문 대/소문자, 숫자, 특수문자를 포함해야 합니다.";
-    newPasswordError.style.color = "red";
-  } else {
-    newPasswordError.textContent = "";
-  }
-});
 
-confirmPasswordInput.addEventListener("input", () => {
-  let newPassword = newPasswordInput.value;
-  let confirmPassword = confirmPasswordInput.value;
-
-  if (newPassword !== confirmPassword) {
-    newPasswordError.textContent = "입력하신 비밀번호와 일치하지 않습니다.";
-    newPasswordError.style.color = "red";
-  } else {
-    newPasswordError.textContent = "";
-  }
-});
-////// 전화번호
-//항상
-document.addEventListener("DOMContentLoaded", () => {
-  //인증요청, 인증 확인 버튼
-  const sendCodeBtn = document.getElementById("btn_seller_input_phone");
-  const checkCodeBtn = document.getElementById("btn_seller_input_chk_phone");
-
-  //전화번호 입력
-  const phoneInput = document.getElementById("seller_input_phone");
-  const phoneError = document.getElementById("warning_message_phone");
-
-  //전화번호 인증 입력
-  const codeInput = document.getElementById("seller_input_chk_phone");
-  const codeError = document.getElementById("warning_message_chk_phone");
-
-  // 미리 저장한 인증번호
-  const generatedCode = "1234";
-  // 인증번호 요청 전 인증번호 칸과 버튼은 비활성화
-  checkCodeBtn.disabled = true;
-  checkCodeBtn.style.color = 'grey';
-  codeInput.disabled = true;
-
-
-  //전화번호 유효성 검증
-  function isValidPhone(phone) {
-    const phoneRegex = /^01[0-9]{8,9}$/;
-    return phoneRegex.test(phone);
-  }
-
-  //전화번호 확인
-  sendCodeBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    // 전화번호 값만 저장
-    const phone = phoneInput.value.trim();
-    phoneError.textContent = "";
-
-    if (!isValidPhone(phone)) {
-      phoneError.textContent = "전화번호를 입력해주세요.";
+  passwordConfirmInput.addEventListener("blur", function () {
+    const pw = passwordInput.value.trim();
+    const pw2 = passwordConfirmInput.value.trim();
+    if (pw && pw === pw2) {
+      checkPwConfirmMsg.textContent = "비밀번호가 일치합니다.";
+      checkPwConfirmMsg.style.color = "green";
     } else {
-      checkCodeBtn.disabled = false;
-      checkCodeBtn.style.color = 'white';
-      codeInput.disabled = false;
-      alert("인증번호가 전송되었습니다.");
+      checkPwConfirmMsg.textContent = "비밀번호가 일치하지 않습니다.";
+      checkPwConfirmMsg.style.color = "red";
+    }
+  });    
+
+  
+  // ===== SMS 발송 (임시 인증번호 생성) =====
+  
+  let tempCode = "";   // 임시 발급 코드 저장할 변수
+
+  sendSMSBtn.addEventListener("click", function () {
+    const phoneNumber = phoneNumberInput.value.trim();
+    if (!phoneNumber) {
+      alert("핸드폰 번호를 입력해주세요.");
+      return;
+    }
+
+    // 6자리 난수 생성
+    tempCode = String(Math.floor(100000 + Math.random() * 900000));
+    console.log("임시 인증번호:", tempCode); // 콘솔 확인용
+
+    verificationCodeInput.disabled = false;
+    verificationStatus.textContent = "임시 인증번호(6자리)가 발급되었습니다.";
+    verificationStatus.style.color = "green";
+
+    alert("임시 인증번호는 [" + tempCode + "] 입니다.");
+  });
+  
+  // ===== 인증번호 확인 (서버 대신 로컬 비교) =====
+  verificationCodeInput.addEventListener("blur", function () {
+    const code = verificationCodeInput.value.trim();
+    if (!code) {
+      verificationStatus.textContent = "인증번호를 입력해주세요.";
+      verificationStatus.style.color = "red";
+      return;
+    }
+
+    if (code === tempCode) {
+      verificationStatus.textContent = "인증에 성공했습니다.";
+      verificationStatus.style.color = "green";
+      verificationCodeInput.dataset.verified = "true";
+    } else {
+      verificationStatus.textContent = "인증번호가 일치하지 않습니다.";
+      verificationStatus.style.color = "red";
+      verificationCodeInput.dataset.verified = "false";
     }
   });
+  
+  const searchBtn = document.getElementById("searchPostcodeBtn");
+  if (searchBtn) {
+    searchBtn.addEventListener("click", function () {
+      new daum.Postcode({
+        oncomplete: function (data) {
+          // 1) 우편번호
+          document.getElementById("seller_input_store_zip").value = data.zonecode || "";
 
-  //인증번호 확인
-  checkCodeBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    //인증번호 값만 저장
-    const inputCode = codeInput.value.trim();
-    codeError.textContent = "";
+          // 2) 메인 주소(도로명 또는 지번 한 칸만)
+          //    - 참고항목(동/건물명)은 괄호로 덧붙임
+          var isRoad = data.userSelectedType === "R";
+          var base   = isRoad ? (data.roadAddress || "") : (data.jibunAddress || "");
+          var extra  = "";
 
-    if (inputCode !== generatedCode) {
-      codeError.textContent = "인증번호가 일치하지 않습니다.";
-    } else {
-      alert("인증되었습니다.");
+          if (isRoad) {
+            if (data.bname && /[동|로|가]$/.test(data.bname)) extra += data.bname;
+            if (data.buildingName && data.apartment === "Y") {
+              extra += (extra ? ", " : "") + data.buildingName;
+            }
+          }
+
+          var main = base + (extra ? " (" + extra + ")" : "");
+          document.getElementById("seller_input_store_address").value = main;
+
+          // 3) 상세주소 포커스
+          document.getElementById("seller_input_store_address_detail").focus();
+        }
+      }).open({ popupTitle: "우편번호 검색" });
+    });
+  }
+  
+  // ===== 사업자등록번호 (3-2-5) 자동 하이픈 & 검증 =====
+  const bizNoInput  = document.getElementById('seller_input_store_number');
+
+  if (bizNoInput) {
+    // 입력 중 자동 하이픈
+    bizNoInput.addEventListener('input', () => {
+      let v = bizNoInput.value.replace(/\D/g, '').slice(0, 10); // 숫자만, 최대 10자리
+      if (v.length > 5)        v = `${v.slice(0,3)}-${v.slice(3,5)}-${v.slice(5)}`;
+      else if (v.length > 3)   v = `${v.slice(0,3)}-${v.slice(3)}`;
+      bizNoInput.value = v;
+    });
+	}
+  // ===== 제출 전 체크 =====
+  form.addEventListener("submit", function (e) {
+	
+		
+    if (verificationCodeInput.dataset.verified !== "true") {
+      e.preventDefault();
+      alert("휴대폰 인증을 완료해주세요.");
+      verificationCodeInput.focus();
+      return;
     }
   });
 });
-
-//가입하기 버튼을 눌렀을때
-const essenInfos = document.querySelectorAll("input");
-function goNextPage() {
-  // const totalEssenCount = essenInfos.length;
-  let essenCount = 0;
-  // 필수 정보 전체 입력됐는지 여부 확인
-  essenInfos.forEach((essenInfo) => {
-    if (essenInfo.value !== '') {
-      essenCount++;
-    }
-  });
-  console.log(essenCount);
-  if (essenCount === essenInfos.length) {
-    //모든 체크박스 체크 시 다음 페이지로 이동
-    location.href = "successJoin.html";
-    return;
-  }
-  alert("필수 정보를 모두 입력하셔야 다음단계로 이동할 수 있습니다.");
-  // alert() -> return 일때 return 이 작동 안함 왜?
-}
