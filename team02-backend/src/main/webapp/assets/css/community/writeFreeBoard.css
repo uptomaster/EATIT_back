@@ -148,6 +148,8 @@ input[type="file"]:focus {
 }
 
 .cancel_btn {
+  display:inline-block;
+  text-decoration:none;
   background-color: #df3131;
   color: white;
   padding: 10px 28px;

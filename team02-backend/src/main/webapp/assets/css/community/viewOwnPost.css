@@ -14,14 +14,13 @@ li {
   display: flex;
   width: 1100px;
   margin: 0 auto;
-  /* min-height: 100vh; */
   background-color: #FFF5E4;
 }
 
-.side {
+/* .side {
   width: 410px;
   background-color: #FFF5E4;
-}
+} */
 
 .container {
   margin-top: 30px;
@@ -80,15 +79,10 @@ li {
 .post {
   border-bottom: 1px solid #ddd;
   margin-bottom: 20px;
-  background-color: #88601b;
+  background-color: #fff5d1;
   padding: 10px;
   border-radius: 20px;
   box-shadow: 0 0 12px rgba(168, 6, 6, 0.438);
-}
-
-.tag {
-  font-weight: bold;
-  color: #0073e6;
 }
 
 .profile_box {
@@ -140,7 +134,7 @@ li {
   border-radius: 50%;
 }
 
-.post_header {
+./* post_header {
   background-color: #FFF5E4;
   padding: 20px;
   border-radius: 10px;
@@ -163,9 +157,67 @@ li {
   gap: 15px;
   font-size: 0.9rem;
   color: #555;
+} */
+
+.post {
+  background-color: #fff5d1;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+.post_header {
+  background-color: #FFF5E4;
+  padding: 20px;
+  border-radius: 10px;
+  height:80px
+}
+/* 제목 */
+.post_title h1 {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+  color: #333;
 }
 
-.views {
+/* 메타 데이터 (한 줄 정렬) */
+.post_meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* 작성자 */
+.post_author_area {
+  display: flex;
+  align-items: center;
+}
+
+.post_author_area img.tree_icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.post_author_area .author_name {
+  font-weight: bold;
+  color: #444;
+}
+
+/* 날짜 */
+.post_date_area time {
+  color: #666;
+}
+
+/* 조회수 & 추천 */
+.post_hit_area span:first-child,
+.post_like_area span:first-child {
+  font-weight: 500;
+  margin-right: 3px;
+}
+
+/* .views {
   font-size: 14px;
   color: #646363;
   font-weight: bold;
@@ -175,7 +227,7 @@ li {
   font-size: 14px;
   color: #646363;
   font-weight: bold;
-}
+} */
 
 /* ===== 게시글 내용 ===== */
 .post_content {

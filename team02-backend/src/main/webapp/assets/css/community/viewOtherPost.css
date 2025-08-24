@@ -200,6 +200,10 @@ li {
   padding-left: 800px;
 }
 
+.func_button form{
+  display:inline-block;
+}
+
 .post_buttons button {
   border: none;
   padding: 6px 12px;
