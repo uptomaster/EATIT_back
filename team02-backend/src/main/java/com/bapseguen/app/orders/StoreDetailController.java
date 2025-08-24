@@ -11,6 +11,7 @@ import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.dto.ItemDTO;
 import com.bapseguen.app.dto.ItemImageDTO;
+import com.bapseguen.app.dto.view.ItemWithImgDTO;
 import com.bapseguen.app.item.dao.ItemDAO;
 
 public class StoreDetailController implements Execute {
@@ -33,7 +34,7 @@ public class StoreDetailController implements Execute {
         }
 
         // DAO 호출
-        ItemDTO item = itemDAO.selectItemDetail(itemNumber);
+        ItemWithImgDTO item = itemDAO.selectItemDetail(itemNumber);
         List<ItemImageDTO> images = itemDAO.selectItemImages(itemNumber);
 
         if (item == null) {
