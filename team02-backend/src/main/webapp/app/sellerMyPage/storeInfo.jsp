@@ -104,13 +104,11 @@
 						<c:when test="${not empty foodList}">
 							<c:forEach var="food" items="${foodList}">
 								<div class="store_info_food_menu_list">
-									<img
-										src="${pageContext.request.contextPath}/assets/img/store.jpg"
-										alt="">
+									<img src="${pageContext.request.contextPath}/assets/img/store.jpg" alt="">
 									<div class="store_info_food_menu_info_stock">
 										<div class="store_info_btns">
 											<div class="store_info_food_stock">
-												<c:out value="${food.itemQuantity}"/> 개 남음
+												<c:out value="${food.getItemQuantity}"/> 개 남음
 											</div>
 											<a href="${pageContext.request.contextPath}/sellerMyPage/editFood.se">
 												<div class="store_info_food_edit_btn">수정</div> 
