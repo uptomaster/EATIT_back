@@ -43,6 +43,7 @@
 		<typeAlias type="com.bapseguen.app.dto.SellerMemberDTO" alias="SellerMemberDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.StoreDTO" alias="StoreDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.StoreFavoriteDTO" alias="StoreFavoriteDTO"></typeAlias>
+		<typeAlias type="com.bapseguen.app.dto.view.CommentListDTO" alias="CommentListDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.view.InquiryDetailDTO" alias="InquiryDetailDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.view.ItemSnapshotDTO" alias="ItemSnapshotDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.view.ItemWithImgDTO" alias="ItemWithImgDTO"></typeAlias>
@@ -75,6 +76,7 @@
 		<mapper resource="com/bapseguen/mapper/AdminMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/BoardMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/CartListMapper.xml" />
+		<mapper resource="com/bapseguen/mapper/CommentMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/FaqMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/GeneralWithDrawMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/InquiryMapper.xml" />

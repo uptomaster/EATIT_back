@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>adminLogin</title>
 <script defer src="./../../assets/js/admin/memberList.js"></script>
-<link rel="stylesheet" href="./../../assets/css/admin/memberList.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/memberList.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
 	integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -68,28 +68,67 @@
 							<c:when test="${not empty memberList}">
 								<c:forEach var="member" items="${memberList}">
 									<li class="admin_list_value">
-										<p id="admin_list_num_value" class="admin_list_row"><c:out value="${member.getMemberNumber()}" /></p>
-										<p id="admin_list_userid_value" class="admin_list_row">
-										<a href="./../../app/admin/memberDetail.html" class="admin_list_userid_link"><c:out value="${member.getMemberId()}" /></a>
+										<p id="admin_list_num_value" class="admin_list_row">
+											<c:out value="${member.getMemberNumber()}" />
 										</p>
-										<p id="admin_list_username_value" class="admin_list_row"><c:out value="${member.getMemberName()}" /></p>
-										<p id="admin_list_usercase_value" class="admin_list_row"><c:out value="${member.getMemberType()}" /></p>
-										<p id="admin_list_warning_value" class="admin_list_row"><c:out value="${member.getWarningCount()}" /></p>
-										<p id="admin_list_grade_value" class="admin_list_row"><c:out value="${member.getTreeGrade()}" />
+										<p id="admin_list_userid_value" class="admin_list_row">
+											<a href="${pageContext.request.contextPath}/app/admin/memberDetail.jsp"
+												class="admin_list_userid_link"><c:out
+													value="${member.getMemberId()}" /></a>
+										</p>
+										<p id="admin_list_username_value" class="admin_list_row">
+											<c:out value="${member.getMemberName()}" />
+										</p>
+										<p id="admin_list_usercase_value" class="admin_list_row">
+											<c:out value="${member.getMemberType()}" />
+										</p>
+										<p id="admin_list_warning_value" class="admin_list_row">
+											<c:out value="${member.getWarningCount()}" />
+										</p>
+										<p id="admin_list_grade_value" class="admin_list_row">
+											<c:out value="${member.getTreeGrade()}" />
 											<img class="grade_icon" src="./../../assets/img/씨앗.png"
 												alt="">(2000)
-										</p></li>
+										</p>
+									</li>
 								</c:forEach>
 							</c:when>
 						</c:choose>
 					</ul>
 				</div>
-				<!-- 페이지네이션, 검색창 -->
+				<!-- 페이지네이션 -->
 				<div class="admin_pagenation_search">
-					<div class="admin_pagenation">
+					<!-- <div class="admin_pagenation">
 						<a href="#"> 1 </a> <a href="#"> 2 </a> <a href="#"> 3 </a> <a
-							href="#"> 4 </a>
-					</div>
+							href="#"> 4 </a> -->
+					<ul class="admin_pagenation">
+						<c:if test="${prev}">
+							<li><a
+								href="${pageContext.request.contextPath}/admin/memberlistlist.ad?page=${startPage-1}"
+								class="prev">&lt;</a></li>
+						</c:if>
+						<c:set var="realStartPage"
+							value="${startPage < 0 ? 0 : startPage}" />
+						<c:forEach var="i" begin="${realStartPage}" end="${endPage}">
+							<c:choose>
+								<c:when test="${!(i == page) }">
+									<li><a
+										href="${pageContext.request.contextPath}/admin/memberlistlist.ad?page=${i}">
+											<c:out value="${i}" />
+									</a></li>
+								</c:when>
+								<c:otherwise>
+									<li><a href="#" class="active"> <c:out value="${i}" />
+									</a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${next}">
+							<li><a
+								href="${pageContext.request.contextPath}/admin/memberlistlist.ad?page=${endPage + 1}"
+								class="next">&gt;</a>
+						</c:if>
+					</ul>
 					<form action="" method="get">
 						<div class="admin_search">
 							<!-- 태그 선택 -->
