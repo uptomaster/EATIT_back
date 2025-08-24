@@ -253,7 +253,7 @@
 		FROM TBL_MEMBER_BLACKLIST
 		ORDER BY BLACKLIST_NUMBER DESC
 	</select>
-
+	<!-- 회원리스트 목록 -->
 	<select id="" resultType="MemberListDTO">
 		SELECT
 		M.MEMBER_NUMBER,

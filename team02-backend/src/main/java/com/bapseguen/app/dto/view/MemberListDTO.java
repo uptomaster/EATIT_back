@@ -2,77 +2,62 @@ package com.bapseguen.app.dto.view;
 
 public class MemberListDTO {
 	
-	private int memberNumber;
-	private String memberId;
-	private String generalName;
-	private String sellerName;
-	private String memberType;
-	private int generalWarningCount;
-	private String generalTreeGrade;
-	private int sellerWarningCount;
-	private String sellerTreeGrade;
-	
+	private int MemberNumber;
+	private String MemberId;
+	private String MemberType;
+	private String GeneralName;
+	private String SellerName;
+	private String WarningCount;
+	private String TreeGrade;
 	public int getMemberNumber() {
-		return memberNumber;
+		return MemberNumber;
 	}
 	public void setMemberNumber(int memberNumber) {
-		this.memberNumber = memberNumber;
+		MemberNumber = memberNumber;
 	}
 	public String getMemberId() {
-		return memberId;
+		return MemberId;
 	}
 	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
-	public String getGeneralMemberName() {
-		return generalName;
-	}
-	public void setGeneralMemberName(String generalMemberName) {
-		this.generalName = generalMemberName;
-	}
-	public String getSellerMemberName() {
-		return sellerName;
-	}
-	public void setSellerMemberName(String sellerMemberName) {
-		this.sellerName = sellerMemberName;
+		MemberId = memberId;
 	}
 	public String getMemberType() {
-		return memberType;
+		return MemberType;
 	}
 	public void setMemberType(String memberType) {
-		this.memberType = memberType;
+		MemberType = memberType;
 	}
-	public int getGeneralWarningCount() {
-		return generalWarningCount;
+	public String getGeneralName() {
+		return GeneralName;
 	}
-	public void setGeneralWarningCount(int generalWarningCount) {
-		this.generalWarningCount = generalWarningCount;
+	public void setGeneralName(String generalName) {
+		GeneralName = generalName;
 	}
-	public String getGeneralTreeGrade() {
-		return generalTreeGrade;
+	public String getSellerName() {
+		return SellerName;
 	}
-	public void setGeneralTreeGrade(String generalTreeGrade) {
-		this.generalTreeGrade = generalTreeGrade;
+	public void setSellerName(String sellerName) {
+		SellerName = sellerName;
 	}
-	public int getSellerWarningCount() {
-		return sellerWarningCount;
+	public String getWarningCount() {
+		return WarningCount;
 	}
-	public void setSellerWarningCount(int sellerWarningCount) {
-		this.sellerWarningCount = sellerWarningCount;
+	public void setWarningCount(String warningCount) {
+		WarningCount = warningCount;
 	}
-	public String getSellerTreeGrade() {
-		return sellerTreeGrade;
+	public String getTreeGrade() {
+		return TreeGrade;
 	}
-	public void setSellerTreeGrade(String sellerTreeGrade) {
-		this.sellerTreeGrade = sellerTreeGrade;
+	public void setTreeGrade(String treeGrade) {
+		TreeGrade = treeGrade;
 	}
 	
 	@Override
 	public String toString() {
-		return "MemberListDTO [memberNumber=" + memberNumber + ", memberId=" + memberId + ", generalMemberName="
-				+ generalName + ", sellerMemberName=" + sellerName + ", memberType=" + memberType
-				+ ", generalWarningCount=" + generalWarningCount + ", generalTreeGrade=" + generalTreeGrade
-				+ ", sellerWarningCount=" + sellerWarningCount + ", sellerTreeGrade=" + sellerTreeGrade + "]";
+		return "MemberListDTO [MemberNumber=" + MemberNumber + ", MemberId=" + MemberId + ", MemberType=" + MemberType
+				+ ", GeneralName=" + GeneralName + ", SellerName=" + SellerName + ", WarningCount=" + WarningCount
+				+ ", TreeGrade=" + TreeGrade + "]";
 	}
+	
 	
 }
