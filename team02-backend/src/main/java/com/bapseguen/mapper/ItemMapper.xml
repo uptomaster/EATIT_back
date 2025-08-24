@@ -18,35 +18,34 @@
 	    WHERE i.ITEM_NUMBER = #{itemNumber}
 	  </select>
 
-	 <!-- 가게별/타입별 판매중 아이템 목록 (페이지네이션 옵션) -->
-	  <select id="list" parameterType="map" resultType="com.bapseguen.app.dto.ItemDTO">
-	    SELECT
-	      i.ITEM_NUMBER   AS itemNumber,
-	      i.BUSINESS_NUMBER AS businessNumber,
-	      i.ITEM_TYPE     AS itemType,
-	      i.ITEM_NAME     AS itemName,
-	      i.ITEM_PRICE    AS itemPrice,
-	      i.ITEM_CONTENT  AS itemContent,
-	      i.ITEM_QUANTITY AS itemQuantity,
-	      i.ITEM_ORIGIN   AS itemOrigin,
-	      TO_CHAR(i.ITEM_EXPIRE_DATE, 'YYYY-MM-DD') AS itemExpireDate,
-	      TO_CHAR(i.ITEM_CREATED_TIME, 'YYYY-MM-DD HH24:MI:SS') AS itemCreatedTime,
-	      TO_CHAR(i.ITEM_UPDATED_TIME, 'YYYY-MM-DD HH24:MI:SS') AS itemUpdatedTime,
-	      i.ITEM_SELL_STATE AS itemSellState,
-	      /* 대표 이미지 1장 (없으면 NULL) */
-	      (SELECT ii.ITEM_IMAGE_SYSTEM_NAME
-	         FROM TBL_ITEM_IMAGE ii
-	        WHERE ii.ITEM_NUMBER = i.ITEM_NUMBER
-	        FETCH FIRST 1 ROWS ONLY) AS itemImageSystemName
-	    FROM TBL_ITEM i
-	    WHERE i.BUSINESS_NUMBER = #{businessNumber}
-	      AND i.ITEM_TYPE = #{itemType}          /* 'FOOD' or 'INGREDIENT' */
-	      AND i.ITEM_SELL_STATE = 'Y'
-	    ORDER BY i.ITEM_NUMBER DESC
-	    <if test="offset != null and limit != null">
-	      OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
-	    </if>
-	  </select>
+		<!-- 가게별/타입별 판매중 아이템 목록 (페이지네이션 옵션) -->
+	<select id="list" parameterType="map" resultType="com.bapseguen.app.dto.view.ItemWithImgDTO">
+	  SELECT
+	    i.ITEM_NUMBER   AS itemNumber,
+	    i.BUSINESS_NUMBER AS businessNumber,
+	    i.ITEM_TYPE     AS itemType,
+	    i.ITEM_NAME     AS itemName,
+	    i.ITEM_PRICE    AS itemPrice,
+	    i.ITEM_CONTENT  AS itemContent,
+	    i.ITEM_QUANTITY AS itemQuantity,
+	    i.ITEM_ORIGIN   AS itemOrigin,
+	    TO_CHAR(i.ITEM_EXPIRE_DATE, 'YYYY-MM-DD') AS itemExpireDate,
+	    TO_CHAR(i.ITEM_CREATED_TIME, 'YYYY-MM-DD HH24:MI:SS') AS itemCreatedTime,
+	    TO_CHAR(i.ITEM_UPDATED_TIME, 'YYYY-MM-DD HH24:MI:SS') AS itemUpdatedTime,
+	    i.ITEM_SELL_STATE AS itemSellState,
+	    (SELECT ii.ITEM_IMAGE_SYSTEM_NAME
+	       FROM TBL_ITEM_IMAGE ii
+	      WHERE ii.ITEM_NUMBER = i.ITEM_NUMBER
+	      FETCH FIRST 1 ROWS ONLY) AS itemImageSystemName
+	  FROM TBL_ITEM i
+	  WHERE i.BUSINESS_NUMBER = #{businessNumber}
+	    AND i.ITEM_TYPE = #{itemType}
+	    AND i.ITEM_SELL_STATE = 'Y'
+	  ORDER BY i.ITEM_NUMBER DESC
+	  <if test="offset != null and limit != null">
+	    OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
+	  </if>
+	</select>
 
 	  <!-- 목록 개수 (페이지네이션 총건수) -->
 	  <select id="count" parameterType="map" resultType="int">
@@ -57,26 +56,26 @@
 	       AND ITEM_SELL_STATE = 'Y'
 	  </select>
   
-	  <!--  전체 음식/재료 목록 (메인 storeList.jsp 용) -->
-	  <select id="selectAllItems" parameterType="map" resultType="com.bapseguen.app.dto.ItemDTO">
-	    SELECT
-	      i.ITEM_NUMBER,
-	      i.BUSINESS_NUMBER,
-	      i.ITEM_TYPE,
-	      i.ITEM_NAME,
-	      i.ITEM_PRICE,
-	      (SELECT ii.ITEM_IMAGE_SYSTEM_NAME
-	         FROM TBL_ITEM_IMAGE ii
-	        WHERE ii.ITEM_NUMBER = i.ITEM_NUMBER
-	        FETCH FIRST 1 ROWS ONLY) AS itemImageSystemName
-	    FROM TBL_ITEM i
-	    WHERE i.ITEM_TYPE = #{itemType}   <!-- 'FOOD' or 'INGREDIENT' -->
-	      AND i.ITEM_SELL_STATE = 'Y'
-	    ORDER BY i.ITEM_NUMBER DESC
-	    <if test="offset != null and limit != null">
-	      OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
-	    </if>
-	  </select>
+	<!-- 전체 음식/재료 목록 (메인 storeList.jsp 용) -->
+	<select id="selectAllItems" parameterType="map" resultType="com.bapseguen.app.dto.view.ItemWithImgDTO">
+	  SELECT
+	    i.ITEM_NUMBER,
+	    i.BUSINESS_NUMBER,
+	    i.ITEM_TYPE,
+	    i.ITEM_NAME,
+	    i.ITEM_PRICE,
+	    (SELECT ii.ITEM_IMAGE_SYSTEM_NAME
+	       FROM TBL_ITEM_IMAGE ii
+	      WHERE ii.ITEM_NUMBER = i.ITEM_NUMBER
+	      FETCH FIRST 1 ROWS ONLY) AS itemImageSystemName
+	  FROM TBL_ITEM i
+	  WHERE i.ITEM_TYPE = #{itemType}
+	    AND i.ITEM_SELL_STATE = 'Y'
+	  ORDER BY i.ITEM_NUMBER DESC
+	  <if test="offset != null and limit != null">
+	    OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
+	  </if>
+	</select>
 
 	  <!--  전체 개수 -->
 	  <select id="countAllItems" parameterType="string" resultType="int">
@@ -87,7 +86,7 @@
 	  </select>
 
 	  <!--  상품 이미지 목록 -->
-	  <select id="selectItemImages" parameterType="int" resultType="com.bapseguen.app.dto.ItemImageDTO">
+	  <select id="selectItemImages" parameterType="int" resultType="ItemImageDTO">
 	    SELECT ITEM_IMAGE_NUMBER,
 	           ITEM_IMAGE_SYSTEM_NAME AS itemImageSystemName,
 	           ITEM_IMAGE_ORIGINAL_NAME AS itemImageOriginalName,
@@ -98,8 +97,8 @@
 	  </select>
 
 
-		<!-- 검색 + 목록 -->
-	<select id="searchItems" parameterType="map" resultType="com.bapseguen.app.dto.ItemDTO">
+	<!-- 검색 + 목록 -->
+	<select id="searchItems" parameterType="map" resultType="ItemWithImgDTO">
 	  SELECT I.ITEM_NUMBER,
 	         I.BUSINESS_NUMBER,
 	         I.ITEM_TYPE,
