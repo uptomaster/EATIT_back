@@ -63,7 +63,7 @@ public class SellerMyPageFrontController extends HttpServlet {
 		switch (target) {
 		// // 마이페이지 접근
 		// 마이페이지 접근 전 비밀번호 확인 페이지 요청
-		case "/sellerMyPage/chkPw.se":
+		case "C":
 			System.out.println("[판페f] 비밀번호 확인 페이지 요청");
 			result = new CheckSellerPwController().execute(request, response);
 			break;
@@ -98,7 +98,11 @@ public class SellerMyPageFrontController extends HttpServlet {
 			System.out.println("[판페f] 내 리뷰 관리 페이지 요청");
 			result = new SellerMyReviewController().execute(request, response);
 			break;
-
+//		case "/sellerMyPage/myReviews.se":
+//			System.out.println("[판페f] 내 리뷰 관리 페이지 요청");
+//			result = new SellerMyReviewController().execute(request, response);
+//			break;
+		
 
 		/********************************************************************/
 
