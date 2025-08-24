@@ -182,7 +182,7 @@ public class AdminFrontController extends HttpServlet {
 
 		/* ===================== 기본/예외 ===================== */
 		default:
-			System.out.println("[ADMIN] 잘못된 요청 → 대시보드로 리다이렉트");
+			System.out.println("[ADMIN] 대시보드로 리다이렉트");
 			result = new Result();
 			result.setPath(request.getContextPath() + "/admin/dashboard.ad");
 			result.setRedirect(true);
