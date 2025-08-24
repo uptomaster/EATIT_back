@@ -1,3 +1,18 @@
+window.addEventListener('DOMContentLoaded', () => {
+  // 헤더 불러오기
+  fetch('./../../header.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('header').innerHTML = data;
+    });
+
+  // 푸터 불러오기
+  fetch('./../../footer.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('footer').innerHTML = data;
+    });
+});
 
 //전체동의
 NodeList.prototype.map = Array.prototype.map;
@@ -50,7 +65,7 @@ function goNextPage() {
   console.log(essenCount);
   if(essenCount === essenAgrees.length ){
     //모든 체크박스 체크 시 다음 페이지로 이동
-    location.href = "/join/generalJoin.jo";
+    location.href = "userInfoInput.html";
     return;
   }
   alert("필수 약관에 동의해야 다음단계로 이동할 수 있습니다.");

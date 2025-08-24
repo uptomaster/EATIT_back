@@ -1,25 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>       
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/join/joinAgreementSeller.css">
-  <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-  <script defer src="${pageContext.request.contextPath}/assets/js/join/joinAgreementSeller.js"></script>
-  <title>밥세권</title>
+  <link rel="shortcut icon" href="./../../assets/img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="./../../assets/css/header.css">
+  <link rel="stylesheet" href="./../../assets/css/footer.css">
+  <link rel="stylesheet" href="./../../assets/css/join/joinAgreementSeller.css">
+  <script defer src="./../../assets/js/join/joinAgreementSeller.js"></script>
   <script>
     let headerPath = '../../header.jsp';
     let footerPath = '../../footer.jsp';
   </script>
+  <script defer src="../../assets/js/header.js"></script>
+  <title>밥세권</title>
 </head>
+
 <body>
-<jsp:include page="/header.jsp" />
+  <header id="header"></header>
   <main>
     <div class="container">
       <!-- 회원가입 단계 동그라미 4개 -->
