@@ -38,23 +38,12 @@
           <div class="idPwBoxWrapper">
             <div class="idBox">
               <label for="adminId">ID</label>
-              <input type="text"
-                     id="adminId"
-                     name="adminId"
-                     value="${fn:escapeXml(inputAdminId)}"
-                     placeholder="관리자 아이디"
-                     required
-                     autocomplete="username" />
+              <input type="text" id="adminId" name="adminId" value="${fn:escapeXml(inputAdminId)}" placeholder="관리자 아이디" required autocomplete="username" />
             </div>
 
             <div class="pwBox">
               <label for="adminPw">Password</label>
-              <input type="password"
-                     id="adminPw"
-                     name="adminPw"
-                     placeholder="비밀번호"
-                     required
-                     autocomplete="current-password" />
+              <input type="password" id="adminPw" name="adminPw" placeholder="비밀번호" requiredautocomplete="current-password" />
 
               <!-- 에러 메시지: 기본은 숨김, 서버에서 loginError 내려오면 노출 -->
               <p id="admin_loginfail" class="error"
