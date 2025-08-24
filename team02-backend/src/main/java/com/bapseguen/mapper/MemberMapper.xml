@@ -24,7 +24,7 @@
 	<!-- 공통 MEMBER -->
 	<insert id="joinMember" parameterType="MemberDTO">
   		<selectKey keyProperty="memberNumber" resultType="int" order="BEFORE">
-    		SELECT SEQ_MEMBER.NEXTVAL FROM dual
+    		SELECT SEQ_MEMBER_NUMBER.NEXTVAL FROM dual
   		</selectKey>
   		INSERT INTO TBL_MEMBER (MEMBER_NUMBER, MEMBER_ID, MEMBER_PASSWORD)
   		VALUES (#{memberNumber}, #{memberId}, #{memberPassword})
@@ -33,15 +33,16 @@
 	<!-- 일반회원 상세 -->
 	<insert id="joinGeneral" parameterType="GeneralMemberDTO">
   		INSERT INTO TBL_GENERAL_MEMBER
-  		(MEMBER_NUMBER, GENERAL_NAME, GENERAL_BIRTH_DATE, GENERAL_PHONE_NUMBER)
-  		VALUES (#{memberNumber}, #{generalName}, TO_DATE(#{generalBirthDate}, 'YYYY-MM-DD'), #{generalPhoneNumber})
+  		(MEMBER_NUMBER, GENERAL_REPORT_COUNT, GENERAL_WARNING_COUNT, GENERAL_BLACK_STATE, GENERAL_NAME, GENERAL_BIRTHDATE, GENERAL_PHONE_NUMBER, GENERAL_JOIN_DATE,
+GENERAL_TREE_GRADE, GENERAL_PAYMENT_AMOUNT)
+  		VALUES (#{memberNumber},0, 0, 'N', #{generalName}, TO_DATE(#{generalBirthdate}, 'YYYY-MM-DD'), #{generalPhoneNumber}, SYSDATE, '씨앗', 0)
 	</insert>
 
 	<!-- 판매자회원 상세 -->
 	<insert id="joinSeller" parameterType="SellerMemberDTO">
   		INSERT INTO TBL_SELLER_MEMBER
-  		(MEMBER_NUMBER, SELLER_NAME, SELLER_BIRTHDATE, SELLER_PHONE_NUMBER)
-  		VALUES (#{memberNumber}, #{sellerName}, TO_DATE(#{sellerBirthdate}, 'YYYY-MM-DD'), #{sellerPhoneNumber})
+  		(MEMBER_NUMBER, SELLER_REPORT_COUNT, SELLER_WARNING_COUNT, SELLER_BLACK_STATE, SELLER_NAME, SELLER_BIRTHDATE, SELLER_PHONE_NUMBER, SELLER_JOIN_DATE, SELLER_TREE_GRADE, SELLER_PAYMENT_AMOUNT)
+  		VALUES (#{memberNumber},0, 0, 'N', #{sellerName}, TO_DATE(#{sellerBirthdate}, 'YYYY-MM-DD'), #{sellerPhoneNumber}, SYSDATE, '씨앗', 0)
 	</insert>
 
 	<!-- 가게 -->

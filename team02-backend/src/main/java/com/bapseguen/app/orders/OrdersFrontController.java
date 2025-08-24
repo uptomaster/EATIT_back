@@ -48,56 +48,55 @@ public class OrdersFrontController extends HttpServlet {
         Result result = null;
 
         switch (target) {
-        // -------------------- Cart (장바구니) --------------------
-        case "/cart/view.ct":
-            System.out.println("장바구니 페이지 요청");
-            result = new PaymentApproveOkController().execute(request, response);
-            break;
-        case "/cart/addOk.ct":
-            System.out.println("장바구니 담기 처리 요청");
-            result = new CartAddOkController().execute(request, response);
-            break;
-        case "/cart/updateOk.ct":
-            System.out.println("장바구니 수량 변경 처리 요청");
-            result = new CartUpdateOkController().execute(request, response);
-            break;
-        case "/cart/removeOk.ct":
-            System.out.println("장바구니 항목 삭제 처리 요청");
-            result = new PaymentReadyController().execute(request, response);
-            break;
+     // -------------------- Store (가게 / 상품 목록) --------------------
+     // 구매 메인: 음식점/상품 목록 페이지 (storeList.jsp forward)
+     case "/orders/storeList.or":
+         result = new StoreListController().execute(request, response);
+         break;
 
-        // -------------------- Order (주문) --------------------
-        case "/order/createOk.or":
-            System.out.println("주문 생성 처리 요청 (장바구니 → 주문)");
-            result = new OrderCreateOkController().execute(request, response);
-            break;
-        case "/order/list.or":
-            System.out.println("주문 목록 페이지 요청");
-            result = new OrderListController().execute(request, response);
-            break;
-        case "/order/detail.or":
-            System.out.println("주문 상세 페이지 요청");
-            result = new OrderDetailController().execute(request, response);
-            break;
-        case "/order/cancelOk.or":
-            System.out.println("주문 취소 처리 요청");
-            result = new OrderCancelOkController().execute(request, response);
-            break;
+     // 가게 상세 페이지 (storeDetail.jsp forward, 음식/재료 탭 포함)
+     case "/orders/storeDetail.or":
+         result = new StoreDetailController().execute(request, response);
+         break;
 
-        // -------------------- Payment (결제) --------------------
-        case "/payment/ready.pm":
-            System.out.println("결제 준비(결제창 진입) 요청");
-            result = new PaymentReadyController().execute(request, response);
-            break;
-        case "/payment/approveOk.pm":
-            System.out.println("결제 승인 처리 요청");
-            result = new PaymentApproveOkController().execute(request, response);
-            break;
-        case "/payment/cancelOk.pm":
-            System.out.println("결제 취소 처리 요청");
-            result = new PaymentCancelOkController().execute(request, response);
-            break;
+
+     // -------------------- Order (주문) --------------------
+     // 장바구니 → 주문 확정 처리 (DB에 주문/주문상품 insert)
+     case "/orders/createOk.or":
+         result = new OrderCreateOkController().execute(request, response);
+         break;
+
+     // 회원의 주문 목록 조회 (마이페이지에서 사용, orderList.jsp forward)
+     case "/orders/list.or":
+         result = new OrderListController().execute(request, response);
+         break;
+
+     // 주문 상세 조회 (주문 + 주문상품 join, orderDetail.jsp forward)
+     case "/orders/detail.or":
+         result = new OrderDetailController().execute(request, response);
+         break;
+
+     // 주문 취소 처리 (DB에서 상태 update)
+     case "/orders/cancelOk.or":
+         result = new OrderCancelOkController().execute(request, response);
+         break;
+
+
+         // -------------------- Payment (결제) --------------------
+     case "/orders/paymentReady.or":
+         System.out.println("결제 준비(결제창 진입) 요청");
+         result = new PaymentReadyController().execute(request, response);
+         break;
+     case "/orders/paymentApproveOk.or":
+         System.out.println("결제 승인 처리 요청");
+         result = new PaymentApproveOkController().execute(request, response);
+         break;
+     case "/orders/paymentCancelOk.or":
+         System.out.println("결제 취소 처리 요청");
+         result = new PaymentCancelOkController().execute(request, response);
+         break;
     }
+
 
     if (result != null) {
         if (result.isRedirect()) {

@@ -25,7 +25,7 @@ public class CartListChangeStoreOkController implements Execute {
         Result result = new Result();
         HttpSession session = request.getSession();
 
-        // 1. 로그인 체크
+        // 로그인 체크
         Integer memberNumber = (Integer) session.getAttribute("memberNumber");
         if (memberNumber == null) {
             result.setPath(request.getContextPath() + "/member/login.me");
@@ -33,7 +33,7 @@ public class CartListChangeStoreOkController implements Execute {
             return result;
         }
 
-        // 2. 파라미터 파싱
+        // 파라미터 파싱
         int itemNumber = parseInt(request.getParameter("itemNumber"), -1);
         int quantity = parseInt(request.getParameter("quantity"), 1);
 
@@ -44,7 +44,7 @@ public class CartListChangeStoreOkController implements Execute {
             return result;
         }
 
-        // 3. 상품 스냅샷 조회
+        // 상품 스냅샷 조회
         ItemDAO itemDAO = new ItemDAO();
         ItemSnapshotDTO snap = itemDAO.selectSnapshot(itemNumber);
 
@@ -79,11 +79,11 @@ public class CartListChangeStoreOkController implements Execute {
             return result;
         }
 
-        // 4. 기존 장바구니 삭제
+        // 기존 장바구니 삭제
         CartListDAO cartDAO = new CartListDAO();
         cartDAO.deleteOpenCartByMember(memberNumber);
 
-        // 5. 새 장바구니 생성
+        // 새 장바구니 생성
         CartDTO newCart = new CartDTO();
         newCart.setMemberNumber(memberNumber);
         newCart.setBusinessNumber(newBusinessNumber);
@@ -98,7 +98,7 @@ public class CartListChangeStoreOkController implements Execute {
             return result;
         }
 
-        // 6. 새 장바구니에 아이템 추가
+        // 새 장바구니에 아이템 추가
         CartItemDTO cartItem = new CartItemDTO();
         cartItem.setCartNumber(newCartNumber);
         cartItem.setItemNumber(itemNumber);
