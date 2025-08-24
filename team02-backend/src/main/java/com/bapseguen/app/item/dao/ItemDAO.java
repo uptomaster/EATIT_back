@@ -64,4 +64,14 @@ public class ItemDAO {
     public List<ItemImageDTO> selectItemImages(int itemNumber) {
         return sqlSession.selectList("item.selectItemImages", itemNumber);
     }
+
+    /** 목록 검색 */
+    public List<ItemDTO> searchItems(Map<String,Object> params) {
+        return sqlSession.selectList("item.searchItems", params);
+    }
+
+    /** 검색 개수 세기 */
+    public int countSearchItems(Map<String,Object> params) {
+        return sqlSession.selectOne("item.countSearchItems", params);
+    }
 }

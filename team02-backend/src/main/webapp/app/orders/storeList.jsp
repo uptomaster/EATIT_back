@@ -28,11 +28,12 @@
       </c:choose>
     </h2>
 
-    <!-- 검색 -->
-    <form method="get" action="${pageContext.request.contextPath}/orders/storeList.or">
-      <input id="buy_search" type="text" name="q" value="${param.q}" placeholder="가게/메뉴 검색" />
-      <input type="hidden" name="itemType" value="${itemType}" />
-    </form>
+	<!-- 검색 -->
+	<form method="get" action="${pageContext.request.contextPath}/orders/storeList.or">
+	  <input id="buy_search" type="text" name="q" value="${q}" placeholder="가게/메뉴 검색" />
+	  <input type="hidden" name="itemType" value="${itemType}" />
+	</form>
+
 
     <!-- 정렬 -->
     <ul class="buy_array">

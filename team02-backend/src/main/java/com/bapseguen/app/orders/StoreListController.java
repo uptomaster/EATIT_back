@@ -1,7 +1,9 @@
 package com.bapseguen.app.orders;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +26,7 @@ public class StoreListController implements Execute {
         // -------------------- 파라미터 --------------------
         String itemType = request.getParameter("itemType");
         if (itemType == null || itemType.isBlank()) {
-            itemType = "FOOD"; // 기본은 음식페이지임.
+            itemType = "FOOD"; // 기본 음식
         }
 
         int page = 1;
@@ -34,24 +36,32 @@ public class StoreListController implements Execute {
             page = 1;
         }
 
-        int limit = 10; // 페이지당 10개씩
+        String keyword = request.getParameter("q"); // 검색어 (null 허용)
+
+        int limit = 10;
         int offset = (page - 1) * limit;
 
-        // DAO 호출
-        List<ItemDTO> items = itemDAO.selectAllItems(itemType, offset, limit);
-        int totalCount = itemDAO.countAllItems(itemType);
+        // DAO 호출 
+        Map<String,Object> params = new HashMap<>();
+        params.put("itemType", itemType);
+        params.put("offset", offset);
+        params.put("limit", limit);
+        params.put("q", keyword);
+
+        List<ItemDTO> items = itemDAO.searchItems(params);
+        int totalCount = itemDAO.countSearchItems(params);
         int totalPages = (int) Math.ceil((double) totalCount / limit);
 
-        // request 바인딩
+        // request 바인딩 
         request.setAttribute("items", items);
         request.setAttribute("page", page);
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("itemType", itemType);
+        request.setAttribute("q", keyword);
 
-        // 뷰 지정
+        // 경로 포워딩하기
         result.setPath("/app/orders/storeList.jsp");
-        result.setRedirect(false); // forward
-
+        result.setRedirect(false);
         return result;
     }
 }
