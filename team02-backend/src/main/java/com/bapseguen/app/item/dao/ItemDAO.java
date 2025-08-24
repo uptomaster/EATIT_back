@@ -6,9 +6,9 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.bapseguen.app.dto.ItemDTO;
 import com.bapseguen.app.dto.ItemImageDTO;
 import com.bapseguen.app.dto.view.ItemSnapshotDTO;
+import com.bapseguen.app.dto.view.ItemWithImgDTO;
 import com.bapseguen.config.MyBatisConfig;
 
 public class ItemDAO {
@@ -24,7 +24,7 @@ public class ItemDAO {
     }
 
     /** 가게/타입별 아이템 목록 */
-    public List<ItemDTO> list(String businessNumber, String itemType, Integer offset, Integer limit) {
+    public List<ItemWithImgDTO> list(String businessNumber, String itemType, Integer offset, Integer limit) {
         Map<String, Object> p = new HashMap<>();
         p.put("businessNumber", businessNumber);
         p.put("itemType", itemType);
@@ -42,7 +42,7 @@ public class ItemDAO {
     }
 
     /** 메인 storeList.jsp 용 전체 아이템 목록 (음식/재료 구분) */
-    public List<ItemDTO> selectAllItems(String itemType, Integer offset, Integer limit) {
+    public List<ItemWithImgDTO> selectAllItems(String itemType, Integer offset, Integer limit) {
         Map<String, Object> p = new HashMap<>();
         p.put("itemType", itemType);
         p.put("offset", offset);
@@ -56,7 +56,7 @@ public class ItemDAO {
     }
 
     /** 상품 상세 조회 */
-    public ItemDTO selectItemDetail(int itemNumber) {
+    public ItemWithImgDTO selectItemDetail(int itemNumber) {
         return sqlSession.selectOne("item.selectItemDetail", itemNumber);
     }
 
@@ -66,7 +66,7 @@ public class ItemDAO {
     }
 
     /** 목록 검색 */
-    public List<ItemDTO> searchItems(Map<String,Object> params) {
+    public List<ItemWithImgDTO> searchItems(Map<String,Object> params) {
         return sqlSession.selectList("item.searchItems", params);
     }
 

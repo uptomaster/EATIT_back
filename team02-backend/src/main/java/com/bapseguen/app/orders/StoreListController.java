@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
-import com.bapseguen.app.dto.ItemDTO;
+import com.bapseguen.app.dto.view.ItemWithImgDTO;
 import com.bapseguen.app.item.dao.ItemDAO;
 
 public class StoreListController implements Execute {
@@ -48,7 +48,7 @@ public class StoreListController implements Execute {
         params.put("limit", limit);
         params.put("q", keyword);
 
-        List<ItemDTO> items = itemDAO.searchItems(params);
+        List<ItemWithImgDTO> items = itemDAO.searchItems(params);
         int totalCount = itemDAO.countSearchItems(params);
         int totalPages = (int) Math.ceil((double) totalCount / limit);
 

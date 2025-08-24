@@ -55,6 +55,7 @@
                 <img src="${empty item.itemImageSystemName ? ph : item.itemImageSystemName}" alt="${item.itemName}"/>
                 <div class="buy_store_info">
                   <p class="buy_store_name">사업자번호: ${item.businessNumber}</p>
+                  <p class="buy_store_name">상호명 : ${item.businessName}</p>
                   <p class="buy_menu_name">${item.itemName}</p>
                   <p class="buy_price">
                     <fmt:formatNumber value="${item.itemPrice}" type="number"/>원
