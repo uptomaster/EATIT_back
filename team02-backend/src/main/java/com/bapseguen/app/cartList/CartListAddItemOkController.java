@@ -29,7 +29,7 @@ public class CartListAddItemOkController implements Execute {
 		Integer memberNumber = (Integer) request.getSession().getAttribute("memberNumber");
 		if (memberNumber == null) {
 			// 회원번호가 없으면 로그인페이지로 경로 설정
-			result.setPath("/member/login.me");
+			result.setPath(request.getContextPath() + "/member/login.me");
 			result.setRedirect(true);
 			return result;
 		}
@@ -39,8 +39,8 @@ public class CartListAddItemOkController implements Execute {
 		int quantity = parseInt(request.getParameter("quantity"), 1);
 
 		if (itemNumber <= 0 || quantity <= 0) {
-			session.setAttribute("cartError", "잘못된 요청입니다.");
-			result.setPath("/cartList/view.cl");
+			session.setAttribute("Error", "잘못된 요청입니다.");
+			result.setPath(request.getContextPath() + "/cartList/view.cl");
 			result.setRedirect(true);
 			return result;
 		}
@@ -48,18 +48,25 @@ public class CartListAddItemOkController implements Execute {
 		// 아이템 스냅샷 조회(가격,재고,판매상태,가게번호)
 		ItemDAO itemDAO = new ItemDAO();
 		ItemSnapshotDTO snap = itemDAO.selectSnapshot(itemNumber);
-		if (snap == null || !"Y".equalsIgnoreCase(null)) {
-			// 재고가 없을때는 판매 불가함
-			session.setAttribute("Error", "판매중이 아닌 상품입니다.");
-			result.setPath("/cartList/view.cl");
-			result.setRedirect(true); // 새로고침해야됨
-			return result;
-		}
+		
+		if (snap == null) {
+            session.setAttribute("cartError", "존재하지 않는 상품입니다.");
+            result.setPath(request.getContextPath() + "/cartList/view.cl");
+            result.setRedirect(true);
+            return result;
+        }
 
-		if (snap.getItemQuantity() != null && quantity > snap.getItemQuantity()) {
+        if (!"Y".equalsIgnoreCase(snap.getItemSellState())) {
+            session.setAttribute("cartError", "판매중이 아닌 상품입니다.");
+            result.setPath(request.getContextPath() + "/cartList/view.cl");
+            result.setRedirect(true);
+            return result;
+        }
+		
+		if (snap.getItemQuantity() != null && (snap.getItemQuantity() <= 0 || quantity > snap.getItemQuantity())) {
 			// 메뉴의 수량이 존재하면서, 구매하려는 수량이 재고보다 많을때 => 구매 안됨.
-			session.setAttribute("Error", "재고가 부족합니다.");
-			result.setPath("/cartList/view.cl");
+			session.setAttribute("cartError", "재고가 부족합니다.");
+			result.setPath(request.getContextPath() + "/cartList/view.cl");
 			result.setRedirect(true);
 			return result;
 		}
@@ -123,7 +130,7 @@ public class CartListAddItemOkController implements Execute {
 				String currentBN = (firstSnap != null) ? firstSnap.getBusinessNumber() : null;
 
 				if (currentBN == null || !currentBN.equals(newBusinessNumber)) {
-					// ⚠ 다른 가게 상품 → 확인 페이지로 유도
+					// 다른 가게 상품 → 확인 페이지로 유도
 					String redirect = request.getContextPath() + "/cartList/changeStoreConfirm.cl" + "?itemNumber="
 							+ itemNumber + "&quantity=" + quantity;
 					result.setPath(redirect);
@@ -144,7 +151,7 @@ public class CartListAddItemOkController implements Execute {
 		cartDAO.insertCartItem(cartItem);
 
 		// 완료 처리하기
-		session.setAttribute("cartToast", "장바구니에 담았습니다.");
+		session.setAttribute("cartNotice", "장바구니에 담았습니다.");
 		result.setPath("/cartList/view.cl");
 		result.setRedirect(true);
 		return result;
