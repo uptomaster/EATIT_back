@@ -29,7 +29,7 @@ public class FindIdOkController implements Execute{
 		}else{
 			request.setAttribute("foundId", id);
 			result.setRedirect(false);
-			result.setPath(request.getContextPath()+ "/app/findId/findUserIdAuth.jsp");
+			result.setPath("/app/findId/findUserIdAuth.jsp");
 		}
 		return result;
 	}
