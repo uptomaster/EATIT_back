@@ -8,7 +8,7 @@
 		SELECT*FROM(
 			SELECT ROWNUM AS RNUM,SUBQUERY.*
 			FROM(
-			SELECT M.MEMBER_NUMBER,M.MEMBER_ID,P.POST_NUMBER, P.POST Title,P.BOARD_CONTENT,P.POST_CREATED_DATE,P.POST_VIEW_COUNT
+			SELECT M.MEMBER_NUMBER,M.MEMBER_ID,P.POST_NUMBER, P.POST_Title,P.POST_CREATED_DATE,P.POST_VIEW_COUNT
 			FROM TBL_MEMBER M JOIN TBL_POST P
 			ON M.MEMBER_NUMBER=P.MEMBER_NUMBER
 			ORDER BY P.POST_CREATED_DATE DESC
@@ -17,6 +17,11 @@
 	]]>
 	</select>
 
+	<!-- 게시글 총 개수 -->
+	<select id="postGetTotal" resultType="int">
+		SELECT COUNT(post_number)
+		FROM TBL_POST
+	</select>
 
 	<!--조회수 쿼리  -->
 	<update id="postUpdateReadCount" parameterType="int">
@@ -50,19 +55,37 @@
 	</select>
 	
 	<!-- 내가 작성한 게시글 조회 -->
-	<select id="myPostSelect" resultType="PostDTO">
+	<select id="myPostSelect" resultType="PostDetailDTO">
 	<![CDATA[
-	  SELECT * FROM (
-	    SELECT ROWNUM AS RNUM, SUBQUERY.*
+	SELECT * FROM (
+	  SELECT ROWNUM AS RNUM, SUBQUERY.*
 	    FROM (
-	      SELECT POST_NUMBER,POST_TITLE,POST_TYPE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_LIKE_COUNT,POST_DELETE_STATE
-	      FROM TBL_POST
-	      WHERE MEMBER_NUMBER = #{memberNumber}
-	        AND POST_DELETE_STATE = 'N'
-	      ORDER BY POST_CREATED_DATE DESC
+	      SELECT p.POST_NUMBER, p.POST_TITLE,p.POST_TYPE,p.POST_CREATED_DATE,p.POST_VIEW_COUNT,p.POST_LIKE_COUNT, p.POST_DELETE_STATE,
+	          (SELECT count(c.COMMENT_NUMBER) FROM TBL_COMMENT c WHERE c.POST_NUMBER = p.POST_NUMBER  ) AS comment_count
+	      FROM TBL_POST p 
+	      WHERE p.MEMBER_NUMBER = #{memberNumber}
+	        AND p.POST_DELETE_STATE = 'N'
+	      ORDER BY p.POST_CREATED_DATE DESC
 	    ) SUBQUERY
 	  )
 	  WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+	]]>
+	</select>
+	
+	<!-- 내가 작성한 게시글 개수 조회 -->
+	<select id="myPostCount" resultType="int">
+	<![CDATA[
+	SELECT count(*) FROM (
+	  SELECT ROWNUM AS RNUM, SUBQUERY.*
+	    FROM (
+	      SELECT p.POST_NUMBER, p.POST_TITLE,p.POST_TYPE,p.POST_CREATED_DATE,p.POST_VIEW_COUNT,p.POST_LIKE_COUNT, p.POST_DELETE_STATE,
+	          (SELECT count(c.COMMENT_NUMBER) FROM TBL_COMMENT c WHERE c.POST_NUMBER = p.POST_NUMBER  ) AS comment_count
+	      FROM TBL_POST p 
+	      WHERE p.MEMBER_NUMBER = #{memberNumber}
+	        AND p.POST_DELETE_STATE = 'N'
+	      ORDER BY p.POST_CREATED_DATE DESC
+	    ) SUBQUERY
+	  )
 	]]>
 	</select>
 	
