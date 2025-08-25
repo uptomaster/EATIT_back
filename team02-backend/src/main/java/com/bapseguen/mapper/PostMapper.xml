@@ -8,7 +8,7 @@
 		SELECT*FROM(
 			SELECT ROWNUM AS RNUM,SUBQUERY.*
 			FROM(
-			SELECT M.MEMBER_NUMBER,M.MEMBER_ID,P.POST_NUMBER, P.POST_Title,P.POST_CREATED_DATE,P.POST_VIEW_COUNT
+			SELECT M.MEMBER_NUMBER,M.MEMBER_ID,P.POST_NUMBER, P.POST_TITLE,P.POST_CREATED_DATE,P.POST_VIEW_COUNT
 			FROM TBL_MEMBER M JOIN TBL_POST P
 			ON M.MEMBER_NUMBER=P.MEMBER_NUMBER
 			ORDER BY P.POST_CREATED_DATE DESC
@@ -46,12 +46,19 @@
 	
 	<!-- 게시글 상세(1건조회) -->
 	<select id="postSelect" parameterType="int" resultType="PostDetailDTO">
-		<![CDATA[
-			SELECT M.MEMBER_NUMBER,M.MEMBER_ID, P.POST_NUMBER,P.POST_TITLE,P.POST_CONTENT,P.POST_DATE,P.POST_VIEW_COUNT
-			FROM TBL_MEMBER M JOIN TBL_POST P
-			ON P.MEMBER_NUMBER=M.MEMBERNUMBER
-			WHERE P.POST_NUMBER= #{postNumber}
-		]]>
+	    <![CDATA[
+	        SELECT M.MEMBER_NUMBER AS memberNumber,
+	               M.MEMBER_ID AS memberId,
+	               P.POST_NUMBER AS postNumber,
+	               P.POST_TITLE AS postTitle,
+	               F.FREE_CONTENT AS postContent,
+	               P.POST_CREATED_DATE AS postCreatedDate,
+	               P.POST_VIEW_COUNT AS postViewCount
+	        FROM TBL_MEMBER M
+	        JOIN TBL_POST P ON P.MEMBER_NUMBER = M.MEMBER_NUMBER
+	        LEFT JOIN TBL_FREE_BOARD F ON F.POST_NUMBER = P.POST_NUMBER
+	        WHERE P.POST_NUMBER = #{postNumber}
+	    ]]>
 	</select>
 	
 	<!-- 내가 작성한 게시글 조회 -->

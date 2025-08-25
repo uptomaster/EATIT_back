@@ -69,14 +69,6 @@ public class CommunityFrontController extends HttpServlet {
 			System.out.println("자유게시판 상세 페이지 처리 요청");
 			result = new FreeBoardReadOkController().execute(request, response);
 			break;
-		case "/community/postDeleteOK.co":
-			System.out.println("게시글 삭제 완료 요청");
-			result = new PostDeleteOKController().execute(request, response);
-			break;
-		case "/community/postUpdate.co":
-			System.out.println("게시글 수정 페이지 이동 요청");
-			result = new PostUpdateController().execute(request, response);
-			break;	
 		case "/community/writeFreeBoard.co":
 			System.out.println("자유게시판 게시글 작성페이지 이동 요청");
 			result = new WriteFreeBoardController().execute(request, response);
@@ -85,7 +77,14 @@ public class CommunityFrontController extends HttpServlet {
 			System.out.println("자유게시판 게시글 작성완료 요청");
 			result = new WriteFreeBoardOKController().execute(request, response);
 			break;	
-			
+		case "/community/postDeleteOK.co":
+			System.out.println("게시글 삭제 완료 요청");
+			result = new PostDeleteOKController().execute(request, response);
+			break;
+		case "/community/postUpdate.co":
+			System.out.println("게시글 수정 페이지 이동 요청");
+			result = new PostUpdateController().execute(request, response);
+			break;	
 		case "/community/customerServiceListOkController.co":
 			System.out.println("고객센터 목록 페이지 처리 요청");
 			result = new CustomerServiceListOkController().execute(request, response);

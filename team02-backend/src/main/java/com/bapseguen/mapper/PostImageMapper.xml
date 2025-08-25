@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="postImage">
+	<!-- 파일 추가 -->
+	<insert id="insert" parameterType="PostImageDTO">
+		INSERT INTO TBL_POST_IMAGE(postImageSystemName, postImageOriginalName, post_number)
+		VALUES (#{postImageSystemName}, #{postImageOriginalName}, #{post_number})	
+	</insert>
+	
+	<!-- 파일 조회 -->
+	<select id="select" parameterType="int" resultType="PostImageDTO">
+		SELECT postImageSystemName, postImageOriginalName, post_number
+		FROM TBL_POST_IMAGE
+		WHERE post_number = #{postNumber}
+	</select>
+	
+	<!-- 파일 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM TBL_POST_IMAGE
+		WHERE post_number = #{postNumber}
+	</delete>
+
+</mapper>
