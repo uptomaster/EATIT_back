@@ -45,47 +45,43 @@ public class SellerMyPageDAO {
 //		System.out.println("회원 번호 : "+memberNumber);
 //        return sqlSession.selectOne("seller.takeSellerinfo", memberNumber);
 //	}
-	
-    // Item Image - needs businessNumber for MAX(ITEM_NUMBER) subquery
+	// ***메뉴 등록***************************************************************************** //	
+    
     // 메뉴 사진 저장
-    public int addItemImage(ItemImageDTO imageDTO, String businessNumber) {
+    public void addItemImage(ItemWithImgDTO ItemWithImgDTO) {
     	System.out.println("[판페DAO] 메뉴 사진 저장 - addItemImage 메소드 실행");
-    	System.out.println("사업자번호 : "+businessNumber);
-    	System.out.println("imageDTO : "+imageDTO);
+    	System.out.println("사업자번호 : "+ItemWithImgDTO.getBusinessNumber());
+    	System.out.println("imageDTO : "+ItemWithImgDTO);
     	
         Map<String, Object> param = new HashMap<>();
-        param.put("[판페DAO] itemImageNumber", imageDTO.getItemImageNumber());
-        param.put("[판페DAO] itemImageSystemName", imageDTO.getItemImageSystemName());
-        param.put("[판페DAO] itemImageOriginalName", imageDTO.getItemImageOriginalName());
-        param.put("[판페DAO] businessNumber", businessNumber);
-        return sqlSession.insert("storeManage.addItemImage", param);
+        param.put("[판페DAO] itemImageNumber", ItemWithImgDTO.getItemImageNumber());
+        param.put("[판페DAO] itemImageSystemName", ItemWithImgDTO.getItemImageSystemName());
+        param.put("[판페DAO] itemImageOriginalName", ItemWithImgDTO.getItemImageOriginalName());
+        param.put("[판페DAO] businessNumber", ItemWithImgDTO.getBusinessNumber());
+        sqlSession.insert("storeManage.addItemImage", param);
     }
 
-    // 사업장 장보
-//    public SellerInfoDTO selectStoreInfo(String businessNumber) {
-//    	System.out.println("사업장 정보 출력 - selectStoreInfo 메소드 실행");
-//    	System.out.println("사업자 번호 : "+businessNumber);
-//        return sqlSession.selectOne("storeManage.selectStoreInfo", businessNumber);
-//    }
-    
     //음식 판매 목록
     public List<ItemWithImgDTO> foodList(Map<String, Integer> pageMap) {
     	System.out.println("[판페DAO] 음식판매목록 - foodList 메소드 실행");
+    	System.out.println("[판페DAO] 음식판매목록 map :"+pageMap.toString());
     	System.out.println("[판페DAO] 사업자 번호 : "+pageMap.get("businessNumber"));
     	
         List<ItemWithImgDTO> list = sqlSession.selectList("storeManage.foodList", pageMap);
         return list;
     }
-	
+    
 	// 음식 판매 등록
-    public int addFood(ItemDTO itemDTO) {
+    public int addFood(ItemWithImgDTO itemDTO) {
     	System.out.println("[판페DAO] 음식판매등록 - addFood 메소드 실행 ");
     	System.out.println("itemDTO : "+itemDTO);
-        int insert = sqlSession.insert("storeManage.addFood", itemDTO);
-        System.out.println("inert 결과 : "+insert);
-        System.out.println("itemNumber : "+itemDTO.getItemNumber());
+        sqlSession.insert("storeManage.addFood", itemDTO);
+        int itemNum = sqlSession.selectOne("storeManage.getLastItemNumber", itemDTO);
+        System.out.println("itemNumber : "+itemNum);
         return itemDTO.getItemNumber();
     }
+    
+    
     // 음식 메뉴 상세
     public ItemWithImgDTO detaileFood(int itemNumber) {
     	System.out.println("[판페DAO] 음식메뉴상세 - detailFood 메소드 실행 ");
@@ -116,6 +112,7 @@ public class SellerMyPageDAO {
     	
         return sqlSession.selectOne("storeManage.alreadyfood", dto);
     }
+    //
 
     // INGREDIENT
     //재료 판매 등록

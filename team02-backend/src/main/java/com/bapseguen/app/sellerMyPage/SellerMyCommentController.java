@@ -45,7 +45,7 @@ public class SellerMyCommentController implements Execute{
 		pageMap.put("memberNumber", memberNumber);
 		
 		// 게시글 목록 조회
-		List<CommentDTO> myCommentList = sellerDAO.selectAllmyComment(pageMap);
+		List<CommenListDTO> myCommentList = sellerDAO.selectAllmyComment(pageMap);
 		request.setAttribute("myCommentList", myCommentList);
 
 		// 페이징 정보 설정

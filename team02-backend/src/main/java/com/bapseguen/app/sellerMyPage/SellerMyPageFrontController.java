@@ -71,27 +71,63 @@ public class SellerMyPageFrontController extends HttpServlet {
 			System.out.println("[판페f] 비밀번호 확인완료 요청");
 			result = new CheckSellerPwOkController().execute(request, response);
 			break;
-		
+
 		/********************************************************************/
 		// // 사업장 관리 페이지
-			// 이 페이지에서 음식 메뉴 목록, 재료 메뉴 목록 출력함
+		// 이 페이지에서 음식 메뉴 목록, 재료 메뉴 목록 출력함
 		case "/sellerMyPage/storeInfo.se":
 			System.out.println("[판페f] 사업장관리 페이지 이동 요청");
 			result = new SellerStoreInfoController().execute(request, response);
 			break;
-			
+
+		// Food
 		case "/sellerMyPage/addFood.se":
-			System.out.println("[판페f] 음식 메뉴 상세보기");
+			System.out.println("음식 추가 페이지 요청");
 			result = new FoodAddController().execute(request, response);
 			break;
-		case "/sellerMyPage/addFoodOk.se":
-			System.out.println("[판페f] 음식 메뉴 상세보기");
+		case "/sellerMyPage/addFookOk.se":
+			System.out.println("음식 추가 완료 요청");
 			result = new FoodAddOkController().execute(request, response);
 			break;
 		case "/sellerMyPage/detailFoodOk.se":
-			System.out.println("[판페f] 음식 메뉴 상세보기");
+			System.out.println("음식 상세 페이지 요청");
 			result = new FoodDetailOkController().execute(request, response);
 			break;
+		case "/seller/editFood.se":
+			System.out.println("음식 수정 페이지 요청");
+			result = new FoodEditController().execute(request, response);
+			break;
+		case "/seller/editFoodOk.se":
+			System.out.println("음식 수정 페이지 요청");
+			result = new FoodEditOkController().execute(request, response);
+			break;
+        case "/seller/food/deleteOk.se":       
+        	 result = new FoodDeleteOkController().execute(request, response); 
+        	 break;
+		case "/sellerMyPage/FoodlistOk.se":
+			result = new FoodListOkController().execute(request, response);
+			break;
+        case "/seller/food/alreadyOk.se":      
+        	 result = new AlreadyFoodOkController().execute(request, response); 
+        	 break;
+
+	     // Ingredient
+	     case "/seller/ingredient/addOk.se":    
+	    	 result = new IngredientAddOkController().execute(request, response); 
+	    	 break;
+	     case "/seller/ingredient/detailOk.se": 
+	    	 result = new IngredientDetailOkController().execute(request, response); 
+	    	 break;
+	     case "/seller/ingredient/editOk.se":   
+	    	 result = new IngredientEditOkController().execute(request, response); 
+	    	 break;
+	     case "/seller/ingredient/deleteOk.se": 
+	    	 result = new IngredientDeleteOkController().execute(request, response); 
+	    	 break;
+	     case "/seller/ingredient/listOk.se":   
+	    	 result = new IngredientListOkController().execute(request, response); 
+	    	 break;
+		//
 		/********************************************************************/
 		// // 내 게시글 관리
 		case "/sellerMyPage/myPosts.se":
@@ -110,21 +146,20 @@ public class SellerMyPageFrontController extends HttpServlet {
 //			System.out.println("[판페f] 내 리뷰 관리 페이지 요청");
 //			result = new SellerMyReviewController().execute(request, response);
 //			break;
-		
 
 		/********************************************************************/
 
 		}
 
 		if (result != null) {
-			System.out.println("result: "+result);
+			System.out.println("result: " + result);
 			if (result.isRedirect()) {
 				response.sendRedirect(result.getPath());
 			} else {
-				System.out.println("syso.getPath(): "+result.getPath());
+				System.out.println("syso.getPath(): " + result.getPath());
 				request.getRequestDispatcher(result.getPath()).forward(request, response);
 			}
- 		} //result 가 
+		} // result 가
 	}
 
 }
