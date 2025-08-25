@@ -70,7 +70,7 @@
 
               <div class="buy_each_container">
                 <p class="buy_food_stock">재고 : ${item.itemQuantity}개</p>
-                <p class="buy_food_menu_name">상품명 : ${item.itemName}</p>
+                <p class="buy_food_menu_name">${item.itemName}</p>
                 <div class="buy_food_stock_choice">
                   <!-- 수량 선택 -->
                   <a href="#" class="minus">-</a>
