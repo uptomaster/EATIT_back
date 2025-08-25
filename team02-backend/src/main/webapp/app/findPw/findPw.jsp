@@ -25,9 +25,9 @@
     <div class="findPw_container"> <!-- 1100px 영역 -->
       <div class="findPw_content_container"> <!-- 컨텐츠 영역 -->
 
-        <div>
+        <div class="findPw_title_container">
           <!-- 비밀번호 찾기 제목 -->
-          <div class="findPw_title">밥세권 회원</div>
+          <div class="findPw_title">밥세권</div>
           <div class="findPw_subtitle">비밀번호 찾기</div>
         </div>
         <!-- 비밀번호 찾기 입력 폼 -->
@@ -44,15 +44,15 @@
               <span class="warning_empty"></span>
               <div class="warning_message" id="warning_message_phone"></div>
             </div>
-        </form>
         <!-- 임시비밀번호 발송 버튼 -->
         <div>
           <button type="button" class="findPw_btn">임시 비밀번호 발송</button>
         </div>
+        </form>
         <!-- 아이디 찾기, 비밀번호 찾기, 회원가입 -->
         <div class="findPw_to_container">
           <div><a href="${pageContext.request.contextPath}/app/findId/findUserIdAuth.jsp" class="findPw_to_findId">아이디 찾기</a></div>
-          <div><a href="${pageContext.request.contextPath}/app/findpw/findPw.jsp" class="findPw_to_findPw">비밀번호 찾기</a></div>
+          <div><a href="${pageContext.request.contextPath}/app/findPw/findPw.jsp" class="findPw_to_findPw">비밀번호 찾기</a></div>
           <div><a href="${pageContext.request.contextPath}/app/join/selectUserType.jsp" class="findPw_to_join">회원가입</a></div>
         </div>
       </div>
