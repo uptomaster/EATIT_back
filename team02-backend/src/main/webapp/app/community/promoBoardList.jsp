@@ -7,7 +7,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>홍보게시판(회원)</title>
+  <!-- 파비콘 -->
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
+  <title>홍보게시판</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/community/promoBoardList.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -38,8 +40,8 @@
         <ul>
           <li><a href="${pageContext.request.contextPath}/community/communityMainOk.co" id="category_event">공지사항/이벤트</a></li>
           <li><a href="${pageContext.request.contextPath}/community/freeBoardReadOk.co" id="category_free">자유게시판</a></li>
-          <li><a href="${pageContext.request.contextPath}/community/promoBoardList.jsp" id="category_advertise" class="active">홍보게시판</a></li>
-          <li><a href="${pageContext.request.contextPath}/community/recipeList.jsp" id="category_recipe">레시피</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/promoBoardListOk.co" id="category_advertise" class="active">홍보게시판</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/recipeListOk.co" id="category_recipe">레시피</a></li>
         </ul>
       </nav>
 

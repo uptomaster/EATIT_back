@@ -310,6 +310,7 @@
   <!-- <footer id="footer"></footer> -->
 </body>
 <script>
-    	let memberNumber = "${sessionScope.memberNumber}";
+		window.boardNumber = "${board.boardNumber}";
+		window.memberNumber = "${sessionScope.memberNumber}";
 </script>
 </html>
