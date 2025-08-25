@@ -52,7 +52,7 @@
             <c:otherwise>
               <c:forEach var="item" items="${items}">
                 <article class="buy_food_article">
-                  <a href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${item.itemNumber}">
+                  <a href="${pageContext.request.contextPath}/orders/ingredientDetail.or?itemNumber=${item.itemNumber}">
                     <img src="${empty item.itemImageSystemName ? ph : pageContext.request.contextPath += '/upload/items/' += item.itemImageSystemName}" 
                          alt="${item.itemName}"/>
                     <div class="buy_store_info">
