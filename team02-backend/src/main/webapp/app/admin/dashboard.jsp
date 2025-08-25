@@ -18,7 +18,7 @@
       <a href="./../../app/admin/dashboard.html"><img src="./../../assets/img/admin_logo.png" alt="admin_logo" class="admin_logo"></a>
       <ul class="sidebar_ul">
         <a href="${pageContext.request.contextPath}/app/admin/dashboard.jsp"><li id="sidebar_list_dashboard" class="sidebar_list">대쉬보드</li></a>
-        <a href="${pageContext.request.contextPath}/app/admin/memberList.jsp"><li id="sidebar_list_member" class="sidebar_list">회원관리</li></a>
+        <a href="${pageContext.request.contextPath}/admin/memberlistlist.ad"><li id="sidebar_list_member" class="sidebar_list">회원관리</li></a>
         <a href="${pageContext.request.contextPath}/app/admin/postTradeList.jsp"><li id="sidebar_list_community" class="sidebar_list">게시글 관리</li></a>
         <a href="${pageContext.request.contextPath}/app/admin/reportList.jsp"><li id="sidebar_list_warning"class="sidebar_list">신고관리</li></a>
         <a href="${pageContext.request.contextPath}/app/admin/bannerList.jsp"><li id="sidebar_list_banner"class="sidebar_list">배너/광고</li></a>
