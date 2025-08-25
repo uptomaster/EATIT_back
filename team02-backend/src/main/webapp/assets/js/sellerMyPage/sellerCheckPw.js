@@ -1,7 +1,7 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 	// 예시: 올바른 비밀번호 (실제로는 서버에서 확인해야 함)
-	const correctPassword = "user123123";
+	const correctPassword = "pw_seller01";
 
 	// 정보 입력 전 비밀번호 확인
 	const pwInfo = document.getElementById('seller_chk_pw_info');
