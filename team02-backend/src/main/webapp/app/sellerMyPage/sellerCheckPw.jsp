@@ -24,7 +24,7 @@
 </head>
 
 <body>
- <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
+  <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
  <!--  <header id="header"></header> -->
   <main>
     <!-- 내 정보 수정 -->
@@ -68,7 +68,7 @@
     </div>
     </div> <!-- 1100px 영역 -->
   </main>
-  <footer id="footer"></footer>
+  <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </body>
 
 </html>
