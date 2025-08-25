@@ -69,7 +69,7 @@
           </div>
 
           <article class="main_food_buy_article">
-            <a href="./app/buy/storeDetail.html">
+            <a href="${pageContext.request.contextPath}/orders/storeDetail.or">
               <!-- 상품이미지(임시) -->
               <img src="./assets/img/bibim.jpg" alt="상품이미지 설명 추가하기">
               <!-- 가게정보 -->
@@ -82,7 +82,7 @@
             </a>
           </article>
           <article class="main_food_buy_article">
-            <a href="./app/buy/storeDetail.html">
+            <a href="${pageContext.request.contextPath}/orders/storeDetail.or">
               <!-- 상품이미지(임시) -->
               <img src="./assets/img/budaeJjigae.png" alt="상품이미지 설명 추가하기">
               <!-- 가게정보 -->
@@ -95,7 +95,7 @@
             </a>
           </article>
           <article class="main_food_buy_article">
-            <a href="./app/buy/storeDetail.html">
+            <a href="${pageContext.request.contextPath}/orders/storeDetail.or">
               <!-- 상품이미지(임시) -->
               <img src="./assets/img/dakdoritang.png" alt="상품이미지 설명 추가하기">
               <!-- 가게정보 -->
@@ -108,7 +108,7 @@
             </a>
           </article>
           <article class="main_food_buy_article">
-            <a href="./app/buy/storeDetail.html">
+            <a href="${pageContext.request.contextPath}/orders/storeDetail.or">
               <!-- 상품이미지(임시) -->
               <img src="./assets/img/doenjangJjigae.png" alt="상품이미지 설명 추가하기">
               <!-- 가게정보 -->
@@ -121,7 +121,7 @@
             </a>
           </article>
           <article class="main_food_buy_article">
-            <a href="./app/buy/storeDetail.html">
+            <a href="${pageContext.request.contextPath}/orders/storeDetail.or">
               <!-- 상품이미지(임시) -->
               <img src="./assets/img/aeomuk.jpg" alt="상품이미지 설명 추가하기">
               <!-- 가게정보 -->
@@ -134,7 +134,7 @@
             </a>
           </article>
           <article class="main_food_buy_article">
-            <a href="./app/buy/storeDetail.html">
+           	<a href="${pageContext.request.contextPath}/orders/storeDetail.or">
               <!-- 상품이미지(임시) -->
               <img src="./assets/img/chicken.jpg" alt="상품이미지 설명 추가하기">
               <!-- 가게정보 -->
@@ -147,7 +147,7 @@
             </a>
           </article>
           <article class="main_food_buy_article">
-            <a href="./app/buy/storeDetail.html">
+            <a href="${pageContext.request.contextPath}/orders/storeDetail.or">
               <!-- 상품이미지(임시) -->
               <img src="./assets/img/cheesegimbab.jpg" alt="상품이미지 설명 추가하기">
               <!-- 가게정보 -->
@@ -160,7 +160,7 @@
             </a>
           </article>
           <article class="main_food_buy_article">
-            <a href="./app/buy/storeDetail.html">
+            <a href="${pageContext.request.contextPath}/orders/storeDetail.or">
               <!-- 상품이미지(임시) -->
               <img src="./assets/img/normal_gimbab.jpg" alt="상품이미지 설명 추가하기">
               <!-- 가게정보 -->
@@ -181,7 +181,7 @@
         </div>
         <!-- 더 보러가기 버튼 -->
         <div class="main_food_buy_btn">
-          <a href="./app/buy/storeList.html">더 보러가기</a>
+          <a href="${pageContext.request.contextPath}/orders/storeList.or">더 보러가기</a>
         </div>
       </div>
 
@@ -189,26 +189,26 @@
       <div id="main_content_buy_ingr">
         <div class="main_ingredient_buy">
           <h3>재료 구매🥕</h3>
-          <a href="${pageContext.request.contextPath}/order/ingredientList.or">더보기 ></a>
+          <a href="${pageContext.request.contextPath}/orders/ingredientList.or">더보기 ></a>
           <div class="main_ingredient_store">
             <!-- 재료사진 -->
             <article class="main_ingredient_img">
-              <a href="./app/buy/ingredientDetail.html">
+              <a href="${pageContext.request.contextPath}/orders/ingredientDetail.or">
                 <img src="./assets/img/carrot.jpg" alt="상품이미지 가게 정보 추가하기">
               </a>
             </article>
             <article class="main_ingredient_img">
-              <a href="./app/buy/ingredientDetail.html">
+              <a href="${pageContext.request.contextPath}/orders/ingredientDetail.or">
                 <img src="./assets/img/baechu.jpg" alt="상품이미지 가게 정보 추가하기">
               </a>
             </article>
             <article class="main_ingredient_img">
-              <a href="./app/buy/ingredientDetail.html">
+              <a href="${pageContext.request.contextPath}/orders/ingredientDetail.or">
                 <img src="./assets/img/cucumber.jpg" alt="상품이미지 가게 정보 추가하기">
               </a>
             </article>
             <article class="main_ingredient_img">
-              <a href="./app/buy/ingredientDetail.html">
+              <a href="${pageContext.request.contextPath}/orders/ingredientDetail.or">
                 <img src="./assets/img/garlic.jpg" alt="상품이미지 가게 정보 추가하기">
               </a>
             </article>
@@ -216,7 +216,7 @@
         </div>
         <div class="main_recipe">
           <h3>레시피 공유📃</h3>
-          <a href="./app/community/recipeList.html">더보기 ></a>
+          <a href="${pageContext.request.contextPath}/community/recipeList.co">더보기 ></a>
           <div class="main_recipe_commu">
             <div class="main_recipe_header" role="rowgroup">
               <div class="main_recipe_col_tag" role="columnheader">태그</div>
@@ -228,7 +228,7 @@
             <div class="main_recipe_list" role="rowgroup">
               <div class="main_recipe_col_tag" role="columnheader">한식</div>
               <div class="main_recipe_col_title" role="columnheader">
-                <a href="#">김치찌개 황금레시피 공개</a>
+                <a href="${pageContext.request.contextPath}/community/recipeList.co">김치찌개 황금레시피 공개</a>
               </div>
               <div class="main_recipe_col_date" role="columnheader">25-03-10</div>
               <div class="main_recipe_col_views" role="columnheader">230</div>
@@ -236,7 +236,7 @@
             <div class="main_recipe_list" role="rowgroup">
               <div class="main_recipe_col_tag" role="columnheader">양식</div>
               <div class="main_recipe_col_title" role="columnheader">
-                <a href="#">크림 파스타 완벽 가이드</a>
+                <a href="${pageContext.request.contextPath}/community/recipeList.co">크림 파스타 완벽 가이드</a>
               </div>
               <div class="main_recipe_col_date" role="columnheader">25-05-20</div>
               <div class="main_recipe_col_views" role="columnheader">180</div>
@@ -244,7 +244,7 @@
             <div class="main_recipe_list" role="rowgroup">
               <div class="main_recipe_col_tag" role="columnheader">중식</div>
               <div class="main_recipe_col_title" role="columnheader">
-                <a href="#">짜장면 집에서 쉽게 만들기</a>
+                <a href="${pageContext.request.contextPath}/community/recipeList.co">짜장면 집에서 쉽게 만들기</a>
               </div>
               <div class="main_recipe_col_date" role="columnheader">25-06-01</div>
               <div class="main_recipe_col_views" role="columnheader">120</div>
@@ -252,7 +252,7 @@
             <div class="main_recipe_list" role="rowgroup">
               <div class="main_recipe_col_tag" role="columnheader">일식</div>
               <div class="main_recipe_col_title" role="columnheader">
-                <a href="#">초밥 만들기 초보 가이드</a>
+                <a href="${pageContext.request.contextPath}/community/recipeList.co">초밥 만들기 초보 가이드</a>
               </div>
               <div class="main_recipe_col_date" role="columnheader">25-07-15</div>
               <div class="main_recipe_col_views" role="columnheader">95</div>
@@ -279,7 +279,7 @@
             d="M128 252.6C128 148.4 214 64 320 64C426 64 512 148.4 512 252.6C512 371.9 391.8 514.9 341.6 569.4C329.8 582.2 310.1 582.2 298.3 569.4C248.1 514.9 127.9 371.9 127.9 252.6zM320 320C355.3 320 384 291.3 384 256C384 220.7 355.3 192 320 192C284.7 192 256 220.7 256 256C256 291.3 284.7 320 320 320z" />
         </svg>
       </a>
-      <a href="./app/buy/wishList.html" class="icon_btn" title="찜">
+      <a href="${pageContext.request.contextPath}/orders/wishList.or" class="icon_btn" title="찜">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
           <!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
           <path fill="#202020"
