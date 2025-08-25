@@ -124,11 +124,12 @@
 
   <!-- 신규 아이템 삽입 -->
   <insert id="insertCartItem" parameterType="CartItemDTO">
-    INSERT INTO TBL_CART_ITEM (
-      CART_ITEM_NUMBER, CART_NUMBER, ITEM_NUMBER, CART_ITEM_QUANTITY, CART_ITEM_PRICE
-    ) VALUES (
-      SEQ_CART_ITEM.NEXTVAL, #{cartNumber}, #{itemNumber}, #{cartItemQuantity}, #{cartItemPrice}
-    )
+  INSERT INTO TBL_CART_ITEM (
+    CART_ITEM_NUMBER, CART_NUMBER, ITEM_NUMBER, CART_ITEM_PRICE, CART_ITEM_QUANTITY
+)
+VALUES (
+    SEQ_CART_ITEM_NUMBER.NEXTVAL, 2, 2, 2500, 2
+)
   </insert>
 
 </mapper>
