@@ -10,12 +10,12 @@ import javax.servlet.http.HttpSession;
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 
-public class PromoBoardListOkController implements Execute{
+public class RecipeListOkController implements Execute{
 
 	@Override
-	public Result execute(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+	public Result execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("====PromoBoardListOkController 실행====");
+		System.out.println("====RecipeListOkController 실행====");
 		Result result = new Result();
 		HttpSession session = request.getSession();
 		Integer memberNumber = (Integer)session.getAttribute("memberNumber");
@@ -24,7 +24,7 @@ public class PromoBoardListOkController implements Execute{
 		if(memberNumber == null) {
 			path = "/app/login/login.jsp";
 		}else{
-			path = "/app/community/promoBoardList.jsp";
+			path = "/app/community/recipeList.jsp";
 		}
 		
 		result.setPath(path);

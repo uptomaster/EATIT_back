@@ -116,6 +116,8 @@ public class CommunityFrontController extends HttpServlet {
 //			System.out.println("홍보게시판 게시글 작성완료 요청");
 //			result = new WriteRecipeBoardOKController().execute(request, response);
 //			break;
+			
+			
 		}
 
 		if (result != null) {
