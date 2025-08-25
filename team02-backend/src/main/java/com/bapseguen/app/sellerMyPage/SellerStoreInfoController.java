@@ -68,13 +68,13 @@ public class SellerStoreInfoController implements Execute{
 //	        SellerInfoDTO storeInfo = sellerDAO.selectStoreInfo(businessNumber);
 	        
 	        // 음식 판매 목록 조회
-	        List<ItemWithImgDTO> foodList = sellerDAO.foodList(foodpageMap, businessNumber);
-	        System.out.println("foodList : "+foodList);
-			request.setAttribute("foodList", foodList); // null 오류 수정
-			// 음식 판매 목록 조회
-			List<ItemWithImgDTO> ingreList = sellerDAO.ingredientList(ingrepageMap, businessNumber);
-			System.out.println("foodList : "+foodList);
-			request.setAttribute("foodList", foodList); // null 오류 수정
+//	        List<ItemWithImgDTO> foodList = sellerDAO.foodList(foodpageMap, businessNumber);
+//	        System.out.println("foodList : "+foodList);
+//			request.setAttribute("foodList", foodList); // null 오류 수정
+//			// 음식 판매 목록 조회
+//			List<ItemWithImgDTO> ingreList = sellerDAO.ingredientList(ingrepageMap, businessNumber);
+//			System.out.println("foodList : "+foodList);
+//			request.setAttribute("foodList", foodList); // null 오류 수정
 
 	        
 	        // request에 데이터 저장

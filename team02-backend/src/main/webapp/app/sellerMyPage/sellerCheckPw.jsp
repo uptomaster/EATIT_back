@@ -3,22 +3,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=, initial-scale=1.0">
-  <link rel="shortcut" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/sellerMyPage/sellerCheckPw.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
-  <script defer src="${pageContext.request.contextPath}/assets/js/sellerMyPage/sellerCheckPw.js"></script>
-  <script>
-    let headerPath = '../../header.jsp';
-    let footerPath = '../../footer.jsp';
-  </script>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/sellerMyPage/sellerCheckPw.css">
+  <!-- 파비콘 -->
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
+
+  <!-- 헤더 js -->
+  <script defer src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/footer.js"></script>   
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-  <title>밥세권</title>
+  <script defer src="${pageContext.request.contextPath}/assets/js/sellerMyPage/sellerCheckPw.js"></script>
+
+<script>
+    let headerPath = './../../header.jsp';
+    let footerPath = './../../footer.jsp';
+</script>
 </head>
 
 <body>
- <jsp:include page="/header.jsp"/> 
+ <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
  <!--  <header id="header"></header> -->
   <main>
     <!-- 내 정보 수정 -->
