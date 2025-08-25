@@ -184,8 +184,10 @@ input[type='file']::file-selector-button,
   font-weight: bold;
   color: black;
 }
-.store_info_food_menu_list{
-	display: contents;
+
+.store_info_ingredient_menu_info_stock{
+	 display: flex;
+  flex-direction: column;
 }
 /* 새 메뉴 등록 */
 .store_info_food_menu_choice:nth-child(2) a {
