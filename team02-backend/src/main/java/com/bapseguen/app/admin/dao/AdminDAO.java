@@ -167,7 +167,7 @@ public class AdminDAO {
  		System.out.println("조회결과 : " + list);
  		return list;
  	}
-
+// 회원정보 총 개수 반환
 	public int getTotal() {
 		System.out.println("회원정보 총 개수 조회 - getTotal 메소드 실행");
 		return sqlSession.selectOne("admin.memberListCount");
