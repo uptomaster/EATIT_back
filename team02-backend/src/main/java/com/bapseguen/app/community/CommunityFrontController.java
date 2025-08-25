@@ -57,8 +57,6 @@ public class CommunityFrontController extends HttpServlet {
 			System.out.println("공지사항/이벤트 게시글 상세 페이지 처리 요청");
 			result = new ViewOwnPostReadOkController().execute(request, response);
 			break;	
-		
-		
 		case "/community/freeBoardListOk.co":
 			System.out.println("자유게시판 목록 페이지 처리 요청");
 			result = new FreeBoardListOkController().execute(request, response);

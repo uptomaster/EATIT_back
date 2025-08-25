@@ -41,10 +41,6 @@ public class FreeBoardReadOkController implements Execute{
 		//DB에서 게시글 가져오기
 		PostDetailDTO postDetailDTO = communityDAO.select(postNumber);
 		
-		//
-		PostDetailDTO freeBoard = communityDAO.select(postNumber); // 상세 조회
-		request.setAttribute("freeBoard", freeBoard);
-		
 		//게시글이 존재하지 않을 경우 처리
 		if(postDetailDTO == null) {
 			System.out.println("존재하지 않는 게시글입니다. " + postNumber);

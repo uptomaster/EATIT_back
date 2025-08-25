@@ -40,13 +40,13 @@
           <li class="category_item"><a href="${pageContext.request.contextPath}/community/communityMainUser.jsp">공지사항/이벤트</a></li>
           <li class="category_item"><a href="${pageContext.request.contextPath}/community/freeBoardList.jsp">자유게시판</a></li>
           <li class="category_item"><a href="${pageContext.request.contextPath}/community/promoBoardList.jsp">홍보게시판</a></li>
-          <li class="category_item"><a href="${pageContext.request.contextPath}/community/recipeList.jsp">레시피</a></li>
+          <li class="category_item"><a href="${pageContext.request.contextPath}/community/recipeList.jsp" >레시피</a></li>
         </ul>
       </nav>
 
       <!-- 게시글 헤더 -->
       <article class="post">
-<%--     <div class="post_header">
+		<%-- <div class="post_header">
           <div class="author_box">
             <img class="author_profile" src="${pageContext.request.contextPath}/assets/img/가지.png" alt="가지" />
             <span class="author_name">gisu</span>
@@ -99,7 +99,7 @@
         	<!-- 게시글 내용 -->
 	        <section class="content_section">
 		       	  <div class="view-content">
-					  <c:out value="${post.FreeContent()}" />
+					  <c:out value="${post.getFreeContent()}" />
 				  </div>
 	          	  <div class="func_button">
 		          	  <!-- 수정/삭제 버튼(로그인한 사용자가 작성자인 경우에만 표시) -->

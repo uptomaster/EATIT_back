@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchBtn = document.querySelector(".search_btn");
 
   //게시글 클릭시 페이지 이동
-const contentSection = document.querySelector(".board-header");
+  const contentSection = document.querySelector(".board-item");
 
     if(contentSection) {
         contentSection.addEventListener("click", () => {
