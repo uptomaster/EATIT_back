@@ -42,6 +42,7 @@ main {
 /* 비밀번호 찾기 제목 */
 .findPw_title_container {
   font-size: 24px;
+  justify-content: center;
 }
 
 .findPw_title {
