@@ -40,13 +40,13 @@
           <li class="category_item"><a href="${pageContext.request.contextPath}/community/communityMainUser.jsp">공지사항/이벤트</a></li>
           <li class="category_item"><a href="${pageContext.request.contextPath}/community/freeBoardList.jsp">자유게시판</a></li>
           <li class="category_item"><a href="${pageContext.request.contextPath}/community/promoBoardList.jsp">홍보게시판</a></li>
-          <li class="category_item"><a href="${pageContext.request.contextPath}/community/recipeList.jsp">레시피</a></li>
+          <li class="category_item"><a href="${pageContext.request.contextPath}/community/recipeList.jsp" >레시피</a></li>
         </ul>
       </nav>
 
       <!-- 게시글 헤더 -->
       <article class="post">
-<%--     <div class="post_header">
+		<%-- <div class="post_header">
           <div class="author_box">
             <img class="author_profile" src="${pageContext.request.contextPath}/assets/img/가지.png" alt="가지" />
             <span class="author_name">gisu</span>
@@ -63,7 +63,6 @@
 		  <div class="post_header">
 		    <!-- 게시글 제목 -->
 		    <div class="post_title">
-		      <h1 class="post_title">자유게시판이다아</h1>
 		      <h1><c:out value="${post.getPostTitle()}" /></h1>
 		    </div>
 		
@@ -99,10 +98,9 @@
 
         	<!-- 게시글 내용 -->
 	        <section class="content_section">
-	          <div class="post_content">
-	            밥세권 앱 신규 기능 업데이트 안내 최종 최종 진짜 최종 찐 찐 찐 최종 진짜 리얼 최종 최에에에에에에에에에ㅔ종<br>
-	            집 좀 가자
-	          <div class="btn-group post_buttons">
+		       	  <div class="view-content">
+					  <c:out value="${post.getFreeContent()}" />
+				  </div>
 	          	  <div class="func_button">
 		          	  <!-- 수정/삭제 버튼(로그인한 사용자가 작성자인 경우에만 표시) -->
 						<c:if test="${sessionScope.memberNumber == post.getMemberNumber() }">
@@ -169,7 +167,7 @@
 
         <!-- 다크모드 -->
         <form class="comment_form" action="#" method="post">
-          <img class="comment_profile" src="${pageContext.request.contextPath}${pageContext.request.contextPath}/assets/img/나무.png" alt="나무" />
+          <img class="comment_profile" src="${pageContext.request.contextPath}/assets/img/나무.png" alt="나무" />
           <span class="comment_author">namhyuk</span>
           <input type="text" name="comment" placeholder="댓글을 입력하세요" required />
           <button type="submit">등록</button>
@@ -217,6 +215,7 @@
   
 </body>
 <script>
-    	let memberNumber = "${sessionScope.memberNumber}";
+		window.boardNumber = "${board.boardNumber}";
+		window.memberNumber = "${sessionScope.memberNumber}";
 </script>
 </html>

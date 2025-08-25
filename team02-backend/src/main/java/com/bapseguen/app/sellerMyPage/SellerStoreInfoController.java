@@ -65,8 +65,8 @@ public class SellerStoreInfoController implements Execute{
 
 	        
 	        // 가게 정보 조회
-	        SellerInfoDTO storeInfo = sellerDAO.takeSellerInfoDTO(businessNumber);
-	        request.setAttribute("storeInfo", storeInfo);
+//	        SellerInfoDTO storeInfo = sellerDAO.takeSellerInfoDTO(businessNumber);
+//	        request.setAttribute("storeInfo", storeInfo);
 	        
 	         //음식 판매 목록 조회
 	        List<ItemWithImgDTO> foodList = sellerDAO.foodList(foodpageMap);
