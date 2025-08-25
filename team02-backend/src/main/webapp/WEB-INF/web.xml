@@ -15,6 +15,17 @@
 		<welcome-file>main.jsp</welcome-file>
 	</welcome-file-list>
 
+	<!-- main -->
+	<servlet>
+		<servlet-name>Main</servlet-name>
+		<servlet-class>com.bapseguen.app.main.MainFrontController</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Main</servlet-name>
+		<url-pattern>*.ma</url-pattern>		
+	</servlet-mapping>
+	
 	<!-- Comment -->
 	<servlet>
 		<servlet-name>Comment</servlet-name>
