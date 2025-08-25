@@ -21,7 +21,8 @@ public class AdminLoginOkController implements Execute {
 
         String adminIdInput = request.getParameter("adminId");
         String adminPwInput = request.getParameter("adminPw");
-
+        
+        // 아이디/비번이 null일 경우도 걸러지고, 공백일 경우도 걸러짐.
         if (adminIdInput == null || adminIdInput.isBlank() ||
             adminPwInput == null || adminPwInput.isBlank()) {
             request.setAttribute("loginError", "아이디와 비밀번호를 입력하세요.");
@@ -32,17 +33,19 @@ public class AdminLoginOkController implements Execute {
         }
 
         MemberDTO dto = new MemberDTO();
+        
+        // 입력받은 아이디와 비밀번호
         dto.setMemberId(adminIdInput);
         dto.setMemberPassword(adminPwInput);
 
         AdminDAO dao = new AdminDAO();
-        int memberNumber = dao.loginAdmin(dto); // 일치하면 회원번호, 아니면 -1
+        int memberNumber = dao.loginAdmin(dto); // 일치하면 회원번호, 아니면 -1 반환
 
         if (memberNumber > 0) {
             HttpSession session = request.getSession();
-            session.setAttribute("adminNumber", memberNumber); // 프로젝트에서 쓰는 키 유지
-            session.setAttribute("memberId", adminIdInput);    // DTO/DB 명칭과 통일
-            session.setAttribute("memberType", "ADMIN");       // 통일 포인트
+            session.setAttribute("adminNumber", memberNumber);
+            session.setAttribute("memberId", adminIdInput);
+            session.setAttribute("memberType", "ADMIN");
 
             result.setPath(request.getContextPath() + "/admin/main.ad");
             result.setRedirect(true);
