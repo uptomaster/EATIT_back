@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:url value="/assets/img/placeholder.png" var="ph"/>
+<c:url value="/assets/img/salad.jpg" var="ph"/>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -54,7 +54,7 @@
               <a href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${item.itemNumber}">
                 <img src="${empty item.itemImageSystemName ? ph : item.itemImageSystemName}" alt="${item.itemName}"/>
                 <div class="buy_store_info">
-                  <p class="buy_store_name">사업자번호: ${item.businessNumber}</p>
+			<%--  <p class="buy_store_name">사업자번호: ${item.businessNumber}</p> --%>
                   <p class="buy_store_name">상호명 : ${item.businessName}</p>
                   <p class="buy_menu_name">${item.itemName}</p>
                   <p class="buy_price">

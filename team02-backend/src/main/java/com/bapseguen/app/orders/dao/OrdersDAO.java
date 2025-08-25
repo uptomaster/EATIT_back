@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.bapseguen.app.dto.OrderItemDTO;
 import com.bapseguen.app.dto.OrdersDTO;
+import com.bapseguen.app.dto.view.ItemWithImgDTO;
 import com.bapseguen.config.MyBatisConfig;
 
 /**
@@ -78,5 +79,10 @@ public class OrdersDAO {
     /** 수동으로 닫아야 할 때 */
     public void close() {
         if (sqlSession != null) sqlSession.close();
+    }
+    
+    /** 상품 상세 조회 */
+    public ItemWithImgDTO selectItemDetail(int itemNumber) {
+        return sqlSession.selectOne("item.selectItemDetail", itemNumber);
     }
 }

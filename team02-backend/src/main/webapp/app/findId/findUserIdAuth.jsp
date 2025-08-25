@@ -25,7 +25,7 @@
       <div class="content_container"> <!-- 컨텐츠 영역 -->
         <!-- 아이디 찾기 제목 -->
         <div class="findId_title_container">
-          <div class="findId_title">밥세권 회원</div>
+          <div class="findId_title">밥세권</div>
           <div class="findId_subtitle">아이디찾기</div>
         </div>
         <!-- 아이디 찾기 입력 폼 -->
@@ -81,7 +81,7 @@
         <!-- 아이디 찾기에서 다른 곳으로 이동 -->
         <div class="findId_to_container">
           <div><a href="${pageContext.request.contextPath}/app/findId/findUserIdAuth.jsp" class="finId_to_findId">아이디 찾기</a></div>
-          <div><a href="${pageContext.request.contextPath}/app/findpw/findPw.jsp" class="finId_to_findPw">비밀번호 찾기</a></div>
+          <div><a href="${pageContext.request.contextPath}/app/findPw/findPw.jsp" class="finId_to_findPw">비밀번호 찾기</a></div>
           <div><a href="${pageContext.request.contextPath}/app/join/selectUserType.jsp" class="finId_to_join">회원가입</a></div>
         </div>
       </div> <!--//.content_container-->

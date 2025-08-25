@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:url value="/assets/img/placeholder.png" var="ph"/>
+<c:url value="/assets/img/salad.jpg" var="ph"/>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -38,9 +38,8 @@
               <img src="${ph}" alt="기본 이미지">
             </c:otherwise>
           </c:choose>
-
           <div class="buy_store_info_detail">
-            <p class="buy_store_name">${item.itemName}</p>
+            <p class="buy_store_name">상호명 : ${item.businessName}</p>
             <p class="buy_store_address">사업자번호 : ${item.businessNumber}</p>
           </div>
         </div>
@@ -69,8 +68,8 @@
               </c:choose>
 
               <div class="buy_each_container">
-                <p class="buy_food_stock">재고 ${item.itemQuantity}개</p>
-                <p class="buy_food_menu_name">${item.itemName}</p>
+                <p class="buy_food_stock">재고 : ${item.itemQuantity}개</p>
+                <p class="buy_food_menu_name">상품명 : ${item.itemName}</p>
                 <div class="buy_food_stock_choice">
                   <!-- 수량 선택은 JS로 제어 -->
                   <a href="#" class="minus">-</a>

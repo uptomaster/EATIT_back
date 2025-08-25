@@ -25,7 +25,7 @@ public class CartListViewController implements Execute {
 		// 로그인 체크
 		Integer memberNumber = (Integer) request.getSession().getAttribute("memberNumber");
 		if (memberNumber == null) {
-			result.setPath(request.getContextPath() + "/member/login.me");
+			result.setPath(request.getContextPath() + "/login/login.lo");
 			return result;
 		}
 

@@ -8,83 +8,81 @@ import com.bapseguen.app.dto.CartItemDTO;
 import com.bapseguen.config.MyBatisConfig;
 
 public class CartListDAO {
-	
+
     private SqlSession sqlSession;
 
     public CartListDAO() {
-        sqlSession = MyBatisConfig.getSqlSessionFactory().openSession(true); // auto-commit
+        sqlSession = MyBatisConfig.getSqlSessionFactory().openSession(true);
     }
 
-    /** 회원의 OPEN상태의 장바구니 번호 조회하기 */
+    /** 회원 OPEN 장바구니 번호 조회 */
+    
+    // 사용자가 장바구니에 물건을 담거나 장바구니를 볼 때
+    // 현재 회원이 "OPEN 상태 장바구니를 가지고있는지 확인할 때 사용.
     public Integer selectOpenCartNumberByMember(CartDTO dto) {
         return sqlSession.selectOne("cartList.open", dto);
     }
 
-    /** 장바구니 없는 상태일때 생성하기 */
+    /** 장바구니 없을 때 생성 */
+    // 사용자가 처음 장바구니에 물건을 담을 때,
+    // 아직 OPEN 상태 장바구니가 없으면 새로 만들어주는 경우.
     public void insertCartIfNotExists(CartDTO dto) {
         sqlSession.insert("cartList.createIfNone", dto);
     }
 
-    /** 장바구니에 메뉴 담기 */
-    public void insertCartItem(CartItemDTO dto) {
-        sqlSession.insert("cartList.addItem", dto);
-    }
-
-    /** 장바구니 목록 조회하기 */
+    /** 회원 장바구니 아이템 목록 조회 */
+    // 로그인한 회원이 가진 OPEN 장바구니 항목 전부 조회
     public List<CartItemDTO> selectCartItems(CartDTO dto) {
         return sqlSession.selectList("cartList.selectItemsList", dto);
     }
+    // 장바구니에 상품을 추가할 때 사용
+    /** 장바구니에 메뉴 담기 (단순 insert) */
+    public void insertCartItem(CartItemDTO dto) {
+        sqlSession.insert("cartList.insertCartItem", dto);
+    }
+    
+    /** 장바구니 번호로 아이템 조회 (상세: 이름, 이미지 포함) */
+    public List<CartItemDTO> selectCartItemsByCartNo(int cartNumber) {
+        return sqlSession.selectList("cartList.selectCartItems", cartNumber);
+    }
 
-    /** 회원의 OPEN 상태 장바구니 삭제 (카트 자체 삭제) */
+    /** 회원 OPEN 장바구니 삭제 */
     public void deleteOpenCartByMember(Integer memberNumber) {
         sqlSession.delete("cartList.deleteOpenCartByMember", memberNumber);
     }
     
-    /** 장바구니에 담긴 메뉴 단건 삭제 */
+    /** 장바구니번호로 사업자번호 조회 */
+    public String selectCartBusinessNumberByCartNumber(Integer cartNumber) {
+        return sqlSession.selectOne("cartList.cartBNByCartNo", cartNumber);
+    }
+    
+    /** 장바구니 단건 삭제 */
     public void deleteCartItem(CartItemDTO dto) {
         sqlSession.delete("cartList.delItem", dto);
     }
 
-    /** 장바구니에 담긴 모든 메뉴 삭제 */
+    /** 장바구니 전체 비우기 */
     public void deleteCartAllItems(CartDTO dto) {
         sqlSession.delete("cartList.clear", dto);
     }
 
-    /** 빈 OPEN 상태의 장바구니의 가게번호 변경(이미담긴 상태에서 다른 가게 담기) */
+    /** 빈 OPEN 장바구니 가게번호 변경 */
     public void updateCartBusinessNumber(CartDTO dto) {
         sqlSession.update("cartList.setStore", dto);
     }
-    
-    /** OPEN 장바구니 확보: 없으면 장바구니 생성 후 번호 반환하는 메소드 */
-    public Integer ensureOpenCart(CartDTO dto) {
-        Integer cartNumber = selectOpenCartNumberByMember(dto);
-        if (cartNumber == null) {
-            insertCartIfNotExists(dto);
-            cartNumber = selectOpenCartNumberByMember(dto);
+
+    /** UPSERT: 동일 상품이면 수량 증가, 없으면 새로 삽입 */
+    public void addOrUpdateCartItem(CartItemDTO item) {
+        int exists = sqlSession.selectOne("cartList.existsCartItem", item);
+        System.out.println("[DEBUG] addOrUpdateCartItem: cart=" + item.getCartNumber()
+                + ", item=" + item.getItemNumber()
+                + ", qty=" + item.getCartItemQuantity()
+                + ", exists=" + exists);
+
+        if (exists > 0) {
+            sqlSession.update("cartList.increaseQtyIfExists", item);
+        } else {
+            sqlSession.insert("cartList.insertCartItem", item);
         }
-        return cartNumber;
     }
-    
-    /** 카트 번호로 사업자번호 조회 */
-    public String selectCartBusinessNumberByCartNumber(Integer cartNumber) {
-        return sqlSession.selectOne("cartList.cartBNByCartNo", cartNumber);
-    }
-
-    /** 카트에 담긴 아이템 개수 */
-    public Integer selectCartItemCountByCartNumber(Integer cartNumber) {
-        return sqlSession.selectOne("cartList.countItems", cartNumber);
-    }
-    
-    /** 추가된 메소드 */
-    
-    // 다른 회원의 cartItem 삭제를 막기 위한 소유권 확인용
-    public Integer selectCartNumberByCartItemNumber(Integer cartItemNumber) {
-        return sqlSession.selectOne("cartList.cartNoByCartItemNo", cartItemNumber);
-    }
-
-    // 동일 상품 담기 시 수량만 증가(업서트: 먼저 UPDATE 시도, 0행이면 INSERT)
-    public int increaseItemQuantityIfExists(CartItemDTO dto) {
-        return sqlSession.update("cartList.increaseQtyIfExists", dto);
-    }
-    
 }

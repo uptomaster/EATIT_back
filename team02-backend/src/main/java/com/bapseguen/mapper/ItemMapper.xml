@@ -164,4 +164,33 @@
 	    </if>
 	</select>
 
+	
+		<!-- 상품 상세 조회 -->
+	<select id="selectItemDetail" parameterType="int" resultType="ItemWithImgDTO">
+	  SELECT
+	    i.ITEM_NUMBER AS itemNumber,
+	    i.BUSINESS_NUMBER AS businessNumber,
+	    s.STORE_NAME AS businessName,
+	    i.ITEM_TYPE AS itemType,
+	    i.ITEM_NAME AS itemName,
+	    i.ITEM_PRICE AS itemPrice,
+	    i.ITEM_CONTENT AS itemContent,
+	    i.ITEM_QUANTITY AS itemQuantity,
+	    i.ITEM_ORIGIN AS itemOrigin,
+	    TO_CHAR(i.ITEM_EXPIRE_DATE, 'YYYY-MM-DD') AS itemExpireDate,
+	    TO_CHAR(i.ITEM_CREATED_TIME, 'YYYY-MM-DD HH24:MI:SS') AS itemCreatedTime,
+	    TO_CHAR(i.ITEM_UPDATED_TIME, 'YYYY-MM-DD HH24:MI:SS') AS itemUpdatedTime,
+	    i.ITEM_SELL_STATE AS itemSellState,
+	    (SELECT ii.ITEM_IMAGE_SYSTEM_NAME
+	       FROM TBL_ITEM_IMAGE ii
+	      WHERE ii.ITEM_NUMBER = i.ITEM_NUMBER
+	      FETCH FIRST 1 ROWS ONLY) AS itemImageSystemName
+	  FROM TBL_ITEM i
+	  JOIN TBL_STORE s ON i.BUSINESS_NUMBER = s.BUSINESS_NUMBER
+	  WHERE i.ITEM_NUMBER = #{itemNumber}
+</select>
+	
+	
+
+
 </mapper>

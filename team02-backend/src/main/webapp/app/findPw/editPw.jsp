@@ -18,13 +18,11 @@
     let footerPath = '../../footer.jsp';
   </script>
 </head>
-
 <body>
 <jsp:include page="/header.jsp" />
   <main>
     <div class="findPw_edit_container"> <!-- 1100px 영역 -->
       <div class="findPw_edit_content_container"> <!-- 컨텐츠 영역 -->
-
         <!-- 비밀번호 찾기 제목 -->
         <div>
           <div class="findPw_edit_title">밥세권 회원</div>
@@ -49,30 +47,17 @@
           <div class="findPw_warning_msg" id="findPw_edit_warning_message_old"></div>
           <div class="findPw_warning_msg" id="findPw_edit_warning_message_new"></div>
           <div class="findPw_warning_msg" id="findPw_edit_warning_message_chk"></div>
-        </form>
         <!-- 수정하기 버튼 -->
         <div>
           <button type="button" class="findPw_edit_btn">수정하기</button>
         </div>
-        <!--메인으로, 로그인 버튼 -->
-        <!-- 메인으로, 로그인 버튼 -->
-        <div class="findId_clear_btns">
-          <a href="./../../main.html">
-            <div class="findId_clear_to_main">메인으로</div>
-          </a>
-          <a href="./../logIn/login.html">
-            <div class="findId_clear_to_login">로그인으로</div>
-          </a>
-          <!-- <button type="button" id="findId_clear_to_main" href="./../../main.html">메인으로 이동</button>
-          <button type="button" id="findId_clear_to_login" href="./../logIn/login.html">로그인</button> -->
-        </div>
+        </form>
         <!-- 아이디찾기, 비밀번호찾기, 회원가입 -->
         <div class="findPw_edit_to_container">
           <div><a href="${pageContext.request.contextPath}/app/findId/findUserIdAuth.jsp" class="findPw_edit_to_findId">아이디 찾기</a></div>
           <div><a href="${pageContext.request.contextPath}/app/findpw/findPw.jsp" class="findPw_edit_to_findPw">비밀번호 찾기</a></div>
           <div><a href="${pageContext.request.contextPath}/app/join/selectUserType.jsp" class="findPw_edit_to_join">회원가입</a></div>
         </div>
-
       </div> <!-- //컨텐츠 영역-->
     </div> <!--//1100px 영역-->
   </main>
