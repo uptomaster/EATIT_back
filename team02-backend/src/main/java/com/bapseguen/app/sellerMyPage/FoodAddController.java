@@ -36,10 +36,8 @@ public class FoodAddController implements Execute{
 	    path = "/sellerMyPage/addFoodOk.se";  // 기본값 설정
 
 		
-		result.setPath(path);
-		result.setRedirect(false);
-		
-		System.out.println(result);
+	    result.setRedirect(false);
+		result.setPath("/app/sellerMyPage/foodSalesWrite.jsp");
 		return result;	
 		}
 	

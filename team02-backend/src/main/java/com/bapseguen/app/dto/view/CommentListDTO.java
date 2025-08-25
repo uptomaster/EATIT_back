@@ -84,7 +84,6 @@ public class CommentListDTO {
 				+ ", postType=" + postType + ", commtentCount=" + commtentCount + "]";
 	}
 	
-	
 	  
 	
     

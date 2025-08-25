@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,21 +61,21 @@
 						<c:forEach var="comment" items="${myCommentList}">
 							<div class="seller_mycomments_comments_list">
 								<div class="seller_mycomments_sort">
-									<a href="./../../app/community/freeBoardList.html">
-									<c:out value="${comment.getPostType() }"/></a>
+									<!-- <a href="./../../app/community/freeBoardList.html"></a> -->
+									<c:out value="${comment.getPostType() }"/>
 								</div>
 <!-- 								<div class="seller_mycomments_tag">
 									<c:out value="${ }" />
 								</div> -->
 								<div class="seller_mycomments_title">
-									<a href="./../../app/community/viewOwnPost.html"><c:out value="${comment.getCommentNumber() }"/></a>
+									<!-- <a href="./../../app/community/viewOwnPost.html"></a> -->
+									<c:out value="${comment.getCommentNumber() }"/>
 								</div>
 								<div class="seller_mycomments_comments_info"><c:out value="${comment.getCommentContent() }"/></div>
 								<div class="seller_mycomments_date"><c:out value="${comment.getCommentedDate() }"/></div>
-								<div class="seller_mycomments_like_count"><c:out "${comment.getlikecount }"/></div>
 							</div>
 							</c:forEach>
-						</c:when>]
+						</c:when>
 					</c:choose>
 			</div>
 			<div class="seller_mycomments_pagination">

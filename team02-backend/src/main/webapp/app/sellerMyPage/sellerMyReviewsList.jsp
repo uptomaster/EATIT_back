@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,24 +52,19 @@
           <div class="seller_myreviews_grade">평점</div>
         </div>
         <c:choose>
-        <c:when test="${not empty myReviewList }>
-        <c:forEach var="review" items="${mtReviewList }>
+        <c:when test="${not empty myReviewList }">
+        <c:forEach var="review" items="${mtReviewList }">
         <div class="seller_myreviews_comments_list">
-          <div class="seller_myreviews_restaurant_name"><c:out value="${review.get}"/></div>
+          <div class="seller_myreviews_restaurant_name"></div>
           <div class="seller_myreviews_meal_name">식빵</div>
           <div class="seller_myreviews_quantity">1</div>
           <div class="seller_myreviews_price">5000원</div>
           <div class="seller_myreviews_date">2025-08-02</div>
           <div class="seller_myreviews_grade">5</div>
         </div>
-        <div class="seller_myreviews_comments_list">
-          <div class="seller_myreviews_restaurant_name">기수식당</div>
-          <div class="seller_myreviews_meal_name">제육볶음</div>
-          <div class="seller_myreviews_quantity">1</div>
-          <div class="seller_myreviews_price">6000원</div>
-          <div class="seller_myreviews_date">2025-08-08</div>
-          <div class="seller_myreviews_grade">5</div>
-        </div>
+        </c:forEach>
+        </c:when>
+        </c:choose>
       </div>
       <div class="seller_myreviews_pagination">
         <a href="#" class="seller_myreviews_page_active">1</a>

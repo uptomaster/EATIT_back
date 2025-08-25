@@ -31,8 +31,8 @@ public class FoodListOkController implements Execute {
         request.setAttribute("foodList", list);
 
         result.setRedirect(false);
-//        result.setPath("/app/Seller/foodList.jsp");
-        return result;
+		result.setPath("/app/sellerMyPage/foodSalesWrite.jsp");
+		return result;	
         
 //		System.out.println("====FoodListOkController 실행====");
 //		BoardDAO boardDAO = new BoardDAO();
