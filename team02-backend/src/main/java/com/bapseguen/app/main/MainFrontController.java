@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bapseguen.app.Result;
+import com.bapseguen.app.community.CommunityFrontController;
 import com.bapseguen.app.orders.IngredientDetailController;
 import com.bapseguen.app.orders.IngredientListController;
 import com.bapseguen.app.orders.StoreDetailController;
@@ -80,6 +81,20 @@ public class MainFrontController extends HttpServlet {
 	    	 System.out.println("재료 상세 페이지 이동 요청");
 	    	 result = new IngredientDetailController().execute(request, response);
 	    	 break;
+
+//	    // 레시피 리스트 페이지
+//	     case "/community/recipeListOk.co":
+//	    	 System.out.println("레시피 리스트 페이지 이동 요청");
+//	    	 result = new CommunityFrontController().execute(request, response);
+//	    	 break;
+//	    
+//	    // 레시피 리스트 페이지
+//	     case "/community/viewOtherPost.co":
+//	    	 System.out.println("레시피 리스트 페이지 이동 요청");
+//	    	 result = new CommunityFrontController().execute(request, response);
+//	    	 break;
+	    	 
+	    	 
 		}
 	}
 }
