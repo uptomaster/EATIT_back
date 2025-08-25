@@ -39,8 +39,8 @@
         <ul>
           <li><a href="${pageContext.request.contextPath}/community/communityMainOk.co" id="category_event">공지사항/이벤트</a></li>
           <li><a href="${pageContext.request.contextPath}/community/freeBoardReadOk.co" id="category_free" class="active">자유게시판</a></li>
-          <li><a href="${pageContext.request.contextPath}/community/promoBoardList.jsp" id="category_advertise">홍보게시판</a></li>
-          <li><a href="${pageContext.request.contextPath}/community/recipeList.jsp" id="category_recipe">레시피</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/promoBoardListOk.co" id="category_advertise">홍보게시판</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/recipeListOk.co" id="category_recipe">레시피</a></li>
         </ul>
       </nav>
 
