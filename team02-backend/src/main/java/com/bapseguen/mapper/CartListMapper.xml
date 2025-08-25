@@ -15,7 +15,7 @@
   <!-- 장바구니 없을 경우 생성 -->
   <insert id="createIfNone" parameterType="CartDTO">
     INSERT INTO TBL_CART (CART_NUMBER, MEMBER_NUMBER, BUSINESS_NUMBER, CART_ORDER_STATUS)
-    SELECT SEQ_CART.NEXTVAL, #{memberNumber}, #{businessNumber}, 'OPEN'
+    SELECT SEQ_CART_NUMBER.NEXTVAL, #{memberNumber}, #{businessNumber}, 'OPEN'
     FROM DUAL
     WHERE NOT EXISTS (
       SELECT 1
@@ -124,12 +124,11 @@
 
   <!-- 신규 아이템 삽입 -->
   <insert id="insertCartItem" parameterType="CartItemDTO">
-  INSERT INTO TBL_CART_ITEM (
-    CART_ITEM_NUMBER, CART_NUMBER, ITEM_NUMBER, CART_ITEM_PRICE, CART_ITEM_QUANTITY
-)
-VALUES (
-    SEQ_CART_ITEM_NUMBER.NEXTVAL, 2, 2, 2500, 2
-)
+    INSERT INTO TBL_CART_ITEM (
+      CART_ITEM_NUMBER, CART_NUMBER, ITEM_NUMBER, CART_ITEM_QUANTITY, CART_ITEM_PRICE
+    ) VALUES (
+      SEQ_CART_ITEM_NUMBER.NEXTVAL, #{cartNumber}, #{itemNumber}, #{cartItemQuantity}, #{cartItemPrice}
+    )
   </insert>
 
 </mapper>

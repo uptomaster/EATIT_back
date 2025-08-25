@@ -25,15 +25,17 @@ public class CartListAddItemOkController implements Execute {
         Result result = new Result();
         HttpSession session = request.getSession();
 
-        // ✅ 로그인 확인
+        // 로그인 확인
         Integer memberNumber = (Integer) session.getAttribute("memberNumber");
-        if (memberNumber == null) {
+        if (memberNumber == null) { // 로그인 안된상태면 강제로 로그인페이지로 이동시킴.
             result.setPath(request.getContextPath() + "/login/login.lo");
             result.setRedirect(true);
             return result;
         }
 
-        // ✅ 파라미터 파싱
+        // 파라미터 파싱
+        
+        // itemNumber가 유효한지, 수량이 0 이하 아닌지 확인.
         int itemNumber = parseInt(request.getParameter("itemNumber"), -1);
         int quantity = parseInt(request.getParameter("quantity"), 1);
 
@@ -44,10 +46,12 @@ public class CartListAddItemOkController implements Execute {
             return result;
         }
 
-        // ✅ 아이템 스냅샷 조회
+        // 아이템 스냅샷 조회
         ItemDAO itemDAO = new ItemDAO();
         ItemSnapshotDTO snap = itemDAO.selectSnapshot(itemNumber);
 
+        
+        // 장바구니에 담은 뒤에 물품이 삭제되거나, 판매중이 아니거나, 수량이 떨어졌을떄
         if (snap == null) {
             session.setAttribute("cartError", "존재하지 않는 상품입니다.");
             result.setPath(request.getContextPath() + "/cartList/view.cl");
@@ -68,16 +72,22 @@ public class CartListAddItemOkController implements Execute {
             return result;
         }
 
-        // ✅ 담으려는 상품의 가게번호 / 가격 확정
+        // 담으려는 상품의 가게번호 / 가격 확정
+        
+        // 상품이 어느 가게의 것인지 명확히 알아야 함.
+        // 가게번호가 null 이거나 공백이라면 잘못된 요청으로 처리
         String newBusinessNumber = snap.getBusinessNumber();
         Integer itemPrice = snap.getItemPrice();
 
+        // 가게번호 검증
         if (newBusinessNumber == null || newBusinessNumber.isBlank()) {
             session.setAttribute("cartError", "가게 정보가 올바르지 않습니다.");
             result.setPath(request.getContextPath() + "/cartList/view.cl");
             result.setRedirect(true);
             return result;
         }
+        
+        // 가격 검증
         if (itemPrice == null || itemPrice <= 0) {
             session.setAttribute("cartError", "가격 정보가 올바르지 않습니다.");
             result.setPath(request.getContextPath() + "/cartList/view.cl");
