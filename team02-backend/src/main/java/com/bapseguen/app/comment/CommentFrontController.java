@@ -47,13 +47,13 @@ public class CommentFrontController extends HttpServlet {
 		System.out.println("현재 경로 : " + target);
 		Result result = new Result();
 		switch (target) {
-		  case "/comment/writeOk.":
+		  case "/comment/writeOk.cm":
 		    result = new CommentWriteOkController().execute(request, response);
 		    break;
-		  case "/comment/listOk.":
+		  case "/comment/listOk.cm":
 		    result = new CommentListOkController().execute(request, response);
 		    break;
-		  case "/comment/deleteOk.":
+		  case "/comment/deleteOk.cm":
 		    result = new CommentDeleteOkController().execute(request, response);
 		    break;
 		}
