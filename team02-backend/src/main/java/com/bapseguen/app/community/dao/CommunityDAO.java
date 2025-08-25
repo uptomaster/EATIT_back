@@ -31,12 +31,14 @@ public class CommunityDAO {
 	}
 
 	//자유게시판 목록 조회
-//	public List<PostDTO> freeSelectAll(Map<String, Integer> pageMap) {
-//		System.out.println("모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
-//		List<PostDTO> list = sqlSession.selectList("board.freeSelectAll", pageMap);
-//		System.out.println("조회결과 : " + list);
-//		return list;
-//	}
+	public List<PostDTO> freeSelectAll(Map<String, Integer> pageMap) {
+		System.out.println("모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
+		List<PostDTO> list = sqlSession.selectList("post.freeSelectAll", pageMap);
+		System.out.println("조회결과 : " + list);
+		return list;
+	}
+	
+	
 	//홍보게시판 목록 조회
 	public List<PromoBoardDTO> promoSelectAll(Map<String, Integer> pageMap) {
 		System.out.println("모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);

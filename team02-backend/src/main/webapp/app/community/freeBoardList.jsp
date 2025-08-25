@@ -60,22 +60,22 @@
    			<c:choose>
    				<c:when test="${not empty postList}">
    					<c:forEach var="post" items="${postList}">
-	   					 <div class="board-row">
-	   					 	<div class="board-item no">
+	   					 <div class="board-row list_row flex_row">
+	   					 	<%-- <div class="board-item no">
 	   					 		<c:out value="${post.getPostNumber()}" />
-	   					 	</div>
-	   					 	<div class="board-item title">
+	   					 	</div> --%>
+	   					 	<div class="board-item col_title">
 	   					 		<a href="${pageContext.request.contextPath}/community/freeBoardListOk.co?boardNumber=${post.postNumber}">
 	   					 			<c:out value="${post.postTitle}" />
 	   					 		</a>
 	   					 	</div>
-	   					 	<div class="board-item author">
+	   					 	<div class="board-item col_author">
 	   					 		<c:out value="${post.getMemberId() }" />
 	   					 	</div>
-	   					 	<div class="board-item date">
+	   					 	<div class="board-item col_date">
 	   					 		<c:out value="${post.getPostCreatedDate() }" />
 	   					 	</div>
-	   					 	<div class="board-item hit">
+	   					 	<div class="board-item col_views">
 	   					 		<c:out value="${post.getPostViewCount() }" />
 	   					 	</div>
 	   					 </div>
