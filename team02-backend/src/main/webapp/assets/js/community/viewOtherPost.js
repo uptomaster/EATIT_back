@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
   
   
   
+	  
+	  
   recommendBtn.addEventListener('click', () => {
     // 현재 '추천 0'에서 숫자만 추출
     let currentLikes = parseInt(likesSpan.textContent.replace('추천 ', ''), 10);

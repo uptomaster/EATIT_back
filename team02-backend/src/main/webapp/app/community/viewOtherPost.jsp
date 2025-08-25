@@ -98,9 +98,9 @@
 
         	<!-- 게시글 내용 -->
 	        <section class="content_section">
-	          <div class="post_content">
-	          	<c:out value="${postList.getFreeContent()}" />
-	          <div class="btn-group post_buttons">
+		       	  <div class="view-content">
+					  <c:out value="${post.FreeContent()}" />
+				  </div>
 	          	  <div class="func_button">
 		          	  <!-- 수정/삭제 버튼(로그인한 사용자가 작성자인 경우에만 표시) -->
 						<c:if test="${sessionScope.memberNumber == post.getMemberNumber() }">
@@ -167,7 +167,7 @@
 
         <!-- 다크모드 -->
         <form class="comment_form" action="#" method="post">
-          <img class="comment_profile" src="${pageContext.request.contextPath}${pageContext.request.contextPath}/assets/img/나무.png" alt="나무" />
+          <img class="comment_profile" src="${pageContext.request.contextPath}/assets/img/나무.png" alt="나무" />
           <span class="comment_author">namhyuk</span>
           <input type="text" name="comment" placeholder="댓글을 입력하세요" required />
           <button type="submit">등록</button>

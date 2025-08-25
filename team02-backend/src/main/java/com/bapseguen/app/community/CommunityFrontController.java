@@ -59,7 +59,6 @@ public class CommunityFrontController extends HttpServlet {
 			break;	
 		
 		
-
 		case "/community/freeBoardListOk.co":
 			System.out.println("자유게시판 목록 페이지 처리 요청");
 			result = new FreeBoardListOkController().execute(request, response);
