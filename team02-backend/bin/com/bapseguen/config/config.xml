@@ -94,6 +94,7 @@
 		<mapper resource="com/bapseguen/mapper/PostMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/SellerMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/StoreManageMapper.xml" />
+		<mapper resource="com/bapseguen/mapper/CommentMapper.xml" />
 	</mappers>
 	
 </configuration>
