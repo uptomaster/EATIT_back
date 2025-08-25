@@ -1,101 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cartList">
-	
-	<!-- 회원 장바구니가 OPEN상태일때 장바구니 번호 조회
-	(회원은 단 하나의 가게만 담을 수 있고, 하나의 가게에서 여러개의 상품을 담을 수 있음 -->
-	<select id="open" parameterType="CartDTO" resultType="int">
-		select cart_number
-		from tbl_cart
-		where member_number = #{memberNumber} and cart_order_status = 'OPEN'
-	</select>
 
-	<!-- 장바구니가 없을 경우에 장바구니 생성 -->
-	<insert id="createIfNone" parameterType="CartDTO">
-	insert into tbl_cart (cart_number, member_number, business_number, cart_order_status)
-	select seq_cart_number.nextval, #{memberNumber}, #{businessNumber}, 'OPEN' 
-		from dual
-	where not exists(select 1
-					from tbl_cart
-					where member_number = #{memberNumber} and cart_order_status = 'OPEN')
-	</insert>
+  <!-- 회원 장바구니 OPEN 상태 조회 -->
+  <select id="open" parameterType="CartDTO" resultType="int">
+    SELECT CART_NUMBER
+    FROM TBL_CART
+    WHERE MEMBER_NUMBER = #{memberNumber}
+      AND CART_ORDER_STATUS = 'OPEN'
+  </select>
 
-	<!-- 메뉴 담기(insert) -->
-	<insert id="addItem" parameterType="CartItemDTO">
-		insert into tbl_cart_item (CART_ITEM_NUMBER, CART_NUMBER, ITEM_NUMBER, CART_ITEM_PRICE, CART_ITEM_QUANTITY)	
-		values (SEQ_CART_ITEM_NUMBER.NEXTVAL, #{cartNumber}, #{itemNumber}, #{cartItemPrice}, #{cartItemQuantity})
-	</insert>
-	
-	<!-- 회원이 담은 장바구니 목록 조회 -->
-	<select id="selectItemsList" parameterType="CartDTO" resultType="CartItemDTO">
+  <!-- 장바구니 없을 경우 생성 -->
+  <insert id="createIfNone" parameterType="CartDTO">
+    INSERT INTO TBL_CART (CART_NUMBER, MEMBER_NUMBER, BUSINESS_NUMBER, CART_ORDER_STATUS)
+    SELECT SEQ_CART.NEXTVAL, #{memberNumber}, #{businessNumber}, 'OPEN'
+    FROM DUAL
+    WHERE NOT EXISTS (
+      SELECT 1
+      FROM TBL_CART
+      WHERE MEMBER_NUMBER = #{memberNumber}
+        AND CART_ORDER_STATUS = 'OPEN'
+    )
+  </insert>
+
+  <!-- 장바구니 항목 목록 (간단) -->
+  <select id="selectItemsList" parameterType="CartDTO" resultType="CartItemDTO">
     SELECT
-      ci.cart_item_number AS cartItemNumber,
-      ci.cart_number AS cartNumber,
-      ci.item_number AS itemNumber,
-      ci.cart_item_price AS cartItemPrice,
-      ci.cart_item_quantity AS cartItemQuantity
-    FROM tbl_cart c
-    JOIN tbl_cart_item ci ON c.cart_number = ci.cart_number
-   WHERE c.member_number = #{memberNumber}
-     AND c.cart_order_status = 'OPEN'
-   ORDER BY ci.cart_item_number
-	</select>
-	
-	<!-- 회원의 OPEN상태인 장바구니 자체 삭제 -->
-	<delete id="deleteOpenCartByMember" parameterType="int">
-    	DELETE FROM TBL_CART
-     	WHERE MEMBER_NUMBER = #{memberNumber}
-       AND CART_ORDER_STATUS = 'OPEN'
-	</delete>
-	
-	<!-- 항목 단건 삭제 -->
-	<delete id="delItem" parameterType="CartItemDTO">
-		delete from tbl_cart_item
-		where cart_item_number = #{cartItemNumber}
-	</delete>
-	
-	<!-- 장바구니 비우기(전체삭제) -->
-	<delete id="clear" parameterType="CartDTO">
-		delete from tbl_cart_item
-		where cart_number = #{cartNumber}
-	</delete>
-	
-	<!-- 다른 가게에서 메뉴를 담았을때 사용  -->
-	<update id="setStore" parameterType="CartDTO">
-		update tbl_cart
-		set business_number = #{businessNumber}
-		where cart_number = #{cartNumber}
-	</update>
-	
-	
-	<!-- 장바구니 번호로 가게 사업자번호 조회 -->
-	<select id="cartBNByCartNo" parameterType="int" resultType="string">
-  		SELECT business_number
-    	FROM tbl_cart
-    	WHERE cart_number = #{cartNumber}
-	</select>
+      ci.CART_ITEM_NUMBER   AS cartItemNumber,
+      ci.CART_NUMBER        AS cartNumber,
+      ci.ITEM_NUMBER        AS itemNumber,
+      ci.CART_ITEM_PRICE    AS cartItemPrice,
+      ci.CART_ITEM_QUANTITY AS cartItemQuantity
+    FROM TBL_CART c
+    JOIN TBL_CART_ITEM ci ON c.CART_NUMBER = ci.CART_NUMBER
+    WHERE c.MEMBER_NUMBER = #{memberNumber}
+      AND c.CART_ORDER_STATUS = 'OPEN'
+    ORDER BY ci.CART_ITEM_NUMBER
+  </select>
 
-	<!-- 장바구니 항목 개수 -->
-	<select id="countItems" parameterType="int" resultType="int">
-  		SELECT COUNT(*)
-    	FROM tbl_cart_item
-   		WHERE cart_number = #{cartNumber}
-	</select>
-	
-	<!-- cartItemNumber로 소속 cartNumber 찾기 (소유권 검증) -->
-	<select id="cartNoByCartItemNo" parameterType="int" resultType="int">
-  		SELECT CART_NUMBER
-    	FROM TBL_CART_ITEM
-   		WHERE CART_ITEM_NUMBER = #{cartItemNumber}
-	</select>
+  <!-- 장바구니 아이템 목록 (상세: itemName, imagePath 포함) -->
+  <select id="selectCartItems" parameterType="int" resultType="CartItemDTO">
+    SELECT 
+      ci.CART_ITEM_NUMBER   AS cartItemNumber,
+      ci.CART_NUMBER        AS cartNumber,
+      ci.ITEM_NUMBER        AS itemNumber,
+      ci.CART_ITEM_QUANTITY AS cartItemQuantity,
+      ci.CART_ITEM_PRICE    AS cartItemPrice,
+      i.ITEM_NAME           AS itemName,
+      (SELECT ii.ITEM_IMAGE_SYSTEM_NAME
+         FROM TBL_ITEM_IMAGE ii
+        WHERE ii.ITEM_NUMBER = ci.ITEM_NUMBER
+        FETCH FIRST 1 ROWS ONLY) AS imagePath
+    FROM TBL_CART_ITEM ci
+    JOIN TBL_ITEM i ON ci.ITEM_NUMBER = i.ITEM_NUMBER
+    WHERE ci.CART_NUMBER = #{cartNumber}
+    ORDER BY ci.CART_ITEM_NUMBER ASC
+  </select>
 
-	<!-- 동일 아이템이면 수량만 증가시키기 -->
-	<update id="increaseQtyIfExists" parameterType="CartItemDTO">
-  		UPDATE TBL_CART_ITEM
-     	SET CART_ITEM_QUANTITY = CART_ITEM_QUANTITY + #{cartItemQuantity}
-   		WHERE CART_NUMBER = #{cartNumber}
-     	AND ITEM_NUMBER  = #{itemNumber}
-	</update>
-	
+  <!-- 회원의 OPEN 상태 장바구니 삭제 -->
+  <delete id="deleteOpenCartByMember" parameterType="int">
+    DELETE FROM TBL_CART
+    WHERE MEMBER_NUMBER = #{memberNumber}
+      AND CART_ORDER_STATUS = 'OPEN'
+  </delete>
+
+  <!-- 장바구니 항목 단건 삭제 -->
+  <delete id="delItem" parameterType="CartItemDTO">
+    DELETE FROM TBL_CART_ITEM
+    WHERE CART_ITEM_NUMBER = #{cartItemNumber}
+  </delete>
+
+  <!-- 장바구니 비우기 -->
+  <delete id="clear" parameterType="CartDTO">
+    DELETE FROM TBL_CART_ITEM
+    WHERE CART_NUMBER = #{cartNumber}
+  </delete>
+
+  <!-- 빈 OPEN 상태 장바구니의 가게 변경 -->
+  <update id="setStore" parameterType="CartDTO">
+    UPDATE TBL_CART
+    SET BUSINESS_NUMBER = #{businessNumber}
+    WHERE CART_NUMBER = #{cartNumber}
+  </update>
+
+  <!-- 카트번호로 사업자번호 조회 -->
+  <select id="cartBNByCartNo" parameterType="int" resultType="string">
+    SELECT BUSINESS_NUMBER
+    FROM TBL_CART
+    WHERE CART_NUMBER = #{cartNumber}
+  </select>
+
+  <!-- 장바구니 아이템 개수 -->
+  <select id="countItems" parameterType="int" resultType="int">
+    SELECT COUNT(*)
+    FROM TBL_CART_ITEM
+    WHERE CART_NUMBER = #{cartNumber}
+  </select>
+
+  <!-- cartItemNumber → cartNumber -->
+  <select id="cartNoByCartItemNo" parameterType="int" resultType="int">
+    SELECT CART_NUMBER
+    FROM TBL_CART_ITEM
+    WHERE CART_ITEM_NUMBER = #{cartItemNumber}
+  </select>
+
+  <!-- 동일 아이템 있는지 확인 -->
+  <select id="existsCartItem" parameterType="CartItemDTO" resultType="int">
+    SELECT COUNT(*) 
+    FROM TBL_CART_ITEM
+    WHERE CART_NUMBER = #{cartNumber}
+      AND ITEM_NUMBER = #{itemNumber}
+  </select>
+
+  <!-- 동일 아이템이면 수량 증가 -->
+  <update id="increaseQtyIfExists" parameterType="CartItemDTO">
+    UPDATE TBL_CART_ITEM
+    SET CART_ITEM_QUANTITY = CART_ITEM_QUANTITY + #{cartItemQuantity}
+    WHERE CART_NUMBER = #{cartNumber}
+      AND ITEM_NUMBER  = #{itemNumber}
+  </update>
+
+  <!-- 신규 아이템 삽입 -->
+  <insert id="insertCartItem" parameterType="CartItemDTO">
+    INSERT INTO TBL_CART_ITEM (
+      CART_ITEM_NUMBER, CART_NUMBER, ITEM_NUMBER, CART_ITEM_QUANTITY, CART_ITEM_PRICE
+    ) VALUES (
+      SEQ_CART_ITEM.NEXTVAL, #{cartNumber}, #{itemNumber}, #{cartItemQuantity}, #{cartItemPrice}
+    )
+  </insert>
+
 </mapper>
