@@ -26,8 +26,8 @@ public class FreeBoardReadOkController implements Execute{
 		//postNumber가 빈 문자열이거나 null인경우
 		String postNumberStr = request.getParameter("postNumber");
 		if(postNumberStr == null || postNumberStr.trim().isEmpty()){
-			System.out.println("postNumber 값이 없습니다");
-			result.setPath("/app/community/freeBoardList.jsp"); //게시글 목록 페이지로 리다이렉트
+			System.out.println("postNumber 값이 없습니다==========");
+			result.setPath("/community/freeBoardListOk.co"); //게시글 목록 페이지로 리다이렉트
 			result.setRedirect(true);
 			return result;
 		}
@@ -40,6 +40,10 @@ public class FreeBoardReadOkController implements Execute{
 
 		//DB에서 게시글 가져오기
 		PostDetailDTO postDetailDTO = communityDAO.select(postNumber);
+		
+		//
+		PostDetailDTO freeBoard = communityDAO.selectPost(postNumber); // 상세 조회
+		request.setAttribute("freeBoard", freeBoard);
 		
 		//게시글이 존재하지 않을 경우 처리
 		if(postDetailDTO == null) {

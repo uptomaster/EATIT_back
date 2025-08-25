@@ -63,7 +63,6 @@
 		  <div class="post_header">
 		    <!-- 게시글 제목 -->
 		    <div class="post_title">
-		      <!-- <h1 class="post_title">자유게시판이다아</h1> -->
 		      <h1><c:out value="${post.getPostTitle()}" /></h1>
 		    </div>
 		
@@ -100,8 +99,7 @@
         	<!-- 게시글 내용 -->
 	        <section class="content_section">
 	          <div class="post_content">
-	          	<c:out value="${freeBoard.getFreeContent()}" />
-	            <!-- 밥세권 앱 신규 기능 업데이트 안내 최종 최종 진짜 최종 찐 찐 찐 최종 진짜 리얼 최종 최에에에에에에에에에ㅔ종<br> -->
+	          	<c:out value="${postList.getFreeContent()}" />
 	          <div class="btn-group post_buttons">
 	          	  <div class="func_button">
 		          	  <!-- 수정/삭제 버튼(로그인한 사용자가 작성자인 경우에만 표시) -->
@@ -217,6 +215,7 @@
   
 </body>
 <script>
-    	let memberNumber = "${sessionScope.memberNumber}";
+		window.boardNumber = "${board.boardNumber}";
+		window.memberNumber = "${sessionScope.memberNumber}";
 </script>
 </html>
