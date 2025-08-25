@@ -103,12 +103,7 @@
         	<!-- 게시글 내용 -->
 	        <section class="content_section">
 	          <div class="post_content">
-	            밥세권 앱 신규 기능 업데이트 안내 최종 최종 진짜 최종 찐 찐 찐 최종 진짜 리얼 최종 최에에에에에에에에에ㅔ종<br>
-	            밥세권 앱 신규 기능 업데이트 안내 최종 최종 진짜 최종 찐 찐 찐 최종 진짜 리얼 최종 최에에에에에에에에에ㅔ종<br>
-	            밥세권 앱 신규 기능 업데이트 안내 최종 최종 진짜 최종 찐 찐 찐 최종 진짜 리얼 최종 최에에에에에에에에에ㅔ종<br>
-	            밥세권 앱 신규 기능 업데이트 안내 최종 최종 진짜 최종 찐 찐 찐 최종 진짜 리얼 최종 최에에에에에에에에에ㅔ종<br>
-	            밥세권 앱 신규 기능 업데이트 안내 최종 최종 진짜 최종 찐 찐 찐 최종 진짜 리얼 최종 최에에에에에에에에에ㅔ종<br>
-	            집 좀 가자
+	            밥세권 앱 신규 기능 업데이트 안내
 	          <!-- <div class="post_buttons">
 	            <div class="func_button">
 	              <button class="edit">수정</button>
@@ -204,6 +199,7 @@
   
 </body>
 <script>
-    	let memberNumber = "${sessionScope.memberNumber}";
+		window.boardNumber = "${board.boardNumber}";
+		window.memberNumber = "${sessionScope.memberNumber}";
 </script>
 </html>

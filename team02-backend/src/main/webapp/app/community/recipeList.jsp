@@ -35,10 +35,10 @@
       <!-- 카테고리 -->
       <nav class="community_category">
         <ul>
-          <li><a href="${pageContext.request.contextPath}/community/communityMainUser.jsp" id="category_event">공지사항/이벤트</a></li>
-          <li><a href="${pageContext.request.contextPath}/community/freeBoardList.jsp" id="category_free">자유게시판</a></li>
-          <li><a href="${pageContext.request.contextPath}/community/promoBoardList.jsp" id="category_advertise">홍보게시판</a></li>
-          <li><a href="${pageContext.request.contextPath}/community/recipeList.jsp" id="category_recipe" class="active">레시피</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/communityMainOk.co" id="category_event">공지사항/이벤트</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/freeBoardReadOk.co" id="category_free">자유게시판</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/promoBoardListOk.cop" id="category_advertise">홍보게시판</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/recipeListOk.co" id="category_recipe" class="active">레시피</a></li>
         </ul>
       </nav>
 
@@ -141,5 +141,8 @@
   <!-- <footer id="footer"></footer> -->
   <jsp:include page="/footer.jsp" />
 </body>
-
+<script>
+		window.boardNumber = "${board.boardNumber}";
+		window.memberNumber = "${sessionScope.memberNumber}";
+</script>
 </html>
