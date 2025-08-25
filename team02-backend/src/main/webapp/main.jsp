@@ -216,7 +216,7 @@
         </div>
         <div class="main_recipe">
           <h3>레시피 공유📃</h3>
-          <a href="${pageContext.request.contextPath}/community/recipeList.co">더보기 ></a>
+          <a href="${pageContext.request.contextPath}/community/recipeListOk.co">더보기 ></a>
           <div class="main_recipe_commu">
             <div class="main_recipe_header" role="rowgroup">
               <div class="main_recipe_col_tag" role="columnheader">태그</div>
