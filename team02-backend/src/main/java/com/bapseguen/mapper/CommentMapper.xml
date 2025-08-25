@@ -12,11 +12,10 @@
     </insert>
 
 	<!-- 댓글 삭제 -->
-  	<update id="delete" parameterType="int">
-    	UPDATE TBL_COMMENT
-       	SET COMMENT_DELETE_STATE = 1
-     	WHERE COMMENT_NUMBER = #{value}
-  	</update>
+  	<delete id="delete" parameterType="int">
+  		DELETE FROM TBL_COMMENT
+  		WHERE COMMENT_NUMBER = #{value}
+	</delete>
 	
 	<select id="selectAll" parameterType="int" resultType="CommentListDTO">
   		SELECT c.COMMENT_NUMBER, c.POST_NUMBER, c.MEMBER_NUMBER, c.COMMENT_CONTENT, c.COMMENTED_DATE, m.MEMBER_ID
