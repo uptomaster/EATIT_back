@@ -125,6 +125,6 @@
       </div> <!-- 입력란 하얀 내부 -->
     </div> <!-- .container 1100px 영역 -->
   </main>
-  <footer id="footer"></footer>
+  <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </body>
 </html>
