@@ -25,7 +25,7 @@
       <div class="content_container"> <!-- 컨텐츠 영역 -->
         <!-- 아이디 찾기 제목 -->
         <div class="findId_title_container">
-          <div class="findId_title">밥세권 회원</div>
+          <div class="findId_title">밥세권</div>
           <div class="findId_subtitle">아이디찾기</div>
         </div>
         <!-- 아이디 찾기 입력 폼 -->
