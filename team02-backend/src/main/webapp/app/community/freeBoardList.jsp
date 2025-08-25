@@ -66,7 +66,7 @@
 	   					 	</div>
 	   					 	<div class="board-item title">
 	   					 		<a href="${pageContext.request.contextPath}/community/freeBoardListOk.co?boardNumber=${post.postNumber}">
-	   					 			<c:out value="${post.getPostTitle()}" />
+	   					 			<c:out value="${post.postTitle}" />
 	   					 		</a>
 	   					 	</div>
 	   					 	<div class="board-item author">
@@ -278,7 +278,8 @@
   <!-- <footer id="footer"></footer> -->
 </body>
 <script>
-    	let memberNumber = "${sessionScope.memberNumber}";
+		window.boardNumber = "${board.boardNumber}";
+		window.memberNumber = "${sessionScope.memberNumber}";
 </script>
 
 </html>

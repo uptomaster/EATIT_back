@@ -100,8 +100,8 @@
         	<!-- 게시글 내용 -->
 	        <section class="content_section">
 	          <div class="post_content">
-	            밥세권 앱 신규 기능 업데이트 안내 최종 최종 진짜 최종 찐 찐 찐 최종 진짜 리얼 최종 최에에에에에에에에에ㅔ종<br>
-	            집 좀 가자
+	          	<c:out value="${freeBoard.getFreeContent()}" />
+	            <!-- 밥세권 앱 신규 기능 업데이트 안내 최종 최종 진짜 최종 찐 찐 찐 최종 진짜 리얼 최종 최에에에에에에에에에ㅔ종<br> -->
 	          <div class="btn-group post_buttons">
 	          	  <div class="func_button">
 		          	  <!-- 수정/삭제 버튼(로그인한 사용자가 작성자인 경우에만 표시) -->

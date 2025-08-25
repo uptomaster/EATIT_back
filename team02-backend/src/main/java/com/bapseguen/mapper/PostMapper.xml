@@ -16,6 +16,26 @@
 	)WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 	]]>
 	</select>
+	
+	<!--포스트 타입 FREE 조회  -->
+	<select id="freeSelectAll" resultType="PostDTO">
+	    SELECT
+	        POST_NUMBER,
+	        MEMBER_NUMBER,
+	        POST_TITLE,
+	        POST_LIKE_COUNT,
+	        POST_VIEW_COUNT,
+	        POST_REPORT_COUNT,
+	        DELETE_STATE,
+	        POST_CREATED_DATE,
+	        POST_UPDATED_DATE,
+	        POST_TYPE
+	    FROM TBL_POST
+	    WHERE POST_TYPE = 'FREE'  <!-- 여기서 FREE만 필터링 -->
+	    ORDER BY POST_CREATED_DATE DESC
+	</select>
+	
+	
 
 	<!-- 게시글 총 개수 -->
 	<select id="postGetTotal" resultType="int">
