@@ -8,7 +8,10 @@ public class CommentListDTO {
     private String commentedDate; 
     private boolean commentDeleteState;
     private String memberId;
-    
+    //게시글 정보
+    private String postTitle;
+    private String postType; // ‘NOTICE’,’FREE’,’PROMOTION’,’RECIPE’,’INQUIRY’,’FAQ’
+    private int commtentCount;
     
 	public int getCommentNumber() {
 		return commentNumber;
@@ -53,13 +56,25 @@ public class CommentListDTO {
 		this.memberId = memberId;
 	}
 	
+	// 0825에 추가한 DTO 게터세터
+	public String getPostTitle() {
+		return postTitle;
+	}
+	public String getPostType() {
+		return postType;
+	}
+	public int getCommtentCount() {
+		return commtentCount;
+	}
 	@Override
 	public String toString() {
 		return "CommentListDTO [commentNumber=" + commentNumber + ", postNumber=" + postNumber + ", memberNumber="
 				+ memberNumber + ", commentContent=" + commentContent + ", commentedDate=" + commentedDate
-				+ ", commentDeleteState=" + commentDeleteState + ", memberId=" + memberId + "]";
+				+ ", commentDeleteState=" + commentDeleteState + ", memberId=" + memberId + ", postTitle=" + postTitle
+				+ ", postType=" + postType + ", commtentCount=" + commtentCount + "]";
 	}
-    
+	
+	  
 	
     
 }

@@ -46,8 +46,11 @@
           <div class="seller_myreviews_date">작성 일자</div>
           <div class="seller_myreviews_grade">평점</div>
         </div>
+        <c:choose>
+        <c:when test="${not empty myReviewList }>
+        <c:forEach var="review" items="${mtReviewList }>
         <div class="seller_myreviews_comments_list">
-          <div class="seller_myreviews_restaurant_name">기수베이커리</div>
+          <div class="seller_myreviews_restaurant_name"><c:out value="${review.get}"/></div>
           <div class="seller_myreviews_meal_name">식빵</div>
           <div class="seller_myreviews_quantity">1</div>
           <div class="seller_myreviews_price">5000원</div>

@@ -1,0 +1,32 @@
+package com.bapseguen.app.sellerMyPage;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.bapseguen.app.Execute;
+import com.bapseguen.app.Result;
+import com.bapseguen.app.sellerMyPage.dao.SellerMyPageDAO;
+
+public class FoodEditController implements Execute{
+	
+
+	@Override
+	public Result execute(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+
+        int itemNumber = Integer.valueOf(request.getParameter("itemNumber"));
+        SellerMyPageDAO sellerDAO = new SellerMyPageDAO();
+        Result result = new Result();
+        
+        //
+        //request.setAttribute("item", sellerDAO.select(itemNumber));
+        
+        result.setPath("/app/item/itemUpdate.jsp");
+        result.setRedirect(false);
+        return result;
+	}
+}

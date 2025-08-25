@@ -74,4 +74,6 @@ public class ItemDAO {
     public int countSearchItems(Map<String,Object> params) {
         return sqlSession.selectOne("item.countSearchItems", params);
     }
+
+
 }
