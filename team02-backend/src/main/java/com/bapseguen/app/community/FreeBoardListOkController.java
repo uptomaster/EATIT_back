@@ -67,7 +67,7 @@ public class FreeBoardListOkController implements Execute{
 		System.out.println("startPage : " + startPage + ", endPage : " + endPage + ", prev : " + prev + ", next : " + next);
 		System.out.println("====================");
 
-		result.setPath("/community/freeBoardReadOk.co");
+		result.setPath("/app/community/freeBoardList.jsp");
 		result.setRedirect(false);
 
 		return result;
