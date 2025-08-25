@@ -19,7 +19,7 @@ public class PostImageDAO {
 		System.out.println("파일 DAO - 파일 저장 " + postImageDTO);
 
 		try {
-			int result = sqlSession.insert("file.insert", postImageDTO);
+			int result = sqlSession.insert("postImage.insert", postImageDTO);
 			System.out.println("파일 저장 완료 - DB에 저장된 행의 개수 : " + result);
 
 			// db에 파일이 제대로 저장되었는지 확인
@@ -34,12 +34,12 @@ public class PostImageDAO {
 
 	// 파일 조회 메소드
 	public List<PostImageDTO> select(int postNumber) {
-		return sqlSession.selectList("file.select", postNumber);
+		return sqlSession.selectList("postImage.select", postNumber);
 	}
 
 	// 파일 삭제 메소드
 	public void delete(int boardNumber) {
-		sqlSession.delete("file.delete", boardNumber);
+		sqlSession.delete("postImage.delete", boardNumber);
 	}
 	
 }	

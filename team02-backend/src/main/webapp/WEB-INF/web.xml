@@ -4,127 +4,147 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 	id="WebApp_ID" version="4.0">
 
-  <display-name>bapseguen</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-    <welcome-file>main.jsp</welcome-file>
-  </welcome-file-list>
-  
- 
-  
-  <!-- Admin -->
-  <servlet>
-  	<servlet-name>Admin</servlet-name>
-  	<servlet-class>com.bapseguen.app.admin.AdminFrontController</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>Admin</servlet-name>
-  	<url-pattern>*.ad</url-pattern>
-  </servlet-mapping>
+	<display-name>bapseguen</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+		<welcome-file>main.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- Comment -->
+	<servlet>
+		<servlet-name>Comment</servlet-name>
+		<servlet-class>com.bapseguen.app.comment.CommentFrontController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Comment</servlet-name>
+		<url-pattern>*.cm</url-pattern>
+	</servlet-mapping>
+
+	<!-- Img -->
+	<servlet>
+		<servlet-name>Img</servlet-name>
+		<servlet-class>com.bapseguen.app.img.PostImageController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Img</servlet-name>
+		<url-pattern>*.im</url-pattern>
+	</servlet-mapping>
+
+	<!-- Admin -->
+	<servlet>
+		<servlet-name>Admin</servlet-name>
+		<servlet-class>com.bapseguen.app.admin.AdminFrontController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Admin</servlet-name>
+		<url-pattern>*.ad</url-pattern>
+	</servlet-mapping>
 
 	<!-- CartList -->
-  <servlet>
-  	<servlet-name>CartList</servlet-name>
-  	<servlet-class>com.bapseguen.app.cartList.CartListFrontController</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>CartList</servlet-name>
-  	<url-pattern>*.cl</url-pattern>
-  </servlet-mapping>
+	<servlet>
+		<servlet-name>CartList</servlet-name>
+		<servlet-class>com.bapseguen.app.cartList.CartListFrontController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CartList</servlet-name>
+		<url-pattern>*.cl</url-pattern>
+	</servlet-mapping>
 
 	<!-- Community -->
-  <servlet>
-  	<servlet-name>Community</servlet-name>
-  	<servlet-class>com.bapseguen.app.community.CommunityFrontController</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>Community</servlet-name>
-  	<url-pattern>*.co</url-pattern>
-  </servlet-mapping>
+	<servlet>
+		<servlet-name>Community</servlet-name>
+		<servlet-class>com.bapseguen.app.community.CommunityFrontController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Community</servlet-name>
+		<url-pattern>*.co</url-pattern>
+	</servlet-mapping>
 
 	<!-- FindId -->
-  <servlet>
-  	<servlet-name>FindId</servlet-name>
-  	<servlet-class>com.bapseguen.app.findId.FindIdFrontController</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>FindId</servlet-name>
-  	<url-pattern>*.fi</url-pattern>
-  </servlet-mapping>
+	<servlet>
+		<servlet-name>FindId</servlet-name>
+		<servlet-class>com.bapseguen.app.findId.FindIdFrontController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>FindId</servlet-name>
+		<url-pattern>*.fi</url-pattern>
+	</servlet-mapping>
 
 	<!-- FindPW -->
-  <servlet>
-  	<servlet-name>FindPW</servlet-name>
-  	<servlet-class>com.bapseguen.app.findPW.FindPWFrontController</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>FindPW</servlet-name>
-  	<url-pattern>*.fp</url-pattern>
-  </servlet-mapping>
+	<servlet>
+		<servlet-name>FindPW</servlet-name>
+		<servlet-class>com.bapseguen.app.findPW.FindPWFrontController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>FindPW</servlet-name>
+		<url-pattern>*.fp</url-pattern>
+	</servlet-mapping>
 
 	<!-- Join -->
-  <servlet>
-  	<servlet-name>Join</servlet-name>
-  	<servlet-class>com.bapseguen.app.join.JoinFrontController</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>Join</servlet-name>
-  	<url-pattern>*.jo</url-pattern>
-  </servlet-mapping>
+	<servlet>
+		<servlet-name>Join</servlet-name>
+		<servlet-class>com.bapseguen.app.join.JoinFrontController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Join</servlet-name>
+		<url-pattern>*.jo</url-pattern>
+	</servlet-mapping>
 
 	<!-- Login -->
-  <servlet>
-  	<servlet-name>Login</servlet-name>
-  	<servlet-class>com.bapseguen.app.login.LoginFrontController</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>Login</servlet-name>
-  	<url-pattern>*.lo</url-pattern>
-  </servlet-mapping>
+	<servlet>
+		<servlet-name>Login</servlet-name>
+		<servlet-class>com.bapseguen.app.login.LoginFrontController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>*.lo</url-pattern>
+	</servlet-mapping>
 
 	<!-- Orders -->
-  <servlet>
-  	<servlet-name>Orders</servlet-name>
-  	<servlet-class>com.bapseguen.app.orders.OrdersFrontController</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>Orders</servlet-name>
-  	<url-pattern>*.or</url-pattern>
-  </servlet-mapping>
-  
+	<servlet>
+		<servlet-name>Orders</servlet-name>
+		<servlet-class>com.bapseguen.app.orders.OrdersFrontController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Orders</servlet-name>
+		<url-pattern>*.or</url-pattern>
+	</servlet-mapping>
+
 	<!-- SellerMyPage -->
-  <servlet>
-  	<servlet-name>SellerMyPage</servlet-name>
-  	<servlet-class>com.bapseguen.app.sellerMyPage.SellerMyPageFrontController</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>SellerMyPage</servlet-name>
-  	<url-pattern>*.se</url-pattern>
-  </servlet-mapping>
+	<servlet>
+		<servlet-name>SellerMyPage</servlet-name>
+		<servlet-class>com.bapseguen.app.sellerMyPage.SellerMyPageFrontController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>SellerMyPage</servlet-name>
+		<url-pattern>*.se</url-pattern>
+	</servlet-mapping>
 
 	<!-- UserMyPage -->
-  <servlet>
-  	<servlet-name>UserMyPage</servlet-name>
-  	<servlet-class>com.bapseguen.app.userMyPage.UserMyPageFrontController</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>UserMyPage</servlet-name>
-  	<url-pattern>*.my</url-pattern>
-  </servlet-mapping>
-  
+	<servlet>
+		<servlet-name>UserMyPage</servlet-name>
+		<servlet-class>com.bapseguen.app.userMyPage.UserMyPageFrontController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>UserMyPage</servlet-name>
+		<url-pattern>*.my</url-pattern>
+	</servlet-mapping>
+
 </web-app>

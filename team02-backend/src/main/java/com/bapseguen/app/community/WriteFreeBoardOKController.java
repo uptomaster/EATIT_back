@@ -13,6 +13,7 @@ import com.bapseguen.app.community.dao.CommunityDAO;
 import com.bapseguen.app.dto.FreeBoardDTO;
 import com.bapseguen.app.dto.PostDTO;
 import com.bapseguen.app.dto.PostImageDTO;
+import com.bapseguen.app.img.dao.PostImageDAO;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -21,10 +22,12 @@ public class WriteFreeBoardOKController implements Execute{
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		System.out.println("====WriteFreeBoardOKController 실행====");
 		CommunityDAO communityDAO = new CommunityDAO();
 		PostDTO postDTO=new PostDTO();
 		FreeBoardDTO freeBoardDTO = new FreeBoardDTO(); 
 		Result result = new Result();
+		PostImageDAO postImageDAO =new PostImageDAO();
 		PostImageDTO postImageDTO = new PostImageDTO();
 		
 		//로그인 한 회원 정보 가져오기
@@ -57,7 +60,7 @@ public class WriteFreeBoardOKController implements Execute{
 		
 		//게시글 추가
 		int postNumber = communityDAO.insertPost(postDTO);
-		System.out.println("생성된 게시글 번호 : " + boardNumber);
+		System.out.println("생성된 게시글 번호 : " + postNumber);
 		
 		//파일 업로드 처리
 		//Enumeration : java.util 패키지에 포함된 인터페이스, Iterator와 비슷한 역할함
@@ -71,17 +74,17 @@ public class WriteFreeBoardOKController implements Execute{
 				continue;
 			}
 			
-			fileDTO.setFileSystemName(fileSystemName);
-			fileDTO.setFileOriginalName(fileOriginalName);
-			fileDTO.setBoardNumber(boardNumber);
+			postImageDTO.setPostImageSystemName(fileSystemName);
+			postImageDTO.setPostImageOriginalName(fileOriginalName);
+			postImageDTO.setPostNumber(postNumber);
 			
-			System.out.println("업로드 된 파일 정보 : " + fileDTO);
-			fileDAO.insert(fileDTO);
+			System.out.println("업로드 된 파일 정보 : " + postImageDTO);
+			postImageDAO.insert(postImageDTO);
 		}
 		
-		result.setPath("/board/boardListOk.bo");
-		result.setRedirect(false);
-		
+		result.setPath("/community/freeBoardListOk.co");
+		result.setRedirect(true);
+
 		return result;
 		
 	}

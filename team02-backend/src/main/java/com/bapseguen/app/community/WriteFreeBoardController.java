@@ -23,7 +23,7 @@ public class WriteFreeBoardController implements Execute{
 		
 		if(memberNumber == null) {
 			path = "/app/login/login.jsp";
-		}else {
+		}else{
 			path = "/app/community/writeFreeBoard.jsp";
 		}
 		
