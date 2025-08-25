@@ -15,7 +15,10 @@ public class ReviewWriteDTO {
 	// 메뉴 정보 
 	   private String itemType;
 	   private String itemName;
-	   
+	   // 가게 정보
+	   private String storeName;
+	   private String businessNumber;
+	   	   
 	public int getReviewRating() {
 		return reviewRating;
 	}
@@ -76,13 +79,26 @@ public class ReviewWriteDTO {
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
+
+	public String getStoreName() {
+		return storeName;
+	}
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+	public String getBusinessNumber() {
+		return businessNumber;
+	}
+	public void setBusinessNumber(String businessNumber) {
+		this.businessNumber = businessNumber;
+	}
 	@Override
 	public String toString() {
 		return "ReviewWriteDTO [reviewRating=" + reviewRating + ", reviewContent=" + reviewContent
 				+ ", reviewCreateDate=" + reviewCreateDate + ", ordersDate=" + ordersDate + ", ordersTotalAmount="
 				+ ordersTotalAmount + ", orderItemNumber=" + orderItemNumber + ", orderItemUnitPrice="
 				+ orderItemUnitPrice + ", orderItemQuantity=" + orderItemQuantity + ", itemType=" + itemType
-				+ ", itemName=" + itemName + "]";
+				+ ", itemName=" + itemName + ", storeName=" + storeName + ", businessNumber=" + businessNumber + "]";
 	}
 	   
 }

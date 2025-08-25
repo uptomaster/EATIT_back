@@ -1,24 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="./../../assets/img/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="./../../assets/css/header.css">
-  <link rel="stylesheet" href="./../../assets/css/footer.css">
-  <link rel="stylesheet" href="./../../assets/css/sellerMyPage/ingredientSalesEdit.css">
-  <script defer src="./../../assets/js/sellerMyPage/ingredientSalesEdit.js"></script>
-  <script>
-    let headerPath = '../../header.jsp';
-    let footerPath = '../../footer.jsp';
-  </script>
-  <script defer src="../../assets/js/header.js"></script>
-  <title>밥세권</title>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/sellerMyPage/ingredientSalesEdit.css">
+  <!-- 파비콘 -->
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
+
+  <!-- 헤더 js -->
+  <script defer src="${pageContext.request.contextPath}/assets/js/main.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/footer.js"></script>   
+  <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/sellerMyPage/ingredientSalesEidt.js"></script>
+
+<script>
+    let headerPath = './../../header.jsp';
+    let footerPath = './../../footer.jsp';
+</script>
 </head>
 
 <body>
-  <header id="header"></header>
+  <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
   <main>
     <!-- 좌측 사이드 메뉴 -->
     <div class="ingredient_edit_my_page_list">
@@ -88,7 +95,7 @@
     </div> <!-- 컨텐츠 -->
     </form> <!-- 1100px 영역 -->
   </main>
-  <footer id="footer"></footer>
+  <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </body>
 
 </html>

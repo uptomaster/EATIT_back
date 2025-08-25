@@ -3,34 +3,33 @@
 <mapper namespace="myComment">
 
 	<!--내가 작성한 댓글 조회 -->
-	<select id="myCommentSelect" resultType="CommentDTO">
+	<select id="myCommentSelect" resultType="CommentListDTO">
 	<![CDATA[
 	SELECT * FROM (
 	SELECT ROWNUM AS RNUM, SUBQUERY.*
 		FROM (
-			SELECT COMMENT_NUMBER, POST_NUMBER, MEMBER_NUMBER,COMMENT_CONTENT,COMMENTED_DATE,COMMENT_DELETE_STATE
-			FROM TBL_COMMENT 
-			WHERE MEMBER_NUMBER = #{memberNumber}
-			AND COMMENT_DELETE_STATE = 'N'
-			ORDER BY COMMENTED_DATE DESC
+			SELECT  
+			    P.POST_TYPE AS boardType,
+			    P.POST_TITLE AS postTitle,
+			    C.COMMENT_CONTENT AS commentContent,
+			    TO_CHAR(C.COMMENTED_DATE, 'YYYY-MM-DD') AS commentDate
+			FROM TBL_POST P
+			INNER JOIN TBL_COMMENT C ON P.POST_NUMBER = C.POST_NUMBER
+			WHERE C.COMMENT_DELETE_STATE = 'N'
+			AND C.MEMBER_NUMBER = #{memberNumber}
 	   ) SUBQUERY
-	 )
+	 );
 	]]>
 	</select>
 
 	<!-- 내가 작성한 댓글 조회 -->
 	<select id="myCommentCount" resultType="int">
 		<![CDATA[
-		SELECT count(*) FROM (
-			SELECT ROWNUM AS RNUM, SUBQUERY.*
-				FROM (
-				SELECT COMMENT_NUMBER, POST_NUMBER, MEMBER_NUMBER,COMMENT_CONTENT,COMMENTED_DATE,COMMENT_DELETE_STATE
-				FROM TBL_COMMENT
-				WHERE MEMBER_NUMBER = #{memberNumber}
-				AND COMMENT_DELETE_STATE = 'N'
-				ORDER BY COMMENTED_DATE DESC
-	    	) SUBQUERY
-		 );
+		SELECT count(P.POST_TITLE )
+		FROM TBL_POST P
+		INNER JOIN TBL_COMMENT C ON P.POST_NUMBER = C.POST_NUMBER
+		WHERE C.COMMENT_DELETE_STATE = 'N'
+		AND C.MEMBER_NUMBER = #{memberNumber}
 		]]>
 	</select>
 

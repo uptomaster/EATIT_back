@@ -1,13 +1,8 @@
 @charset "UTF-8";
 
-/* header{
-  width : 1920px;
-  height : 150px;
-} */
 main{
   background-color: #FFF5E4;
   width: 1920px;
-  height: 1950px;
   display: flex;
   flex-direction: row;
 }

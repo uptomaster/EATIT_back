@@ -23,8 +23,8 @@ public class TotalSaleHistoryOkController implements Execute {
 
 	        request.setAttribute("totalSales", list);
 
-	        result.setRedirect(false);
-	        result.setPath("/app//totalSales.jsp");
+//	        result.setRedirect(false);
+//	        result.setPath("/app/SellerMyPage/salesHistoryList.jsp");
 	        return result;
 	    }
 }

@@ -79,8 +79,7 @@ public class IngredientAddOkController implements Execute {
 		}
 
 		result.setRedirect(true);
-		result.setPath(
-				request.getContextPath() + "/seller/ingredient/listOk.se?businessNumber=" + dto.getBusinessNumber());
-		return result;
+			result.setPath("/app/sellerMyPage/foodSalesWrite.jsp");
+			return result;	
 	}
 }

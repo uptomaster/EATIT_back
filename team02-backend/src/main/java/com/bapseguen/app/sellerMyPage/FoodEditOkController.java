@@ -33,14 +33,14 @@ public class FoodEditOkController implements Execute {
         MultipartRequest multipartRequest = new MultipartRequest(request, UPLOAD_PATH, FILE_SIZE, "utf-8", new DefaultFileRenamePolicy());
         
         // 기존 파일 삭제
-        int itemNumber = Integer.parseInt(multipartRequest.getParameter("itemNumber"));
-        List<ItemImageDTO> existingFiles = fileDAO.select(itemNumber);
-        for( ItemImageDTO : existingFiles) {
-        	ItemImageDTO oldFile = new ItemImageDTO(UPLOAD_PATH, file.getFileSystemName());
-            if(oldFile.exists()) {
-                oldFile.delete();
-            }
-        }
+//        int itemNumber = Integer.parseInt(multipartRequest.getParameter("itemNumber"));
+//        List<ItemImageDTO> existingFiles = fileDAO.select(itemNumber);
+//        for( ItemImageDTO : existingFiles) {
+//        	ItemImageDTO oldFile = new ItemImageDTO(UPLOAD_PATH, file.getFileSystemName());
+//            if(oldFile.exists()) {
+//                oldFile.delete();
+//            }
+//        }
         fileDAO.delete(itemNumber);
         
         // 상품 수정

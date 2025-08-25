@@ -14,8 +14,9 @@ public class IngredientEditOkController implements Execute{
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		return null;
+		 result.setRedirect(false);
+			result.setPath("/app/sellerMyPage/foodSalesWrite.jsp");
+			return result;	
 	}
 	
 }
