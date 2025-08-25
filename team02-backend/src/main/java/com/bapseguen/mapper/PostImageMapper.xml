@@ -3,21 +3,26 @@
 <mapper namespace="postImage">
 	<!-- 파일 추가 -->
 	<insert id="insert" parameterType="PostImageDTO">
-		INSERT INTO TBL_POST_IMAGE(postImageSystemName, postImageOriginalName, post_number)
-		VALUES (#{postImageSystemName}, #{postImageOriginalName}, #{post_number})	
+		INSERT INTO TBL_POST_IMAGE(
+		POST_IMAGE_SYSTEM_NAME AS postImageSystemName,
+		POST_IMAGE_ORIGINAL_NAME AS postImageOriginalName,
+		POST_NUMBER AS postNumber)
+		VALUES (#{POST_IMAGE_SYSTEM_NAME}, #{POST_IMAGE_ORIGINAL_NAME}, #{POST_NUMBER})	
 	</insert>
 	
 	<!-- 파일 조회 -->
 	<select id="select" parameterType="int" resultType="PostImageDTO">
-		SELECT postImageSystemName, postImageOriginalName, post_number
+		SELECT POST_IMAGE_SYSTEM_NAME AS postImageSystemName,
+		POST_IMAGE_ORIGINAL_NAME AS postImageOriginalName,
+		POST_NUMBER AS postNumber
 		FROM TBL_POST_IMAGE
-		WHERE post_number = #{postNumber}
+		WHERE POST_NUMBER = #{postNumber}
 	</select>
 	
 	<!-- 파일 삭제 -->
 	<delete id="delete" parameterType="int">
 		DELETE FROM TBL_POST_IMAGE
-		WHERE post_number = #{postNumber}
+		WHERE POST_NUMBER = #{postNumber}
 	</delete>
 
 </mapper>

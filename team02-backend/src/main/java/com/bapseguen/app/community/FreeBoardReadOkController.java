@@ -27,7 +27,7 @@ public class FreeBoardReadOkController implements Execute{
 		String postNumberStr = request.getParameter("postNumber");
 		if(postNumberStr == null || postNumberStr.trim().isEmpty()){
 			System.out.println("postNumber 값이 없습니다");
-			result.setPath("/app/community/freeBoardList.jsp"); //게시글 목록 페이지로 리다이렉트
+			result.setPath("/community/freeBoardListOk.co"); //게시글 목록 페이지로 리다이렉트
 			result.setRedirect(true);
 			return result;
 		}

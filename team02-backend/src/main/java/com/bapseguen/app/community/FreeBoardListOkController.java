@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.community.dao.CommunityDAO;
-import com.bapseguen.app.dto.FreeBoardDTO;
+import com.bapseguen.app.dto.PostDTO;
 
 public class FreeBoardListOkController implements Execute{
 
@@ -36,7 +36,7 @@ public class FreeBoardListOkController implements Execute{
 		pageMap.put("endRow", endRow);
 
 		// 게시글 목록 조회
-		List<FreeBoardDTO> postList = communityDAO.freeselectAll(pageMap);
+		List<PostDTO> postList = communityDAO.postSelectAll(pageMap);
 		request.setAttribute("postList", postList);
 
 		// 페이징 정보 설정
@@ -67,7 +67,7 @@ public class FreeBoardListOkController implements Execute{
 		System.out.println("startPage : " + startPage + ", endPage : " + endPage + ", prev : " + prev + ", next : " + next);
 		System.out.println("====================");
 
-		result.setPath("/community/freeBoardList.jsp");
+		result.setPath("/community/freeBoardReadOk.co");
 		result.setRedirect(false);
 
 		return result;

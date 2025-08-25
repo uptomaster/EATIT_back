@@ -97,7 +97,7 @@
    		
    	
           <!-- 게시글 한 줄 -->
-		<div class="list_row flex_row" role="row">
+		<%-- <div class="list_row flex_row" role="row">
             <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/app/community/viewOtherPost.jsp">밥세권 앱 신규 기능 업데이트 안내</a></div>
             <div class="col_author" role="cell">
               관리자
@@ -253,7 +253,7 @@
             <div class="col_likes" role="cell">38</div>
           </div>
         </div>
-      </section>
+      </section> --%>
 
       <!-- 페이지네이션 들어가는 자리 -->
       <div class="pagination">

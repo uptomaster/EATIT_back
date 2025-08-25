@@ -6,8 +6,10 @@ import com.bapseguen.app.dto.PostImageDTO;
 
 public class PostDetailDTO {
    
-   //게시글정보
-   private String postType; // ‘NOTICE’,’FREE’,’PROMOTION’,’RECIPE’,’INQUIRY’,’FAQ’
+   //게시글정보 
+   private int postNumber;
+   
+private String postType; // ‘NOTICE’,’FREE’,’PROMOTION’,’RECIPE’,’INQUIRY’,’FAQ’
    private String postTitle;
    private String postCreatedDate;
    private String postUpdatedDate;
@@ -38,6 +40,12 @@ public class PostDetailDTO {
    private int memberNumber;
    private String memberId;
    
+   public int getPostNumber() {
+	return postNumber;
+	}
+	public void setPostNumber(int postNumber) {
+		this.postNumber = postNumber;
+	}
    public String getPostType() {
       return postType;
    }

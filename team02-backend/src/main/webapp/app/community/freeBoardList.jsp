@@ -37,10 +37,10 @@
       <!-- 카테고리 -->
       <nav class="community_category">
         <ul>
-          <li><a href="${pageContext.request.contextPath}/app/community/communityMainUser.jsp" id="category_event">공지사항/이벤트</a></li>
-          <li><a href="${pageContext.request.contextPath}/app/community/freeBoardList.jsp" id="category_free" class="active">자유게시판</a></li>
-          <li><a href="${pageContext.request.contextPath}/app/community/promoBoardList.jsp" id="category_advertise">홍보게시판</a></li>
-          <li><a href="${pageContext.request.contextPath}/app/community/recipeList.jsp" id="category_recipe">레시피</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/communityMainOk.co" id="category_event">공지사항/이벤트</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/freeBoardReadOk.co" id="category_free" class="active">자유게시판</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/promoBoardList.jsp" id="category_advertise">홍보게시판</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/recipeList.jsp" id="category_recipe">레시피</a></li>
         </ul>
       </nav>
 
@@ -60,22 +60,23 @@
    			<c:choose>
    				<c:when test="${not empty postList}">
    					<c:forEach var="post" items="${postList}">
-	   					 <div class="board-row">
-	   					 	<div class="board-item no">
+	   					 <div class="board-row list_row flex_row">
+	   					 	<%-- <div class="board-item no">
 	   					 		<c:out value="${post.getPostNumber()}" />
-	   					 	</div>
-	   					 	<div class="board-item title">
-	   					 		<a href="${pageContext.request.contextPath}/community/freeBoardListOk.co?boardNumber=${post.postNumber}">
-	   					 			<c:out value="${post.getPostTitle()}" />
+	   					 	</div> --%>
+
+	   					 	<div class="board-item col_title">
+	   					 		<a href="${pageContext.request.contextPath}/community/freeBoardReadOk.co?boardNumber=${post.postNumber}">
+	   					 			<c:out value="${post.postTitle}" />
 	   					 		</a>
 	   					 	</div>
-	   					 	<div class="board-item author">
+	   					 	<div class="board-item col_author">
 	   					 		<c:out value="${post.getMemberId() }" />
 	   					 	</div>
-	   					 	<div class="board-item date">
+	   					 	<div class="board-item col_date">
 	   					 		<c:out value="${post.getPostCreatedDate() }" />
 	   					 	</div>
-	   					 	<div class="board-item hit">
+	   					 	<div class="board-item col_views">
 	   					 		<c:out value="${post.getPostViewCount() }" />
 	   					 	</div>
 	   					 </div>
@@ -278,7 +279,8 @@
   <!-- <footer id="footer"></footer> -->
 </body>
 <script>
-    	let memberNumber = "${sessionScope.memberNumber}";
+		window.boardNumber = "${board.boardNumber}";
+		window.memberNumber = "${sessionScope.memberNumber}";
 </script>
 
 </html>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -7,25 +8,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>홍보게시판(회원)</title>
-  <link rel="stylesheet" href="./../../assets/css/community/promoBoardList.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/community/promoBoardList.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="./../../assets/css/header.css" />
-  <link rel="stylesheet" href="./../../assets/css/footer.css" />
-  <script defer src="./../../assets/js/community/promoBoardList.js"></script>
-  <script defer src="./../../assets/js/community/loadHeaderFooter.js"></script>
-  <link rel="stylesheet" href="./../../assets/css/community/treeGrade.css">
-  <script defer src="./../../assets/js/community/mouseoverTreeIcon.js"></script>
-  <script defer src="./../../assets/js/community/writePromoBoard.js"></script>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css" />
+  <script defer src="${pageContext.request.contextPath}/assets/js/community/promoBoardList.js"></script>
+
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/community/treeGrade.css">
+  <script defer src="${pageContext.request.contextPath}/assets/js/community/mouseoverTreeIcon.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/community/writePromoBoard.js"></script>
   <script>
-    let headerPath = '../../header_login.html';
-    let footerPath = '../../footer.html';
+    let headerPath = '../../header.jsp';
+    let footerPath = '../../footer.jsp';
   </script>
-  <script defer src="../../assets/js/header.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
 </head>
 
 <body>
-  <header id="header"></header>
+  <!-- <header id="header"></header> -->
+  <jsp:include page="/header.jsp" />
 
   <main>
     <aside class="side_bar"></aside>
@@ -34,10 +36,10 @@
       <!-- 카테고리 -->
       <nav class="community_category">
         <ul>
-          <li><a href="./../../app/community/communityMainUser.html" id="category_event">공지사항/이벤트</a></li>
-          <li><a href="./../../app/community/freeBoardList.html" id="category_free">자유게시판</a></li>
-          <li><a href="./../../app/community/promoBoardList.html" id="category_advertise" class="active">홍보게시판</a></li>
-          <li><a href="./../../app/community/recipeList.html" id="category_recipe">레시피</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/communityMainOk.co" id="category_event">공지사항/이벤트</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/freeBoardReadOk.co" id="category_free">자유게시판</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/promoBoardList.jsp" id="category_advertise" class="active">홍보게시판</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/recipeList.jsp" id="category_recipe">레시피</a></li>
         </ul>
       </nav>
 
@@ -53,11 +55,11 @@
 
         <div id="postListBody" class="list_body" role="rowgroup">
           <div class="list_row flex_row" role="row">
-            <div class="col_title" role="cell"><a href="./../community/viewOtherPost.html">홍대에 새로 오픈한 이탈리안 레스토랑 소개</a>
+            <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/community/viewOtherPost.html">홍대에 새로 오픈한 이탈리안 레스토랑 소개</a>
             </div>
             <div class="col_author" role="cell">
               messi
-              <img src="./../../assets/img/나무.png" alt="나무" class="tree_icon author_profile" />
+              <img src="${pageContext.request.contextPath}/assets/img/나무.png" alt="나무" class="tree_icon author_profile" />
             </div>
             <div class="col_date" role="cell">25-08-01</div>
             <div class="col_views" role="cell">350</div>
@@ -65,11 +67,11 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">카페 여름 시즌 한정 음료 할인
+            <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/community/viewOtherPost.html">카페 여름 시즌 한정 음료 할인
                 행사</a></div>
             <div class="col_author" role="cell">
               ronaldo
-              <img src="./../../assets/img/가지.png" alt="가지" class="tree_icon author_profile" />
+              <img src="${pageContext.request.contextPath}/assets/img/가지.png" alt="가지" class="tree_icon author_profile" />
             </div>
             <div class="col_date" role="cell">25-07-25</div>
             <div class="col_views" role="cell">280</div>
@@ -77,11 +79,11 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">신선한 유기농 채소 식자재 공급
+            <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/community/viewOtherPost.html">신선한 유기농 채소 식자재 공급
                 시작</a></div>
             <div class="col_author" role="cell">
               neymar
-              <img src="./../../assets/img/잎새.png" alt="잎새" class="tree_icon author_profile" />
+              <img src="${pageContext.request.contextPath}/assets/img/잎새.png" alt="잎새" class="tree_icon author_profile" />
             </div>
             <div class="col_date" role="cell">25-08-05</div>
             <div class="col_views" role="cell">220</div>
@@ -89,11 +91,11 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">베이커리 체험단 모집 공고</a>
+            <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/community/viewOtherPost.html">베이커리 체험단 모집 공고</a>
             </div>
             <div class="col_author" role="cell">
               mbappe
-              <img src="./../../assets/img/새싹.png" alt="새싹" class="tree_icon author_profile" />
+              <img src="${pageContext.request.contextPath}/assets/img/새싹.png" alt="새싹" class="tree_icon author_profile" />
             </div>
             <div class="col_date" role="cell">25-07-20</div>
             <div class="col_views" role="cell">180</div>
@@ -101,11 +103,11 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">예약 시스템 신규 도입 안내</a>
+            <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/community/viewOtherPost.html">예약 시스템 신규 도입 안내</a>
             </div>
             <div class="col_author" role="cell">
               salah
-              <img src="./../../assets/img/씨앗.png" alt="씨앗" class="tree_icon author_profile" />
+              <img src="${pageContext.request.contextPath}/assets/img/씨앗.png" alt="씨앗" class="tree_icon author_profile" />
             </div>
             <div class="col_date" role="cell">25-07-15</div>
             <div class="col_views" role="cell">150</div>
@@ -113,11 +115,11 @@
           </div>
 
           <div class="list_row flex_row" role="row">
-            <div class="col_title" role="cell"><a href="./../../app/community/viewOtherPost.html">점심시간 스페셜 메뉴 할인 이벤트</a>
+            <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/community/viewOtherPost.html">점심시간 스페셜 메뉴 할인 이벤트</a>
             </div>
             <div class="col_author" role="cell">
               kane
-              <img src="./../../assets/img/나무.png" alt="나무" class="tree_icon author_profile" />
+              <img src="${pageContext.request.contextPath}/assets/img/나무.png" alt="나무" class="tree_icon author_profile" />
             </div>
             <div class="col_date" role="cell">25-07-10</div>
             <div class="col_views" role="cell">170</div>
@@ -143,7 +145,7 @@
           </div>
 
           <div class="write_form">
-            <a href="./../community/writePromoBoard.html" id="writeBtn">글쓰기</a>
+            <a href="${pageContext.request.contextPath}/community/writeFreeBoard.co?postType=RECIPE" id="writeBtn">글쓰기</a>
           </div>
         </div>
       </div>
@@ -152,7 +154,11 @@
     <aside class="side_bar"></aside>
   </main>
 
-  <footer id="footer"></footer>
+ <!--  <footer id="footer"></footer> -->
+  <jsp:include page="/footer.jsp" />
 </body>
-
+<script>
+		window.boardNumber = "${board.boardNumber}";
+		window.memberNumber = "${sessionScope.memberNumber}";
+</script>
 </html>
