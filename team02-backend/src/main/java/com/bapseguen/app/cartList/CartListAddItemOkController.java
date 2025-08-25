@@ -25,7 +25,7 @@ public class CartListAddItemOkController implements Execute {
         Result result = new Result();
         HttpSession session = request.getSession();
 
-        // ✅ 로그인 확인
+        // 로그인 확인
         Integer memberNumber = (Integer) session.getAttribute("memberNumber");
         if (memberNumber == null) {
             result.setPath(request.getContextPath() + "/login/login.lo");
@@ -33,7 +33,7 @@ public class CartListAddItemOkController implements Execute {
             return result;
         }
 
-        // ✅ 파라미터 파싱
+        // 파라미터 파싱
         int itemNumber = parseInt(request.getParameter("itemNumber"), -1);
         int quantity = parseInt(request.getParameter("quantity"), 1);
 
@@ -44,7 +44,7 @@ public class CartListAddItemOkController implements Execute {
             return result;
         }
 
-        // ✅ 아이템 스냅샷 조회
+        // 아이템 스냅샷 조회
         ItemDAO itemDAO = new ItemDAO();
         ItemSnapshotDTO snap = itemDAO.selectSnapshot(itemNumber);
 
@@ -68,7 +68,7 @@ public class CartListAddItemOkController implements Execute {
             return result;
         }
 
-        // ✅ 담으려는 상품의 가게번호 / 가격 확정
+        // 담으려는 상품의 가게번호 / 가격 확정
         String newBusinessNumber = snap.getBusinessNumber();
         Integer itemPrice = snap.getItemPrice();
 
