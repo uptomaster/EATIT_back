@@ -41,13 +41,13 @@ public class SellerMyPageDAO {
 	
 	
 	//sellerInfo 정보 채우는 메소드
-	public SellerInfoDTO takeSellerInfoDTO(String businessNumber) {
-		System.out.println("[판페DAO] seller의 모든 정보 불러오기===");
-		System.out.println("회원 번호 : "+businessNumber);
-        SellerInfoDTO seller = sqlSession.selectOne("seller.takeSellerinfo", businessNumber);
-        System.out.println(seller);
-        return seller;
-	}
+//	public SellerInfoDTO takeSellerInfoDTO(String businessNumber) {
+//		System.out.println("[판페DAO] seller의 모든 정보 불러오기===");
+//		System.out.println("회원 번호 : "+businessNumber);
+//        SellerInfoDTO seller = sqlSession.selectOne("seller.takeSellerinfo", businessNumber);
+//        System.out.println(seller);
+//        return seller;
+//	}
 	// ***메뉴 등록***************************************************************************** //	
     
     // 메뉴 사진 저장
