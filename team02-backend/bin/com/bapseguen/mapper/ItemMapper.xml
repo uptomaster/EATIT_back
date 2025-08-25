@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -5,23 +6,24 @@
 <mapper namespace="item">
 
 	<!-- 아이템 스냅샷: 장바구니 담기 검증/가격결정용 -->
+	
+	<!-- 장바구니 담기 전에 해당 상품의 가격, 수량, 판매 가능 여부가 유효한지 확인할 때 필요. -->
 	<select id="snapshot" parameterType="int"
-		resultType="com.bapseguen.app.dto.view.ItemSnapshotDTO">
+		resultType="ItemSnapshotDTO">
 		SELECT
-		i.ITEM_NUMBER AS itemNumber,
-		i.BUSINESS_NUMBER AS businessNumber,
-		i.ITEM_NAME AS itemName,
-		i.ITEM_PRICE AS itemPrice,
-		i.ITEM_QUANTITY AS itemQuantity,
-		i.ITEM_SELL_STATE AS itemSellState
-		FROM TBL_ITEM i
-		WHERE i.ITEM_NUMBER = #{itemNumber}
+		ITEM_NUMBER AS itemNumber,
+		BUSINESS_NUMBER AS businessNumber,
+		ITEM_NAME AS itemName,
+		ITEM_PRICE AS itemPrice,
+		ITEM_QUANTITY AS itemQuantity,
+		ITEM_SELL_STATE AS itemSellState
+		FROM TBL_ITEM
+		WHERE ITEM_NUMBER = #{itemNumber}
 	</select>
 
 
 	<!-- 가게별/타입별 판매중 아이템 목록 (페이지네이션) -->
-	<select id="list" parameterType="map"
-		resultType="com.bapseguen.app.dto.view.ItemWithImgDTO">
+	<select id="list" parameterType="map" resultType="ItemWithImgDTO">
 		SELECT
 		i.ITEM_NUMBER AS itemNumber,
 		i.BUSINESS_NUMBER AS businessNumber,
@@ -42,9 +44,11 @@
 		WHERE ii.ITEM_NUMBER = i.ITEM_NUMBER
 		FETCH FIRST 1 ROWS ONLY) AS itemImageSystemName
 		FROM TBL_ITEM i
+		<!-- 상호명이 필요해서 tbl_store와 조인 -->
 		JOIN TBL_STORE s ON i.BUSINESS_NUMBER = s.BUSINESS_NUMBER
 		WHERE i.BUSINESS_NUMBER = #{businessNumber}
 		AND i.ITEM_TYPE = #{itemType}
+		<!-- 판매 중인 것만 가져옴 -->
 		AND i.ITEM_SELL_STATE = 'Y'
 		ORDER BY i.ITEM_NUMBER DESC
 		<if test="offset != null and limit != null">
@@ -65,11 +69,11 @@
 
 	<!-- 전체 음식/재료 목록 (메인 storeList.jsp 용) -->
 	<select id="selectAllItems" parameterType="map"
-		resultType="com.bapseguen.app.dto.view.ItemWithImgDTO">
+		resultType="ItemWithImgDTO">
 		SELECT
 		i.ITEM_NUMBER,
 		i.BUSINESS_NUMBER,
-		s.STORE_NAME AS businessName,   <!-- ✅ 상호명 -->
+		s.STORE_NAME AS businessName,
 		i.ITEM_TYPE,
 		i.ITEM_NAME,
 		i.ITEM_PRICE,
@@ -100,7 +104,7 @@
 
 	<!-- 상품 이미지 목록 -->
 	<select id="selectItemImages" parameterType="int"
-		resultType="com.bapseguen.app.dto.ItemImageDTO">
+		resultType="ItemImageDTO">
 		SELECT ITEM_IMAGE_NUMBER,
 		ITEM_IMAGE_SYSTEM_NAME AS itemImageSystemName,
 		ITEM_IMAGE_ORIGINAL_NAME AS itemImageOriginalName,
@@ -113,7 +117,7 @@
 
 	<!-- 검색 + 목록 -->
 	<select id="searchItems" parameterType="map"
-		resultType="com.bapseguen.app.dto.view.ItemWithImgDTO">
+		resultType="ItemWithImgDTO">
 		SELECT I.ITEM_NUMBER,
 		I.BUSINESS_NUMBER,
 		S.STORE_NAME AS businessName,

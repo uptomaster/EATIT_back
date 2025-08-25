@@ -8,7 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>adminLogin</title>
 <script defer src="./../../assets/js/admin/memberList.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/memberList.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/admin/memberList.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
 	integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -24,17 +25,21 @@
 				src="./../../assets/img/admin_logo.png" alt="admin_logo"
 				class="admin_logo"></a>
 			<ul class="sidebar_ul">
-				<a href="./../../app/admin/dashboard.html"><li
+				<a href="${pageContext.request.contextPath}/app/admin/dashboard.jsp"><li
 					id="sidebar_list_dashboard" class="sidebar_list">대쉬보드</li></a>
-				<a href="./../../app/admin/memberList.html"><li
+				<a href="${pageContext.request.contextPath}/admin/memberlistlist.ad"><li
 					id="sidebar_list_member" class="sidebar_list">회원관리</li></a>
-				<a href="./../../app/admin/postTradeList.html"><li
+				<a
+					href="${pageContext.request.contextPath}/app/admin/postTradeList.jsp"><li
 					id="sidebar_list_community" class="sidebar_list">게시글 관리</li></a>
-				<a href="./../../app/admin/reportList.html"><li
+				<a
+					href="${pageContext.request.contextPath}/app/admin/reportList.jsp"><li
 					id="sidebar_list_warning" class="sidebar_list">신고관리</li></a>
-				<a href="./../../app/admin/bannerList.html"><li
+				<a
+					href="${pageContext.request.contextPath}/app/admin/bannerList.jsp"><li
 					id="sidebar_list_banner" class="sidebar_list">배너/광고</li></a>
-				<a href="./../../app/admin/adminCustomerService.html"><li
+				<a
+					href="${pageContext.request.contextPath}/app/admin/adminCustomerService.jsp"><li
 					id="sidebar_list_customerservice" class="sidebar_list">고객센터</li></a>
 			</ul>
 			<button id="admin_logoutbtn">로그아웃</button>
@@ -72,7 +77,8 @@
 											<c:out value="${member.getMemberNumber()}" />
 										</p>
 										<p id="admin_list_userid_value" class="admin_list_row">
-											<a href="${pageContext.request.contextPath}/app/admin/memberDetail.jsp"
+											<a
+												href="${pageContext.request.contextPath}/app/admin/memberDetail.jsp"
 												class="admin_list_userid_link"><c:out
 													value="${member.getMemberId()}" /></a>
 										</p>

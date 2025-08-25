@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="main">
+
+	<select id="" resultType="StoreDTO">
+		SELECT
+		s.STORE_NAME,
+		i.ITEM_NAME,
+		i.ITEM_PRICE,
+		s.STORE_OPEN_TIME,
+		s.STORE_CLOSE_TIME
+		FROM
+		TBL_STORE s
+		JOIN
+		TBL_ITEM i
+		ON
+		s.BUSINESS_NUMBER = i.BUSINESS_NUMBER
+	</select>
+
+</mapper>
