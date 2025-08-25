@@ -66,6 +66,16 @@ public class CommentListDTO {
 	public int getCommtentCount() {
 		return commtentCount;
 	}
+
+	public void setPostTitle(String postTitle) {
+		this.postTitle = postTitle;
+	}
+	public void setPostType(String postType) {
+		this.postType = postType;
+	}
+	public void setCommtentCount(int commtentCount) {
+		this.commtentCount = commtentCount;
+	}
 	@Override
 	public String toString() {
 		return "CommentListDTO [commentNumber=" + commentNumber + ", postNumber=" + postNumber + ", memberNumber="
@@ -73,6 +83,7 @@ public class CommentListDTO {
 				+ ", commentDeleteState=" + commentDeleteState + ", memberId=" + memberId + ", postTitle=" + postTitle
 				+ ", postType=" + postType + ", commtentCount=" + commtentCount + "]";
 	}
+	
 	
 	  
 	

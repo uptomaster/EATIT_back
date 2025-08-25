@@ -110,5 +110,5 @@
     </div><!-- 1100px 영역 끝-->
   </main>
 </body>
-
+  <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </html>

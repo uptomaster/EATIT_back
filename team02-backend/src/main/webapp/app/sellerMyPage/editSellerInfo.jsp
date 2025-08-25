@@ -208,7 +208,7 @@
       </div>
     </form> <!-- 1100px 영역 끝-->
   </main>
-  <footer id="footer"></footer>
+  <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </body>
 
 </html>

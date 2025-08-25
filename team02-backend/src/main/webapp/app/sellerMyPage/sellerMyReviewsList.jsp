@@ -79,7 +79,7 @@
       </div>
     </div>
   </main>
-  <footer id="footer"></footer>
+  <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </body>
 
 </html>

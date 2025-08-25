@@ -95,8 +95,7 @@
 		</form>
 		<!-- 1100px 영역 -->
 	</main>
-	<footer id="footer"></footer>
-		<script src="${pagetContext.request.contextPath}/assets/js/board/boardWrite.js"></script>
+  <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </body>
 
 </html>
