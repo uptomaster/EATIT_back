@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="item">
+
+	<!-- 아이템 스냅샷: 장바구니 담기 검증/가격결정용 -->
+	
+	<!-- 장바구니 담기 전에 해당 상품의 가격, 수량, 판매 가능 여부가 유효한지 확인할 때 필요. -->
+	<select id="snapshot" parameterType="int"
+		resultType="ItemSnapshotDTO">
+		SELECT
+		ITEM_NUMBER AS itemNumber,
+		BUSINESS_NUMBER AS businessNumber,
+		ITEM_NAME AS itemName,
+		ITEM_PRICE AS itemPrice,
+		ITEM_QUANTITY AS itemQuantity,
+		ITEM_SELL_STATE AS itemSellState
+		FROM TBL_ITEM
+		WHERE ITEM_NUMBER = #{itemNumber}
+	</select>
+
+
+	<!-- 가게별/타입별 판매중 아이템 목록 (페이지네이션) -->
+	<select id="list" parameterType="map" resultType="ItemWithImgDTO">
+		SELECT
+		i.ITEM_NUMBER AS itemNumber,
+		i.BUSINESS_NUMBER AS businessNumber,
+		s.STORE_NAME AS businessName,
+		i.ITEM_TYPE AS itemType,
+		i.ITEM_NAME AS itemName,
+		i.ITEM_PRICE AS itemPrice,
+		i.ITEM_CONTENT AS itemContent,
+		i.ITEM_QUANTITY AS itemQuantity,
+		i.ITEM_ORIGIN AS itemOrigin,
+		TO_CHAR(i.ITEM_EXPIRE_DATE, 'YYYY-MM-DD') AS itemExpireDate,
+		TO_CHAR(i.ITEM_CREATED_TIME, 'YYYY-MM-DD HH24:MI:SS') AS itemCreatedTime,
+		TO_CHAR(i.ITEM_UPDATED_TIME, 'YYYY-MM-DD HH24:MI:SS') AS
+		itemUpdatedTime,
+		i.ITEM_SELL_STATE AS itemSellState,
+		(SELECT ii.ITEM_IMAGE_SYSTEM_NAME
+		FROM TBL_ITEM_IMAGE ii
+		WHERE ii.ITEM_NUMBER = i.ITEM_NUMBER
+		FETCH FIRST 1 ROWS ONLY) AS itemImageSystemName
+		FROM TBL_ITEM i
+		<!-- 상호명이 필요해서 tbl_store와 조인 -->
+		JOIN TBL_STORE s ON i.BUSINESS_NUMBER = s.BUSINESS_NUMBER
+		WHERE i.BUSINESS_NUMBER = #{businessNumber}
+		AND i.ITEM_TYPE = #{itemType}
+		<!-- 판매 중인 것만 가져옴 -->
+		AND i.ITEM_SELL_STATE = 'Y'
+		ORDER BY i.ITEM_NUMBER DESC
+		<if test="offset != null and limit != null">
+			OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
+		</if>
+	</select>
+
+
+	<!-- 목록 개수 (페이지네이션 총건수) -->
+	<select id="count" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		FROM TBL_ITEM
+		WHERE BUSINESS_NUMBER = #{businessNumber}
+		AND ITEM_TYPE = #{itemType}
+		AND ITEM_SELL_STATE = 'Y'
+	</select>
+
+
+	<!-- 전체 음식/재료 목록 (메인 storeList.jsp 용) -->
+	<select id="selectAllItems" parameterType="map"
+		resultType="ItemWithImgDTO">
+		SELECT
+		i.ITEM_NUMBER,
+		i.BUSINESS_NUMBER,
+		s.STORE_NAME AS businessName,
+		i.ITEM_TYPE,
+		i.ITEM_NAME,
+		i.ITEM_PRICE,
+		(SELECT ii.ITEM_IMAGE_SYSTEM_NAME
+		FROM TBL_ITEM_IMAGE ii
+		WHERE ii.ITEM_NUMBER = i.ITEM_NUMBER
+		FETCH FIRST 1 ROWS ONLY) AS itemImageSystemName
+		FROM TBL_ITEM i
+		JOIN TBL_STORE s ON i.BUSINESS_NUMBER = s.BUSINESS_NUMBER
+		WHERE i.ITEM_TYPE = #{itemType}
+		AND i.ITEM_SELL_STATE = 'Y'
+		ORDER BY i.ITEM_NUMBER DESC
+		<if test="offset != null and limit != null">
+			OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
+		</if>
+	</select>
+
+
+	<!-- 전체 개수 -->
+	<select id="countAllItems" parameterType="string"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM TBL_ITEM
+		WHERE ITEM_TYPE = #{itemType}
+		AND ITEM_SELL_STATE = 'Y'
+	</select>
+
+
+	<!-- 상품 이미지 목록 -->
+	<select id="selectItemImages" parameterType="int"
+		resultType="ItemImageDTO">
+		SELECT ITEM_IMAGE_NUMBER,
+		ITEM_IMAGE_SYSTEM_NAME AS itemImageSystemName,
+		ITEM_IMAGE_ORIGINAL_NAME AS itemImageOriginalName,
+		ITEM_NUMBER
+		FROM TBL_ITEM_IMAGE
+		WHERE ITEM_NUMBER = #{itemNumber}
+		ORDER BY ITEM_IMAGE_NUMBER ASC
+	</select>
+
+
+	<!-- 검색 + 목록 -->
+	<select id="searchItems" parameterType="map"
+		resultType="ItemWithImgDTO">
+		SELECT I.ITEM_NUMBER,
+		I.BUSINESS_NUMBER,
+		S.STORE_NAME AS businessName,
+		I.ITEM_TYPE,
+		I.ITEM_NAME,
+		I.ITEM_PRICE,
+		I.ITEM_CONTENT,
+		I.ITEM_QUANTITY,
+		I.ITEM_ORIGIN,
+		TO_CHAR(I.ITEM_EXPIRE_DATE, 'YYYY-MM-DD') AS itemExpireDate,
+		I.ITEM_SELL_STATE,
+		(SELECT ii.ITEM_IMAGE_SYSTEM_NAME
+		FROM TBL_ITEM_IMAGE ii
+		WHERE ii.ITEM_NUMBER = I.ITEM_NUMBER
+		FETCH FIRST 1 ROWS ONLY) AS itemImageSystemName
+		FROM TBL_ITEM I
+		JOIN TBL_STORE S ON I.BUSINESS_NUMBER = S.BUSINESS_NUMBER
+		WHERE I.ITEM_TYPE = #{itemType}
+		AND I.ITEM_SELL_STATE = 'Y'
+		<if test="q != null and q != ''">
+			AND (
+			I.ITEM_NAME LIKE '%' || #{q} || '%'
+			OR I.ITEM_CONTENT LIKE '%' || #{q} || '%'
+			OR S.STORE_NAME LIKE '%' || #{q} || '%'
+			)
+		</if>
+		ORDER BY I.ITEM_NUMBER DESC
+		OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
+	</select>
+
+
+	<!-- 검색 + 총 개수 -->
+	<select id="countSearchItems" parameterType="map" resultType="int">
+	  SELECT COUNT(*)
+	  FROM TBL_ITEM I
+	  JOIN TBL_STORE S ON I.BUSINESS_NUMBER = S.BUSINESS_NUMBER
+	  WHERE I.ITEM_TYPE = #{itemType}
+	    AND I.ITEM_SELL_STATE = 'Y'
+	    <if test="q != null and q != ''">
+	      AND (
+	           I.ITEM_NAME LIKE '%' || #{q} || '%'
+	        OR I.ITEM_CONTENT LIKE '%' || #{q} || '%'
+	        OR S.STORE_NAME LIKE '%' || #{q} || '%'
+	      )
+	    </if>
+	</select>
+
+	
+		<!-- 상품 상세 조회 -->
+	<select id="selectItemDetail" parameterType="int" resultType="ItemWithImgDTO">
+	  SELECT
+	    i.ITEM_NUMBER AS itemNumber,
+	    i.BUSINESS_NUMBER AS businessNumber,
+	    s.STORE_NAME AS businessName,
+	    i.ITEM_TYPE AS itemType,
+	    i.ITEM_NAME AS itemName,
+	    i.ITEM_PRICE AS itemPrice,
+	    i.ITEM_CONTENT AS itemContent,
+	    i.ITEM_QUANTITY AS itemQuantity,
+	    i.ITEM_ORIGIN AS itemOrigin,
+	    TO_CHAR(i.ITEM_EXPIRE_DATE, 'YYYY-MM-DD') AS itemExpireDate,
+	    TO_CHAR(i.ITEM_CREATED_TIME, 'YYYY-MM-DD HH24:MI:SS') AS itemCreatedTime,
+	    TO_CHAR(i.ITEM_UPDATED_TIME, 'YYYY-MM-DD HH24:MI:SS') AS itemUpdatedTime,
+	    i.ITEM_SELL_STATE AS itemSellState,
+	    (SELECT ii.ITEM_IMAGE_SYSTEM_NAME
+	       FROM TBL_ITEM_IMAGE ii
+	      WHERE ii.ITEM_NUMBER = i.ITEM_NUMBER
+	      FETCH FIRST 1 ROWS ONLY) AS itemImageSystemName
+	  FROM TBL_ITEM i
+	  JOIN TBL_STORE s ON i.BUSINESS_NUMBER = s.BUSINESS_NUMBER
+	  WHERE i.ITEM_NUMBER = #{itemNumber}
+</select>
+	
+	
+
+
+</mapper>

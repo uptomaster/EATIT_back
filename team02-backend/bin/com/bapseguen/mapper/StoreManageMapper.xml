@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="storeManage">
+	<!-- 마지막 아이템 번호 가져오기 -->
+	<select id="selectLastitemNumber" resultType="int"></select>
+	<!-- 음식 판매 등록 -->
+	<insert id="addFood" parameterType="ItemWithImgDTO">
+		<selectKey keyProperty="itemNumebr" resultType="int" order="BEFORE">
+			SELECT SEQ_ITEM_NUMBER.NEXTVAL FROM dual
+		</selectKey>
+		INSERT INTO TBL_ITEM (
+			item_number,business_number,item_type,item_name,item_price,item_content,
+			item_quantity,item_origin,item_expire_date,item_created_date
+		) VALUES (
+			#{itemNumber},#{businessNumber},'FOOD',#{itemName},#{itemPrice},#{itemContent},
+			#{itemQuantity},#{itemOrigin},#{itemExpireDate},SYSDATE
+		)
+	</insert>
+	<!-- 마지막 아이템 번호 불러오기 -->
+	<select id="getLastItemNumber" resultType="int">
+	SELECT MAX(item_number)
+	FROM TBL_ITEM 
+	WHERE BUSINESS_NUMBER = #{businessNumber};
+	</select>
+
+	<!-- 음식 판매 상세 조회 -->
+	<select id="detaileFood" parameterType="int" resultType="ItemWithImgDTO">
+		<![CDATA[
+		SELECT * FROM (
+			SELECT ROWNUM AS RNUM, SUBQUERY.* FROM (
+				SELECT 
+						i.item_number, BUSINESS_NUMBER, item_name, item_price, item_content, 
+						item_quantity, item_origin,	item_expire_date, item_sell_state,
+						(SELECT nvl(m.ITEM_IMAGE_SYSTEM_NAME, NULL) FROM tbl_item_image m WHERE i.item_number = m.ITEM_NUMBER) AS image
+					from tbl_item i 
+					--JOIN TBL_ITEM_IMAGE m ON i.item_number = m.ITEM_NUMBER
+					where item_number =	#{itemNumber}
+				)SUBQUERY
+		) WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+		]]>
+	</select>
+
+	<!-- 음식 판매 수정 -->
+	<update id="editFood" parameterType="ItemDTO">
+		UPDATE TBL_ITEM SET
+			ITEM_NAME= #{itemName}, ITEM_PRICE = #{itemPrice}, ITEM_CONTENT	= #{itemContent},
+			ITEM_QUANTITY = #{itemQuantity}, ITEM_ORIGIN = #{itemOrigin}, ITEM_UPDATED_TIME = SYSDATE
+		WHERE ITEM_NUMBER =	#{itemNumber}
+		AND ITEM_TYPE = 'FOOD'
+	</update>
+
+	<!-- 음식 판매 삭제 -->
+	<delete id="deleteFood" parameterType="int">
+		DELETE FROM tbl_item
+		where item_number = #{itemNumber}
+		and item_type = 'FOOD'
+	</delete>
+
+	<!-- 음식 목록 조회 -->
+	<select id="foodList" resultType="ItemWithImgDTO">
+	<![CDATA[
+		SELECT * FROM (
+			SELECT ROWNUM AS RNUM, SUBQUERY.* FROM (
+				SELECT 
+					i.item_name,i.item_price,i.item_content,i.item_quantity,i.item_origin,i.item_expire_date,
+					im.item_image_system_name
+				FROM TBL_ITEM i
+				JOIN TBL_STORE s ON i.business_number = s.business_number
+				LEFT JOIN TBL_ITEM_IMAGE im ON i.item_number = im.item_number
+				WHERE i.business_number = #{businessNumber} and item_type = 'FOOD'
+				ORDER BY i.item_number DESC
+			) SUBQUERY
+		) WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+		
+	]]>
+	</select>
+
+
+
+
+	<!-- 재료 판매 등록 -->
+	<insert id="addIngredient" parameterType="ItemDTO">
+		<selectKey keyProperty="itemNumebr" resultType="int"
+			order="BEFORE">
+			SELECT SEQ_ITEM_NUMBER.NEXTVAL FROM dual
+		</selectKey>
+		INSERT INTO TBL_ITEM (
+			item_number,
+			business_number,item_type,item_name,item_price,item_content,
+			item_quantity,item_origin,item_expire_date,item_created_date
+		) VALUES (
+			#{itemNumber},#{businessNumber},'INGREDIENT',#{itemName},#{itemPrice},#{itemContent},
+			#{itemQuantity},#{itemOrigin},#{itemExpireDate},SYSDATE
+		)
+	</insert>
+	<!-- 재료 판매 상세 조회 -->
+	<select id="detaileIngredient" parameterType="int">
+		select
+		item_name,item_price,item_content,item_quantity,item_origin,item_expire_date, item_sell_state
+		from tbl_item
+		where item_number =	#{itemNumber}
+	</select>
+	<!-- 재료 판매 수정 -->
+	<update id="editIngredient" parameterType="ItemDTO">
+		UPDATE TBL_ITEM SET
+		ITEM_NAME= #{itemName}, ITEM_PRICE = #{itemPrice}, ITEM_CONTENT	= #{itemContent},
+		ITEM_QUANTITY = #{itemQuantity}, ITEM_ORIGIN = #{itemOrigin}, ITEM_UPDATED_TIME = SYSDATE
+		WHERE ITEM_NUMBER =	#{itemNumber}
+		AND ITEM_TYPE = 'INGREDIENT'
+	</update>
+	<!-- 재료 판매 삭제 -->
+	<delete id="deleteingredient" parameterType="int">
+		DELETE FROM tbl_item
+		where item_number = #{itemNumber}
+		and item_type = 'INGREDIENT'
+	</delete>
+
+	<!-- 재료 판매 목록 조회 -->
+	<select id="ingredientList"	parameterType="String" resultType="ItemWithImgDTO">
+	<![CDATA[
+	SELECT * FROM (
+		SELECT ROWNUM AS RNUM, SUBQUERY.* FROM(
+		SELECT
+				i.item_name,i.item_price,i.item_content,i.item_quantity,i.item_origin,i.item_expire_date,
+				im.item_image_system_name
+			FROM TBL_ITEM i
+			JOIN TBL_STORE s ON i.business_number = s.business_number
+			LEFT JOIN TBL_ITEM_IMAGE im ON i.item_number = im.item_number
+			WHERE i.business_number = #{businessNumber} and item_type = 'INGREDIENT'
+			ORDER BY i.item_number DESC
+			)SUBQUERY
+		) WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+	]]>
+	</select>
+
+	<!-- 움삭 메뉴 중복 확인 -->
+	<select id="alreadyfood" parameterType="ItemDTO"
+		resultType="int">
+		select count(item_number) from tbl_item
+		where item_name =
+		#{itemName} and item_type = 'FOOD' and business_number = #{businessNumber}
+	</select>
+
+	<!-- 음식 사진 등록 -->
+	<insert id="addItemImage" parameterType="Map">
+		<selectKey keyProperty="ItemImageNumber" resultType="int">
+			select seq_item_image_number.nextval from dual
+		</selectKey>
+		INSERT INTO TBL_ITEM_IMAGE (
+			item_image_number,
+			ITEM_NUMBER,
+			ITEM_IMAGE_SYSTEM_NAME,
+			ITEM_IMAGE_ORIGINAL_NAME
+		)
+		SELECT
+			#{itemImageNumber},
+			#{itemNumber},
+			#{itemImageSystemName},
+			#{itemImageOriginalName}
+		FROM DUAL
+	</insert>
+
+	<!-- 가게 정보 조회 -->
+	<!-- 가게 정보 조회 -->
+	<select id="selectStoreInfo" parameterType="String"
+		resultType="StoreDTO">
+		SELECT
+		business_number,
+		member_number,
+		store_name,
+		store_open_date,
+		store_tel,
+		store_address,
+		store_address_detail,
+		store_zip_code
+		FROM tbl_store
+		WHERE business_number = #{businessNumber}
+	</select>
+
+
+	<!-- 판매내역 -->
+	<!-- 오늘 판매 내역 -->
+	<select id="todaySaleHistory" parameterType="String">
+	SELECT 
+    o.orders_number,
+    o.orders_date,
+    o.orders_total_amount,
+    oi.order_item_quantity,
+    i.item_name,
+    i.item_price,
+    m.member_id,
+    m.member_phone_number
+	FROM TBL_ORDERS o
+	JOIN TBL_ORDER_ITEM oi ON o.orders_number = oi.orders_number
+	JOIN TBL_ITEM i ON oi.item_number = i.item_number
+	JOIN TBL_MEMBER m ON o.orders_member_number = m.member_number
+	WHERE i.business_number = #{businessNumber}
+    AND TRUNC(o.orders_date) = TRUNC(SYSDATE)
+	</select>
+
+	<!-- 총 판매 내역 -->
+	<select id="totalSaleHistory" parameterType="String">
+		SELECT
+		o.orders_number,
+		o.orders_date,
+		o.orders_total_amount,
+		oi.order_item_quantity,
+		i.item_name,
+		i.item_price,
+		m.member_id
+		FROM TBL_ORDERS o
+		JOIN TBL_ORDER_ITEM oi ON o.orders_number = oi.orders_number
+		JOIN TBL_ITEM i ON oi.item_number = i.item_number
+		JOIN TBL_MEMBER m ON o.orders_member_number = m.member_number
+		WHERE i.business_number = #{businessNumber}
+		ORDER BY o.orders_date DESC 
+	</select>
+	
+	
+	
+</mapper>

@@ -58,7 +58,7 @@
 		<div class="header_nav_dropdown">
 			<ul class="header_nav_buy">
 				<li><a
-					href="${pageContext.request.contextPath}/community/customerServiceListOk.co">음식 구매</a></li>
+					href="${pageContext.request.contextPath}/orders/storeList.or">음식 구매</a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/orders/ingredientList.or">재료 구매</a></li>
 			</ul>
