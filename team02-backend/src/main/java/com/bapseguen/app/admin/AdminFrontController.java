@@ -207,7 +207,7 @@ public class AdminFrontController extends HttpServlet {
 
         /* =================== 기본/예외 =====================*/
         default:
-            System.out.println("⚠️ [ADMIN] 잘못된 요청 → 대시보드로 리다이렉트");
+            System.out.println(" [ADMIN] 잘못된 요청 => 대시보드로 리다이렉트");
             result = new Result();
             result.setPath(request.getContextPath() + "/admin/dashboard.ad");
             result.setRedirect(true);
@@ -217,10 +217,10 @@ public class AdminFrontController extends HttpServlet {
         // 공통 이동 처리
         if (result != null) {
             if (result.isRedirect()) {
-                System.out.println("▶ 리다이렉트 이동 → " + result.getPath());
+                System.out.println(" 리다이렉트 이동 → " + result.getPath());
                 response.sendRedirect(result.getPath());
             } else {
-                System.out.println("▶ 포워드 이동 → " + result.getPath());
+                System.out.println(" 포워드 이동 → " + result.getPath());
                 request.getRequestDispatcher(result.getPath()).forward(request, response);
             }
         }

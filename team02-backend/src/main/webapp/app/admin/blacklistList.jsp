@@ -1,110 +1,108 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>adminLogin</title>
-  <script defer src="./../../assets/js/admin/blacklistList.js"></script>
-  <link rel="stylesheet" href="./../../assets/css/admin/blacklistList.css">
+  <title>블랙리스트</title>
+  <script defer src="${pageContext.request.contextPath}/assets/js/admin/blacklistList.js"></script>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/blacklistList.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-  integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-  crossorigin="anonymous" referrerpolicy="no-referrer" />
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-  <!-- 회색영역 -->
   <div class="admin_innerwrapper">
     <!-- 좌측 사이드바 -->
     <aside class="sidebar">
-      <!-- 관리자페이지 로고 -->
-      <a href="./../../app/admin/dashboard.html"><img src="./../../assets/img/admin_logo.png" alt="admin_logo" class="admin_logo"></a>
+      <a href="${pageContext.request.contextPath}/admin/dashboard.ad">
+        <img src="${pageContext.request.contextPath}/assets/img/admin_logo.png" alt="admin_logo" class="admin_logo">
+      </a>
       <ul class="sidebar_ul">
-        <a href="./../../app/admin/dashboard.html"><li id="sidebar_list_dashboard" class="sidebar_list">대쉬보드</li></a>
-        <a href="./../../app/admin/memberList.html"><li id="sidebar_list_member" class="sidebar_list">회원관리</li></a>
-        <a href="./../../app/admin/postTradeList.html"><li id="sidebar_list_community" class="sidebar_list">게시글 관리</li></a>
-        <a href="./../../app/admin/reportList.html"><li id="sidebar_list_warning"class="sidebar_list">신고관리</li></a>
-        <a href="./../../app/admin/bannerList.html"><li id="sidebar_list_banner"class="sidebar_list">배너/광고</li></a>
-        <a href="./../../app/admin/adminCustomerService.html"><li id="sidebar_list_customerservice"class="sidebar_list">고객센터</li></a>
+        <li class="sidebar_list"><a href="${pageContext.request.contextPath}/admin/dashboard.ad">대시보드</a></li>
+        <li class="sidebar_list"><a href="${pageContext.request.contextPath}/admin/member/list.ad">회원관리</a></li>
+        <li class="sidebar_list"><a href="${pageContext.request.contextPath}/admin/postTrade/list.ad">게시글 관리</a></li>
+        <li class="sidebar_list" id="sidebar_list_warning"><a href="${pageContext.request.contextPath}/admin/report/list.ad">신고관리</a></li>
+        <li class="sidebar_list"><a href="${pageContext.request.contextPath}/admin/banner/list.ad">배너/광고</a></li>
+        <li class="sidebar_list"><a href="${pageContext.request.contextPath}/admin/inquiry/list.ad">고객센터</a></li>
       </ul>
-      <!-- 로그아웃 버튼 -->
-      <button id="admin_logoutbtn">로그아웃</button>
+      <form action="${pageContext.request.contextPath}/admin/logoutOk.ad" method="post">
+        <button id="admin_logoutbtn">로그아웃</button>
+      </form>
     </aside>
+
     <!-- 메인컨텐츠 영역 -->
     <div class="admin_inner">
-      <h1 class="admin_pagetitle">신고관리</h1>
+      <h1 class="admin_pagetitle">신고관리 - 블랙리스트</h1>
       <div class="admin_listwrapper">
+
+        <!-- 탭 메뉴 -->
         <div class="admin_list_title">
           <ul class="admin_list">
-            <a href="./../../app/admin/reportList.html">
-              <li id="admin_list_menu_warning" class="admin_list_menu">신고목록</li>
-            </a>
-            <a href="./../../app/admin/suspendedMemberList.html">
-              <li id="admin_list_menu_ban" class="admin_list_menu">정지회원목록</li>
-            </a>
-            <a href="./../../app/admin/blacklistList.html">
-              <li id="admin_list_menu_blacklist" class="admin_list_menu">블랙리스트</li>
-            </a>
-          </ul>
-        </div>
-        <div class="admin_list_whitebox">
-          <div class="admin_list_namebox">
-            <!-- 컬럼 명 -->
-            <ul class="admin_list_name">
-              <li id="admin_list_num" class="admin_list_row">번호</li>
-              <li id="admin_list_userid" class="admin_list_row">아이디</li>
-              <li id="admin_list_name" class="admin_list_row">이름</li>
-              <li id="admin_list_case" class="admin_list_row">유형</li>
-              <li id="admin_list_warning" class="admin_list_row">누적경고수</li>
-              <li id="admin_list_blackedDate" class="admin_list_row">블랙날짜</li>
-            </ul>
-          </div>        
-          <!-- 글 목록 행 -->
-          <ul class="admin_list_valuebox">
-            <li class="admin_list_value">
-              <p id="admin_list_num_value" class="admin_list_row">1</p>
-              <a href="./../../app/admin/memberDetail.html"><p id="admin_list_userid_value" class="admin_list_row"><img class="grade_icon" src="./../../assets/img/나무.png" alt="">gisu</p></a>
-              <p id="admin_list_name_value" class="admin_list_row">김기수</p>
-              <p id="admin_list_case_value" class="admin_list_row">개인</p>
-              <p id="admin_list_warning_value" class="admin_list_row">3</p>
-              <p id="admin_list_blackedDate_value" class="admin_list_row">25-08-09</p>           
+            <li class="admin_list_menu">
+              <a href="${pageContext.request.contextPath}/admin/report/list.ad">신고목록</a>
+            </li>
+            <li class="admin_list_menu">
+              <a href="${pageContext.request.contextPath}/admin/suspend/list.ad">정지회원목록</a>
+            </li>
+            <li class="admin_list_menu" id="admin_list_menu_blacklist">
+              <a href="${pageContext.request.contextPath}/admin/blacklist/list.ad">블랙리스트</a>
             </li>
           </ul>
-        </div> 
-        <!-- 페이지네이션, 검색창 -->
-        <div class="admin_pagenation_search">
-          <div class="admin_pagenation">
-            <a href="#">
-            1
-           </a>
-            <a href="#">
-            2
-            </a>
-            <a href="#">
-            3
-           </a>
-           <a href="#">
-            4
-          </a>
+        </div>
+
+        <!-- 컬럼 헤더 -->
+        <div class="admin_list_whitebox">
+          <div class="admin_list_namebox">
+            <ul class="admin_list_name">
+              <li class="admin_list_row">번호</li>
+              <li class="admin_list_row">회원번호</li>
+              <li class="admin_list_row">블랙등록일</li>
+            </ul>
           </div>
-          <form action="" method="get">
+
+          <!-- 실제 블랙리스트 목록 -->
+          <ul class="admin_list_valuebox">
+            <c:choose>
+              <c:when test="${not empty blacklist}">
+                <c:forEach var="b" items="${blacklist}">
+                  <li class="admin_list_value">
+                    <p class="admin_list_row">${b.blacklistNumber}</p>
+                    <p class="admin_list_row">${b.memberNumber}</p>
+                    <p class="admin_list_row">${b.blacklistStartDate}</p>
+                  </li>
+                </c:forEach>
+              </c:when>
+              <c:otherwise>
+                <li class="admin_list_value">
+                  <p class="admin_list_row">블랙리스트 회원이 없습니다.</p>
+                </li>
+              </c:otherwise>
+            </c:choose>
+          </ul>
+        </div>
+
+        <!-- 검색창 -->
+        <div class="admin_pagenation_search">
+          <form action="${pageContext.request.contextPath}/admin/blacklist/list.ad" method="get">
             <div class="admin_search">
-                  <!-- 태그 -->
-              <select class="admin_notice_category">
-                <option value="notice">아이디</option>
-                <option value="notice">이름</option>
-                <option value="notice">유형</option>
+              <select class="admin_notice_category" name="searchType">
+                <option value="id">아이디</option>
+                <option value="name">이름</option>
+                <option value="type">유형</option>
               </select>
-              <!-- 검색 영역 -->
-            <input type="text" id="search_word" name="search_word">
-            <button class="search_btn" type="submit">
-              <i class="fas fa-search"></i>
-            </button>
+              <input type="text" id="search_word" name="searchWord" value="${searchWord}">
+              <button class="search_btn" type="submit">
+                <i class="fas fa-search"></i>
+              </button>
             </div>
           </form>
-        </div> 
-      </div>  
+        </div>
+
+      </div>
     </div>
   </div>
 </body>
-</html>  
+</html>

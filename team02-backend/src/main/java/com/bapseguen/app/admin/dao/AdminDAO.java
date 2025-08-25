@@ -154,7 +154,8 @@ public class AdminDAO {
 		return sqlSession.selectOne("admin.memberListCount", pageMap);
 	}
 
-	public MemberDTO selectMemberDetail(int memberNumber) {
+	// 회원 상세
+	public MemberDetailDTO selectMemberDetail(int memberNumber) {
 		return sqlSession.selectOne("admin.selectMemberDetail", memberNumber);
 	}
 
@@ -183,22 +184,29 @@ public class AdminDAO {
 		return sqlSession.selectOne("admin.countActiveBanners");
 	}
 
-	// 경고주기
-	public void giveWarning(int memberNumber, String memberType, int warningCount) {
-		if ("GENERAL".equalsIgnoreCase(memberType)) {
-			sqlSession.update("admin.increaseWarningCount", memberNumber);
-		} else if ("SELLER".equalsIgnoreCase(memberType)) {
-			sqlSession.update("admin.increaseWarningCountSeller", memberNumber);
-		}
-
-		// 경고가 2회 이상이면 블랙리스트 등록
-		if (warningCount + 1 >= 2) {
-			sqlSession.insert("admin.insertBlacklistMember", memberNumber);
-		}
-	}
-	
-	public int memberListCount() {
-	    return sqlSession.selectOne("admin.memberListCount", new HashMap<String, Object>());
+	// 대시보드 그래프 (최근 6개월 회원수)
+	public List<Map<String, Object>> countMonthlyMembers() {
+		return sqlSession.selectList("admin.countMonthlyMembers");
 	}
 
+	/* ===================== 회원 제재 ===================== */
+	// 회원 타입 조회
+	public String getMemberType(int memberNumber) {
+		return sqlSession.selectOne("admin.getMemberType", memberNumber);
+	}
+
+	// 일반 회원 경고 증가
+	public int increaseWarningCount(int memberNumber) {
+		return sqlSession.update("admin.increaseWarningCount", memberNumber);
+	}
+
+	// 판매자 경고 증가
+	public int increaseWarningCountSeller(int memberNumber) {
+		return sqlSession.update("admin.increaseWarningCountSeller", memberNumber);
+	}
+
+	// 현재 경고 횟수 조회
+	public int getWarningCount(int memberNumber) {
+		return sqlSession.selectOne("admin.getWarningCount", memberNumber);
+	}
 }
