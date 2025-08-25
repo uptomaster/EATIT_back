@@ -20,7 +20,7 @@ public class CartListDAO {
         return sqlSession.selectOne("cartList.open", dto);
     }
 
-    /** 장바구니 없는 상태일때 생성하ㄱ;ㅣ */
+    /** 장바구니 없는 상태일때 생성하기 */
     public void insertCartIfNotExists(CartDTO dto) {
         sqlSession.insert("cartList.createIfNone", dto);
     }
