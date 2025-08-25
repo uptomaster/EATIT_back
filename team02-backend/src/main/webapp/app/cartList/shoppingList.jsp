@@ -65,9 +65,12 @@
 											name="cartItemNumber" value="${item.cartItemNumber}">
 
 										<!-- 이미지 -->
-										<img
-											src="${empty item.imagePath ? pageContext.request.contextPath+'/assets/img/placeholder.png' : item.imagePath}"
+										<c:url value="/assets/img/placeholder.png" var="placeholder" />
+										<c:url value="/upload/item/${item.imagePath}" var="itemImg" />
+
+										<img src="${empty item.imagePath ? placeholder : itemImg}"
 											alt="${item.itemName}">
+
 
 										<!-- 상품 정보 -->
 										<div class="shopping_item_info">

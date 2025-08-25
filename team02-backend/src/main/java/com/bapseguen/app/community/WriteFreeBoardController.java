@@ -34,7 +34,7 @@ public class WriteFreeBoardController implements Execute{
 		// 클릭한 게시판 타입 분기처리
 		String postType = request.getParameter("postType");
 		   if(postType == null || postType.isEmpty()) {
-	        postType = "NOTICE"; // 기본값 자유게시판
+	        postType = "FREE"; // 기본값 자유게시판
 		}
 		request.setAttribute("postType", postType);
 		

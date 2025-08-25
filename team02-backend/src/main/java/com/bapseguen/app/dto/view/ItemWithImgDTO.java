@@ -9,11 +9,19 @@ public class ItemWithImgDTO {
 	private String itemPrice; // 삼품가격
 	private String itemContent; // 상품설명
 	private int itemQuantity; // 상품 수량
-//	private String itemOrigin; //상품 원산지
+	private String itemOrigin; //상품 원산지
 	private String itemExpireDate; // 소비기한
 	private String itemCreatedTime; // 상품 등록일
 	private String itemUpdatedTime; // 상품 수정일
 	private boolean itemSellState; // 판매 여부 "판매중(y)","보관중"(n),
+
+	public String getItemOrigin() {
+		return itemOrigin;
+	}
+
+	public void setItemOrigin(String itemOrigin) {
+		this.itemOrigin = itemOrigin;
+	}
 
 	private String businessName; // 상호명 -> tbl_store랑 조인할거임
 
@@ -146,11 +154,15 @@ public class ItemWithImgDTO {
 	public String toString() {
 		return "ItemWithImgDTO [itemNumber=" + itemNumber + ", businessNumber=" + businessNumber + ", itemType="
 				+ itemType + ", itemName=" + itemName + ", itemPrice=" + itemPrice + ", itemContent=" + itemContent
-				+ ", itemQuantity=" + itemQuantity + ", itemExpireDate=" + itemExpireDate + ", itemCreatedTime="
-				+ itemCreatedTime + ", itemUpdatedTime=" + itemUpdatedTime + ", itemSellState=" + itemSellState
-				+ ", businessName=" + businessName + ", itemImageNumber=" + itemImageNumber + ", itemImageSystemName="
-				+ itemImageSystemName + ", itemImageOriginalName=" + itemImageOriginalName + "]";
+				+ ", itemQuantity=" + itemQuantity + ", itemOrigin=" + itemOrigin + ", itemExpireDate=" + itemExpireDate
+				+ ", itemCreatedTime=" + itemCreatedTime + ", itemUpdatedTime=" + itemUpdatedTime + ", itemSellState="
+				+ itemSellState + ", businessName=" + businessName + ", itemImageNumber=" + itemImageNumber
+				+ ", itemImageSystemName=" + itemImageSystemName + ", itemImageOriginalName=" + itemImageOriginalName
+				+ "]";
 	}
+
+
+	
 
 
 }
