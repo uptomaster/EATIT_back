@@ -77,6 +77,17 @@ public class CommunityDAO {
 	public void update(PostDetailDTO postDetailDTO) {
 		sqlSession.update("post.postUpdate", postDetailDTO);
 	}
+	
+	// 게시글 추가 후 자동으로 생성된 boardNumber 반환 -> 파일 테이블에서도 써야하기 때문에
+	public int insertPost(PostDTO postDTO) {
+		int insert = sqlSession.insert("post.insert", postDTO);
+		System.out.println(postDTO + "출력");
+		//System.out.println(postDTO.getBoardContent() + "출력 === ");
+		System.out.println("게시글 작성 - insertBoard 메소드 실행 ");
+		System.out.println("insert 결과 : " + insert);
+		System.out.println("생성된 boardNumber : " + postDTO.getPostNumber());
+		return postDTO.getPostNumber();
+	}
 
 	// 내가 작성한 게시글 목록 조회
 	public List<PostDTO> myPostSelect(Map<String, Integer> pageMap) {
