@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bapseguen.app.Result;
+
 /**
  * Servlet implementation class MainFrontController
  */
@@ -40,6 +42,16 @@ public class MainFrontController extends HttpServlet {
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
+		
+		String target = request.getRequestURI().substring(request.getContextPath().length());
+		System.out.println("AdminFrontController 현재 경로 : " + target);
+
+		Result result = null;
+		
+		switch(target) {
+//		음식점 목록 조회
+		case "main/
+		}
 		}
 
 }
