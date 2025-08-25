@@ -86,12 +86,12 @@
 
 	<!-- FindPW -->
 	<servlet>
-		<servlet-name>FindPW</servlet-name>
-		<servlet-class>com.bapseguen.app.findPW.FindPWFrontController</servlet-class>
+		<servlet-name>FindPw</servlet-name>
+		<servlet-class>com.bapseguen.app.findPw.FindPwFrontController</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
-		<servlet-name>FindPW</servlet-name>
+		<servlet-name>FindPw</servlet-name>
 		<url-pattern>*.fp</url-pattern>
 	</servlet-mapping>
 
