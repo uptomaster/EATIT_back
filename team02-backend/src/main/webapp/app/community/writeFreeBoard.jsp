@@ -73,8 +73,7 @@
         </div>
 
         <div class="button_group">
-          <!-- <button type="reset" class="cancel_btn">작성 취소</button> -->
-          <a class="cancel_btn" href="${pageContext.request.contextPath}/community/FreeBoardList.jsp">작성 취소</a>
+          <button type="submit" class="cancel_btn">작성 취소</button>
           <button type="submit" class="submit_btn">작성 완료</button>
         </div>
       </form>

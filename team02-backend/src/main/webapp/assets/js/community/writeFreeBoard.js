@@ -8,13 +8,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const cancelBtn = document.querySelector(".cancel_btn");
   const submitBtn = document.querySelector(".submit_btn");
 
-  // 작성 취소 버튼 클릭 시
+// 작성 취소 버튼 클릭 시
   cancelBtn.addEventListener("click", (e) => {
     e.preventDefault();
     const confirmCancel = confirm("작성 중인 글이 취소됩니다. 정말 취소하시겠습니까?");
     if (confirmCancel) {
       // 자유게시판 목록 페이지로 이동
-      window.location.href = "/community/FreeBoardList.jsp";
+      window.location.href = "app/community/FreeBoardList.jsp";
     }
   });
 
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("글이 성공적으로 작성되었습니다.");
 
       // 해당 글 조회 페이지로 이동
-      window.location.href = "/community/viewOtherPost.jsp";
+      window.location.href = "app/community/viewOtherPost.jsp";
     }
   });
 });
