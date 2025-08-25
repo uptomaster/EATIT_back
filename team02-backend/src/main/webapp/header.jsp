@@ -47,7 +47,7 @@
 				<li><a
 					href="${pageContext.request.contextPath}/orders/storeList.or">구매</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/community/communityMainGuest.co">커뮤니티</a></li>
+					href="${pageContext.request.contextPath}/community/communityMainOk.co">커뮤니티</a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/community/customerServiceList.co">고객센터</a></li>
 			</ul>
@@ -58,19 +58,19 @@
 		<div class="header_nav_dropdown">
 			<ul class="header_nav_buy">
 				<li><a
-					href="${pageContext.request.contextPath}/orders/storeList.or">음식 구매</a></li>
+					href="${pageContext.request.contextPath}/community/customerServiceListOk.co">음식 구매</a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/orders/ingredientList.or">재료 구매</a></li>
 			</ul>
 			<ul class="header_nav_commu">
 				<li><a
-					href="${pageContext.request.contextPath}/community/communityMainGuest.co">공지사항/이벤트</a></li>
+					href="${pageContext.request.contextPath}/community/communityMainOk.co">공지사항/이벤트</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/community/freeBoardListGuest.co">자유게시판</a></li>
+					href="${pageContext.request.contextPath}/community/freeBoardListOk.co">자유게시판</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/community/promoBoardListGuest.co">홍보게시판</a></li>
+					href="${pageContext.request.contextPath}/community/promoBoardListOk.co">홍보게시판</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/community/recipeListGuest.co">레시피공유</a></li>
+					href="${pageContext.request.contextPath}/community/recipeListOk.co">레시피공유</a></li>
 			</ul>
 		</div>
 	</div>
