@@ -328,7 +328,7 @@
 		) SUBQUERY
 		)WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
-
+	
 	<select id="memberListCount" resultType="int">
 		SELECT count(*) FROM (
 		SELECT ROWNUM AS RNUM, SUBQUERY.*

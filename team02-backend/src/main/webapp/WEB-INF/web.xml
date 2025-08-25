@@ -15,7 +15,16 @@
     <welcome-file>main.jsp</welcome-file>
   </welcome-file-list>
   
- 
+ 	<!-- Img -->
+ 	<servlet>
+ 		<servlet-name>Img</servlet-name>
+ 		<servlet-class>com.bapseguen.app.img.PostImageController</servlet-class>
+ 	</servlet>
+ 	
+ 	<servlet-mapping>
+ 		<servlet-name>Img</servlet-name>
+		<url-pattern>*.im</url-pattern> 		
+ 	</servlet-mapping>
   
   <!-- Admin -->
   <servlet>
