@@ -30,7 +30,8 @@ public class SellerStoreInfoController implements Execute{
 	        // 로그인된 사업자 번호를 세션에서 가져오기
 	        HttpSession session = request.getSession(); // 기존 세션만 사용
 	        String businessNumber = (String) session.getAttribute("businessNumber");
-	        Integer businessNumberInt = Integer.getInteger(businessNumber);
+//	        int businessNumberInt = Integer.valueOf(businessNumber);
+//	        System.out.println("사업자 번호 "+businessNumberInt);
 	        Integer memberNumber = (Integer) session.getAttribute("memberNumber");
 	        System.out.println("[사업장관리] 사업자번호: "+businessNumber);
 	        System.out.println("[사업장관리] 세션: "+session);
@@ -55,23 +56,23 @@ public class SellerStoreInfoController implements Execute{
 			Map<String, Integer> foodpageMap = new HashMap<>();
 			foodpageMap.put("startRow", startRow);
 			foodpageMap.put("endRow", endRow);
-			foodpageMap.put("businessNumber", businessNumberInt);
+//			foodpageMap.put("businessNumber", (Integer) businessNumberInt);
 			
 			Map<String, Integer> ingrepageMap = new HashMap<>();
 			ingrepageMap.put("startRow", startRow);
 			ingrepageMap.put("endRow", endRow);
-			foodpageMap.put("businessNumber", businessNumberInt);
+//			foodpageMap.put("businessNumber", (Integer) businessNumberInt);
 
 	        
 	        // 가게 정보 조회
 //	        SellerInfoDTO storeInfo = sellerDAO.selectStoreInfo(businessNumber);
 	        
 	        // 음식 판매 목록 조회
-	        List<ItemWithImgDTO> foodList = sellerDAO.foodList(foodpageMap);
+	        List<ItemWithImgDTO> foodList = sellerDAO.foodList(foodpageMap, businessNumber);
 	        System.out.println("foodList : "+foodList);
 			request.setAttribute("foodList", foodList); // null 오류 수정
 			// 음식 판매 목록 조회
-			List<ItemWithImgDTO> ingreList = sellerDAO.ingredientList(ingrepageMap);
+			List<ItemWithImgDTO> ingreList = sellerDAO.ingredientList(ingrepageMap, businessNumber);
 			System.out.println("foodList : "+foodList);
 			request.setAttribute("foodList", foodList); // null 오류 수정
 
