@@ -26,7 +26,7 @@
 	<!--조회수 쿼리  -->
 	<update id="postUpdateReadCount" parameterType="int">
 		UPDATE TBL_POST
-		SET POST_READ_COUNT=POST_READ_COUNT+1
+		SET POST_VIEW_COUNT=POST_VIEW_COUNT+1
 		WHERE POST_NUMBER=#{postNumber}
 	</update>
 	

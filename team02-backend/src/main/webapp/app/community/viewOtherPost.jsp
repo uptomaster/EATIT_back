@@ -63,7 +63,7 @@
 		  <div class="post_header">
 		    <!-- 게시글 제목 -->
 		    <div class="post_title">
-		      <h1 class="post_title">자유게시판이다아</h1>
+		      <!-- <h1 class="post_title">자유게시판이다아</h1> -->
 		      <h1><c:out value="${post.getPostTitle()}" /></h1>
 		    </div>
 		
