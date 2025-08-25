@@ -17,5 +17,4 @@
 
 
 - 이정훈
-- 맡은 부분 : 관리자페이지, 메인, 헤더, 푸터
 - AdminMapper.xml -> AdminDAO -> AdminFrontController -> MemberListController -> memberList.jsp
