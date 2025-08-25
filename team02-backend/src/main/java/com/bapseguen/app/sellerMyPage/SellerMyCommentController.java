@@ -12,8 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
-import com.bapseguen.app.dto.CommentDTO;
-import com.bapseguen.app.dto.view.PostDetailDTO;
+import com.bapseguen.app.dto.view.CommentListDTO;
 import com.bapseguen.app.sellerMyPage.dao.SellerMyPageDAO;
 
 public class SellerMyCommentController implements Execute{
@@ -24,6 +23,7 @@ public class SellerMyCommentController implements Execute{
 		
 		System.out.println("[판페] SellerMyCommentController 진입 성공 ===");
 		SellerMyPageDAO sellerDAO = new SellerMyPageDAO();
+		CommentListDTO commetDTO = new CommentListDTO();
 		HttpSession session = request.getSession(false);
 		int memberNumber = (int) session.getAttribute("memberNumber");
 		System.out.println("세션의 회원번호 : "+memberNumber);
@@ -45,7 +45,7 @@ public class SellerMyCommentController implements Execute{
 		pageMap.put("memberNumber", memberNumber);
 		
 		// 게시글 목록 조회
-		List<CommenListDTO> myCommentList = sellerDAO.selectAllmyComment(pageMap);
+		List<CommentListDTO> myCommentList = sellerDAO.selectAllmyComment(pageMap);
 		request.setAttribute("myCommentList", myCommentList);
 
 		// 페이징 정보 설정

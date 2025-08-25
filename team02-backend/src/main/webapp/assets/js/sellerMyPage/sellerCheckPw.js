@@ -1,18 +1,3 @@
-window.addEventListener('DOMContentLoaded', () => {
-	// 헤더 불러오기
-	fetch('./../../header_login.html')
-		.then(response => response.text())
-		.then(data => {
-			document.getElementById('header').innerHTML = data;
-		});
-
-	// 푸터 불러오기
-	fetch('./../../footer.html')
-		.then(response => response.text())
-		.then(data => {
-			document.getElementById('footer').innerHTML = data;
-		});
-});
 
 document.addEventListener("DOMContentLoaded", () => {
 	// 예시: 올바른 비밀번호 (실제로는 서버에서 확인해야 함)

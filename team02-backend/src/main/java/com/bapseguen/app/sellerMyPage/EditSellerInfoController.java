@@ -15,9 +15,11 @@ public class EditSellerInfoController implements Execute{
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		Result result = new Result();
 		
-		// TODO Auto-generated method stub
-		return null;
+		result.setRedirect(true);
+		result.setPath("/app/sellerMyPage/editSellerInfo.jsp");
+		return result;
 	}
 	 
 }

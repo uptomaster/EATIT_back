@@ -92,8 +92,9 @@ public class FoodAddOkController implements Execute {
 			System.out.println("업로드 된 파일 정보 : " + ItemImageDTO);
 			ItemImageDAO.insert(ItemImageDTO);
 		}
-
-		return result;
+		 result.setRedirect(false);
+			result.setPath("/app/sellerMyPage/foodSalesWrite.jsp");
+			return result;	
 	}
 
 }

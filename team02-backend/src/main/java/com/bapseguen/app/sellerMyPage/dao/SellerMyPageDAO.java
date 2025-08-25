@@ -11,6 +11,7 @@ import com.bapseguen.app.dto.ItemDTO;
 import com.bapseguen.app.dto.ItemImageDTO;
 import com.bapseguen.app.dto.OriginDTO;
 import com.bapseguen.app.dto.ReviewDTO;
+import com.bapseguen.app.dto.view.CommentListDTO;
 import com.bapseguen.app.dto.view.ItemWithImgDTO;
 import com.bapseguen.app.dto.view.MemberListDTO;
 import com.bapseguen.app.dto.view.PostDetailDTO;
@@ -40,11 +41,13 @@ public class SellerMyPageDAO {
 	
 	
 	//sellerInfo 정보 채우는 메소드
-//	public SellerInfoDTO takeSellerInfoDTO(int memberNumber) {
-//		System.out.println("[판페DAO] seller의 모든 정보 불러오기===");
-//		System.out.println("회원 번호 : "+memberNumber);
-//        return sqlSession.selectOne("seller.takeSellerinfo", memberNumber);
-//	}
+	public SellerInfoDTO takeSellerInfoDTO(String businessNumber) {
+		System.out.println("[판페DAO] seller의 모든 정보 불러오기===");
+		System.out.println("회원 번호 : "+businessNumber);
+        SellerInfoDTO seller = sqlSession.selectOne("seller.takeSellerinfo", businessNumber);
+        System.out.println(seller);
+        return seller;
+	}
 	// ***메뉴 등록***************************************************************************** //	
     
     // 메뉴 사진 저장
@@ -62,7 +65,7 @@ public class SellerMyPageDAO {
     }
 
     //음식 판매 목록
-    public List<ItemWithImgDTO> foodList(Map<String, Integer> pageMap) {
+    public List<ItemWithImgDTO> foodList(Map<String, Object> pageMap) {
     	System.out.println("[판페DAO] 음식판매목록 - foodList 메소드 실행");
     	System.out.println("[판페DAO] 음식판매목록 map :"+pageMap.toString());
     	System.out.println("[판페DAO] 사업자 번호 : "+pageMap.get("businessNumber"));
@@ -144,7 +147,7 @@ public class SellerMyPageDAO {
         return sqlSession.delete("storeManage.deleteingredient", itemNumber);
     }
     // 재료 판매 목록
-    public List<ItemWithImgDTO> ingredientList(Map<String, Integer> pageMap) {
+    public List<ItemWithImgDTO> ingredientList(Map<String, Object> pageMap) {
     	System.out.println("[판페] 재료판매목록 - ingredientList 메소드 실행");
     	System.out.println("사업자번호 : "+pageMap.get("businessNumber"));
     	
@@ -209,9 +212,9 @@ public class SellerMyPageDAO {
     
     // // 내 댓글 관리 
     // 내 댓글 관리
-    public List<CommentDTO> selectAllmyComment(Map<String, Integer> pageMap) {
+    public List<CommentListDTO> selectAllmyComment(Map<String, Integer> pageMap) {
 		System.out.println("모든 게시글 조회하기 - selectAllmypost 메소드 실행 : " + pageMap);
-		List<CommentDTO> list = sqlSession.selectList("myComment.myPostSelect", pageMap);
+		List<CommentListDTO> list = sqlSession.selectList("myComment.myCommentSelect", pageMap);
 		System.out.println("조회결과 : " + list);
 		return list;
 	}

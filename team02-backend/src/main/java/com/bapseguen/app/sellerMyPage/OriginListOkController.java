@@ -15,9 +15,10 @@ public class OriginListOkController implements Execute {
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		
-		
-		return null;
+		Result result = new Result();
+		 result.setRedirect(false);
+			result.setPath("/app/sellerMyPage/OriginList.jsp");
+			return result;	
 	}
 	 
 }

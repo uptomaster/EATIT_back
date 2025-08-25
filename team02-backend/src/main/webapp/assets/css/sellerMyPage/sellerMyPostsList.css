@@ -1,9 +1,9 @@
 @charset "UTF-8";
-
-/* header{
-  width : 1920px;
-  height : 150px;
-} */
+* {
+  margin: 0;
+  padding: 0;
+  /* box-sizing: border-box; */
+}
 main{
   background-color: #FFF5E4;
   width: 1920px;

@@ -30,7 +30,7 @@ public class AlreadyFoodOkController implements Execute {
 //        request.setAttribute("alreadyFoodCount", count);
 
         result.setRedirect(false);
-        result.setPath("/app/store/foodAlreadyCheck.jsp");
+        result.setPath("/app/sellerMyPage/storeInfo.jsp");
         return result;
     }
 }
