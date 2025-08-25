@@ -24,6 +24,7 @@ public class IngredientListController implements Execute {
 
         // 기본 파라미터
         String q = request.getParameter("q");
+        // 인기순, 최신순, 가격순
         String sort = request.getParameter("sort");
         String pageParam = request.getParameter("page");
 
