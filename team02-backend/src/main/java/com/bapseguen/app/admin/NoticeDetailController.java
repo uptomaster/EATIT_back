@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 
-public class BannerRegisterOkController implements Execute{
+public class NoticeDetailController implements Execute{
 
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response)

@@ -138,10 +138,12 @@
 					<form action="" method="get">
 						<div class="admin_search">
 							<!-- 태그 선택 -->
-							<select class="admin_notice_category">
-								<option value="notice">아이디</option>
-								<option value="notice">이름</option>
-							</select> <input type="text" id="search_word" name="search_word">
+							<select class="admin_notice_category" name="searchType">
+								<option value="id" ${searchType == 'id' ? 'selected' : ''}>아이디</option>
+								<option value="name" ${searchType == 'name' ? 'selected' : ''}>이름</option>
+								<option value="type" ${searchType == 'type' ? 'selected' : ''}>회원유형</option>
+							</select> <input type="text" id="search_word" name="searchWord"
+								value="${searchWord}">
 							<button class="search_btn" type="submit">
 								<i class="fas fa-search"></i>
 							</button>
