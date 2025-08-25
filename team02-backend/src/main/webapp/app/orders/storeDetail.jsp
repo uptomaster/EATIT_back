@@ -38,9 +38,8 @@
               <img src="${ph}" alt="기본 이미지">
             </c:otherwise>
           </c:choose>
-
           <div class="buy_store_info_detail">
-            <p class="buy_store_name">${item.itemName}</p>
+            <p class="buy_store_name">상호명 : ${item.businessName}</p>
             <p class="buy_store_address">사업자번호 : ${item.businessNumber}</p>
           </div>
         </div>

@@ -16,164 +16,141 @@ import com.bapseguen.app.dto.CartItemDTO;
 import com.bapseguen.app.dto.view.ItemSnapshotDTO;
 import com.bapseguen.app.item.dao.ItemDAO;
 
-// 장바구니에 메뉴를 담으면 보여질 화면.
 public class CartListAddItemOkController implements Execute {
 
-	@Override
-	public Result execute(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    @Override
+    public Result execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		Result result = new Result();
-		HttpSession session = request.getSession();
+        Result result = new Result();
+        HttpSession session = request.getSession();
 
-		Integer memberNumber = (Integer) request.getSession().getAttribute("memberNumber");
-		if (memberNumber == null) {
-			// 회원번호가 없으면 로그인페이지로 경로 설정
-			result.setPath(request.getContextPath() + "/member/login.me");
-			result.setRedirect(true);
-			return result;
-		}
+        // ✅ 로그인 확인
+        Integer memberNumber = (Integer) session.getAttribute("memberNumber");
+        if (memberNumber == null) {
+            result.setPath(request.getContextPath() + "/login/login.lo");
+            result.setRedirect(true);
+            return result;
+        }
 
-		// 파라미터 파싱
-		int itemNumber = parseInt(request.getParameter("itemNumber"), -1);
-		int quantity = parseInt(request.getParameter("quantity"), 1);
+        // ✅ 파라미터 파싱
+        int itemNumber = parseInt(request.getParameter("itemNumber"), -1);
+        int quantity = parseInt(request.getParameter("quantity"), 1);
 
-		if (itemNumber <= 0 || quantity <= 0) {
-			session.setAttribute("cartError", "잘못된 요청입니다.");
-			result.setPath(request.getContextPath() + "/cartList/view.cl");
-			result.setRedirect(true);
-			return result;
-		}
-
-		// 아이템 스냅샷 조회(가격,재고,판매상태,가게번호)
-		ItemDAO itemDAO = new ItemDAO();
-		ItemSnapshotDTO snap = itemDAO.selectSnapshot(itemNumber);
-		
-		if (snap == null) {
-            session.setAttribute("cartError", "존재하지 않는 상품입니다.");
+        if (itemNumber <= 0 || quantity <= 0) {
+            session.setAttribute("cartError", "잘못된 요청입니다.");
             result.setPath(request.getContextPath() + "/cartList/view.cl");
             result.setRedirect(true);
             return result;
         }
 
+        // ✅ 아이템 스냅샷 조회
+        ItemDAO itemDAO = new ItemDAO();
+        ItemSnapshotDTO snap = itemDAO.selectSnapshot(itemNumber);
+
+        if (snap == null) {
+            session.setAttribute("cartError", "존재하지 않는 상품입니다.");
+            result.setPath(request.getContextPath() + "/cartList/view.cl");
+            result.setRedirect(true);
+            return result;
+        }
         if (!"Y".equalsIgnoreCase(snap.getItemSellState())) {
             session.setAttribute("cartError", "판매중이 아닌 상품입니다.");
             result.setPath(request.getContextPath() + "/cartList/view.cl");
             result.setRedirect(true);
             return result;
         }
-		
-		if (snap.getItemQuantity() != null && (snap.getItemQuantity() <= 0 || quantity > snap.getItemQuantity())) {
-			// 메뉴의 수량이 존재하면서, 구매하려는 수량이 재고보다 많을때 => 구매 안됨.
-			session.setAttribute("cartError", "재고가 부족합니다.");
-			result.setPath(request.getContextPath() + "/cartList/view.cl");
-			result.setRedirect(true);
-			return result;
-		}
+        if (snap.getItemQuantity() != null &&
+            (snap.getItemQuantity() <= 0 || quantity > snap.getItemQuantity())) {
+            session.setAttribute("cartError", "재고가 부족합니다.");
+            result.setPath(request.getContextPath() + "/cartList/view.cl");
+            result.setRedirect(true);
+            return result;
+        }
 
-		// 담으려는 itemNumber가 어느 가게의 상품인지 서버가 확정하기 위해서
-		String newBusinessNumber = snap.getBusinessNumber();
+        // ✅ 담으려는 상품의 가게번호 / 가격 확정
+        String newBusinessNumber = snap.getBusinessNumber();
+        Integer itemPrice = snap.getItemPrice();
 
-		// 사용자가 개발자도구로 가격 조작 → 무효
-		// 나중에 상품 가격이 바뀌어도 장바구니/주문 당시 가격을 그대로 보존(회계/정산의 기준)
-		Integer itemPrice = snap.getItemPrice();
+        if (newBusinessNumber == null || newBusinessNumber.isBlank()) {
+            session.setAttribute("cartError", "가게 정보가 올바르지 않습니다.");
+            result.setPath(request.getContextPath() + "/cartList/view.cl");
+            result.setRedirect(true);
+            return result;
+        }
+        if (itemPrice == null || itemPrice <= 0) {
+            session.setAttribute("cartError", "가격 정보가 올바르지 않습니다.");
+            result.setPath(request.getContextPath() + "/cartList/view.cl");
+            result.setRedirect(true);
+            return result;
+        }
 
-		// 가게번호/가격은 필수 무결성 값 → 없으면 에러 처리
-		if (newBusinessNumber == null || newBusinessNumber.isBlank()) {
-			session.setAttribute("cartError", "가게 정보가 올바르지 않습니다.");
-			result.setPath(request.getContextPath() + "/cartList/view.cl");
-			result.setRedirect(true);
-			return result;
-		}
-		if (itemPrice == null || itemPrice <= 0) {
-			session.setAttribute("cartError", "가격 정보가 올바르지 않습니다.");
-			result.setPath(request.getContextPath() + "/cartList/view.cl");
-			result.setRedirect(true);
-			return result;
-		}
+        // OPEN 상태 장바구니 확보
+        CartListDAO cartDAO = new CartListDAO();
+        CartDTO cartDTO = new CartDTO();
+        cartDTO.setMemberNumber(memberNumber);
 
-		// OPEN 상태의 회원의 카트 확인
-		CartListDAO cartDAO = new CartListDAO();
-		CartDTO cartDTO = new CartDTO();
+        Integer cartNumber = cartDAO.selectOpenCartNumberByMember(cartDTO);
 
-		cartDTO.setMemberNumber(memberNumber);
+        if (cartNumber == null) {
+            // 장바구니 없으면 생성
+            CartDTO newCartDTO = new CartDTO();
+            newCartDTO.setMemberNumber(memberNumber);
+            newCartDTO.setBusinessNumber(newBusinessNumber);
+            cartDAO.insertCartIfNotExists(newCartDTO);
+            cartNumber = cartDAO.selectOpenCartNumberByMember(cartDTO);
+        } else {
+            // 장바구니 이미 있음 → 같은 가게인지 확인
+            List<CartItemDTO> currentItems = cartDAO.selectCartItemsByCartNo(cartNumber);
 
-		// 내 OPEN 장바구니 유무 확인
-		Integer cartNumber = cartDAO.selectOpenCartNumberByMember(cartDTO);
+            if (currentItems == null || currentItems.isEmpty()) {
+                // 비어 있으면 가게 변경 허용
+                CartDTO change = new CartDTO();
+                change.setCartNumber(cartNumber);
+                change.setBusinessNumber(newBusinessNumber);
+                cartDAO.updateCartBusinessNumber(change);
+            } else {
+                // 아이템의 가게번호와 현재 카트의 가게번호 비교
+                int existingItemNo = currentItems.get(0).getItemNumber();
+                ItemSnapshotDTO firstSnap = itemDAO.selectSnapshot(existingItemNo);
+                String currentBN = (firstSnap != null) ? firstSnap.getBusinessNumber() : null;
 
-		// 카트가 없으면 생성
-		if (cartNumber == null) {
-			// OPEN 상태의 장바구니가 없는 경우 -> 새 Store 생성
-			CartDTO newCartDTO = new CartDTO();
-			newCartDTO.setBusinessNumber(newBusinessNumber); // 담으려는 메뉴의 가게 사업자번호
-			// 이후 이 장바구니에는 같은 가게의 상품만 담게 될 것.
-			newCartDTO.setMemberNumber(memberNumber);
+                if (currentBN == null || !currentBN.equals(newBusinessNumber)) {
+                    String redirect = request.getContextPath()
+                            + "/cartList/changeStoreConfirm.cl?itemNumber=" + itemNumber
+                            + "&quantity=" + quantity;
+                    result.setPath(redirect);
+                    result.setRedirect(true);
+                    return result;
+                }
+            }
+        }
 
-			cartDAO.insertCartIfNotExists(newCartDTO);
-			cartNumber = cartDAO.selectOpenCartNumberByMember(cartDTO);
-		} else {
-			// OPEN 상태의 장바구니가 있는 경우 -> 가게는 하나만 담을 수 있음
+        // 장바구니 아이템 생성 (UPSERT 대상)
+        CartItemDTO cartItem = new CartItemDTO();
+        cartItem.setCartNumber(cartNumber);
+        cartItem.setItemNumber(itemNumber);
+        cartItem.setCartItemQuantity(quantity);
+        cartItem.setCartItemPrice(itemPrice);
 
-			// 회원의 OPEN상태 장바구니의 항목
-			List<CartItemDTO> currentItems = cartDAO.selectCartItems(cartDTO);
+        // UPSERT 실행
+        System.out.println("[DEBUG] 요청 수량 quantity=" + quantity);
+        System.out.println("[DEBUG] cartItem=" + cartItem);
+        cartDAO.addOrUpdateCartItem(cartItem);
 
-			if (currentItems == null || currentItems.isEmpty()) {
-				// 장바구니가 비워져있으면 가게 전환
-				CartDTO change = new CartDTO();
-				change.setCartNumber(cartNumber);
-				change.setBusinessNumber(newBusinessNumber);
-				cartDAO.updateCartBusinessNumber(change);
-			} else {
-				// 장바구니가 비워져있지 않으면, 첫 항목의 가게로 추론한다.
-				int existingItemNo = currentItems.get(0).getItemNumber();
-				ItemSnapshotDTO firstSnap = itemDAO.selectSnapshot(existingItemNo);
-				String currentBN = (firstSnap != null) ? firstSnap.getBusinessNumber() : null;
+        // 완료 후 뷰로 이동
+        session.setAttribute("cartNotice", "장바구니에 담았습니다.");
+        result.setPath(request.getContextPath() + "/cartList/view.cl");
+        result.setRedirect(true);
+        return result;
+    }
 
-				if (currentBN == null || !currentBN.equals(newBusinessNumber)) {
-					// 다른 가게 상품 → 확인 페이지로 유도
-					String redirect = request.getContextPath() + "/cartList/changeStoreConfirm.cl" + "?itemNumber="
-							+ itemNumber + "&quantity=" + quantity;
-					result.setPath(redirect);
-					result.setRedirect(true);
-					return result;
-				}
-				// 같은 가게면 전환 안하고 그대로 진행.
-			}
-		}
-
-		// 장바구니에 담기. cartItem은 cart의 하위 요소(리스트로)
-		CartItemDTO cartItem = new CartItemDTO();
-		cartItem.setCartNumber(cartNumber);
-		cartItem.setItemNumber(itemNumber);
-		cartItem.setCartItemQuantity(quantity);
-		cartItem.setCartItemPrice(itemPrice);
-
-		cartDAO.insertCartItem(cartItem);
-
-		// 완료 처리하기
-		session.setAttribute("cartNotice", "장바구니에 담았습니다.");
-		result.setPath(request.getContextPath() + "/cartList/view.cl");
-		result.setRedirect(true);
-		return result;
-
-	}
-
-	// helper 사용해서 재사용하기
-	private int parseInt(String s, int def) {
-		if (s == null) {
-			return def;
-		}
-		s = s.trim();
-
-		if (s.isEmpty()) {
-			return def;
-		}
-
-		try {
-			return Integer.parseInt(s);
-		} catch (NumberFormatException e) {
-			return def;
-		}
-
-	}
+    private int parseInt(String s, int def) {
+        if (s == null) return def;
+        try {
+            return Integer.parseInt(s.trim());
+        } catch (NumberFormatException e) {
+            return def;
+        }
+    }
 }

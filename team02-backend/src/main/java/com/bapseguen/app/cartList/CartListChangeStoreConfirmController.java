@@ -18,7 +18,7 @@ public class CartListChangeStoreConfirmController implements Execute {
 
 		Integer memberNumber = (Integer) session.getAttribute("memberNumber");
 		if (memberNumber == null) {
-			result.setPath(request.getContextPath() + "/member/login.me");
+			result.setPath(request.getContextPath() + "/login/login.lo");
 			result.setRedirect(true);
 			return result;
 		}
