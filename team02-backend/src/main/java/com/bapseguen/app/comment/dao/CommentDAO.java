@@ -19,13 +19,12 @@ public class CommentDAO {
         return sqlSession.insert("comment.insert", dto);
     }
 
-    /** 게시글 번호로 댓글 목록 조회 (삭제되지 않은 것만) */
+    //게시글 번호로 댓글 목록 조회
     public List<CommentListDTO> selectAll(int postNumber) {
         return sqlSession.selectList("comment.selectAll", postNumber);
     }
 
-    /** 댓글 삭제(소프트 삭제: COMMENT_DELETE_STATE = 1) */
-    public int delete(int commentNumber) {
-        return sqlSession.update("comment.delete", commentNumber);
+    public void delete(int commentNumber) {
+        sqlSession.delete("comment.delete", commentNumber);
     }
 }
