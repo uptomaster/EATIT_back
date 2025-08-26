@@ -20,15 +20,20 @@ public class FindPwOkController implements Execute{
 		
 		String id = request.getParameter("findPw_input_id");
 		String phone = request.getParameter("findPw_input_phone");
-		Integer pw = findPwDAO.findPw(id, phone);
-		result.setRedirect(true);
-		if(id == null) {
-			result.setPath(request.getContextPath()+ "/app/findPw/findPwFail.jsp");
-		}else{
-			result.setPath(request.getContextPath() + "/app/login/login.jsp");
+		Integer memberNumber = findPwDAO.findPw(id, phone);
+		
+		response.setContentType("application/json; charset=UTF-8");
+		
+		try(java.io.PrintWriter out = response.getWriter()){
+			if(memberNumber != null) {
+				out.print("{\"ok\":true, \"memberNumber\":" + memberNumber + "}");
+			}else {
+				out.print("{\"ok\":false}");
+			}
+			out.flush();
 		}
+		result.setRedirect(false);
+	    result.setPath(null);
 		return result;
 	}
-
-	
 }
