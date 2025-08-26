@@ -56,12 +56,12 @@ public class SellerStoreInfoController implements Execute{
 			Map<String, Object> foodpageMap = new HashMap<>();
 			foodpageMap.put("startRow", startRow);
 			foodpageMap.put("endRow", endRow);
-			foodpageMap.put("businessNumber", businessNumber);
+			foodpageMap.put("businessNumber", (String) session.getAttribute("businessNumber"));
 			
 			Map<String, Object> ingrepageMap = new HashMap<>();
 			ingrepageMap.put("startRow", startRow);
 			ingrepageMap.put("endRow", endRow);
-			foodpageMap.put("businessNumber",businessNumber);
+			ingrepageMap.put("businessNumber",(String) session.getAttribute("businessNumber"));
 
 	        
 	        // 가게 정보 조회
