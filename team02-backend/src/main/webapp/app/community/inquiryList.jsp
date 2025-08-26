@@ -70,7 +70,7 @@
 				</div>
 
 				<div id="inquiry_list_body" class="list_body" role="rowgroup">
-					<c:forEach var="inquiry" items="${inquiry}">
+					<c:forEach var="inquiry" items="${inquiry}">					
 						<div class="list_row_flex_row" role="row">
 							<div class="col_title" role="cell">
 								<a
@@ -192,30 +192,8 @@
 	<!-- <footer id="footer"></footer> -->
 
 	<script>
-    let memberNumber = "${sessionScope.memberNumber}";
-    // 탭 전환 기능
-    document.addEventListener("DOMContentLoaded", () => {
-      const faqTab = document.getElementById("faq_tab");
-      const inquiriesTab = document.getElementById("inquiries_tab");
-      const faqSection = document.getElementById("faq_section");
-      const inquiriesSection = document.getElementById("inquiries_section");
-
-      faqTab.addEventListener("click", e => {
-        e.preventDefault();
-        faqSection.style.display = "block";
-        inquiriesSection.style.display = "none";
-        faqTab.classList.add("active");
-        inquiriesTab.classList.remove("active");
-      });
-
-      inquiriesTab.addEventListener("click", e => {
-        e.preventDefault();
-        faqSection.style.display = "none";
-        inquiriesSection.style.display = "block";
-        inquiriesTab.classList.add("active");
-        faqTab.classList.remove("active");
-      });
-    });
-  </script>
+    window.postTitle = "${inquiry.postTitle}";
+    window.postContent = "${inquiry.postContent}";
+</script>
 
 </body>

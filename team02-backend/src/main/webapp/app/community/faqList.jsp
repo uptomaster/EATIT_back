@@ -152,29 +152,6 @@
 
 	<script>
     let memberNumber = "${sessionScope.memberNumber}";
-    // 탭 전환 기능
-    document.addEventListener("DOMContentLoaded", () => {
-      const faqTab = document.getElementById("faq_tab");
-      const inquiriesTab = document.getElementById("inquiries_tab");
-      const faqSection = document.getElementById("faq_section");
-      const inquiriesSection = document.getElementById("inquiries_section");
-
-      faqTab.addEventListener("click", e => {
-        e.preventDefault();
-        faqSection.style.display = "block";
-        inquiriesSection.style.display = "none";
-        faqTab.classList.add("active");
-        inquiriesTab.classList.remove("active");
-      });
-
-      inquiriesTab.addEventListener("click", e => {
-        e.preventDefault();
-        faqSection.style.display = "none";
-        inquiriesSection.style.display = "block";
-        inquiriesTab.classList.add("active");
-        faqTab.classList.remove("active");
-      });
-    });
   </script>
 
 </body>
