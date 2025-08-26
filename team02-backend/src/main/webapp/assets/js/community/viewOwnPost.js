@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-document.addEventListener('DOMContentLoaded', () => {
+/*document.addEventListener('DOMContentLoaded', () => {
   // ===== 댓글 추천 버튼 =====
   const commentRecommendButtons = document.querySelectorAll('.comment_recommend_container .recommend');
 
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </button>
         <span class="recommend_count">0</span>
       </div>
-    `;
+    `;*/
 
 
 

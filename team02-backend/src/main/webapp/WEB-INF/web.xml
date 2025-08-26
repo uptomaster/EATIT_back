@@ -17,7 +17,7 @@
 
 
 
-	
+
 	<!-- Comment -->
 	<servlet>
 		<servlet-name>Comment</servlet-name>
@@ -149,5 +149,24 @@
 		<servlet-name>UserMyPage</servlet-name>
 		<url-pattern>*.my</url-pattern>
 	</servlet-mapping>
+
+
+	<!-- 토스 API 키 -->
+	<context-param>
+		<param-name>TOSS_CLIENT_KEY</param-name>
+		<param-value>test_ck_6bJXmgo28e9yAbwpOQbW8LAnGKWx</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>TOSS_SECRET_KEY</param-name>
+		<param-value>test_sk_oEjb0gm23PEyvDXl9dGkVpGwBJn5</param-value>
+	</context-param>
+
+	<!-- 보안 키는 API 서명 필요한 일부 기능에서 사용, 지금 승인 API에는 불필요 -->
+	<context-param>
+		<param-name>TOSS_SECURITY_KEY</param-name>
+		<param-value>3651068d9279051393a483ee49f6d5c06c08b0be1e2d9d05dec77c837ae98133</param-value>
+	</context-param>
+
 
 </web-app>
