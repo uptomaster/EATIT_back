@@ -98,7 +98,7 @@
 					<!--  -->
 					<div class="store_info_food_menu">
 						<!-- 목록 내용 출력 예시 -->
-						<%--             <div class="store_info_food_menu_list">
+				          <div class="store_info_food_menu_list">
               <img src="${pageContext.request.contextPath}/assets/img/store.jpg" alt="">
               <div class="store_info_food_menu_info_stock">
                 <div class="store_info_btns">
@@ -117,7 +117,7 @@
                 </div>
               </div>
             </div>
-            <hr> --%>
+            <hr>
 						<!--  -->
 						<div class="store_info_food_menu_list">
 							<c:choose>
@@ -175,7 +175,7 @@
 							<ul class="seller_store_info_pagination_ul">
 								<c:if test="${prev}">
 									<li><a
-										href="${pageContext.request.contextPath}/sellerMyPage/myPosts.se?page=${startPage - 1}"
+										href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?page=${startPage - 1}"
 										class="prev">&lt;</a></li>
 								</c:if>
 								<c:set var="realStartPage"
@@ -184,7 +184,7 @@
 									<c:choose>
 										<c:when test="${!(i == page) }">
 											<li><a class="pagination_item"
-												href="${pageContext.request.contextPath}/sellerMyPage/myPosts.se?page=${i}">
+												href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?page=${i}">
 													<c:out value="${i}" />
 											</a></li>
 										</c:when>
@@ -196,7 +196,7 @@
 								</c:forEach>
 								<c:if test="${next}">
 									<li><a
-										href="${pageContext.request.contextPath}/sellerMyPage/myPosts.se?page=${endPage + 1}"
+										href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?page=${endPage + 1}"
 										class="next">&gt;</a>
 								</c:if>
 							</ul>

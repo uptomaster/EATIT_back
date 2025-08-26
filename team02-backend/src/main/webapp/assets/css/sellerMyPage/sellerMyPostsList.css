@@ -72,14 +72,18 @@ main{
 /* 좌측 메뉴바 끝 */
 
 /* 내글관리 목록 */
+
 .seller_myposts_list{
   margin: 100px 0 45px 70px;
   font-size: 30px;
 }
+.seller_myposts_list >div{
+	justify-items: center;
+}
 .seller_myposts_top{
   margin-left: 50px;
   background-color: #a69980;
-  width: 1000px;
+  width: 850px;
   height: 50px;
   font-size: 20px;
   align-items: center;
@@ -89,7 +93,7 @@ main{
 .seller_myposts_comments_list{
   margin-left: 50px;
   background-color: white;
-  width: 1000px;
+  width: 850px;
   height: 50px;
   font-size: 16px;
   align-items: center;

@@ -90,7 +90,7 @@ public class SellerMyPageFrontController extends HttpServlet {
 			result = new FoodAddOkController().execute(request, response);
 			break;
 		case "/sellerMyPage/detailFoodOk.se":
-			System.out.println("음식 상세 페이지 요청");
+			System.out.println("음식 상세 페이지 완료 요청");
 			result = new FoodDetailOkController().execute(request, response);
 			break;
 		case "/seller/editFood.se":
