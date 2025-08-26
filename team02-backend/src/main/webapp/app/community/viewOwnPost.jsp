@@ -74,7 +74,7 @@
 		      <!-- 작성자 -->
 		      <div class="post_author_area">
 		        <img src="${pageContext.request.contextPath}/assets/img/관리자.png" alt="관리자" class="tree_icon" />
-		        <span class="author_name">관리자<c:out value="${post.getMemberId()}" /></span>
+		        <span class="author_name">관리자</span>
 		      </div>
 		
 		      <!-- 작성일 -->
@@ -100,13 +100,15 @@
         	<!-- 게시글 내용 -->
 	        <section class="content_section">
 	          <div class="post_content">
-	            밥세권 앱 신규 기능 업데이트 안내
+	            <c:out value="${post.getFreeContent()}" />
+	            
+	           <!-- 공지사항은 관리자만 작성 가능 -->
 	          <!-- <div class="post_buttons">
 	            <div class="func_button">
 	              <button class="edit">수정</button>
 	              <button class="delete">삭제</button>
-	            </div>
-	          </div> -->
+	            </div>-->
+	          </div> 
 	        </section>
 		</div>
 		

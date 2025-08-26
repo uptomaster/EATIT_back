@@ -76,9 +76,9 @@ public class CommunityFrontController extends HttpServlet {
 			result = new WriteFreeBoardOkController().execute(request, response);
 			break;
 			
-		case "/community/postDeleteOK.co":
+		case "/community/postDeleteOk.co":
 			System.out.println("게시글 삭제 완료 요청");
-			result = new PostDeleteOKController().execute(request, response);
+			result = new PostDeleteOkController().execute(request, response);
 			break;
 		case "/community/postUpdate.co":
 			System.out.println("게시글 수정 페이지 이동 요청");
@@ -105,9 +105,9 @@ public class CommunityFrontController extends HttpServlet {
 //			System.out.println("홍보게시판 게시글 작성페이지 이동 요청");
 //			result = new WritePromoBoardController().execute(request, response);
 //			break;	
-//		case "/community/writePromoOKBoard.co":
+//		case "/community/writePromoOkBoard.co":
 //			System.out.println("홍보게시판 게시글 작성완료 요청");
-//			result = new WritePromoBoardOKController().execute(request, response);
+//			result = new WritePromoBoardOkController().execute(request, response);
 //			break;
 			
 			
@@ -119,9 +119,9 @@ public class CommunityFrontController extends HttpServlet {
 //			System.out.println("홍보게시판 게시글 작성페이지 이동 요청");
 //			result = new WriteRecipeBoardController().execute(request, response);
 //			break;
-//		case "/community/writeRecipeOKBoard.co":
+//		case "/community/writeRecipeOkBoard.co":
 //			System.out.println("홍보게시판 게시글 작성완료 요청");
-//			result = new WriteRecipeBoardOKController().execute(request, response);
+//			result = new WriteRecipeBoardOkController().execute(request, response);
 //			break;
 			
 			
