@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css" />
 
   <!-- 스크립트 -->
-  <script defer src="${pageContext.request.contextPath}/assets/js/community/communityMainUser.js"></script>
+ <%--  <script defer src="${pageContext.request.contextPath}/assets/js/community/communityMainUser.js"></script> --%>
   <script defer src="${pageContext.request.contextPath}/assets/js/community/mouseoverTreeIcon.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
@@ -71,17 +71,18 @@
 	   			<c:choose>
 	   				<c:when test="${not empty postList}">
 	   					<c:forEach var="post" items="${postList}">
-		   					 <div class="board-row">
-		   					 	<div class="board-item title">
-		   					 		<c:out value="${post.getPostTitle()}" />
+		   					 <div class="board-row list_row flex_row">
+		   					 	<div class="board-item col_title">
+		   					 		<a href="${pageContext.request.contextPath}/community/viewOwnPostOk.co?postNumber=${post.postNumber}">
+		   					 		<c:out value="${post.getPostTitle()}" /></a>
 		   					 	</div>
-		   					 	<div class="board-item author">
+		   					 	<div class="board-item col_author">
 		   					 		<c:out value="${post.getMemberId() }" />
 		   					 	</div>
-		   					 	<div class="board-item date">
+		   					 	<div class="board-item col_date">
 		   					 		<c:out value="${post.getPostCreatedDate() }" />
 		   					 	</div>
-		   					 	<div class="board-item hit">
+		   					 	<div class="board-item col_views">
 		   					 		<c:out value="${post.getPostViewCount() }" />
 		   					 	</div>
 		   					 </div>
