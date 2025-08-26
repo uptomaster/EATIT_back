@@ -1,5 +1,6 @@
 package com.bapseguen.app.sellerMyPage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -61,22 +62,26 @@ public class FoodEditOkController implements Execute {
                 	// 어떤 글을 수정할지 식별자 설정
                     itemNumber = Integer.parseInt(paramValue);
                     ItemListDTO.setItemNumber(itemNumber);
-                } else if ("boardTitle".equals(paramName)) {
-                	// 상품명 수정
-                	ItemListDTO.set(paramValue);
                 } else if ("itemName".equals(paramName)) {
                 	// 상품명 수정
-                	ItemListDTO.set(paramValue);
-                } else if ("itemContent") {
+                	ItemListDTO.setItemName(paramValue);
+                } else if ("itemContent".equals(paramName)) {
                 	// 상품 설명 수정
-                } else if ("itemPrice") {
+                	ItemListDTO.setItemContent(paramValue);
+                } else if ("itemPrice".equals(paramName)) {
                 	// 가격 수정
-                } else if ("itemQuantity") {
+                	ItemListDTO.setItemPrice(paramValue);
+                } else if ("itemQuantity".equals(paramName)) {
                 	// 수량 수정
-                } else if ("itemExpireDate") {
+                	int itemQuantity = Integer.parseInt(paramValue);
+                	ItemListDTO.setItemQuantity(itemQuantity);
+                } else if ("itemExpireDate".equals(paramName)) {
                 	// 소비기한 수정
-                } else if ("itemSellState") {
+                	ItemListDTO.setItemExpireDate(paramValue);
+                } else if ("itemSellState".equals(paramName)) {
                 	// 판매상태 수정
+                	String sellState ? paraValue
+                	ItemListDTO.setItemSellState(paramValue);
                 } 
             } else if (part.isFile() && !isFileUpload) {
             	//파일 이미지 처리 ( 게시글 별 하나의 파일만 존재할 수 있음)
@@ -86,9 +91,9 @@ public class FoodEditOkController implements Execute {
                 
                 // 기존 파일 삭제
                 if (itemNumber != 0) {
-                    List<FileDTO> existingFiles = fileDAO.select(itemNumber);
-                    for (FileDTO file : existingFiles) {
-                        File oldFile = new File(UPLOAD_PATH, file.getFileSystemName());
+                    List<ItemImageDTO> existingFiles = fileDAO.select(itemNumber);
+                    for (ItemImageDTO file : existingFiles) {
+                        File oldFile = new File(UPLOAD_PATH, file.getItemImageSystemName());
                         if (oldFile.exists()) {
                             System.out.println("기존 파일 삭제: " + oldFile.getAbsolutePath());
                             oldFile.delete();
@@ -110,12 +115,12 @@ public class FoodEditOkController implements Execute {
                     }
 
                     // DB 저장
-                    FileDTO fileDTO = new FileDTO();
-                    fileDTO.setFileSystemName(newFileName);
-                    fileDTO.setFileOriginalName(fileOriginalName);
-                    fileDTO.setitemNumber(itemNumber);
-                    fileDAO.insert(fileDTO);
-                    System.out.println("새로운 파일 DB 저장 완료: " + fileDTO);
+                    ItemImageDTO itemImageDTO = new ItemImageDTO();
+                    itemImageDTO.setItemImageSystemName(newFileName);
+                    itemImageDTO.setItemImageOriginalName(fileOriginalName);
+                    itemImageDTO.setItemImageNumber(itemNumber);
+                    fileDAO.insert(itemImageDTO);
+                    System.out.println("새로운 파일 DB 저장 완료: " + itemImageDTO);
 
                     isFileUpload = true; // 파일이 업로드되었음을 표시
                 } else {
@@ -130,7 +135,7 @@ public class FoodEditOkController implements Execute {
         System.out.println("게시글 수정 완료");
 
         //수정 완료 후 리스트 페이지로 이동
-        result.setPath("/board/boardListOk.bo");
+        result.setPath("/sellMyPage/boardListOk.bo");
         result.setRedirect(true);
         return result;
     }
