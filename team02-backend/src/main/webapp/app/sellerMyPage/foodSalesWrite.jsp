@@ -44,7 +44,7 @@
     </div>
 
     <div class="foodsaleswrite_container"> <!-- 1100px 영역-->
-      <form action="${pageContext.request.contextPath}/SellerPage/addFoodOk.se "method="post" 
+      <form action="${pageContext.request.contextPath}/sellerMyPage/addFoodOk.se" method="post" 
       enctype="multipart/form-data" class="foodsaleswrite_content_container"> <!-- 컨텐츠 영역 -->
         <div class="foodsaleswrite_title">
           음식 판매 등록
@@ -94,9 +94,9 @@
           </div>
           
         </div>
-        <button class="foodsaleswrite_buzz" type="submmit">등록</button>
+        <button class="foodsaleswrite_buzz" type="submit">등록</button>
+    	</form> <!-- 1100px 영역 -->
     </div> <!-- 컨텐츠 -->
-    </form> <!-- 1100px 영역 -->
   </main>
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </body>
