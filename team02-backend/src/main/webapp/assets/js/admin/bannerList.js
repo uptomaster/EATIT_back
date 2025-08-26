@@ -1,11 +1,15 @@
+// 작성하기 버튼
 const writeBtn = document.getElementById('prepare_notice_btn');
+if (writeBtn) {
+  writeBtn.addEventListener('click', () => {
+    window.location.href = ctx + "/admin/banner/write.ad";
+  });
+}
 
-writeBtn.addEventListener('click', () => {
-  window.location.href = './../../app/admin/bannerWrite.html';
-});
-
+// 로그아웃 버튼
 const logoutbtn = document.getElementById('admin_logoutbtn');
-
-logoutbtn.addEventListener('click', () => {
-  location.replace('./../../app/admin/adminLogin.html');
-});
+if (logoutbtn) {
+  logoutbtn.addEventListener('click', () => {
+    location.replace(ctx + "/admin/login.ad");
+  });
+}

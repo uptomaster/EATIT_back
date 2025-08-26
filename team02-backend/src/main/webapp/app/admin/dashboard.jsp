@@ -28,7 +28,7 @@
 					href="${pageContext.request.contextPath}/admin/member/list.ad">회원관리</a>
 				</li>
 				<li class="sidebar_list"><a
-					href="${pageContext.request.contextPath}/admin/postTrade/list.ad">게시글
+					href="${pageContext.request.contextPath}/app/admin/postTradeList.jsp">게시글
 						관리</a></li>
 				<li class="sidebar_list"><a
 					href="${pageContext.request.contextPath}/admin/report/list.ad">신고관리</a>
@@ -68,7 +68,7 @@
 
 			<!-- 그래프 -->
 			<div class="dashboard_graph">
-				<div class="dashboard_graph_title">최근 신고/문의 현황</div>
+				<div class="dashboard_graph_title">누적 판매금액</div>
 				<canvas id="dashboardChart" class="dashboard_graph_img"></canvas>
 			</div>
 
