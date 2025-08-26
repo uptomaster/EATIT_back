@@ -66,6 +66,7 @@ public class FoodEditOkController implements Execute {
                         itemNumber = Integer.parseInt(sessionItemNumber);
                     }
                     ItemListDTO.setItemNumber(itemNumber);
+                    
                 } else if ("itemName".equals(paramName)) {
                 	// 상품명 수정
                 	ItemListDTO.setItemName(paramValue);

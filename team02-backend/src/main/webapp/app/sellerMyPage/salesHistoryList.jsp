@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/sellerMyPage/slaeHistoryList.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/sellerMyPage/salesHistoryList.css">
   <!-- 파비콘 -->
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
 
@@ -17,7 +17,7 @@
   <script defer src="${pageContext.request.contextPath}/assets/js/footer.js"></script>   
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/sellerMyPage/salesHistoryList.js"></script>
-
+S
 <script>
     let headerPath = './../../header.jsp';
     let footerPath = './../../footer.jsp';
@@ -47,8 +47,8 @@
       <h2 class="sale_history_title">판매 내역</h2>
       <!-- 총/오늘 판매내역 선택  -->
       <ul class="sale_history_categaory_container">
-        <li class="sale_history_today"><a href="./todaySaleList.html">오늘 판매 내역</a></li>
-        <li class="sale_history_total"><a href="./salesHistoryList.html">총 판매내역</a></li>
+        <li class="sale_history_today"><a href="${pageContext.request.contextPath}/todaySaleList.jsp">오늘 판매 내역</a></li>
+        <li class="sale_history_total"><a href="${pageContext.request.contextPath}/salesHistoryList">총 판매내역</a></li>
       </ul>
       <!-- 일자 검색을 할 수 있을까요.. 아니요 자문자답-->
       <div>
@@ -63,7 +63,7 @@
           <div class="sale_history_price_top">금액</div>
         </div>
         <div class="sale_history_sales_list">
-          <div class="sale_history_sale_num">001</div>
+          <div class="sale_history_sale_num"><c:out value=""/></div>
           <div class="sale_history_sale_date">2025.08.01.15:36</div>
           <div class="sale_history_buyer_id">dltjwls</div>
           <div class="sale_history_idx">01</div>
@@ -72,26 +72,8 @@
           <div class="sale_history_quantity">1</div>
           <div class="sale_history_price">7,000</div>
         </div>
-        <div class="sale_history_sales_list">
-          <div class="sale_history_sale_num">002</div>
-          <div class="sale_history_sale_date">2025.08.10 17:20</div>
-          <div class="sale_history_buyer_id">wlstj</div>
-          <div class="sale_history_idx">01</div>
-          <div class="sale_history_category">재료</div>
-          <div class="sale_history_menu_name">양파한묶음</div>
-          <div class="sale_history_quantity">2</div>
-          <div class="sale_history_price">4,000</div>
-        </div>
-        <div class="sale_history_sales_list">
-          <div class="sale_history_sale_num">002</div>
-          <div class="sale_history_sale_date">2025.08.10 17:20</div>
-          <div class="sale_history_buyer_id">wlstj</div>
-          <div class="sale_history_idx">02</div>
-          <div class="sale_history_category">재료</div>
-          <div class="sale_history_menu_name">양송이버섯</div>
-          <div class="sale_history_quantity">2</div>
-          <div class="sale_history_price">1,000</div>
-        </div>
+        
+        
       </div>
       <!-- 페이지 네이션 -->
       <div class="sale_history_pagination">
