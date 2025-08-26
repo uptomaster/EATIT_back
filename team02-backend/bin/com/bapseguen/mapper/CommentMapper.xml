@@ -8,7 +8,7 @@
     </selectKey>
       	INSERT INTO TBL_COMMENT(
       	COMMENT_NUMBER, POST_NUMBER, MEMBER_NUMBER, COMMENT_CONTENT, COMMENTED_DATE, COMMENT_DELETE_STATE) 
-      	VALUES (#{commentNumber}, #{postNumber}, #{memberNumber}, #{commentContent}, SYSDATE, 0)
+      	VALUES (#{commentNumber}, #{postNumber}, #{memberNumber}, #{commentContent}, SYSDATE, 'N')
     </insert>
 
 	<!-- 댓글 삭제 -->
@@ -22,7 +22,7 @@
   		FROM TBL_COMMENT c
   		JOIN TBL_MEMBER  m 
   		ON m.MEMBER_NUMBER = c.MEMBER_NUMBER
- 		WHERE c.POST_NUMBER = #{value} AND NVL(c.COMMENT_DELETE_STATE,0) = 0
+ 		WHERE c.POST_NUMBER = #{value} AND NVL(c.COMMENT_DELETE_STATE,'N') = 'N'
   		ORDER BY c.COMMENT_NUMBER DESC
 	</select>
 </mapper>
