@@ -48,9 +48,15 @@
 	<!-- 음식 판매 수정 -->
 	<update id="editFood" parameterType="ItemDTO">
 		UPDATE TBL_ITEM SET
-			ITEM_NAME= #{itemName}, ITEM_PRICE = #{itemPrice}, ITEM_CONTENT	= #{itemContent},
-			ITEM_QUANTITY = #{itemQuantity}, ITEM_ORIGIN = #{itemOrigin}, ITEM_UPDATED_TIME = SYSDATE
-		WHERE ITEM_NUMBER =	#{itemNumber}
+			ITEM_NAME	= #{itemName}, 
+			ITEM_PRICE 	= #{itemPrice}, 
+			ITEM_CONTENT	= #{itemContent},
+			ITEM_QUANTITY 	= #{itemQuantity}, 
+			ITEM_ORIGIN 	= #{itemOrigin}, 
+			ITEM_UPDATED_TIME 	= SYSDATE,
+			ITEM_EXPIRE_DATE 	= #{itemExpireDate},
+			ITEM_SELL_STATE 	= #{itemSellState}
+		WHERE ITEM_NUMBER 	= #{itemNumber}
 		AND ITEM_TYPE = 'FOOD'
 	</update>
 
@@ -91,11 +97,19 @@
 		</selectKey>
 		INSERT INTO TBL_ITEM (
 			item_number,
-			business_number,item_type,item_name,item_price,item_content,
-			item_quantity,item_origin,item_expire_date,item_created_date
+			business_number,
+			item_type,
+			item_name,
+			item_price,
+			item_content,
+			item_quantity,
+			item_origin,
+			item_expire_date,
+			item_created_time,
+			ITEM_SELL_STATE
 		) VALUES (
 			#{itemNumber},#{businessNumber},'INGREDIENT',#{itemName},#{itemPrice},#{itemContent},
-			#{itemQuantity},#{itemOrigin},#{itemExpireDate},SYSDATE
+			#{itemQuantity},#{itemOrigin},#{itemExpireDate},SYSDATE, 'Y'
 		)
 	</insert>
 	<!-- 재료 판매 상세 조회 -->

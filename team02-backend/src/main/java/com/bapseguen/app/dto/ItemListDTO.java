@@ -14,7 +14,7 @@ public class ItemListDTO {
 	private String itemExpireDate; // 소비기한
 	private String itemCreatedTime; // 상품 등록일
 	private String itemUpdatedTime; // 상품 수정일
-	private boolean itemSellState; // 판매 여부 "판매중(y
+	private String itemSellState; // 판매 여부 "판매중(y
 	private String businessName; // 상호명 -> tbl_store랑 조인할거임
 
 	private List<ItemImageDTO> files; //
@@ -107,14 +107,6 @@ public class ItemListDTO {
 		this.itemUpdatedTime = itemUpdatedTime;
 	}
 
-	public boolean isItemSellState() {
-		return itemSellState;
-	}
-
-	public void setItemSellState(boolean itemSellState) {
-		this.itemSellState = itemSellState;
-	}
-
 	public String getBusinessName() {
 		return businessName;
 	}
@@ -129,6 +121,15 @@ public class ItemListDTO {
 
 	public void setFiles(List<ItemImageDTO> files) {
 		this.files = files;
+	}
+
+
+	public String getItemSellState() {
+		return itemSellState;
+	}
+
+	public void setItemSellState(String itemSellState) {
+		this.itemSellState = itemSellState;
 	}
 
 	@Override
