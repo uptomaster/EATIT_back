@@ -54,27 +54,27 @@
           <div class="foodsaleswrite_submit_table">
             <div class="foodsaleswrite_box">
               <label for="foodsaleswrite_photo">음식 사진 등록</label>
-              <button type="button">등록</button>
+              <!-- <button type="button">등록</button> -->
             </div>
           </div>
         </div>
         <div class="foodsaleswrite_box">
           <label for="foodsaleswrite_menu">메뉴명</label>
           <input type="text" id="foodsaleswrite_munu">
-          <button type="button">등록</button>
+          <!-- <button type="button">등록</button> -->
         </div>
         
         <div class="foodsaleswrite_box">
           <label for="foodsaleswrite_explain">음식 설명</label>
           <textarea name="" id="foodsaleswrite_explain" maxlength="100" placeholder="100자 이내로 입력해주세요"></textarea>
           <span id="foodsaleswrite_char_count">0/100</span>
-          <button type="button">등록</button>
+          <!-- <button type="button">등록</button> -->
         </div>
         
         <div class="foodsaleswrite_expiry_container">
           <label for="foodsaleswrite_expiry">소비기한</label>
           <input type="text" id="foodsaleswrite_expiry" placeholder="YYYY-MM-DD-MIN -SS">
-          <button type="button">등록</button>
+          <!-- <button type="button">등록</button> -->
         </div>
         
         <div class="foodsaleswrite_box">
@@ -83,14 +83,14 @@
             <label for="foodsaleswrite_quantity" class="foodsaleswrite_small_label">수량</label>
             <input type="number" id="foodsaleswrite_quantity" min="0" placeholder="개수">
             <span id="foodsaleswrite_food_count">개</span>
-            <button type="button">등록</button>
+            <!-- <button type="button">등록</button> -->
           </div>
           
           <div class="foodsaleswrite_price_container">
             <label for="foodsaleswrite_price" class="foodsaleswrite_small_label">가격</label>
             <input type="number" id="foodsaleswrite_price" min="0" placeholder="원단위">
             <span>원</span>
-            <button type="button">등록</button>
+            <!-- <button type="button">등록</button> -->
           </div>
           
         </div>
