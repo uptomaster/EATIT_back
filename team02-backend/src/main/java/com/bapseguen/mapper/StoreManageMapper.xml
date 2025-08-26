@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="storeManage">
-	<!-- 마지막 아이템 번호 가져오기 -->
-	<select id="selectLastitemNumber" resultType="int"></select>
+
 	<!-- 음식 판매 등록 -->
 	<insert id="addFood" parameterType="ItemWithImgDTO">
 		<selectKey keyProperty="itemNumebr" resultType="int" order="BEFORE">
@@ -24,19 +23,25 @@
 	</select>
 
 	<!-- 음식 판매 상세 조회 -->
-	<select id="detaileFood" parameterType="int" resultType="ItemWithImgDTO">
+	<select id="detaileFood" parameterType="int" resultType="ItemListDTO">
 		<![CDATA[
-		SELECT * FROM (
-			SELECT ROWNUM AS RNUM, SUBQUERY.* FROM (
-				SELECT 
-						i.item_number, BUSINESS_NUMBER, item_name, item_price, item_content, 
-						item_quantity, item_origin,	item_expire_date, item_sell_state,
-						(SELECT nvl(m.ITEM_IMAGE_SYSTEM_NAME, NULL) FROM tbl_item_image m WHERE i.item_number = m.ITEM_NUMBER) AS image
-					from tbl_item i 
-					--JOIN TBL_ITEM_IMAGE m ON i.item_number = m.ITEM_NUMBER
-					where item_number =	#{itemNumber}
-				)SUBQUERY
-		) WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+		SELECT
+		    i.ITEM_NUMBER AS itemNumber,
+		    i.BUSINESS_NUMBER AS businessNumber,
+		    i.ITEM_TYPE AS itemType,
+		    i.ITEM_NAME AS itemName,
+		    i.ITEM_PRICE AS itemPrice,
+		    i.ITEM_CONTENT AS itemContent,
+		    i.ITEM_QUANTITY AS itemQuantity,
+		    i.ITEM_ORIGIN AS itemOrigin,
+		    i.ITEM_EXPIRE_DATE AS itemExpireDate,
+		    i.ITEM_CREATED_TIME AS itemCreatedTime,
+		    i.ITEM_UPDATED_TIME AS itemUpdatedTime,
+		    CASE WHEN i.ITEM_SELL_STATE = 'Y' THEN '판매중' ELSE '판매중지' END AS itemSellState,
+		    s.STORE_NAME AS businessName
+		FROM TBL_ITEM i
+		JOIN TBL_STORE s ON i.BUSINESS_NUMBER = s.BUSINESS_NUMBER
+		WHERE i.ITEM_NUMBER = #{itemNumber}
 		]]>
 	</select>
 
@@ -94,7 +99,7 @@
 		)
 	</insert>
 	<!-- 재료 판매 상세 조회 -->
-	<select id="detaileIngredient" parameterType="int">
+	<select id="detaileIngredient" parameterType="ItemListDTO">
 		select
 		item_name,item_price,item_content,item_quantity,item_origin,item_expire_date, item_sell_state
 		from tbl_item
@@ -137,8 +142,9 @@
 	<select id="alreadyfood" parameterType="ItemDTO"
 		resultType="int">
 		select count(item_number) from tbl_item
-		where item_name =
-		#{itemName} and item_type = 'FOOD' and business_number = #{businessNumber}
+		where item_name =	#{itemName} 
+		and item_type = 'FOOD' 
+		and business_number = #{businessNumber}
 	</select>
 
 	<!-- 음식 사진 등록 -->
@@ -165,14 +171,14 @@
 	<select id="selectStoreInfo" parameterType="String"
 		resultType="StoreDTO">
 		SELECT
-		business_number,
-		member_number,
-		store_name,
-		store_open_date,
-		store_tel,
-		store_address,
-		store_address_detail,
-		store_zip_code
+			business_number,
+			member_number,
+			store_name,
+			store_open_date,
+			store_tel,
+			store_address,
+			store_address_detail,
+			store_zip_code
 		FROM tbl_store
 		WHERE business_number = #{businessNumber}
 	</select>
