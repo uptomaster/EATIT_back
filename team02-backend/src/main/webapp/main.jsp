@@ -297,7 +297,7 @@
   </main>
 
   <!-------------------- 푸터 ------------------------>
-  <footer id="footer"><jsp:include page="${pageContext.request.contextPath}/footer.jsp" /></footer>
+  <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </body>
 
 </html>
