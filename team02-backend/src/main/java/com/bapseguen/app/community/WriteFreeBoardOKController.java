@@ -67,15 +67,15 @@ public class WriteFreeBoardOKController implements Execute{
 		Enumeration<String> fileNames = multipartRequest.getFileNames();
 		while(fileNames.hasMoreElements()) {
 			String name = fileNames.nextElement();
-			String fileSystemName = multipartRequest.getFilesystemName(name);
-			String fileOriginalName = multipartRequest.getOriginalFileName(name);
+			String postImageSystemName = multipartRequest.getFilesystemName(name);
+			String postImageOriginalName = multipartRequest.getOriginalFileName(name);
 			
-			if(fileSystemName == null) {
+			if(postImageSystemName == null) {
 				continue;
 			}
 			
-			postImageDTO.setPostImageSystemName(fileSystemName);
-			postImageDTO.setPostImageOriginalName(fileOriginalName);
+			postImageDTO.setPostImageSystemName(postImageSystemName);
+			postImageDTO.setPostImageOriginalName(postImageOriginalName);
 			postImageDTO.setPostNumber(postNumber);
 			
 			System.out.println("업로드 된 파일 정보 : " + postImageDTO);
