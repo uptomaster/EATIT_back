@@ -13,102 +13,102 @@ import javax.servlet.http.HttpServletResponse;
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.cartList.dao.CartListDAO;
+import com.bapseguen.app.dto.CartDTO;
 import com.bapseguen.app.dto.CartItemDTO;
 import com.bapseguen.app.dto.OrdersDTO;
 import com.bapseguen.app.orders.dao.OrdersDAO;
 
-/**
- * 주문 생성 → DB INSERT → 결제 준비로 전송
- * - INSERT 전에 반드시 orderId를 생성/세팅한다.
- * - PaymentReadyController에서 필요로 하는 request attribute: orderId, amount, customerName
- */
 public class OrderCreateOkController implements Execute {
 
-    @Override
-    public Result execute(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	@Override
+	public Result execute(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        Result result = new Result();
+		Integer memberNumber = (Integer) request.getSession().getAttribute("memberNumber");
+		if (memberNumber == null) {
+			Result r = new Result();
+			r.setRedirect(true);
+			r.setPath(request.getContextPath() + "/login/login.lo");
+			return r;
+		}
 
-        // 1) 로그인 체크
-        Integer memberNumber = (Integer) request.getSession().getAttribute("memberNumber");
-        if (memberNumber == null) {
-            result.setRedirect(true);
-            result.setPath(request.getContextPath() + "/login/login.lo");
-            return result;
-        }
+		CartListDAO cartDAO = new CartListDAO();
 
-        // 2) 장바구니 합계 계산
-        CartListDAO cartDAO = new CartListDAO();
-        List<CartItemDTO> items = cartDAO.selectCurrentCartItemsWithPrice(memberNumber);
+		// ① 현재 장바구니 합계 (DB 기준 최신)
+		List<CartItemDTO> items = cartDAO.selectCurrentCartItemsWithPrice(memberNumber);
+		long total = 0L;
+		if (items != null) {
+			for (CartItemDTO it : items) {
+				total += (long) it.getCartItemPrice() * it.getCartItemQuantity();
+			}
+		}
+		if (total <= 0) {
+			request.setAttribute("error", "장바구니가 비어 있습니다.");
+			Result r = new Result();
+			r.setRedirect(false);
+			r.setPath("/app/cartList/shoppingList.jsp");
+			return r;
+		}
 
-        int amount = 0;
-        if (items != null) {
-            for (CartItemDTO it : items) {
-                amount += it.getCartItemPrice() * it.getCartItemQuantity();
-            }
-        }
+		// (선택) ② 현재 OPEN 카트의 가게번호 추출 (기존 DAO만 사용)
+		String businessNumber = null;
+		try {
+			CartDTO cart = new CartDTO();
+			cart.setMemberNumber(memberNumber);
+			Integer cartNumber = cartDAO.selectOpenCartNumberByMember(cart);
+			if (cartNumber != null) {
+				businessNumber = cartDAO.selectCartBusinessNumberByCartNumber(cartNumber);
+			}
+		} catch (Exception ignore) {
+			// 가게번호가 꼭 필요하지 않다면 무시 가능
+		}
 
-        if (amount <= 0) {
-            request.setAttribute("error", "장바구니가 비어 있거나 금액이 0원입니다.");
-            result.setPath("/cartList/view.cl"); // 컨트롤러로 보내야 모델 채워짐
-            result.setRedirect(true);
-            return result;
-        }
+		// ③ 매번 새 orderId 발급
+		String orderId = makeOrderId(memberNumber);
 
-        // (필요하다면 businessNumber는 items.get(0).getBusinessNumber() 식으로 얻을 수 있음)
-        String businessNumber = request.getParameter("businessNumber");
+		// ④ READY 주문 INSERT
+		OrdersDTO dto = new OrdersDTO();
+		dto.setOrderId(orderId);
+		dto.setOrdersMemberNumber(memberNumber);
+		dto.setOrdersTotalAmount((int) Math.min(Integer.MAX_VALUE, total));
+		dto.setOrdersPaymentStatus("READY");
+		if (businessNumber != null) {
+			dto.setBusinessNumber(businessNumber); // DTO/매퍼에 해당 컬럼이 있을 때만
+		}
 
-        // 3) 주문자 이름 (결제창 표시용)
-        String customerName = (String) request.getSession().getAttribute("memberName");
-        if (customerName == null || customerName.isBlank()) {
-            customerName = "고객";
-        }
+		OrdersDAO odao = new OrdersDAO();
+		try {
+			odao.insertOrder(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("error", "주문 생성 중 오류가 발생했습니다.");
+			Result r = new Result();
+			r.setRedirect(false);
+			r.setPath("/app/cartList/shoppingList.jsp");
+			return r;
+		} finally {
+			try {
+				odao.close();
+			} catch (Exception ignore) {
+			}
+		}
 
-        // 4) orderId 생성
-        String orderId = makeOrderId(memberNumber);
+		// ⑤ 결제 준비로 forward (request attribute 유지)
+		request.setAttribute("orderId", orderId);
+		request.setAttribute("amount", dto.getOrdersTotalAmount());
+		String name = (String) request.getSession().getAttribute("memberName");
+		request.setAttribute("customerName", (name == null || name.isBlank()) ? "고객" : name);
 
-        // 5) DTO 구성
-        OrdersDTO order = new OrdersDTO();
-        order.setOrderId(orderId);
-        order.setOrdersMemberNumber(memberNumber);
-        order.setBusinessNumber(businessNumber);
-        order.setOrdersPaymentInfo(null);
-        order.setOrdersTotalAmount(amount);
-        order.setOrdersPaymentStatus("READY");
+		Result r = new Result();
+		r.setRedirect(false);
+		r.setPath("/orders/paymentReady.or");
+		return r;
+	}
 
-        // 6) INSERT
-        OrdersDAO ordersDAO = new OrdersDAO();
-        try {
-            ordersDAO.insertOrder(order);
-
-            // 7) 결제 준비 컨트롤러로 전달
-            request.setAttribute("orderId", orderId);
-            request.setAttribute("amount", amount);
-            request.setAttribute("customerName", customerName);
-
-            result.setRedirect(false); // forward
-            result.setPath("/orders/paymentReady.or");
-            return result;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            request.setAttribute("error", "주문 생성 중 오류가 발생했습니다: " + e.getMessage());
-            result.setPath("/cartList/view.cl");
-            result.setRedirect(true);
-            return result;
-        } finally {
-            ordersDAO.close();
-        }
-    }
-
-    private static String makeOrderId(long memberNumber) {
-        String ts = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-        String rand = UUID.randomUUID().toString().replace("-", "").substring(0, 6);
-        String id = "ORD-" + ts + "-" + memberNumber + "-" + rand;
-        if (id.length() > 64) {
-            id = id.substring(0, 64);
-        }
-        return id;
-    }
+	private static String makeOrderId(long memberNumber) {
+		String ts = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+		String rand = UUID.randomUUID().toString().replace("-", "").substring(0, 6);
+		String id = "ORD-" + ts + "-" + memberNumber + "-" + rand;
+		return id.length() > 64 ? id.substring(0, 64) : id;
+	}
 }

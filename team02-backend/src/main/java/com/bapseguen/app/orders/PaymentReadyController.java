@@ -60,7 +60,7 @@ public class PaymentReadyController implements Execute {
             }
         }
 
-        // 3) orderId가 없으면 생성 (규칙: [A-Za-z0-9-_], 6~64자)
+        // 3) orderId가 없으면 생성 (토스에 정해진 규칙: [A-Za-z0-9-_], 6~64자)
         if (orderId == null || orderId.length() < 6) {
             orderId = ("ORD-" + memberNumber + "-" + System.currentTimeMillis()).replaceAll("[^A-Za-z0-9-_]", "_");
             if (orderId.length() < 6) orderId = (orderId + "______").substring(0, 6);
@@ -70,7 +70,7 @@ public class PaymentReadyController implements Execute {
         // 4) 마지막 안전장치: 준비정보 부족 → 컨트롤러 경유로 장바구니 이동
         if (amount == null || amount <= 0) {
             Result r = new Result();
-            r.setPath(request.getContextPath() + "/cartList/view.cl"); // 컨트롤러로!
+            r.setPath(request.getContextPath() + "/cartList/view.cl"); // 컨트롤러로 이동
             r.setRedirect(true);
             return r;
         }

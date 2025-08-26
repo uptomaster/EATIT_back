@@ -48,7 +48,7 @@ public class PaymentSuccessController implements Execute {
 
         // 3) 승인(Confirm) 호출용 시크릿 키
         //  - web.xml의 <context-param>TOSS_SECRET_KEY</context-param> 사용
-        //  - v2 문서용 키를 web.xml 에 넣었다면 그 값이 그대로 내려옵니다.
+        //  - v2 문서용 키를 web.xml 에 넣었다면 그 값이 그대로 내려온다. => 현재는 임시용으로 v2 문서용 키를 사용중임.
         String secretKey = req.getServletContext().getInitParameter("TOSS_SECRET_KEY");
 
         TossService toss = new TossService();
@@ -61,8 +61,8 @@ public class PaymentSuccessController implements Execute {
             return r;
         }
 
-        // 4) 승인 성공 → 기존 승인 처리 컨트롤러로 위임 (DB 업데이트/카트 마감 등)
-        //    이미 프로젝트에 있는 PaymentApproveOkController가 처리하게 함
+        // 4) 승인 성공 → 기존 승인 처리 컨트롤러로 위임 (DB 업데이트/장바구니 마감 등)
+        //    PaymentApproveOkController가 처리하게 함
         String q = "orderId=" + URLEncoder.encode(orderId, StandardCharsets.UTF_8.name())
                  + "&amount=" + amount
                  + "&paymentKey=" + URLEncoder.encode(paymentKey, StandardCharsets.UTF_8.name());

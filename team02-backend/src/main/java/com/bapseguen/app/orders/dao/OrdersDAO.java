@@ -103,9 +103,17 @@ public class OrdersDAO {
 			sqlSession.close();
 	}
 
-	/** 특정 회원의 가장 최근 READY 주문 */
+	/** 특정 회원의 가장 최근 READY 주문 */ 
 	public OrdersDTO selectLatestReadyByMember(int memberNumber) {
 		return sqlSession.selectOne("orders.selectLatestReadyByMember", memberNumber);
+	}
+
+	// 결제처리가 되면 "PAID"로 주문상태 변경해주기
+	public int updatePaidByOrderId(String orderId, int amount) {
+		java.util.Map<String, Object> p = new java.util.HashMap<>();
+		p.put("orderId", orderId);
+		p.put("amount", amount);
+		return sqlSession.update("orders.updatePaidByOrderId", p);
 	}
 
 }
