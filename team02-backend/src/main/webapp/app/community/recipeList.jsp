@@ -142,7 +142,7 @@
   <jsp:include page="/footer.jsp" />
 </body>
 <script>
-		window.boardNumber = "${board.boardNumber}";
+		window.postNumber = "${post.postNumber}";
 		window.memberNumber = "${sessionScope.memberNumber}";
 </script>
 </html>

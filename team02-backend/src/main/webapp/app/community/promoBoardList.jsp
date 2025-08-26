@@ -147,7 +147,7 @@
           </div>
 
           <div class="write_form">
-            <a href="${pageContext.request.contextPath}/community/writeFreeBoard.co?postType=RECIPE" id="writeBtn">글쓰기</a>
+            <a href="${pageContext.request.contextPath}/community/writeFreeBoard.co?postType=PROMOTION" id="writeBtn">글쓰기</a>
           </div>
         </div>
       </div>
@@ -160,7 +160,7 @@
   <jsp:include page="/footer.jsp" />
 </body>
 <script>
-		window.boardNumber = "${board.boardNumber}";
+		window.postNumber = "${post.postNumber}";
 		window.memberNumber = "${sessionScope.memberNumber}";
 </script>
 </html>

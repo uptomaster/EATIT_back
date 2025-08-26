@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }*/
 
-  function searchList() {
+/*  function searchList() {
     const query = searchInput.value.trim().toLowerCase();
     filteredRows = rows.filter(row => row.textContent.toLowerCase().includes(query));
     currentPage = 1;
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   displayList(currentPage);
-});
+});*/
 
 document.addEventListener("DOMContentLoaded", function() {
   const writeBtn = document.getElementById("writeBtn");
