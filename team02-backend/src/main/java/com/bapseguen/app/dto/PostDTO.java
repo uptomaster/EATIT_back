@@ -4,7 +4,9 @@ public class PostDTO {
 
 		private int postNumber;
 		private int memberNumber;
+		private int memberId;
 		private String postTitle;
+
 		private int postLikeCount;
 		private int postViewCount;
 		private int postReportCount;
@@ -76,13 +78,24 @@ public class PostDTO {
 			this.postType = postType;
 		}
 		
+		public int getMemberId() {
+			return memberId;
+		}
+		public void setMemberId(int memberId) {
+			this.memberId = memberId;
+		}
+		
 		@Override
 		public String toString() {
-			return "PostDTO [postNumber=" + postNumber + ", memberNumber=" + memberNumber + ", postTitle=" + postTitle
-					+ ", postLikeCount=" + postLikeCount + ", postViewCount=" + postViewCount + ", postReportCount="
-					+ postReportCount + ", deleteState=" + deleteState + ", postCreatedDate=" + postCreatedDate
-					+ ", postUpdatedDate=" + postUpdatedDate + ", postType=" + postType + "]";
+			return "PostDTO [postNumber=" + postNumber + ", memberNumber=" + memberNumber + ", memberId=" + memberId
+					+ ", postTitle=" + postTitle + ", postLikeCount=" + postLikeCount + ", postViewCount="
+					+ postViewCount + ", postReportCount=" + postReportCount + ", deleteState=" + deleteState
+					+ ", postCreatedDate=" + postCreatedDate + ", postUpdatedDate=" + postUpdatedDate + ", postType="
+					+ postType + "]";
 		}
+		
+		
+		
 	
 	
 		

@@ -88,10 +88,8 @@
 					<button type="button" id="admin_updatebtn"
 						onclick="location.href='${pageContext.request.contextPath}/admin/banner/updateOk.ad?bannerNumber=${banner.bannerNumber}'">
 						수정</button>
-					<form action="/" method="get">
-						<button type="button" id="admin_deletebtn"
-							'${pageContext.request.contextPath}/admin/banner/deleteOk.ad?bannerNumber=${banner.bannerNumber}'">
-							삭제</button>
+					<form action="/admin/banner/deleteOk.ad?bannerNumber=${banner.bannerNumber}" method="get">
+						<button type="button" id="admin_deletebtn">삭제</button>
 					</form>
 				</div>
 			</div>
