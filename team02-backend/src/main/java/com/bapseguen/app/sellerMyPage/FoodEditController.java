@@ -22,9 +22,9 @@ public class FoodEditController implements Execute{
         SellerMyPageDAO sellerDAO = new SellerMyPageDAO();
         Result result = new Result();
                
-        request.setAttribute("item", sellerDAO.detaileFood(itemNumber));
+        request.setAttribute("itemNumber", sellerDAO.detaileFood(itemNumber));
         
-        result.setPath("/app/sellerMyPage/ingredientSalesEdit.jsp");
+        result.setPath("/app/sellerMyPage/foodSalesEdit.jsp");
         result.setRedirect(false);
         return result;
 	}

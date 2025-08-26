@@ -41,7 +41,8 @@ public class FoodEditOkController implements Execute {
         parser.setEncoding("utf-8");
         System.out.println("MultipartParser 초기화 완료");
 
-        int itemNumber = 0;
+        int itemNumber = (int) request.getAttribute("itemNumber");
+        System.out.println("[FoodEditOkController] itemNumber : "+itemNumber);
         boolean isFileUpload = false;
 
         // 파일, 텍스트 데이터 처리
@@ -59,29 +60,51 @@ public class FoodEditOkController implements Execute {
                 
                 // 내용 수정 파트
                 if ("itemNumber".equals(paramName)) {
-                	// 어떤 글을 수정할지 식별자 설정
-                    itemNumber = Integer.parseInt(paramValue);
+                	// 세션에서 가져온 값이 null일 수 있으므로 null 체크
+                    String sessionItemNumber = (String) request.getSession().getAttribute("ItemNumber");
+                    if (sessionItemNumber != null) {
+                        itemNumber = Integer.parseInt(sessionItemNumber);
+                    }
                     ItemListDTO.setItemNumber(itemNumber);
                 } else if ("itemName".equals(paramName)) {
                 	// 상품명 수정
                 	ItemListDTO.setItemName(paramValue);
-                } else if ("itemContent".equals(paramName)) {
-                	// 상품 설명 수정
-                	ItemListDTO.setItemContent(paramValue);
                 } else if ("itemPrice".equals(paramName)) {
                 	// 가격 수정
-                	ItemListDTO.setItemPrice(paramValue);
+                	 try {
+                	        double price = Double.parseDouble(paramValue);
+                	        if (price < 0) {
+                	            System.out.println("가격은 0 이상이어야 합니다.");
+                	            ItemListDTO.setItemPrice("0");
+                	        } else {
+                	            ItemListDTO.setItemPrice(paramValue);
+                	        }
+                	    } catch (NumberFormatException e) {
+                	        System.out.println("가격 형식 오류: " + paramValue);
+                	        ItemListDTO.setItemPrice("0");
+                	    }
+            	} else if ("itemContent".equals(paramName)) {
+                	// 상품 설명 수정
+                	ItemListDTO.setItemContent(paramValue);
                 } else if ("itemQuantity".equals(paramName)) {
-                	// 수량 수정
-                	int itemQuantity = Integer.parseInt(paramValue);
-                	ItemListDTO.setItemQuantity(itemQuantity);
+                	// 수량 변환 시 NumberFormatException 처리
+                    try {
+                        int itemQuantity = Integer.parseInt(paramValue);
+                        ItemListDTO.setItemQuantity(itemQuantity);
+                    } catch (NumberFormatException e) {
+                        System.out.println("수량 변환 오류: " + paramValue);
+                        ItemListDTO.setItemQuantity(0); // 기본값 설정
+                    }
                 } else if ("itemExpireDate".equals(paramName)) {
                 	// 소비기한 수정
                 	ItemListDTO.setItemExpireDate(paramValue);
+                } else if ("itemOrigin".equals(paramName)) {
+                	// 소비기한 수정
+                	ItemListDTO.setItemOrigin(paramValue);
                 } else if ("itemSellState".equals(paramName)) {
                 	// 판매상태 수정
-                	String sellState ? paraValue
-                	ItemListDTO.setItemSellState(paramValue);
+//                	 // 'Y'/'N' 변환
+                    ItemListDTO.setItemSellState("Y".equals(paramValue) ? "Y" : "N");
                 } 
             } else if (part.isFile() && !isFileUpload) {
             	//파일 이미지 처리 ( 게시글 별 하나의 파일만 존재할 수 있음)
@@ -122,7 +145,7 @@ public class FoodEditOkController implements Execute {
                     fileDAO.insert(itemImageDTO);
                     System.out.println("새로운 파일 DB 저장 완료: " + itemImageDTO);
 
-                    isFileUpload = true; // 파일이 업로드되었음을 표시
+                    isFileUpload = true; // 파일s이 업로드되었음을 표시
                 } else {
                     System.out.println("업로드된 파일이 없습니다 (파일 선택하지 않음)");
                 }
@@ -130,12 +153,12 @@ public class FoodEditOkController implements Execute {
         }
 
         // 게시글 업데이트 실행
-        boardDTO.setMemberNumber((Integer) request.getSession().getAttribute("memberNumber"));
-        boardDAO.update(boardDTO);
+        ItemListDTO.setItemNumber((Integer) request.getSession().getAttribute("ItemNumber"));
+        sellerDAO.editFood(ItemListDTO);
         System.out.println("게시글 수정 완료");
 
         //수정 완료 후 리스트 페이지로 이동
-        result.setPath("/sellMyPage/boardListOk.bo");
+        result.setPath("/sellerMyPage/storeInfo.se");
         result.setRedirect(true);
         return result;
     }
