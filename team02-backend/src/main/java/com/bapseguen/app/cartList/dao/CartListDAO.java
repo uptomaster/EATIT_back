@@ -95,4 +95,5 @@ public class CartListDAO {
 		sqlSession.update("cartList.closeCurrentCart", memberNumber);
 	}
 
+
 }

@@ -73,7 +73,7 @@
 		SELECT * FROM (
 			SELECT ROWNUM AS RNUM, SUBQUERY.* FROM (
 				SELECT 
-					i.item_name,i.item_price,i.item_content,i.item_quantity,i.item_origin,i.item_expire_date,
+					i.item_number, i.item_name,i.item_price,i.item_content,i.item_quantity,i.item_origin,i.item_expire_date,
 					im.item_image_system_name
 				FROM TBL_ITEM i
 				JOIN TBL_STORE s ON i.business_number = s.business_number
@@ -140,7 +140,7 @@
 	SELECT * FROM (
 		SELECT ROWNUM AS RNUM, SUBQUERY.* FROM(
 		SELECT
-				i.item_name,i.item_price,i.item_content,i.item_quantity,i.item_origin,i.item_expire_date,
+				i.item_number, i.item_name,i.item_price,i.item_content,i.item_quantity,i.item_origin,i.item_expire_date,
 				im.item_image_system_name
 			FROM TBL_ITEM i
 			JOIN TBL_STORE s ON i.business_number = s.business_number

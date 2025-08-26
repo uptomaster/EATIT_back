@@ -16,55 +16,57 @@ import com.bapseguen.app.dto.CartItemDTO;
 
 public class CartListViewController implements Execute {
 
-	@Override
-	public Result execute(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    @Override
+    public Result execute(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-		Result result = new Result();
+        Result result = new Result();
 
-		// 로그인 체크
-		Integer memberNumber = (Integer) request.getSession().getAttribute("memberNumber");
-		if (memberNumber == null) {
-			result.setPath(request.getContextPath() + "/login/login.lo");
-			return result;
-		}
+        // 1) 로그인 체크
+        Integer memberNumber = (Integer) request.getSession().getAttribute("memberNumber");
+        if (memberNumber == null) {
+            result.setPath(request.getContextPath() + "/login/login.lo");
+            result.setRedirect(true);
+            return result;
+        }
 
-		CartListDAO dao = new CartListDAO();
-		CartDTO cart = new CartDTO();
-		// 세션에서 가져온 회원번호
-		cart.setMemberNumber(memberNumber);
+        CartListDAO dao = new CartListDAO();
 
-		// OPEN 상태의 장바구니 번호 조회 (없으면 null)
-		Integer cartNumber = dao.selectOpenCartNumberByMember(cart);
+        // 2) OPEN 카트번호 조회 (새로 만들지 말고 "있으면" 가져오기)
+        CartDTO cart = new CartDTO();
+        cart.setMemberNumber(memberNumber);
+        Integer cartNumber = dao.selectOpenCartNumberByMember(cart);
 
-		// 전체 금액 계산(클릭할때 증가시키기)
-		// totalAmount는 금액이 커질 수 있으니 long 사용
-		List<CartItemDTO> items = Collections.emptyList();
-        Long totalAmount = 0L;
+        // 3) 모델 기본값
+        List<CartItemDTO> items = Collections.emptyList();
+        long totalAmount = 0L;
 
-		if (cartNumber != null) {
-			// 목록 조회
-			items = dao.selectCartItems(cart);
-			if (items != null) {
-				for (CartItemDTO it : items) {
-					long price = 0L;
-					try {
-						price = (long) it.getCartItemPrice();
-					} catch (Throwable ignore) {
-					}
-					totalAmount += price * it.getCartItemQuantity();
-				}
-			}
-		}
+        if (cartNumber != null) {
+            // ★ cartNumber 세팅 필수
+            cart.setCartNumber(cartNumber);
 
-		request.setAttribute("cartNumber", cartNumber);
-		request.setAttribute("items", items);
-		request.setAttribute("totalAmount", totalAmount);
+            // 방법 A) DTO 기반 조회 (매퍼 WHERE가 CART_NUMBER 사용해야 함)
+            items = dao.selectCartItems(cart);
 
-		// 장바구니 포워드하기
-		result.setPath(request.getContextPath() + "/app/cartList/shoppingList.jsp");
-		result.setRedirect(false);
+            // 방법 B) cartNumber로 직접 조회 (실수를 줄이고 싶으면 이걸 사용)
+            // items = dao.selectCartItemsByCartNo(cartNumber);
 
-		return result;
-	}
+            if (items != null) {
+                for (CartItemDTO it : items) {
+                    long price = (long) it.getCartItemPrice();
+                    totalAmount += price * it.getCartItemQuantity();
+                }
+            }
+        }
+
+        // 4) 모델 주입
+        request.setAttribute("cartNumber", cartNumber);
+        request.setAttribute("items", items);
+        request.setAttribute("totalAmount", totalAmount);
+
+        // 5) forward: contextPath 붙이지 않음
+        result.setPath("/app/cartList/shoppingList.jsp");
+        result.setRedirect(false);
+        return result;
+    }
 }
