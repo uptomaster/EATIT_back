@@ -93,8 +93,8 @@
 						<c:choose>
 							<a
 								href="${pageContext.request.contextPath}/orders/storeDetail.or">
-								<c:when test="${not empty memberList}">
-									<c:forEach var="store" items="${store}">
+								<c:when test="${not empty storeList}">
+									<c:forEach var="store" items="${storelist}">
 										<img src="./assets/img/budaeJjigae.png" alt="상품이미지 설명 추가하기">
 										<!-- 가게정보 -->
 										<div class="main_store_info">
