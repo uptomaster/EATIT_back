@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
+import com.bapseguen.app.sellerMyPage.dao.SellerMyPageDAO;
 
 public class TotalSaleHistoryOkController implements Execute {
 	 @Override
@@ -18,13 +19,15 @@ public class TotalSaleHistoryOkController implements Execute {
 
 		 
 		 	Result result = new Result();
+		 	SellerMyPageDAO sellerDAO = new SellerMyPageDAO();
+		 	
 	        String businessNumber = request.getParameter("businessNumber");
-	        List<Map<String, Object>> list = new SellerMyPageDAO().totalSaleHistory(businessNumber);
+	        List<Map<String, Object>> list =  sellerDAO.totalSaleHistory(businessNumber);
 
 	        request.setAttribute("totalSales", list);
 
 //	        result.setRedirect(false);
-//	        result.setPath("/app/SellerMyPage/salesHistoryList.jsp");
+	        result.setPath("/app/SellerMyPage/salesHistoryList.jsp");
 	        return result;
 	    }
 }

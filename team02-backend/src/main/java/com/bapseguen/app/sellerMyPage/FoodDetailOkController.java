@@ -23,16 +23,16 @@ public class FoodDetailOkController implements Execute {
     	Result result = new Result();
 		
 		//itemNumber가 빈 문자열이거나 null인경우
-		String itemNumberStr = request.getParameter("itemNumber");
+		String itemNumberStr = request.getParameter("itemNumber"); //!!!!!!!!어디서 주어야 하는지 
 		System.out.println("[FoodDetailOkController] : "+itemNumberStr);
 		if(itemNumberStr == null || itemNumberStr.trim().isEmpty()){
-			System.out.println("boardNumber 값이 없습니다");
+			System.out.println("[FoodDetailOkController] itemNumberStr 값이 없습니다");
 			result.setPath("/sellerMyPage/storeInfo.se"); //게시글 목록 페이지로 리다이렉트
 			result.setRedirect(true);
 			return result;
 		}
 		
-		int itemNumber = Integer.parseInt(itemNumberStr);
+		int itemNumber = Integer.parseInt(itemNumberStr); ////!!!!!!!!!!!!!!!!!!!!!
 		
 		SellerMyPageDAO sellerDAO = new SellerMyPageDAO();
 		ItemImageDAO fileDAO = new ItemImageDAO();
