@@ -84,6 +84,8 @@ public class PaymentReadyController implements Execute {
         request.setAttribute("amount", amount);
         request.setAttribute("customerName", customerName);
 
+        
+        
         Result r = new Result();
         r.setPath("/app/orders/checkout.jsp"); // forward: contextPath 붙이지 않음
         r.setRedirect(false);
