@@ -1,5 +1,6 @@
 package com.bapseguen.app.userMyPage.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,16 +21,25 @@ public class UserMyPageDAO {
 	public UserMyPageDAO() {
         sqlSession = MyBatisConfig.getSqlSessionFactory().openSession(true);
     }
+	
+	 // (신규) 비밀번호 확인
+    public boolean checkPassword(int memberNumber, String memberPassword) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("memberNumber", memberNumber);
+        map.put("memberPassword", memberPassword);
+        Integer cnt = sqlSession.selectOne("myPage.checkPassword", map);
+        return cnt != null && cnt == 1;
+    }
 
 	// 내 정보 조회
 	public MyPageDTO MyPageSelect(int memberNumber) {
-		return sqlSession.selectOne("mypage.myPageSelect", memberNumber);
+		return sqlSession.selectOne("myPage.myPageSelect", memberNumber);
 	}
 
 	// 내 정보 수정
 	public int MyPageMemberUpdate(MyPageDTO dto) {
 		System.out.println("개인마이페이지 정보수정 실행 ");
-		return sqlSession.update("mypage.myPageMemberUpdate", dto);
+		return sqlSession.update("myPage.myPageMemberUpdate", dto);
 	}
 
 	// 회원 탈퇴
