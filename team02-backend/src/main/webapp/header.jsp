@@ -19,7 +19,7 @@
 					<c:choose>
 						<c:when test="${sessionScope.memberType eq 'GENERAL'}">
 							<li><a
-								href="${pageContext.request.contextPath}/userMyPage/editUserInfo.my">마이페이지</a></li>
+								href="${pageContext.request.contextPath}/UserMyPage/generalCheckPw.my">마이페이지</a></li>
 						</c:when>
 						<c:when test="${sessionScope.memberType eq 'SELLER'}">
 							<li><a
