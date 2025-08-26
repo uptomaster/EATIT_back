@@ -192,8 +192,8 @@
 	<!-- <footer id="footer"></footer> -->
 
 	<script>
-    window.postTitle = "${inquiry.postTitle}";
-    window.postContent = "${inquiry.postContent}";
-</script>
+    let memberNumber = "${sessionScope.memberNumber}";
+    
+	</script>
 
 </body>

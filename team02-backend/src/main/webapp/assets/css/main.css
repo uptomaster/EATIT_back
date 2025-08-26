@@ -329,8 +329,8 @@ h3{
 /* 고정 아이콘 네비게이션 */
 .icon_fixed_nav {
   position: fixed;
-  top: 200px;          
-  right: 400px; 
+  top: 650px;          
+  right: 300px; 
   display: flex;
   flex-direction: column;
   gap: 15px;
