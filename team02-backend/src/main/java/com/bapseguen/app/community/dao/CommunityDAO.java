@@ -128,28 +128,7 @@ public class CommunityDAO {
 		return list;
 	}
 	
-	// 고객센터 문의 목록 조회 (페이징 적용)
-	public List<InquiryDTO> inquirySelectAll(Map<String, Integer> pageMap) {
-		System.out.println("고객센터 모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
-		List<InquiryDTO> list = sqlSession.selectList("inquiry.inquirySelectAll", pageMap);
-		System.out.println("조회결과 : " + list);
-		return list;
-	}
 
-	// 고객센터 문의글 작성
-	public int insertInquiry(InquiryDTO inquiry) {
-		return sqlSession.insert("inquiry.inquiryInsert", inquiry);
-	}
-
-	// 고객센터 문의글 상세 조회
-	public InquiryDTO selectInquiryDetail(int postNumber) {
-		return sqlSession.selectOne("inquiry.inquirySelect", postNumber);
-	}
-	
-	
-	
-	
-	
 	// FAQ 목록 조회
 	public List<FaqDTO> faqSelectAll(Map<String, Integer> pageMap) {
 		System.out.println("고객센터 모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
@@ -157,19 +136,41 @@ public class CommunityDAO {
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
-	// 회원정보 총 개수 반환
-	public int getTotal1() {
-		System.out.println("FAQ 총 개수 조회 - getTotal 메소드 실행");
-		return sqlSession.selectOne("faq.faqListCount");
-	}
-	
-	
 	
 	// FAQ 개별 조회
     public FaqDTO selectFaqDetail(int faqNumber) {
         return sqlSession.selectOne("faq.faqSelect", faqNumber);
     }
+    
+    // 회원정보 총 개수 반환
+    public int getTotal1() {
+    	System.out.println("INQUIRY 총 개수 조회 - getTotal 메소드 실행");
+    	return sqlSession.selectOne("faq.faqListCount");
+    }
+
 	
+    // 고객센터 문의 목록 조회 (페이징 적용)
+    public List<InquiryDTO> inquirySelectAll(Map<String, Integer> pageMap) {
+    	System.out.println("고객센터 모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
+    	List<InquiryDTO> list = sqlSession.selectList("inquiry.inquirySelectAll", pageMap);
+    	System.out.println("조회결과 : " + list);
+    	return list;
+    }
 	
+    // 고객센터 문의글 작성
+    public int insertInquiry(InquiryDTO inquiry) {
+    	return sqlSession.insert("inquiry.inquiryInsert", inquiry);
+    }
+    
+    // 고객센터 문의글 상세 조회
+    public InquiryDTO selectInquiryDetail(int postNumber) {
+    	return sqlSession.selectOne("inquiry.inquirySelect", postNumber);
+    }
+
+    // 회원정보 총 개수 반환
+    public int getTotal2() {
+    	System.out.println("INQUIRY 총 개수 조회 - getTotal 메소드 실행");
+    	return sqlSession.selectOne("inquiry.inquiryListCount");
+    }
 
 }

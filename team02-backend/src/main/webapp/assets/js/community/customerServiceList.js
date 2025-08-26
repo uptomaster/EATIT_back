@@ -2,45 +2,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const rowsPerPage = 10;           
   let currentPage = 1;              
 
-  const listBody = document.getElementById("post_list_body");
-  const rows = Array.from(listBody.querySelectorAll(".list_row_flex_row"));
+  const listBody = document.getElementById("inquiry_list_body");
+  console.log(listBody);
+  const rows = listBody.querySelectorAll(".list_row_flex_row");
+  console.log(rows);
   const pagination = document.getElementById("pagination");
   const searchInput = document.querySelector(".search_text");
   const searchBtn = document.querySelector(".search_btn");
 
-  let filteredRows = [...rows];   
-
-  // ---------------- FAQ / 문의목록 탭 ----------------
-  const faqTab = document.getElementById("faq_tab");
-  const inquiriesTab = document.getElementById("inquiries_tab");
-  const faqSection = document.getElementById("faq");
-  const inquiriesSection = document.getElementById("inquiries");
-
-  function switchTab(tab) {
-    if (tab === "faq") {
-      faqSection.style.display = "block";
-      inquiriesSection.style.display = "none";
-      faqTab.classList.add("active");
-      inquiriesTab.classList.remove("active");
-      filteredRows = rows.filter(row => row.closest("#faq") !== null);
-    } else if (tab === "inquiries") {
-      faqSection.style.display = "none";
-      inquiriesSection.style.display = "block";
-      faqTab.classList.remove("active");
-      inquiriesTab.classList.add("active");
-      filteredRows = rows.filter(row => row.closest("#inquiries") !== null);
-    }
-    currentPage = 1;
-    displayList(currentPage);
-  }
-
-  if (faqTab && inquiriesTab) {
-    faqTab.addEventListener("click", e => { e.preventDefault(); switchTab("faq"); });
-    inquiriesTab.addEventListener("click", e => { e.preventDefault(); switchTab("inquiries"); });
-  }
+ let filteredRows = [...rows];
 
   // ---------------- 특정 페이지 게시글 표시 ----------------
-  function displayList(page) {
+	function displayList(page) {
     listBody.innerHTML = "";
     const start = (page - 1) * rowsPerPage;
     const end = start + rowsPerPage;
@@ -106,5 +79,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  displayList(currentPage);
+/*  displayList(currentPage);*/
 });

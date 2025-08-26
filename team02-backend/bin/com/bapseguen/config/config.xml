@@ -59,6 +59,7 @@
 		<typeAlias type="com.bapseguen.app.dto.view.WithDrawDTO" alias="WithDrawDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.view.MyPurchaseDTO" alias="MyPurchaseDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.ItemListDTO" alias="ItemListDTO"></typeAlias>
+		<typeAlias type="com.bapseguen.app.dto.view.MainStoreListDTO" alias="MainStoreListDTO"></typeAlias>
 	</typeAliases>
 
 	<environments default="oracle">
@@ -100,6 +101,7 @@
 		<mapper resource="com/bapseguen/mapper/CommentMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/ImageMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/BannerMapper.xml" />
+		<mapper resource="com/bapseguen/mapper/MainMapper.xml" />
 	</mappers>
 	
 </configuration>

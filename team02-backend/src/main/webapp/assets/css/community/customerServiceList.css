@@ -284,7 +284,7 @@ main {
 }
 
 /* 섹션 기본 숨김 */
-#inquiries { display: none; }
+/* #inquiries { display: none; } */
 
 /* 나무 등급 */
 .tree_icon {
