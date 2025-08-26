@@ -98,6 +98,7 @@
 		<mapper resource="com/bapseguen/mapper/SellerMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/StoreManageMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/CommentMapper.xml" />
+		<mapper resource="com/bapseguen/mapper/BannerMapper.xml" />
 	</mappers>
 	
 </configuration>
