@@ -47,9 +47,19 @@ public class FindPwFrontController extends HttpServlet {
 		System.out.println("현재 경로 : " + target);
 		Result result = new Result();	
 		switch (target) {
-		case "/findWd/findWdOk.fi":
+		case "/findPw/findPwOk.fp":
 			System.out.println("비밀번호 찾기 요청");
 			result = new FindPwOkController().execute(request, response);
+			break;
+		
+		case "/findPw/tempPw.fp":
+			System.out.println("임시비밀번호 저장 요청");
+			result = new TempPwController().execute(request, response);
+			break;
+		
+		case "/findPw/updatePwOk.fp":
+			System.out.println("비밀번호 수정 페이지 요청");
+			result = new UpdatePwOkController().execute(request, response);
 			break;
 		
 		}

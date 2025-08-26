@@ -69,7 +69,7 @@ public class CheckSellerPwOkController implements Execute{
 //		 session.setAttribute("storeAddressDetail",sellerDTO.getStoreAddressDetail());
 //		 session.setAttribute("storeZipCode",sellerDTO.getStoreZipCode());
 		 
-		 result.setPath("/sellerMyPage/storeInfo.se"); //임시
+		 result.setPath("/sellerMyPage/storeInfo.se"); 
 		 result.setRedirect(true);
 		 return result;
 	}

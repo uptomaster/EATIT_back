@@ -56,7 +56,7 @@ public class LoginFrontController extends HttpServlet {
 		case "/login/login.lo":
 			System.out.println("로그인 페이지 요청");
 			request.getRequestDispatcher("/app/login/login.jsp").forward(request, response);
-			break;
+			return;
 		case "/login/loginOk.lo":
 			System.out.println("로그인 처리 요청");
 			result = new LoginOkController().execute(request, response);

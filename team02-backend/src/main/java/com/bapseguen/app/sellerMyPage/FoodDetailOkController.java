@@ -1,15 +1,18 @@
 package com.bapseguen.app.sellerMyPage;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
-import com.bapseguen.app.dto.view.ItemWithImgDTO;
+import com.bapseguen.app.dto.ItemImageDTO;
+import com.bapseguen.app.dto.ItemListDTO;
+import com.bapseguen.app.img.dao.ItemImageDAO;
 import com.bapseguen.app.sellerMyPage.dao.SellerMyPageDAO;
 
 public class FoodDetailOkController implements Execute {
@@ -17,32 +20,52 @@ public class FoodDetailOkController implements Execute {
     public Result execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     	System.out.println("FoodDetailOkController 진입 성공 ===");
-    	ItemWithImgDTO ItemWithImgDTO = new ItemWithImgDTO();
-    	SellerMyPageDAO  sellerDAO = new SellerMyPageDAO();
     	Result result = new Result();
-//    	String path = null;
-    	HttpSession session = request.getSession(false);
-//    	int businuessNumber = (int) session.getAttribute("busineeNumber");
+		
+		//itemNumber가 빈 문자열이거나 null인경우
+		String itemNumberStr = request.getParameter("itemNumber");
+		System.out.println("[FoodDetailOkController] : "+itemNumberStr);
+		if(itemNumberStr == null || itemNumberStr.trim().isEmpty()){
+			System.out.println("boardNumber 값이 없습니다");
+			result.setPath("/sellerMyPage/storeInfo.se"); //게시글 목록 페이지로 리다이렉트
+			result.setRedirect(true);
+			return result;
+		}
+		
+		int itemNumber = Integer.parseInt(itemNumberStr);
+		
+		SellerMyPageDAO sellerDAO = new SellerMyPageDAO();
+		ItemImageDAO fileDAO = new ItemImageDAO();
 
-    	// 만약 게시글이 존재하지 않는다면
-    	String itemNumberstr = request.getParameter("itemNumber");
-    	itemNumberstr = "7"; // 임시 더미값 선정
-    	if(itemNumberstr == null || itemNumberstr.trim().isEmpty()){
-    		System.out.println("존재하지 않는 상품입니다.");
-    		result.setPath("/SellerMyPage/storeInfo.se"); // 사업장 관리 페이지로 돌아감
-    		result.setRedirect(true);
-    		return result;
-    	}
-    	// 게시글이 존재하는 경우
-    	int itemNumber = Integer.parseInt(itemNumberstr);
-    	//DB에서 메뉴 가져오기
-    	ItemWithImgDTO = sellerDAO.detaileFood(itemNumber);
-    	System.out.println(ItemWithImgDTO);
-    	
-    	
-        request.setAttribute("item", ItemWithImgDTO);
-        result.setRedirect(false);
-        result.setPath("/app/sellerMyPage/foodSalesView.jsp");
-        return result;
+		//DB에서 게시글 가져오기
+		ItemListDTO ItemListDTO = sellerDAO.detaileFood(itemNumber);
+		
+		//게시글이 존재하지 않을 경우 처리
+		if(ItemListDTO == null) {
+			System.out.println("[FoodDetailOkController] 존재하지 않는 게시글입니다. " + itemNumber);
+			result.setPath("/sellerMyPage/storeInfo.se");
+			result.setRedirect(true);
+			return result;
+		}
+		
+		//첨부파일 가져오기
+		List<ItemImageDTO> files = fileDAO.select(itemNumber);
+		System.out.println("======파일 확인======");
+		System.out.println(files);
+		System.out.println("===================");
+		
+		//첨부파일 붙이기
+		ItemListDTO.setFiles(files);
+		
+		//로그인한 사용자 번호 가져오기
+		Integer currItemNumber = (Integer) request.getSession().getAttribute("itemNumber");
+		System.out.println("선택한 메뉴 번호 : " + currItemNumber);
+		
+		
+		request.setAttribute("item", ItemListDTO);
+		result.setPath("/sellerMyPage/detailFoodOk.se");
+		result.setRedirect(false);		
+		
+		return result;
     }
 }

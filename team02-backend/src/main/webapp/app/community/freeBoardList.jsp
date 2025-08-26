@@ -66,7 +66,7 @@
 	   					 	</div> --%>
 
 	   					 	<div class="board-item col_title">
-	   					 		<a href="${pageContext.request.contextPath}/community/freeBoardReadOk.co?boardNumber=${post.postNumber}">
+	   					 		<a href="${pageContext.request.contextPath}/community/freeBoardReadOk.co?postNumber=${post.postNumber}">
 	   					 			<c:out value="${post.postTitle}" />
 	   					 		</a>
 	   					 	</div>
@@ -279,7 +279,7 @@
   <!-- <footer id="footer"></footer> -->
 </body>
 <script>
-		window.boardNumber = "${board.boardNumber}";
+		window.postNumber = "${post.postNumber}";
 		window.memberNumber = "${sessionScope.memberNumber}";
 </script>
 

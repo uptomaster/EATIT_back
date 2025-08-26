@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- 파비콘 -->
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
-  <title>공지사항/이벤트</title>
+  <title>밥세권</title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/community/viewOwnPost.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css" />
@@ -19,7 +19,6 @@
   <script defer src="${pageContext.request.contextPath}/assets/js/community/darkmode.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/community/treeGradeModal.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/community/EditDeletePost.js"></script>
-  <script defer src="${pageContext.request.contextPath}/assets/js/community/loadHeaderFooter.js"></script>
   <script>
     let headerPath = '../../header.jsp';
     let footerPath = '../../footer.jsp';
@@ -39,10 +38,10 @@
       <!-- 카테고리 메뉴 -->
       <nav class="category_container">
         <ul class="category_list">
-          <li class="category_item"><a href="${pageContext.request.contextPath}/community/communityMainUser.jsp">공지사항/이벤트</a></li>
-          <li class="category_item"><a href="${pageContext.request.contextPath}/community/freeBoardList.jsp">자유게시판</a></li>
-          <li class="category_item"><a href="${pageContext.request.contextPath}/community/promoBoardList.jsp">홍보게시판</a></li>
-          <li class="category_item"><a href="${pageContext.request.contextPath}/community/recipeList.jsp">레시피</a></li>
+          <li class="category_item"><a href="${pageContext.request.contextPath}/community/communityMainOk.co">공지사항/이벤트</a></li>
+          <li class="category_item"><a href="${pageContext.request.contextPath}/community/freeBoardReadOk.co">자유게시판</a></li>
+          <li class="category_item"><a href="${pageContext.request.contextPath}/community/promoBoardListOk.co">홍보게시판</a></li>
+          <li class="category_item"><a href="${pageContext.request.contextPath}/community/recipeListOk.co">레시피</a></li>
         </ul>
       </nav>
 
@@ -67,8 +66,7 @@
 		  <div class="post_header">
 		    <!-- 게시글 제목 -->
 		    <div class="post_title">
-		      <h1 class="post_title">밥세권 앱 신규 기능 업데이트 안내</h1>
-		      <h1><c:out value="${post.getPostTitle()}" /></h1>
+		      <h1 class="post_title"><c:out value="${post.getPostTitle()}" /></h1>
 		    </div>
 		
 		    <!-- 메타 데이터 -->
@@ -81,7 +79,6 @@
 		
 		      <!-- 작성일 -->
 		      <div class="post_date_area">
-		        <time datetime="2025-08-03T14:13:02">[2025. 8. 3. 오전 12:22:53]</time>
 		        <c:out value="${post.getPostCreatedDate() }" />
 		      </div>
 		

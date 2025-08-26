@@ -32,6 +32,9 @@ public class FreeBoardReadOkController implements Execute{
 			return result;
 		}
 		
+		
+
+		
 		int postNumber = Integer.parseInt(postNumberStr);
 		
 		CommunityDAO communityDAO = new CommunityDAO();

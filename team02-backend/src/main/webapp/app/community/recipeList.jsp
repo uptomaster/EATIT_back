@@ -37,7 +37,7 @@
         <ul>
           <li><a href="${pageContext.request.contextPath}/community/communityMainOk.co" id="category_event">공지사항/이벤트</a></li>
           <li><a href="${pageContext.request.contextPath}/community/freeBoardReadOk.co" id="category_free">자유게시판</a></li>
-          <li><a href="${pageContext.request.contextPath}/community/promoBoardListOk.cop" id="category_advertise">홍보게시판</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/promoBoardListOk.co" id="category_advertise">홍보게시판</a></li>
           <li><a href="${pageContext.request.contextPath}/community/recipeListOk.co" id="category_recipe" class="active">레시피</a></li>
         </ul>
       </nav>
@@ -52,7 +52,7 @@
           <div class="col_likes" role="columnheader">추천</div>
         </div>
 
-        <div id="postListBody" class="list_body" role="rowgroup">
+        <%-- <div id="postListBody" class="list_body" role="rowgroup">
           <div class="list_row flex_row" role="row">
             <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/community/viewOtherPost.jsp">김치찌개 황금레시피 공개</a></div>
             <div class="col_author" role="cell">
@@ -110,7 +110,7 @@
             <div class="col_views" role="cell">140</div>
             <div class="col_likes" role="cell">40</div>
           </div>
-        </div>
+        </div> --%>
       </section>
 
       <!-- 페이지네이션 -->
@@ -142,7 +142,7 @@
   <jsp:include page="/footer.jsp" />
 </body>
 <script>
-		window.boardNumber = "${board.boardNumber}";
+		window.postNumber = "${post.postNumber}";
 		window.memberNumber = "${sessionScope.memberNumber}";
 </script>
 </html>

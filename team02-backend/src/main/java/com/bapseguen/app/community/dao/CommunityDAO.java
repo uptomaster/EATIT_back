@@ -32,34 +32,75 @@ public class CommunityDAO {
 
 	//자유게시판 목록 조회
 	public List<PostDTO> freeSelectAll(Map<String, Integer> pageMap) {
-		System.out.println("모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
+		System.out.println("자유게시판 게시글 조회하기 - freeSelectAll 메소드 실행 : " + pageMap);
 		List<PostDTO> list = sqlSession.selectList("post.freeSelectAll", pageMap);
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
 	
+	//공지목록 조회
+	public List<PostDTO> noticeSelectAll(Map<String, Integer> pageMap) {
+		System.out.println("공지 목록 모든 게시글 조회하기 - noticeSelectAll 메소드 실행 : " + pageMap);
+		List<PostDTO> list = sqlSession.selectList("notice.noticeSelectAll", pageMap);
+		System.out.println("조회결과 : " + list);
+		return list;
+	}
+	
+//	public List<PostDTO> typeSelectAll(Map<String, Object> pageMap) {
+//	    System.out.println("모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
+//	    List<PostDTO> list = sqlSession.selectList("post.typeSelectAll", pageMap);
+//	    System.out.println("조회결과 : " + list);
+//	    return list;
+//	}
+//	
 	
 	//홍보게시판 목록 조회
-	public List<PromoBoardDTO> promoSelectAll(Map<String, Integer> pageMap) {
-		System.out.println("모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
-		List<PromoBoardDTO> list = sqlSession.selectList("board.promoSelectAll", pageMap);
+	public List<PostDTO> promoSelectAll(Map<String, Integer> pageMap) {
+		System.out.println("홍보게시판 게시글 조회하기 - promoSelectAll 메소드 실행 : " + pageMap);
+		List<PostDTO> list = sqlSession.selectList("post.promoSelectAll", pageMap);
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
 	//레시피 게시판 목록 조회
-	public List<RecipeBoardDTO> recipeSelectAll(Map<String, Integer> pageMap) {
-		System.out.println("모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
-		List<RecipeBoardDTO> list = sqlSession.selectList("board.recipeSelectAll", pageMap);
+	public List<PostDTO> recipeSelectAll(Map<String, Integer> pageMap) {
+		System.out.println("레시피 게시글 조회하기 - recipeSelectAll 메소드 실행 : " + pageMap);
+		List<PostDTO> list = sqlSession.selectList("post.recipeSelectAll", pageMap);
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
 	
 	// 게시글 총 개수 가져오기
-	public int getTotal() {
-		System.out.println("게시글 총 개수 조회 - getTotal 메소드 실행");
-		return sqlSession.selectOne("post.postGetTotal");
+//	public int getTotal() {
+//		System.out.println("게시글 총 개수 조회 - getTotal 메소드 실행");
+//		return sqlSession.selectOne("post.postGetTotal");
+//	}
+	// 공지사항 게시글 총 개수 가져오기
+	public int noticeGetTotal() {
+		System.out.println("공지 게시글 총 개수 조회 - noticeGetTotal 메소드 실행");
+		return sqlSession.selectOne("notice.noticeGetTotal");
 	}
+	// 자유게시판 게시글 총 개수 가져오기
+	public int freeGetTotal() {
+		System.out.println("자유 게시글 총 개수 조회 - freeGetTotal 메소드 실행");
+		return sqlSession.selectOne("post.freeGetTotal");
+	}
+	// 홍보게시판 게시글 총 개수 가져오기
+	public int promoGetTotal() {
+		System.out.println("홍보 게시글 총 개수 조회 - promoGetTotal 메소드 실행");
+		return sqlSession.selectOne("post.promoGetTotal");
+	}
+	// 레시피게시판 게시글 총 개수 가져오기
+	public int recipeGetTotal() {
+		System.out.println("레시피 게시글 총 개수 조회 - recipeGetTotal 메소드 실행");
+		return sqlSession.selectOne("post.recipeGetTotal");
+	}
+	
 
+	
+	
+	
+	
+	
 	// 게시글 상세 조회
 	public PostDetailDTO select(int postNumber) {
 		return sqlSession.selectOne("post.postSelect", postNumber);
@@ -117,13 +158,7 @@ public class CommunityDAO {
 		return sqlSession.selectOne("inquiry.inquirySelect", postNumber);
 	}
 	
-	//공지목록 조회
-	public List<NoticeDTO> noticeSelectAll(Map<String, Integer> pageMap) {
-		System.out.println("공지 목록 모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
-		List<NoticeDTO> list = sqlSession.selectList("notice.noticeSelectAll", pageMap);
-		System.out.println("조회결과 : " + list);
-		return list;
-	}
+	
 	
 	
 	
@@ -133,6 +168,11 @@ public class CommunityDAO {
 		List<FaqDTO> list = sqlSession.selectList("faq.faqSelectAll", pageMap);
 		System.out.println("조회결과 : " + list);
 		return list;
+	}
+	// 회원정보 총 개수 반환
+	public int getTotal1() {
+		System.out.println("FAQ 총 개수 조회 - getTotal 메소드 실행");
+		return sqlSession.selectOne("faq.faqListCount");
 	}
 	
 	

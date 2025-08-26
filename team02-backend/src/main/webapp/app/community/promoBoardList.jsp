@@ -55,7 +55,7 @@
           <div class="col_likes" role="columnheader">추천</div>
         </div>
 
-        <div id="postListBody" class="list_body" role="rowgroup">
+        <%-- <div id="postListBody" class="list_body" role="rowgroup">
           <div class="list_row flex_row" role="row">
             <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/community/viewOtherPost.html">홍대에 새로 오픈한 이탈리안 레스토랑 소개</a>
             </div>
@@ -127,7 +127,7 @@
             <div class="col_views" role="cell">170</div>
             <div class="col_likes" role="cell">45</div>
           </div>
-        </div>
+        </div> --%>
 
       </section>
 
@@ -147,7 +147,7 @@
           </div>
 
           <div class="write_form">
-            <a href="${pageContext.request.contextPath}/community/writeFreeBoard.co?postType=RECIPE" id="writeBtn">글쓰기</a>
+            <a href="${pageContext.request.contextPath}/community/writeFreeBoard.co?postType=PROMOTION" id="writeBtn">글쓰기</a>
           </div>
         </div>
       </div>
@@ -160,7 +160,7 @@
   <jsp:include page="/footer.jsp" />
 </body>
 <script>
-		window.boardNumber = "${board.boardNumber}";
+		window.postNumber = "${post.postNumber}";
 		window.memberNumber = "${sessionScope.memberNumber}";
 </script>
 </html>

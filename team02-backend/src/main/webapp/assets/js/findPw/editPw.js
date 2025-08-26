@@ -1,78 +1,50 @@
-//미리 저장한 비밀번호
-const dbPw = 'user123123';
+document.addEventListener('DOMContentLoaded', () => {
+  const form  = document.querySelector('.findPw_edit_input_container');
+  if (!form) return;
 
-// 경고메시지 출력창
-const errors = document.querySelectorAll('.findPw_warning_msg');
-const errorMessageOld = document.getElementById("findPw_edit_warning_message_old");
-const errorMessageNew = document.getElementById("findPw_edit_warning_message_new");
-const errorMessageChk = document.getElementById("findPw_edit_warning_message_chk");
-//비밀번호 입력값
-let oldPasswordInput = document.querySelector("#findPw_edit_oldPw");
-let newPasswordInput = document.getElementById("findPw_edit_newPw");
-let confirmPasswordInput = document.getElementById("findPw_edit_newPw_chk");
+  const oldEl  = document.getElementById('findPw_edit_oldPw');      // 임시 비밀번호
+  const newEl  = document.getElementById('findPw_edit_newPw');      // 새 비밀번호
+  const chkEl  = document.getElementById('findPw_edit_newPw_chk');  // 새 비밀번호 확인
 
+  const warnOld = document.getElementById('findPw_edit_warning_message_old');
+  const warnNew = document.getElementById('findPw_edit_warning_message_new');
+  const warnChk = document.getElementById('findPw_edit_warning_message_chk');
 
-console.log('oldPasswordInput', oldPasswordInput);
-console.log('newPasswordInput', newPasswordInput);
-console.log('confirmPasswordInput', confirmPasswordInput);
-// console.log('oldPassword',oldPassword);
-// console.log('newPassword',newPassword);
-// console.log('confirmPassword',confirmPassword);
+  // 회원가입과 동일: 영문 + 숫자 + 특수문자, 8~16자
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-\[\]{};':"\\|,.<>\/?]).{8,16}$/;
 
-//현재 비밀번호 확인
-oldPasswordInput.addEventListener("input", () => {
-  let oldpw = oldPasswordInput.value.trim();
-  if (dbPw !== oldpw) {
-    errorMessageOld.textContent = "현재 비밀번호와 일치하지 않습니다.";
-    errorMessageOld.style.color = "red";
-  } else {
-    errorMessageOld.textContent = "";
-  }
-});
+  const setMsg = (el, text) => { if (el) el.textContent = text; };
+  const clearMsgs = () => { setMsg(warnOld,''); setMsg(warnNew,''); setMsg(warnChk,''); };
 
-// 비밀번호 유효성 검사 정규표현식
-const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,16}$/;
+  const validate = () => {
+    clearMsgs();
+    const oldPw = (oldEl?.value || '').trim();
+    const newPw = (newEl?.value || '').trim();
+    const newPw2 = (chkEl?.value || '').trim();
 
-newPasswordInput.addEventListener("input", () => {
-  let newpw = newPasswordInput.value.trim();
-
-  if (!passwordRegex.test(newpw)) {
-    errorMessageNew.textContent = "비밀번호는 8~16자의 영문 대/소문자, 숫자, 특수문자를 포함해야 합니다.";
-    errorMessageNew.style.color = "red";
-  } else {
-    errorMessageNew.textContent = "";
-  }
-});
-
-
-confirmPasswordInput.addEventListener("input", () => {
-  let newpw = newPasswordInput.value.trim();
-  let chkpw = confirmPasswordInput.value.trim();
-
-  if (newpw === chkpw) {
-    errorMessageChk.textContent = "";
-  } else {
-    errorMessageChk.textContent = "입력하신 비밀번호와 일치하지 않습니다.";
-    errorMessageChk.style.color = "red";
-  }
-});
-
-//수정버튼 클릭시
-const editBtn = document.querySelector('.findPw_edit_btn');
-editBtn.addEventListener("click", () => {
-  // console.log(errors.length);
-  let errorCount = 0;
-  // 필수동의 여부 확인
-  errors.forEach((error) => {
-    if (error.value !== '') {
-      errorCount++;
+    if (!oldPw) { setMsg(warnOld, '임시 비밀번호를 입력해주세요.'); oldEl?.focus(); return false; }
+    if (!passwordRegex.test(oldPw)) {
+      setMsg(warnOld, '임시 비밀번호 형식이 올바르지 않습니다. (영문+숫자+특수문자, 8~16자)');
+      oldEl?.focus(); return false;
     }
+
+    if (!newPw) { setMsg(warnNew, '새 비밀번호를 입력해주세요.'); newEl?.focus(); return false; }
+    if (!passwordRegex.test(newPw)) {
+      setMsg(warnNew, '8~16자, 영문+숫자+특수문자를 포함해야 합니다.');
+      newEl?.focus(); return false;
+    }
+    if (newPw === oldPw) {
+      setMsg(warnNew, '새 비밀번호는 임시 비밀번호와 달라야 합니다.');
+      newEl?.focus(); return false;
+    }
+
+    if (!newPw2) { setMsg(warnChk, '새 비밀번호 확인을 입력해주세요.'); chkEl?.focus(); return false; }
+    if (newPw !== newPw2) { setMsg(warnChk, '새 비밀번호가 일치하지 않습니다.'); chkEl?.focus(); return false; }
+
+    return true;
+  };
+
+  form.addEventListener('submit', (e) => {
+    if (!validate()) e.preventDefault();
   });
-  console.log(errorCount);
-  if (errorCount === 0) {
-    location.href = "main.html";
-    return;
-  }
-  alert("경고메시지를 확인해주세요");
-  // alert() -> return 일때 return 이 작동 안함 왜?
 });

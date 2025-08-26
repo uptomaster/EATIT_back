@@ -5,9 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modifyBtn = document.querySelector(".modify-btn");
   const deleteBtn = document.querySelector(".delete-btn");
   const submitBtn = document.querySelector(".submit-btn");
-  
-  
-  
+
 	  
 	  
   recommendBtn.addEventListener('click', () => {
@@ -55,106 +53,132 @@ document.addEventListener('DOMContentLoaded', () => {
   
 });
 
-
+// ===== 댓글  =====
 document.addEventListener('DOMContentLoaded', () => {
-  // ===== 댓글 추천 버튼 =====
-  const commentRecommendButtons = document.querySelectorAll('.comment_recommend_container .recommend');
+  const postNumber   = window.postNumber ? parseInt(window.postNumber, 10) : null;
+  const memberNumber = window.memberNumber ? parseInt(window.memberNumber, 10) : null;
 
-  commentRecommendButtons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const countElement = btn.parentElement.querySelector('.recommend_count');
-      let currentCount = parseInt(countElement.textContent, 10);
-      countElement.textContent = ++currentCount;
+  const listEl   = document.getElementById('commentList');
+  const inputEl  = document.getElementById('commentInput');
+  const submitEl = document.getElementById('commentSubmit');
 
-      // 애니메이션 효과
-      countElement.classList.add('bump');
-      setTimeout(() => countElement.classList.remove('bump'), 300);
-    });
-  });
-});
-
-
-document.addEventListener('DOMContentLoaded', () => {
-  const commentForm = document.querySelector('.comment_form');
-  const commentList = document.querySelector('.comment_list');
-  const commentDelete = document.querySelectorAll('.comment_delete');
-  // 댓글 작성 시 실시간 추가
-  commentForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const input = commentForm.querySelector('input[name="comment"]');
-    const commentText = input.value.trim();
-    if (!commentText) return;
-
-    // 새로운 댓글 요소 생성
-    const newComment = document.createElement('li');
-    newComment.classList.add('comment_item');
-    newComment.innerHTML = `
-      <div class="comment_profile_container">
-        <img class="comment_profile" src="./../../assets/img/나무.png" alt="나무 등급 프로필" />
-        <div class="comment_info">
-          <span class="comment_author">namhyuk</span>
-          <time class="comment_timeline" datetime="${new Date().toISOString()}">
-          [${new Date().toLocaleString()}]</time>
-          <button class="comment_delete" title="댓글 삭제">[댓글 삭제]</button>
-          <p class="comment_text">${commentText}</p>
-        </div>
-      </div>
-      <div class="comment_recommend_container">
-        <button class="recommend" title="댓글 추천">
-          <img src="./../../assets/img/like.jpg" alt="댓글 추천 버튼" />
-        </button>
-        <span class="recommend_count">0</span>
-      </div>
-    `;
-
-
-
-
-    commentList.appendChild(newComment);
-
-    // 입력창 초기화
-    input.value = '';
-
-    // 추가된 댓글에도 좋아요 기능 적용
-    attachCommentLikeEvent(newComment.querySelector('.recommend'));
-  });
-
-  // 댓글 좋아요 기능
-  function attachCommentLikeEvent(button) {
-    button.addEventListener('click', () => {
-      const countSpan = button.parentElement.querySelector('.recommend_count');
-      let count = parseInt(countSpan.textContent) || 0;
-      count++;
-      countSpan.textContent = count;
-
-      // 애니메이션 효과
-      button.classList.add('liked');
-      setTimeout(() => {
-        button.classList.remove('liked');
-      }, 400);
-    });
+  function escHtml(s) {
+    const d = document.createElement('div');
+    d.textContent = String(s ?? '');
+    return d.innerHTML;
+  }
+  async function safeJson(res) {
+    const t = await res.text();
+    try { return t ? JSON.parse(t) : null; } catch { return null; }
   }
 
-  // 기존 댓글 좋아요 버튼에도 적용
-  document.querySelectorAll('.comment_recommend').forEach((btn) => {
-    attachCommentLikeEvent(btn);
-  });
-});
+  // 목록 로드
+  async function loadComments() {
+    if (!postNumber || !listEl) return;
+    try {
+      const res = await fetch(`/comment/listOk.cm?postNumber=${encodeURIComponent(postNumber)}`, {
+        headers: { 'Accept':'application/json', 'X-Requested-With':'XMLHttpRequest' }
+      });
+      if (!res.ok) throw new Error('댓글 목록 요청 실패');
+      const items = await safeJson(res);
+      renderComments(Array.isArray(items) ? items : []);
+    } catch (e) {
+      console.error('댓글 목록 불러오기 실패:', e);
+      listEl.innerHTML = `<li class="comment_item">댓글을 불러오지 못했습니다.</li>`;
+    }
+  }
 
+  // 렌더링
+  function renderComments(items) {
+    listEl.innerHTML = '';
+    if (!items.length) {
+      listEl.innerHTML = `<li class="comment_item">첫 댓글의 주인공이 되어주세요!</li>`;
+      return;
+    }
+    const frag = document.createDocumentFragment();
+    items.forEach(c => {
+      const isMine = memberNumber && String(memberNumber) === String(c.memberNumber);
+      const li = document.createElement('li');
+      li.className = 'comment_item';
+      li.dataset.number = c.commentNumber;
 
+      li.innerHTML = `
+        <div class="comment_profile_container">
+          <img class="comment_profile" src="/assets/img/잎새.png" alt="프로필" />
+          <div class="comment_info">
+            <span class="comment_author">${escHtml(c.memberId)}</span>
+            <time class="comment_timeline">${escHtml(c.commentedDate || '')}</time>
+            ${isMine ? `<button class="comment_delete" data-number="${c.commentNumber}" title="댓글 삭제">[댓글 삭제]</button>` : ``}
+            <p class="comment_text">${escHtml(c.commentContent)}</p>
+          </div>
+        </div>
+      `;
+      frag.appendChild(li);
+    });
+    listEl.appendChild(frag);
+  }
 
-// 댓글 삭제기능
-document.addEventListener('DOMContentLoaded', () => {
-  const commentList = document.querySelector('.comment_list');
+  // 작성
+  submitEl?.addEventListener('click', async () => {
+    const content = (inputEl?.value || '').trim();
+    if (!content) return alert('댓글을 입력해주세요.');
+    if (!postNumber) return alert('postNumber가 없습니다.');
+    if (!memberNumber) return alert('로그인 후 이용해주세요.');
 
-  commentList.addEventListener('click', (e) => {
-    if (e.target.classList.contains('comment_delete') || e.target.closest('.comment_delete')) {
-      const deleteBtn = e.target.closest('.comment_delete');
-      const commentItem = deleteBtn.closest('li.comment_item');
-      if (commentItem) {
-        commentItem.remove();
+    try {
+      const res = await fetch(`/comment/writeOk.cm`, {
+        method: 'POST',
+        headers: {
+          'Content-Type':'application/json; charset=utf-8',
+          'Accept':'application/json',
+          'X-Requested-With':'XMLHttpRequest'
+        },
+        body: JSON.stringify({ postNumber, memberNumber, commentContent: content })
+      });
+      const result = await safeJson(res);
+      if (result?.status === 'success') {
+        if (inputEl) inputEl.value = '';
+        await loadComments();
+      } else {
+        alert(result?.message || '댓글 작성에 실패했습니다.');
       }
+    } catch (e) {
+      console.error('댓글 작성 실패:', e);
+      alert('댓글 작성 중 오류가 발생했습니다.');
     }
   });
+
+  // 삭제 (위임)
+  listEl?.addEventListener('click', async (e) => {
+    const btn = e.target.closest('.comment_delete');
+    if (!btn) return;
+
+    const commentNumber = btn.dataset.number || btn.closest('li')?.dataset.number;
+    if (!commentNumber) return;
+    if (!confirm('댓글을 삭제하시겠습니까?')) return;
+
+    try {
+      const res = await fetch(`/comment/deleteOk.cm?commentNumber=${encodeURIComponent(commentNumber)}`, {
+        method: 'GET',
+        headers: { 'Accept':'application/json', 'X-Requested-With':'XMLHttpRequest' }
+      });
+      const result = await safeJson(res);
+      if (result?.status === 'success') {
+        btn.closest('li')?.remove();
+        if (!listEl.querySelector('li')) {
+          listEl.innerHTML = `<li class="comment_item">댓글이 없습니다.</li>`;
+        }
+      } else {
+        alert('댓글 삭제에 실패했습니다.');
+      }
+    } catch (e) {
+      console.error('댓글 삭제 실패:', e);
+      alert('댓글 삭제 중 오류가 발생했습니다.');
+    }
+  });
+
+  // 초기 로드
+  loadComments();
 });
+
+

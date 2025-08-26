@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- 파비콘 -->
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
-  <title>공지사항/이벤트</title>
+  <title>밥세권</title>
 
   <!-- css -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/community/communityMainUser.css" />
@@ -18,7 +18,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css" />
- <%--  <link rel="stylesheet" href="${pageContext.request.contextPath}/buy/storeList.html"> --%>
+
   <!-- 스크립트 -->
   <script defer src="${pageContext.request.contextPath}/assets/js/community/communityMainUser.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/community/mouseoverTreeIcon.js"></script>
@@ -46,10 +46,10 @@
       <!-- 카테고리 네비 -->
       <nav class="community_category">
         <ul>
-          <li><a href="${pageContext.request.contextPath}/app/community/communityMainUser.jsp" id="category_event" class="active">공지사항/이벤트</a></li>
-          <li><a href="${pageContext.request.contextPath}/app/community/freeBoardList.jsp" id="category_free">자유게시판</a></li>
-          <li><a href="${pageContext.request.contextPath}/app/community/promoBoardList.jsp" id="category_advertise">홍보게시판</a></li>
-          <li><a href="${pageContext.request.contextPath}/app/community/recipeList.jsp" id="category_recipe">레시피</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/communityMainOk.co" id="category_event" class="active">공지사항/이벤트</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/freeBoardReadOk.co" id="category_free">자유게시판</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/promoBoardListOk.co" id="category_advertise">홍보게시판</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/recipeListOk.co" id="category_recipe">레시피</a></li>
         </ul>
       </nav>
 
@@ -69,20 +69,20 @@
         	<!-- 게시글 목록 -->
    			<div class="board-body">
 	   			<c:choose>
-	   				<c:when test="${not empty noticeList}">
-	   					<c:forEach var="notice" items="${noticeList}">
+	   				<c:when test="${not empty postList}">
+	   					<c:forEach var="post" items="${postList}">
 		   					 <div class="board-row">
 		   					 	<div class="board-item title">
-		   					 		<c:out value="${notice.getPostTitle()}" />
+		   					 		<c:out value="${post.getPostTitle()}" />
 		   					 	</div>
 		   					 	<div class="board-item author">
-		   					 		<c:out value="${notice.getMemberId() }" />
+		   					 		<c:out value="${post.getMemberId() }" />
 		   					 	</div>
 		   					 	<div class="board-item date">
-		   					 		<c:out value="${notice.getPostCreatedDate() }" />
+		   					 		<c:out value="${post.getPostCreatedDate() }" />
 		   					 	</div>
 		   					 	<div class="board-item hit">
-		   					 		<c:out value="${notice.getPostViewCount() }" />
+		   					 		<c:out value="${post.getPostViewCount() }" />
 		   					 	</div>
 		   					 </div>
 	   					 </c:forEach>
@@ -97,8 +97,8 @@
    		
    	
           <!-- 게시글 한 줄 -->
-		<%-- <div class="list_row flex_row" role="row">
-            <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/app/community/viewOtherPost.jsp">밥세권 앱 신규 기능 업데이트 안내</a></div>
+		<%--<div class="list_row flex_row" role="row">
+             <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/app/community/viewOtherPost.jsp">밥세권 앱 신규 기능 업데이트 안내</a></div>
             <div class="col_author" role="cell">
               관리자
               <img src="${pageContext.request.contextPath}/assets/img/관리자.png" alt="관리자" class="tree_icon" />
@@ -106,10 +106,10 @@
             <div class="col_date" role="cell">25-08-01</div>
             <div class="col_views" role="cell">120</div>
             <div class="col_likes" role="cell">35</div>
-          </div>
+          </div> --%>
 
           <!-- 계속 복붙된 게시글들 -->
-         <div class="list_row flex_row" role="row">
+         <%-- <div class="list_row flex_row" role="row">
             <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/app/community/viewOtherPost.jsp">신규 입점 업체 ‘맛있는 반찬’
                 소개</a></div>
             <div class="col_author" role="cell">
@@ -252,8 +252,8 @@
             <div class="col_views" role="cell">130</div>
             <div class="col_likes" role="cell">38</div>
           </div>
-        </div>
-      </section> --%>
+        </div> --%>
+      </section> 
 
       <!-- 페이지네이션 들어가는 자리 -->
       <div class="pagination">
@@ -293,7 +293,7 @@
             </button>
           </div>
 
-          <!-- 글쓰기 버튼 -->
+          <!-- 글쓰기 버튼/ 공지사항은 관리자만 작성가능 -->
           <!-- <div class="write_form">
             <a href="./../community/writeRecipeBoard.html" id="writeBtn">글쓰기</a>
           </div> -->
@@ -310,7 +310,7 @@
   <!-- <footer id="footer"></footer> -->
 </body>
 <script>
-		window.boardNumber = "${board.boardNumber}";
+		window.postNumber = "${post.postNumber}";
 		window.memberNumber = "${sessionScope.memberNumber}";
 </script>
 </html>

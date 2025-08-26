@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/findPw/findPwFail.css">
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-  <script defer src="${pageContext.request.contextPath}/assets/js/findPW/findPwFail.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/findPw/findPwFail.js"></script>
   <title>밥세권</title>
   <script>
     let headerPath = '../../header.jsp';
@@ -40,9 +40,8 @@
         </div>
       </div>
     </div>
-    </div> <!--//.container-->
   </main>
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </body>
 
-</html>`
+</html>

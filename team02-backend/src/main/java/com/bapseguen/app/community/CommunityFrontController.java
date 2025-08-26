@@ -42,12 +42,12 @@ public class CommunityFrontController extends HttpServlet {
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
+		
+	    String target = request.getRequestURI().substring(request.getContextPath().length());
+	    System.out.println("CommunityFrontController 현재 경로 : " + target);
+	    Result result = new Result();
 
-		
-		String target = request.getRequestURI().substring(request.getContextPath().length());
-		System.out.println("CommunityFrontController 현재 경로 : " + target);
-		Result result = new Result();
-		
+	   
 		switch (target) {
 		case "/community/communityMainOk.co":
 			System.out.println("공지사항/이벤트 목록 페이지 처리 요청");
@@ -56,7 +56,8 @@ public class CommunityFrontController extends HttpServlet {
 		case "/community/viewOwnPostOk.co":
 			System.out.println("공지사항/이벤트 게시글 상세 페이지 처리 요청");
 			result = new ViewOwnPostReadOkController().execute(request, response);
-			break;	
+			break;
+			
 		case "/community/freeBoardListOk.co":
 			System.out.println("자유게시판 목록 페이지 처리 요청");
 			result = new FreeBoardListOkController().execute(request, response);
@@ -70,10 +71,11 @@ public class CommunityFrontController extends HttpServlet {
 			System.out.println("자유게시판 게시글 작성페이지 이동 요청");
 			result = new WriteFreeBoardController().execute(request, response);
 			break;
-		case "/community/writeFreeBoardOK.co":
+		case "/community/writeFreeBoardOk.co":
 			System.out.println("자유게시판 게시글 작성완료 요청");
-			result = new WriteFreeBoardOKController().execute(request, response);
-			break;	
+			result = new WriteFreeBoardOkController().execute(request, response);
+			break;
+			
 		case "/community/postDeleteOK.co":
 			System.out.println("게시글 삭제 완료 요청");
 			result = new PostDeleteOKController().execute(request, response);
@@ -81,7 +83,12 @@ public class CommunityFrontController extends HttpServlet {
 		case "/community/postUpdate.co":
 			System.out.println("게시글 수정 페이지 이동 요청");
 			result = new PostUpdateController().execute(request, response);
-			break;	
+			break;
+		case "/community/postUpdateOk.co":
+			System.out.println("게시글 수정 완료 요청");
+			result = new PostUpdateOkController().execute(request, response);
+			break;
+			
 		case "/community/customerServiceListOk.co":
 			System.out.println("고객센터 목록 페이지 처리 요청");
 			result = new CustomerServiceListOkController().execute(request, response);

@@ -10,24 +10,21 @@ import javax.servlet.http.HttpServletResponse;
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.community.dao.CommunityDAO;
-import com.bapseguen.app.dto.FreeBoardDTO;
-import com.bapseguen.app.dto.PostDTO;
 import com.bapseguen.app.dto.PostImageDTO;
+import com.bapseguen.app.dto.view.PostDetailDTO;
 import com.bapseguen.app.img.dao.PostImageDAO;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-public class WriteFreeBoardOKController implements Execute{
+public class PostUpdateOkController implements Execute{
 
 	@Override
-	public Result execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public Result execute(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		
-		System.out.println("====WriteFreeBoardOKController 실행====");
 		CommunityDAO communityDAO = new CommunityDAO();
-		PostDTO postDTO=new PostDTO();
-		FreeBoardDTO freeBoardDTO = new FreeBoardDTO(); 
+		PostDetailDTO postDetailDTO = new PostDetailDTO();
 		Result result = new Result();
-		PostImageDAO postImageDAO =new PostImageDAO();
+		PostImageDAO postImageDAO = new PostImageDAO();
 		PostImageDTO postImageDTO = new PostImageDTO();
 		
 		//로그인 한 회원 정보 가져오기
@@ -53,14 +50,16 @@ public class WriteFreeBoardOKController implements Execute{
 		//new DefaultFileRenamePolicy() : 파일명이 중복될 경우 자동으로 이름 변경해주는 정책
 
 		//게시글 정보 설정
-		postDTO.setPostTitle(multipartRequest.getParameter("postTitle"));
-		freeBoardDTO.setFreeContent(multipartRequest.getParameter("freeContent"));
-		postDTO.setMemberNumber(memberNumber);
-		System.out.println("게시글 추가 - PostDTO : " + postDTO);
+		PostDetailDTO.setPostTitle(multipartRequest.getParameter("postTitle"));
+		PostDetailDTO.setFreeContent(multipartRequest.getParameter("freeContent"));
+		PostDetailDTO.setPromoContent(multipartRequest.getParameter("promoContent"));
+		PostDetailDTO.setRecipeContent(multipartRequest.getParameter("recipeContent"));
+		PostDetailDTO.setMemberNumber(memberNumber);
+		System.out.println("게시글 추가 - PostDetailDTO : " + postDetailDTO);
 		
 		//게시글 추가
-		int postNumber = communityDAO.insertPost(postDTO);
-		System.out.println("생성된 게시글 번호 : " + postNumber);
+		int boardNumber = boardDAO.insertBoard(postDetailDTO);
+		System.out.println("생성된 게시글 번호 : " + boardNumber);
 		
 		//파일 업로드 처리
 		//Enumeration : java.util 패키지에 포함된 인터페이스, Iterator와 비슷한 역할함
@@ -74,19 +73,22 @@ public class WriteFreeBoardOKController implements Execute{
 				continue;
 			}
 			
-			postImageDTO.setPostImageSystemName(fileSystemName);
-			postImageDTO.setPostImageOriginalName(fileOriginalName);
-			postImageDTO.setPostNumber(postNumber);
+			fileDTO.setFileSystemName(fileSystemName);
+			fileDTO.setFileOriginalName(fileOriginalName);
+			fileDTO.setBoardNumber(boardNumber);
 			
-			System.out.println("업로드 된 파일 정보 : " + postImageDTO);
-			postImageDAO.insert(postImageDTO);
+			System.out.println("업로드 된 파일 정보 : " + fileDTO);
+			fileDAO.insert(fileDTO);
 		}
 		
-		result.setPath("/community/freeBoardListOk.co");
-		result.setRedirect(true);
-
-		return result;
+		result.setPath("/board/boardListOk.bo");
+		result.setRedirect(false);
 		
+		return result;
+	
+	
+	
+	
 	}
 
 }

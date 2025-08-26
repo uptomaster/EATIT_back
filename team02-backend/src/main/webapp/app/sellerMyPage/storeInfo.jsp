@@ -98,16 +98,16 @@
 					<!--  -->
 					<div class="store_info_food_menu">
 						<!-- 목록 내용 출력 예시 -->
-						<%--             <div class="store_info_food_menu_list">
+				          <div class="store_info_food_menu_list">
               <img src="${pageContext.request.contextPath}/assets/img/store.jpg" alt="">
               <div class="store_info_food_menu_info_stock">
                 <div class="store_info_btns">
                   <div class="store_info_food_stock">N개 남음</div>
-                  <a href="${pageContext.request.contextPath}/sellerMyPage/foodSalesEdit.jsp">
+                  <a href="${pageContext.request.contextPath}/sellerMyPage/editFood.se">
                     <div class="store_info_food_edit_btn">수정</div>
                   </a>
-                  <a href="${pageContext.request.contextPath}/sellerMyPage/foodSalesView.jsp">
-                    <div class="store_info_food_view_btn">상세보기</div>
+                  <a href="${pageContext.request.contextPath}/sellerMyPage/detailFoodOk.se">
+                  <div class="store_info_food_view_btn">상세보기</div>
                   </a>
                 </div>
                 <div class="store_info_food_menu_info">
@@ -116,66 +116,49 @@
                   <h3>0,000원</h3>
                 </div>
               </div>
-            </div>
-            <hr> --%>
+            </div>				
+            <hr>
 						<!--  -->
-						<div class="store_info_food_menu_list">
-							<c:choose>
-								<c:when test="${not empty foodList}">
-									<!-- 반복문 시작 food:itemDTO-->
-									<c:forEach var="food" items="${foodList}">
-										<div class="store_info_food_menu_list">
-											<img
-												src="${pageContext.request.contextPath}/assets/img/store.jpg"
-												alt="">
-											<div class="store_info_food_menu_info_stock">
-												<div class="store_info_btns">
-													<div class="store_info_food_stock">
-														<c:out value="${food.getItemQuantity()}" />
-														개 남음
-													</div>
-													<a
-														href="${pageContext.request.contextPath}/sellerMyPage/editFood.se">
-														<div class="store_info_food_edit_btn">수정</div>
-													</a> <a
-														href="${pageContext.request.contextPath}/sellerMyPage/detailFood.se">
-														<div class="store_info_food_view_btn">상세보기</div>
-													</a>
-												</div>
-												<!-- 버튼 목록 끝 -->
-												<!-- 메뉴 정보 -->
-												<div class="store_info_food_menu_info">
-													<h3>
-														<c:out value="${food.getItemName()}" />
-													</h3>
-													<p>
-														소비기한:
-														<c:out value="${food.getItemExpireDate()}" />
-													</p>
-													<h3>
-														<c:out value="${food.getItemPrice()}" />
-														원
-													</h3>
-												</div>
-												<!-- 메뉴정보 끝 -->
-											</div>
-											<!-- 메뉴 정보 끝 -->
-										</div>
-										<!-- 메뉴 한 블록 끝 -->
-										<hr>
-									</c:forEach>
-								</c:when>
-								<c:otherwise>
-									<div>등록된 재료가 없습니다.</div>
-								</c:otherwise>
-							</c:choose>
-						</div>
+						<div class="store_info_ingredient_menu">
+    <c:choose>
+        <c:when test="${not empty foodList}">
+            <c:forEach var="food" items="${foodList}">
+                <div class="store_info_ingredient_menu_list">
+                    <img src="${pageContext.request.contextPath}/assets/img/store.jpg" alt="">
+                    <div class="store_info_ingredient_menu_info_stock">
+                        <div class="store_info_btns">
+                            <div class="store_info_ingredient_stock">
+                                <c:out value="${food.itemQuantity}"/> 개 남음
+                            </div>
+                            <a href="${pageContext.request.contextPath}/sellerMyPage/editIngredient.se">
+                                <div class="store_info_ingredient_edit_btn">수정</div>
+                            </a>
+                            <a href="${pageContext.request.contextPath}/sellerMyPage/detailIngredient.se">
+                                <div class="store_info_ingredient_view_btn">상세보기</div>
+                            </a>
+                        </div>
+                        <div class="store_info_ingredient_menu_info">
+                            <h3><c:out value="${food.itemName}"/></h3>
+                            <p>소비기한: <c:out value="${food.itemExpireDate}"/></p>
+                            <h3><c:out value="${food.itemPrice}"/>원</h3>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </c:forEach>
+        </c:when>
+        <c:otherwise>
+            <div>등록된 재료가 없습니다.</div>
+        </c:otherwise>
+    </c:choose>
+</div>
+
 						<!-- 페이지네이션 자리 -->
 						<div class="seller_store_info_pagination">
 							<ul class="seller_store_info_pagination_ul">
 								<c:if test="${prev}">
 									<li><a
-										href="${pageContext.request.contextPath}/sellerMyPage/myPosts.se?page=${startPage - 1}"
+										href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?page=${startPage - 1}"
 										class="prev">&lt;</a></li>
 								</c:if>
 								<c:set var="realStartPage"
@@ -184,7 +167,7 @@
 									<c:choose>
 										<c:when test="${!(i == page) }">
 											<li><a class="pagination_item"
-												href="${pageContext.request.contextPath}/sellerMyPage/myPosts.se?page=${i}">
+												href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?page=${i}">
 													<c:out value="${i}" />
 											</a></li>
 										</c:when>
@@ -196,7 +179,7 @@
 								</c:forEach>
 								<c:if test="${next}">
 									<li><a
-										href="${pageContext.request.contextPath}/sellerMyPage/myPosts.se?page=${endPage + 1}"
+										href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?page=${endPage + 1}"
 										class="next">&gt;</a>
 								</c:if>
 							</ul>

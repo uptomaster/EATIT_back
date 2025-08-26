@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/sellerMyPage/sellerMyReviewsList.css">
   <!-- 파비콘 -->
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
 
@@ -15,6 +16,7 @@
   <script defer src="${pageContext.request.contextPath}/assets/js/main.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/footer.js"></script>   
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/sellerMyPage/sellerMyReviewsList.js"></script>
 
 <script>
     let headerPath = './../../header.jsp';
@@ -53,15 +55,16 @@
         </div>
         <c:choose>
         <c:when test="${not empty myReviewList }">
-        <c:forEach var="review" items="${mtReviewList }">
-        <div class="seller_myreviews_comments_list">
-          <div class="seller_myreviews_restaurant_name"></div>
-          <div class="seller_myreviews_meal_name">식빵</div>
-          <div class="seller_myreviews_quantity">1</div>
-          <div class="seller_myreviews_price">5000원</div>
-          <div class="seller_myreviews_date">2025-08-02</div>
-          <div class="seller_myreviews_grade">5</div>
-        </div>
+        <c:forEach var="review" items="${myReviewList }">
+	        <div class="seller_myreviews_comments_list">
+	          <div class="seller_myreviews_restaurant_name" >
+	          <c:out value="${review.getStoreName()}"/></div>
+	          <div class="seller_myreviews_meal_name"><c:out value="${review.getItemName()}"/></div>
+	          <div class="seller_myreviews_quantity"><c:out value="${review.getOrderItemQuantity() }"/></div>
+	          <div class="seller_myreviews_price"><c:out value="${review.getOrdersTotalAmount() }"/>원</div>
+	          <div class="seller_myreviews_date"><c:out value="${review.getReviewCreateDate() }"/></div>
+	          <div class="seller_myreviews_grade"><c:out value="${review.getReviewRating() }"/></div>
+	        </div>
         </c:forEach>
         </c:when>
         </c:choose>

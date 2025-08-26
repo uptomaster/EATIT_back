@@ -82,49 +82,49 @@ public class SellerMyPageFrontController extends HttpServlet {
 
 		// Food
 		case "/sellerMyPage/addFood.se":
-			System.out.println("음식 추가 페이지 요청");
+			System.out.println("[판페f]음식 추가 페이지 요청");
 			result = new FoodAddController().execute(request, response);
 			break;
-		case "/sellerMyPage/addFookOk.se":
-			System.out.println("음식 추가 완료 요청");
+		case "/sellerMyPage/addFoodOk.se":
+			System.out.println("[판페f]음식 추가 완료 요청");
 			result = new FoodAddOkController().execute(request, response);
 			break;
 		case "/sellerMyPage/detailFoodOk.se":
-			System.out.println("음식 상세 페이지 요청");
+			System.out.println("[판페f]음식 상세 페이지 완료 요청");
 			result = new FoodDetailOkController().execute(request, response);
 			break;
-		case "/seller/editFood.se":
-			System.out.println("음식 수정 페이지 요청");
+		case "/sellerMyPage/editFood.se":
+			System.out.println("[판페f]음식 수정 페이지 요청");
 			result = new FoodEditController().execute(request, response);
 			break;
-		case "/seller/editFoodOk.se":
-			System.out.println("음식 수정 페이지 요청");
+		case "/sellerMyPage/editFoodOk.se":
+			System.out.println("[판페f]음식 수정 페이지 요청");
 			result = new FoodEditOkController().execute(request, response);
 			break;
-        case "/seller/food/deleteOk.se":       
+        case "/sellerMyPage/deleteFoodOk.se":       
         	 result = new FoodDeleteOkController().execute(request, response); 
         	 break;
 		case "/sellerMyPage/FoodlistOk.se":
 			result = new FoodListOkController().execute(request, response);
 			break;
-        case "/seller/food/alreadyOk.se":      
-        	 result = new AlreadyFoodOkController().execute(request, response); 
-        	 break;
+//        case "/sellerMyPage/food/alreadyOk.se":      
+//        	 result = new AlreadyFoodOkController().execute(request, response); 
+//        	 break;
 
 	     // Ingredient
-	     case "/seller/ingredient/addOk.se":    
+	     case "/sellerMyPage/ingredient/addOk.se":    
 	    	 result = new IngredientAddOkController().execute(request, response); 
 	    	 break;
-	     case "/seller/ingredient/detailOk.se": 
+	     case "/sellerMyPage/ingredient/detailOk.se": 
 	    	 result = new IngredientDetailOkController().execute(request, response); 
 	    	 break;
-	     case "/seller/ingredient/editOk.se":   
+	     case "/sellerMyPage/ingredient/editOk.se":   
 	    	 result = new IngredientEditOkController().execute(request, response); 
 	    	 break;
-	     case "/seller/ingredient/deleteOk.se": 
+	     case "/sellerMyPage/ingredient/deleteOk.se": 
 	    	 result = new IngredientDeleteOkController().execute(request, response); 
 	    	 break;
-	     case "/seller/ingredient/listOk.se":   
+	     case "/sellerMyPage/ingredient/listOk.se":   
 	    	 result = new IngredientListOkController().execute(request, response); 
 	    	 break;
 		//

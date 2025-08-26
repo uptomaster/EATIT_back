@@ -21,11 +21,10 @@ public class FoodEditController implements Execute{
         int itemNumber = Integer.valueOf(request.getParameter("itemNumber"));
         SellerMyPageDAO sellerDAO = new SellerMyPageDAO();
         Result result = new Result();
+               
+        request.setAttribute("itemNumber", sellerDAO.detaileFood(itemNumber));
         
-        //
-        //request.setAttribute("item", sellerDAO.select(itemNumber));
-        
-        result.setPath("/app/item/itemUpdate.jsp");
+        result.setPath("/app/sellerMyPage/foodSalesEdit.jsp");
         result.setRedirect(false);
         return result;
 	}

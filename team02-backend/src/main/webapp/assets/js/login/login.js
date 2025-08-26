@@ -1,41 +1,51 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const form    = document.getElementById('login_form');
+  const idInput = document.getElementById('login_input_id');
+  const pwInput = document.getElementById('login_input_pw');
+  const warn    = document.getElementById('login_warning_message');
 
+  // 주소 파라미터 처리 (pwChanged가 있으면 그걸 우선 표시)
+  const params    = new URLSearchParams(location.search);
+  const pwChanged = params.get('pwChanged');
+  const status    = params.get('login');
 
-/*const login = document.getElementById('login_form');
-const userid = document.getElementById('login_input_id');
-const userpw = document.getElementById('login_input_pw'); 
-const warning = document.getElementById('login_warning_message');
-
-
-const db = {
-  id : 'user',
-  pw : 'user123123',
-  
-}
-const blackdb = {
-  blackid : 'black',
-  blackpw : 'black123123',
-}
-
-login.addEventListener('submit', function(e) {
-  e.preventDefault();
-
-  if(userid.value === db.id && userpw.value === db.pw){
-    alert('로그인 되었습니다 메인페이지로 이동합니다.')
-    window.location.href = '${pageContext.request.contextPath}/main.jsp';
-  }else if(userid.value === blackdb.blackid && userpw.value === blackdb.blackpw){
-    alert('정지된 아이디 입니다');
-  } else{
-    alert('아이디 혹은 비밀번호를 다시 확인해주세요');
-    warning.style.display = 'block';
-    userpw.focus();
-    userpw.select();
+  if (pwChanged === '1') {
+    alert('비밀번호가 성공적으로 변경되었습니다.');
+  } else if (status) {
+    switch (status) {
+      case 'noid':
+        alert('등록된 아이디가 없습니다.');
+        break;
+      case 'wrongpw':
+        alert('아이디 또는 비밀번호가 일치하지 않습니다.');
+        break;
+      case 'admin':
+        alert('관리자 계정은 이 화면에서 로그인할 수 없습니다.');
+        break;
+      case 'fail':
+        alert('아이디 또는 비밀번호를 다시 확인해주세요.');
+        break;
+    }
   }
-});*/
 
+  // 기존 경고문 숨김
+  if (warn) warn.style.display = 'none';
 
-// btn[0].addEventListener('click', () => {
-//   if(!id || !pw){
-//   }
-//   location.replace('./../../app/findPW/editPw.html');
-//   alert('문자로 임시비밀번호가 발송되었습니다.')
-// });
+  // 기본 클라이언트 검증: 빈값 방지
+  form?.addEventListener('submit', (e) => {
+    const id = (idInput?.value || '').trim();
+    const pw = (pwInput?.value || '').trim();
+
+    if (!id) {
+      alert('아이디를 입력해주세요.');
+      idInput?.focus();
+      e.preventDefault();
+      return;
+    }
+    if (!pw) {
+      alert('비밀번호를 입력해주세요.');
+      pwInput?.focus();
+      e.preventDefault();
+    }
+  });
+});
