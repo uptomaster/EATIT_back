@@ -33,7 +33,7 @@ public class PostUpdateController implements Execute{
         // JSP에 전달
         request.setAttribute("post", communityDAO.select(postNumber));
 
-        result.setPath("/app/community/writeFreeBoard.jsp");
+        result.setPath("/community/freeBoardReadOk.co");
         result.setRedirect(false);
         return result;
         
