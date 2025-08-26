@@ -72,7 +72,7 @@ public class CommunityMainOkController implements Execute{
 		System.out.println("====================");
 
 //		result.setPath("/community/communityMainUser.jsp");
-		result.setPath("/community/communityMainOk.co");
+		result.setPath("/app/community/communityMainUser.jsp");
 		result.setRedirect(false);
 
 		return result;
