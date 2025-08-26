@@ -53,13 +53,13 @@ public class FreeBoardReadOkController implements Execute{
 		}
 		
 		//첨부파일 가져오기
-		List<PostImageDTO> files = postImageDAO.select(postNumber);
-		System.out.println("======파일 확인======");
-		System.out.println(files);
-		System.out.println("===================");
+//		List<PostImageDTO> files = postImageDAO.select(postNumber);
+//		System.out.println("======파일 확인======");
+//		System.out.println(files);
+//		System.out.println("===================");
 		
 		//첨부파일 붙이기
-		postDetailDTO.setFiles(files);
+		//postDetailDTO.setFiles(files);
 		
 		//로그인한 사용자 번호 가져오기
 		Integer loginMemberNumber = (Integer) request.getSession().getAttribute("memberNumber");
@@ -75,7 +75,7 @@ public class FreeBoardReadOkController implements Execute{
 		}
 		
 		request.setAttribute("post", postDetailDTO);
-		result.setPath("/app/community/viewOtherPost.jsp");
+		result.setPath("/community/writeFreeBoardOk.co");
 		result.setRedirect(false);		
 		
 		return result;

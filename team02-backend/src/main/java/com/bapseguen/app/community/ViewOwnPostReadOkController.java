@@ -18,22 +18,22 @@ public class ViewOwnPostReadOkController implements Execute{
 	public Result execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		System.out.println("====ViewOwnPostReadOkController 실행====");
+		
 		Result result = new Result();
 		
 		//postNumber가 빈 문자열이거나 null인경우
 		String postNumberStr = request.getParameter("postNumber");
 		if(postNumberStr == null || postNumberStr.trim().isEmpty()){
 			System.out.println("postNumber 값이 없습니다");
-			result.setPath("/app/community/communityMainUser.jsp"); //게시글 목록 페이지로 리다이렉트
+			
+			//result.setPath("/app/community/communityMainUser.jsp"); //게시글 목록 페이지로 리다이렉트
 			result.setRedirect(true);
 			return result;
 		}
-		
 		int postNumber = Integer.parseInt(postNumberStr);
 		
 		CommunityDAO communityDAO = new CommunityDAO();
-		//FileDAO fileDAO = new FileDAO();
-
+	
 		//DB에서 게시글 가져오기
 		PostDetailDTO postDetailDTO = communityDAO.select(postNumber);
 		
@@ -44,15 +44,6 @@ public class ViewOwnPostReadOkController implements Execute{
 			result.setRedirect(true);
 			return result;
 		}
-		
-		//첨부파일 가져오기
-//		List<FileDTO> files = fileDAO.select(boardNumber);
-//		System.out.println("======파일 확인======");
-//		System.out.println(files);
-//		System.out.println("===================");
-		
-		//첨부파일 붙이기
-		//boardListDTO.setFiles(files);
 		
 		//로그인한 사용자 번호 가져오기
 		Integer loginMemberNumber = (Integer) request.getSession().getAttribute("memberNumber");
