@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/findPw/findPw.css">
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-  <script defer src="${pageContext.request.contextPath}/assets/js/findPW/findPw.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/findPw/findPw.js"></script>
   <title>밥세권</title>
   <script>
     let headerPath = '../../header.jsp';
@@ -31,14 +31,14 @@
           <div class="findPw_subtitle">비밀번호 찾기</div>
         </div>
         <!-- 비밀번호 찾기 입력 폼 -->
-        <form action="" method="post" class="findPw_input_container">
+        <form action="${pageContext.request.contextPath}/findPw/findPwOk.fp" method="post" class="findPw_input_container" data-context-path="${pageContext.request.contextPath}">
           <div class="findPw_input_id_contanier">
             <label for="findPw_input_id">아이디 : </label>
-            <input type="text" name="" id="findPw_input_id" placeholder="아이디를 입력해주세요">
+            <input type="text" name="findPw_input_id" id="findPw_input_id" placeholder="아이디를 입력해주세요">
           </div>
           <div class="findPw_input_phone_contaner">
             <label for="findPw_input_phone">전화번호 : </label>
-            <input type="text" name="" id="findPw_input_phone" placeholder="전화번호를 입력해주세요.">
+            <input type="text" name="findPw_input_phone" id="findPw_input_phone" placeholder="전화번호를 입력해주세요.">
           </div>
           <div class="warning_space"> <!-- 경고메시지 -->
               <span class="warning_empty"></span>
@@ -57,9 +57,7 @@
         </div>
       </div>
     </div>
-    </div> <!--//.container-->
   </main>
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </body>
-
-</html>`
+</html>

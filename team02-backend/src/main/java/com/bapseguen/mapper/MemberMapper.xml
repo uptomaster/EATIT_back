@@ -8,11 +8,18 @@
 	</select>
 	
 	<!-- 로그인시 멤버유형 분기 -->
-	<select id="getMemberType" parameterType="MemberDTO" resultType="string">
-  		SELECT NVL(MAX('SELLER'), 'GENERAL')
-  		FROM TBL_SELLER_MEMBER
-  		WHERE MEMBER_NUMBER = #{memberNumber}
+	<select id="getMemberType" parameterType="int" resultType="string">
+  		SELECT MEMBER_TYPE
+  		FROM TBL_MEMBER
+  		WHERE MEMBER_NUMBER = #{value}
 	</select>
+	
+	<!-- 아이디 존재 여부 -->
+	<select id="existsId" parameterType="string" resultType="int">
+  		SELECT COUNT(1)
+    	FROM TBL_MEMBER
+   		WHERE MEMBER_ID = #{value}
+	</select>	
 	
 	<!-- 회원 아이디 중복 체크 -->
 	<select id="checkId" parameterType="string" resultType="int">
@@ -88,14 +95,14 @@ GENERAL_TREE_GRADE, GENERAL_PAYMENT_AMOUNT)
 	<!-- 일반회원 UPDATED_DATE 갱신 -->
 	<update id="generalUpdatedDate" parameterType="map">
 	  UPDATE TBL_GENERAL_MEMBER
-	     SET UPDATED_DATE = SYSDATE
+	     SET GENERAL_UPDATED_DATE = SYSDATE
 	   WHERE MEMBER_NUMBER = #{memberNumber}
 	</update>
 	
 	<!-- 판매자 UPDATED_DATE 갱신 -->
 	<update id="sellerUpdatedDate" parameterType="map">
 	  UPDATE TBL_SELLER_MEMBER
-	     SET UPDATED_DATE = SYSDATE
+	     SET SELLER_UPDATED_DATE = SYSDATE
 	   WHERE MEMBER_NUMBER = #{memberNumber}
 	</update>	
 </mapper>

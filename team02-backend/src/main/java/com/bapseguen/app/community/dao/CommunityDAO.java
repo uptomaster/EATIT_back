@@ -134,6 +134,11 @@ public class CommunityDAO {
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
+	// 회원정보 총 개수 반환
+	public int getTotal1() {
+		System.out.println("FAQ 총 개수 조회 - getTotal 메소드 실행");
+		return sqlSession.selectOne("faq.faqListCount");
+	}
 	
 	
 	

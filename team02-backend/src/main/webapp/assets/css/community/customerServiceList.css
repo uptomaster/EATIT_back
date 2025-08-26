@@ -190,6 +190,9 @@ main {
   margin-top: 24px;
 }
 
+.pagination_number > a {
+    text-decoration: none;
+}
 .page {
   display: inline-block;
   padding: 9px 16px;
