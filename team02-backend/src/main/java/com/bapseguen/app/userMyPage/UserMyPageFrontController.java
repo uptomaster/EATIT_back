@@ -50,7 +50,7 @@ public class UserMyPageFrontController extends HttpServlet {
 		switch (target) {
 		case "/UserMyPage/generalCheckPw.my":
 			System.out.println("내 정보 수정 페이지 요청");
-			request.getRequestDispatcher("/app/UserMyPage/generalCheckPw.jsp").forward(request, response);
+			request.getRequestDispatcher("/app/userMyPage/generalCheckPw.jsp").forward(request, response);
 			break;
 	
 		
