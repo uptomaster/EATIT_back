@@ -8,6 +8,7 @@ public class PostReportDTO {
 	private String postReportDate;
 	private int PostReportCount;
 	private int memberNumber;
+	
 	public int getPostReportNumber() {
 		return postReportNumber;
 	}

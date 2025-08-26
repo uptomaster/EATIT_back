@@ -85,5 +85,8 @@
   <jsp:include page="/footer.jsp" />
   <!-- <footer id="footer"></footer> -->
 </body>
-
+<script>
+		window.postNumber = "${post.postNumber}";
+		window.memberNumber = "${sessionScope.memberNumber}";
+</script>
 </html>

@@ -99,6 +99,7 @@
 		<mapper resource="com/bapseguen/mapper/StoreManageMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/CommentMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/ImageMapper.xml" />
+		<mapper resource="com/bapseguen/mapper/BannerMapper.xml" />
 	</mappers>
 	
 </configuration>

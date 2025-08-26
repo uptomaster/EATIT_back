@@ -11,6 +11,11 @@ public class BannerDTO {
 	private String bannerCreatedDate; // 배너 생성 일자
 	private String bannerUpdatedDate; // 배너 수정 일자
 	
+    // 조인해서 가져올 이미지 정보
+    private String adminImageSystemName;
+    private String adminImageOriginalName;
+	
+
 	// getter & setter
 	public int getBannerNumber() {
 		return bannerNumber;
@@ -61,12 +66,28 @@ public class BannerDTO {
 		this.bannerUpdatedDate = bannerUpdatedDate;
 	}
 
+	public String getAdminImageSystemName() {
+		return adminImageSystemName;
+	}
+	public void setAdminImageSystemName(String adminImageSystemName) {
+		this.adminImageSystemName = adminImageSystemName;
+	}
+	public String getAdminImageOriginalName() {
+		return adminImageOriginalName;
+	}
+	public void setAdminImageOriginalName(String adminImageOriginalName) {
+		this.adminImageOriginalName = adminImageOriginalName;
+	}
+	
 	@Override
 	public String toString() {
 		return "BannerDTO [bannerNumber=" + bannerNumber + ", bannerTitle=" + bannerTitle + ", imageNumber="
 				+ imageNumber + ", bannerEndDate=" + bannerEndDate + ", bannerIsActive=" + bannerIsActive
 				+ ", memberNumber=" + memberNumber + ", bannerCreatedDate=" + bannerCreatedDate + ", bannerUpdatedDate="
-				+ bannerUpdatedDate + "]";
+				+ bannerUpdatedDate + ", adminImageSystemName=" + adminImageSystemName + ", adminImageOriginalName="
+				+ adminImageOriginalName + "]";
 	}
+	
+	
 	
 }

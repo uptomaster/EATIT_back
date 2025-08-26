@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 기존 경고문 숨김(선택)
+  // 기존 경고문 숨김
   if (warn) warn.style.display = 'none';
 
   // 기본 클라이언트 검증: 빈값 방지
