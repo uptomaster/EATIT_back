@@ -87,7 +87,7 @@ public class CommunityFrontController extends HttpServlet {
 		case "/community/postUpdateOk.co":
 			System.out.println("게시글 수정 완료 요청");
 			result = new PostUpdateOkController().execute(request, response);
-			break;	
+			break;
 			
 		case "/community/customerServiceListOk.co":
 			System.out.println("고객센터 목록 페이지 처리 요청");

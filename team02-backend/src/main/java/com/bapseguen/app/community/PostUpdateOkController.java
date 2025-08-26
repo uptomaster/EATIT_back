@@ -50,13 +50,15 @@ public class PostUpdateOkController implements Execute{
 		//new DefaultFileRenamePolicy() : 파일명이 중복될 경우 자동으로 이름 변경해주는 정책
 
 		//게시글 정보 설정
-		boardDTO.setBoardTitle(multipartRequest.getParameter("boardTitle"));
-		boardDTO.setBoardContent(multipartRequest.getParameter("boardContent"));
-		boardDTO.setMemberNumber(memberNumber);
-		System.out.println("게시글 추가 - BoardDTO : " + boardDTO);
+		PostDetailDTO.setPostTitle(multipartRequest.getParameter("postTitle"));
+		PostDetailDTO.setFreeContent(multipartRequest.getParameter("freeContent"));
+		PostDetailDTO.setPromoContent(multipartRequest.getParameter("promoContent"));
+		PostDetailDTO.setRecipeContent(multipartRequest.getParameter("recipeContent"));
+		PostDetailDTO.setMemberNumber(memberNumber);
+		System.out.println("게시글 추가 - PostDetailDTO : " + postDetailDTO);
 		
 		//게시글 추가
-		int boardNumber = boardDAO.insertBoard(boardDTO);
+		int boardNumber = boardDAO.insertBoard(postDetailDTO);
 		System.out.println("생성된 게시글 번호 : " + boardNumber);
 		
 		//파일 업로드 처리

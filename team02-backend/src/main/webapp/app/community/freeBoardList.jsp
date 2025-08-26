@@ -279,7 +279,7 @@
   <!-- <footer id="footer"></footer> -->
 </body>
 <script>
-		window.boardNumber = "${board.boardNumber}";
+		window.postNumber = "${post.postNumber}";
 		window.memberNumber = "${sessionScope.memberNumber}";
 </script>
 

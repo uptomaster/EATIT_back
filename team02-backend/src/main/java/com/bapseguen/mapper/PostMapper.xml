@@ -17,24 +17,62 @@
 	]]>
 	</select>
 	
-	<!-- 게시글 타입 분기 조회  -->
+	<!-- 자유게시판 목록 조희 -->
 	<select id="freeSelectAll" resultType="PostDTO">
-	    SELECT
-	        POST_NUMBER,MEMBER_NUMBER,POST_TITLE,POST_LIKE_COUNT,POST_VIEW_COUNT,POST_REPORT_COUNT,
-	        DELETE_STATE, POST_CREATED_DATE,POST_UPDATED_DATE,POST_TYPE
-	    FROM TBL_POST
-	    WHERE POST_TYPE = #{postType}
-	    ORDER BY POST_CREATED_DATE DESC
-	</select>
-	
-	
-
-	<!-- 게시글 총 개수 -->
-	<select id="postGetTotal" resultType="int">
-		SELECT COUNT(post_number)
+		SELECT POST_TITLE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_LIKE_COUNT,POST_TYPE
 		FROM TBL_POST
+		WHERE POST_TYPE = 'FREE'
+		ORDER BY POST_CREATED_DATE DESC
+	</select>
+	
+	<!-- 자유게시판 글 총 개수 -->
+	<select id="freeGetTotal" resultType="int">
+		SELECT COUNT(post_type)
+		FROM TBL_POST
+		WHERE post_type = 'FREE'
+	</select>
+	
+
+	<!-- 홍보게시판 목록 조희 -->
+	<select id="promoSelectAll" resultType="PostDTO">
+		SELECT POST_TITLE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_LIKE_COUNT,POST_TYPE
+		FROM TBL_POST
+		WHERE POST_TYPE = 'PROMOTION'
+		ORDER BY POST_CREATED_DATE DESC
+	</select>
+	
+	<!-- 홍보게시판 글 총 개수 -->
+	<select id="promoGetTotal" resultType="int">
+		SELECT COUNT(post_type)
+		FROM TBL_POST
+		WHERE post_type = 'PROMOTION'
 	</select>
 
+	<!-- 홍보게시판 목록 조희 -->
+	<select id="promoSelectAll" resultType="PostDTO">
+		SELECT POST_TITLE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_LIKE_COUNT,POST_TYPE
+		FROM TBL_POST
+		WHERE POST_TYPE = 'PROMOTION'
+		ORDER BY POST_CREATED_DATE DESC
+	</select>
+	
+	<!-- 레시피게시판 글 총 개수 -->
+	<select id="recipeGetTotal" resultType="int">
+		SELECT COUNT(post_type)
+		FROM TBL_POST
+		WHERE post_type = 'RECIPE'
+	</select>
+
+	<!-- 레시피게시판 목록 조희 -->
+	<select id="recipeSelectAll" resultType="PostDTO">
+		SELECT POST_TITLE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_LIKE_COUNT,POST_TYPE
+		FROM TBL_POST
+		WHERE POST_TYPE = 'RECIPE'
+		ORDER BY POST_CREATED_DATE DESC
+	</select>
+
+
+	
 	<!--조회수 쿼리  -->
 	<update id="postUpdateReadCount" parameterType="int">
 		UPDATE TBL_POST
