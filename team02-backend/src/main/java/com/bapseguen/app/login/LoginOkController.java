@@ -52,6 +52,7 @@ public class LoginOkController implements Execute {
         HttpSession session = request.getSession();
         session.setAttribute("memberNumber", memberNumber);
         session.setAttribute("memberType", memberType);
+        session.setAttribute("memberId", memberId);
 
         result.setRedirect(true);
         result.setPath(ctx + "/main.jsp");
