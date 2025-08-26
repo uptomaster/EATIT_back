@@ -70,8 +70,8 @@ public class RecipeListOkController implements Execute{
         System.out.println("startPage : " + startPage + ", endPage : " + endPage + ", prev : " + prev + ", next : " + next);
         System.out.println("====================");
 
-
-        result.setPath("/community/recipeListOk.co");
+        
+        result.setPath("/app/community/recipeList.jsp");
         result.setRedirect(false);
 
         return result;

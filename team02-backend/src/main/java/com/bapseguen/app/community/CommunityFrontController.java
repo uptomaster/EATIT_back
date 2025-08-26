@@ -71,9 +71,9 @@ public class CommunityFrontController extends HttpServlet {
 			System.out.println("자유게시판 게시글 작성페이지 이동 요청");
 			result = new WriteFreeBoardController().execute(request, response);
 			break;
-		case "/community/writeFreeBoardOK.co":
+		case "/community/writeFreeBoardOk.co":
 			System.out.println("자유게시판 게시글 작성완료 요청");
-			result = new WriteFreeBoardOKController().execute(request, response);
+			result = new WriteFreeBoardOkController().execute(request, response);
 			break;
 			
 		case "/community/postDeleteOK.co":
