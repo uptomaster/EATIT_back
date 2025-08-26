@@ -46,10 +46,10 @@
       <!-- 카테고리 네비 -->
       <nav class="community_category">
         <ul>
-          <li><a href="${pageContext.request.contextPath}/app/community/communityMainUser.jsp" id="category_event" class="active">공지사항/이벤트</a></li>
-          <li><a href="${pageContext.request.contextPath}/app/community/freeBoardList.jsp" id="category_free">자유게시판</a></li>
-          <li><a href="${pageContext.request.contextPath}/app/community/promoBoardList.jsp" id="category_advertise">홍보게시판</a></li>
-          <li><a href="${pageContext.request.contextPath}/app/community/recipeList.jsp" id="category_recipe">레시피</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/communityMainOk.co" id="category_event" class="active">공지사항/이벤트</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/freeBoardReadOk.co" id="category_free">자유게시판</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/promoBoardListOk.co" id="category_advertise">홍보게시판</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/recipeListOk.co" id="category_recipe">레시피</a></li>
         </ul>
       </nav>
 
@@ -73,16 +73,16 @@
 	   					<c:forEach var="notice" items="${noticeList}">
 		   					 <div class="board-row">
 		   					 	<div class="board-item title">
-		   					 		<c:out value="${notice.getPostTitle()}" />
+		   					 		<c:out value="${post.getPostTitle()}" />
 		   					 	</div>
 		   					 	<div class="board-item author">
-		   					 		<c:out value="${notice.getMemberId() }" />
+		   					 		<c:out value="${post.getMemberId() }" />
 		   					 	</div>
 		   					 	<div class="board-item date">
-		   					 		<c:out value="${notice.getPostCreatedDate() }" />
+		   					 		<c:out value="${post.getPostCreatedDate() }" />
 		   					 	</div>
 		   					 	<div class="board-item hit">
-		   					 		<c:out value="${notice.getPostViewCount() }" />
+		   					 		<c:out value="${post.getPostViewCount() }" />
 		   					 	</div>
 		   					 </div>
 	   					 </c:forEach>
