@@ -1,6 +1,7 @@
 package com.bapseguen.app.orders.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -18,6 +19,8 @@ import com.bapseguen.config.MyBatisConfig;
  * - orders.deleteOrder
  * - orders.insertOrderItem
  * - orders.selectOrderItems
+ * - orders.updateOrderPaymentInfo
+ * - orders.selectOrderByOrderId (편의)
  */
 public class OrdersDAO {
 
@@ -27,17 +30,19 @@ public class OrdersDAO {
         this.sqlSession = MyBatisConfig.getSqlSessionFactory().openSession(true);
     }
 
-    // 주문(Orders)
+    // =========================
+    // Orders
+    // =========================
 
-    /** 주문 등록: selectKey로 DTO.orderNumber가 채워지며, 반환값으로 PK를 돌려준다. */
+    /** 주문 등록: selectKey로 DTO.ordersNumber가 채워지며, 반환값으로 PK를 돌려준다. */
     public int insertOrder(OrdersDTO order) {
         sqlSession.insert("orders.insertOrder", order);
         return order.getOrdersNumber(); // selectKey로 주입된 값
     }
 
-    /** 주문 단건 조회 */
-    public OrdersDTO selectOrder(int orderNumber) {
-        return sqlSession.selectOne("orders.selectOrder", orderNumber);
+    /** 주문 단건 조회 (PK) */
+    public OrdersDTO selectOrder(int ordersNumber) {
+        return sqlSession.selectOne("orders.selectOrder", ordersNumber);
     }
 
     /** 특정 회원의 주문 목록 */
@@ -51,19 +56,32 @@ public class OrdersDAO {
     }
 
     /** 주문 상태 변경 (편의 메서드) */
-    public void updateOrderStatus(int orderNumber, String ordersPaymentStatus) {
+    public void updateOrderStatus(int ordersNumber, String ordersPaymentStatus) {
         OrdersDTO dto = new OrdersDTO();
-        dto.setOrdersNumber(orderNumber);
+        dto.setOrdersNumber(ordersNumber);
         dto.setOrdersPaymentStatus(ordersPaymentStatus);
         sqlSession.update("orders.updateOrderStatus", dto);
     }
 
     /** 주문 삭제 */
-    public void deleteOrder(int orderNumber) {
-        sqlSession.delete("orders.deleteOrder", orderNumber);
+    public void deleteOrder(int ordersNumber) {
+        sqlSession.delete("orders.deleteOrder", ordersNumber);
     }
 
-    // 주문상품(OrderItem) 
+    /** 결제정보(JSON 등) 업데이트 */
+    public void updateOrderPaymentInfo(int ordersNumber, String paymentInfoJson) {
+        sqlSession.update("orders.updateOrderPaymentInfo",
+            Map.of("orderNumber", ordersNumber, "paymentInfo", paymentInfoJson));
+    }
+
+    /** (편의) orderId로 주문 조회: 결제 승인 콜백에서 사용 */
+    public OrdersDTO selectOrderByOrderId(String orderId) {
+        return sqlSession.selectOne("orders.selectOrderByOrderId", orderId);
+    }
+
+    // =========================
+    // Order Items
+    // =========================
 
     /** 주문 상품 등록: selectKey로 DTO.orderItemNumber가 채워지며, 반환값으로 PK를 돌려준다. */
     public int insertOrderItem(OrderItemDTO item) {
@@ -76,13 +94,17 @@ public class OrdersDAO {
         return sqlSession.selectList("orders.selectOrderItems", orderNumber);
     }
 
-    /** 수동으로 닫아야 할 때 */
-    public void close() {
-        if (sqlSession != null) sqlSession.close();
-    }
-    
-    /** 상품 상세 조회 */
+    // =========================
+    // Etc.
+    // =========================
+
+    /** 상품 상세 조회 (item 네임스페이스에 의존) */
     public ItemWithImgDTO selectItemDetail(int itemNumber) {
         return sqlSession.selectOne("item.selectItemDetail", itemNumber);
+    }
+
+    /** 수동 종료 */
+    public void close() {
+        if (sqlSession != null) sqlSession.close();
     }
 }

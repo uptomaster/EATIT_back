@@ -1,61 +1,167 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="orders">
 
-    <!-- 주문 등록 -->
-    <insert id="insertOrder" parameterType="OrdersDTO">
-        INSERT INTO TBL_ORDERS 
-        (ORDER_NUMBER, MEMBER_NUMBER, ORDERS_PAYMENT_INFO, ORDERS_DATE, ORDERS_TOTAL_AMOUNT, ORDERS_PAYMENT_STATUS)
-        VALUES 
-        (ORDERS_SEQ.NEXTVAL, #{memberNumber}, #{ordersPaymentInfo}, SYSDATE, #{ordersTotalAmount}, #{ordersPaymentStatus})
-    </insert>
+	<!-- ========================= ResultMaps ========================= -->
+	<resultMap id="OrdersResultMap" type="OrdersDTO">
+		<id property="ordersNumber" column="ORDERS_NUMBER" />
+		<result property="orderId" column="ORDER_ID" />
+		<result property="ordersMemberNumber"
+			column="ORDERS_MEMBER_NUMBER" />
+		<result property="ordersPaymentInfo"
+			column="ORDERS_PAYMENT_INFO" />
+		<!-- DTO.ordersDate 가 String 이면 아래 별칭으로 매핑 -->
+		<result property="ordersDate" column="ORDERS_DATE_STR" />
+		<result property="ordersTotalAmount"
+			column="ORDERS_TOTAL_AMOUNT" />
+		<result property="ordersPaymentStatus"
+			column="ORDERS_PAYMENT_STATUS" />
+		<result property="businessNumber" column="BUSINESS_NUMBER" />
+	</resultMap>
 
-    <!-- 주문 단건 조회 -->
-    <select id="selectOrder" parameterType="int" resultType="OrdersDTO">
-        SELECT ORDER_NUMBER, MEMBER_NUMBER, ORDERS_PAYMENT_INFO, TO_CHAR(ORDERS_DATE, 'YYYY-MM-DD') AS ordersDate, 
-        ORDERS_TOTAL_AMOUNT, ORDERS_PAYMENT_STATUS
-        FROM TBL_ORDERS
-        WHERE ORDER_NUMBER = #{orderNumber}
-    </select>
+	<resultMap id="OrderItemResultMap" type="OrderItemDTO">
+		<id property="orderItemNumber" column="ORDER_ITEM_NUMBER" />
+		<result property="orderNumber" column="ORDER_NUMBER" />
+		<result property="itemNumber" column="ITEM_NUMBER" />
+		<result property="unitPrice" column="UNIT_PRICE" />
+		<result property="quantity" column="QUANTITY" />
+	</resultMap>
 
-    <!-- 특정 회원의 주문 목록 -->
-    <select id="selectOrdersByMember" parameterType="int" resultType="OrdersDTO">
-        SELECT 
-            ORDER_NUMBER, MEMBER_NUMBER, ORDERS_PAYMENT_INFO, TO_CHAR(ORDERS_DATE, 'YYYY-MM-DD') AS ordersDate, 
-            ORDERS_TOTAL_AMOUNT, ORDERS_PAYMENT_STATUS
-        FROM TBL_ORDERS
-        WHERE MEMBER_NUMBER = #{memberNumber}
-        ORDER BY ORDER_NUMBER DESC
-    </select>
+	<!-- ========================= Orders ========================= -->
 
-    <!-- 주문 상태 변경 -->
-    <update id="updateOrderStatus" parameterType="OrdersDTO">
-        UPDATE TBL_ORDERS
-        SET ORDERS_PAYMENT_STATUS = #{ordersPaymentStatus}
-        WHERE ORDER_NUMBER = #{orderNumber}
-    </update>
+	<!-- 주문 등록 (ORDER_ID 포함, selectKey로 PK 세팅) -->
+	<insert id="insertOrder" parameterType="OrdersDTO">
+		<selectKey keyProperty="ordersNumber" resultType="int"
+			order="BEFORE">
+			SELECT SEQ_ORDERS_NUMBER.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TBL_ORDERS (
+		ORDERS_NUMBER,
+		ORDER_ID,
+		ORDERS_MEMBER_NUMBER,
+		ORDERS_PAYMENT_INFO,
+		ORDERS_DATE,
+		ORDERS_TOTAL_AMOUNT,
+		ORDERS_PAYMENT_STATUS,
+		BUSINESS_NUMBER
+		) VALUES (
+		#{ordersNumber},
+		#{orderId},
+		#{ordersMemberNumber},
+		#{ordersPaymentInfo},
+		SYSDATE,
+		#{ordersTotalAmount},
+		#{ordersPaymentStatus},
+		#{businessNumber}
+		)
+	</insert>
 
-    <!-- 주문 삭제 -->
-    <delete id="deleteOrder" parameterType="int">
-        DELETE FROM TBL_ORDERS
-        WHERE ORDER_NUMBER = #{orderNumber}
-    </delete>
+	<!-- 주문 단건 조회 (PK) -->
+	<select id="selectOrder" parameterType="int"
+		resultMap="OrdersResultMap">
+		SELECT
+		o.ORDERS_NUMBER,
+		o.ORDER_ID,
+		o.ORDERS_MEMBER_NUMBER,
+		o.ORDERS_PAYMENT_INFO,
+		TO_CHAR(o.ORDERS_DATE, 'YYYY-MM-DD HH24:MI:SS') AS ORDERS_DATE_STR,
+		o.ORDERS_TOTAL_AMOUNT,
+		o.ORDERS_PAYMENT_STATUS,
+		o.BUSINESS_NUMBER
+		FROM TBL_ORDERS o
+		WHERE o.ORDERS_NUMBER = #{ordersNumber}
+	</select>
 
+	<!-- 특정 회원의 주문 목록 (최신순) -->
+	<select id="selectOrdersByMember" parameterType="int"
+		resultMap="OrdersResultMap">
+		SELECT
+		o.ORDERS_NUMBER,
+		o.ORDER_ID,
+		o.ORDERS_MEMBER_NUMBER,
+		o.ORDERS_PAYMENT_INFO,
+		TO_CHAR(o.ORDERS_DATE, 'YYYY-MM-DD HH24:MI:SS') AS ORDERS_DATE_STR,
+		o.ORDERS_TOTAL_AMOUNT,
+		o.ORDERS_PAYMENT_STATUS,
+		o.BUSINESS_NUMBER
+		FROM TBL_ORDERS o
+		WHERE o.ORDERS_MEMBER_NUMBER = #{memberNumber}
+		ORDER BY o.ORDERS_DATE DESC
+	</select>
 
-    <!-- 주문 상품 등록 -->
-    <insert id="insertOrderItem" parameterType="OrderItemDTO">
-        INSERT INTO TBL_ORDER_ITEM
-        (ORDER_ITEM_NUMBER, ORDER_NUMBER, ITEM_NUMBER, ORDER_ITEM_UNIT_PRICE, ORDER_ITEM_QUANTITY)
-        VALUES
-        (ORDER_ITEM_SEQ.NEXTVAL, #{orderNumber}, #{itemNumber}, #{orderItemUnitPrice}, #{orderItemQuantity})
-    </insert>
+	<!-- 주문 상태 변경 -->
+	<update id="updateOrderStatus" parameterType="OrdersDTO">
+		UPDATE TBL_ORDERS
+		SET ORDERS_PAYMENT_STATUS = #{ordersPaymentStatus}
+		WHERE ORDERS_NUMBER = #{ordersNumber}
+	</update>
 
-    <!-- 특정 주문의 상품 목록 -->
-    <select id="selectOrderItems" parameterType="int" resultType="OrderItemDTO">
-        SELECT ORDER_ITEM_NUMBER, ORDER_NUMBER, ITEM_NUMBER, ORDER_ITEM_UNIT_PRICE, ORDER_ITEM_QUANTITY
-        FROM TBL_ORDER_ITEM
-        WHERE ORDER_NUMBER = #{orderNumber}
-    </select>
+	<!-- 결제 정보(JSON 등) 업데이트 -->
+	<update id="updateOrderPaymentInfo" parameterType="map">
+		UPDATE TBL_ORDERS
+		SET ORDERS_PAYMENT_INFO = #{paymentInfo}
+		WHERE ORDERS_NUMBER = #{orderNumber}
+	</update>
+
+	<!-- 주문 삭제 -->
+	<delete id="deleteOrder" parameterType="int">
+		DELETE FROM TBL_ORDERS
+		WHERE ORDERS_NUMBER = #{ordersNumber}
+	</delete>
+
+	<!-- (승인 콜백용) orderId로 주문 조회 -->
+	<select id="selectOrderByOrderId" parameterType="string"
+		resultMap="OrdersResultMap">
+		SELECT
+		o.ORDERS_NUMBER,
+		o.ORDER_ID,
+		o.ORDERS_MEMBER_NUMBER,
+		o.ORDERS_PAYMENT_INFO,
+		TO_CHAR(o.ORDERS_DATE, 'YYYY-MM-DD HH24:MI:SS') AS ORDERS_DATE_STR,
+		o.ORDERS_TOTAL_AMOUNT,
+		o.ORDERS_PAYMENT_STATUS,
+		o.BUSINESS_NUMBER
+		FROM TBL_ORDERS o
+		WHERE o.ORDER_ID = #{orderId}
+	</select>
+
+	<!-- ========================= Order Items ========================= -->
+
+	<!-- 주문상품 등록 -->
+	<insert id="insertOrderItem" parameterType="OrderItemDTO">
+		<selectKey keyProperty="orderItemNumber" resultType="int"
+			order="BEFORE">
+			SELECT SEQ_ORDERS_NUMBER.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TBL_ORDER_ITEM (
+		ORDER_ITEM_NUMBER,
+		ORDER_NUMBER,
+		ITEM_NUMBER,
+		UNIT_PRICE,
+		QUANTITY
+		) VALUES (
+		#{orderItemNumber},
+		#{orderNumber},
+		#{itemNumber},
+		#{unitPrice},
+		#{quantity}
+		)
+	</insert>
+
+	<!-- 특정 주문의 상품 목록 -->
+	<select id="selectOrderItems" parameterType="int"
+		resultMap="OrderItemResultMap">
+		SELECT
+		oi.ORDER_ITEM_NUMBER,
+		oi.ORDER_NUMBER,
+		oi.ITEM_NUMBER,
+		oi.UNIT_PRICE,
+		oi.QUANTITY
+		FROM TBL_ORDER_ITEM oi
+		WHERE oi.ORDER_NUMBER = #{orderNumber}
+		ORDER BY oi.ORDER_ITEM_NUMBER
+	</select>
 
 </mapper>
