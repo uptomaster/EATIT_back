@@ -3,8 +3,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cartList">
-
+	<!-- 장바구니 생성 → 조회 → 수정 → 삭제 -->
+	
   <!-- 회원 장바구니 OPEN 상태 조회 -->
+  <!-- 로그인한 회원이 현재 사용 가능한 장바구니가 있는지 확인하는 역할 -->
   <select id="open" parameterType="CartDTO" resultType="int">
     SELECT CART_NUMBER
     FROM TBL_CART
@@ -13,6 +15,7 @@
   </select>
 
   <!-- 장바구니 없을 경우 생성 -->
+  <!-- 장바구니가 없을 때 자동으로 하나 생성 -->
   <insert id="createIfNone" parameterType="CartDTO">
     INSERT INTO TBL_CART (CART_NUMBER, MEMBER_NUMBER, BUSINESS_NUMBER, CART_ORDER_STATUS)
     SELECT SEQ_CART_NUMBER.NEXTVAL, #{memberNumber}, #{businessNumber}, 'OPEN'
@@ -26,6 +29,7 @@
   </insert>
 
   <!-- 장바구니 항목 목록 (간단) -->
+	<!-- 현재 회원이 담은 장바구니 항목들을 조회 -->
   <select id="selectItemsList" parameterType="CartDTO" resultType="CartItemDTO">
     SELECT
       ci.CART_ITEM_NUMBER   AS cartItemNumber,
@@ -41,6 +45,7 @@
   </select>
 
   <!-- 장바구니 아이템 목록 (상세: itemName, imagePath 포함) -->
+  <!-- 장바구니 화면에서 상품 이름과 이미지까지 함께 보여줄 때 사용 -->
   <select id="selectCartItems" parameterType="int" resultType="CartItemDTO">
     SELECT 
       ci.CART_ITEM_NUMBER   AS cartItemNumber,
@@ -60,6 +65,7 @@
   </select>
 
   <!-- 회원의 OPEN 상태 장바구니 삭제 -->
+  <!-- 회원 탈퇴 시 또는 장바구니 자체를 비울 때 사용  -->
   <delete id="deleteOpenCartByMember" parameterType="int">
     DELETE FROM TBL_CART
     WHERE MEMBER_NUMBER = #{memberNumber}
@@ -67,18 +73,21 @@
   </delete>
 
   <!-- 장바구니 항목 단건 삭제 -->
+  <!-- 사용자가 특정 상품만 제거할 때 사용 -->
   <delete id="delItem" parameterType="CartItemDTO">
     DELETE FROM TBL_CART_ITEM
     WHERE CART_ITEM_NUMBER = #{cartItemNumber}
   </delete>
 
   <!-- 장바구니 비우기 -->
+  <!-- 전체 선택 삭제 버튼 클릭 시 호출 -->
   <delete id="clear" parameterType="CartDTO">
     DELETE FROM TBL_CART_ITEM
     WHERE CART_NUMBER = #{cartNumber}
   </delete>
 
   <!-- 빈 OPEN 상태 장바구니의 가게 변경 -->
+  <!-- 기존 장바구니가 비어있을 때, 다른 가게의 상품을 담을 수 있도록 가게 번호를 변경 -->
   <update id="setStore" parameterType="CartDTO">
     UPDATE TBL_CART
     SET BUSINESS_NUMBER = #{businessNumber}
@@ -107,6 +116,7 @@
   </select>
 
   <!-- 동일 아이템 있는지 확인 -->
+  <!-- 결과가 0보다 크면 이미 있는 상품 -->
   <select id="existsCartItem" parameterType="CartItemDTO" resultType="int">
     SELECT COUNT(*) 
     FROM TBL_CART_ITEM

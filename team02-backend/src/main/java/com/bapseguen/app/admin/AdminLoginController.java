@@ -20,7 +20,7 @@ public class AdminLoginController implements Execute {
         HttpSession session = request.getSession(false);
         if (session != null && "ADMIN".equals(String.valueOf(session.getAttribute("memberType")))) {
             Result redirect = new Result();
-            redirect.setPath(request.getContextPath() + "/admin/main.ad");
+            redirect.setPath(request.getContextPath() + "/admin/dashboard.ad");
             redirect.setRedirect(true);
             return redirect;
         }
