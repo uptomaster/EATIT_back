@@ -80,7 +80,7 @@ li {
 .post {
   border-bottom: 1px solid #ddd;
   margin-bottom: 20px;
-  background-color: #88601b;
+ /*  background-color: #88601b; */
   padding: 10px;
   border-radius: 20px;
   box-shadow: 0 0 8px rgba(168, 6, 6, 0.438);
@@ -147,7 +147,7 @@ li {
 }
 
 .post {
-  background-color: #fff5d1;
+  /* background-color: #fff5d1; */
   padding: 20px;
   margin-bottom: 20px;
   border-radius: 10px;
