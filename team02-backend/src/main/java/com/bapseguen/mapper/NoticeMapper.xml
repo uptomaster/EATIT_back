@@ -4,7 +4,7 @@
 
 	<!-- 공지목록 조희 -->
 	<select id="noticeSelectAll" resultType="PostDTO">
-		SELECT POST_TITLE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_LIKE_COUNT,POST_TYPE
+		SELECT POST_TITLE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_LIKE_COUNT,POST_TYPE,POST_NUMBER
 		FROM TBL_POST
 		WHERE POST_TYPE = 'NOTICE'
 		ORDER BY POST_CREATED_DATE DESC
@@ -23,30 +23,15 @@
 		SET POST_VIEW_COUNT=POST_VIEW_COUNT+1
 		WHERE POST_NUMBER=#{postNumber}
 	</update>
-	
-	<!-- 게시글 삭제 쿼리 -->
-	<delete id="noticeDelete" parameterType="int">
-		DELETE FROM TBL_NOTICE
-		WHERE POST_NUMBER =#{postNumber}
-	</delete>
 
-	<!-- 게시글 수정쿼리 -->
-	<update id="noticeUpdate" parameterType="NoticeDTO">
-		UPDATE TBL_NOTICE
-		SET POST_TITLE=#{postTitle}, FREE_CONTENT=#{freeContent},PROMO_CONTENT=#{promoContent},RECIPE_CONTENT=#{recipeContent}
-		<!-- , board_update = #{boardUpdate} 수정일 -->
-		WHERE POST_NUMBER=#{postNumber}
-	</update>
-		
 	<!-- 공지 상세(1건조회) -->
-	<select id="noticeSelect" parameterType="int" resultType="PostDetailDTO">
+<!-- 	<select id="noticeSelect" parameterType="int" resultType="PostDetailDTO">
 		<![CDATA[
 			SELECT M.MEMBER_NUMBER,M.MEMBER_ID, P.POST_NUMBER,P.POST_TITLE,P.POST_DATE,P.POST_VIEW_COUNT
 			FROM TBL_MEMBER M JOIN TBL_POST P
 			ON P.MEMBER_NUMBER=M.MEMBER_NUMBER
 			WHERE P.POST_NUMBER= #{postNumber}
 		]]>
-	</select>
-	
+	</select> -->
 
 </mapper>

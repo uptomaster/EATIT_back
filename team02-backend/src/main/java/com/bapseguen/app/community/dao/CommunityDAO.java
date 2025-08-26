@@ -22,14 +22,6 @@ public class CommunityDAO {
 		sqlSession = MyBatisConfig.getSqlSessionFactory().openSession(true);
 	}
 
-	// 전체 게시글 목록 조회
-	public List<PostDTO> postSelectAll(Map<String, Integer> pageMap) {
-		System.out.println("모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
-		List<PostDTO> list = sqlSession.selectList("post.postSelectAll", pageMap);
-		System.out.println("조회결과 : " + list);
-		return list;
-	}
-
 	//자유게시판 목록 조회
 	public List<PostDTO> freeSelectAll(Map<String, Integer> pageMap) {
 		System.out.println("자유게시판 게시글 조회하기 - freeSelectAll 메소드 실행 : " + pageMap);
@@ -46,14 +38,6 @@ public class CommunityDAO {
 		return list;
 	}
 	
-//	public List<PostDTO> typeSelectAll(Map<String, Object> pageMap) {
-//	    System.out.println("모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
-//	    List<PostDTO> list = sqlSession.selectList("post.typeSelectAll", pageMap);
-//	    System.out.println("조회결과 : " + list);
-//	    return list;
-//	}
-//	
-	
 	//홍보게시판 목록 조회
 	public List<PostDTO> promoSelectAll(Map<String, Integer> pageMap) {
 		System.out.println("홍보게시판 게시글 조회하기 - promoSelectAll 메소드 실행 : " + pageMap);
@@ -68,6 +52,7 @@ public class CommunityDAO {
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
+	
 	
 	// 게시글 총 개수 가져오기
 //	public int getTotal() {
@@ -96,10 +81,13 @@ public class CommunityDAO {
 	}
 	
 
-	
-	
-	
-	
+	//공지목록 조회 (단건)
+	public List<PostDTO> noticeSelectOne(Map<String, Integer> pageMap) {
+		System.out.println("공지 목록 게시글 상세 조회하기 - noticeSelectOne 메소드 실행 : " + pageMap);
+		List<PostDTO> list = sqlSession.selectList("notice.noticeSelectOne", pageMap);
+		System.out.println("조회결과 : " + list);
+		return list;
+	}
 	
 	// 게시글 상세 조회
 	public PostDetailDTO select(int postNumber) {

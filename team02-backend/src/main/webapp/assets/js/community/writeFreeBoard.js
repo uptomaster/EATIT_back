@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 작성 완료 버튼
   form.addEventListener("submit", (e) => {
-    const confirmSubmit = confirm("글을 작성하시겠습니까?");
+    const confirmSubmit = confirm("글을 저장하시겠습니까?");
     if (!confirmSubmit) {
       e.preventDefault(); // 취소 눌렀을 때만 제출 막음
     } else {
