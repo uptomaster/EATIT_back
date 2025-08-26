@@ -42,6 +42,28 @@
 	]]>
 	</select>
 	
+	 <!-- 내 정보 수정 -->
+    <update id="updateSellerInfo" parameterType="SellerInfoDTO">
+        UPDATE TBL_MEMBER
+        SET member_password = #{memberPassword}
+        WHERE member_number = #{memberNumber};
+
+        UPDATE TBL_SELLER_MEMBER
+        SET seller_name = #{sellerName},
+            seller_phone_number = #{sellerPhoneNumber},
+            seller_updated_date = sysdate
+        WHERE member_number = #{memberNumber};
+
+        UPDATE TBL_STORE
+        SET store_name = #{storeName},
+            store_tel = #{storeTel},
+            store_address = #{storeAddress},
+            store_address_detail = #{storeAddressDetail},
+            store_zip_code = #{storeZipCode},
+            store_open_time = #{storeOpenTime},
+            store_close_time = #{storeCloseTime}
+        WHERE business_number = #{businessNumber}
+    </update>
 	<!-- 내 정보 수정 -->
 <!-- 	<update id="updateSellerinfo" parameterType="SellerInfoDTO">
 		<![CDATA[
