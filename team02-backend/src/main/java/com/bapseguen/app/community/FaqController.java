@@ -14,11 +14,11 @@ import com.bapseguen.app.Result;
 import com.bapseguen.app.community.dao.CommunityDAO;
 import com.bapseguen.app.dto.FaqDTO;
 
-public class CustomerServiceListOkController implements Execute {
+public class FaqController implements Execute {
 
     public Result execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("====CustomerServiceListOkController 실행====");
+        System.out.println("====FaqController 실행====");
         CommunityDAO communityDAO = new CommunityDAO();
         Result result = new Result();
 
@@ -66,7 +66,7 @@ public class CustomerServiceListOkController implements Execute {
         System.out.println("====================");
 
         // 결과 경로 설정 (고객센터 목록 JSP로 수정)
-        result.setPath("/app/community/customerServiceList.jsp");  // 경로를 고객센터 목록 페이지로 변경
+        result.setPath("/app/community/faqList.jsp");  // 경로를 고객센터 목록 페이지로 변경
         result.setRedirect(false);
 
         return result;

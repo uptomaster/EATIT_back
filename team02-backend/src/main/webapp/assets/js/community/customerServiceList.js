@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let filteredRows = [...rows];   
 
-  // ---------------- FAQ / 문의목록 탭 ----------------
+ /* // ---------------- FAQ / 문의목록 탭 ----------------
   const faqTab = document.getElementById("faq_tab");
   const inquiriesTab = document.getElementById("inquiries_tab");
   const faqSection = document.getElementById("faq");
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (faqTab && inquiriesTab) {
     faqTab.addEventListener("click", e => { e.preventDefault(); switchTab("faq"); });
     inquiriesTab.addEventListener("click", e => { e.preventDefault(); switchTab("inquiries"); });
-  }
+  }*/
 
   // ---------------- 특정 페이지 게시글 표시 ----------------
   function displayList(page) {

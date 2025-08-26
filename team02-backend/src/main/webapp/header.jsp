@@ -49,7 +49,7 @@
 				<li><a
 					href="${pageContext.request.contextPath}/community/communityMainOk.co">커뮤니티</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/community/customerServiceListOk.co">고객센터</a></li>
+					href="${pageContext.request.contextPath}/community/faqListOk.co">고객센터</a></li>
 			</ul>
 		</nav>
 	</div>

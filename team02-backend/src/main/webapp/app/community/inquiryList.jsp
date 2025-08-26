@@ -50,47 +50,14 @@
 			<!-- FAQ / 문의목록 탭 -->
 			<nav class="community_category">
 				<ul>
-					<li><a href="#" id="faq_tab" class="tab_button active">자주묻는질문</a></li>
-					<li><a href="#" id="inquiries_tab" class="tab_button">문의목록</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/community/faqListOk.co"
+						class="tab_button">자주묻는질문</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/community/inquiryListOk.co"
+						class="tab_button active">문의목록</a></li>
 				</ul>
 			</nav>
-
-			<!-- FAQ 섹션 -->
-			<section id="faq_section" class="community_list"
-				aria-label="FAQ 게시판 목록">
-				<div class="list_header_flex_row" role="rowgroup">
-					<div class="col_title" role="columnheader">제목</div>
-					<div class="col_author" role="columnheader">글쓴이</div>
-					<div class="col_date" role="columnheader">등록일</div>
-					<div class="col_views" role="columnheader">조회</div>
-					<div class="col_likes" role="columnheader">추천</div>
-				</div>
-				<div id="faq_list_body" class="list_body" role="rowgroup">
-					<!-- FAQ 목록을 동적으로 출력 -->
-					<c:forEach var="faq" items="${faq}">
-						<div class="list_row_flex_row" role="row">
-							<div class="col_title" role="cell">
-								<a
-									href="${pageContext.request.contextPath}/community/viewOtherPost.co?postNumber=${faq.postNumber}"><c:out
-										value="${faq.getPostTitle()}" /></a>
-							</div>
-							<div class="col_author" role="cell">
-								<img src="${pageContext.request.contextPath}/assets/img/관리자.png"
-									alt="관리자" class="tree_icon" />관리자
-							</div>
-							<div class="col_date" role="cell">
-								<c:out value="${faq.getPostCreatedDate()}" />
-							</div>
-							<div class="col_views" role="cell">
-								<c:out value="${faq.getPostViewCount()}" />
-							</div>
-							<div class="col_likes" role="cell">
-								<c:out value="${faq.getPostLikeCount()}" />
-							</div>
-						</div>
-					</c:forEach>
-				</div>
-			</section>
 
 			<!-- 문의목록 섹션 -->
 			<section id="inquiries_section" class="community_list"
@@ -103,23 +70,30 @@
 				</div>
 
 				<div id="inquiry_list_body" class="list_body" role="rowgroup">
-					<div class="list_row_flex_row" role="row">
-						<div class="col_title" role="cell">
-							<a
-								href="${pageContext.request.contextPath}/community/viewOtherPost.jsp">비밀번호를
-								잊어버렸어요. 어떻게 하나요?</a>
+					<c:forEach var="inquiry" items="${inquiry}">
+						<div class="list_row_flex_row" role="row">
+							<div class="col_title" role="cell">
+								<a
+									href="${pageContext.request.contextPath}/community/inquiry.co?postNumber=${inquiry.postNumber}"><c:out
+										value="${inquiry.getPostTitle()}" /></a>
+							</div>
+							<div class="col_author" role="cell">
+								<img src="${pageContext.request.contextPath}/assets/img/새싹.png"
+									alt="관리자" class="tree_icon" />
+								<c:out value="${inquiry.getMemberId()}" />
+							</div>
+							<div class="col_date" role="cell">
+								<c:out value="${inquiry.getPostCreatedDate()}" />
+							</div>
+							<div class="col_status" role="cell">
+								<div class="status received">
+									<c:out value="${inquiry.getInquiryStatus()}" />
+								</div>
+							</div>
 						</div>
-						<div class="col_author" role="cell">
-							<img src="${pageContext.request.contextPath}/assets/img/새싹.png"
-								alt="관리자" class="tree_icon" /> gisu
-						</div>
-						<div class="col_date" role="cell">25-07-22</div>
-						<div class="col_status" role="cell">
-							<span class="status received">접수</span>
-						</div>
-					</div>
+					</c:forEach>
 
-					<div class="list_row_flex_row" role="row">
+					 <%-- <div class="list_row_flex_row" role="row">
 						<div class="col_title" role="cell">
 							<a
 								href="${pageContext.request.contextPath}/community/viewOtherPost.jsp">판매자
@@ -149,40 +123,47 @@
 						<div class="col_status" role="cell">
 							<span class="status completed">답변완료</span>
 						</div>
-					</div>
+					</div> --%>
 
 				</div>
 			</section>
 
 			<!-- 페이지네이션 -->
-				<div class="pagination_container" id="pagination">
-					<c:if test="${prev}">
-							<div><a
-								href="${pageContext.request.contextPath}/community/customerServiceListOk.co?page=${startPage-1}"
-								class="prev">&lt;</a></div>
-						</c:if>
-						<c:set var="realStartPage"
-							value="${startPage < 0 ? 0 : startPage}" />
-						<c:forEach var="i" begin="${realStartPage}" end="${endPage}">
-							<c:choose>
-								<c:when test="${!(i == page) }">
-									<div class="pagination_number"><a
-										href="${pageContext.request.contextPath}/community/customerServiceListOk.co?page=${i}">
-											<c:out value="${i}" />
-									</a></div>
-								</c:when>
-								<c:otherwise>
-									<div class="pagination_number"><a href="#" class="active"> <c:out value="${i}" />
-									</a></div>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-						<c:if test="${next}">
-							<div class="pagination_number"><a
-								href="${pageContext.request.contextPath}/community/customerServiceListOk.co?page=${endPage + 1}"
-								class="next">&gt;</a></div>
-						</c:if>
-				</div>
+			<div class="pagination_container" id="pagination">
+				<c:if test="${prev}">
+					<div>
+						<a
+							href="${pageContext.request.contextPath}/community/inquiryListOk.co?page=${startPage-1}"
+							class="prev">&lt;</a>
+					</div>
+				</c:if>
+				<c:set var="realStartPage" value="${startPage < 0 ? 0 : startPage}" />
+				<c:forEach var="i" begin="${realStartPage}" end="${endPage}">
+					<c:choose>
+						<c:when test="${!(i == page) }">
+							<div class="pagination_number">
+								<a
+									href="${pageContext.request.contextPath}/community/inquiryListOk.co?page=${i}">
+									<c:out value="${i}" />
+								</a>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="pagination_number">
+								<a href="#" class="active"> <c:out value="${i}" />
+								</a>
+							</div>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:if test="${next}">
+					<div class="pagination_number">
+						<a
+							href="${pageContext.request.contextPath}/community/inquiryListOk.co?page=${endPage + 1}"
+							class="next">&gt;</a>
+					</div>
+				</c:if>
+			</div>
 
 
 			<!-- 검색 + 글쓰기 -->
@@ -194,9 +175,9 @@
 							<i class="fas fa-search"></i>
 						</button>
 						<div class="write_form">
-							<%-- <a
+							<a
 								href="${pageContext.request.contextPath}/community/writeFreeBoard.jsp"
-								id="writeBtn" class="member-only">글쓰기</a> --%>
+								id="writeBtn" class="member-only">글쓰기</a>
 						</div>
 					</div>
 				</div>

@@ -16,6 +16,7 @@ public class InquiryDTO {
 	private String postUpdatedDate;
 	private int postViewCount;
 	private int postLikeCount;
+
 	public int getPostNumber() {
 		return postNumber;
 	}
