@@ -71,7 +71,7 @@ public class PromoBoardListOkController implements Execute{
 		System.out.println("startPage : " + startPage + ", endPage : " + endPage + ", prev : " + prev + ", next : " + next);
 		System.out.println("====================");
 
-		result.setPath("/community/promoBoardListOk.co");
+		result.setPath("/app/community/promoBoardList.jsp");
 		result.setRedirect(false);
 
 		return result;
