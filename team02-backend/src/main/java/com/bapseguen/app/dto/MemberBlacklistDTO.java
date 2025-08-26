@@ -1,34 +1,41 @@
 package com.bapseguen.app.dto;
 
 public class MemberBlacklistDTO {
-
 	private int blacklistNumber;
 	private int memberNumber;
-	private String blacklistStartDate;
-	
+	private String reason;
+	private String createdDate;
+
+	// getter & setter
 	public int getBlacklistNumber() {
 		return blacklistNumber;
 	}
+
 	public void setBlacklistNumber(int blacklistNumber) {
 		this.blacklistNumber = blacklistNumber;
 	}
+
 	public int getMemberNumber() {
 		return memberNumber;
 	}
+
 	public void setMemberNumber(int memberNumber) {
 		this.memberNumber = memberNumber;
 	}
-	public String getBlacklistStartDate() {
-		return blacklistStartDate;
+
+	public String getReason() {
+		return reason;
 	}
-	public void setBlacklistStartDate(String blacklistStartDate) {
-		this.blacklistStartDate = blacklistStartDate;
+
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
-	@Override
-	public String toString() {
-		return "MemberBlacklistDTO [blacklistNumber=" + blacklistNumber + ", memberNumber=" + memberNumber
-				+ ", blacklistStartDate=" + blacklistStartDate + "]";
+
+	public String getCreatedDate() {
+		return createdDate;
 	}
-	
-	
+
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
+	}
 }

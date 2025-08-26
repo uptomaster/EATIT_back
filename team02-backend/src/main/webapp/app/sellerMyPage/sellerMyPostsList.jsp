@@ -59,15 +59,12 @@
 					<c:when test="${not empty myPostList}">
 						<c:forEach var="post" items="${myPostList}">
 							<div class="seller_myposts_comments_list">
-									<div class="seller_myposts_index">
-	   					 		<c:out value="${board.getBoardNumber()}" />
-	   					 	</div>
+								
 								<div class="seller_myposts_sort">
 									<c:out value="${post.getPostType() }" />
 								</div>
 								<div class="seller_myposts_title">
-									<a
-										href="${pageContext.request.contextPath}/app/community/viewOwnPost.jsp"><c:out
+									<a href="${pageContext.request.contextPath}/app/community/viewOwnPost.jsp"><c:out
 											value="${post.getPostTitle() }" /></a>
 								</div>
 								<div class="seller_myposts_date">
