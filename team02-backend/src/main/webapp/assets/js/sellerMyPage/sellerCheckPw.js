@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const chkPwBtn = document.getElementById('seller_chk_pw_btn');
 	const Warning = document.getElementById('seller_chk_pw_warning');
 
-	chkPwBtn.addEventListener("click", () => {
+/*	chkPwBtn.addEventListener("click", () => {
 		let Password = pwInfo.value;
 
 		if (Password !== correctPassword) {
@@ -23,9 +23,9 @@ document.addEventListener("DOMContentLoaded", () => {
 			Warning.textContent = "";
 			window.location.href = './editSellerInfo.html';
 		}
-	})
-
-	/*pwInfo.addEventListener("change", function() {
+	})*/
+// DB에 있는 비밀번호와 비교
+pwInfo.addEventListener("change", function() {
 		const Password = pwInfo.value.trim();
 		if (!Password) {
 			Warning.textContent = "비밀번호를 입력해주세요.";
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			.catch(() => {
 				Warning.textContent = "아이디 중복 검사 중 오류가 발생했습니다.";
 				Warning.style.color = "red";
-			});*/
+			});
 	})
 
 	let withdraw = document.getElementById('seller_withdraw_buzz');

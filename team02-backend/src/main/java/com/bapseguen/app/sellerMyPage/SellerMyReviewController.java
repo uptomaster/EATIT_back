@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
-import com.bapseguen.app.dto.ReviewDTO;
+import com.bapseguen.app.dto.view.ReviewWriteDTO;
 import com.bapseguen.app.sellerMyPage.dao.SellerMyPageDAO;
 
 public class SellerMyReviewController implements Execute{
@@ -44,7 +44,7 @@ public class SellerMyReviewController implements Execute{
 		pageMap.put("memberNumber", memberNumber);
 		
 		// 게시글 목록 조회
-		List<ReviewDTO> myReviewList = sellerDAO.selectAllmyReview(pageMap);
+		List<ReviewWriteDTO> myReviewList = sellerDAO.selectAllmyReview(pageMap);
 		request.setAttribute("myReviewList", myReviewList);
 
 		// 페이징 정보 설정
@@ -71,7 +71,7 @@ public class SellerMyReviewController implements Execute{
 
 		System.out.println("====페이징정보 확인====");
 		System.out.println("pageMap : " + pageMap);
-		System.out.println("boardList : " + myReviewList);
+		System.out.println("myReviewList : " + myReviewList);
 		System.out.println("startPage : " + startPage + ", endPage : " + endPage + ", prev : " + prev + ", next : " + next);
 		System.out.println("====================");
 

@@ -6,15 +6,14 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.bapseguen.app.dto.CommentDTO;
 import com.bapseguen.app.dto.ItemDTO;
-import com.bapseguen.app.dto.ItemImageDTO;
+import com.bapseguen.app.dto.ItemListDTO;
 import com.bapseguen.app.dto.OriginDTO;
-import com.bapseguen.app.dto.ReviewDTO;
 import com.bapseguen.app.dto.view.CommentListDTO;
 import com.bapseguen.app.dto.view.ItemWithImgDTO;
-import com.bapseguen.app.dto.view.MemberListDTO;
+import com.bapseguen.app.dto.view.MyPurchaseDTO;
 import com.bapseguen.app.dto.view.PostDetailDTO;
+import com.bapseguen.app.dto.view.ReviewWriteDTO;
 import com.bapseguen.app.dto.view.SellerInfoDTO;
 import com.bapseguen.config.MyBatisConfig;
 
@@ -86,11 +85,11 @@ public class SellerMyPageDAO {
     
     
     // 음식 메뉴 상세
-    public ItemWithImgDTO detaileFood(int itemNumber) {
+    public ItemListDTO detaileFood(int itemNumber) {
     	System.out.println("[판페DAO] 음식메뉴상세 - detailFood 메소드 실행 ");
     	System.out.println("[판페DAO] itemNumber : "+itemNumber);
     	
-    	ItemWithImgDTO answer= sqlSession.selectOne("storeManage.detaileFood", itemNumber);
+    	ItemListDTO answer= sqlSession.selectOne("storeManage.detaileFood", itemNumber);
     	return answer;
     }
     // 음식 판매 수정
@@ -227,9 +226,9 @@ public class SellerMyPageDAO {
 	}
     // // 내 리뷰 관리 
     // 내 리뷰 관리
-    public List<ReviewDTO> selectAllmyReview(Map<String, Integer> pageMap) {
+    public List<ReviewWriteDTO> selectAllmyReview(Map<String, Integer> pageMap) {
     	System.out.println("내 모든 리뷰 조회하기 - selectAllmyReview 메소드 실행 : " + pageMap);
-    	List<ReviewDTO> list = sqlSession.selectList("myReview.myReviewSelect", pageMap);
+    	List<ReviewWriteDTO> list = sqlSession.selectList("myReview.myReviewSelect", pageMap);
     	System.out.println("조회결과 : " + list);
     	return list;
     }
@@ -240,5 +239,22 @@ public class SellerMyPageDAO {
     	System.out.println("[판페DAO] 내 리뷰 수 : "+count);
     	return count;
     }
+    // // 내 구매 내역 관리
+    // 음식 구매내역
+    public List<MyPurchaseDTO> myFoodPurchaseList(Map<String, Integer> pageMap){
+    	System.out.println("내 음식 구매 목록 조회 - myFoodPurchseList 메소드 실행");
+    	List<MyPurchaseDTO> list = sqlSession.selectList("myOrder.myOrderSelect", pageMap);
+    	System.out.println("조회결과 : " + list);
+    	return list;
+    }
+    // 음식 구매내역 갯수
+    public int myFoodPurchaseCount(Map<String, Integer> pageMap) {
+    	System.out.println("내 게시글 총 개수 조회 - myReviewCount 메소드 실행");
+    	int count = sqlSession.selectOne("myOrder.myOrderCount",pageMap);
+    	System.out.println("[판페DAO] 내 리뷰 수 : "+count);
+    	return count;
+    }
+    // 재료 구매내역
+    // 재료 구매내역 갯수
     
 }
