@@ -98,7 +98,7 @@
 					<!--  -->
 					<div class="store_info_food_menu">
 						<!-- 목록 내용 출력 예시 -->
-				          <div class="store_info_food_menu_list">
+				     <%-- <div class="store_info_food_menu_list">
               <img src="${pageContext.request.contextPath}/assets/img/store.jpg" alt="">
               <div class="store_info_food_menu_info_stock">
                 <div class="store_info_btns">
@@ -110,14 +110,14 @@
                   <div class="store_info_food_view_btn">상세보기</div>
                   </a>
                 </div>
-                <div class="store_info_food_menu_info">
+                 <div class="store_info_food_menu_info">
                   <h3>[best]메뉴명</h3>
                   <p>소비기한:2025년00월00일</p>
                   <h3>0,000원</h3>
                 </div>
               </div>
             </div>				
-            <hr>
+            <hr> --%>
 						<!--  -->
 						<div class="store_info_ingredient_menu">
     <c:choose>
@@ -130,10 +130,10 @@
                             <div class="store_info_ingredient_stock">
                                 <c:out value="${food.itemQuantity}"/> 개 남음
                             </div>
-                            <a href="${pageContext.request.contextPath}/sellerMyPage/editIngredient.se">
-                                <div class="store_info_ingredient_edit_btn">수정</div>
+                            <a href="${pageContext.request.contextPath}/sellerMyPage/editFood.se" data-food-itemNumber="${food.itemNumber}">
+                                <div class="store_info_ingredient_edit_btn"> 수정</div>
                             </a>
-                            <a href="${pageContext.request.contextPath}/sellerMyPage/detailIngredient.se">
+                            <a href="${pageContext.request.contextPath}/sellerMyPage/detailFood.se">
                                 <div class="store_info_ingredient_view_btn">상세보기</div>
                             </a>
                         </div>
@@ -278,6 +278,7 @@
 								<c:choose>
 									<c:when test="${not empty ingreList}">
 										<c:forEach var="ing" items="${ingreList}">
+										<input type="text" value="${ing.getItemNumber()}">
 											<div class="store_info_ingredient_menu_list">
 												<img
 													src="${pageContext.request.contextPath}/assets/img/store.jpg"
@@ -289,8 +290,9 @@
 															개 남음
 														</div>
 														<a
-															href="${pageContext.request.contextPath}/sellerMyPage/editIngredient.se">
-															<div class="store_info_ingredient_edit_btn">수정</div>
+															href="${pageContext.request.contextPath}/sellerMyPage/editIngredient.se" data-ing-itemNumber="${ing.itemNumber}">
+															<div class="store_info_ingredient_edit_btn"
+															>수정</div>
 														</a> <a
 															href="${pageContext.request.contextPath}/sellerMyPage/detailIngredient.se">
 															<div class="store_info_ingredient_view_btn">상세보기</div>
@@ -344,5 +346,8 @@
 	</main>
 	<jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </body>
-
+<script>
+	window.foodItemNumber = "${food.itemNumber}";
+	let itemNumber = "${sessionScope.itemNumber}"; console.log(itemNumber);
+</script>
 </html>
