@@ -89,7 +89,12 @@ public class FaqDTO {
 
 	@Override
 	public String toString() {
-		return "FaqDTO [postNumber=" + postNumber + ", faqContent=" + faqContent + "]";
+		return "FaqDTO [postNumber=" + postNumber + ", faqContent=" + faqContent + ", postType=" + postType
+				+ ", adminTreeGrade=" + adminTreeGrade + ", postTitle=" + postTitle + ", postCreatedDate="
+				+ postCreatedDate + ", postUpdatedDate=" + postUpdatedDate + ", postViewCount=" + postViewCount
+				+ ", postLikeCount=" + postLikeCount + "]";
 	}
+
+
 	
 }
