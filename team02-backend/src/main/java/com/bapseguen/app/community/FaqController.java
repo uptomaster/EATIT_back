@@ -42,7 +42,7 @@ public class FaqController implements Execute {
         request.setAttribute("faq", faqList);
 
         // 전체 게시글 수 가져오기
-        int total = communityDAO.getTotal();
+        int total = communityDAO.getTotal1();
         int realEndPage = (int) Math.ceil(total / (double) rowCount);
         int endPage = (int) (Math.ceil(page / (double) pageCount) * pageCount);
         int startPage = endPage - (pageCount - 1);

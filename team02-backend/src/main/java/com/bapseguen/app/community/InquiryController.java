@@ -42,7 +42,7 @@ public class InquiryController implements Execute {
 		request.setAttribute("inquiry", inquiryList);
 
 		// 전체 게시글 수 가져오기
-		int total = communityDAO.getTotal();
+		int total = communityDAO.getTotal2();
 		int realEndPage = (int) Math.ceil(total / (double) rowCount);
 		int endPage = (int) (Math.ceil(page / (double) pageCount) * pageCount);
 		int startPage = endPage - (pageCount - 1);

@@ -153,6 +153,13 @@ public class CommunityDAO {
     public FaqDTO selectFaqDetail(int faqNumber) {
         return sqlSession.selectOne("faq.faqSelect", faqNumber);
     }
+    
+    // 회원정보 총 개수 반환
+    public int getTotal1() {
+    	System.out.println("INQUIRY 총 개수 조회 - getTotal 메소드 실행");
+    	return sqlSession.selectOne("faq.faqListCount");
+    }
+
 	
     // 고객센터 문의 목록 조회 (페이징 적용)
     public List<InquiryDTO> inquirySelectAll(Map<String, Integer> pageMap) {
@@ -170,6 +177,12 @@ public class CommunityDAO {
     // 고객센터 문의글 상세 조회
     public InquiryDTO selectInquiryDetail(int postNumber) {
     	return sqlSession.selectOne("inquiry.inquirySelect", postNumber);
+    }
+
+    // 회원정보 총 개수 반환
+    public int getTotal2() {
+    	System.out.println("INQUIRY 총 개수 조회 - getTotal 메소드 실행");
+    	return sqlSession.selectOne("inquiry.inquiryListCount");
     }
 
 }
