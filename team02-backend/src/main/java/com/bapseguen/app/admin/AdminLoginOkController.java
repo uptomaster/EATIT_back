@@ -47,7 +47,7 @@ public class AdminLoginOkController implements Execute {
             session.setAttribute("memberId", adminIdInput);
             session.setAttribute("memberType", "ADMIN");
 
-            result.setPath(request.getContextPath() + "/admin/main.ad");
+            result.setPath(request.getContextPath() + "/admin/dashboard.ad");
             result.setRedirect(true);
         } else {
             request.setAttribute("loginError", "일치하는 관리자 정보가 없습니다.");

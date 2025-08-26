@@ -1,87 +1,86 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>adminLogin</title>
-  <script defer src="./../../assets/js/admin/memberDetail.js"></script>
-  <link rel="stylesheet" href="./../../assets/css/admin/memberDetail.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-  integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-  crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>회원 상세</title>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/memberDetail.css">
 </head>
 <body>
-  <!-- 회색영역 -->
   <div class="admin_innerwrapper">
     <!-- 좌측 사이드바 -->
     <aside class="sidebar">
-      <!-- 관리자페이지 로고 -->
-      <a href="./../../app/admin/dashboard.html"><img src="./../../assets/img/admin_logo.png" alt="admin_logo" class="admin_logo"></a>
+      <a href="${pageContext.request.contextPath}/admin/dashboard.ad">
+        <img src="${pageContext.request.contextPath}/assets/img/admin_logo.png" alt="admin_logo" class="admin_logo">
+      </a>
       <ul class="sidebar_ul">
-        <a href="./../../app/admin/dashboard.html"><li id="sidebar_list_dashboard" class="sidebar_list">대쉬보드</li></a>
-        <a href="./../../app/admin/memberList.html"><li id="sidebar_list_member" class="sidebar_list">회원관리</li></a>
-        <a href="./../../app/admin/postTradeList.html"><li id="sidebar_list_community" class="sidebar_list">게시글 관리</li></a>
-        <a href="./../../app/admin/reportList.html"><li id="sidebar_list_warning"class="sidebar_list">신고관리</li></a>
-        <a href="./../../app/admin/bannerList.html"><li id="sidebar_list_banner"class="sidebar_list">배너/광고</li></a>
-        <a href="./../../app/admin/adminCustomerService.html"><li id="sidebar_list_customerservice"class="sidebar_list">고객센터</li></a>
+        <li class="sidebar_list"><a href="${pageContext.request.contextPath}/admin/dashboard.ad">대시보드</a></li>
+        <li class="sidebar_list" id="sidebar_list_member"><a href="${pageContext.request.contextPath}/admin/member/list.ad">회원관리</a></li>
+        <li class="sidebar_list"><a href="${pageContext.request.contextPath}/admin/postTrade/list.ad">게시글 관리</a></li>
+        <li class="sidebar_list"><a href="${pageContext.request.contextPath}/admin/report/list.ad">신고관리</a></li>
+        <li class="sidebar_list"><a href="${pageContext.request.contextPath}/admin/banner/list.ad">배너/광고</a></li>
+        <li class="sidebar_list"><a href="${pageContext.request.contextPath}/admin/inquiry/list.ad">고객센터</a></li>
       </ul>
-      <button id="admin_logoutbtn">로그아웃</button>
+      <form action="${pageContext.request.contextPath}/admin/logoutOk.ad" method="post">
+        <button id="admin_logoutbtn">로그아웃</button>
+      </form>
     </aside>
-    <!-- 메인컨텐츠 영역 -->
+
+    <!-- 메인 컨텐츠 -->
     <div class="admin_inner">
+      <h1 class="admin_pagetitle">회원 상세</h1>
       <div class="admin_listwrapper">
-        <h3>개인 정보</h3>
+
+        <!-- 회원번호 -->
         <div class="admin_memberDetail_rowWrapper">
-          <div class="admin_memberDetail_key"><p>아 이 디</p></div>
-          <div class="admin_memberDetail_value"><p>helloworld</p></div>
-          <div class="admin_memberDetail_key"><p>이 름</p></div>
-          <div class="admin_memberDetail_value"><p>김하위</p></div>
-          <div class="admin_memberDetail_key"><p>연 락 처</p></div>
-          <div class="admin_memberDetail_value"><p>010-1212-2323</p></div>
+          <div class="admin_memberDetail_key"><p>회원번호</p></div>
+          <div class="admin_memberDetail_value"><p>${memberDetail.memberNumber}</p></div>
         </div>
+
+        <!-- 아이디 -->
         <div class="admin_memberDetail_rowWrapper">
-          <div class="admin_memberDetail_key"><p>회원유형</p></div>
-          <div class="admin_memberDetail_value"><p>사업자</p></div>
-          <div class="admin_memberDetail_key"><p>경 고 수</p></div>
-          <div class="admin_memberDetail_value"><p>0</p></div>
-          <div class="admin_memberDetail_key"><p>등 급</p></div>
-          <div class="admin_memberDetail_value"><p><img id="member_grade" src="./../../assets/img/씨앗.png" alt="씨앗">(203)</p></div>
+          <div class="admin_memberDetail_key"><p>아이디</p></div>
+          <div class="admin_memberDetail_value"><p>${memberDetail.memberId}</p></div>
         </div>
-        <h3>사업자 정보</h3>
+
+        <!-- 이름 -->
         <div class="admin_memberDetail_rowWrapper">
-          <div class="admin_memberDetail_key"><p>상 호</p></div>
-          <div class="admin_memberDetail_company_value"><p>엣헴치킨</p></div>
-          <div class="admin_memberDetail_key"><p>전화번호</p></div>
-          <div class="admin_memberDetail_value"><p>02-1203-5638</p></div>
+          <div class="admin_memberDetail_key"><p>이름</p></div>
+          <div class="admin_memberDetail_value"><p>${memberDetail.memberName}</p></div>
         </div>
+
+        <!-- 유형 -->
         <div class="admin_memberDetail_rowWrapper">
-          <div class="admin_memberDetail_key"><p>주 소</p></div>
-          <div class="admin_memberDetail_address_value"><p>서울특별시 강남구 역삼동</p></div>
+          <div class="admin_memberDetail_key"><p>회원 유형</p></div>
+          <div class="admin_memberDetail_value"><p>${memberDetail.memberType}</p></div>
         </div>
+
+        <!-- 경고수 -->
         <div class="admin_memberDetail_rowWrapper">
-          <div class="admin_memberDetail_key"><p>개업일자</p></div>
-          <div class="admin_memberDetail_company_value"><p>2025-08-10</p></div>
-          <div class="admin_memberDetail_key"><p>사업자번호</p></div>
-          <div class="admin_memberDetail_value"><p>125-86-12345</p></div>
+          <div class="admin_memberDetail_key"><p>경고 수</p></div>
+          <div class="admin_memberDetail_value"><p>${memberDetail.warningCount}</p></div>
         </div>
-        <h3>경고/정지 정보</h3>
-        <div class="admin_memberDetail_rowWrapper_bottom">
-          <div class="admin_memberDetail_key_bottom"><p>경고일</p></div>
-          <div class="admin_memberDetail_company_value"><p>2025-08-01</p></div>  
+
+        <!-- 등급 -->
+        <div class="admin_memberDetail_rowWrapper">
+          <div class="admin_memberDetail_key"><p>등급</p></div>
+          <div class="admin_memberDetail_value"><p>${memberDetail.treeGrade}</p></div>
         </div>
-        <div class="admin_memberDetail_rowWrapper_bottom">                 
-          <div class="admin_memberDetail_key_bottom"><p>정지기간</p></div>
-          <div class="admin_memberDetail_company_value"><p>2025-08-01 23:15:02 ~ 2025-08-04 23:15:01</p></div>
-        </div>
+
+        <!-- 버튼 -->
         <div class="admin_memberDetail_rowWrapper_btn">
-          <form action="" method="post">                 
-            <button id="button_warning" type="button">경고주기</button>
+          <form action="${pageContext.request.contextPath}/admin/member/warningOk.ad" method="post">
+            <input type="hidden" name="memberNumber" value="${memberDetail.memberNumber}">
+            <input type="hidden" name="memberType" value="${memberDetail.memberType}">
+            <input type="hidden" name="warningCount" value="${memberDetail.warningCount}">
+            <button type="submit" id="button_warning">⚠ 경고 주기</button>
           </form>
-        </div>               
-      </div>  
+        </div>
+
+      </div>
     </div>
   </div>
 </body>
-</html>  
+</html>

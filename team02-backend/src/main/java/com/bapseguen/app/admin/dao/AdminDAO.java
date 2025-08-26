@@ -1,175 +1,212 @@
 package com.bapseguen.app.admin.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.bapseguen.app.dto.BannerDTO;
-import com.bapseguen.app.dto.FaqDTO;
-import com.bapseguen.app.dto.InquiryDTO;
-import com.bapseguen.app.dto.MemberBlacklistDTO;
-import com.bapseguen.app.dto.MemberDTO;
-import com.bapseguen.app.dto.MemberSuspendDTO;
-import com.bapseguen.app.dto.NoticeDTO;
-import com.bapseguen.app.dto.PostReportDTO;
-import com.bapseguen.app.dto.view.MemberListDTO;
+import com.bapseguen.app.dto.*;
+import com.bapseguen.app.dto.view.*;
 import com.bapseguen.config.MyBatisConfig;
 
 public class AdminDAO {
+	private SqlSession sqlSession;
 
-    private SqlSession sqlSession;
+	public AdminDAO() {
+		sqlSession = MyBatisConfig.getSqlSessionFactory().openSession(true);
+	}
 
-    public AdminDAO() {
-        sqlSession = MyBatisConfig.getSqlSessionFactory().openSession(true);
-    }
-    
-    /** 관리자 로그인 => 로그인 성공 시 memberNumber, 로그인 실패 시 -1 반환 */
-    public int loginAdmin(MemberDTO dto) {
-        Integer memberNumber = sqlSession.selectOne("admin.loginAdmin", dto);
-        return memberNumber == null ? -1 : memberNumber;
-    }
-    
+	/* ===================== 로그인 ===================== */
+	public int loginAdmin(MemberDTO dto) {
+		Integer memberNumber = sqlSession.selectOne("admin.loginAdmin", dto);
+		return memberNumber == null ? -1 : memberNumber;
+	}
 
-    /* ===================== 배너 ===================== */
+	/* ===================== 배너 ===================== */
+	public int insertBanner(BannerDTO dto) {
+		return sqlSession.insert("admin.insertBanner", dto);
+	}
 
-    /** 배너 등록 */
-    public int insertBanner(BannerDTO dto) {
-        return sqlSession.insert("admin.insertBanner", dto);
-    }
+	public List<BannerDTO> selectBannerList() {
+		return sqlSession.selectList("admin.selectBannerList");
+	}
 
-    /** 배너 목록 조회 */
-    public List<BannerDTO> selectBannerList() {
-        return sqlSession.selectList("admin.selectBannerList");
-    }
+	public BannerDTO selectBannerDetail(int bannerNumber) {
+		return sqlSession.selectOne("admin.selectBannerDetail", bannerNumber);
+	}
 
-    /** 배너 수정 */
-    public int updateBanner(BannerDTO dto) {
-        return sqlSession.update("admin.updateBanner", dto);
-    }
+	public int updateBanner(BannerDTO dto) {
+		return sqlSession.update("admin.updateBanner", dto);
+	}
 
-    /** 배너 삭제 */
-    public int deleteBanner(int bannerNumber) {
-        return sqlSession.delete("admin.deleteBanner", bannerNumber);
-    }
+	public int deleteBanner(int bannerNumber) {
+		return sqlSession.delete("admin.deleteBanner", bannerNumber);
+	}
 
-    /* ===================== 고객센터 문의 ===================== */
+	/* ===================== 고객센터 문의 ===================== */
+	public List<InquiryDTO> selectInquiryList() {
+		return sqlSession.selectList("admin.selectInquiryList");
+	}
 
-    /** 문의글 목록 조회 */
-    public List<InquiryDTO> selectInquiryList() {
-        return sqlSession.selectList("admin.selectInquiryList");
-    }
+	public InquiryDTO selectInquiryDetail(int postNumber) {
+		return sqlSession.selectOne("admin.selectInquiryDetail", postNumber);
+	}
 
-    /** 문의글 상세 조회 */
-    public InquiryDTO selectInquiryDetail(int postNumber) {
-        return sqlSession.selectOne("admin.selectInquiryDetail", postNumber);
-    }
+	public int insertInquiryComment(InquiryCommentDTO dto) {
+		return sqlSession.insert("admin.insertInquiryComment", dto);
+	}
 
-    /** 문의글 댓글 작성 */ 
-    // 댓글은 내일 수업 배우고 진행하기
-    //    public int insertInquiryComment(CommentDTO dto) {
-    //        return sqlSession.insert("admin.insertInquiryComment", dto);
-    //    }
+	public int updateInquiryStatus(int postNumber, String status) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("postNumber", postNumber);
+		params.put("status", status);
+		return sqlSession.update("admin.updateInquiryStatus", params);
+	}
 
-    /* ===================== 공지 ===================== */
-    // 작성은 2단계: insertNoticePost → insertNotice
+	/* ===================== 공지/이벤트 ===================== */
+	public int insertNoticePost(AdminNoticeDTO dto) {
+		return sqlSession.insert("admin.insertNoticePost", dto);
+	}
 
-    /** 공지 POST 생성(제목/메타) */
-    public int insertNoticePost(NoticeDTO dto) {
-        return sqlSession.insert("admin.insertNoticePost", dto);
-    }
+	public int insertNotice(AdminNoticeDTO dto) {
+		return sqlSession.insert("admin.insertNotice", dto);
+	}
 
-    /** 공지 본문 생성 */
-    public int insertNotice(NoticeDTO dto) {
-        return sqlSession.insert("admin.insertNotice", dto);
-    }
+	public List<AdminNoticeDTO> selectNoticeList() {
+		return sqlSession.selectList("admin.selectNoticeList");
+	}
 
-    /** 공지 목록 조회 */
-    public List<NoticeDTO> selectNoticeList() {
-        return sqlSession.selectList("admin.selectNoticeList");
-    }
+	public AdminNoticeDTO selectNoticeDetail(int postNumber) {
+		return sqlSession.selectOne("admin.selectNoticeDetail", postNumber);
+	}
 
-    /** 공지 제목 수정 */
-    public int updateNoticeTitle(NoticeDTO dto) {
-        return sqlSession.update("admin.updateNoticeTitle", dto);
-    }
+	public int updateNoticeTitle(AdminNoticeDTO dto) {
+		return sqlSession.update("admin.updateNoticeTitle", dto);
+	}
 
-    /** 공지 본문 수정 */
-    public int updateNoticeContent(NoticeDTO dto) {
-        return sqlSession.update("admin.updateNoticeContent", dto);
-    }
+	public int updateNoticeContent(AdminNoticeDTO dto) {
+		return sqlSession.update("admin.updateNoticeContent", dto);
+	}
 
-    /** 공지 삭제(POST 삭제 → NOTICE는 CASCADE) */
-    public int deleteNotice(int postNumber) {
-        return sqlSession.delete("admin.deleteNotice", postNumber);
-    }
+	public int deleteNotice(int postNumber) {
+		return sqlSession.delete("admin.deleteNotice", postNumber);
+	}
 
-    /* ===================== FAQ ===================== */
-    // 작성은 2단계(Post에 공통 속성 먼저쓰고 FAQ만들기): insertFaqPost → insertFaq
-  
+	/* ===================== FAQ ===================== */
+	public int insertFaqPost(FaqDTO dto) {
+		return sqlSession.insert("admin.insertFaqPost", dto);
+	}
 
-    /** FAQ POST 생성(제목/메타) */
-    public int insertFaqPost(FaqDTO dto) {
-        return sqlSession.insert("admin.insertFaqPost", dto);
-    }
+	public int insertFaq(FaqDTO dto) {
+		return sqlSession.insert("admin.insertFaq", dto);
+	}
 
-    /** FAQ 본문 생성 */
-    public int insertFaq(FaqDTO dto) {
-        return sqlSession.insert("admin.insertFaq", dto);
-    }
+	public List<FaqDTO> selectFaqList() {
+		return sqlSession.selectList("admin.selectFaqList");
+	}
 
-    /** FAQ 목록 조회 */
-    public List<FaqDTO> selectFaqList() {
-        return sqlSession.selectList("admin.selectFaqList");
-    }
+	public FaqDTO selectFaqDetail(int postNumber) {
+		return sqlSession.selectOne("admin.selectFaqDetail", postNumber);
+	}
 
-    /** FAQ 상세 조회 */
-    public FaqDTO selectFaqDetail(int postNumber) {
-        return sqlSession.selectOne("admin.selectFaqDetail", postNumber);
-    }
+	public int updateFaqTitle(FaqDTO dto) {
+		return sqlSession.update("admin.updateFaqTitle", dto);
+	}
 
-    /** FAQ 제목 수정 */
-    public int updateFaqTitle(FaqDTO dto) {
-        return sqlSession.update("admin.updateFaqTitle", dto);
-    }
+	public int updateFaqContent(FaqDTO dto) {
+		return sqlSession.update("admin.updateFaqContent", dto);
+	}
 
-    /** FAQ 본문 수정 */
-    public int updateFaqContent(FaqDTO dto) {
-        return sqlSession.update("admin.updateFaqContent", dto);
-    }
+	public int deleteFaq(int postNumber) {
+		return sqlSession.delete("admin.deleteFaq", postNumber);
+	}
 
-    /** FAQ 삭제(POST 삭제 → FAQ는 CASCADE) */
-    public int deleteFaq(int postNumber) {
-        return sqlSession.delete("admin.deleteFaq", postNumber);
-    }
+	/* ===================== 신고/정지/블랙리스트 ===================== */
+	public List<PostReportDTO> selectReportList() {
+		return sqlSession.selectList("admin.selectReportList");
+	}
 
-    /* ===================== 신고/정지/블랙리스트 ===================== */
+	public int insertSuspendMember(MemberSuspendDTO dto) {
+		return sqlSession.insert("admin.insertSuspendMember", dto);
+	}
 
-    /** 신고 목록 조회 (PostReportDTO 사용) */
-    public List<PostReportDTO> selectReportList() {
-        return sqlSession.selectList("admin.selectReportList");
-    }
+	public int insertBlacklistMember(MemberBlacklistDTO dto) {
+		return sqlSession.insert("admin.insertBlacklistMember", dto);
+	}
 
-    /** 정지 회원 목록 조회 */
-    public List<MemberSuspendDTO> selectSuspendList() {
-        return sqlSession.selectList("admin.selectSuspendList");
-    }
+	public List<MemberSuspendDTO> selectSuspendList() {
+		return sqlSession.selectList("admin.selectSuspendList");
+	}
 
-    /** 블랙리스트 목록 조회 */
-    public List<MemberBlacklistDTO> selectBlacklistList() {
-        return sqlSession.selectList("admin.selectBlacklistList");
-    }
-    
- // 회원 목록 가져오기
- 	public List<MemberListDTO> selectMember(Map<String, Integer> pageMap) {
- 		System.out.println("모든 회원 조회하기 - selectAll 메소드 실행 : " + pageMap);
- 		List<MemberListDTO> list = sqlSession.selectList("admin.selectMemberListList", pageMap);
- 		System.out.println("조회결과 : " + list);
- 		return list;
- 	}
-// 회원정보 총 개수 반환
-	public int getTotal() {
-		System.out.println("회원정보 총 개수 조회 - getTotal 메소드 실행");
-		return sqlSession.selectOne("admin.memberListCount");
+	public List<MemberBlacklistDTO> selectBlacklistList() {
+		return sqlSession.selectList("admin.selectBlacklistList");
+	}
+
+	/* ===================== 회원 관리 ===================== */
+	// 회원 목록 (검색 + 페이징)
+	public List<MemberListDTO> selectMemberList(Map<String, Object> pageMap) {
+		return sqlSession.selectList("admin.selectMemberList", pageMap);
+	}
+
+	// 회원 수 (검색 포함)
+	public int memberListCount(Map<String, Object> pageMap) {
+		return sqlSession.selectOne("admin.memberListCount", pageMap);
+	}
+
+	// 회원 상세
+	public MemberDetailDTO selectMemberDetail(int memberNumber) {
+		return sqlSession.selectOne("admin.selectMemberDetail", memberNumber);
+	}
+
+	/* ===================== 대시보드 통계 ===================== */
+	public int countNotices() {
+		return sqlSession.selectOne("admin.countNotices");
+	}
+
+	public int countFaqs() {
+		return sqlSession.selectOne("admin.countFaqs");
+	}
+
+	public int countInquiries() {
+		return sqlSession.selectOne("admin.countInquiries");
+	}
+
+	public int countUnansweredInquiries() {
+		return sqlSession.selectOne("admin.countUnansweredInquiries");
+	}
+
+	public int countReports() {
+		return sqlSession.selectOne("admin.countReports");
+	}
+
+	public int countActiveBanners() {
+		return sqlSession.selectOne("admin.countActiveBanners");
+	}
+
+	// 대시보드 그래프 (최근 6개월 회원수)
+	public List<Map<String, Object>> countMonthlyMembers() {
+		return sqlSession.selectList("admin.countMonthlyMembers");
+	}
+
+	/* ===================== 회원 제재 ===================== */
+	// 회원 타입 조회
+	public String getMemberType(int memberNumber) {
+		return sqlSession.selectOne("admin.getMemberType", memberNumber);
+	}
+
+	// 일반 회원 경고 증가
+	public int increaseWarningCount(int memberNumber) {
+		return sqlSession.update("admin.increaseWarningCount", memberNumber);
+	}
+
+	// 판매자 경고 증가
+	public int increaseWarningCountSeller(int memberNumber) {
+		return sqlSession.update("admin.increaseWarningCountSeller", memberNumber);
+	}
+
+	// 현재 경고 횟수 조회
+	public int getWarningCount(int memberNumber) {
+		return sqlSession.selectOne("admin.getWarningCount", memberNumber);
 	}
 }
