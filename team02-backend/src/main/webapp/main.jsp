@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>adminLogin</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>adminLogin</title>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -76,7 +76,7 @@
 							alt=""></a>
 					</div>
 
-<%-- 					<article class="main_food_buy_article">
+					<%-- 					<article class="main_food_buy_article">
 						<a href="${pageContext.request.contextPath}/orders/storeDetail.or">
 							<!-- 상품이미지(임시) --> <img src="./assets/img/bibim.jpg"
 							alt="상품이미지 설명 추가하기"> <!-- 가게정보 -->
@@ -89,35 +89,39 @@
 						</a>
 					</article> --%>
 					<article class="main_food_buy_article">
-						<!-- 상품이미지(임시) -->
-						<c:choose>
-							<a
-								href="${pageContext.request.contextPath}/orders/storeDetail.or">
-								<c:when test="${not empty storeList}">
-									<c:forEach var="store" items="${storelist}">
-										<img src="./assets/img/budaeJjigae.png" alt="상품이미지 설명 추가하기">
-										<!-- 가게정보 -->
+						<c:forEach var="store" items="${storeList}">
+							<c:if test="${not empty store.itemNumber}">
+								<div class="main_store_card">
+									<a
+										href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${store.itemNumber}">
+										<!-- 이미지 --> <img
+										src="${pageContext.request.contextPath}/assets/img/${store.itemImageSystemName}"
+										alt="${store.storeName} 이미지"> <!-- 가게 정보 -->
 										<div class="main_store_info">
 											<div class="main_store_name">
-												<c:out value="${store.getStoreName()}" />
+												<c:out value="${store.storeName}" />
 											</div>
 											<div class="main_menu_name">
-												<c:out value="${store.getItemName()}" />
+												<c:out value="${store.itemName}" />
 											</div>
 											<div class="main_open_time">
 												영업시간 :
-												<c:out value="${store.getStoreOpenTime()}" />
-												<c:out value="${store.getStoreCloseTime()}" />
+												<c:out value="${store.storeOpenTime}" />
+												~
+												<c:out value="${store.storeCloseTime}" />
 											</div>
 											<div class="main_price">
-												<c:out value="${store.getItemPrice()}" />
+												<c:out value="${store.itemPrice}" />
+												원
 											</div>
 										</div>
-									</c:forEach>
-								</c:when>
-							</a>
-						</c:choose>
+									</a>
+								</div>
+							</c:if>
+						</c:forEach>
 					</article>
+
+
 					<%-- <article class="main_food_buy_article">
 						<a href="${pageContext.request.contextPath}/orders/storeDetail.or">
 							<!-- 상품이미지(임시) --> <img src="./assets/img/dakdoritang.png"
@@ -215,12 +219,23 @@
 					<div class="main_ingredient_store">
 						<!-- 재료사진 -->
 						<article class="main_ingredient_img">
-							<a
-								href="${pageContext.request.contextPath}/orders/ingredientDetail.or">
-								<img src="./assets/img/carrot.jpg" alt="상품이미지 가게 정보 추가하기">
-							</a>
+							<c:choose>
+								<c:when test="${ingredient.itemType eq INGREDIENT}">
+									<c:forEach var="ingredient" items="${ingredientList}">
+										<a
+											href="${pageContext.request.contextPath}/orders/ingredientDetail.or">
+											<img
+											src="${pageContext.request.contextPath}/assets/img/${ingredient.itemImageSystemName}"
+											alt="${ingredient.storeName} 이미지">
+										</a>
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<h2>남은 재고가 없습니다.</h2>
+								</c:otherwise>
+							</c:choose>
 						</article>
-						<article class="main_ingredient_img">
+						<%-- <article class="main_ingredient_img">
 							<a
 								href="${pageContext.request.contextPath}/orders/ingredientDetail.or">
 								<img src="./assets/img/baechu.jpg" alt="상품이미지 가게 정보 추가하기">
@@ -237,7 +252,7 @@
 								href="${pageContext.request.contextPath}/orders/ingredientDetail.or">
 								<img src="./assets/img/garlic.jpg" alt="상품이미지 가게 정보 추가하기">
 							</a>
-						</article>
+						</article> --%>
 					</div>
 				</div>
 				<div class="main_recipe">
@@ -334,6 +349,8 @@
 
 	<!-------------------- 푸터 ------------------------>
 	<jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
-</body>
 
-</html>
+	<script>
+		let memberNumber = "${sessionScope.memberNumber}";
+	</script>
+</body>

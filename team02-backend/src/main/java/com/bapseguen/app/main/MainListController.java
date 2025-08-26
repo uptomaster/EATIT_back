@@ -10,15 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bapseguen.app.Result;
+import com.bapseguen.app.dto.view.ItemWithImgDTO;
 import com.bapseguen.app.dto.view.MainStoreListDTO;
+import com.bapseguen.app.dto.view.MemberListDTO;
 import com.bapseguen.app.main.dao.MainDAO;
 
-public class MainStoreListController {
+public class MainListController {
 	
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-        System.out.println("==== MainStoreListController 실행 ====");
+        System.out.println("==== MainListController 실행 ====");
 
         MainDAO mainDAO = new MainDAO();
         Result result = new Result();
@@ -44,11 +46,18 @@ public class MainStoreListController {
         pageMap.put("offset", offset);
         pageMap.put("limit", pageSize);
 
-        List<MainStoreListDTO> storeList = mainDAO.selectStoreList(pageMap);
+        List<MainStoreListDTO> storeList = mainDAO.selectMainStoreList(pageMap);
         request.setAttribute("storeList", storeList);
         request.setAttribute("currentPage", page);
-
+        System.out.println("가게 목록 : " + storeList);
+        
+        List<ItemWithImgDTO> ingredientList = mainDAO.selectIngredientList(pageMap);
+        request.setAttribute("ingredientList", ingredientList);
+        request.setAttribute("currentPage", page);
+        System.out.println("가게 목록 : " + ingredientList);
+       
         result.setPath("/main.jsp");
+        result.setRedirect(false);
 		return result;
 	}
 }

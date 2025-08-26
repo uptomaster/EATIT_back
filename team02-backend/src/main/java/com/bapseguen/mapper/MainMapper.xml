@@ -3,7 +3,7 @@
 <mapper namespace="main">
 
 	<!-- 가게 목록 조회 -->
-	<select id="storeList" parameterType="Map" resultType="ItemWithImgDTO">
+	<select id="storeList" parameterType="Map" resultType="MainStoreListDTO">
 		SELECT
 		S.STORE_NAME,
 		S.STORE_OPEN_TIME,
@@ -22,6 +22,41 @@
 		TBL_ITEM_IMAGE II ON I.ITEM_NUMBER = II.ITEM_NUMBER
 		WHERE
 		I.ITEM_SELL_STATE = 'Y'
+	</select>
+	
+	<!-- 재료 목록 조회 -->
+	<select id="ingredientList" parameterType="Map" resultType="ItemWithImgDTO">
+		<!-- 가게별/타입별 판매중 아이템 목록 (페이지네이션) -->
+		SELECT
+		i.ITEM_NUMBER AS itemNumber,
+		i.BUSINESS_NUMBER AS businessNumber,
+		s.STORE_NAME AS businessName,
+		i.ITEM_TYPE AS itemType,
+		i.ITEM_NAME AS itemName,
+		i.ITEM_PRICE AS itemPrice,
+		i.ITEM_CONTENT AS itemContent,
+		i.ITEM_QUANTITY AS itemQuantity,
+		i.ITEM_ORIGIN AS itemOrigin,
+		TO_CHAR(i.ITEM_EXPIRE_DATE, 'YYYY-MM-DD') AS itemExpireDate,
+		TO_CHAR(i.ITEM_CREATED_TIME, 'YYYY-MM-DD HH24:MI:SS') AS itemCreatedTime,
+		TO_CHAR(i.ITEM_UPDATED_TIME, 'YYYY-MM-DD HH24:MI:SS') AS
+		itemUpdatedTime,
+		i.ITEM_SELL_STATE AS itemSellState,
+		(SELECT ii.ITEM_IMAGE_SYSTEM_NAME
+		FROM TBL_ITEM_IMAGE ii
+		WHERE ii.ITEM_NUMBER = i.ITEM_NUMBER
+		FETCH FIRST 1 ROWS ONLY) AS itemImageSystemName
+		FROM TBL_ITEM i
+		<!-- 상호명이 필요해서 tbl_store와 조인 -->
+		JOIN TBL_STORE s ON i.BUSINESS_NUMBER = s.BUSINESS_NUMBER
+		WHERE i.BUSINESS_NUMBER = #{businessNumber}
+		AND i.ITEM_TYPE = #{itemType}
+		<!-- 판매 중인 것만 가져옴 -->
+		AND i.ITEM_SELL_STATE = 'Y'
+		ORDER BY i.ITEM_NUMBER DESC
+		<if test="offset != null and limit != null">
+			OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
+		</if>
 	</select>
 
 </mapper>
