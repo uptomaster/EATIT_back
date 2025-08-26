@@ -5,9 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modifyBtn = document.querySelector(".modify-btn");
   const deleteBtn = document.querySelector(".delete-btn");
   const submitBtn = document.querySelector(".submit-btn");
-  
-  
-  
+
 	  
 	  
   recommendBtn.addEventListener('click', () => {

@@ -37,15 +37,15 @@
       <!-- 카테고리 메뉴 -->
       <nav class="category_container">
         <ul class="category_list">
-          <li class="category_item"><a href="${pageContext.request.contextPath}/community/communityMainUser.jsp">공지사항/이벤트</a></li>
-          <li class="category_item"><a href="${pageContext.request.contextPath}/community/freeBoardList.jsp">자유게시판</a></li>
-          <li class="category_item"><a href="${pageContext.request.contextPath}/community/promoBoardList.jsp">홍보게시판</a></li>
-          <li class="category_item"><a href="${pageContext.request.contextPath}/community/recipeList.jsp" >레시피</a></li>
+          <li class="category_item"><a href="${pageContext.request.contextPath}/community/communityMainOk.co">공지사항/이벤트</a></li>
+          <li class="category_item"><a href="${pageContext.request.contextPath}/community/freeBoardReadOk.co">자유게시판</a></li>
+          <li class="category_item"><a href="${pageContext.request.contextPath}/community/promoBoardListOk.co">홍보게시판</a></li>
+          <li class="category_item"><a href="${pageContext.request.contextPath}/community/recipeListOk.co" >레시피</a></li>
         </ul>
       </nav>
 
       <!-- 게시글 헤더 -->
-      <article class="post">
+      <article>
 		<%-- <div class="post_header">
           <div class="author_box">
             <img class="author_profile" src="${pageContext.request.contextPath}/assets/img/가지.png" alt="가지" />
@@ -59,25 +59,28 @@
           </div>
         </div> --%>
 
-		<div>
+		<div class="post">
+		  <div class="post_header">
+		    <!-- 메타 데이터 -->
+		    <div class="post_box">
+		      <!-- 작성자 -->
+		      <div class="author_box">
+		        <img src="${pageContext.request.contextPath}/assets/img/관리자.png" alt="관리자" class="tree_icon" />
+		        <span><c:out value="${post.getMemberId()}" /></span>
+		      </div>
+		      
+		    
 		  <div class="post_header">
 		    <!-- 게시글 제목 -->
 		    <div class="post_title">
-		      <h1><c:out value="${post.getPostTitle()}" /></h1>
+		      <h1 class="post_title"><c:out value="${post.getPostTitle()}" /></h1>
 		    </div>
 		
 		    <!-- 메타 데이터 -->
 		    <div class="post_meta">
-		      <!-- 작성자 -->
-		      <div class="post_author_area">
-		        <img src="${pageContext.request.contextPath}/assets/img/관리자.png" alt="관리자" class="tree_icon" />
-		        <span>작성자id</span>
-		        <span><c:out value="${post.getMemberId()}" /></span>
-		      </div>
-		
+
 		      <!-- 작성일 -->
 		      <div class="post_date_area">
-		        <time datetime="2025-08-03T14:13:02">[2025. 8. 3. 오전 12:22:53]</time>
 		        <c:out value="${post.getPostCreatedDate() }" />
 		      </div>
 		
@@ -92,14 +95,17 @@
 		        <span>추천</span>
 		        <span><c:out value="${post.getPostLikeCount()}" /></span>
 		      </div>
+		      
 		    </div>
 		  </div>
+		 </div>
 		
 
         	<!-- 게시글 내용 -->
-	        <section class="content_section">
+	        <section class="content_section"></section>
 		       	  <div class="view-content">
-					  <c:out value="${post.getFreeContent()}" />
+		       	  	<h3>안녕</h3>
+					<c:out value="${postDetail.getFreeContent()}" />
 				  </div>
 	          	  <div class="func_button">
 		          	  <!-- 수정/삭제 버튼(로그인한 사용자가 작성자인 경우에만 표시) -->
