@@ -24,9 +24,10 @@ public class FoodDetailOkController implements Execute {
 		
 		//itemNumber가 빈 문자열이거나 null인경우
 		String itemNumberStr = request.getParameter("itemNumber");
+		System.out.println("[FoodDetailOkController] : "+itemNumberStr);
 		if(itemNumberStr == null || itemNumberStr.trim().isEmpty()){
 			System.out.println("boardNumber 값이 없습니다");
-			result.setPath("/app/board/boardList.jsp"); //게시글 목록 페이지로 리다이렉트
+			result.setPath("/sellerMyPage/storeInfo.se"); //게시글 목록 페이지로 리다이렉트
 			result.setRedirect(true);
 			return result;
 		}
@@ -41,8 +42,8 @@ public class FoodDetailOkController implements Execute {
 		
 		//게시글이 존재하지 않을 경우 처리
 		if(ItemListDTO == null) {
-			System.out.println("존재하지 않는 게시글입니다. " + itemNumber);
-			result.setPath("/app/sellMyPage/storeInfo.jsp");
+			System.out.println("[FoodDetailOkController] 존재하지 않는 게시글입니다. " + itemNumber);
+			result.setPath("/sellerMyPage/storeInfo.se");
 			result.setRedirect(true);
 			return result;
 		}
@@ -62,7 +63,7 @@ public class FoodDetailOkController implements Execute {
 		
 		
 		request.setAttribute("item", ItemListDTO);
-		result.setPath("/app/sellerMyPage/foodSalesView.jsp");
+		result.setPath("/sellerMyPage/detailFoodOk.se");
 		result.setRedirect(false);		
 		
 		return result;

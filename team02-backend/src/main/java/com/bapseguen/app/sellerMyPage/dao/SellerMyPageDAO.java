@@ -93,7 +93,7 @@ public class SellerMyPageDAO {
     	return answer;
     }
     // 음식 판매 수정
-    public int editFood(ItemDTO dto) {
+    public int editFood(ItemListDTO dto) {
     	System.out.println("[판페DAO] 음식판매 수정 - editFood 메소드 실행");
     	System.out.println("[판페DAO] itemDTO : "+dto);
     	
@@ -118,36 +118,37 @@ public class SellerMyPageDAO {
 
     // INGREDIENT
     //재료 판매 등록
-    public int addIngredient(ItemDTO dto) {
-    	System.out.println("[판페] 재료판매등록 - addIngredient 메소드 실행");
-    	System.out.println("[판페] itemDTO : "+dto);
+    public int addIngredient(ItemListDTO dto) {
+    	System.out.println("[판페DAO] 재료판매등록 - addIngredient 메소드 실행");
+    	System.out.println("[판페DAO] itemDTO : "+dto);
     	
         return sqlSession.insert("storeManage.addIngredient", dto);
     }
     // 재료 판매 상세
-    public ItemDTO detaileIngredient(int itemNumber) {
-    	System.out.println("[판페] 재료판매상세 - detailIngredient 메소드 실행");
+    public ItemListDTO detaileIngredient(int itemNumber) {
+    	System.out.println("[판페DAO] 재료판매상세 - detailIngredient 메소드 실행");
     	System.out.println("itemNumber : "+itemNumber);
     	
         return sqlSession.selectOne("storeManage.detaileIngredient", itemNumber);
     }
     //재료 판매 수정
-    public int editIngredient(ItemDTO dto) {
-    	System.out.println("[판페] 재료판매수정 - editIngredient 메소드 실행");
+    public int editIngredient(ItemListDTO dto) {
+    	System.out.println("[판페DAO] 재료판매수정 - editIngredient 메소드 실행");
     	System.out.println("itemDTO : "+ dto);
     	
         return sqlSession.update("storeManage.editIngredient", dto);
     }
     //재료 판매 삭제
     public int deleteIngredient(int itemNumber) {
-    	System.out.println("[판페] 재료판매삭제 - deleteIngredient 메소드 실행");
+    	System.out.println("[판페DAO] 재료판매삭제 - deleteIngredient 메소드 실행");
     	System.out.println("itemNumber : "+itemNumber);
     	
         return sqlSession.delete("storeManage.deleteingredient", itemNumber);
     }
     // 재료 판매 목록
     public List<ItemWithImgDTO> ingredientList(Map<String, Object> pageMap) {
-    	System.out.println("[판페] 재료판매목록 - ingredientList 메소드 실행");
+    	System.out.println("[판페DAO] 재료판매목록 - ingredientList 메소드 실행");
+    	System.out.println("[판페DAO] 재료판매목록 map :"+pageMap.toString());
     	System.out.println("사업자번호 : "+pageMap.get("businessNumber"));
     	
     	List<ItemWithImgDTO> list = sqlSession.selectList("storeManage.ingredientList", pageMap);
