@@ -81,7 +81,7 @@ public class AdminFrontController extends HttpServlet {
 
         case "/admin/banner/updateOk.ad":
             System.out.println("→ [ADMIN] 배너 수정 처리");
-            result = new BannerWriteOkController().execute(request, response);
+            result = new BannerUpdateOkController().execute(request, response);
             break;
 
         case "/admin/banner/deleteOk.ad":

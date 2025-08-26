@@ -152,33 +152,23 @@
         
 
       <!-- 댓글 영역 -->
-      <section class="comment_section">
-        <h2 class="comment_count">
-          <img src="${pageContext.request.contextPath}/assets/img/comment_box.svg" alt="댓글 아이콘" />
-          댓글
-        </h2>
-
-        <ul class="comment_list">
-          <li class="comment_item">
-            <div class="comment_profile_container">
-              <img class="comment_profile" src="${pageContext.request.contextPath}/assets/img/잎새.png" alt="잎새" />
-              <div class="comment_info">
-                <span class="comment_author">seojin</span>
-                <time class="comment_timeline" datetime="2025-08-03T15:22">[2025-08-03 15:22]</time>
-                <p class="comment_text">ㅋㅋㅋ 이 빠요 잘 와준듯</p>
-              </div>
-            </div>
-          </li>
-        </ul>
-
-        <!-- 다크모드 -->
-        <form class="comment_form" action="#" method="post">
-          <img class="comment_profile" src="${pageContext.request.contextPath}/assets/img/나무.png" alt="나무" />
-          <span class="comment_author">namhyuk</span>
-          <input type="text" name="comment" placeholder="댓글을 입력하세요" required />
-          <button type="submit">등록</button>
-        </form>
-      </section>
+	<section class="comment_section">
+	  <h2 class="comment_count">
+	    <img src="${pageContext.request.contextPath}/assets/img/comment_box.svg" alt="댓글 아이콘" />
+	    댓글
+	  </h2>
+	
+	  <ul class="comment_list" id="commentList"><!-- JS가 채움 --></ul>
+	
+	  <form class="comment_form" id="commentForm" onsubmit="return false;">
+	    <img class="comment_profile" src="${pageContext.request.contextPath}/assets/img/나무.png" alt="프로필" />
+	    <span class="comment_author">
+	      <c:out value="${sessionScope.memberId != null ? sessionScope.memberId : '비회원'}"/>
+	    </span>
+	    <input type="text" id="commentInput" name="comment" placeholder="댓글을 입력하세요" required />
+	    <button type="button" id="commentSubmit">등록</button>
+	  </form>
+	</section>
       <button id="darkModeToggle" title="다크 모드 토글">🌓</button> -->
     </div>
   </main>
@@ -221,7 +211,8 @@
   
 </body>
 <script>
-		window.boardNumber = "${board.boardNumber}";
-		window.memberNumber = "${sessionScope.memberNumber}";
+	  window.ctx = "${pageContext.request.contextPath}";
+	  window.postNumber = "${post.postNumber}";
+	  window.memberNumber = "${sessionScope.memberNumber}";
 </script>
 </html>

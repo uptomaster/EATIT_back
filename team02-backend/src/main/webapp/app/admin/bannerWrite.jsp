@@ -1,72 +1,81 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>adminLogin</title>
-  <script defer src="./../../assets/js/admin/bannerWrite.js"></script>
-  <link rel="stylesheet" href="./../../assets/css/admin/bannerWrite.css">
+  <title>배너 작성</title>
+  <script defer src="${pageContext.request.contextPath}/assets/js/admin/bannerWrite.js"></script>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/bannerWrite.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-  integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-  crossorigin="anonymous" referrerpolicy="no-referrer" />
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-  <!-- íììì­ -->
   <div class="admin_innerwrapper">
-    <!-- ì¢ì¸¡ ì¬ì´ëë° -->
+    <!-- 좌측 사이드바 -->
     <aside class="sidebar">
-      <!-- ê´ë¦¬ìíì´ì§ ë¡ê³  -->
-      <a href="./../../app/admin/dashboard.html"><img src="./../../assets/img/admin_logo.png" alt="admin_logo" class="admin_logo"></a>
+      <a href="${pageContext.request.contextPath}/admin/dashboard.ad">
+        <img src="${pageContext.request.contextPath}/assets/img/admin_logo.png" alt="admin_logo" class="admin_logo">
+      </a>
       <ul class="sidebar_ul">
-        <a href="./../../app/admin/dashboard.html"><li id="sidebar_list_dashboard" class="sidebar_list">ëì¬ë³´ë</li></a>
-        <a href="./../../app/admin/memberList.html"><li id="sidebar_list_member" class="sidebar_list">íìê´ë¦¬</li></a>
-        <a href="./../../app/admin/postTradeList.html"><li id="sidebar_list_community" class="sidebar_list">ê²ìê¸ ê´ë¦¬</li></a>
-        <a href="./../../app/admin/reportList.html"><li id="sidebar_list_warning"class="sidebar_list">ì ê³ ê´ë¦¬</li></a>
-        <a href="./../../app/admin/bannerList.html"><li id="sidebar_list_banner"class="sidebar_list">ë°°ë/ê´ê³ </li></a>
-        <a href="./../../app/admin/adminCustomerService.html"><li id="sidebar_list_customerservice"class="sidebar_list">ê³ ê°ì¼í°</li></a>
+        <li class="sidebar_list"><a href="${pageContext.request.contextPath}/admin/dashboard.ad">대쉬보드</a></li>
+        <li class="sidebar_list"><a href="${pageContext.request.contextPath}/admin/member/list.ad">회원관리</a></li>
+        <li class="sidebar_list"><a href="${pageContext.request.contextPath}/admin/post/list.ad">게시글 관리</a></li>
+        <li class="sidebar_list"><a href="${pageContext.request.contextPath}/admin/report/list.ad">신고관리</a></li>
+        <li class="sidebar_list active"><a href="${pageContext.request.contextPath}/admin/banner/list.ad">배너/광고</a></li>
+        <li class="sidebar_list"><a href="${pageContext.request.contextPath}/admin/inquiry/list.ad">고객센터</a></li>
       </ul>
-      <!-- ë¡ê·¸ìì ë²í¼ -->
-      <button id="admin_logoutbtn">ë¡ê·¸ìì</button>
+      <form action="${pageContext.request.contextPath}/admin/logoutOk.ad" method="post">
+        <button id="admin_logoutbtn" type="submit">로그아웃</button>
+      </form>
     </aside>
-    <!-- ë©ì¸ì»¨íì¸  ìì­ -->
+
+    <!-- 메인컨텐츠 -->
     <div class="admin_inner">
-      <!-- íì´ì§ ì ëª© -->
-      <h1>ìì±íê¸°</h1>
-      <!-- ë°ê¹¥ íììì­ -->
+      <h1>배너 작성</h1>
       <div class="admin_listwrapper">
-        <!-- íììì­ -->
         <div class="admin_whitebox">
-          <form action="" method="post">
-            <!-- ê³µì§ ìì± ì ëª©ìì­ -->
+
+          <!-- 작성 폼 -->
+          <form action="${pageContext.request.contextPath}/admin/banner/writeOk.ad"
+                method="post" enctype="multipart/form-data">
+            
             <div class="admin_notice_titlebox">
-              <!-- íê·¸ ì í -->
-              <select class="admin_notice_category">
-                <option value="notice">íê·¸</option>
-                <option value="notice">ê³µì§ </option>
+              <label for="title">제목 : </label>
+              <input type="text" id="title" name="bannerTitle" required>
+
+              <label for="date">마감일</label>
+              <input type="date" id="date" name="bannerEndDate" required>
+
+              <label for="active">활성화 여부</label>
+              <select id="active" name="bannerIsActive">
+                <option value="Y">활성</option>
+                <option value="N">비활성</option>
               </select>
-              <!-- ì ëª© -->
-              <label for="title">ì ëª© : </label>
-              <input type="text" id="title">
-              <!-- ë§ê°ì¼ ì í -->
-              <label for="date">ë§ê°ì¼</label>
-              <input type="date" id="date">
             </div>
-            <!-- ìì±ëêµ¬apiìì­ -->
-            <div class="write_api"></div>
-            <!-- ìì±ìì­ -->
-              <textarea name="" id="admin_notice_write"></textarea>
-              <!-- ìëìª½ ë²í¼ ìì­ -->
+
+            <!-- 이미지 업로드 -->
+            <div class="admin_notice_titlebox">
+              <label for="admin_file">배너 이미지</label>
+              <input type="file" id="admin_file" name="uploadFile" accept="image/*" required>
+            </div>
+
             <div class="bottom_btn_area">
-              <!-- íì¼ ì²¨ë¶ -->
-              <input type="file" id="admin_file">
-              <!-- ìì±ìë£ ë²í¼ -->
-              <button type="button" id="admin_notice_dowrite">ìì±ìë£</button>
+              <!-- 작성완료: writeOk.ad 로 전송 -->
+              <button type="submit" id="admin_notice_dowrite">작성완료</button>
             </div>
           </form>
-        </div>       
-      </div>  
+
+          <!-- 취소: list.ad 로 이동 -->
+          <form action="${pageContext.request.contextPath}/admin/banner/list.ad" method="get">
+            <button type="submit">취소</button>
+          </form>
+
+        </div>
+      </div>
     </div>
   </div>
 </body>

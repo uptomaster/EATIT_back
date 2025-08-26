@@ -34,13 +34,13 @@ public class AdminDashboardController implements Execute {
         AdminDAO dao = new AdminDAO();
 
         // ===== 대시보드 주요 통계 =====
-        int totalMembers = dao.memberListCount(new HashMap<>()); // 수정
-        int totalNotices = dao.countNotices();
-        int totalFaqs = dao.countFaqs();
-        int totalInquiries = dao.countInquiries();
-        int unansweredInquiries = dao.countUnansweredInquiries();
-        int totalReports = dao.countReports();
-        int activeBanners = dao.countActiveBanners();
+        int totalMembers = dao.memberListCount(new HashMap<>()); // 총 회원수
+        int totalNotices = dao.countNotices(); // 총 공지글 수
+        int totalFaqs = dao.countFaqs(); // 총 FAQ 수 
+        int totalInquiries = dao.countInquiries(); // 총 문의 수
+        int unansweredInquiries = dao.countUnansweredInquiries(); // 미답변 문의글 수
+        int totalReports = dao.countReports(); // 총 신고 수
+        int activeBanners = dao.countActiveBanners(); // 활성화된 배너
 
         // JSP에 데이터 전달
         request.setAttribute("totalMembers", totalMembers);
