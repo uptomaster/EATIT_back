@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:url value="/assets/img/salad.jpg" var="ph"/>
+<c:url value="/assets/img/store.jpg" var="ph"/>
 
 <!DOCTYPE html>
 <html lang="ko">
