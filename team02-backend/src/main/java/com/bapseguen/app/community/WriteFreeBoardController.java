@@ -14,6 +14,7 @@ public class WriteFreeBoardController implements Execute{
 
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 		
 		System.out.println("====WriteFreeBoardController 실행====");
 		Result result = new Result();
