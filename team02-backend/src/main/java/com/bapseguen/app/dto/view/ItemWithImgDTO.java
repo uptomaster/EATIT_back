@@ -13,7 +13,56 @@ public class ItemWithImgDTO {
 	private String itemExpireDate; // 소비기한
 	private String itemCreatedTime; // 상품 등록일
 	private String itemUpdatedTime; // 상품 수정일
-	private boolean itemSellState; // 판매 여부 "판매중(y)","보관중"(n),
+	private String itemSellState; // 판매 여부 "판매중(y)","보관중"(n),
+
+    // 가게 정보
+    private String storeName;
+    private String storeAddress;
+    private String storeAddressDetail;
+    private String storeZipCode;
+    private String storeTel;
+
+	
+	
+	public String getStoreName() {
+		return storeName;
+	}
+
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+
+	public String getStoreAddress() {
+		return storeAddress;
+	}
+
+	public void setStoreAddress(String storeAddress) {
+		this.storeAddress = storeAddress;
+	}
+
+	public String getStoreAddressDetail() {
+		return storeAddressDetail;
+	}
+
+	public void setStoreAddressDetail(String storeAddressDetail) {
+		this.storeAddressDetail = storeAddressDetail;
+	}
+
+	public String getStoreZipCode() {
+		return storeZipCode;
+	}
+
+	public void setStoreZipCode(String storeZipCode) {
+		this.storeZipCode = storeZipCode;
+	}
+
+	public String getStoreTel() {
+		return storeTel;
+	}
+
+	public void setStoreTel(String storeTel) {
+		this.storeTel = storeTel;
+	}
 
 	public String getItemOrigin() {
 		return itemOrigin;
@@ -110,11 +159,13 @@ public class ItemWithImgDTO {
 		this.itemUpdatedTime = itemUpdatedTime;
 	}
 
-	public boolean isItemSellState() {
+
+
+	public String getItemSellState() {
 		return itemSellState;
 	}
 
-	public void setItemSellState(boolean itemSellState) {
+	public void setItemSellState(String itemSellState) {
 		this.itemSellState = itemSellState;
 	}
 
@@ -156,10 +207,14 @@ public class ItemWithImgDTO {
 				+ itemType + ", itemName=" + itemName + ", itemPrice=" + itemPrice + ", itemContent=" + itemContent
 				+ ", itemQuantity=" + itemQuantity + ", itemOrigin=" + itemOrigin + ", itemExpireDate=" + itemExpireDate
 				+ ", itemCreatedTime=" + itemCreatedTime + ", itemUpdatedTime=" + itemUpdatedTime + ", itemSellState="
-				+ itemSellState + ", businessName=" + businessName + ", itemImageNumber=" + itemImageNumber
+				+ itemSellState + ", storeName=" + storeName + ", storeAddress=" + storeAddress
+				+ ", storeAddressDetail=" + storeAddressDetail + ", storeZipCode=" + storeZipCode + ", storeTel="
+				+ storeTel + ", businessName=" + businessName + ", itemImageNumber=" + itemImageNumber
 				+ ", itemImageSystemName=" + itemImageSystemName + ", itemImageOriginalName=" + itemImageOriginalName
 				+ "]";
 	}
+
+
 
 
 	

@@ -1,6 +1,9 @@
 package com.bapseguen.app.orders;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -8,100 +11,96 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
-import com.bapseguen.app.dto.OrdersDTO;
+import com.bapseguen.app.cartList.dao.CartListDAO;
+import com.bapseguen.app.dto.CartItemDTO;
 import com.bapseguen.app.orders.dao.OrdersDAO;
-
-import okhttp3.Credentials;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class PaymentApproveOkController implements Execute {
 
-    private static final MediaType JSON = MediaType.get("application/json; charset=utf-8");
-
     @Override
-    public Result execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public Result execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // 1) 로그인 체크
+        Integer memberNumber = (Integer) req.getSession().getAttribute("memberNumber");
+        if (memberNumber == null) {
+            Result r = new Result();
+            r.setPath(req.getContextPath() + "/login/login.lo");
+            r.setRedirect(true);
+            return r;
+        }
 
-        String paymentKey = request.getParameter("paymentKey");
-        String orderId    = request.getParameter("orderId");
-        String amountStr  = request.getParameter("amount");
-
+        // 2) 파라미터 (※ 반드시 getParameter 로 읽어야 함: redirect로 넘어옴)
+        String paymentKey = pick(req, "paymentKey", "payment_key");
+        String orderId    = pick(req, "orderId", "ordersId", "order_id");
+        String amountStr  = pick(req, "amount", "totalAmount");
         if (paymentKey == null || orderId == null || amountStr == null) {
-            request.setAttribute("error", "필수 파라미터 누락.");
-            Result r = new Result(); r.setPath("/app/orders/paymentFail.jsp"); return r;
+            return redirect(req, "/cartList/view.cl");
         }
 
         int amount;
-        int ordersNumber;
-        try {
-            amount = Integer.parseInt(amountStr);
-            ordersNumber = Integer.parseInt(orderId.replace("ORD-", "").trim());
-        } catch (Exception e) {
-            request.setAttribute("error", "orderId/amount 형식 오류.");
-            Result r = new Result(); r.setPath("/app/orders/paymentFail.jsp"); return r;
-        }
+        try { amount = Integer.parseInt(amountStr); }
+        catch (NumberFormatException e) { return redirect(req, "/cartList/view.cl"); }
 
-        OrdersDAO ordersDAO = new OrdersDAO();
-        OrdersDTO order = ordersDAO.selectOrder(ordersNumber);
-        if (order == null) {
-            request.setAttribute("error", "주문을 찾을 수 없습니다.");
-            Result r = new Result(); r.setPath("/app/orders/paymentFail.jsp"); return r;
-        }
-
-        if (order.getOrdersTotalAmount() != amount) {
-            request.setAttribute("error", "결제 금액이 주문 금액과 일치하지 않습니다.");
-            Result r = new Result(); r.setPath("/app/orders/paymentFail.jsp"); return r;
-        }
-
-        if ("PAID".equalsIgnoreCase(order.getOrdersPaymentStatus())) {
-            request.setAttribute("ordersNumber", ordersNumber);
-            request.setAttribute("amount", amount);
-            Result r = new Result(); r.setPath("/app/cartList/paymentSuccess.jsp"); return r;
-        }
-
-        String secretKey = request.getServletContext().getInitParameter("TOSS_SECRET_KEY");
-        OkHttpClient client = new OkHttpClient();
-        String auth = Credentials.basic(secretKey, "");
-        String json = "{\"paymentKey\":\"" + escape(paymentKey) + "\",\"orderId\":\"" + escape(orderId) + "\",\"amount\":" + amount + "}";
-
-        Request httpRequest = new Request.Builder()
-                .url("https://api.tosspayments.com/v1/payments/confirm")
-                .post(RequestBody.create(json, JSON))
-                .addHeader("Authorization", auth)
-                .addHeader("Content-Type", "application/json")
-                .build();
-
-        try (Response httpResponse = client.newCall(httpRequest).execute()) {
-            String body = httpResponse.body() != null ? httpResponse.body().string() : "";
-
-            if (!httpResponse.isSuccessful()) {
-                ordersDAO.updateOrderStatus(ordersNumber, "FAILED");
-                request.setAttribute("error", "결제 승인 실패");
-                request.setAttribute("detail", body);
-                Result r = new Result(); r.setPath("/app/orders/paymentFail.jsp"); return r;
+        // 3) 서버에서 금액 재계산 (장바구니 기준)
+        CartListDAO cdao = new CartListDAO();
+        List<CartItemDTO> items = cdao.selectCurrentCartItemsWithPrice(memberNumber);
+        long serverTotal = 0L;
+        if (items != null) {
+            for (CartItemDTO it : items) {
+                serverTotal += (long) it.getCartItemPrice() * it.getCartItemQuantity();
             }
+        }
+        if (serverTotal <= 0) {
+            // 장바구니가 비어있으면 실패 처리
+            return redirect(req, "/cartList/view.cl");
+        }
+        if (serverTotal != amount) {
+            // 금액 불일치 → 보안상 결제 취소(혹은 실패 페이지로)
+            String q = "reason=" + URLEncoder.encode("amount_mismatch", StandardCharsets.UTF_8.name());
+            return redirect(req, "/orders/paymentCancelOk.or?" + q);
+        }
 
-            ordersDAO.updateOrderStatus(ordersNumber, "PAID");
+        // 4) 결제 승인(Confirm)
+        String secretKey = req.getServletContext().getInitParameter("TOSS_SECRET_KEY"); // web.xml의 gsk
+        TossService toss = new TossService();
+        boolean approved = toss.confirm(paymentKey, orderId, amount, secretKey);
+        if (!approved) {
+            return redirect(req, "/orders/paymentCancelOk.or?reason=confirm");
+        }
 
-            try {
-                Integer memberNumber = (Integer) request.getSession().getAttribute("memberNumber");
-                if (memberNumber != null) {
-                    com.bapseguen.app.cartList.dao.CartListDAO cartDao = new com.bapseguen.app.cartList.dao.CartListDAO();
-                    cartDao.closeCurrentCart(memberNumber);
-                }
-            } catch (Exception ignore) {}
+        // 5) 주문 상태/금액 업데이트 (READY → PAID), 카트 마감
+        OrdersDAO odao = new OrdersDAO();
+        try {
+            // orderId 기준으로 PAID 업데이트 (아래 2) 매퍼 추가)
+            odao.updatePaidByOrderId(orderId, amount);
 
-            request.setAttribute("ordersNumber", ordersNumber);
-            request.setAttribute("amount", amount);
-            Result r = new Result(); r.setPath("/app/orders/paymentSuccess.jsp"); return r;
+            // 현재 OPEN 카트 CLOSE
+            cdao.closeCurrentCart(memberNumber);
+
+            // 성공 페이지로 forward
+            Result r = new Result();
+            r.setRedirect(false);
+            r.setPath("/app/orders/success.jsp");
+            return r;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return redirect(req, "/orders/paymentCancelOk.or?reason=finalize");
+        } finally {
+            try { odao.close(); } catch (Exception ignore) {}
         }
     }
 
-    private String escape(String s) {
-        if (s == null) return "";
-        return s.replace("\\", "\\\\").replace("\"", "\\\"");
+    private static String pick(HttpServletRequest req, String... names) {
+        for (String n : names) {
+            String v = req.getParameter(n);
+            if (v != null && !v.isBlank()) return v;
+        }
+        return null;
+    }
+
+    private Result redirect(HttpServletRequest req, String path) {
+        Result r = new Result();
+        r.setRedirect(true);
+        r.setPath(req.getContextPath() + path);
+        return r;
     }
 }
