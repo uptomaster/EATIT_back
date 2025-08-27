@@ -36,7 +36,7 @@
 	<div id="header_wrapper">
 		<!-- 메인 로고 이미지-->
 		<div id="header_logo">
-			<a href="${pageContext.request.contextPath}/main.jsp"> <img
+			<a href="${pageContext.request.contextPath}/main.ma"> <img
 				src="${pageContext.request.contextPath}/assets/img/header_logo.png"
 				alt="밥세권 로고">
 			</a>

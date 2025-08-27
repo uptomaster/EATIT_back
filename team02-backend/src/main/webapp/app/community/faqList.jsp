@@ -28,9 +28,9 @@
 <script defer
 	src="${pageContext.request.contextPath}/assets/js/community/mouseoverTreeIcon.js"></script>
 <script>
-    let header_path = '../../header.jsp';
-    let footer_path = '../../footer.jsp';
-  </script>
+	let header_path = '../../header.jsp';
+	let footer_path = '../../footer.jsp';
+</script>
 </head>
 
 <body>
@@ -50,8 +50,12 @@
 			<!-- FAQ / 문의목록 탭 -->
 			<nav class="community_category">
 				<ul>
-					<li><a href="${pageContext.request.contextPath}/community/faqListOk.co" class="tab_button active">자주묻는질문</a></li>
-					<li><a href="${pageContext.request.contextPath}/community/inquiryListOk.co" class="tab_button">문의목록</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/community/faqListOk.co"
+						class="tab_button active">자주묻는질문</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/community/inquiryListOk.co"
+						class="tab_button">문의목록</a></li>
 				</ul>
 			</nav>
 
@@ -129,7 +133,6 @@
 				</c:if>
 			</div>
 
-
 			<!-- 검색 + 글쓰기 -->
 			<div class="controls_wrapper">
 				<div class="function_container">
@@ -151,7 +154,7 @@
 	<!-- <footer id="footer"></footer> -->
 
 	<script>
-    let memberNumber = "${sessionScope.memberNumber}";
-  </script>
+		let memberNumber = "${sessionScope.memberNumber}";
+	</script>
 
 </body>

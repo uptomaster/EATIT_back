@@ -6,7 +6,7 @@ public class MainStoreListDTO {
 	private String storeOpenTime;
 	private String storeCloseTime;
 	private String itemName;
-	private String itemPrice;
+	private int itemPrice;
 	private int itemImageNumber;
 	private String itemImageSystemName;
 	private String itemImageOriginalName;
@@ -36,10 +36,10 @@ public class MainStoreListDTO {
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
-	public String getItemPrice() {
+	public int getItemPrice() {
 		return itemPrice;
 	}
-	public void setItemPrice(String itemPrice) {
+	public void setItemPrice(int itemPrice) {
 		this.itemPrice = itemPrice;
 	}
 	public int getItemImageNumber() {
