@@ -1,10 +1,10 @@
 package com.bapseguen.app.main.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.bapseguen.app.dto.BannerDTO;
 import com.bapseguen.app.dto.view.ItemWithImgDTO;
 import com.bapseguen.app.dto.view.MainStoreListDTO;
 import com.bapseguen.app.dto.view.PostDetailDTO;
@@ -16,19 +16,25 @@ public class MainDAO {
 	public MainDAO() {
 		sqlSession = MyBatisConfig.getSqlSessionFactory().openSession(true);
 	}
+	
+	// 배너 리스트
+	public List<BannerDTO> selectMainBannerList() {
+		return sqlSession.selectList("main.bannerList");
+	}
 
 	// 메인 가게 리스트
-	public List<MainStoreListDTO> selectMainStoreList(Map<String, Object> pageMap) {
-		return sqlSession.selectList("main.storeList", pageMap);
+	public List<MainStoreListDTO> selectMainStoreList() {
+		return sqlSession.selectList("main.storeList");
 	}
 	
 	// 메인 재료 리스트
-	public List<ItemWithImgDTO> selectIngredientList(Map<String, Object> pageMap) {
-		return sqlSession.selectList("main.ingredientList", pageMap);
+	public List<ItemWithImgDTO> selectMainIngredientList() {
+	    return sqlSession.selectList("main.ingredientList");
 	}
 	
-	public List<PostDetailDTO> selectRecipeList(Map<String, Object> pageMap){
-		return sqlSession.selectList("main.recipeList", pageMap);
-	}
+	// 레시피 리스트
+	public List<PostDetailDTO> selectMainRecipeList(){
+		return sqlSession.selectList("main.recipeList");
+	}	
 
 }

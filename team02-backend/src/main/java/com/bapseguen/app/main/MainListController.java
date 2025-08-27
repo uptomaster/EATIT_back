@@ -1,18 +1,16 @@
 package com.bapseguen.app.main;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bapseguen.app.Result;
+import com.bapseguen.app.dto.BannerDTO;
 import com.bapseguen.app.dto.view.ItemWithImgDTO;
 import com.bapseguen.app.dto.view.MainStoreListDTO;
-import com.bapseguen.app.dto.view.MemberListDTO;
 import com.bapseguen.app.dto.view.PostDetailDTO;
 import com.bapseguen.app.main.dao.MainDAO;
 
@@ -25,48 +23,29 @@ public class MainListController {
 
         MainDAO mainDAO = new MainDAO();
         Result result = new Result();
-
-        // 현재 페이지 번호 파라미터 받기, 기본 1페이지
-        String pageParam = request.getParameter("page");
-        int page = 1;
-        if(pageParam != null) {
-            try {
-                page = Integer.parseInt(pageParam);
-                if(page < 1) page = 1;
-                if(page > 2) page = 2; // 최대 2페이지 제한
-            } catch(NumberFormatException e) {
-                page = 1;
-            }
-        }
         
-        int pageSize = 4;
-        int offset = (page - 1) * pageSize;
-
-        // 페이징 조건 전달을 위한 Map 생성
-        Map<String, Object> pageMap = new HashMap<>();
-        pageMap.put("offset", offset);
-        pageMap.put("limit", pageSize);
+        // 배너 목록 출력
+        List<BannerDTO> bannerList = mainDAO.selectMainBannerList();
+        request.setAttribute("bannerList", bannerList);
+        System.out.println("배너 목록 : " + bannerList);
         
         // 가게 목록 출력
-        List<MainStoreListDTO> storeList = mainDAO.selectMainStoreList(pageMap);
+        List<MainStoreListDTO> storeList = mainDAO.selectMainStoreList();
         request.setAttribute("storeList", storeList);
-        request.setAttribute("currentPage", page);
         System.out.println("가게 목록 : " + storeList);
         
         // 재료 목록 출력
-        List<ItemWithImgDTO> ingredientList = mainDAO.selectIngredientList(pageMap);
+        List<ItemWithImgDTO> ingredientList = mainDAO.selectMainIngredientList();
         request.setAttribute("ingredientList", ingredientList);
-        request.setAttribute("currentPage", pageSize);
         System.out.println("재료 목록 : " + ingredientList);
         
         // 레시피 목록 출력
-        List<PostDetailDTO> recipeList = mainDAO.selectRecipeList(pageMap);
+        List<PostDetailDTO> recipeList = mainDAO.selectMainRecipeList();
         request.setAttribute("recipeList", recipeList);
-        request.setAttribute("currentPage", 10);
         System.out.println("레시피 목록 : " + recipeList);
        
         result.setPath("/main.jsp");
         result.setRedirect(false);
-		return result;
+        return result;
 	}
 }
