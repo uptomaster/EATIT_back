@@ -32,6 +32,7 @@
   <div id="payment-method" class="box"></div>
   <div id="agreement" class="box"></div>
   <button id="payBtn" disabled>결제하기</button>
+  <button id="backBtn" disabled>돌아가기</button>
 
   <script>
   window.addEventListener("load", async () => {
@@ -44,6 +45,7 @@
     const amount = Number("<%= amount == null ? "" : amount.toString() %>");
     const customerName = "<%= customerName %>";
     const payBtn = document.getElementById("payBtn");
+    const backBtn = document.getElementById("backBtn");
 
     console.log("[CHECKOUT v2] clientKey startsWith(test_gck)?", clientKey.startsWith("test_gck_"), "orderId:", orderId, "amount:", amount);
 
@@ -67,12 +69,18 @@
         widgets.renderAgreement({ selector: "#agreement", variantKey: "AGREEMENT" }),
       ]);
       payBtn.disabled = false;
+      backBtn.disabled = false;
     } catch (e) {
       console.error("위젯 렌더 실패:", e);
       alert("결제 UI 로딩에 실패했습니다.\n" + (e?.message || e));
       return;
     }
-
+	
+    backBtn.addEventListener("click", async()=>{
+      // 장바구니 화면으로 이동 (backBtn 관련 다른 부분은 수정하지 않음)
+      location.href = cpath + "/cartList/view.cl";
+    });
+    
     payBtn.addEventListener("click", async () => {
       if (payBtn.disabled) return;
       try {

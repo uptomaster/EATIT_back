@@ -1,4 +1,35 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const plusBtn = document.querySelector(".plus");
+  const minusBtn = document.querySelector(".minus");
+  const countEl = document.querySelector(".count");
+  const stockEl = document.querySelector(".buy_food_stock");
+
+  if (!plusBtn || !minusBtn || !countEl || !stockEl) return;
+
+  // "재고 : 10개" 같은 문자열에서 숫자만 추출
+  const stock = parseInt(stockEl.textContent.replace(/[^0-9]/g, ""), 10);
+
+  plusBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    let count = parseInt(countEl.textContent, 10);
+    if (count < stock) {
+      countEl.textContent = count + 1;
+    } else {
+      alert("재고 수량을 초과할 수 없습니다.");
+    }
+  });
+
+  minusBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    let count = parseInt(countEl.textContent, 10);
+    if (count > 1) {
+      countEl.textContent = count - 1;
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
   /** 찜 버튼 토글 **/
   const heartBtn = document.getElementById("heartBtn");
   let isLiked = false;
