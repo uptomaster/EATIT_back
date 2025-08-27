@@ -60,8 +60,10 @@
 			</nav>
 
 			<!-- 문의목록 섹션 -->
-			<section id="inquiries_section" class="community_list"
-				aria-label="문의 게시판 목록" style="display: none;">
+<!-- 			<section id="inquiries_section" class="community_list"
+				aria-label="문의 게시판 목록" style="display: none;"> -->
+				<section id="inquiries_section" class="community_list"
+				aria-label="문의 게시판 목록">
 				<div class="list_header_flex_row" role="rowgroup">
 					<div class="col_title" role="columnheader">제목</div>
 					<div class="col_author" role="columnheader">글쓴이</div>
@@ -193,7 +195,6 @@
 
 	<script>
     let memberNumber = "${sessionScope.memberNumber}";
-    
 	</script>
 
 </body>

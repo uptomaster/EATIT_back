@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>adminLogin</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>adminLogin</title>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,14 +44,20 @@
 		<!-- 메인 배너 영역 -->
 		<div id="main_banner">
 			<div class="main_banner_middle">
-				<ul class="main_slide_box">
-					<li class="main_slide_img"><img
-						src="./assets/img/banner_ex.jpg" alt=""></li>
-					<li class="main_slide_img"><img
-						src="./assets/img/banner_ex.jpg" alt=""></li>
-					<li class="main_slide_img"><img
-						src="./assets/img/banner_ex.jpg" alt=""></li>
-				</ul>
+				<c:choose>
+					<c:when test="${empty storeList}">
+						<p style="color: #888">표시할 상품이 없습니다.</p>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="banner" items="${bannerList}">
+							<ul class="main_slide_box">
+								<li class="main_slide_img"><img
+									src="${pageContext.request.contextPath}/assets/img/${banner.adminImageSystemName}"
+									alt="${banner.bannerTitle} 이미지"></li>
+							</ul>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 				<div class="main_banner_prev">
 					<a href="#"><img src="./assets/img/main_banner_prev.png" alt=""></a>
 				</div>
@@ -75,122 +81,29 @@
 						<a href="#"><img src="./assets/img/main_banner_prev.png"
 							alt=""></a>
 					</div>
-
-<%-- 					<article class="main_food_buy_article">
-						<a href="${pageContext.request.contextPath}/orders/storeDetail.or">
-							<!-- 상품이미지(임시) --> <img src="./assets/img/bibim.jpg"
-							alt="상품이미지 설명 추가하기"> <!-- 가게정보 -->
-							<div class="main_store_info">
-								<p class="main_store_name">푸드카페 김밥천국 역삼역점</p>
-								<p class="main_menu_name">비빔밥</p>
-								<p class="main_open_time">영업시간 09:00~21:00</p>
-								<p class="main_price">5,000원</p>
-							</div>
-						</a>
-					</article> --%>
-					<article class="main_food_buy_article">
-						<!-- 상품이미지(임시) -->
-						<c:choose>
-							<a
-								href="${pageContext.request.contextPath}/orders/storeDetail.or">
-								<c:when test="${not empty storeList}">
-									<c:forEach var="store" items="${storelist}">
-										<img src="./assets/img/budaeJjigae.png" alt="상품이미지 설명 추가하기">
-										<!-- 가게정보 -->
-										<div class="main_store_info">
-											<div class="main_store_name">
-												<c:out value="${store.getStoreName()}" />
-											</div>
-											<div class="main_menu_name">
-												<c:out value="${store.getItemName()}" />
-											</div>
-											<div class="main_open_time">
-												영업시간 :
-												<c:out value="${store.getStoreOpenTime()}" />
-												<c:out value="${store.getStoreCloseTime()}" />
-											</div>
-											<div class="main_price">
-												<c:out value="${store.getItemPrice()}" />
-											</div>
-										</div>
-									</c:forEach>
-								</c:when>
-							</a>
-						</c:choose>
-					</article>
-					<%-- <article class="main_food_buy_article">
-						<a href="${pageContext.request.contextPath}/orders/storeDetail.or">
-							<!-- 상품이미지(임시) --> <img src="./assets/img/dakdoritang.png"
-							alt="상품이미지 설명 추가하기"> <!-- 가게정보 -->
-							<div class="main_store_info">
-								<p class="main_store_name">고갯마루</p>
-								<p class="main_menu_name">닭도리탕(소)</p>
-								<p class="main_open_time">영업시간 11:00~21:30</p>
-								<p class="main_price">17,000원</p>
-							</div>
-						</a>
-					</article>
-					<article class="main_food_buy_article">
-						<a href="${pageContext.request.contextPath}/orders/storeDetail.or">
-							<!-- 상품이미지(임시) --> <img src="./assets/img/doenjangJjigae.png"
-							alt="상품이미지 설명 추가하기"> <!-- 가게정보 -->
-							<div class="main_store_info">
-								<p class="main_store_name">담뿍화로된장찌개 역삼점</p>
-								<p class="main_menu_name">화로 된장찌개</p>
-								<p class="main_open_time">영업시간 11:00~22:00</p>
-								<p class="main_price">5,000원</p>
-							</div>
-						</a>
-					</article>
-					<article class="main_food_buy_article">
-						<a href="${pageContext.request.contextPath}/orders/storeDetail.or">
-							<!-- 상품이미지(임시) --> <img src="./assets/img/aeomuk.jpg"
-							alt="상품이미지 설명 추가하기"> <!-- 가게정보 -->
-							<div class="main_store_info">
-								<p class="main_store_name">담뿍화로된장찌개 역삼점</p>
-								<p class="main_menu_name">화로 된장찌개</p>
-								<p class="main_open_time">영업시간 11:00~22:00</p>
-								<p class="main_price">5,000원</p>
-							</div>
-						</a>
-					</article>
-					<article class="main_food_buy_article">
-						<a href="${pageContext.request.contextPath}/orders/storeDetail.or">
-							<!-- 상품이미지(임시) --> <img src="./assets/img/chicken.jpg"
-							alt="상품이미지 설명 추가하기"> <!-- 가게정보 -->
-							<div class="main_store_info">
-								<p class="main_store_name">담뿍화로된장찌개 역삼점</p>
-								<p class="main_menu_name">화로 된장찌개</p>
-								<p class="main_open_time">영업시간 11:00~22:00</p>
-								<p class="main_price">5,000원</p>
-							</div>
-						</a>
-					</article>
-					<article class="main_food_buy_article">
-						<a href="${pageContext.request.contextPath}/orders/storeDetail.or">
-							<!-- 상품이미지(임시) --> <img src="./assets/img/cheesegimbab.jpg"
-							alt="상품이미지 설명 추가하기"> <!-- 가게정보 -->
-							<div class="main_store_info">
-								<p class="main_store_name">담뿍화로된장찌개 역삼점</p>
-								<p class="main_menu_name">화로 된장찌개</p>
-								<p class="main_open_time">영업시간 11:00~22:00</p>
-								<p class="main_price">5,000원</p>
-							</div>
-						</a>
-					</article>
-					<article class="main_food_buy_article">
-						<a href="${pageContext.request.contextPath}/orders/storeDetail.or">
-							<!-- 상품이미지(임시) --> <img src="./assets/img/normal_gimbab.jpg"
-							alt="상품이미지 설명 추가하기"> <!-- 가게정보 -->
-							<div class="main_store_info">
-								<p class="main_store_name">담뿍화로된장찌개 역삼점</p>
-								<p class="main_menu_name">화로 된장찌개</p>
-								<p class="main_open_time">영업시간 11:00~22:00</p>
-								<p class="main_price">5,000원</p>
-							</div>
-						</a>
-					</article>
- --%>
+					<c:choose>
+						<c:when test="${not empty storeList}">
+							<c:forEach var="store" items="${storeList}">
+								<article class="main_food_buy_article">
+									<div class="main_store_info">
+										<a
+											href="${pageContext.request.contextPath}/orders/storeDetail.or">
+											<!-- 상품이미지(임시) --> <img src="./assets/img/bibim.jpg"
+											alt="상품이미지 설명 추가하기"> <!-- 가게정보 -->
+											<p class="main_store_name">${store.storeName}</p>
+											<p class="main_menu_name">${store.itemName}</p>
+											<p class="main_open_time">영업시간 : 
+												${store.storeOpenTime}~${store.storeCloseTime}</p>
+											<p class="main_price">${store.itemPrice}원</p>
+										</a>
+									</div>
+								</article>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<p style="color: #888">표시할 상품이 없습니다.</p>
+						</c:otherwise>
+					</c:choose>
 
 					<!-- 화살표 이동버튼 -->
 					<div class="main_content_next">
@@ -214,32 +127,26 @@
 						></a>
 					<div class="main_ingredient_store">
 						<!-- 재료사진 -->
-						<article class="main_ingredient_img">
-							<a
-								href="${pageContext.request.contextPath}/orders/ingredientDetail.or">
-								<img src="./assets/img/carrot.jpg" alt="상품이미지 가게 정보 추가하기">
-							</a>
-						</article>
-						<article class="main_ingredient_img">
-							<a
-								href="${pageContext.request.contextPath}/orders/ingredientDetail.or">
-								<img src="./assets/img/baechu.jpg" alt="상품이미지 가게 정보 추가하기">
-							</a>
-						</article>
-						<article class="main_ingredient_img">
-							<a
-								href="${pageContext.request.contextPath}/orders/ingredientDetail.or">
-								<img src="./assets/img/cucumber.jpg" alt="상품이미지 가게 정보 추가하기">
-							</a>
-						</article>
-						<article class="main_ingredient_img">
-							<a
-								href="${pageContext.request.contextPath}/orders/ingredientDetail.or">
-								<img src="./assets/img/garlic.jpg" alt="상품이미지 가게 정보 추가하기">
-							</a>
-						</article>
+						<c:choose>
+							<c:when test="${empty storeList}">
+								<p style="color: #888">표시할 상품이 없습니다.</p>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="ingredient" items="${ingredientList}">
+									<article class="main_ingredient_img">
+										<a
+											href="${pageContext.request.contextPath}/orders/ingredientDetail.or">
+											<img
+											src="${pageContext.request.contextPath}/assets/img/${ingredient.itemImageSystemName}"
+											alt="${ingredient.storeName} 이미지">
+										</a>
+									</article>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
+
 				<div class="main_recipe">
 					<h3>레시피 공유📃</h3>
 					<a
@@ -254,47 +161,31 @@
 						</div>
 
 						<div class="main_recipe_list" role="rowgroup">
-							<div class="main_recipe_col_tag" role="columnheader">한식</div>
-							<div class="main_recipe_col_title" role="columnheader">
-								<a
-									href="${pageContext.request.contextPath}/community/recipeList.co">김치찌개
-									황금레시피 공개</a>
-							</div>
-							<div class="main_recipe_col_date" role="columnheader">25-03-10</div>
-							<div class="main_recipe_col_views" role="columnheader">230</div>
-						</div>
-						<div class="main_recipe_list" role="rowgroup">
-							<div class="main_recipe_col_tag" role="columnheader">양식</div>
-							<div class="main_recipe_col_title" role="columnheader">
-								<a
-									href="${pageContext.request.contextPath}/community/recipeList.co">크림
-									파스타 완벽 가이드</a>
-							</div>
-							<div class="main_recipe_col_date" role="columnheader">25-05-20</div>
-							<div class="main_recipe_col_views" role="columnheader">180</div>
-						</div>
-						<div class="main_recipe_list" role="rowgroup">
-							<div class="main_recipe_col_tag" role="columnheader">중식</div>
-							<div class="main_recipe_col_title" role="columnheader">
-								<a
-									href="${pageContext.request.contextPath}/community/recipeList.co">짜장면
-									집에서 쉽게 만들기</a>
-							</div>
-							<div class="main_recipe_col_date" role="columnheader">25-06-01</div>
-							<div class="main_recipe_col_views" role="columnheader">120</div>
-						</div>
-						<div class="main_recipe_list" role="rowgroup">
-							<div class="main_recipe_col_tag" role="columnheader">일식</div>
-							<div class="main_recipe_col_title" role="columnheader">
-								<a
-									href="${pageContext.request.contextPath}/community/recipeList.co">초밥
-									만들기 초보 가이드</a>
-							</div>
-							<div class="main_recipe_col_date" role="columnheader">25-07-15</div>
-							<div class="main_recipe_col_views" role="columnheader">95</div>
+							<c:choose>
+								<c:when test="${empty storeList}">
+									<p style="color: #888">게시글이 없습니다.</p>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="recipe" items="${recipeList}">
+										<div class="main_recipe_col_tag" role="columnheader">
+											<c:out value="${recipe.postNumber}" />
+										</div>
+										<div class="main_recipe_col_title" role="columnheader">
+											<a
+												href="${pageContext.request.contextPath}/community/recipeList.co"><c:out
+													value="${recipe.postTitle}" /> </a>
+										</div>
+										<div class="main_recipe_col_date" role="columnheader">
+											<c:out value="${recipe.postCreatedDate}" />
+										</div>
+										<div class="main_recipe_col_views" role="columnheader">
+											<c:out value="${recipe.postViewCount}" />
+										</div>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
-
 				</div>
 			</div>
 		</div>
@@ -334,6 +225,8 @@
 
 	<!-------------------- 푸터 ------------------------>
 	<jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
-</body>
 
-</html>
+	<script>
+		let memberNumber = "${sessionScope.memberNumber}";
+	</script>
+</body>

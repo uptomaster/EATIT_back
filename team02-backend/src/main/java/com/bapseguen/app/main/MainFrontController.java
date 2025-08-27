@@ -62,10 +62,10 @@ public class MainFrontController extends HttpServlet {
 		Result result = null;
 
 		switch (target) {
-		// 음식점 목록 조회
+		// 메인 목록 조회
 		case "/main.ma":
-			System.out.println("가게 목록 페이지 처리 요청");
-			result = new MainStoreListController().execute(request, response);
+			System.out.println("메인 각 리스트 페이지 처리 요청");
+			result = new MainListController().execute(request, response);
 			break;
 
 		// 가게 상세 페이지 (storeDetail.jsp forward, 음식/재료 탭 포함)

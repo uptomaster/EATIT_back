@@ -30,13 +30,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // 답변 상태 표시
-      const statusCell = row.querySelector(".col_status");
+      const statusCell = row.querySelector(".col_status .status");
       if (statusCell) {
         const statusText = statusCell.textContent.toLowerCase();
         let statusClass = "";
         if (statusText.includes("접수")) statusClass = "received";
         else if (statusText.includes("답변완료")) statusClass = "completed";
-        statusCell.className = "col_status status " + statusClass;
+        statusCell.className = "status " + statusClass;
       }
 
       listBody.appendChild(row);
@@ -66,7 +66,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // ---------------- 검색 기능 ----------------
   function searchList() {
     const query = searchInput.value.trim().toLowerCase();
-    filteredRows = rows.filter(row => row.textContent.toLowerCase().includes(query));
+/*    filteredRows = rows.filter(row => row.textContent.toLowerCase().includes(query));*/
+	const allRows = Array.from(rows);
+	console.log(allRows);
+	filteredRows = allRows.filter(row => row.textContent.toLowerCase().includes(query));
     currentPage = 1;
     displayList(currentPage);
   }
@@ -79,5 +82,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-/*  displayList(currentPage);*/
+  displayList(currentPage);
 });
