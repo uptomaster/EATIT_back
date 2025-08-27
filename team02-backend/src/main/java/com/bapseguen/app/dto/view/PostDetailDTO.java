@@ -9,7 +9,7 @@ public class PostDetailDTO {
    //게시글정보 
    private int postNumber;
    
-private String postType; // ‘NOTICE’,’FREE’,’PROMOTION’,’RECIPE’,’INQUIRY’,’FAQ’
+   private String postType; // ‘NOTICE’,’FREE’,’PROMOTION’,’RECIPE’,’INQUIRY’,’FAQ’
    private String postTitle;
    private String postCreatedDate;
    private String postUpdatedDate;

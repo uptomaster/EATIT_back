@@ -67,16 +67,16 @@
 		      <div class="author_box">
 		        <img src="${pageContext.request.contextPath}/assets/img/관리자.png" alt="관리자" class="tree_icon" />
 		        <%-- <span><c:out value="${post.getMemberId()}" /></span> --%>
-		        <span>${post.memberId()}</span>
+		        <span>${post.memberId}</span>
 		      </div>
 		      
 		    
 		  <div class="post_header">
 		    <!-- 게시글 제목 -->
 		    <div class="post_title">
-		      <%-- <h1 class="post_title"><c:out value="${post.getPostTitle()}" /></h1> --%>
-		      <h1 class="post_title">${post.getPostTitle()}</h1>
-		    </div>
+		      <h1 class="post_title"><c:out value="${post.getPostTitle()}" /></h1>
+<%-- 		      <h1 class="post_title">${post.getPostTitle()}</h1>
+ --%>		    </div>
 		
 		    <!-- 메타 데이터 -->
 		    <div class="post_meta">

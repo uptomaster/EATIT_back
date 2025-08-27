@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="post">
 
-	<!--  게시글 INSERT 시퀀스 PK 생 : 강사확인 - 확인 후 지우기 -->
-	<insert id="insert" parameterType="PostDTO">
+<!-- 	<게시글 INSERT 시퀀스 PK 생 : 강사확인 - 확인 후 지우기 
+	<insert id="insert" parameterType="PostDetailDTO">
 		<selectKey keyProperty="postNumber" resultType="int" order="BEFORE">
 			SELECT SEQ_POST_NUMBER.NEXTVAL FROM DUAL
 		</selectKey>
@@ -12,7 +12,42 @@
 		VALUES ( #{postNumber}, #{memberNumber}, #{postTitle}, #{postContent}, #{postType},sysdate, 0}
 	 
 	</insert>
-	
+	 -->
+	 
+<insert id="insertFreePost" parameterType="PostDTO" useGeneratedKeys="true" keyProperty="postNumber">
+  INSERT INTO TBL_POST (
+    POST_NUMBER,
+    MEMBER_NUMBER,
+    POST_TITLE,
+    POST_LIKE_COUNT,
+    POST_VIEW_COUNT,
+    POST_REPORT_COUNT,
+    POST_DELETE_STATE,
+    POST_CREATED_DATE,
+    POST_TYPE
+  ) VALUES (
+    SEQ_POST_NUMBER.NEXTVAL,
+    #{memberNumber},
+    #{postTitle},
+    0,
+    0,
+    0,
+    'N',
+    SYSDATE,
+    'FREE'
+  )
+</insert>
+
+
+<insert id="insertFreeContent" parameterType="PostDetailDTO">
+  INSERT INTO TBL_FREE_BOARD (
+    POST_NUMBER,
+    FREE_CONTENT
+  ) VALUES (
+    SEQ_POST_NUMBER.CURRVAL,
+    #{freeContent}
+  )
+</insert>
 
 	<!-- 자유게시판 목록 조희 -->
 	<select id="freeSelectAll" resultType="PostDTO">
