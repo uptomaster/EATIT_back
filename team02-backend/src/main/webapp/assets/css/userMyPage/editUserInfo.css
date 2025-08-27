@@ -284,6 +284,11 @@ main {
   justify-self: right;
   margin: 20px 60px 0 0;
   border: none;
+  color: white;
+  font-size: 14px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .total_info_save_buzz>a {

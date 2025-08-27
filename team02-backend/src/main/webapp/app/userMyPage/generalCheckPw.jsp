@@ -23,10 +23,8 @@
     let footerPath = './../../footer.jsp';
 </script>
 </head>
-
 <body>
   <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
- <!--  <header id="header"></header> -->
   <main>
     <div class="general_edit_user_info">
       <!-- 페이지 제목 -->
@@ -45,7 +43,7 @@
           <button type="submit" id="general_chk_pw_btn">비밀번호 확인</button>
         </div>
         <c:if test="${not empty pwError}">
-        	<p id="general_chk_pw_warning" class="general_notice_input_wrong_info"></p>
+        	<p id="general_chk_pw_warning" class="general_notice_input_wrong_info">${pwError}</p>
         </c:if>
       </form> <!-- 컨텐츠 영역 -->
     </div>
