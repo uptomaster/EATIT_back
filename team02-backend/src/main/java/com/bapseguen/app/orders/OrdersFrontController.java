@@ -105,6 +105,23 @@ public class OrdersFrontController extends HttpServlet {
 			result = new PaymentCancelOkController().execute(request, response);
 			break;
 
+		case "/orders/paymentSuccess.or": // successUrl (GET)
+			if (!isGet(request)) {
+				response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+				return;
+			}
+			result = new PaymentSuccessController().execute(request, response);
+			break;
+
+		case "/orders/paymentFail.or": // failUrl (GET)
+			if (!isGet(request)) {
+				response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+				return;
+			}
+			// 실패 처리 컨트롤러가 따로 없으면 PaymentCancelOkController로 재사용해도 됨
+			result = new PaymentCancelOkController().execute(request, response);
+			break;
+
 		default:
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;

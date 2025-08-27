@@ -9,7 +9,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- 정적 리소스 (contextPath 활용) -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/cartList/shoppingList.css">
@@ -90,7 +89,7 @@
         <!-- 오른쪽 결제 영역 -->
         <div class="shopping_payment_area">
           <!-- 결제 전체를 하나의 폼으로 묶어서 서버로 POST -->
-          <form action="${pageContext.request.contextPath}/orders/createOk.or" method="post" id="paymentForm">
+          <form action="${pageContext.request.contextPath}/orders/paymentReady.or" method="post" id="paymentForm">
             <!-- 결제수단 선택 -->
             <div class="shopping_payment_method">
               <div class="shopping_payment_title">결제수단</div>
