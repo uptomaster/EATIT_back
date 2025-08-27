@@ -54,6 +54,42 @@
           <div class="col_views" role="columnheader">조회</div>
           <div class="col_likes" role="columnheader">추천</div>
         </div>
+        
+        
+        <!-- 게시글 목록 -->
+   		<div class="board-header">
+   			<c:choose>
+   				<c:when test="${not empty postList}">
+   					<c:forEach var="post" items="${postList}">
+	   					 <div class="board-row list_row flex_row">
+	   					 	<%-- <div class="board-item no">
+	   					 		<c:out value="${post.getPostNumber()}" />
+	   					 	</div> --%>
+
+	   					 	<div class="board-item col_title">
+	   					 		<a href="${pageContext.request.contextPath}/community/promoBoardListOk.co?postNumber=${post.postNumber}">
+	   					 			<c:out value="${post.postTitle}" />
+	   					 		</a>
+	   					 	</div>
+	   					 	<div class="board-item col_author">
+	   					 		<c:out value="${post.getMemberId() }" />
+	   					 	</div>
+	   					 	<div class="board-item col_date">
+	   					 		<c:out value="${post.getPostCreatedDate() }" />
+	   					 	</div>
+	   					 	<div class="board-item col_views">
+	   					 		<c:out value="${post.getPostViewCount() }" />
+	   					 	</div>
+	   					 </div>
+   					 </c:forEach>
+   				</c:when>
+   				<c:otherwise>
+   					<div>
+   						<div colspan="5" align="center">등록된 게시물이 없습니다.</div>
+   					</div>
+   				</c:otherwise>
+   			</c:choose>
+   		</div>
 
         <%-- <div id="postListBody" class="list_body" role="rowgroup">
           <div class="list_row flex_row" role="row">

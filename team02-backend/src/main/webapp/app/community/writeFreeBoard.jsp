@@ -38,7 +38,8 @@
 		<section class="container">
 			<div class="title_section">
 				<div class="profile_tree">
-					${sessionScope.memberId} <img
+					${sessionScope.memberId} 
+					<img
 						src="${pageContext.request.contextPath}/assets/img/나무.png"
 						alt="나무" class="tree_icon author_profile" />
 				</div>
@@ -46,26 +47,29 @@
 					<c:choose>
 						<c:when test="${postType == 'FREE'}">
 		            자유게시글 작성
-		        </c:when>
+		        		</c:when>
 						<%-- <c:when test="${postType == 'NOTICE'}">
 		            공지사항 작성
 		        </c:when> --%>
 						<c:when test="${postType == 'PROMOTION'}">
 		            프로모션 게시글 작성
-		        </c:when>
+		       	 		</c:when>
 						<c:when test="${postType == 'RECIPE'}">
 		            레시피 게시글 작성
-		        </c:when>
+		        		</c:when>
 						<c:otherwise>
 		            게시글 작성
-		        </c:otherwise>
+		        		</c:otherwise>
 					</c:choose>
 				</h1>
 			</div>
 
 			<form
-				action="${pageContext.request.contextPath}/community/freeBoardListOk.co"
+				action="${pageContext.request.contextPath}/community/writeFreeBoardOk.co"
 				method="post" class="write_form" enctype="multipart/form-data">
+				<c:if test="${not empty postType }">
+					<input type="hidden" name="postType" value="${postType }" />
+				</c:if>
 
 				<div class="form_group">
 					<label for="title">제목</label>
@@ -83,14 +87,13 @@
 				</div>
 
 				<div class="button_group">
-					<button type="button" class="cancel_btn"
-  						onclick="location.href='${pageContext.request.contextPath}/community/writeFreeBoardOk.co'">
- 						작성 취소</button>
-					<!-- /community/writeFreeBoardOk.co 실행안되고 /community/freeBoardListOk.co 이동 -->
-					<!-- 작성 완료만 submit -->
+					<c:url var="listUrl" value="/community/freeBoardListOk.co"/>
+					<a class="cancel_btn" href="${listUrl}">작성 취소</a>
+
 					<button type="submit" class="submit_btn">작성 완료</button>
+					
 				</div>
-			</form>
+ 			</form>
 		</section>
 
 		<aside class="side"></aside>

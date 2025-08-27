@@ -1,12 +1,14 @@
 package com.bapseguen.app.community;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Objects;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
@@ -22,6 +24,22 @@ public class FreeBoardReadOkController implements Execute{
 		
 		System.out.println("====FreeBoardReadOkController 실행====");
 		Result result = new Result();
+		HttpSession session = request.getSession();
+		Integer memberNumber = (Integer)session.getAttribute("memberNumber");
+		String path = null;
+		
+		
+		//memberNumber 값이 null이거나 0일때
+		if (memberNumber == null || memberNumber == 0) {
+		    response.setContentType("text/html; charset=UTF-8");
+		    PrintWriter out = response.getWriter();
+		    out.println("<script>");
+		    out.println("alert('로그인이 필요합니다.');");
+		    out.println("location.href='/app/login/login.jsp';");
+		    out.println("</script>");
+		    out.close();
+		    return null;
+		}
 		
 		//postNumber가 빈 문자열이거나 null인경우
 		String postNumberStr = request.getParameter("postNumber");
@@ -31,9 +49,6 @@ public class FreeBoardReadOkController implements Execute{
 			result.setRedirect(true);
 			return result;
 		}
-		
-		
-
 		
 		int postNumber = Integer.parseInt(postNumberStr);
 		
@@ -52,15 +67,6 @@ public class FreeBoardReadOkController implements Execute{
 			return result;
 		}
 		
-		//첨부파일 가져오기
-//		List<PostImageDTO> files = postImageDAO.select(postNumber);
-//		System.out.println("======파일 확인======");
-//		System.out.println(files);
-//		System.out.println("===================");
-		
-		//첨부파일 붙이기
-		//postDetailDTO.setFiles(files);
-		
 		//로그인한 사용자 번호 가져오기
 		Integer loginMemberNumber = (Integer) request.getSession().getAttribute("memberNumber");
 		System.out.println("로그인 한 멤버 번호 : " + loginMemberNumber);
@@ -74,10 +80,13 @@ public class FreeBoardReadOkController implements Execute{
 			communityDAO.updateReadCount(postNumber);
 		}
 		
-		request.setAttribute("post", postDetailDTO);
-		result.setPath("/community/writeFreeBoardOk.co");
-		result.setRedirect(false);		
+		//로그인 한 멤버 번호 : 2
+		//현재 게시글 작성자 번호 : 4
+	
 		
+		request.setAttribute("post", postDetailDTO);
+		result.setPath("app/community/viewOtherPost.jsp");
+		result.setRedirect(false);		
 		return result;
 	}
 

@@ -39,7 +39,7 @@
 
         <!-- 정보 입력 폼 -->
         <form id="sellerJoinForm" action="${pageContext.request.contextPath }/join/sellerJoinOk.jo" method="post"
-        	data-context-path="${pageContext.request.contextPath}" novalidate>
+        	data-context-path="${pageContext.request.contextPath}">
           <!-- 아이디 -->
           <div class="seller_input_container_id">
             <div class="seller_input_container">
