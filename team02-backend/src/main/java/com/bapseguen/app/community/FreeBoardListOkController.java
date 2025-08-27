@@ -13,6 +13,7 @@ import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.community.dao.CommunityDAO;
 import com.bapseguen.app.dto.PostDTO;
+import com.bapseguen.app.dto.view.PostListDTO;
 
 public class FreeBoardListOkController implements Execute{
 
@@ -37,7 +38,7 @@ public class FreeBoardListOkController implements Execute{
 
 		// 게시글 목록 조회
 		List<PostDTO> postList = communityDAO.freeSelectAll(pageMap);
-		request.setAttribute("postList", postList);
+		
 
 		// 페이징 정보 설정
 		// BoardMapper.xml의 getTotal을 이용하여 전체 게시글 개수 조회
@@ -68,6 +69,7 @@ public class FreeBoardListOkController implements Execute{
 		System.out.println("startPage : " + startPage + ", endPage : " + endPage + ", prev : " + prev + ", next : " + next);
 		System.out.println("====================");
 
+		request.setAttribute("postList", postList);
 		result.setPath("/app/community/freeBoardList.jsp");
 		result.setRedirect(false);
 

@@ -4,7 +4,7 @@ public class PostDTO {
 
 		private int postNumber;
 		private int memberNumber;
-		private int memberId;
+		private String memberId;
 		private String postTitle;
 
 		private int postLikeCount;
@@ -78,13 +78,14 @@ public class PostDTO {
 			this.postType = postType;
 		}
 		
-		public int getMemberId() {
+		
+		
+		public String getMemberId() {
 			return memberId;
 		}
-		public void setMemberId(int memberId) {
+		public void setMemberId(String memberId) {
 			this.memberId = memberId;
 		}
-		
 		@Override
 		public String toString() {
 			return "PostDTO [postNumber=" + postNumber + ", memberNumber=" + memberNumber + ", memberId=" + memberId

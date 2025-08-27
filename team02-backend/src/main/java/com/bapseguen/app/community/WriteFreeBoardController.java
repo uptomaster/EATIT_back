@@ -14,6 +14,7 @@ public class WriteFreeBoardController implements Execute{
 
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 		
 		System.out.println("====WriteFreeBoardController 실행====");
 		Result result = new Result();
@@ -21,11 +22,11 @@ public class WriteFreeBoardController implements Execute{
 		Integer memberNumber = (Integer)session.getAttribute("memberNumber");
 		String path = null;
 		
-		if(memberNumber == null) {
-			path = "/app/login/login.jsp";
-		}else{
-			path = "/app/community/writeFreeBoard.jsp";
-		}
+//		if(memberNumber == null) {
+//			path = "/app/login/login.jsp";
+//		}else{
+//			path = "/app/community/writeFreeBoard.jsp";
+//		}
 		
 		result.setPath(path);
 		result.setRedirect(false);

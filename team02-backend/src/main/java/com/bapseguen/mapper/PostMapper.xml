@@ -2,9 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="post">
 
+	<!--  게시글 INSERT 시퀀스 PK 생 : 강사확인 - 확인 후 지우기 -->
+	<insert id="insert" parameterType="PostDTO">
+		<selectKey keyProperty="postNumber" resultType="int" order="BEFORE">
+			SELECT SEQ_POST_NUMBER.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO TBL_POST(POST_NUMBER, MEMBER_NUMBER, POST_TITLE, POST_CONTENT, POST_TYPE, POST_CREATED_DATE, POST_VIEW_COUNT)
+		VALUES ( #{postNumber}, #{memberNumber}, #{postTitle}, #{postContent}, #{postType},sysdate, 0}
+	 
+	</insert>
+	
+
 	<!-- 자유게시판 목록 조희 -->
 	<select id="freeSelectAll" resultType="PostDTO">
-		SELECT POST_TITLE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_LIKE_COUNT,POST_TYPE
+		SELECT MEMBER_NUMBER,POST_TITLE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_LIKE_COUNT,POST_TYPE,POST_NUMBER
 		FROM TBL_POST
 		WHERE POST_TYPE = 'FREE'
 		ORDER BY POST_CREATED_DATE DESC
@@ -19,7 +31,7 @@
 	
 	<!-- 홍보게시판 목록 조희 -->
 	<select id="promoSelectAll" resultType="PostDTO">
-		SELECT POST_TITLE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_LIKE_COUNT,POST_TYPE
+		SELECT POST_TITLE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_LIKE_COUNT,POST_TYPE,POST_NUMBER
 		FROM TBL_POST
 		WHERE POST_TYPE = 'PROMOTION'
 		ORDER BY POST_CREATED_DATE DESC
@@ -42,7 +54,7 @@
 
 	<!-- 레시피게시판 목록 조희 -->
 	<select id="recipeSelectAll" resultType="PostDTO">
-		SELECT POST_TITLE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_LIKE_COUNT,POST_TYPE
+		SELECT POST_TITLE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_LIKE_COUNT,POST_TYPE,POST_NUMBER
 		FROM TBL_POST
 		WHERE POST_TYPE = 'RECIPE'
 		ORDER BY POST_CREATED_DATE DESC
@@ -71,7 +83,14 @@
 	</update>
 	
 	<!-- 게시글 상세(1건조회) -->
-	<select id="postSelect" parameterType="int" resultType="PostDetailDTO">
+	
+	<select id="postDetailSelect" parameterType="int" resultType="PostDetailDTO">
+	    SELECT M.MEMBER_NUMBER,M.MEMBER_ID, P.POST_NUMBER,P.POST_TITLE,P.POST_CREATED_DATE,P.POST_VIEW_COUNT
+		FROM TBL_MEMBER M JOIN TBL_POST P
+		ON P.MEMBER_NUMBER=M.MEMBER_NUMBER
+		WHERE P.POST_NUMBER= #{postNumber}
+	</select>
+	<!-- <select id="postSelect" parameterType="int" resultType="PostDetailDTO">
 	    <![CDATA[
 	        SELECT M.MEMBER_NUMBER AS memberNumber,
 	               M.MEMBER_ID AS memberId,
@@ -85,7 +104,7 @@
 	        LEFT JOIN TBL_FREE_BOARD F ON F.POST_NUMBER = P.POST_NUMBER
 	        WHERE P.POST_NUMBER = #{postNumber}
 	    ]]>
-	</select>
+	</select> -->
 	
 	<!-- 내가 작성한 게시글 조회 -->
 	<select id="myPostSelect" resultType="PostDetailDTO">

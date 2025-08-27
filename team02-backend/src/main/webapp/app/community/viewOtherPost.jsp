@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -66,14 +66,16 @@
 		      <!-- 작성자 -->
 		      <div class="author_box">
 		        <img src="${pageContext.request.contextPath}/assets/img/관리자.png" alt="관리자" class="tree_icon" />
-		        <span><c:out value="${post.getMemberId()}" /></span>
+		        <%-- <span><c:out value="${post.getMemberId()}" /></span> --%>
+		        <span>${post.memberId()}</span>
 		      </div>
 		      
 		    
 		  <div class="post_header">
 		    <!-- 게시글 제목 -->
 		    <div class="post_title">
-		      <h1 class="post_title"><c:out value="${post.getPostTitle()}" /></h1>
+		      <%-- <h1 class="post_title"><c:out value="${post.getPostTitle()}" /></h1> --%>
+		      <h1 class="post_title">${post.getPostTitle()}</h1>
 		    </div>
 		
 		    <!-- 메타 데이터 -->
@@ -81,7 +83,9 @@
 
 		      <!-- 작성일 -->
 		      <div class="post_date_area">
-		        <c:out value="${post.getPostCreatedDate() }" />
+		        <%-- <c:out value="${post.getPostCreatedDate() }" /> --%>
+		        <p>${post.postCreateDate()}</p>
+		        
 		      </div>
 		
 		      <!-- 조회수 -->
@@ -104,8 +108,8 @@
         	<!-- 게시글 내용 -->
 	        <section class="content_section"></section>
 		       	  <div class="view-content">
-		       	  	<h3>안녕</h3>
-					<c:out value="${postDetail.getFreeContent()}" />
+		       	  	<h3>안녕<c:out value="${post.getFreeContent()}" /></h3>
+					
 				  </div>
 	          	  <div class="func_button">
 		          	  <!-- 수정/삭제 버튼(로그인한 사용자가 작성자인 경우에만 표시) -->

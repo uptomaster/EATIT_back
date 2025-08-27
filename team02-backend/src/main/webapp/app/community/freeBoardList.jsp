@@ -56,15 +56,12 @@
 	
 	
 		<!-- 게시글 목록 -->
+		<!-- <c:out value="${post.getMemberId() }" /> 인식못함 -->
    		<div class="board-header">
    			<c:choose>
    				<c:when test="${not empty postList}">
    					<c:forEach var="post" items="${postList}">
 	   					 <div class="board-row list_row flex_row">
-	   					 	<%-- <div class="board-item no">
-	   					 		<c:out value="${post.getPostNumber()}" />
-	   					 	</div> --%>
-
 	   					 	<div class="board-item col_title">
 	   					 		<a href="${pageContext.request.contextPath}/community/freeBoardReadOk.co?postNumber=${post.postNumber}">
 	   					 			<c:out value="${post.postTitle}" />
@@ -89,141 +86,7 @@
    				</c:otherwise>
    			</c:choose>
    		</div>
-		
-
-
-
-		<!-- 게시글 -->
-        <%-- <div id="postListBody" class="list_body" role="rowgroup">
-         <div class="list_row flex_row" role="row">
-            <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/community/viewOtherPost.jsp">최근 자유게시판 소식 안내</a></div>
-            <div class="col_author" role="cell">
-              kisu
-              <img src="${pageContext.request.contextPath}/assets/img/잎새.png" alt="잎새" class="tree_icon author_profile" />
-            </div>
-            <div class="col_date" role="cell">25-08-03</div>
-            <div class="col_views" role="cell">250</div>
-            <div class="col_likes" role="cell">30</div>
-          </div>
-
-          <div class="list_row flex_row" role="row">
-            <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/app/community/viewOtherPost.jsp">자유게시판 이용 방법 문의</a>
-            </div>
-            <div class="col_author" role="cell">
-              seojin
-              <img src="${pageContext.request.contextPath}/assets/img/씨앗.png" alt="씨앗" class="tree_icon author_profile" />
-            </div>
-            <div class="col_date" role="cell">25-08-03</div>
-            <div class="col_views" role="cell">180</div>
-            <div class="col_likes" role="cell">22</div>
-          </div>
-
-          <div class="list_row flex_row" role="row">
-            <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/app/community/viewOtherPost.jsp">자유게시판 이벤트 참여 안내</a>
-            </div>
-            <div class="col_author" role="cell">
-              eunkyoung
-              <img src="${pageContext.request.contextPath}/assets/img/새싹.png" alt="새싹" class="tree_icon author_profile" />
-            </div>
-            <div class="col_date" role="cell">25-08-05</div>
-            <div class="col_views" role="cell">150</div>
-            <div class="col_likes" role="cell">40</div>
-          </div>
-
-          <div class="list_row flex_row" role="row">
-            <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/app/community/viewOtherPost.jsp">서버 점검 요청 건의</a></div>
-            <div class="col_author" role="cell">
-              namhyuk
-              <img src="${pageContext.request.contextPath}/assets/img/가지.png" alt="가지" class="tree_icon author_profile" />
-            </div>
-            <div class="col_date" role="cell">25-08-07</div>
-            <div class="col_views" role="cell">95</div>
-            <div class="col_likes" role="cell">15</div>
-          </div>
-
-          <div class="list_row flex_row" role="row">
-            <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/app/community/viewOtherPost.jsp">유용한 팁 공유</a></div>
-            <div class="col_author" role="cell">
-              junghoon
-              <img src="${pageContext.request.contextPath}/assets/img/잎새.png" alt="잎새" class="tree_icon author_profile" />
-            </div>
-            <div class="col_date" role="cell">25-08-07</div>
-            <div class="col_views" role="cell">80</div>
-            <div class="col_likes" role="cell">12</div>
-          </div>
-          <div class="list_row flex_row" role="row">
-            <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/app/community/viewOtherPost.jsp">최근 맛집 방문 후기 공유합니다</a>
-            </div>
-            <div class="col_author" role="cell">
-              hyunwoo
-              <img src="${pageContext.request.contextPath}/assets/img/새싹.png" alt="새싹" class="tree_icon author_profile" />
-            </div>
-            <div class="col_date" role="cell">25-08-08</div>
-            <div class="col_views" role="cell">120</div>
-            <div class="col_likes" role="cell">25</div>
-          </div>
-
-          <div class="list_row flex_row" role="row">
-            <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/app/community/viewOtherPost.jsp">오늘 하루 어떻게 보내셨어요?</a>
-            </div>
-            <div class="col_author" role="cell">
-              mina
-              <img src="${pageContext.request.contextPath}/assets/img/잎새.png" alt="잎새" class="tree_icon author_profile" />
-            </div>
-            <div class="col_date" role="cell">25-08-08</div>
-            <div class="col_views" role="cell">90</div>
-            <div class="col_likes" role="cell">18</div>
-          </div>
-
-          <div class="list_row flex_row" role="row">
-            <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/app/community/viewOtherPost.jsp">최근 시작한 캠핑 이야기</a>
-            </div>
-            <div class="col_author" role="cell">
-              jisu
-              <img src="${pageContext.request.contextPath}/assets/img/가지.png" alt="가지" class="tree_icon author_profile" />
-            </div>
-            <div class="col_date" role="cell">25-08-09</div>
-            <div class="col_views" role="cell">75</div>
-            <div class="col_likes" role="cell">15</div>
-          </div> --%>
-
-<%--           <div class="list_row flex_row" role="row">
-            <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/app/community/viewOtherPost.jsp">좋은 카페 찾는 팁 공유합니다</a>
-            </div>
-            <div class="col_author" role="cell">
-              jungho
-              <img src="${pageContext.request.contextPath}/assets/img/씨앗.png" alt="씨앗" class="tree_icon author_profile" />
-            </div>
-            <div class="col_date" role="cell">25-08-09</div>
-            <div class="col_views" role="cell">130</div>
-            <div class="col_likes" role="cell">30</div>
-          </div>
-
-          <div class="list_row flex_row" role="row">
-            <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/app/community/viewOtherPost.jsp">자유게시판 글 작성 시 이미지 첨부 방법
-                문의</a></div>
-            <div class="col_author" role="cell">
-              soyeon
-              <img src="${pageContext.request.contextPath}/assets/img/나무.png" alt="나무" class="tree_icon author_profile" />
-            </div>
-            <div class="col_date" role="cell">25-08-10</div>
-            <div class="col_views" role="cell">60</div>
-            <div class="col_likes" role="cell">10</div>
-          </div>
-        </div>
-        
-        <div class="list_row flex_row" role="row">
-            <div class="col_title" role="cell"><a href="${pageContext.request.contextPath}/app/community/viewOtherPost.jsp">자유게시판 글 작성 시 이미지 첨부 방법
-                문의</a></div>
-            <div class="col_author" role="cell">
-              soyeon
-              <img src="${pageContext.request.contextPath}/assets/img/나무.png" alt="나무" class="tree_icon author_profile" />
-            </div>
-            <div class="col_date" role="cell">25-08-10</div>
-            <div class="col_views" role="cell">60</div>
-            <div class="col_likes" role="cell">10</div>
-          </div>
-        </div> --%>
+	
       </section>
 
       <!-- 페이지네이션 들어가는 자리 -->

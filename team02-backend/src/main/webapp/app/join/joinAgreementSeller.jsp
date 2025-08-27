@@ -74,22 +74,7 @@
               <label for="join_agree_bottom_service">[선택] 서비스/이벤트 제공을 위한 개인정보 수집 이용동의</label>
               <!-- <span class="full-agreement">&gt;</span> -->
             </div>
-            <div class="join_agree_bottom_adv_container">
-              <input type="checkbox" name="agree" id="join_agree_bottom_adv" class="">
-              <label for="join_agree_bottom_adv">[선택] 광고성 정보 수신 동의</label>
-              <!-- <span class="full-agreement">&gt;</span> -->
-            </div>
-            <div>
-              <span>
-                <input type="checkbox" name="agree" id="join_agree_bottom_adv_sms" class="">
-                <label for="join_agree_bottom_adv_sms">SMS</label>
-              </span>
-              <span>
-                <input type="checkbox" name="agree" id="join_agree_bottom_adv_call" class="">
-                <label for="join_agree_bottom_adv_call">전화</label>
-              </span>
-            </div>
-            <div class="join_agree_bottom_adv_txt">밥세권에서 제공하는 서비스의 광고성 정보를 수신합니다.</div>
+            
             <div class="join_agree_bottom_personal">
               <input type="checkbox" name="essenAgree" id="join_agree_bottom_peraonal" class="">
               <label for="join_agree_bottom_personal">[필수] 밥세권 회원 연동을 위한 개인정보 수집 이용 동의</label>
