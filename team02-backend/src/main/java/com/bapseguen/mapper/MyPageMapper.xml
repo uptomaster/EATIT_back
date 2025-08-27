@@ -2,43 +2,66 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="myPage">
 
-	<!-- (신규) 비밀번호 확인 -->
+	<!-- 비밀번호 확인 -->
 	<select id="checkPassword" parameterType="map" resultType="int">
-	  <![CDATA[
 	    SELECT COUNT(1)
 	    FROM TBL_MEMBER
 	    WHERE MEMBER_NUMBER = #{memberNumber} AND MEMBER_PASSWORD = #{memberPassword}
-	  ]]>
-	</select>
-  
-	<!-- 내 정보 조회 -->
-	<select id="myPageSelect" resultType="MyPageDTO" parameterType="int">
-	<![CDATA[
-	  SELECT M.MEMBER_NUMBER,M.MEMBER_ID,M.MEMBER_PASSWORD,G.MEMBER_NAME,G.MEMBER_PHONE_NUMBER,G.GENERAL_BIRTHDATE
-	  FROM TBL_MEMBER M JOIN TBL_GENERAL_MEMBER G
-	  ON M.MEMBER_NUMBER = G.MEMBER_NUMBER
-	  WHERE M.MEMBER_NUMBER = #{memberNumber}
-	]]>
 	</select>
 	
-	<!-- 내 정보 수정 -->
-	<update id="myPageMemberUpdate" parameterType="MyPageDTO">
-	<![CDATA[
-	  UPDATE TBL_MEMBER
-	  SET 
-	    MEMBER_ID = #{memberId},
-	    MEMBER_PASSWORD = #{memberPassword}
-	  	WHERE MEMBER_NUMBER = #{memberNumber}
-	]]>
+	<!-- 비밀번호 변경 -->
+	<update id="updatePassword" parameterType="map">
+	    UPDATE TBL_MEMBER
+	       SET MEMBER_PASSWORD = #{memberPassword}
+	     WHERE MEMBER_NUMBER = #{memberNumber}
 	</update>
-
-	<update id="myPageGeneralMemberUpdate" parameterType="MyPageDTO">
-	  UPDATE TBL_GENERAL_MEMBER
-	  SET 
-	    MEMBER_NAME = #{memberName},
-	    MEMBER_PHONE_NUMBER = #{memberPhoneNumber},
-	    MEMBER_BIRTHDATE = TO_DATE(#{memberBirthdate}, 'YYYY-MM-DD')
-	  	WHERE MEMBER_NUMBER = #{memberNumber}
+	
+	<!-- 전화번호 변경 -->
+	<update id="updatePhone" parameterType="map">
+	    UPDATE TBL_GENERAL_MEMBER
+	       SET GENERAL_PHONE_NUMBER = #{memberPhoneNumber}
+	     WHERE MEMBER_NUMBER = #{memberNumber}
 	</update>
-
+	<select id="myPageSelect" resultType="MyPageDTO" parameterType="int">
+	  SELECT
+	    M.MEMBER_NUMBER,
+	    M.MEMBER_ID,
+	    M.MEMBER_PASSWORD,
+	    G.GENERAL_NAME,
+	    G.GENERAL_PHONE_NUMBER,
+	    TO_CHAR(G.GENERAL_BIRTHDATE, 'YYYY-MM-DD') AS generalBirthDate
+	  FROM TBL_MEMBER M
+	  JOIN TBL_GENERAL_MEMBER G ON M.MEMBER_NUMBER = G.MEMBER_NUMBER
+	  WHERE M.MEMBER_NUMBER = #{memberNumber}
+	</select>
+	
+	<!-- <select id="myCommentSelectList"
+          parameterType="int"
+          resultType="com.bapseguen.app.dto.view.CommentListDTO">
+      SELECT
+        C.COMMENT_NUMBER                      AS commentNumber,
+        C.POST_NUMBER                         AS postNumber,
+        C.MEMBER_NUMBER                       AS memberNumber,
+        C.COMMENT_CONTENT                     AS commentContent,
+        TO_CHAR(C.COMMENTED_DATE,'YYYY-MM-DD') AS commentedDate,
+        M.MEMBER_ID                           AS memberId,
+        P.POST_TITLE                          AS postTitle,
+        P.POST_TYPE                           AS postType,
+        (SELECT COUNT(*)
+           FROM TBL_COMMENT C2
+          WHERE C2.POST_NUMBER = C.POST_NUMBER
+            AND NVL(C2.COMMENT_DELETE_STATE,0) = 0) AS commtentCount
+      FROM TBL_COMMENT C
+      JOIN TBL_POST    P ON C.POST_NUMBER   = P.POST_NUMBER
+      JOIN TBL_MEMBER  M ON C.MEMBER_NUMBER = M.MEMBER_NUMBER
+      WHERE C.MEMBER_NUMBER = #{memberNumber}
+        AND NVL(C.COMMENT_DELETE_STATE,0) = 0
+      ORDER BY C.COMMENTED_DATE DESC
+    </select> -->
+    
+    
+	<delete id="withDrawDelete" parameterType="int">
+    DELETE FROM TBL_MEMBER
+     WHERE MEMBER_NUMBER = #{memberNumber}
+    </delete>
 </mapper>
