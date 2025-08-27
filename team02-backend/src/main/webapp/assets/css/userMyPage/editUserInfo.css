@@ -16,17 +16,20 @@ main {
 
 /* 1100px 영역 */
 .edit_user_info {
+	display : flex;
+	flex-direction : column;
   background-color: #FBE3B9;
   width: 1100px;
   margin-left: 410px;
+  justify-content: center;
 }
 
 /* 좌측 사이드메뉴 시작 */
 /* 좌측 사이드메뉴 전체 */
 .my_page_list {
-  position: fixed;
+  position : fixed;
   padding: 0;
-  margin: 100px 20px 0 200px;
+  margin: 100px 20px 0 180px;
   width: 190px;
   height: 550px;
   font-size: 20px;
@@ -110,7 +113,7 @@ main {
   height: 83px;
   border-radius: 10px;
   align-items: center;
-  margin-bottom: 7px;
+  margin: 20px 0 0 50px;
 }
 
 /* 정보수정의 수정가능 항목 가로한줄 */
@@ -122,7 +125,7 @@ main {
   height: 83px;
   border-radius: 10px;
   align-items: center;
-  margin-bottom: 7px;
+  margin: 20px 0 0 50px;
 }
 /* 입력창 */
 .input_info {
@@ -290,17 +293,6 @@ main {
   justify-content: center;
   text-align: center;
 }
-
-.total_info_save_buzz>a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
-  width: 178px;
-  height: 50px;
-}
 /* 오류 메시지 출력 정보 */
 .notice_input_wrong_info {
   font-size: 10px;
@@ -332,7 +324,11 @@ main {
   width: 178px;
   height: 50px;
 }
-
+.bottom_btn_container{
+	display : flex;
+	justify-content: space-between;
+	padding-left : 50px;
+}
 
 /* 광고 정보 수신동의 체크박스 */
 .advertisement_agreement {

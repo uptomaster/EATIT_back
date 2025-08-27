@@ -35,8 +35,7 @@
         <div class="user_input_title">밥세권 개인 회원가입</div>
 
         <!-- 정보 입력 폼 -->
-        <form id="generalJoinForm" action="${pageContext.request.contextPath }/join/generalJoinOk.jo" method="post" data-context-path="${pageContext.request.contextPath}"
-			novalidate>
+        <form id="generalJoinForm" action="${pageContext.request.contextPath }/join/generalJoinOk.jo" method="post" data-context-path="${pageContext.request.contextPath}">
           <!-- 아이디 -->
           <div class="user_input_container_id">
             <div class="user_input_container">
