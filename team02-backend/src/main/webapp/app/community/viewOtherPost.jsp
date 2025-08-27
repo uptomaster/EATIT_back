@@ -105,7 +105,7 @@
 	        <section class="content_section"></section>
 		       	  <div class="view-content">
 		       	  	<h3>안녕</h3>
-					<c:out value="${postDetail.getFreeContent()}" />
+					<c:out value="${post.getFreeContent()}" />
 				  </div>
 	          	  <div class="func_button">
 		          	  <!-- 수정/삭제 버튼(로그인한 사용자가 작성자인 경우에만 표시) -->

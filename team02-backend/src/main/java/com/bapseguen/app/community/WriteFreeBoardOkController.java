@@ -52,17 +52,20 @@ public class WriteFreeBoardOkController implements Execute {
 		}
 
 		// multipart/form-data 요청인지 확인
-		String contentType = request.getContentType();
-		if (contentType == null || !contentType.toLowerCase().startsWith("multipart/")) {
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "multipart/form-data 요청 아님");
-			return null;
-		}
+//		String contentType = request.getContentType();
+//		if (contentType == null || !contentType.toLowerCase().startsWith("multipart/")) {
+//			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "multipart/form-data 요청 아님");
+//			return null;
+//		}
 
 		// MultipartRequest로 데이터 파싱
 		MultipartRequest multi = new MultipartRequest(request, UPLOAD_PATH, FILE_SIZE, "utf-8",
 				new DefaultFileRenamePolicy());
 
 		// 게시글 정보
+		String title = request.getParameter("postTitle");
+		String content = request.getParameter("postContent");
+		
 		postDTO.setPostTitle(multi.getParameter("postTitle"));
 		freeBoardDTO.setFreeContent(multi.getParameter("freeContent"));
 		postDTO.setMemberNumber(memberNumber);
@@ -72,7 +75,7 @@ public class WriteFreeBoardOkController implements Execute {
 		// 게시글 insert 후 번호 반환
 		int postNumber = communityDAO.insertPost(postDTO);
 		System.out.println("생성된 게시글 번호 : " + postNumber);
-
+		
 		// 이미지 파일 처리
 		Enumeration<String> fileNames = multi.getFileNames();
 		while (fileNames.hasMoreElements()) {

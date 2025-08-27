@@ -21,11 +21,11 @@ public class WriteFreeBoardController implements Execute{
 		Integer memberNumber = (Integer)session.getAttribute("memberNumber");
 		String path = null;
 		
-		if(memberNumber == null) {
-			path = "/app/login/login.jsp";
-		}else{
-			path = "/app/community/writeFreeBoard.jsp";
-		}
+//		if(memberNumber == null) {
+//			path = "/app/login/login.jsp";
+//		}else{
+//			path = "/app/community/writeFreeBoard.jsp";
+//		}
 		
 		result.setPath(path);
 		result.setRedirect(false);

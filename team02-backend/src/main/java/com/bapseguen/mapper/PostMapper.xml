@@ -2,9 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="post">
 
+	<!--  게시글 INSERT 시퀀스 PK 생 : 강사확인 - 확인 후 지우기 -->
+	<insert id="insert" parameterType="PostDTO">
+		<selectKey keyProperty="postNumber" resultType="int" order="BEFORE">
+			SELECT SEQ_POST_NUMBER.NEXTVAL FROM DUAL
+		</selectKey>
+		
+		INSERT INTO TBL_POST(POST_NUMBER, MEMBER_NUMBER, POST_TITLE, POST_CONTENT, POST_TYPE, POST_CREATED_DATE, POST_VIEW_COUNT)
+		VALUES ( #{postNumber}, #{memberNumber}, #{postTitle}, #{postContent}, #{postType},sysdate, 0}
+	 
+	</insert>
+	
+
 	<!-- 자유게시판 목록 조희 -->
-	<select id="freeSelectAll" resultType="PostDTO">
-		SELECT POST_TITLE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_LIKE_COUNT,POST_TYPE
+	<select id="freeSelectAll" resultType="PostDetailDTO">
+		SELECT POST_NUMBER,MEMBER_NUMBER,POST_TITLE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_LIKE_COUNT,POST_TYPE
 		FROM TBL_POST
 		WHERE POST_TYPE = 'FREE'
 		ORDER BY POST_CREATED_DATE DESC

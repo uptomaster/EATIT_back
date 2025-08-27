@@ -6,20 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const pagination = document.getElementById("pagination");
   const searchInput = document.querySelector(".search_text");
   const searchBtn = document.querySelector(".search_btn");
-
-  //게시글 클릭시 페이지 이동
-  const contentSection = document.querySelector(".board-item");
-
-    if(contentSection) {
-        contentSection.addEventListener("click", () => {
-            // 이동할 URL 지정 (예: 게시글 상세보기 페이지)
-            // postNumber는 JSP에서 window 변수로 전달 가능
-            const postNumber = window.postNumber; 
-            if(postNumber) {
-                window.location.href = "${pageContext.request.contextPath}/community/freeBoardReadOk.co?postNumber=${postNumber}";
-            }
-        });
-    }
+  
   
   // 모든 게시글 div (list_row) 배열로 저장
   const allRows = Array.from(listBody.querySelectorAll(".list_row"));
