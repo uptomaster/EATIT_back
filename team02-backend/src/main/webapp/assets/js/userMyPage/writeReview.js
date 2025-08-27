@@ -1,18 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
-  // 헤더 불러오기
-  fetch('./../../header_login.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('header').innerHTML = data;
-    });
 
-  // 푸터 불러오기
-  fetch('./../../footer.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('footer').innerHTML = data;
-    });
-});
 document.addEventListener("DOMContentLoaded", function () {
   const starButtons = document.querySelectorAll(".writereview_counting_Star_button");
   const starImages = document.querySelectorAll(".writereview_counting_Star");
