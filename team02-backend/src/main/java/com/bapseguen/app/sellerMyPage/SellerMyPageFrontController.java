@@ -153,11 +153,11 @@ public class SellerMyPageFrontController extends HttpServlet {
 			break;
 		case "/sellerMyPage/mySaleHistory.se":
 			System.out.println("[판페f] 판매목록 페이지 요청");
-			result = new SellerSaledController().execute(request, response);
+			result = new TotalSaleHistoryOkController().execute(request, response);
 			break;
-		case "/sellerMyPage/my.se":
+		case "/sellerMyPage/todaySaleHistory.se":
 			System.out.println("[판페f] 내 오늘 판매목록 페이지 요청");
-			result = new SellerMyReviewController().execute(request, response);
+			result = new TodaySaleHistoryOkController().execute(request, response);
 //			break;
 		/********************************************************************/
 		case "/sellerMyPage/editSellerInfo.se":
