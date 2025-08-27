@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:url value="/assets/img/store.jpg" var="ph" />
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -27,6 +27,12 @@
 		<jsp:param name="active" value="purchase" />
 	</jsp:include>
 
+	<!-- ✅ 샘플 이미지 12개 세팅 -->
+	<c:set var="sampleImgs" value="/assets/img/food1.jpg,/assets/img/food2.jpg,/assets/img/food3.jpg,/assets/img/food4.jpg,/assets/img/food5.jpg,/assets/img/food6.jpg,/assets/img/food7.jpg,/assets/img/food8.jpg,/assets/img/food9.jpg,/assets/img/food10.jpg,/assets/img/food11.jpg,/assets/img/food12.jpg" />
+	<c:set var="sampleArr" value="${fn:split(sampleImgs, ',')}" />
+	<c:set var="sampleImg" value="${sampleArr[item.itemNumber % fn:length(sampleArr)]}" />
+	<c:url value="${sampleImg}" var="dummyUrl"/>
+
 	<!-- 재료 상세 -->
 	<main id="buy_store_detail">
 		<div class="wrap">
@@ -37,12 +43,12 @@
 				<!-- 상품 기본 정보 -->
 				<div class="buy_store_info">
 					<c:choose>
-						<c:when test="${not empty images}">
-							<img src="${images[0].itemImageSystemName}"
-								alt="${item.itemName}">
+						<c:when test="${empty item.itemImageSystemName}">
+							<img src="${dummyUrl}" alt="기본 이미지">
 						</c:when>
 						<c:otherwise>
-							<img src="${ph}" alt="기본 이미지">
+							<c:url value="/upload/items/${item.itemImageSystemName}" var="imgUrl"/>
+							<img src="${imgUrl}" alt="${item.itemName}">
 						</c:otherwise>
 					</c:choose>
 
@@ -63,12 +69,12 @@
 					<div id="buy_food_section">
 						<div class="buy_food_menu_list">
 							<c:choose>
-								<c:when test="${not empty images}">
-									<img src="${images[0].itemImageSystemName}"
-										alt="${item.itemName}">
+								<c:when test="${empty item.itemImageSystemName}">
+									<img src="${dummyUrl}" alt="상품 이미지">
 								</c:when>
 								<c:otherwise>
-									<img src="${ph}" alt="상품 이미지">
+									<c:url value="/upload/items/${item.itemImageSystemName}" var="imgUrl2"/>
+									<img src="${imgUrl2}" alt="${item.itemName}">
 								</c:otherwise>
 							</c:choose>
 
@@ -95,9 +101,8 @@
 									<form
 										action="${pageContext.request.contextPath}/cartList/addItemOk.cl"
 										method="post" style="display: inline;">
-										<input type="hidden" name="itemNumber"
-											value="${item.itemNumber}"> <input type="hidden"
-											name="quantity" value="1" class="cartQuantity">
+										<input type="hidden" name="itemNumber" value="${item.itemNumber}">
+										<input type="hidden" name="quantity" value="1" class="cartQuantity">
 										<button type="submit" class="buy_add_cart_btn">장바구니</button>
 									</form>
 								</div>
@@ -111,9 +116,7 @@
 			<!-- 오른쪽 영역 -->
 			<div class="buy_map_area">
 				<div class="buy_back_store_list">
-					<a
-						href="${pageContext.request.contextPath}/orders/ingredientList.or">목록으로
-						돌아가기</a>
+					<a href="${pageContext.request.contextPath}/orders/ingredientList.or">목록으로 돌아가기</a>
 				</div>
 
 				<!-- 원산지 & 가게정보 -->
@@ -132,7 +135,6 @@
 							<li>소비기한: ${item.itemExpireDate}</li>
 						</ul>
 					</div>
-
 
 					<!-- 원산지 정보 -->
 					<div class="origin_info_inactive">

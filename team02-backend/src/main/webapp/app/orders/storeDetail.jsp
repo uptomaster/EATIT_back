@@ -27,10 +27,11 @@
         <jsp:param name="active" value="purchase" />
     </jsp:include>
 
-    <!-- ✅ 샘플 이미지 12개 세팅 -->
-    <c:set var="sampleImgs" value="/assets/img/sample1.jpg,/assets/img/sample2.jpg,/assets/img/sample3.jpg,/assets/img/sample4.jpg,/assets/img/sample5.jpg,/assets/img/sample6.jpg,/assets/img/sample7.jpg,/assets/img/sample8.jpg,/assets/img/sample9.jpg,/assets/img/sample10.jpg,/assets/img/sample11.jpg,/assets/img/sample12.jpg" />
+    <!-- ✅ 더미 이미지 12개 세팅 -->
+    <c:set var="sampleImgs" value="/assets/img/food1.jpg,/assets/img/food2.jpg,/assets/img/food3.jpg,/assets/img/food4.jpg,/assets/img/food5.jpg,/assets/img/food6.jpg,/assets/img/food7.jpg,/assets/img/food8.jpg,/assets/img/food9.jpg,/assets/img/food10.jpg,/assets/img/food11.jpg,/assets/img/food12.jpg" />
     <c:set var="sampleArr" value="${fn:split(sampleImgs, ',')}" />
     <c:set var="sampleImg" value="${sampleArr[item.itemNumber % fn:length(sampleArr)]}" />
+    <c:url value="${sampleImg}" var="dummyUrl"/>
 
     <!-- 가게 상세 -->
     <main id="buy_store_detail">
@@ -46,7 +47,7 @@
                             <img src="${images[0].itemImageSystemName}" alt="${item.itemName}">
                         </c:when>
                         <c:otherwise>
-                            <img src="${pageContext.request.contextPath + sampleImg}" alt="${item.itemName}">
+                            <img src="${dummyUrl}" alt="${item.itemName}">
                         </c:otherwise>
                     </c:choose>
                     <div class="buy_store_info_detail">
@@ -56,7 +57,7 @@
                     </div>
                 </div>
 
-                <!-- 탭: 메뉴 / 재료 / 리뷰 -->
+                <!-- 탭: 메뉴 -->
                 <div class="buy_food">
                     <ul class="buy_food_menu_choice">
                         <li><a class="${param.tab eq 'FOOD' ? 'active' : ''}"
@@ -71,7 +72,7 @@
                                     <img src="${images[0].itemImageSystemName}" alt="${item.itemName}">
                                 </c:when>
                                 <c:otherwise>
-                                    <img src="${pageContext.request.contextPath + sampleImg}" alt="${item.itemName}">
+                                    <img src="${dummyUrl}" alt="${item.itemName}">
                                 </c:otherwise>
                             </c:choose>
 
@@ -136,18 +137,4 @@
             <p>구매하신 상품에 이상이 있으셨나요? 아래 절차를 따라 요청을 남겨주시면 빠르게 도와드리겠습니다.</p>
             <div class="buy_policy_toggle_header">사고보상정책 안내 보기 ▼</div>
             <div class="buy_policy_toggle_content">
-                <p>1. 음식을 받으신 직후 상태를 확인해주세요. 이상이 있는 부분이 있다면 사진을 촬영해주세요.</p>
-                <ul>
-                    <li>수령 후 1일 이내 접수가 가능합니다.</li>
-                    <li>문제 부분을 확인할 수 있도록 3~4장 이상 촬영해주세요.</li>
-                </ul>
-                <p>2. 홈페이지 로그인 후 고객센터에서 사진과 함께 접수해주세요.</p>
-            </div>
-        </div>
-
-    </main>
-
-    <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
-
-</body>
-</html>
+                <p>1. 음식을 받으신 직후 상태를 확

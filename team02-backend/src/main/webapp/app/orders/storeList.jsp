@@ -60,15 +60,16 @@
                     </c:when>
                     <c:otherwise>
                         <!-- ✅ 더미 이미지 12개 세팅 -->
-                        <c:set var="sampleImgs" value="/assets/img/sample1.jpg,/assets/img/sample2.jpg,/assets/img/sample3.jpg,/assets/img/sample4.jpg,/assets/img/sample5.jpg,/assets/img/sample6.jpg,/assets/img/sample7.jpg,/assets/img/sample8.jpg,/assets/img/sample9.jpg,/assets/img/sample10.jpg,/assets/img/sample11.jpg,/assets/img/sample12.jpg" />
+                        <c:set var="sampleImgs" value="/assets/img/food1.jpg,/assets/img/food2.jpg,/assets/img/food3.jpg,/assets/img/food4.jpg,/assets/img/food5.jpg,/assets/img/food6.jpg,/assets/img/food7.jpg,/assets/img/food8.jpg,/assets/img/food9.jpg,/assets/img/food10.jpg,/assets/img/food11.jpg,/assets/img/food12.jpg" />
                         <c:forEach var="item" items="${items}">
                             <c:set var="sampleArr" value="${fn:split(sampleImgs, ',')}" />
                             <c:set var="sampleImg" value="${sampleArr[item.itemNumber % fn:length(sampleArr)]}" />
+                            <c:url value="${sampleImg}" var="dummyUrl"/>
 
                             <article class="buy_food_article">
                                 <a href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${item.itemNumber}">
                                     <img
-                                        src="${empty item.itemImageSystemName ? pageContext.request.contextPath + sampleImg : item.itemImageSystemName}"
+                                        src="${empty item.itemImageSystemName ? dummyUrl : item.itemImageSystemName}"
                                         alt="${item.itemName}" />
                                     <div class="buy_store_info">
                                         <p class="buy_store_name">상호명 : ${item.businessName}</p>
