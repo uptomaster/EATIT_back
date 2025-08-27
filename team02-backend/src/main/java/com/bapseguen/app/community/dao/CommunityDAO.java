@@ -23,9 +23,9 @@ public class CommunityDAO {
 	}
 
 	//자유게시판 목록 조회
-	public List<PostDetailDTO> freeSelectAll(Map<String, Integer> pageMap) {
+	public List<PostDTO> freeSelectAll(Map<String, Integer> pageMap) {
 		System.out.println("자유게시판 게시글 조회하기 - freeSelectAll 메소드 실행 : " + pageMap);
-		List<PostDetailDTO> list = sqlSession.selectList("post.freeSelectAll", pageMap);
+		List<PostDTO> list = sqlSession.selectList("post.freeSelectAll", pageMap);
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
@@ -52,13 +52,7 @@ public class CommunityDAO {
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
-	
-	
-	// 게시글 총 개수 가져오기
-//	public int getTotal() {
-//		System.out.println("게시글 총 개수 조회 - getTotal 메소드 실행");
-//		return sqlSession.selectOne("post.postGetTotal");
-//	}
+
 	// 공지사항 게시글 총 개수 가져오기
 	public int noticeGetTotal() {
 		System.out.println("공지 게시글 총 개수 조회 - noticeGetTotal 메소드 실행");
@@ -82,16 +76,16 @@ public class CommunityDAO {
 	
 
 	//공지목록 조회 (단건)
-	public List<PostDTO> noticeSelectOne(Map<String, Integer> pageMap) {
+	public List<PostDTO> noticeSelect(Map<String, Integer> pageMap) {
 		System.out.println("공지 목록 게시글 상세 조회하기 - noticeSelectOne 메소드 실행 : " + pageMap);
-		List<PostDTO> list = sqlSession.selectList("notice.noticeSelectOne", pageMap);
+		List<PostDTO> list = sqlSession.selectList("notice.noticeSelect", pageMap);
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
 	
 	// 게시글 상세 조회
 	public PostDetailDTO select(int postNumber) {
-		return sqlSession.selectOne("post.postSelect", postNumber);
+		return sqlSession.selectOne("post.postDetailSelect", postNumber);
 	}
 
 	// 게시글 조회수 증가
