@@ -2,7 +2,6 @@ package com.bapseguen.app.community;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import java.util.Objects;
 
 import javax.servlet.ServletException;
@@ -13,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.community.dao.CommunityDAO;
+import com.bapseguen.app.dto.PostDTO;
 import com.bapseguen.app.dto.PostImageDTO;
 import com.bapseguen.app.dto.view.PostDetailDTO;
 import com.bapseguen.app.img.dao.PostImageDAO;
@@ -55,6 +55,7 @@ public class FreeBoardReadOkController implements Execute{
 		CommunityDAO communityDAO = new CommunityDAO();
 		PostImageDAO postImageDAO = new PostImageDAO();
 		PostImageDTO postImageDTO = new PostImageDTO();
+		PostDetailDTO postdetailDTO = new PostDetailDTO();
 
 		//DB에서 게시글 가져오기
 		PostDetailDTO postDetailDTO = communityDAO.select(postNumber);
@@ -67,25 +68,30 @@ public class FreeBoardReadOkController implements Execute{
 			return result;
 		}
 		
+		
 		//로그인한 사용자 번호 가져오기
 		Integer loginMemberNumber = (Integer) request.getSession().getAttribute("memberNumber");
 		System.out.println("로그인 한 멤버 번호 : " + loginMemberNumber);
 		
 		//현재 게시글의 작성자 번호 가져오기
+		//int postWriterNumber = postDTO.getMemberNumber();
+		//System.out.println("현재 게시글 작성자 번호 : " + postWriterNumber);
+	
+		System.out.println("postdetailDTO.getMemberNumber() 호출 전");
 		int postWriterNumber = postDetailDTO.getMemberNumber();
-		System.out.println("현재 게시글 작성자 번호 : " + postWriterNumber);
+		System.out.println("postdetailDTO.getMemberNumber() 반환값: " + postWriterNumber);
 		
 		//로그인한 사용자가 작성자가 아닐 때만 조회수 증가
 		if(!Objects.equals(loginMemberNumber, postWriterNumber)) {
 			communityDAO.updateReadCount(postNumber);
 		}
 		
-		//로그인 한 멤버 번호 : 2
-		//현재 게시글 작성자 번호 : 4
-	
+		//null값확인
+		System.out.println("제목: " + postdetailDTO.getPostTitle());
+		System.out.println("작성일: " + postdetailDTO.getPostCreatedDate());
 		
-		request.setAttribute("post", postDetailDTO);
-		result.setPath("app/community/viewOtherPost.jsp");
+		request.setAttribute("post", postdetailDTO);
+		result.setPath("/app/community/viewOtherPost.jsp");
 		result.setRedirect(false);		
 		return result;
 	}
