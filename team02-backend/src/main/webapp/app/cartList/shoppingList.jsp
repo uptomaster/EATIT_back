@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -49,16 +50,29 @@
                 <p class="empty">장바구니가 비어 있습니다.</p>
               </c:when>
               <c:otherwise>
+                <!-- ✅ 샘플 이미지 배열 -->
+                <c:set var="sampleImgs" value="/assets/img/food1.jpg,/assets/img/food2.jpg,/assets/img/food3.jpg,/assets/img/food4.jpg,/assets/img/food5.jpg,/assets/img/food6.jpg,/assets/img/food7.jpg,/assets/img/food8.jpg,/assets/img/food9.jpg,/assets/img/food10.jpg,/assets/img/food11.jpg,/assets/img/food12.jpg" />
+                <c:set var="sampleArr" value="${fn:split(sampleImgs, ',')}" />
+
                 <c:forEach var="item" items="${items}">
+                  <c:set var="sampleImg" value="${sampleArr[item.itemNumber % fn:length(sampleArr)]}" />
+                  <c:url value="${sampleImg}" var="dummyUrl"/>
+
                   <div class="shopping_cart_item">
                     <!-- 선택 체크박스 -->
                     <input type="checkbox" class="shopping_item_check"
                            name="cartItemNumber" value="${item.cartItemNumber}">
 
                     <!-- 이미지 -->
-                    <c:url value="/assets/img/placeholder.png" var="placeholder" />
-                    <c:url value="/upload/item/${item.imagePath}" var="itemImg" />
-                    <img src="${empty item.imagePath ? placeholder : itemImg}" alt="${item.itemName}">
+                    <c:choose>
+                      <c:when test="${empty item.imagePath}">
+                        <img src="${dummyUrl}" alt="${item.itemName}">
+                      </c:when>
+                      <c:otherwise>
+                        <c:url value="/upload/items/${item.imagePath}" var="itemImg" />
+                        <img src="${itemImg}" alt="${item.itemName}">
+                      </c:otherwise>
+                    </c:choose>
 
                     <!-- 상품 정보 -->
                     <div class="shopping_item_info">
@@ -113,9 +127,6 @@
               결제하기
             </button>
 
-            <!-- 주의: 서버에서 금액을 재계산하므로 hidden으로 금액을 신뢰하지 않습니다. 필요 시 참고용으로만 전송하세요.
-            <input type="hidden" name="clientTotal" value="${totalAmount}">
-            -->
           </form>
         </div>
       </div>
