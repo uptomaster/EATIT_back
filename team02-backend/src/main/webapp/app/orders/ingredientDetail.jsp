@@ -57,11 +57,6 @@
 					<ul class="buy_food_menu_choice">
 						<li><a class="${param.tab eq 'FOOD' ? 'active' : ''}"
 							href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${item.itemNumber}&tab=FOOD">메뉴</a></li>
-						<li><a class="${param.tab eq 'INGREDIENT' ? 'active' : ''}"
-							href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${item.itemNumber}&tab=INGREDIENT">재료</a></li>
-						<li><a class="${param.tab eq 'REVIEW' ? 'active' : ''}"
-							href="${pageContext.request.contextPath}/orders/reviewList.or?itemNumber=${item.itemNumber}">리뷰
-								보기</a></li>
 					</ul>
 
 					<!-- 상품 출력 -->
