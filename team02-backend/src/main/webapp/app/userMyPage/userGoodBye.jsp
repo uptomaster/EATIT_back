@@ -25,11 +25,10 @@
       <div class="findId_fail_content_container"> <!-- 컨텐츠 영역 -->
         <div>
           <!-- 아이디 찾기 제목 -->
-          <div class="findId_fail_title">밥세권 회원</div>
-          <div class="findId_fail_subtitle">아이디찾기</div>
+          <div class="findId_fail_title">탈퇴 완료</div>
         </div>
         <div class="findId_fail_txt">
-          그동안 이용해 주셔서 감사합니다.
+          <h2>그동안 이용해 주셔서 감사합니다.</h2>
         </div>
         <div class="findId_fail_to_container">
           <div><a href="${pageContext.request.contextPath}/main.jsp" class="findId_fail_to_findId">홈페이지</a></div>

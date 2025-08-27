@@ -16,6 +16,7 @@ public class LoginOkController implements Execute {
 
         Result result = new Result();
         LoginDAO loginDAO = new LoginDAO();
+        HttpSession session = request.getSession();
 
         String ctx = request.getContextPath();
         String memberId = request.getParameter("login_input_id");
@@ -49,12 +50,12 @@ public class LoginOkController implements Execute {
         }
 
         // 4) 세션 설정 및 메인으로
-        HttpSession session = request.getSession();
         session.setAttribute("memberNumber", memberNumber);
         session.setAttribute("memberType", memberType);
         session.setAttribute("memberId", memberId);
 
         result.setRedirect(true);
+        System.out.println("회원유형 : " + memberType);
         result.setPath(ctx + "/main.jsp");
         return result;
     }

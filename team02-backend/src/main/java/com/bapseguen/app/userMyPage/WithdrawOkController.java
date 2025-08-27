@@ -44,7 +44,7 @@ public class WithdrawOkController implements Execute {
 
         // 3) 탈퇴 처리
         
-        dao.delete(memberNumber); // withDraw.withDrawDelete 호출됨(이미 DAO에 존재)
+        dao.delete(memberNumber);
 
         // 4) 세션 종료 & 리다이렉트
         if (session != null) session.invalidate();
