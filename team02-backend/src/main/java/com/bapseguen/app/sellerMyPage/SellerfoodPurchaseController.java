@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
-import com.bapseguen.app.dto.view.ReviewWriteDTO;
+import com.bapseguen.app.dto.view.MyPurchaseDTO;
 import com.bapseguen.app.sellerMyPage.dao.SellerMyPageDAO;
 
 public class SellerfoodPurchaseController implements Execute {
@@ -21,7 +21,7 @@ public class SellerfoodPurchaseController implements Execute {
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		System.out.println("[판페] SellerMyReviewController 진입 성공 ===");
+		System.out.println("[판페] SellerfoodPurchaseController 진입 성공 ===");
 		SellerMyPageDAO sellerDAO = new SellerMyPageDAO();
 		HttpSession session = request.getSession(false);
 		int memberNumber = (int) session.getAttribute("memberNumber");
@@ -44,14 +44,14 @@ public class SellerfoodPurchaseController implements Execute {
 		pageMap.put("memberNumber", memberNumber);
 		
 		// 게시글 목록 조회
-		List<ReviewWriteDTO> myReviewList = sellerDAO.selectAllmyReview(pageMap);
-		request.setAttribute("myReviewList", myReviewList);
+		List<MyPurchaseDTO> foodbuylist = sellerDAO.myFoodPurchaseList(pageMap);
+		request.setAttribute("foodbuylist", foodbuylist);
 
 		// 페이징 정보 설정
 		// BoardMapper.xml의 getTotal을 이용하여 전체 게시글 개수 조회
 		// 실제 마지막 페이지 번호(realEndPage)를 계산함
 
-		int total = sellerDAO.myReviewCount(pageMap);
+		int total = sellerDAO.myFoodPurchaseCount(pageMap);
 		int realEndPage = (int) Math.ceil(total / (double) rowCount); // 실제 마지막 페이지(전체 게시글 기준으로 계산)
 		int endPage = (int) (Math.ceil(page / (double) pageCount) * pageCount); // 현재 페이지 그룹에서의 마지막 페이지
 		int startPage = endPage - (pageCount - 1); // 현재 페이지 그룹에서의 첫 페이지
@@ -71,11 +71,11 @@ public class SellerfoodPurchaseController implements Execute {
 
 		System.out.println("====페이징정보 확인====");
 		System.out.println("pageMap : " + pageMap);
-		System.out.println("myReviewList : " + myReviewList);
+		System.out.println("myReviewList : " + foodbuylist);
 		System.out.println("startPage : " + startPage + ", endPage : " + endPage + ", prev : " + prev + ", next : " + next);
 		System.out.println("====================");
 
-		result.setPath("/app/sellerMyPage/sellerMyReviewsList.jsp");
+		result.setPath("/app/sellerMyPage/.jsp");
 		result.setRedirect(false);
 
 		return result;

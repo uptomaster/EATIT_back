@@ -45,7 +45,9 @@
 
 
     <div class="ingredient_edit_container"> <!-- 1100px 영역-->
-      <form action="" method="get" class="ingredient_edit_content_container"> <!-- 컨텐츠 영역 -->
+      <form action="${pageContext.request.contextPath}/sellerMyPage/EditIngredientOk.se" 
+      	method="post" enctype="multipart/form-data"
+				class="ingredientsaleswrite_content_container"> <!-- 컨텐츠 영역 -->
         <div class="ingredient_edit_title">
           재료 판매 수정
         </div>
@@ -54,46 +56,40 @@
           <div class="ingredient_edit_submit_table">
             <div class="ingredient_edit_box">
               <label for="ingredient_edit_photo">음식 사진 등록</label>
-              <button type="button">수정</button>
             </div>
           </div>
         </div>
         <div class="ingredient_edit_box">
           <label for="ingredient_edit_menu">메뉴명</label>
-          <input type="text" id="ingredient_edit_munu">
-          <button type="button">수정</button>
+          <input name="itemName" type="text" id="ingredient_edit_munu">
         </div>
         <div class="ingredient_edit_box">
           <label for="ingredient_edit_explain">음식 설명</label>
-          <textarea name="" id="ingredient_edit_explain" maxlength="100" placeholder="100자 이내로 입력해주세요"></textarea>
+          <textarea  name="itemContent"  id="ingredient_edit_explain" maxlength="100" placeholder="100자 이내로 입력해주세요"></textarea>
           <span id="ingredient_edit_char_count">0/100</span>
-          <button type="button">수정</button>
         </div>
         <div class="ingredient_edit_expiry_container">
           <label for="ingredient_edit_expiry">소비기한</label>
-          <input type="text" id="ingredient_edit_expiry" placeholder="YYYY-MM-DD-MIN -SS">
-          <button type="button">수정</button>
+          <input name="itemExpiry" type="text" id="ingredient_edit_expiry" placeholder="YYYY-MM-DD-MIN -SS">
         </div>
         <div class="ingredient_edit_box">
           <div class="ingredient_edit_quantitiy_container">
             <label for="ingredient_edit_quantity" class="ingredient_edit_small_label">수량</label>
-            <input type="number" id="ingredient_edit_quantity" min="0" placeholder="개수">
+            <input name="itemQuantity" type="number" id="ingredient_edit_quantity" min="0" placeholder="개수">
             <span id="ingredient_edit_food_count">개</span>
-            <button type="button">수정</button>
           </div>
           <div class="ingredient_edit_price_container">
             <label for="ingredient_edit_price" class="ingredient_edit_small_label">가격</label>
-            <input type="number" id="ingredient_edit_price" min="0" placeholder="원단위">
+            <input name="itemPrice" type="number" id="ingredient_edit_price" min="0" placeholder="원단위">
             <span>원</span>
-            <button type="button">수정</button>
           </div>
         </div>
         <div class="edit_delete_btns">
           <button class="ingredient_delte_buzz" type="button">삭제</button>
           <button class="ingredient_edit_buzz" type="button">저장</button>
         </div>
-    </div> <!-- 컨텐츠 -->
     </form> <!-- 1100px 영역 -->
+    </div> <!-- 컨텐츠 -->
   </main>
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </body>

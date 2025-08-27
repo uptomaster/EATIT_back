@@ -44,31 +44,7 @@ public class CheckSellerPwOkController implements Execute{
 		 session.setAttribute("businessNumber",business);
 		System.out.println("사업자번호: "+business);
 		
-		
-//		SellerInfoDTO takeSellerInfoDTO;
-//		sellerDTO = sellerDAO.takeSellerInfoDTO(memberNumber);
-//		System.out.println(sellerDTO);
-//		
-//		// member
-//		 session.setAttribute("memberNumber",sellerDTO.getMemberNumber());
-//		 session.setAttribute("memberId",sellerDTO.getMemberId());
-//		 session.setAttribute("memberPassword", sellerDTO.getMemberPassword());
-//		//seller
-//		 session.setAttribute("sellerName",sellerDTO.getSellerName());
-//		 session.setAttribute("sellerBirthdate",sellerDTO.getSellerBirthdate());
-//		 session.setAttribute("sellerPhoneNumber",sellerDTO.getSellerPhoneNumber());
-//		 session.setAttribute("sellerUpdatedDate",sellerDTO.getSellerUpdatedDate());
-//		//store
-//		 session.setAttribute("businessNumber",sellerDTO.getBusinessNumber());
-//		 session.setAttribute("storeName",sellerDTO.getStoreName());
-//		 session.setAttribute("storeOpenDate",sellerDTO.getStoreOpenDate());
-//		 session.setAttribute("storeOpenTime",sellerDTO.getStoreOpenTime());
-//		 session.setAttribute("storeCloseTime",sellerDTO.getStoreCloseTime());
-//		 session.setAttribute("storeTel",sellerDTO.getStoreTel());
-//		 session.setAttribute("storeAddress",sellerDTO.getStoreAddress());
-//		 session.setAttribute("storeAddressDetail",sellerDTO.getStoreAddressDetail());
-//		 session.setAttribute("storeZipCode",sellerDTO.getStoreZipCode());
-		 
+	
 		 result.setPath("/sellerMyPage/storeInfo.se"); 
 		 result.setRedirect(true);
 		 return result;
