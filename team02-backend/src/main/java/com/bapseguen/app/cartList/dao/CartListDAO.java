@@ -1,6 +1,7 @@
 package com.bapseguen.app.cartList.dao;
 
 import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.bapseguen.app.dto.CartDTO;
@@ -95,5 +96,9 @@ public class CartListDAO {
 		sqlSession.update("cartList.closeCurrentCart", memberNumber);
 	}
 
+	/** (옵션) 카트번호 기준 상세 목록이 필요하면 이것도 */
+	public List<CartItemDTO> selectCartItems(int cartNumber) {
+		return sqlSession.selectList("cartList.selectCartItems", cartNumber);
+	}
 
 }

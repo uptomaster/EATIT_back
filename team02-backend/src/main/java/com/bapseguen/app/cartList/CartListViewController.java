@@ -32,39 +32,31 @@ public class CartListViewController implements Execute {
 
         CartListDAO dao = new CartListDAO();
 
-        // 2) OPEN 카트번호 조회 (새로 만들지 말고 "있으면" 가져오기)
+        // 2) 현재 회원의 OPEN 카트번호(있으면) 조회
         CartDTO cart = new CartDTO();
         cart.setMemberNumber(memberNumber);
-        Integer cartNumber = dao.selectOpenCartNumberByMember(cart);
+        Integer cartNumber = dao.selectOpenCartNumberByMember(cart); // null일 수 있음
 
-        // 3) 모델 기본값
-        List<CartItemDTO> items = Collections.emptyList();
-        long totalAmount = 0L;
-
-        if (cartNumber != null) {
-            // ★ cartNumber 세팅 필수
-            cart.setCartNumber(cartNumber);
-
-            // 방법 A) DTO 기반 조회 (매퍼 WHERE가 CART_NUMBER 사용해야 함)
-            items = dao.selectCartItems(cart);
-
-            // 방법 B) cartNumber로 직접 조회 (실수를 줄이고 싶으면 이걸 사용)
-            // items = dao.selectCartItemsByCartNo(cartNumber);
-
-            if (items != null) {
-                for (CartItemDTO it : items) {
-                    long price = (long) it.getCartItemPrice();
-                    totalAmount += price * it.getCartItemQuantity();
-                }
-            }
+        // 3) 상세 목록 조회 (이름/이미지/가격/수량 포함)
+        //    cartNumber 유무와 관계없이, 회원 기준 상세 조회를 사용
+        List<CartItemDTO> items = dao.selectCurrentCartItemsWithPrice(memberNumber);
+        if (items == null) {
+            items = Collections.emptyList();
         }
 
-        // 4) 모델 주입
+        // 4) 합계 계산 (서버 신뢰)
+        long totalAmount = 0L;
+        for (CartItemDTO it : items) {
+            long price = it.getCartItemPrice(); // CART_ITEM_PRICE 없으면 NVL로 i.ITEM_PRICE가 내려옴(매퍼)
+            totalAmount += price * it.getCartItemQuantity();
+        }
+
+        // 5) 모델 주입
         request.setAttribute("cartNumber", cartNumber);
         request.setAttribute("items", items);
         request.setAttribute("totalAmount", totalAmount);
 
-        // 5) forward: contextPath 붙이지 않음
+        // 6) forward
         result.setPath("/app/cartList/shoppingList.jsp");
         result.setRedirect(false);
         return result;
