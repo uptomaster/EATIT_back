@@ -114,10 +114,13 @@
                             class="store_info_ingredient_edit_btn"
                             data-food-itemNumber="${food.itemNumber}">
                             수정</button>
-                            <button href="${pageContext.request.contextPath}/sellerMyPage/detailFood.se
+                            <%-- <button href="${pageContext.request.contextPath}/sellerMyPage/detailFood.se
                              class="store_info_ingredient_view_btn"
                              data-food-itemNumbe="${food.itemNumber}">
-                                상세보기</button>
+                                상세보기</button> --%>
+                               <a href="${pageContext.request.contextPath}/sellerMyPage/editFood.se" >
+								<div class="store_info_ingredient_edit_btn">수정</div>
+							</a>
                         </div>
                         <div class="store_info_ingredient_menu_info">
                             <h3><c:out value="${food.itemName}"/></h3>
