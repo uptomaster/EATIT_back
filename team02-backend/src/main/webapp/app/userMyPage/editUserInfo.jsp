@@ -161,10 +161,11 @@
 		  </div>
 		
 		  <!-- 전체 저장 버튼 -->
-		  <button type="submit" class="total_info_save_buzz">저장</button>
-		
-		  <div class="agreement_buzz">
-		    <a href="${pageContext.request.contextPath}/UserMyPage/withdrawalAgreement.my">회원탈퇴</a>
+		  <div class="bottom_btn_container">
+		  	  <div class="agreement_buzz">
+			    <a href="${pageContext.request.contextPath}/UserMyPage/withdrawalAgreement.my">회원탈퇴</a>
+			  </div>
+			  <button type="submit" class="total_info_save_buzz">저장</button>
 		  </div>
 		</form>
   </main>
