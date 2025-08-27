@@ -47,7 +47,7 @@ public class PromoBoardListOkController implements Execute{
 		// 실제 마지막 페이지 번호(realEndPage)를 계산함
 
 		int total = communityDAO.promoGetTotal();
-		System.out.println(total);//공지게시글 개수
+		System.out.println(total);//홍보게시글 개수
 		int realEndPage = (int) Math.ceil(total / (double) rowCount); // 실제 마지막 페이지(전체 게시글 기준으로 계산)
 		int endPage = (int) (Math.ceil(page / (double) pageCount) * pageCount); // 현재 페이지 그룹에서의 마지막 페이지
 		int startPage = endPage - (pageCount - 1); // 현재 페이지 그룹에서의 첫 페이지

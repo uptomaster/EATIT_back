@@ -23,9 +23,9 @@ public class CommunityDAO {
 	}
 
 	//자유게시판 목록 조회
-	public List<PostDTO> freeSelectAll(Map<String, Integer> pageMap) {
+	public List<PostDetailDTO> freeSelectAll(Map<String, Integer> pageMap) {
 		System.out.println("자유게시판 게시글 조회하기 - freeSelectAll 메소드 실행 : " + pageMap);
-		List<PostDTO> list = sqlSession.selectList("post.freeSelectAll", pageMap);
+		List<PostDetailDTO> list = sqlSession.selectList("post.freeSelectAll", pageMap);
 		System.out.println("조회결과 : " + list);
 		return list;
 	}

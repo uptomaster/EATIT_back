@@ -58,8 +58,8 @@
 		<!-- 게시글 목록 -->
    		<div class="board-header">
    			<c:choose>
-   				<c:when test="${not empty postList}">
-   					<c:forEach var="post" items="${postList}">
+   				<c:when test="${not empty postDetail}">
+   					<c:forEach var="post" items="${postDetail}">
 	   					 <div class="board-row list_row flex_row">
 	   					 	<%-- <div class="board-item no">
 	   					 		<c:out value="${post.getPostNumber()}" />
@@ -71,13 +71,13 @@
 	   					 		</a>
 	   					 	</div>
 	   					 	<div class="board-item col_author">
-	   					 		<c:out value="${post.getMemberId() }" />
+	   					 		<c:out value="${post.memberId() }" />
 	   					 	</div>
 	   					 	<div class="board-item col_date">
-	   					 		<c:out value="${post.getPostCreatedDate() }" />
+	   					 		<c:out value="${post.postCreatedDate() }" />
 	   					 	</div>
 	   					 	<div class="board-item col_views">
-	   					 		<c:out value="${post.getPostViewCount() }" />
+	   					 		<c:out value="${post.postViewCount() }" />
 	   					 	</div>
 	   					 </div>
    					 </c:forEach>
