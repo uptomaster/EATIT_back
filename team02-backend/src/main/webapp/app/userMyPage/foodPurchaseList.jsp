@@ -1,25 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=, initial-scale=1.0">
-  <link rel="shortcut icon" href="./../../assets/img/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="./../../assets/css/userMyPage/foodPurchaseList.css">
-  <link rel="stylesheet" href="./../../assets/css/header.css">
-  <link rel="stylesheet" href="./../../assets/css/footer.css">
-  <script defer src="./../../assets/js/userMyPage/foodPurchaseList.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/userMyPage/foodPurchaseList.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
+  <script defer src="${pageContext.request.contextPath}/assets/js/userMyPage/foodPurchaseList.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
+  <title>밥세권</title>
   <script>
     let headerPath = '../../header.jsp';
     let footerPath = '../../footer.jsp';
   </script>
-  <script defer src="../../assets/js/header.js"></script>
-  <title>밥세권</title>
 </head>
 <body>
-  <!-- 헤더 -->
-  <header id="header"></header>
+  <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
   <!-- 메인 -->
   <main>
   <!-- 사이드바 (마이페이지 메뉴) -->
@@ -30,14 +30,14 @@
     <!-- 마이페이지 좌측 메뉴 리스트 -->
     <ul class="foodpurchaselist_side_bar">
       <!-- 현재 페이지는 음식 구매 내역 -->
-      <li><a href="./../userMyPage/editUserInfo.html">내 정보 수정</a></li>
+      <li><a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.jsp">내 정보 수정</a></li>
       <li class="foodpurchaselist_main">
-        <a href="./../userMyPage/foodPurchaseList.html">음식 구매 내역</a>
+        <a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseList.jsp">음식 구매 내역</a>
       </li>
-      <li><a href="./../userMyPage/ingredientPurchaseList.html">재료 구매 내역</a></li>
-      <li><a href="./../userMyPage/manageMyPostsList.html">내 글 관리</a></li>
-      <li><a href="./../userMyPage/manageMyCommentsList.html">내 댓글 관리</a></li>
-      <li><a href="./../userMyPage/manageMyReviewsList.html">내 리뷰 관리</a></li>
+      <li><a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseList.jsp">재료 구매 내역</a></li>
+      <li><a href="${pageContext.request.contextPath}/userMyPage/manageMyPostsList.jsp">내 글 관리</a></li>
+      <li><a href="${pageContext.request.contextPath}/userMyPage/manageMyCommentsList.jsp">내 댓글 관리</a></li>
+      <li><a href="${pageContext.request.contextPath}/userMyPage/manageMyReviewsList.jsp">내 리뷰 관리</a></li>
     </ul>
   </div>
 
@@ -70,7 +70,7 @@
         <div class="food_purchase_how_many_list">1</div>
         <div class="food_purchase_price_list">16000원</div>
         <div class="food_purchase_review_list">
-          <a href="./../userMyPage/writeReview.html" class="food_purchase_review_meal">리뷰</a>
+          <a href="${pageContext.request.contextPath}/userMyPage/writeReview.jsp" class="food_purchase_review_meal">리뷰</a>
         </div>
       </div>
 
@@ -78,14 +78,14 @@
       <div class="foodpurchase_page_list">
         <div class="food_purchase_date_list">2025.08.04</div>
         <div class="food_purchase_img_list">
-          <img class="meal_img" src="./../../assets/img/새싹.png" alt="">
+          <img class="meal_img" src="${pageContext.request.contextPath}/assets/img/새싹.png" alt="">
         </div>
         <div class="food_purchase_restaurant_name_list">김사부 감자탕</div>
         <div class="food_purchase_menu_info_list">감자탕</div>
         <div class="food_purchase_how_many_list">1</div>
         <div class="food_purchase_price_list">26000원</div>
         <div class="food_purchase_review_list">
-          <a href="./../userMyPage/writeReview.html" class="food_purchase_review_meal">리뷰</a>
+          <a href="${pageContext.request.contextPath}/userMyPage/writeReview.jsp" class="food_purchase_review_meal">리뷰</a>
         </div>
       </div>
     </div>
@@ -101,6 +101,6 @@
   </div>
 </main>
 <!-- 푸터 -->
-  <footer id="footer"></footer>
+  <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </body>
 </html>

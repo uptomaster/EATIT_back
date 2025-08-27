@@ -51,18 +51,44 @@ public class UserMyPageFrontController extends HttpServlet {
 		case "/UserMyPage/generalCheckPw.my":
 			System.out.println("내 정보 수정 페이지 요청");
 			request.getRequestDispatcher("/app/userMyPage/generalCheckPw.jsp").forward(request, response);
-			break;
-	
-		
-		
-		
-		
-		
+			return;
+			
+		case "/UserMyPage/chkPwOk.my":
+            result = new GeneralCheckPwOkController().execute(request, response);
+            break;
+            
+		case "/UserMyPage/editUserInfo.my":
+		    result = new EditUserInfoController().execute(request, response);
+		    break;
+		    
+		case "/UserMyPage/updateMember.my":
+		    result = new UpdateMemberController().execute(request, response);
+		    break;
+		    
+		case "/UserMyPage/phoneCode.my":
+		    result = new PhoneCodeController().execute(request, response);
+		    break;
+		    
+		case "/UserMyPage/withdrawalAgreement.my":
+		    // 탈퇴 동의/비번 확인 페이지 진입
+		    request.getRequestDispatcher("/app/userMyPage/withdrawalAgreement.jsp").forward(request, response);
+		    return;
+
+		case "/UserMyPage/withdrawOk.my":
+		    // 실제 탈퇴 처리
+		    result = new WithdrawOkController().execute(request, response);
+		    break;
 		
 		
 		
 		
 		}
-
+		if (result != null) {
+			if (result.isRedirect()) {
+				response.sendRedirect(result.getPath());
+			} else {
+				request.getRequestDispatcher(result.getPath()).forward(request, response);
+			}
+		}
 	}
 }
