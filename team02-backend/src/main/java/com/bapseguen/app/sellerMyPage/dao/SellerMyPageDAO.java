@@ -10,6 +10,7 @@ import com.bapseguen.app.dto.ItemDTO;
 import com.bapseguen.app.dto.ItemListDTO;
 import com.bapseguen.app.dto.OriginDTO;
 import com.bapseguen.app.dto.view.CommentListDTO;
+import com.bapseguen.app.dto.view.ItemInsertDTO;
 import com.bapseguen.app.dto.view.ItemWithImgDTO;
 import com.bapseguen.app.dto.view.MyPurchaseDTO;
 import com.bapseguen.app.dto.view.PostDetailDTO;
@@ -74,7 +75,7 @@ public class SellerMyPageDAO {
     }
     
 	// 음식 판매 등록
-    public int addFood(ItemWithImgDTO itemDTO) {
+    public int addFood(ItemInsertDTO itemDTO) {
     	System.out.println("[판페DAO] 음식판매등록 - addFood 메소드 실행 ");
     	System.out.println("itemDTO : "+itemDTO);
         sqlSession.insert("storeManage.addFood", itemDTO);

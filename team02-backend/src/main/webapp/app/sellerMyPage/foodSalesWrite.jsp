@@ -59,7 +59,7 @@
 				<label for="file" class="image-label">메뉴 사진 등록</label>
 
 				<div class="image-upload-wrap">
-					<input type="file" id="file" name="boardFile" />
+					<input name="boardFile" type="file" id="file" />
 <!-- 						accept=".jpg, .jpeg, .png" multiple /> -->
 					<div class="image-upload-box">
 						<div class="upload-text">
@@ -88,20 +88,20 @@
         </div>
         <div class="foodsaleswrite_box">
           <label for="foodsaleswrite_menu">메뉴명</label>
-          <input type="text" id="foodsaleswrite_munu">
+          <input name="itemName" type="text" id="foodsaleswrite_munu" >
           <!-- <button type="button">등록</button> -->
         </div>
         
         <div class="foodsaleswrite_box">
           <label for="foodsaleswrite_explain">음식 설명</label>
-          <textarea name="" id="foodsaleswrite_explain" maxlength="100" placeholder="100자 이내로 입력해주세요"></textarea>
+          <textarea name="itemContent" id="foodsaleswrite_explain" maxlength="100" placeholder="100자 이내로 입력해주세요"></textarea>
           <span id="foodsaleswrite_char_count">0/100</span>
           <!-- <button type="button">등록</button> -->
         </div>
         
         <div class="foodsaleswrite_expiry_container">
           <label for="foodsaleswrite_expiry">소비기한</label>
-          <input type="text" id="foodsaleswrite_expiry" placeholder="YYYY-MM-DD-MIN -SS">
+          <input name="itemExpireDate" type="date" id="foodsaleswrite_expiry" placeholder="YYYY-MM-DD-MIN -SS">
           <!-- <button type="button">등록</button> -->
         </div>
         
@@ -109,19 +109,34 @@
         
           <div class="foodsaleswrite_quantitiy_container">
             <label for="foodsaleswrite_quantity" class="foodsaleswrite_small_label">수량</label>
-            <input type="number" id="foodsaleswrite_quantity" min="0" placeholder="개수">
+            <input name="itemPrice" type="number" id="foodsaleswrite_quantity" min="0" placeholder="개수">
             <span id="foodsaleswrite_food_count">개</span>
             <!-- <button type="button">등록</button> -->
           </div>
           
           <div class="foodsaleswrite_price_container">
             <label for="foodsaleswrite_price" class="foodsaleswrite_small_label">가격</label>
-            <input type="number" id="foodsaleswrite_price" min="0" placeholder="원단위">
+            <input name="itemQuantity" type="number" id="foodsaleswrite_price" min="0" placeholder="원단위">
             <span>원</span>
             <!-- <button type="button">등록</button> -->
           </div>
           
         </div>
+		
+		<!-- 추가된 판매 상태 라디오 버튼 영역 -->
+		<div class="foodsaleswrite_box foodsaleswrite_sellstate_container">
+		  <label class="foodsaleswrite_small_label">판매상태</label>
+		  <div class="foodsaleswrite_sellstate_options">
+		    <label>
+		      <input type="radio" name="itemSellState" value="Y" checked> 판매중
+		    </label>
+		    <label>
+		      <input type="radio" name="itemSellState" value="N"> 판매중지
+		    </label>
+		  </div>
+		</div>
+		<!-- 끝 -->
+		
         <button class="foodsaleswrite_buzz" type="submit">등록</button>
     	</form> <!-- 1100px 영역 -->
     </div> <!-- 컨텐츠 -->

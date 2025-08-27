@@ -98,26 +98,6 @@
 					<!--  -->
 					<div class="store_info_food_menu">
 						<!-- 목록 내용 출력 예시 -->
-				     <%-- <div class="store_info_food_menu_list">
-              <img src="${pageContext.request.contextPath}/assets/img/store.jpg" alt="">
-              <div class="store_info_food_menu_info_stock">
-                <div class="store_info_btns">
-                  <div class="store_info_food_stock">N개 남음</div>
-                  <a href="${pageContext.request.contextPath}/sellerMyPage/editFood.se">
-                    <div class="store_info_food_edit_btn">수정</div>
-                  </a>
-                  <a href="${pageContext.request.contextPath}/sellerMyPage/detailFoodOk.se">
-                  <div class="store_info_food_view_btn">상세보기</div>
-                  </a>
-                </div>
-                 <div class="store_info_food_menu_info">
-                  <h3>[best]메뉴명</h3>
-                  <p>소비기한:2025년00월00일</p>
-                  <h3>0,000원</h3>
-                </div>
-              </div>
-            </div>				
-            <hr> --%>
 						<!--  -->
 						<div class="store_info_ingredient_menu">
     <c:choose>
@@ -130,12 +110,14 @@
                             <div class="store_info_ingredient_stock">
                                 <c:out value="${food.itemQuantity}"/> 개 남음
                             </div>
-                            <a href="${pageContext.request.contextPath}/sellerMyPage/editFood.se" data-food-itemNumber="${food.itemNumber}">
-                                <div class="store_info_ingredient_edit_btn"> 수정</div>
-                            </a>
-                            <a href="${pageContext.request.contextPath}/sellerMyPage/detailFood.se">
-                                <div class="store_info_ingredient_view_btn">상세보기</div>
-                            </a>
+                            <button href="${pageContext.request.contextPath}/sellerMyPage/editFood.se"
+                            class="store_info_ingredient_edit_btn"
+                            data-food-itemNumber="${food.itemNumber}">
+                            수정</button>
+                            <button href="${pageContext.request.contextPath}/sellerMyPage/detailFood.se
+                             class="store_info_ingredient_view_btn"
+                             data-food-itemNumbe="${food.itemNumber}">
+                                상세보기</button>
                         </div>
                         <div class="store_info_ingredient_menu_info">
                             <h3><c:out value="${food.itemName}"/></h3>

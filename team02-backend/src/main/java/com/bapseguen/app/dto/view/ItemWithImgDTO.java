@@ -1,5 +1,8 @@
 package com.bapseguen.app.dto.view;
 
+/**
+ * 
+ */
 public class ItemWithImgDTO {
 	// 상품 정보 itemDTO
 	private int itemNumber; // 상품 번호
@@ -13,7 +16,7 @@ public class ItemWithImgDTO {
 	private String itemExpireDate; // 소비기한
 	private String itemCreatedTime; // 상품 등록일
 	private String itemUpdatedTime; // 상품 수정일
-	private String itemSellState; // 판매 여부 "판매중(y)","보관중"(n),
+	private boolean itemSellState; // 판매 여부 "판매중(y)","보관중"(n),
 
     // 가게 정보
     private String storeName;
@@ -159,13 +162,11 @@ public class ItemWithImgDTO {
 		this.itemUpdatedTime = itemUpdatedTime;
 	}
 
-
-
-	public String getItemSellState() {
+	public boolean isItemSellState() {
 		return itemSellState;
 	}
 
-	public void setItemSellState(String itemSellState) {
+	public void setItemSellState(boolean itemSellState) {
 		this.itemSellState = itemSellState;
 	}
 
