@@ -53,7 +53,8 @@
 				<!-- 음식 정보 등록 -->
 
 				<div class="ingredientsaleswrite_box">
-					<label for="ingredientsaleswrite_menu">메뉴명</label> <input
+					<label for="ingredientsaleswrite_menu">메뉴명</label> 
+					<input
 						name="itemName" type="text" id="ingredientsaleswrite_munu"
 						required />
 				</div>
@@ -66,8 +67,9 @@
 				</div>
 
 				<div class="ingredientsaleswrite_expiry_container">
-					<label for="ingredientsaleswrite_expiry">소비기한</label> <input
-						name="itemExpireDate" type="text" id="ingredientsaleswrite_expiry"
+					<label for="ingredientsaleswrite_expiry">소비기한</label> 
+					<input
+						name="itemExpireDate" type="date" id="ingredientsaleswrite_expiry"
 						placeholder="YYYY-MM-DD-MIN -SS" required />
 				</div>
 
@@ -75,7 +77,8 @@
 
 					<div class="ingredientsaleswrite_quantitiy_container">
 						<label for="ingredientsaleswrite_quantity"
-							class="ingredientsaleswrite_small_label">수량</label> <input
+							class="ingredientsaleswrite_small_label">수량</label> 
+						<input
 							name="itemQuantity" type="number"
 							id="ingredientsaleswrite_quantity" min="0" placeholder="개수"
 							required /> <span id="ingredientsaleswrite_food_count">개</span>
@@ -83,14 +86,15 @@
 
 					<div class="ingredientsaleswrite_price_container">
 						<label for="ingredientsaleswrite_price"
-							class="ingredientsaleswrite_small_label">가격</label> <input
+							class="ingredientsaleswrite_small_label">가격</label> 
+						<input
 							name="itemPrice" type="number" id="ingredientsaleswrite_price"
 							min="0" placeholder="원단위" required /> <span>원</span>
 						<!-- <button type="button">등록</button> -->
 					</div>
 					
 				</div>
-				<button class="ingredientsaleswrite_buzz" type="submmit">등록</button>
+				<button class="ingredientsaleswrite_buzz" type="submit">등록</button>
 		</div>
 		<!-- 컨텐츠 -->
 		</form>
