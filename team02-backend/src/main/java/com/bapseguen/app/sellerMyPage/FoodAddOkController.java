@@ -92,7 +92,8 @@ public class FoodAddOkController implements Execute {
         itemWithImgDTO.setItemName(multipartRequest.getParameter("itemName"));
         itemWithImgDTO.setItemPrice(multipartRequest.getParameter("itemPrice"));
         itemWithImgDTO.setItemContent(multipartRequest.getParameter("itemContent"));
-        itemWithImgDTO.setItemQuantity(Integer.parseInt(multipartRequest.getParameter("itemQuantity")));
+//        int quantity= Integer.parseInt(multipartRequest.getParameter("itemQuantity"));
+//        itemWithImgDTO.setItemQuantity(quantity);
         itemWithImgDTO.setItemOrigin(multipartRequest.getParameter("itemOrigin"));
         itemWithImgDTO.setItemExpireDate(multipartRequest.getParameter("itemExpireDate"));
         itemWithImgDTO.setItemCreatedTime("sysdate");
@@ -100,6 +101,19 @@ public class FoodAddOkController implements Execute {
         String sellStateStr = multipartRequest.getParameter("itemSellState"); // String boolean, 
         itemWithImgDTO.setItemSellState(sellStateStr.equals("Y") ? true : false );
         
+        	// 수량 정보 설정
+	     // 파라미터 값 가져오기
+	        String quantityStr = multipartRequest.getParameter("itemQuantity");
+	        System.out.println("변환 전 타입 : " + quantityStr.getClass().getName()); // String 타입 확인용
+	        System.out.println("변환 전 값 : " + quantityStr);
+	
+	        // String → int 형변환
+	        int quantity = Integer.parseInt(quantityStr);
+	        System.out.println("변환 후 타입 : " + ((Object)quantity).getClass().getName()); // int는 원시타입이라 Boxing 필요
+	        System.out.println("변환 후 값 : " + quantity);
+	
+	        itemWithImgDTO.setItemQuantity(quantity);
+	        
 		// 게시글 추가
         int itemNumber = sellerDAO.addFood(itemWithImgDTO); // 음식 정보 등록 + 등록한 아이템 번호 가져오기
         sellerDAO.addItemImage(itemWithImgDTO); // 음식 사진 등록
