@@ -66,12 +66,14 @@
 		o.ORDER_ID,
 		o.ORDERS_MEMBER_NUMBER,
 		o.ORDERS_PAYMENT_INFO,
-		TO_CHAR(o.ORDERS_DATE, 'YYYY-MM-DD HH24:MI:SS') AS ORDERS_DATE_STR,
+		TO_CHAR(o.ORDERS_DATE, 'YYYY-MM-DD HH24:MI:SS')
+		AS ORDERS_DATE_STR,
 		o.ORDERS_TOTAL_AMOUNT,
 		o.ORDERS_PAYMENT_STATUS,
 		o.BUSINESS_NUMBER
 		FROM TBL_ORDERS o
-		WHERE o.ORDERS_NUMBER = #{ordersNumber}
+		WHERE o.ORDERS_NUMBER =
+		#{ordersNumber}
 	</select>
 
 	<!-- 특정 회원의 주문 목록 (최신순) -->
@@ -82,12 +84,14 @@
 		o.ORDER_ID,
 		o.ORDERS_MEMBER_NUMBER,
 		o.ORDERS_PAYMENT_INFO,
-		TO_CHAR(o.ORDERS_DATE, 'YYYY-MM-DD HH24:MI:SS') AS ORDERS_DATE_STR,
+		TO_CHAR(o.ORDERS_DATE, 'YYYY-MM-DD HH24:MI:SS')
+		AS ORDERS_DATE_STR,
 		o.ORDERS_TOTAL_AMOUNT,
 		o.ORDERS_PAYMENT_STATUS,
 		o.BUSINESS_NUMBER
 		FROM TBL_ORDERS o
-		WHERE o.ORDERS_MEMBER_NUMBER = #{memberNumber}
+		WHERE o.ORDERS_MEMBER_NUMBER =
+		#{memberNumber}
 		ORDER BY o.ORDERS_DATE DESC
 	</select>
 
@@ -95,14 +99,17 @@
 	<update id="updateOrderStatus" parameterType="OrdersDTO">
 		UPDATE TBL_ORDERS
 		SET ORDERS_PAYMENT_STATUS = #{ordersPaymentStatus}
-		WHERE ORDERS_NUMBER = #{ordersNumber}
+		WHERE ORDERS_NUMBER
+		= #{ordersNumber}
 	</update>
 
 	<!-- 결제 정보(JSON 등) 업데이트 -->
 	<update id="updateOrderPaymentInfo" parameterType="map">
-		UPDATE TBL_ORDERS
+		UPDATE
+		TBL_ORDERS
 		SET ORDERS_PAYMENT_INFO = #{paymentInfo}
-		WHERE ORDERS_NUMBER = #{orderNumber}
+		WHERE ORDERS_NUMBER
+		= #{orderNumber}
 	</update>
 
 	<!-- 주문 삭제 -->
@@ -119,7 +126,8 @@
 		o.ORDER_ID,
 		o.ORDERS_MEMBER_NUMBER,
 		o.ORDERS_PAYMENT_INFO,
-		TO_CHAR(o.ORDERS_DATE, 'YYYY-MM-DD HH24:MI:SS') AS ORDERS_DATE_STR,
+		TO_CHAR(o.ORDERS_DATE, 'YYYY-MM-DD HH24:MI:SS')
+		AS ORDERS_DATE_STR,
 		o.ORDERS_TOTAL_AMOUNT,
 		o.ORDERS_PAYMENT_STATUS,
 		o.BUSINESS_NUMBER
@@ -160,8 +168,43 @@
 		oi.UNIT_PRICE,
 		oi.QUANTITY
 		FROM TBL_ORDER_ITEM oi
-		WHERE oi.ORDER_NUMBER = #{orderNumber}
+		WHERE oi.ORDER_NUMBER =
+		#{orderNumber}
 		ORDER BY oi.ORDER_ITEM_NUMBER
 	</select>
+
+	<!-- 특정 회원의 가장 최근 READY 주문 조회 -->
+	<select id="selectLatestReadyByMember" parameterType="int"
+		resultMap="OrdersResultMap">
+		SELECT *
+		FROM (
+		SELECT
+		o.ORDERS_NUMBER,
+		o.ORDER_ID,
+		o.ORDERS_MEMBER_NUMBER,
+		o.ORDERS_PAYMENT_INFO,
+		TO_CHAR(o.ORDERS_DATE,
+		'YYYY-MM-DD HH24:MI:SS') AS ORDERS_DATE_STR,
+		o.ORDERS_TOTAL_AMOUNT,
+		o.ORDERS_PAYMENT_STATUS,
+		o.BUSINESS_NUMBER
+		FROM TBL_ORDERS o
+		WHERE
+		o.ORDERS_MEMBER_NUMBER = #{memberNumber}
+		AND o.ORDERS_PAYMENT_STATUS =
+		'READY'
+		ORDER BY o.ORDERS_DATE DESC
+		)
+		WHERE ROWNUM = 1
+	</select>
+
+	<!-- 결제 성공했으면 주문상태 변경해주기 -->
+	<update id="updatePaidByOrderId" parameterType="map">
+		UPDATE TBL_ORDERS
+		SET ORDERS_PAYMENT_STATUS = 'PAID',
+		ORDERS_TOTAL_AMOUNT = #{amount},
+		ORDERS_DATE = SYSDATE
+		WHERE ORDER_ID = #{orderId}
+	</update>
 
 </mapper>
