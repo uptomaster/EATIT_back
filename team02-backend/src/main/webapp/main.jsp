@@ -269,16 +269,18 @@
 						</div>
 
 						<div class="main_recipe_list" role="rowgroup">
-							<div class="main_recipe_col_tag" role="columnheader">한식</div>
-							<div class="main_recipe_col_title" role="columnheader">
-								<a
-									href="${pageContext.request.contextPath}/community/recipeList.co">김치찌개
-									황금레시피 공개</a>
-							</div>
-							<div class="main_recipe_col_date" role="columnheader">25-03-10</div>
-							<div class="main_recipe_col_views" role="columnheader">230</div>
+							<c:forEach var="recipe" items="${recipeList}">
+								<div class="main_recipe_col_tag" role="columnheader"><c:out value="${main }" /></div>
+								<div class="main_recipe_col_title" role="columnheader">
+									<a
+										href="${pageContext.request.contextPath}/community/recipeList.co">김치찌개
+										황금레시피 공개</a>
+								</div>
+								<div class="main_recipe_col_date" role="columnheader">25-03-10</div>
+								<div class="main_recipe_col_views" role="columnheader">230</div>
+							</c:forEach>
 						</div>
-						<div class="main_recipe_list" role="rowgroup">
+						<%-- <div class="main_recipe_list" role="rowgroup">
 							<div class="main_recipe_col_tag" role="columnheader">양식</div>
 							<div class="main_recipe_col_title" role="columnheader">
 								<a
@@ -307,7 +309,7 @@
 							</div>
 							<div class="main_recipe_col_date" role="columnheader">25-07-15</div>
 							<div class="main_recipe_col_views" role="columnheader">95</div>
-						</div>
+						</div> --%>
 					</div>
 
 				</div>

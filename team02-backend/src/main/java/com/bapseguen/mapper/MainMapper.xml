@@ -30,7 +30,6 @@
 		SELECT
 		i.ITEM_NUMBER AS itemNumber,
 		i.BUSINESS_NUMBER AS businessNumber,
-		s.STORE_NAME AS businessName,
 		i.ITEM_TYPE AS itemType,
 		i.ITEM_NAME AS itemName,
 		i.ITEM_PRICE AS itemPrice,
@@ -53,10 +52,19 @@
 		AND i.ITEM_TYPE = #{itemType}
 		<!-- 판매 중인 것만 가져옴 -->
 		AND i.ITEM_SELL_STATE = 'Y'
+		<!-- 최신순 정렬 -->
 		ORDER BY i.ITEM_NUMBER DESC
 		<if test="offset != null and limit != null">
 			OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
 		</if>
 	</select>
-
+	
+	<!-- 레시피게시판 목록 조희 -->
+	<select id="recipeList" resultType="PostDTO">
+		SELECT POST_TITLE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_TYPE
+		FROM TBL_POST
+		WHERE POST_TYPE = 'RECIPE'
+		ORDER BY POST_CREATED_DATE DESC
+	</select>
+	
 </mapper>

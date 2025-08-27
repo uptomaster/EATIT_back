@@ -13,6 +13,7 @@ import com.bapseguen.app.Result;
 import com.bapseguen.app.dto.view.ItemWithImgDTO;
 import com.bapseguen.app.dto.view.MainStoreListDTO;
 import com.bapseguen.app.dto.view.MemberListDTO;
+import com.bapseguen.app.dto.view.PostDetailDTO;
 import com.bapseguen.app.main.dao.MainDAO;
 
 public class MainListController {
@@ -45,16 +46,24 @@ public class MainListController {
         Map<String, Object> pageMap = new HashMap<>();
         pageMap.put("offset", offset);
         pageMap.put("limit", pageSize);
-
+        
+        // 가게 목록 출력
         List<MainStoreListDTO> storeList = mainDAO.selectMainStoreList(pageMap);
         request.setAttribute("storeList", storeList);
         request.setAttribute("currentPage", page);
         System.out.println("가게 목록 : " + storeList);
         
+        // 재료 목록 출력
         List<ItemWithImgDTO> ingredientList = mainDAO.selectIngredientList(pageMap);
         request.setAttribute("ingredientList", ingredientList);
-        request.setAttribute("currentPage", page);
-        System.out.println("가게 목록 : " + ingredientList);
+        request.setAttribute("currentPage", pageSize);
+        System.out.println("재료 목록 : " + ingredientList);
+        
+        // 레시피 목록 출력
+        List<PostDetailDTO> recipeList = mainDAO.selectRecipeList(pageMap);
+        request.setAttribute("recipeList", recipeList);
+        request.setAttribute("currentPage", 10);
+        System.out.println("레시피 목록 : " + recipeList);
        
         result.setPath("/main.jsp");
         result.setRedirect(false);

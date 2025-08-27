@@ -64,7 +64,7 @@ public class MainFrontController extends HttpServlet {
 		switch (target) {
 		// 메인 목록 조회
 		case "/main.ma":
-			System.out.println("목록 페이지 처리 요청");
+			System.out.println("메인 각 리스트 페이지 처리 요청");
 			result = new MainListController().execute(request, response);
 			break;
 

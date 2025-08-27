@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.bapseguen.app.dto.view.ItemWithImgDTO;
 import com.bapseguen.app.dto.view.MainStoreListDTO;
-import com.bapseguen.app.dto.view.MemberListDTO;
+import com.bapseguen.app.dto.view.PostDetailDTO;
 import com.bapseguen.config.MyBatisConfig;
 
 public class MainDAO {
@@ -25,6 +25,10 @@ public class MainDAO {
 	// 메인 재료 리스트
 	public List<ItemWithImgDTO> selectIngredientList(Map<String, Object> pageMap) {
 		return sqlSession.selectList("main.ingredientList", pageMap);
+	}
+	
+	public List<PostDetailDTO> selectRecipeList(Map<String, Object> pageMap){
+		return sqlSession.selectList("main.recipeList", pageMap);
 	}
 
 }
