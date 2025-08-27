@@ -10,11 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
-import com.bapseguen.app.dto.ItemDTO;
 import com.bapseguen.app.dto.ItemImageDTO;
-import com.bapseguen.app.dto.view.ItemWithImgDTO;
+import com.bapseguen.app.dto.view.ItemInsertDTO;
 import com.bapseguen.app.img.dao.ItemImageDAO;
-import com.bapseguen.app.item.dao.ItemDAO;
 import com.bapseguen.app.sellerMyPage.dao.SellerMyPageDAO;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -30,7 +28,7 @@ public class FoodAddOkController implements Execute {
 		ItemImageDAO ItemImageDAO = new ItemImageDAO();
 		ItemImageDTO ItemImageDTO = new ItemImageDTO();
 		// 메뉴 정보 관련
-		ItemWithImgDTO itemWithImgDTO = new ItemWithImgDTO();
+		ItemInsertDTO itemInsertDTO = new ItemInsertDTO();
 		SellerMyPageDAO sellerDAO = new SellerMyPageDAO();
 		
 		
@@ -87,37 +85,22 @@ public class FoodAddOkController implements Execute {
 		
 		//
 		// 게시글 정보 설정
-		itemWithImgDTO.setBusinessNumber(multipartRequest.getParameter("businessNumber"));
-		itemWithImgDTO.setItemType(multipartRequest.getParameter("itemType"));
-        itemWithImgDTO.setItemName(multipartRequest.getParameter("itemName"));
-        itemWithImgDTO.setItemPrice(multipartRequest.getParameter("itemPrice"));
-        itemWithImgDTO.setItemContent(multipartRequest.getParameter("itemContent"));
-//        int quantity= Integer.parseInt(multipartRequest.getParameter("itemQuantity"));
-//        itemWithImgDTO.setItemQuantity(quantity);
-        itemWithImgDTO.setItemOrigin(multipartRequest.getParameter("itemOrigin"));
-        itemWithImgDTO.setItemExpireDate(multipartRequest.getParameter("itemExpireDate"));
-        itemWithImgDTO.setItemCreatedTime("sysdate");
-        itemWithImgDTO.setItemUpdatedTime("sysdate");
-        String sellStateStr = multipartRequest.getParameter("itemSellState"); // String boolean, 
-        itemWithImgDTO.setItemSellState(sellStateStr.equals("Y") ? true : false );
+		itemInsertDTO.setBusinessNumber(multipartRequest.getParameter("businessNumber")); // String
+		itemInsertDTO.setItemType(multipartRequest.getParameter("itemType")); //String
+		itemInsertDTO.setItemName(multipartRequest.getParameter("itemName")); //String
+        int price = Integer.parseInt((multipartRequest.getParameter("itemPrice")).trim());
+        itemInsertDTO.setItemPrice(price); //int
+//        itemInsertDTO.setItemContent(multipartRequest.getParameter("itemContent")); //String
+		int quantity = Integer.parseInt(multipartRequest.getParameter("itemQuantity")); //int
+		itemInsertDTO.setItemQuantity(quantity);
+		itemInsertDTO.setItemOrigin(multipartRequest.getParameter("itemOrigin")); //String
+		itemInsertDTO.setItemExpireDate(multipartRequest.getParameter("itemExpireDate")); //String
+        String sellStateStr = multipartRequest.getParameter("itemSellState"); // String 
+        itemInsertDTO.setItemSellState(multipartRequest.getParameter("itemSellState"));
         
-        	// 수량 정보 설정
-	     // 파라미터 값 가져오기
-	        String quantityStr = multipartRequest.getParameter("itemQuantity");
-	        System.out.println("변환 전 타입 : " + quantityStr.getClass().getName()); // String 타입 확인용
-	        System.out.println("변환 전 값 : " + quantityStr);
-	
-	        // String → int 형변환
-	        int quantity = Integer.parseInt(quantityStr);
-	        System.out.println("변환 후 타입 : " + ((Object)quantity).getClass().getName()); // int는 원시타입이라 Boxing 필요
-	        System.out.println("변환 후 값 : " + quantity);
-	
-	        itemWithImgDTO.setItemQuantity(quantity);
-	        
 		// 게시글 추가
-        int itemNumber = sellerDAO.addFood(itemWithImgDTO); // 음식 정보 등록 + 등록한 아이템 번호 가져오기
-        sellerDAO.addItemImage(itemWithImgDTO); // 음식 사진 등록
-		System.out.println("생성된 게시글 번호 : " + itemNumber);
+//        int itemNumber = sellerDAO.addFood(itemInsertDTO); // 음식 정보 등록 + 등록한 아이템 번호 가져오기
+//		System.out.println("생성된 게시글 번호 : " + itemNumber);
 		
 		
 		
@@ -136,7 +119,7 @@ public class FoodAddOkController implements Execute {
 
 			ItemImageDTO.setItemImageSystemName(fileSystemName);
 			ItemImageDTO.setItemImageOriginalName(fileOriginalName);
-			ItemImageDTO.setItemImageNumber(itemNumber);
+//			ItemImageDTO.setItemImageNumber(itemNumber);
 
 			System.out.println("업로드 된 파일 정보 : " + ItemImageDTO);
 			ItemImageDAO.insert(ItemImageDTO);

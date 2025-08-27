@@ -135,29 +135,29 @@ public class SellerMyPageFrontController extends HttpServlet {
 			System.out.println("[판페f] 내 게시글 관리 페이지 요청");
 			result = new SellerMyPostController().execute(request, response);
 			break;
-//		case "/sellerMyPage/myComments.se":
-//			System.out.println("[판페f] 내 댓글 관리 페이지 요청");
-//			result = new SellerMyCommentController().execute(request, response);
-//			break;
-//		case "/sellerMyPage/myReviews.se":
-//			System.out.println("[판페f] 내 리뷰 관리 페이지 요청");
-//			result = new SellerMyReviewController().execute(request, response);
-//			break;
-//		case "/sellerMyPage/myReviews.se":
-//			System.out.println("[판페f] 내 리뷰 관리 페이지 요청");
-//			result = new SellerMyReviewController().execute(request, response);
-//			break;
-//		case "/sellerMyPage/myReviews.se":
-//			System.out.println("[판페f] 내 리뷰 관리 페이지 요청");
-//			result = new SellerMyReviewController().execute(request, response);
-//			break;
-//		case "/sellerMyPage/myReviews.se":
-//			System.out.println("[판페f] 내 리뷰 관리 페이지 요청");
-//			result = new SellerMyReviewController().execute(request, response);
-//			break;
-//		case "/sellerMyPage/myReviews.se":
-//			System.out.println("[판페f] 내 리뷰 관리 페이지 요청");
-//			result = new SellerMyReviewController().execute(request, response);
+		case "/sellerMyPage/myComments.se":
+			System.out.println("[판페f] 내 댓글 관리 페이지 요청");
+			result = new SellerMyCommentController().execute(request, response);
+			break;
+		case "/sellerMyPage/myReviews.se":
+			System.out.println("[판페f] 내 리뷰 관리 페이지 요청");
+			result = new SellerMyReviewController().execute(request, response);
+			break;
+		case "/sellerMyPage/myFoodPurchase.se":
+			System.out.println("[판페f] 내 음식 구매목록 페이지 요청");
+			result = new SellerfoodPurchaseController().execute(request, response);
+			break;
+		case "/sellerMyPage/myIngrePurchase.se":
+			System.out.println("[판페f] 내 재료 구매목록 페이지 요청");
+			result = new SellerIngrePurchaseController().execute(request, response);
+			break;
+		case "/sellerMyPage/mySaleHistory.se":
+			System.out.println("[판페f] 판매목록 페이지 요청");
+			result = new SellerSaledController().execute(request, response);
+			break;
+		case "/sellerMyPage/my.se":
+			System.out.println("[판페f] 내 오늘 판매목록 페이지 요청");
+			result = new SellerMyReviewController().execute(request, response);
 //			break;
 		/********************************************************************/
 		case "/sellerMyPage/editSellerInfo.se":

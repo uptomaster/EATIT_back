@@ -63,8 +63,8 @@ public class FoodDetailOkController implements Execute {
 		
 		
 		request.setAttribute("item", ItemListDTO);
-		result.setPath("/sellerMyPage/detailFoodOk.se");
-		result.setRedirect(false);		
+		result.setPath("app/sellerMyPage/foodSalesView.jsp");
+		result.setRedirect(false);
 		
 		return result;
     }

@@ -42,8 +42,9 @@
       </ul>
     </div>
 
-    <div class="seller_myreviews_page">
+        <div class="seller_myreviews_page">
       <h2 class="seller_myreviews_list">내 리뷰 목록</h2>
+
       <div>
         <div class="seller_myreviews_top">
           <div class="seller_myreviews_restaurant_name">가게명</div>
@@ -53,29 +54,70 @@
           <div class="seller_myreviews_date">작성 일자</div>
           <div class="seller_myreviews_grade">평점</div>
         </div>
+
         <c:choose>
-        <c:when test="${not empty myReviewList }">
-        <c:forEach var="review" items="${myReviewList }">
-	        <div class="seller_myreviews_comments_list">
-	          <div class="seller_myreviews_restaurant_name" >
-	          <c:out value="${review.getStoreName()}"/></div>
-	          <div class="seller_myreviews_meal_name"><c:out value="${review.getItemName()}"/></div>
-	          <div class="seller_myreviews_quantity"><c:out value="${review.getOrderItemQuantity() }"/></div>
-	          <div class="seller_myreviews_price"><c:out value="${review.getOrdersTotalAmount() }"/>원</div>
-	          <div class="seller_myreviews_date"><c:out value="${review.getReviewCreateDate() }"/></div>
-	          <div class="seller_myreviews_grade"><c:out value="${review.getReviewRating() }"/></div>
-	        </div>
-        </c:forEach>
-        </c:when>
+          <c:when test="${not empty myReviewList}">
+            <c:forEach var="review" items="${myReviewList}">
+              <div class="seller_myreviews_comments_list">
+                <div class="seller_myreviews_restaurant_name">
+                  <c:out value="${review.storeName}" />
+                </div>
+                <div class="seller_myreviews_meal_name">
+                  <c:out value="${review.itemName}" />
+                </div>
+                <div class="seller_myreviews_quantity">
+                  <fmt:formatNumber value="${review.orderItemQuantity}" />
+                </div>
+                <div class="seller_myreviews_price">
+                  <fmt:formatNumber value="${review.ordersTotalAmount}" pattern="#,###" />원
+                </div>
+                <div class="seller_myreviews_date">
+                  <c:out value="${review.reviewCreateDate}" />
+                </div>
+                <div class="seller_myreviews_grade">
+                  <c:out value="${review.reviewRating}" />
+                </div>
+              </div>
+            </c:forEach>
+          </c:when>
+          <c:otherwise>
+            <div class="seller_myreviews_empty">작성한 리뷰가 없습니다.</div>
+          </c:otherwise>
         </c:choose>
       </div>
-      <div class="seller_myreviews_pagination">
-        <a href="#" class="seller_myreviews_page_active">1</a>
-        <a href="#" class="seller_myreviews_page">2</a>
-        <a href="#" class="seller_myreviews_page">3</a>
-        <a href="#" class="seller_myreviews_page">4</a>
-        <a href="#" class="seller_myreviews_page">5</a>
+
+      <!-- 페이지네이션 자리 (요청하신 블록: 변경 없이 그대로 삽입) -->
+      <div class="seller_store_info_pagination">
+        <ul class="seller_store_info_pagination_ul">
+          <c:if test="${prev}">
+            <li><a
+              href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?page=${startPage - 1}"
+              class="prev">&lt;</a></li>
+          </c:if>
+          <c:set var="realStartPage"
+            value="${startPage < 0 ? 0 : startPage}" />
+          <c:forEach var="i" begin="${realStartPage}" end="${endPage}">
+            <c:choose>
+              <c:when test="${!(i == page) }">
+                <li><a class="pagination_item"
+                  href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?page=${i}">
+                    <c:out value="${i}" />
+                </a></li>
+              </c:when>
+              <c:otherwise>
+                <li><a href="#" class="active"> <c:out value="${i}" />
+                </a></li>
+              </c:otherwise>
+            </c:choose>
+          </c:forEach>
+          <c:if test="${next}">
+            <li><a
+              href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?page=${endPage + 1}"
+              class="next">&gt;</a>
+          </c:if>
+        </ul>
       </div>
+      <!-- 페이지네이션 끝 -->
     </div>
   </main>
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
