@@ -45,7 +45,7 @@
 		<div id="main_banner">
 			<div class="main_banner_middle">
 				<c:choose>
-					<c:when test="${empty storeList}">
+					<c:when test="${empty bannerList}">
 						<p style="color: #888">표시할 상품이 없습니다.</p>
 					</c:when>
 					<c:otherwise>
@@ -81,29 +81,41 @@
 						<a href="#"><img src="./assets/img/main_banner_prev.png"
 							alt=""></a>
 					</div>
-					<c:choose>
-						<c:when test="${not empty storeList}">
-							<c:forEach var="store" items="${storeList}">
-								<article class="main_food_buy_article">
-									<div class="main_store_info">
-										<a
-											href="${pageContext.request.contextPath}/orders/storeDetail.or">
-											<!-- 상품이미지(임시) --> <img src="./assets/img/bibim.jpg"
-											alt="상품이미지 설명 추가하기"> <!-- 가게정보 -->
-											<p class="main_store_name">${store.storeName}</p>
-											<p class="main_menu_name">${store.itemName}</p>
-											<p class="main_open_time">영업시간 : 
-												${store.storeOpenTime}~${store.storeCloseTime}</p>
-											<p class="main_price">${store.itemPrice}원</p>
-										</a>
-									</div>
-								</article>
-							</c:forEach>
-						</c:when>
-						<c:otherwise>
-							<p style="color: #888">표시할 상품이 없습니다.</p>
-						</c:otherwise>
-					</c:choose>
+					<!-- 가게정보 -->
+					<!-- 상품이미지(임시) -->
+						<div class="main_food_buy_article">
+					<a href="${pageContext.request.contextPath}/orders/storeDetail.or">
+							<c:choose>
+								<c:when test="${not empty storeList }">
+									<c:forEach var="store" items="${storeList}">
+										<img
+											src="${pageContext.request.contextPath}/assets/img/${store.itemImageSystemName}"
+											alt="${store.storeName} 이미지">
+										<div class="main_store_info">
+											<div class="main_store_name">
+												<c:out value="${store.storeName}" />
+											</div>
+											<div class="main_menu_name">
+												<c:out value="${store.storeName}" />
+											</div>
+											<div class="main_open_time">
+												영업시간 :
+												<c:out value="${store.storeOpenTime}" />
+												~
+												<c:out value="${store.storeCloseTime}" />
+											</div>
+											<div class="main_price">
+												<c:out value="${store.itemPrice}원" />
+											</div>
+										</div>
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<p style="color: #888">표시할 상품이 없습니다.</p>
+								</c:otherwise>
+							</c:choose>
+					</a>
+						</div>
 
 					<!-- 화살표 이동버튼 -->
 					<div class="main_content_next">
@@ -119,6 +131,7 @@
 			</div>
 
 			<!-- 메인 컨텐츠 > 재료판매, 레시피공유 영역 -->
+			<!-- 재료사진 -->
 			<div id="main_content_buy_ingr">
 				<div class="main_ingredient_buy">
 					<h3>재료 구매🥕</h3>
@@ -126,9 +139,8 @@
 						href="${pageContext.request.contextPath}/orders/ingredientList.or">더보기
 						></a>
 					<div class="main_ingredient_store">
-						<!-- 재료사진 -->
 						<c:choose>
-							<c:when test="${empty storeList}">
+							<c:when test="${empty ingredientList}">
 								<p style="color: #888">표시할 상품이 없습니다.</p>
 							</c:when>
 							<c:otherwise>
