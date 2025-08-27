@@ -100,5 +100,10 @@ public class CartListDAO {
 	public List<CartItemDTO> selectCartItems(int cartNumber) {
 		return sqlSession.selectList("cartList.selectCartItems", cartNumber);
 	}
+	
+    // 회원 장바구니 총 금액
+    public int sumAmountByMember(int memberNumber) {
+        return sqlSession.selectOne("cartList.sumAmountByMember", memberNumber);
+    }
 
 }
