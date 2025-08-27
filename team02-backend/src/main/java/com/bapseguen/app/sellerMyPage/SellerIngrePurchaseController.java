@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
-import com.bapseguen.app.dto.view.PostDetailDTO;
+import com.bapseguen.app.dto.view.MyPurchaseDTO;
 import com.bapseguen.app.sellerMyPage.dao.SellerMyPageDAO;
 
 public class SellerIngrePurchaseController implements Execute{
@@ -45,8 +45,8 @@ public class SellerIngrePurchaseController implements Execute{
 		pageMap.put("memberNumber", memberNumber);
 		
 		// 게시글 목록 조회
-		List<PostDetailDTO> myPostList = sellerDAO.selectAllmyPost(pageMap);
-		request.setAttribute("myPostList", myPostList);
+		List<MyPurchaseDTO> list = sellerDAO.selectAllmyPost(pageMap);
+		request.setAttribute("mypurchase", list);
 
 		// 페이징 정보 설정
 		// BoardMapper.xml의 getTotal을 이용하여 전체 게시글 개수 조회
@@ -72,7 +72,7 @@ public class SellerIngrePurchaseController implements Execute{
 
 		System.out.println("====페이징정보 확인====");
 		System.out.println("pageMap : " + pageMap);
-		System.out.println("boardList : " + myPostList);
+		System.out.println("boardList : " + list);
 		System.out.println("startPage : " + startPage + ", endPage : " + endPage + ", prev : " + prev + ", next : " + next);
 		System.out.println("====================");
 
