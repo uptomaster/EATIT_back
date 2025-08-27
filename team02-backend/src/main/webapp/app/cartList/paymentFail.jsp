@@ -19,7 +19,7 @@
   <title>밥세권 - 결제 실패</title>
 </head>
 <body>
-  <header id="header"></header>
+  <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
 
   <!-- 결제 실패 페이지 -->
   <div id="payment_fail">
