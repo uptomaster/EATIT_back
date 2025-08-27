@@ -50,7 +50,7 @@ public class WithdrawOkController implements Execute {
         if (session != null) session.invalidate();
 
         result.setRedirect(true);
-        result.setPath(request.getContextPath() + "/?withdraw=1");
+        result.setPath(request.getContextPath() + "/app/userMyPage/userGoodBye.jsp?withdraw=1");
         return result;
     }
 }
