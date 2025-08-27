@@ -1,34 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=, initial-scale=1.0">
-  <link rel="shortcut icon" href="./../../assets/img/favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="./../../assets/css/userMyPage/writeReview.css">
-  <link rel="stylesheet" href="./../../assets/css/header.css">
-  <link rel="stylesheet" href="./../../assets/css/footer.css">
-  <script defer src="./../../assets/js/userMyPage/writeReview.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/userMyPage/writeReview.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
+  <script defer src="${pageContext.request.contextPath}/assets/js/userMyPage/writeReview.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
+  <title>밥세권</title>
   <script>
     let headerPath = '../../header.jsp';
     let footerPath = '../../footer.jsp';
   </script>
-  <script defer src="../../assets/js/header.js"></script>
-  <title>밥세권</title>
 </head>
-
 <body>
-  <header id="header"></header>
+  <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
   <main>
     <div class="writereview_my_page_list">
       <ul class="writereview_my_page">마이 페이지</ul>
-      <li><a href="./../userMyPage/editUserInfo.html">내 정보 수정</a></li>
-      <li><a href="./../userMyPage/foodPurchaseList.html">음식 구매 내역</a></li>
-      <li><a href="./../userMyPage/ingredientPurchaseList.html">재료 구매 내역</a></li>
-      <li><a href="./../userMyPage/manageMyPostsList.html">내 글 관리</a></li>
-      <li><a href="./../userMyPage/manageMyCommentsList.html">내 댓글 관리</a></li>
-      <li class=><a href="./../userMyPage/manageMyReviewsList.html">내 리뷰 관리</a></li>
+      <li><a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.jsp">내 정보 수정</a></li>
+      <li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseList.jsp">음식 구매 내역</a></li>
+      <li><a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseList.jsp">재료 구매 내역</a></li>
+      <li><a href="${pageContext.request.contextPath}/userMyPage/manageMyPostsList.jsp">내 글 관리</a></li>
+      <li><a href="${pageContext.request.contextPath}/userMyPage/manageMyCommentsList.jsp">내 댓글 관리</a></li>
+      <li class=><a href="${pageContext.request.contextPath}/userMyPage/manageMyReviewsList.jsp">내 리뷰 관리</a></li>
     </div>
     <div class="writereview_page">
       <h2 class="writereview_list">리뷰 작성</h2>
@@ -52,19 +52,19 @@
         <div class="writereview_set_rank">
           <div>별점주기</div>
           <button class="writereview_counting_Star_button">
-            <img class="writereview_counting_Star" src="./../../assets/img/gray_shake_it_ya.png" alt="별점">
+            <img class="writereview_counting_Star" src="${pageContext.request.contextPath}/assets/img/gray_shake_it_ya.png" alt="별점">
           </button>
           <button class="writereview_counting_Star_button">
-            <img class="writereview_counting_Star" src="./../../assets/img/gray_shake_it_ya.png" alt="별점">
+            <img class="writereview_counting_Star" src="${pageContext.request.contextPath}/assets/img/gray_shake_it_ya.png" alt="별점">
           </button>
           <button class="writereview_counting_Star_button">
-            <img class="writereview_counting_Star" src="./../../assets/img/gray_shake_it_ya.png" alt="별점">
+            <img class="writereview_counting_Star" src="${pageContext.request.contextPath}/assets/img/gray_shake_it_ya.png" alt="별점">
           </button>
           <button class="writereview_counting_Star_button">
-            <img class="writereview_counting_Star" src="./../../assets/img/gray_shake_it_ya.png" alt="별점">
+            <img class="writereview_counting_Star" src="${pageContext.request.contextPath}/assets/img/gray_shake_it_ya.png" alt="별점">
           </button>
           <button class="writereview_counting_Star_button">
-            <img class="writereview_counting_Star" src="./../../assets/img/gray_shake_it_ya.png" alt="별점">
+            <img class="writereview_counting_Star" src="${pageContext.request.contextPath}/assets/img/gray_shake_it_ya.png" alt="별점">
           </button>
         </div>
         <form action="">
@@ -88,7 +88,7 @@
       </div>
     </div>
   </main>
-  <footer id="footer"></footer>
+  <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </body>
 
 </html>

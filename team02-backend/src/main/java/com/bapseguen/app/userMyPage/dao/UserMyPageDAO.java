@@ -22,7 +22,7 @@ public class UserMyPageDAO {
         sqlSession = MyBatisConfig.getSqlSessionFactory().openSession(true);
     }
 	
-	 // (신규) 비밀번호 확인
+	// 비밀번호 확인
     public boolean checkPassword(int memberNumber, String memberPassword) {
         Map<String, Object> map = new HashMap<>();
         map.put("memberNumber", memberNumber);
@@ -36,55 +36,22 @@ public class UserMyPageDAO {
 		return sqlSession.selectOne("myPage.myPageSelect", memberNumber);
 	}
 
-	// 내 정보 수정
-	public int MyPageMemberUpdate(MyPageDTO dto) {
-		System.out.println("개인마이페이지 정보수정 실행 ");
-		return sqlSession.update("myPage.myPageMemberUpdate", dto);
+	// 비밀번호 업데이트
+	public int updatePassword(int memberNumber, String newPassword) {
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("memberNumber", memberNumber);
+	    map.put("memberPassword", newPassword);
+	    return sqlSession.update("myPage.updatePassword", map);
 	}
 
-	// 회원 탈퇴
-	public int Delete(int memberNumber) {
-		System.out.println("개인마이페이지 회원탈퇴 delete 실행 ");
-		return sqlSession.update("withDraw.withDrawDelete", memberNumber);
+	// 전화번호 업데이트
+	public int updatePhone(int memberNumber, String newPhone) {
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("memberNumber", memberNumber);
+	    map.put("memberPhoneNumber", newPhone);
+	    return sqlSession.update("myPage.updatePhone", map);
 	}
-
-	//  내가 작성한 게시글 목록 조회
-    public List<PostDTO> selectMyPosts(int memberNumber) {
-    	System.out.println("개인마이페이지 게시글 목록 조회 selectMyPosts 실행 ");
-        return sqlSession.selectList("post.myPostSelect", memberNumber);
+	public int delete(int memberNumber) {
+        return sqlSession.delete("myPage.withDrawDelete", memberNumber);
     }
-
-    // 내가 작성한 댓글 조회
-    public List<CommentDTO> selectMyComments(int memberNumber) {
-    	System.out.println("개인마이페이지 댓글 조회 selectMyPosts 실행 ");
-        return sqlSession.selectList("myComment.myCommentSelect", memberNumber);
-    }
-
-    //  내가 작성한 리뷰 조회
-    public List<ReviewDTO> selectMyReviews(int memberNumber) {
-    	System.out.println("개인마이페이지 리뷰 조회  selectMyReviews 실행 ");
-        return sqlSession.selectList("myReview.myReviewSelect", memberNumber);
-    }
-
-    //  내 구매 내역 조회
-    public List<OrdersDTO> selectMyFoodOrders(int memberNumber) {
-    	System.out.println("개인마이페이지 구매내역 조회  selectMyFoodOrders 실행 ");
-        return sqlSession.selectList("myOrder.myOrderSelect", memberNumber);
-    }
-
-    // 구매한 음식 메뉴 리뷰 작성
-    public int InsertFoodReview(ReviewWriteDTO dto) {
-    	System.out.println("개인마이페이지 리뷰작성  insertFoodReview 실행 ");
-        return sqlSession.insert("myReview.myReviewInsert", dto);
-    }
-
-    
-    //찜목록 조회
-    public List<StoreFavoriteDTO> selectAll(Map<String, Integer> pageMap) {
-		System.out.println("모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
-		List<StoreFavoriteDTO> list = sqlSession.selectList("myStoreFavorite.MyFavSelectAll", pageMap);
-		System.out.println("조회결과 : " + list);
-		return list;
-	}
-	
 }
