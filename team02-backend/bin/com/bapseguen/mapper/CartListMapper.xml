@@ -179,22 +179,30 @@
 		resultType="com.bapseguen.app.dto.CartItemDTO">
 		SELECT
 		ci.CART_ITEM_NUMBER AS cartItemNumber,
-		ci.CART_NUMBER AS cartNumber,
+		ci.CART_NUMBER
+		AS cartNumber,
 		ci.ITEM_NUMBER AS itemNumber,
-		ci.CART_ITEM_QUANTITY AS cartItemQuantity,
+		ci.CART_ITEM_QUANTITY AS
+		cartItemQuantity,
 		/* 담을 당시 가격 우선, 없으면 현재 상품가 */
-		NVL(ci.CART_ITEM_PRICE, i.ITEM_PRICE) AS cartItemPrice,
+		NVL(ci.CART_ITEM_PRICE,
+		i.ITEM_PRICE) AS cartItemPrice,
 		i.ITEM_NAME AS itemName,
-		/* 이미지: 해당 상품의 첫 이미지 system name을 사용해 DTO.imagePath로 매핑 */
+		/* 이미지: 해당 상품의
+		첫 이미지 system name을 사용해 DTO.imagePath로 매핑 */
 		(
-		SELECT ii.ITEM_IMAGE_SYSTEM_NAME
+		SELECT
+		ii.ITEM_IMAGE_SYSTEM_NAME
 		FROM TBL_ITEM_IMAGE ii
-		WHERE ii.ITEM_NUMBER = i.ITEM_NUMBER
+		WHERE ii.ITEM_NUMBER =
+		i.ITEM_NUMBER
 		AND ROWNUM = 1
 		) AS imagePath
 		FROM TBL_CART c
-		JOIN TBL_CART_ITEM ci ON ci.CART_NUMBER = c.CART_NUMBER
-		JOIN TBL_ITEM i ON i.ITEM_NUMBER = ci.ITEM_NUMBER
+		JOIN
+		TBL_CART_ITEM ci ON ci.CART_NUMBER = c.CART_NUMBER
+		JOIN TBL_ITEM i ON
+		i.ITEM_NUMBER = ci.ITEM_NUMBER
 		WHERE c.MEMBER_NUMBER = #{memberNumber}
 		AND c.CART_ORDER_STATUS = 'OPEN'
 		ORDER BY ci.CART_ITEM_NUMBER
@@ -211,6 +219,16 @@
 		MEMBER_NUMBER = #{memberNumber}
 		AND CART_ORDER_STATUS = 'OPEN'
 	</update>
+
+	<!-- 회원의 장바구니 총 금액 -->
+	<select id="sumAmountByMember" parameterType="int"
+		resultType="int">
+		SELECT NVL(SUM(CI.CART_ITEM_PRICE * CI.CART_ITEM_QUANTITY), 0)
+		FROM TBL_CART C
+		JOIN TBL_CART_ITEM CI ON C.CART_NUMBER = CI.CART_NUMBER
+		WHERE C.MEMBER_NUMBER = #{memberNumber}
+		AND C.CART_ORDER_STATUS = 'OPEN'
+	</select>
 
 
 </mapper>

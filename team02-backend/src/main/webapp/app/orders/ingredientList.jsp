@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:url value="/assets/img/placeholder.png" var="ph"/>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -50,11 +50,27 @@
               <p style="color:#888">표시할 재료가 없습니다.</p>
             </c:when>
             <c:otherwise>
+              <!-- ✅ 샘플 이미지 12개 세팅 -->
+              <c:set var="sampleImgs" value="/assets/img/food1.jpg,/assets/img/food2.jpg,/assets/img/food3.jpg,/assets/img/food4.jpg,/assets/img/food5.jpg,/assets/img/food6.jpg,/assets/img/food7.jpg,/assets/img/food8.jpg,/assets/img/food9.jpg,/assets/img/food10.jpg,/assets/img/food11.jpg,/assets/img/food12.jpg" />
+
               <c:forEach var="item" items="${items}">
+                <c:set var="sampleArr" value="${fn:split(sampleImgs, ',')}" />
+                <c:set var="sampleImg" value="${sampleArr[item.itemNumber % fn:length(sampleArr)]}" />
+                <c:url value="${sampleImg}" var="dummyUrl"/>
+
+                <!-- 업로드 이미지 경로 처리 -->
+                <c:choose>
+                  <c:when test="${empty item.itemImageSystemName}">
+                    <c:set var="imgUrl" value="${dummyUrl}"/>
+                  </c:when>
+                  <c:otherwise>
+                    <c:url value="/upload/items/${item.itemImageSystemName}" var="imgUrl"/>
+                  </c:otherwise>
+                </c:choose>
+
                 <article class="buy_food_article">
                   <a href="${pageContext.request.contextPath}/orders/ingredientDetail.or?itemNumber=${item.itemNumber}">
-                    <img src="${empty item.itemImageSystemName ? ph : pageContext.request.contextPath += '/upload/items/' += item.itemImageSystemName}" 
-                         alt="${item.itemName}"/>
+                    <img src="${imgUrl}" alt="${item.itemName}"/>
                     <div class="buy_store_info">
                       <p class="buy_store_name">${item.businessName}</p>
                       <p class="buy_menu_name">${item.itemName}</p>
