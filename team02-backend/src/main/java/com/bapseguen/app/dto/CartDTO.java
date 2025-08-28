@@ -81,6 +81,24 @@ public class CartDTO {
 				+ businessNumber + ", cartOrderStatus=" + cartOrderStatus + ", ordersNumber=" + ordersNumber
 				+ ", cartItems=" + cartItems + "]";
 	}
+
+
+	public Object getItemPrice() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	public int getItemQuantity() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	public int getItemNumber() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 	
