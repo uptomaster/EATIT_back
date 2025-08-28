@@ -142,7 +142,6 @@
   <!-- <footer id="footer"></footer> -->
 </body>
 <script>
-		window.postNumber = "${post.postNumber}";
 		window.memberNumber = "${sessionScope.memberNumber}";
 </script>
 

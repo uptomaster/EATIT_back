@@ -71,10 +71,10 @@
 		      </div>
 		      
 		    
-		  <div class="post_header">
+ 		  <div class="post_header">
 		    <!-- 게시글 제목 -->
 		    <div class="post_title">
-		      <h1 class="post_title"><c:out value="${post.getPostTitle()}" /></h1>
+		      <h1 class="post_title"><c:out value="${post.postTitle}" /></h1>
 <%-- 		      <h1 class="post_title">${post.getPostTitle()}</h1>
  --%>		    </div>
 		
@@ -84,20 +84,20 @@
 		      <!-- 작성일 -->
 		      <div class="post_date_area">
 		        <%-- <c:out value="${post.getPostCreatedDate() }" /> --%>
-		        <p>${post.postCreateDate()}</p>
+		        <p>${post.postCreatedDate}</p>
 		        
 		      </div>
 		
 		      <!-- 조회수 -->
 		      <div class="post_hit_area">
 		        <span>조회</span>
-		        <span><c:out value="${post.getPostViewCount()}" /></span>
+		        <span><c:out value="${post.postViewCount}" /></span>
 		      </div>
 		
 		      <!-- 추천 -->
 		      <div class="post_like_area">
 		        <span>추천</span>
-		        <span><c:out value="${post.getPostLikeCount()}" /></span>
+		        <span><c:out value="${post.postLikeCount}" /></span>
 		      </div>
 		      
 		    </div>
@@ -108,12 +108,12 @@
         	<!-- 게시글 내용 -->
 	        <section class="content_section"></section>
 		       	  <div class="view-content">
-		       	  	<h3>안녕<c:out value="${post.getFreeContent()}" /></h3>
+		       	  	<h3>안녕<c:out value="${post.freeContent}" /></h3>
 					
 				  </div>
 	          	  <div class="func_button">
 		          	  <!-- 수정/삭제 버튼(로그인한 사용자가 작성자인 경우에만 표시) -->
-						<c:if test="${sessionScope.memberNumber == post.getMemberNumber() }">
+						<c:if test="${sessionScope.memberNumber eq post.getMemberNumber() }">
 							<!-- 수정 버튼 -->
 							<form action="${pageContext.request.contextPath}/community/postUpdate.co" method="get">
 								<input type="hidden" name="postNumber" value="${post.postNumber}">
@@ -167,7 +167,12 @@
 	  <form class="comment_form" id="commentForm" onsubmit="return false;">
 	    <img class="comment_profile" src="${pageContext.request.contextPath}/assets/img/나무.png" alt="프로필" />
 	    <span class="comment_author">
-	      <c:out value="${sessionScope.memberId != null ? sessionScope.memberId : '비회원'}"/>
+	      <c:choose>
+  			<c:when test="${not empty sessionScope.memberId}">
+    			${sessionScope.memberId}
+  			</c:when>
+  			<c:otherwise>비회원</c:otherwise>
+		</c:choose>
 	    </span>
 	    <input type="text" id="commentInput" name="comment" placeholder="댓글을 입력하세요" required />
 	    <button type="button" id="commentSubmit">등록</button>

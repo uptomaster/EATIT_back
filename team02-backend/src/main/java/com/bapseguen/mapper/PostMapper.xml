@@ -13,48 +13,37 @@
 	 
 	</insert>
 	 -->
-	 
-<insert id="insertFreePost" parameterType="PostDTO" useGeneratedKeys="true" keyProperty="postNumber">
-  INSERT INTO TBL_POST (
-    POST_NUMBER,
-    MEMBER_NUMBER,
-    POST_TITLE,
-    POST_LIKE_COUNT,
-    POST_VIEW_COUNT,
-    POST_REPORT_COUNT,
-    POST_DELETE_STATE,
-    POST_CREATED_DATE,
-    POST_TYPE
-  ) VALUES (
-    SEQ_POST_NUMBER.NEXTVAL,
-    #{memberNumber},
-    #{postTitle},
-    0,
-    0,
-    0,
-    'N',
-    SYSDATE,
-    'FREE'
-  )
-</insert>
+	<insert id="insertFreePost" parameterType="map">
+    	INSERT INTO TBL_POST (
+      POST_NUMBER, MEMBER_NUMBER, POST_TITLE,
+      POST_LIKE_COUNT, POST_VIEW_COUNT, POST_REPORT_COUNT,
+      POST_DELETE_STATE, POST_CREATED_DATE, POST_TYPE
+    	) VALUES (
+      SEQ_POST_NUMBER.NEXTVAL,
+      #{memberNumber},
+      #{postTitle},
+      0, 0, 0,
+      'N', SYSDATE, 'FREE'
+    	)
+  	</insert>
 
-
-<insert id="insertFreeContent" parameterType="PostDetailDTO">
-  INSERT INTO TBL_FREE_BOARD (
-    POST_NUMBER,
-    FREE_CONTENT
-  ) VALUES (
-    SEQ_POST_NUMBER.CURRVAL,
-    #{freeContent}
-  )
-</insert>
-
-	<!-- 자유게시판 목록 조희 -->
-	<select id="freeSelectAll" resultType="PostDTO">
-		SELECT MEMBER_NUMBER,POST_TITLE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_LIKE_COUNT,POST_TYPE,POST_NUMBER
-		FROM TBL_POST
-		WHERE POST_TYPE = 'FREE'
-		ORDER BY POST_CREATED_DATE DESC
+  	<insert id="insertFreeContent" parameterType="map">
+    	INSERT INTO TBL_FREE_BOARD (POST_NUMBER, FREE_CONTENT)
+    	VALUES (SEQ_POST_NUMBER.CURRVAL, #{freeContent})
+  	</insert>
+	
+	<select id="freeSelectAll" resultType="com.bapseguen.app.dto.PostDTO">
+	<![CDATA[
+	  SELECT * FROM (
+	    SELECT ROWNUM AS RNUM, SUBQ.* FROM (
+	      SELECT MEMBER_NUMBER, POST_TITLE, POST_CREATED_DATE, POST_VIEW_COUNT, POST_LIKE_COUNT, POST_TYPE, POST_NUMBER
+	      FROM TBL_POST
+	      WHERE POST_TYPE = 'FREE' AND POST_DELETE_STATE = 'N'
+	      ORDER BY POST_CREATED_DATE DESC
+	    ) SUBQ
+	  )
+	  WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+	]]>
 	</select>
 	
 	<!-- 자유게시판 글 총 개수 -->
@@ -118,13 +107,30 @@
 	</update>
 	
 	<!-- 게시글 상세(1건조회) -->
-	
-	<select id="postDetailSelect" parameterType="int" resultType="PostDetailDTO">
+	<select id="postDetailSelect" parameterType="int"
+	        resultType="PostDetailDTO">
+	  SELECT
+	    M.MEMBER_NUMBER      AS memberNumber,
+	    M.MEMBER_ID          AS memberId,
+	    P.POST_NUMBER        AS postNumber,
+	    P.POST_TITLE         AS postTitle,
+	    P.POST_CREATED_DATE  AS postCreatedDate,
+	    P.POST_VIEW_COUNT    AS postViewCount,
+	    P.POST_LIKE_COUNT    AS postLikeCount,
+	    F.FREE_CONTENT       AS freeContent
+	  FROM TBL_MEMBER M
+	  JOIN TBL_POST P
+	    ON P.MEMBER_NUMBER = M.MEMBER_NUMBER
+	  LEFT JOIN TBL_FREE_BOARD F
+	    ON F.POST_NUMBER = P.POST_NUMBER
+	  WHERE P.POST_NUMBER = #{postNumber}
+	</select>
+<!-- 	<select id="postDetailSelect" parameterType="int" resultType="PostDetailDTO">
 	    SELECT M.MEMBER_NUMBER,M.MEMBER_ID, P.POST_NUMBER,P.POST_TITLE,P.POST_CREATED_DATE,P.POST_VIEW_COUNT
 		FROM TBL_MEMBER M JOIN TBL_POST P
 		ON P.MEMBER_NUMBER=M.MEMBER_NUMBER
 		WHERE P.POST_NUMBER= #{postNumber}
-	</select>
+	</select> -->
 	<!-- <select id="postSelect" parameterType="int" resultType="PostDetailDTO">
 	    <![CDATA[
 	        SELECT M.MEMBER_NUMBER AS memberNumber,
@@ -176,6 +182,16 @@
 	]]>
 	</select>
 	
+	<update id="postUpdateTitle" parameterType="PostDTO">
+  		UPDATE TBL_POST
+    	SET POST_TITLE = #{postTitle}, POST_UPDATED_DATE = SYSDATE
+   		WHERE POST_NUMBER = #{postNumber}
+	</update>
 	
+	<update id="freeUpdateContent" parameterType="FreeBoardDTO">
+  		UPDATE TBL_FREE_BOARD
+     	SET FREE_CONTENT = #{freeContent}
+   		WHERE POST_NUMBER = #{postNumber}
+	</update>
 	
 </mapper>

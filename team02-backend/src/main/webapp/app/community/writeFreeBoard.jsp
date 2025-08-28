@@ -38,7 +38,8 @@
 		<section class="container">
 			<div class="title_section">
 				<div class="profile_tree">
-					${sessionScope.memberId} <img
+					${sessionScope.memberId} 
+					<img
 						src="${pageContext.request.contextPath}/assets/img/나무.png"
 						alt="나무" class="tree_icon author_profile" />
 				</div>
@@ -103,7 +104,6 @@
 	<!-- <footer id="footer"></footer> -->
 </body>
 <script>
-	window.postNumber = "${post.postNumber}";
 	window.memberNumber = "${sessionScope.memberNumber}";
 </script>
 </html>
