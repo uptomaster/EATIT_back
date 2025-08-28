@@ -60,7 +60,7 @@ public class PaymentApproveOkController implements Execute {
         }
 
         // 4) 결제 승인(Confirm)
-        String secretKey = req.getServletContext().getInitParameter("TOSS_SECRET_KEY"); // web.xml의 gsk
+        String secretKey = req.getServletContext().getInitParameter("TOSS_SECRET_KEY");
         TossService toss = new TossService();
         boolean approved = toss.confirm(paymentKey, orderId, amount, secretKey);
         if (!approved) {
@@ -70,12 +70,10 @@ public class PaymentApproveOkController implements Execute {
         // 5) 주문 상태/금액 업데이트 (READY → PAID), 카트 마감
         OrdersDAO odao = new OrdersDAO();
         try {
-            // orderId 기준으로 PAID 업데이트 (아래 2) 매퍼 추가)
+            // orderId 기준으로 PAID 업데이트
             odao.updatePaidByOrderId(orderId, amount);
-
-            // 현재 OPEN 카트 CLOSE
+            // 현재 OPEN 장바구니 CLOSE
             cdao.closeCurrentCart(memberNumber);
-
             // 성공 페이지로 forward
             Result r = new Result();
             r.setRedirect(false);

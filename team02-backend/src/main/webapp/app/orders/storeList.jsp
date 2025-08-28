@@ -43,14 +43,14 @@
             </form>
 
             <!-- 정렬 -->
-            <ul class="buy_array">
+<%--             <ul class="buy_array">
                 <li><a
                     href="${pageContext.request.contextPath}/orders/storeList.or?itemType=${itemType}&q=${param.q}&sort=recent">최신순</a></li>
                 <li><a
                     href="${pageContext.request.contextPath}/orders/storeList.or?itemType=${itemType}&q=${param.q}&sort=priceAsc">가격↑</a></li>
                 <li><a
                     href="${pageContext.request.contextPath}/orders/storeList.or?itemType=${itemType}&q=${param.q}&sort=priceDesc">가격↓</a></li>
-            </ul>
+            </ul> --%>
 
             <!-- 카드 리스트 -->
             <div class="buy_area">
@@ -59,7 +59,7 @@
                         <p style="color: #888">표시할 상품이 없습니다.</p>
                     </c:when>
                     <c:otherwise>
-                        <!-- ✅ 더미 이미지 12개 세팅 -->
+                        <!-- 더미 이미지 12개 세팅 -->
                         <c:set var="sampleImgs" value="/assets/img/food1.jpg,/assets/img/food2.jpg,/assets/img/food3.jpg,/assets/img/food4.jpg,/assets/img/food5.jpg,/assets/img/food6.jpg,/assets/img/food7.jpg,/assets/img/food8.jpg,/assets/img/food9.jpg,/assets/img/food10.jpg,/assets/img/food11.jpg,/assets/img/food12.jpg" />
                         <c:forEach var="item" items="${items}">
                             <c:set var="sampleArr" value="${fn:split(sampleImgs, ',')}" />

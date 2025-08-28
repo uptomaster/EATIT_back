@@ -1,15 +1,13 @@
 package com.bapseguen.app.dto.view;
 
 public class ItemSnapshotDTO {
-	private Integer itemNumber;
-	private String businessNumber;
-	private String itemName; // 메뉴명
-	private Integer itemPrice; 
-	private Integer itemQuantity; // 재고 (null도 가능)
-	private String itemSellState; // 'Y' / 'N'
+	private Integer itemNumber; // 상품 PK → 어떤 상품인지
+	private String businessNumber; // 가게번호 → 장바구니 '한 가게' 규칙 검증용
+	private String itemName; // 메뉴명 → 스냅샷 보존, 주문 내역용
+	private Integer itemPrice; // 가격 → 결제 금액 검증 핵심
+	private Integer itemQuantity; // 재고 (nullable 허용) → 품절/재고 부족 검증
+	private String itemSellState; // 'Y'/'N' → 현재 판매중 여부 확인
 
-	
-	
 	// getter & setter
 	public Integer getItemNumber() {
 		return itemNumber;

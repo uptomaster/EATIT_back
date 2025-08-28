@@ -27,7 +27,7 @@
 		<jsp:param name="active" value="purchase" />
 	</jsp:include>
 
-	<!-- ✅ 샘플 이미지 12개 세팅 -->
+	<!-- 샘플 이미지 12개 세팅 -->
 	<c:set var="sampleImgs" value="/assets/img/food1.jpg,/assets/img/food2.jpg,/assets/img/food3.jpg,/assets/img/food4.jpg,/assets/img/food5.jpg,/assets/img/food6.jpg,/assets/img/food7.jpg,/assets/img/food8.jpg,/assets/img/food9.jpg,/assets/img/food10.jpg,/assets/img/food11.jpg,/assets/img/food12.jpg" />
 	<c:set var="sampleArr" value="${fn:split(sampleImgs, ',')}" />
 	<c:set var="sampleImg" value="${sampleArr[item.itemNumber % fn:length(sampleArr)]}" />
