@@ -20,6 +20,17 @@
 
 	<!-- Comment -->
 	<servlet>
+		<servlet-name>Main</servlet-name>
+		<servlet-class>com.bapseguen.app.main.MainFrontController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Main</servlet-name>
+		<url-pattern>*.ma</url-pattern>
+	</servlet-mapping>
+
+	<!-- Comment -->
+	<servlet>
 		<servlet-name>Comment</servlet-name>
 		<servlet-class>com.bapseguen.app.comment.CommentFrontController</servlet-class>
 	</servlet>
