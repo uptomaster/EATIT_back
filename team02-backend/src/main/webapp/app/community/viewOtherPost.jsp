@@ -108,7 +108,7 @@
         	<!-- 게시글 내용 -->
 	        <section class="content_section"></section>
 		       	  <div class="view-content">
-		       	  	<h3>안녕<c:out value="${post.freeContent}" /></h3>
+		       	  	<h3><c:out value="${post.freeContent}" /></h3>
 					
 				  </div>
 	          	  <div class="func_button">

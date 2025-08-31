@@ -208,7 +208,7 @@ main {
   background-color: #ffa500;
 }
 
-.pagination_container {
+/* .pagination_container {
   display: flex;
   gap: 10px;
   justify-content: center;
@@ -236,4 +236,4 @@ main {
   color: white;
   cursor: default;
   border-color: #ffae42;
-}
+} */
