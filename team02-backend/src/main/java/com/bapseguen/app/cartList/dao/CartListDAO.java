@@ -1,6 +1,8 @@
 package com.bapseguen.app.cartList.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -100,10 +102,19 @@ public class CartListDAO {
 	public List<CartItemDTO> selectCartItems(int cartNumber) {
 		return sqlSession.selectList("cartList.selectCartItems", cartNumber);
 	}
-	
-    // 회원 장바구니 총 금액
-    public int sumAmountByMember(int memberNumber) {
-        return sqlSession.selectOne("cartList.sumAmountByMember", memberNumber);
-    }
+
+	// 회원 장바구니 총 금액
+	public int sumAmountByMember(int memberNumber) {
+		return sqlSession.selectOne("cartList.sumAmountByMember", memberNumber);
+	}
+
+	// 장바구니 내에서 수량 변경 정보를 서버에 전달
+	public void updateQuantity(int memberNumber, int itemNumber, int quantity) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("memberNumber", memberNumber);
+		param.put("itemNumber", itemNumber);
+		param.put("quantity", quantity);
+		sqlSession.update("cartList.updateQuantity", param);
+	}
 
 }
