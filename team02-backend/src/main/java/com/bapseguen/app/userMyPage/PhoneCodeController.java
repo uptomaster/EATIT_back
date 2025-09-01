@@ -36,7 +36,7 @@ public class PhoneCodeController implements Execute {
                 session.setAttribute("pendingPhoneTarget", digits);
                 session.setAttribute("devPhoneCode", String.valueOf(code));
                 // 실제 SMS 연동 대신, 개발용으로 코드 노출
-                flash(session, "인증번호를 전송했습니다. (개발용 코드 확인)", "green", String.valueOf(code));
+                flash(session, "인증번호를 전송했습니다.", "green", String.valueOf(code));
             }
         } else if ("check".equals(mode)) {
             String savedCode = (String) session.getAttribute("devPhoneCode");

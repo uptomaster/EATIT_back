@@ -93,7 +93,7 @@
           <div class="user_input_container_phone">
             <div class="user_input_container">
               <label for="user_input_phone" class="info_type">휴대폰번호 : </label>
-              <input type="tel" id="user_input_phone" name="user_input_phone" placeholder="[필수] -를 포함하고 입력해주세요" required />
+              <input type="tel" id="user_input_phone" name="user_input_phone" placeholder="[필수] 숫자만 입력해주세요" required />
               <button type="button" id="btn_user_input_phone">인증요청</button>
             </div>
             <div class="warning_space">
