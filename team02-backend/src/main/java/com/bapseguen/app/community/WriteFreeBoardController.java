@@ -28,7 +28,8 @@ public class WriteFreeBoardController implements Execute{
 //			path = "/app/community/writeFreeBoard.jsp";
 //		}
 		
-		result.setPath(path);
+//		result.setPath(path);
+		result.setPath("/app/community/writeFreeBoard.jsp");
 		result.setRedirect(false);
 		request.setAttribute("memberId", session.getAttribute("memberId"));
 		
