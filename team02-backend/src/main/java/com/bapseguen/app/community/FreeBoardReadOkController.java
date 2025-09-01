@@ -55,7 +55,7 @@ public class FreeBoardReadOkController implements Execute{
 		CommunityDAO communityDAO = new CommunityDAO();
 		PostImageDAO postImageDAO = new PostImageDAO();
 		PostImageDTO postImageDTO = new PostImageDTO();
-		PostDetailDTO postdetailDTO = new PostDetailDTO();
+		 
 
 		//DB에서 게시글 가져오기
 		PostDetailDTO postDetailDTO = communityDAO.select(postNumber);
@@ -68,6 +68,9 @@ public class FreeBoardReadOkController implements Execute{
 			return result;
 		}
 		
+		request.setAttribute("post", postDetailDTO);
+		result.setPath("/app/community/viewOtherPost.jsp");
+		result.setRedirect(false);
 		
 		//로그인한 사용자 번호 가져오기
 		Integer loginMemberNumber = (Integer) request.getSession().getAttribute("memberNumber");
@@ -87,10 +90,10 @@ public class FreeBoardReadOkController implements Execute{
 		}
 		
 		//null값확인
-		System.out.println("제목: " + postdetailDTO.getPostTitle());
-		System.out.println("작성일: " + postdetailDTO.getPostCreatedDate());
+		System.out.println("제목: " + postDetailDTO.getPostTitle());
+		System.out.println("작성일: " + postDetailDTO.getPostCreatedDate());
 		
-		request.setAttribute("post", postdetailDTO);
+		request.setAttribute("post", postDetailDTO);
 		result.setPath("/app/community/viewOtherPost.jsp");
 		result.setRedirect(false);		
 		return result;

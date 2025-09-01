@@ -1,17 +1,15 @@
 package com.bapseguen.app.community.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.bapseguen.app.dto.FaqDTO;
-import com.bapseguen.app.dto.FreeBoardDTO;
 import com.bapseguen.app.dto.InquiryDTO;
-import com.bapseguen.app.dto.NoticeDTO;
 import com.bapseguen.app.dto.PostDTO;
-import com.bapseguen.app.dto.PromoBoardDTO;
-import com.bapseguen.app.dto.RecipeBoardDTO;
 import com.bapseguen.app.dto.view.PostDetailDTO;
 import com.bapseguen.config.MyBatisConfig;
 
@@ -104,15 +102,41 @@ public class CommunityDAO {
 	}
 	
 	// 게시글 추가 후 자동으로 생성된 boardNumber 반환 -> 파일 테이블에서도 써야하기 때문에
-	public int insertPost(PostDTO postDTO) {
-		int insert = sqlSession.insert("post.insert", postDTO);
-		System.out.println(postDTO + "출력");
-		//System.out.println(postDTO.getBoardContent() + "출력 === ");
-		System.out.println("게시글 작성 - insertBoard 메소드 실행 ");
-		System.out.println("insert 결과 : " + insert);
-		System.out.println("생성된 boardNumber : " + postDTO.getPostNumber());
-		return postDTO.getPostNumber();
-	}
+//	public int insertPost(PostDTO postDTO) {
+//		int insert = sqlSession.insert("post.insert", postDTO);
+//		System.out.println(postDTO + "출력");
+//		//System.out.println(postDTO.getBoardContent() + "출력 === ");
+//		System.out.println("게시글 작성 - insertBoard 메소드 실행 ");
+//		System.out.println("insert 결과 : " + insert);
+//		System.out.println("생성된 boardNumber : " + postDTO.getPostNumber());
+//		return postDTO.getPostNumber();
+//	}
+	
+
+    private SqlSessionFactory sqlSessionFactory = MyBatisConfig.getSqlSessionFactory();
+
+    public void insertFreePost(Map<String, Object> postParams) {
+        SqlSession session = null;
+
+        try {
+            session = sqlSessionFactory.openSession(false); // 수동 커밋
+
+            // 게시글 번호 시퀀스 먼저 생성
+            session.insert("post.insertFreePost", postParams);
+
+            // SEQ_POST_NUMBER.NEXTVAL이 자동 생성됨. 커서가 CURRVAL을 공유함.
+            session.insert("post.insertFreeContent", postParams);
+
+            session.commit();
+
+        } catch (Exception e) {
+            if (session != null) session.rollback();
+            e.printStackTrace();
+        } finally {
+            if (session != null) session.close();
+        }
+    }
+
 
 	// 내가 작성한 게시글 목록 조회
 	public List<PostDTO> myPostSelect(Map<String, Integer> pageMap) {

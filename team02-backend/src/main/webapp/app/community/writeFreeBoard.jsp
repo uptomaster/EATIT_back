@@ -72,28 +72,29 @@
 				</c:if>
 
 				<div class="form_group">
-					<label for="title">제목</label>
-					<input type="text" id="title"name="postTitle" placeholder="제목을 입력하세요" required />
+					<label for="title">제목</label> <input type="text" id="title"
+						name="postTitle" placeholder="제목을 입력하세요" required />
 				</div>
 
 				<div class="form_group">
 					<label for="content">내용</label>
-					<textarea id="content" name="freeContent" rows="10" placeholder="내용을 입력하세요" required></textarea>
+					<textarea id="content" name="freeContent" rows="10"
+						placeholder="내용을 입력하세요" required></textarea>
 				</div>
 
 				<div class="form_group">
-					<label for="imageUpload">사진 첨부</label> 
-					<input type="file" id="imageUpload" name="imageUpload" />
+					<label for="imageUpload">사진 첨부</label> <input type="file"
+						id="imageUpload" name="imageUpload" />
 				</div>
 
 				<div class="button_group">
-					<c:url var="listUrl" value="/community/freeBoardListOk.co"/>
+					<c:url var="listUrl" value="/community/freeBoardListOk.co" />
 					<a class="cancel_btn" href="${listUrl}">작성 취소</a>
 
 					<button type="submit" class="submit_btn">작성 완료</button>
-					
+
 				</div>
- 			</form>
+			</form>
 		</section>
 
 		<aside class="side"></aside>
@@ -103,7 +104,6 @@
 	<!-- <footer id="footer"></footer> -->
 </body>
 <script>
-	window.postNumber = "${post.postNumber}";
 	window.memberNumber = "${sessionScope.memberNumber}";
 </script>
 </html>

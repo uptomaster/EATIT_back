@@ -46,7 +46,7 @@
       <section class="community_list" aria-label="게시판 목록">
         <div class="list_header flex_row" role="rowgroup">
           <div class="col_title" role="columnheader">제목</div>
-          <div class="col_author" role="cell">글쓴이</div>
+          <!-- <div class="col_author" role="cell">글쓴이</div> -->
           <div class="col_date" role="columnheader">등록일</div>
           <div class="col_views" role="columnheader">조회</div>
           <div class="col_likes" role="columnheader">추천</div>
@@ -67,9 +67,9 @@
 	   					 			<c:out value="${post.postTitle}" />
 	   					 		</a>
 	   					 	</div>
-	   					 	<div class="board-item col_author">
+	   					 <%-- 	<div class="board-item col_author">
 	   					 		<c:out value="${post.getMemberId() }" />
-	   					 	</div>
+	   					 	</div> --%>
 	   					 	<div class="board-item col_date">
 	   					 		<c:out value="${post.getPostCreatedDate() }" />
 	   					 	</div>
