@@ -102,7 +102,7 @@ h3{
   margin: 3px;
   background-color: white;
   border-radius: 8px;
-  display: none;
+  /* display: none; */
 }
 .main_food_buy_article.visible {
   display: block;
@@ -329,8 +329,8 @@ h3{
 /* 고정 아이콘 네비게이션 */
 .icon_fixed_nav {
   position: fixed;
-  top: 200px;          
-  right: 400px; 
+  top: 650px;          
+  right: 300px; 
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -366,4 +366,3 @@ h3{
 .icon_btn:hover svg {
   fill: #ff6600; /* 원하는 포인트 컬러로 조정 */
 }
-css
