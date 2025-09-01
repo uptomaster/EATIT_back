@@ -3,11 +3,28 @@ document.addEventListener("DOMContentLoaded", () => {
   const priceDisplay = document.querySelector(".shopping_payment_summary .shopping_price_row span:last-child");
   const deleteBtn = document.querySelector(".shopping_select_delete");
 
-  // 수량 ➖➕ 조작
   document.querySelectorAll(".shopping_cart_item").forEach(item => {
     const minusBtn = item.querySelector(".shopping_item_cnt a:first-of-type");
     const plusBtn = item.querySelector(".shopping_item_cnt a:last-of-type");
     const countSpan = item.querySelector(".shopping_item_cnt span");
+
+    // 서버에 수량 업데이트 요청하는 함수
+    function updateQuantityOnServer(itemId, newQty) {
+      function updateQuantityOnServer(itemId, newQty) {
+        fetch("/cartList/updateQuantityOk.cl", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: `itemNumber=${itemId}&quantity=${newQty}`
+        })
+          .then(res => res.json())
+          .then(data => console.log("서버 응답:", data))
+          .catch(err => console.error("업데이트 실패", err));
+      }
+
+      .then(res => res.text())
+        .then(msg => console.log("서버 업데이트:", msg))
+        .catch(err => console.error("업데이트 실패", err));
+    }
 
     minusBtn.addEventListener("click", e => {
       e.preventDefault();
@@ -15,6 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
       if (count > 1) {
         countSpan.textContent = --count;
         updateTotalPrice();
+        const itemId = item.dataset.itemId; // data-item-id 속성 필요
+        updateQuantityOnServer(itemId, count);
       }
     });
 
@@ -23,17 +42,20 @@ document.addEventListener("DOMContentLoaded", () => {
       let count = parseInt(countSpan.textContent);
       countSpan.textContent = ++count;
       updateTotalPrice();
+      const itemId = item.dataset.itemId; // data-item-id 속성 필요
+      updateQuantityOnServer(itemId, count);
     });
   });
 
-  // 전체선택 → 모두 체크/해제
+  // 전체선택 체크박스
   selectAllCheckbox.addEventListener("change", () => {
     const checked = selectAllCheckbox.checked;
-    document.querySelectorAll(".shopping_cart_item input[type='checkbox']").forEach(chk => chk.checked = checked);
+    document.querySelectorAll(".shopping_cart_item input[type='checkbox']")
+      .forEach(chk => chk.checked = checked);
     updateTotalPrice();
   });
 
-  // 상품 체크박스 → 전체 선택 동기화
+  // 개별 체크박스
   document.querySelectorAll(".shopping_cart_item input[type='checkbox']").forEach(chk => {
     chk.addEventListener("change", () => {
       const all = document.querySelectorAll(".shopping_cart_item input[type='checkbox']");
@@ -43,19 +65,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 선택삭제 버튼 클릭시 체크된 상품 삭제
+  // 선택삭제
   deleteBtn.addEventListener("click", () => {
     document.querySelectorAll(".shopping_cart_item input[type='checkbox']").forEach(chk => {
       if (chk.checked) {
         const item = chk.closest(".shopping_cart_item");
-        if (item) {
-          item.remove();
-        }
+        if (item) item.remove();
       }
     });
     updateTotalPrice();
-
-    // 삭제 후 전체선택 체크박스 초기화
     const remainingItems = document.querySelectorAll(".shopping_cart_item input[type='checkbox']");
     selectAllCheckbox.checked = remainingItems.length > 0 && [...remainingItems].every(c => c.checked);
   });
@@ -71,10 +89,8 @@ document.addEventListener("DOMContentLoaded", () => {
         total += price * count;
       }
     });
-
     priceDisplay.textContent = total.toLocaleString() + "원";
   }
 
-  // 페이지 로드시 금액 초기화
   updateTotalPrice();
 });

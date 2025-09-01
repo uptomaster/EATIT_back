@@ -223,12 +223,27 @@
 	<!-- 회원의 장바구니 총 금액 -->
 	<select id="sumAmountByMember" parameterType="int"
 		resultType="int">
-		SELECT NVL(SUM(CI.CART_ITEM_PRICE * CI.CART_ITEM_QUANTITY), 0)
+		SELECT NVL(SUM(CI.CART_ITEM_PRICE * CI.CART_ITEM_QUANTITY),
+		0)
 		FROM TBL_CART C
-		JOIN TBL_CART_ITEM CI ON C.CART_NUMBER = CI.CART_NUMBER
+		JOIN TBL_CART_ITEM CI ON C.CART_NUMBER =
+		CI.CART_NUMBER
 		WHERE C.MEMBER_NUMBER = #{memberNumber}
-		AND C.CART_ORDER_STATUS = 'OPEN'
+		AND
+		C.CART_ORDER_STATUS = 'OPEN'
 	</select>
 
+	<!-- 장바구니 내에서 수량 증감 -->
+	<update id="updateQuantity" parameterType="map">
+		UPDATE TBL_CART_ITEM
+		SET CART_ITEM_QUANTITY = #{quantity}
+		WHERE ITEM_NUMBER = #{itemNumber}
+		AND CART_NUMBER = (
+		SELECT CART_NUMBER
+		FROM TBL_CART
+		WHERE MEMBER_NUMBER = #{memberNumber}
+		AND CART_ORDER_STATUS = 'OPEN'
+		)
+	</update>
 
 </mapper>

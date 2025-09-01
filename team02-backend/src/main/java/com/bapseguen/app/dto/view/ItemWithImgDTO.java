@@ -9,7 +9,7 @@ public class ItemWithImgDTO {
 	private String businessNumber; // 가게 의 사업자 번호
 	private String itemType; // 음식인지 재료인지
 	private String itemName; // 상품명
-	private String itemPrice; // 삼품가격
+	private String itemPrice; // 상품가격
 	private String itemContent; // 상품설명
 	private int itemQuantity; // 상품 수량
 	private String itemOrigin; //상품 원산지
