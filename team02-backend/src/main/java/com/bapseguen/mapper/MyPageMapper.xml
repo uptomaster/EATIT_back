@@ -22,6 +22,7 @@
 	       SET GENERAL_PHONE_NUMBER = #{memberPhoneNumber}
 	     WHERE MEMBER_NUMBER = #{memberNumber}
 	</update>
+	<!-- 정보 조회 -->
 	<select id="myPageSelect" resultType="MyPageDTO" parameterType="int">
 	  SELECT
 	    M.MEMBER_NUMBER,

@@ -47,7 +47,6 @@
 		    <div class="info_menu">아이디</div>
 		    <div class="gray_box">
 		      <p>${my.memberId}</p>
-		      <p>*아이디는 수정 불가능합니다.</p>
 		    </div>
 		  </div>
 		

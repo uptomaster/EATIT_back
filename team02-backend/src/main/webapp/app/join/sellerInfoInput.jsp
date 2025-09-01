@@ -97,7 +97,7 @@
           <div class="seller_input_container_phone">
             <div class="seller_input_container">
               <label for="seller_input_phone" class="info_type">휴대폰번호 : </label>
-              <input type="tel" id="seller_input_phone" name="seller_input_phone" placeholder="[필수]-를 제외하고 입력해주세요" required />
+              <input type="tel" id="seller_input_phone" name="seller_input_phone" placeholder="[필수] 숫자만 입력해주세요" required />
               <button type="button" id="btn_seller_input_phone">인증요청</button>
             </div>
             <div class="warning_space">

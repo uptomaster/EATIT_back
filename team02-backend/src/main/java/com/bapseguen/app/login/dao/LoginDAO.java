@@ -16,15 +16,15 @@ public class LoginDAO {
         return memberNumber == null ? -1 : memberNumber;
     }
 
-    // 아이디 존재 여부 (existsId 수정본과 매칭)
+    // 아이디 존재 여부
     public boolean existsMemberId(String memberId) {
         Integer count = sqlSession.selectOne("member.existsId", memberId);
         return count != null && count > 0;
     }
 
-    // 회원유형: 멤버번호로 조회 (getMemberTypeByNumber 추가)
+    // 회원유형: 멤버번호로 조회
     public String getMemberType(int memberNumber) {
         String type = sqlSession.selectOne("member.getMemberType", memberNumber);
-        return (type == null || type.isEmpty()) ? "GENERAL" : type;
+        return type;
     }
 }

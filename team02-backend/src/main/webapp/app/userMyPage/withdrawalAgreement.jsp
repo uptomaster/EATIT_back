@@ -41,7 +41,7 @@
           <div class="withdrawalagreement_box_set">
             <div class="withdrawalagreement_password_now">비밀번호</div>
             <div class="withdrawalagreement_gray_box">
-              <input id="passwordInput" name="password" class="withdrawalagreement_input_info" type="password" placeholder="현재 비밀번호 입력">
+              <input id="passwordInput" name="password" class="withdrawalagreement_input_info" type="password" placeholder="현재 비밀번호 입력" required />
               <c:if test="${not empty pwError}">
                 <p class="notice_input_wrong_info" style="color:#e53935;">${pwError}</p>
               </c:if>
