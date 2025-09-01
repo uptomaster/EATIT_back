@@ -6,14 +6,14 @@ public class ItemDTO {
 	private String businessNumber; // 가게 의 사업자 번호
 	private String itemType; // 음식인지 재료인지
 	private String itemName; //상품명
-	private int itemPrice; // 삼품가격
+	private int itemPrice; // 상품가격
 	private String itemContent; //상품설명
 	private int itemQuantity; // 상품 수량
 	private String itemOrigin; //상품 원산지
 	private String itemExpireDate; // 소비기한
 	private String itemCreatedTime; //상품 등록일
 	private String itemUpdatedTime; // 상품 수정일
-	private boolean itemSellState; // 판매 여부  "판매중(y)","보관둥"(n),
+	private boolean itemSellState; // 판매 여부  "판매중(y)","보관중"(n),
 	
 	public int getItemNumber() {
 		return itemNumber;

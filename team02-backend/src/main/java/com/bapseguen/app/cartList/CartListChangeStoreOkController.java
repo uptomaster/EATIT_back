@@ -82,13 +82,11 @@ public class CartListChangeStoreOkController implements Execute {
         // 기존 장바구니 삭제
         CartListDAO cartDAO = new CartListDAO();
         cartDAO.deleteOpenCartByMember(memberNumber);
-
         // 새 장바구니 생성
         CartDTO newCart = new CartDTO();
         newCart.setMemberNumber(memberNumber);
         newCart.setBusinessNumber(newBusinessNumber);
         cartDAO.insertCartIfNotExists(newCart);
-
         // 새 장바구니 번호 가져오기
         Integer newCartNumber = cartDAO.selectOpenCartNumberByMember(newCart);
         if (newCartNumber == null) {
@@ -97,14 +95,12 @@ public class CartListChangeStoreOkController implements Execute {
             result.setRedirect(true);
             return result;
         }
-
         // 새 장바구니에 아이템 추가
         CartItemDTO cartItem = new CartItemDTO();
         cartItem.setCartNumber(newCartNumber);
         cartItem.setItemNumber(itemNumber);
         cartItem.setCartItemQuantity(quantity);
         cartItem.setCartItemPrice(itemPrice);
-
         cartDAO.insertCartItem(cartItem);
 
         // 완료 알림

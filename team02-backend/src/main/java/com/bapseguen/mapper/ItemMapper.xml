@@ -7,18 +7,18 @@
 	<!-- 아이템 스냅샷: 장바구니 담기 검증/가격결정용 -->
 
 	<!-- 장바구니 담기 전에 해당 상품의 가격, 수량, 판매 가능 여부가 유효한지 확인할 때 필요. -->
+	
+	<!-- 이 단계에서 현재 시점의 상품 상태가 ItemSnapshotDTO에 들어옴 -->
 	<select id="snapshot" parameterType="int"
 		resultType="ItemSnapshotDTO">
 		SELECT
 		ITEM_NUMBER AS itemNumber,
-		BUSINESS_NUMBER AS
-		businessNumber,
+		BUSINESS_NUMBER AS businessNumber,
 		ITEM_NAME AS itemName,
 		ITEM_PRICE AS itemPrice,
 		ITEM_QUANTITY AS itemQuantity,
 		ITEM_SELL_STATE AS itemSellState
-		FROM
-		TBL_ITEM
+		FROM TBL_ITEM
 		WHERE ITEM_NUMBER = #{itemNumber}
 	</select>
 

@@ -15,7 +15,8 @@
 	</insert>
 
 	<!-- 원산지 정보 목록 조회 -->
-	<select id="originList" parameterType="String" resultType="OriginDTO">
+	<select id="originList" parameterType="String"
+		resultType="OriginDTO">
 		SELECT o.origin_number, o.origin_item, o.origin_menu,
 		o.origin_location, s.store_name
 		FROM TBL_ORIGIN o
@@ -26,10 +27,13 @@
 	<!-- 원산지 정보 수정 -->
 	<update id="updateOrigin" parameterType="OriginDTO">
 		UPDATE TBL_ORIGIN
-		SET origin_item = #{originItem},origin_menu = #{originMenu},
+		SET
+		origin_item = #{originItem},origin_menu = #{originMenu},
 		origin_location = #{originLocation}
-		WHERE origin_number = #{originNumber} 
-		where origin_number = #{originNumber} and businessNumber = #{businessNumber}
+		WHERE origin_number =
+		#{originNumber}
+		where origin_number = #{originNumber} and businessNumber =
+		#{businessNumber}
 	</update>
 
 	<!-- 원산지 정보 삭제 -->
@@ -37,11 +41,29 @@
 		DELETE FROM TBL_ORIGIN
 		WHERE origin_number = #{originNumber}
 	</delete>
-	
+
 	<!-- 이미 저장된 정보인지 확인 -->
-	<select id="alreadyOrigin" parameterType="OriginDTO" resultType="int">
+	<select id="alreadyOrigin" parameterType="OriginDTO"
+		resultType="int">
 		select count(origin_number)
 		from tbl_origin
-		where origin_item = #{originItem} and origin_menu = #{originMenu} and origin_location = #{originLocation}
+		where origin_item
+		= #{originItem} and origin_menu = #{originMenu} and origin_location =
+		#{originLocation}
 	</select>
+
+	<select id="snapshot" parameterType="int"
+		resultType="com.bapseguen.app.dto.view.ItemSnapshotDTO">
+		SELECT
+		ITEM_NUMBER AS itemNumber,
+		BUSINESS_NUMBER AS businessNumber,
+		ITEM_NAME AS itemName,
+		ITEM_PRICE AS itemPrice,
+		ITEM_QUANTITY AS itemQuantity,
+		ITEM_SELL_STATE AS itemSellState
+		FROM TBL_ITEM
+		WHERE ITEM_NUMBER = #{itemNumber}
+	</select>
+
+
 </mapper>
