@@ -23,7 +23,7 @@ public class EditUserInfoController implements Execute {
             return result;
         }
 
-        // 필터는 안 쓰지만, 비번확인 없이 바로 URL 치고 들어오는 걸 막고 싶다면 이 한 줄만 사용
+        
         if (session.getAttribute("myPagePwVerified") == null) {
             result.setRedirect(true);
             result.setPath(request.getContextPath() + "/UserMyPage/generalCheckPw.my");
@@ -31,7 +31,7 @@ public class EditUserInfoController implements Execute {
         }
 
         UserMyPageDAO dao = new UserMyPageDAO();
-        MyPageDTO my = dao.MyPageSelect(memberNumber); // namespace는 myPage로 통일되어 있어야 함
+        MyPageDTO my = dao.MyPageSelect(memberNumber);
         Object msg = session.getAttribute("phoneFlashMsg");
         if (msg != null) {
             request.setAttribute("phoneMsg", msg);

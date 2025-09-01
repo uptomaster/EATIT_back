@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const pwChanged = params.get('pwChanged');
   const status    = params.get('login');
 
+  //주소 쿼리스트링에 pwChanged=1 이 들어왔는지
   if (pwChanged === '1') {
     alert('비밀번호가 성공적으로 변경되었습니다.');
   } else if (status) {

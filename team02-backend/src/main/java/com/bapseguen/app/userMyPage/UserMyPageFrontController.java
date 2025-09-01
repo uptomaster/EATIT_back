@@ -72,7 +72,7 @@ public class UserMyPageFrontController extends HttpServlet {
 		case "/UserMyPage/withdrawalAgreement.my":
 		    // 탈퇴 동의/비번 확인 페이지 진입
 		    request.getRequestDispatcher("/app/userMyPage/withdrawalAgreement.jsp").forward(request, response);
-		    return;
+		    break;
 
 		case "/UserMyPage/withdrawOk.my":
 		    // 실제 탈퇴 처리
@@ -83,7 +83,7 @@ public class UserMyPageFrontController extends HttpServlet {
 		
 		
 		}
-		if (result != null) {
+		if (result != null && result.getPath() != null) {
 			if (result.isRedirect()) {
 				response.sendRedirect(result.getPath());
 			} else {
