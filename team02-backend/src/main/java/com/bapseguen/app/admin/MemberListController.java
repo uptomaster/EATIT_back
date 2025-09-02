@@ -47,8 +47,8 @@ public class MemberListController implements Execute {
         pageMap.put("searchWord", searchWord);
 
         // ===== 회원 목록 조회 =====
-        List<MemberListDTO> memberList = adminDAO.selectMemberList(pageMap);
-        request.setAttribute("memberList", memberList);
+//        List<MemberListDTO> memberList = adminDAO.selectMemberList(pageMap);
+//        request.setAttribute("memberList", memberList);
 
         // ===== 전체 회원 수 =====
         int total = adminDAO.memberListCount(pageMap);

@@ -13,26 +13,16 @@ import com.bapseguen.app.admin.dao.AdminDAO;
 import com.bapseguen.app.dto.PostReportDTO;
 
 public class ReportListController implements Execute {
-
     @Override
     public Result execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        System.out.println("==== ReportListController 실행 ====");
-
-        // 1. DAO 호출
-        AdminDAO adminDAO = new AdminDAO();
-        List<PostReportDTO> reportList = adminDAO.selectReportList();
-
-        // 2. request에 저장
-        request.setAttribute("reportList", reportList);
-
-        // 3. 이동 경로 지정 (포워드)
+        System.out.println("[ADMIN] 신고 목록 요청");
+        AdminDAO dao = new AdminDAO();
+        request.setAttribute("reportList", dao.selectReportList());
         Result result = new Result();
         result.setPath("/app/admin/reportList.jsp");
         result.setRedirect(false);
-
-        System.out.println("==== ReportListController 완료 ====");
         return result;
     }
 }
+

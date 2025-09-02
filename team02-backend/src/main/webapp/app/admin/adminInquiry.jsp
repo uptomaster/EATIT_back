@@ -48,7 +48,6 @@
           <div class="admin_list_namebox">
             <!-- 컬럼 명 -->
             <ul class="admin_list_name">
-              <li id="admin_list_num" class="admin_list_row">태그</li>
               <li id="admin_list_title" class="admin_list_row"><a href="" class="admin_list_userid_link">제목</a></li>
               <li id="admin_list_userid" class="admin_list_row">글쓴이</li>
               <li id="admin_list_date" class="admin_list_row">등록일</li>
@@ -58,7 +57,6 @@
           <!-- 글 목록 행 -->
           <ul class="admin_list_valuebox">
             <li class="admin_list_value">
-              <p id="admin_list_num_value" class="admin_list_row">문의</p>
               <a href="./../../app/admin/adminInquiryDetail.html" class="admin_list_userid_link"><p id="admin_list_title_value" class="admin_list_row">비밀번호를 잊어버렸어요. 어떻게 하나요?</p></a>
               <p id="admin_list_userid_value" class="admin_list_row"><img class="grade_icon" src="./../../assets/img/새싹.png" alt="">gisu</p>
               <p id="admin_list_date_value" class="admin_list_row">25-07-22</p>
