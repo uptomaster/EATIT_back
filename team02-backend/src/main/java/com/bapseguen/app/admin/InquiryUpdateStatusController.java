@@ -1,6 +1,7 @@
 package com.bapseguen.app.admin;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
@@ -9,28 +10,25 @@ import com.bapseguen.app.Result;
 import com.bapseguen.app.admin.dao.AdminDAO;
 import com.bapseguen.app.dto.view.AdminPostDTO;
 
-public class NoticeUpdateOkController implements Execute {
+public class InquiryUpdateStatusController implements Execute {
     @Override
     public Result execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        System.out.println("[ADMIN] 공지/이벤트 수정 처리");
+        System.out.println("[ADMIN] 문의 상태 변경 처리");
 
         int postNumber = Integer.parseInt(request.getParameter("postNumber"));
-        String postTitle = request.getParameter("postTitle");
-        String noticeContent = request.getParameter("noticeContent");
+        String inquiryStatus = request.getParameter("inquiryStatus"); // YET, IN_PROGRESS, COMPLETE
 
         AdminPostDTO dto = new AdminPostDTO();
         dto.setPostNumber(postNumber);
-        dto.setPostTitle(postTitle);
-        dto.setNoticeContent(noticeContent);
+        dto.setInquiryStatus(inquiryStatus);
 
         AdminDAO dao = new AdminDAO();
-        dao.updateNoticeTitle(dto);
-        dao.updateNoticeContent(dto);
+        dao.updateInquiryStatus(dto);
 
         Result result = new Result();
-        result.setPath(request.getContextPath() + "/admin/notice/detail.ad?postNumber=" + postNumber);
+        result.setPath(request.getContextPath() + "/admin/inquiry/detail.ad?postNumber=" + postNumber);
         result.setRedirect(true);
         return result;
     }

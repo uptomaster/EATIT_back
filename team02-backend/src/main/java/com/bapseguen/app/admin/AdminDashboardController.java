@@ -34,13 +34,13 @@ public class AdminDashboardController implements Execute {
         AdminDAO dao = new AdminDAO();
 
         // ===== 대시보드 주요 통계 =====
-        int totalMembers = dao.memberListCount(new HashMap<>()); // 총 회원수
-        int totalNotices = dao.countNotices(); // 총 공지글 수
-        int totalFaqs = dao.countFaqs(); // 총 FAQ 수 
-        int totalInquiries = dao.countInquiries(); // 총 문의 수
-        int unansweredInquiries = dao.countUnansweredInquiries(); // 미답변 문의글 수
-        int totalReports = dao.countReports(); // 총 신고 수
-        int activeBanners = dao.countActiveBanners(); // 활성화된 배너
+        int totalMembers = dao.memberListCount();   // ✅ 오버로드 추가로 null 문제 해결
+        int totalNotices = dao.countNotices();
+        int totalFaqs = dao.countFaqs();
+        int totalInquiries = dao.countInquiries();
+        int unansweredInquiries = dao.countUnansweredInquiries();
+        int totalReports = dao.countReports();
+
 
         // JSP에 데이터 전달
         request.setAttribute("totalMembers", totalMembers);
@@ -49,7 +49,6 @@ public class AdminDashboardController implements Execute {
         request.setAttribute("totalInquiries", totalInquiries);
         request.setAttribute("unansweredInquiries", unansweredInquiries);
         request.setAttribute("totalReports", totalReports);
-        request.setAttribute("activeBanners", activeBanners);
 
         // ===== 월별 회원 증가 추세 =====
         List<Map<String, Object>> monthlyMembers = dao.countMonthlyMembers();
@@ -58,7 +57,7 @@ public class AdminDashboardController implements Execute {
         List<Integer> memberCounts = new ArrayList<>();
 
         for (Map<String, Object> row : monthlyMembers) {
-            String month = (String) row.get("JOINMONTH"); //  대문자
+            String month = (String) row.get("JOINMONTH");
             BigDecimal count = (BigDecimal) row.get("MEMBERCOUNT");
             months.add(month);
             memberCounts.add(count != null ? count.intValue() : 0);
