@@ -79,8 +79,11 @@ public class SellerMyPageDAO {
     	System.out.println("[판페DAO] 음식판매등록 - addFood 메소드 실행 ");
     	System.out.println("itemDTO : "+itemDTO);
         sqlSession.insert("storeManage.addFood", itemDTO);
-        int itemNum = sqlSession.selectOne("storeManage.getLastItemNumber", itemDTO);
+        int itemNum = sqlSession.selectOne("storeManage.getItemNumber", itemDTO);
         System.out.println("itemNumber : "+itemNum);
+        itemDTO.setItemNumber(itemNum);
+        System.out.println("DTO itemNumber : "+itemDTO.getItemNumber());
+        
         return itemDTO.getItemNumber();
     }
     

@@ -24,7 +24,7 @@ public class ItemImageDAO {
 
 			// db에 파일이 제대로 저장되었는지 확인
 			List<ItemImageDTO> uploadFile = select(ItemImageDTO.getItemNumber());
-			System.out.println("db에서 자겨온 파일 : " + uploadFile);
+			System.out.println("db에서 가져온 파일 : " + uploadFile);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println("파일 저장이 실패되었습니다. : " + e.getMessage());
