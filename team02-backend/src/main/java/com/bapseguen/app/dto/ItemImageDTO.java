@@ -31,14 +31,12 @@ public class ItemImageDTO {
 	public void setItemNumber(int itemNumber) {
 		this.itemNumber = itemNumber;
 	}
-	
 	@Override
 	public String toString() {
 		return "ItemImageDTO [itemImageNumber=" + itemImageNumber + ", itemImageSystemName=" + itemImageSystemName
-				+ ", itemImageOriginalName=" + itemImageOriginalName + ", itemNumber=" + itemNumber
-				+ ", getItemImageNumber()=" + getItemImageNumber() + ", getItemImageSystemName()="
-				+ getItemImageSystemName() + ", getItemImageOriginalName()=" + getItemImageOriginalName()
-				+ ", getItemNumber()=" + getItemNumber() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
+				+ ", itemImageOriginalName=" + itemImageOriginalName + ", itemNumber=" + itemNumber + "]";
 	}
+	
+	
+	
 }
