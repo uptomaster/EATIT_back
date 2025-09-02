@@ -25,13 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
   //게시글 수정 버튼 클릭시
-  modifyBtn?.addEventListener("click", () => {
+  	modifyBtn?.addEventListener("click", () => {
      if (!postNumber) return alert("postNumber가 없습니다");
-     window.location.href = `/community/postUpdateOK.co?postNumber=${encodeURIComponent(postNumber)}`;
+     window.location.href = `/community/postUpdate.co?postNumber=${encodeURIComponent(postNumber)}`;
    });
 
    // ====== 게시글 삭제 ======
-   deleteBtn?.addEventListener("click", async () => {
+/*   deleteBtn?.addEventListener("click", async () => {
      if (!postNumber) return alert("postNumber가 없습니다");
      if (!confirm("정말 삭제하시겠습니까?")) return;
 
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
        console.error("게시글 삭제 실패 :", err);
        alert("게시글 삭제에 실패했습니다.");
      }
-   });
+   });*/
   
   
 });

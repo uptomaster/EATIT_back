@@ -42,4 +42,7 @@ public class PostImageDAO {
 		sqlSession.delete("postImage.delete", boardNumber);
 	}
 	
+	
+	
+	
 }	

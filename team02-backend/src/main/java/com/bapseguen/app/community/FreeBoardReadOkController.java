@@ -30,16 +30,16 @@ public class FreeBoardReadOkController implements Execute{
 		
 		
 		//memberNumber 값이 null이거나 0일때
-		if (memberNumber == null || memberNumber == 0) {
-		    response.setContentType("text/html; charset=UTF-8");
-		    PrintWriter out = response.getWriter();
-		    out.println("<script>");
-		    out.println("alert('로그인이 필요합니다.');");
-		    out.println("location.href='/app/login/login.jsp';");
-		    out.println("</script>");
-		    out.close();
-		    return null;
-		}
+//		if (memberNumber == null || memberNumber == 0) {
+//		    response.setContentType("text/html; charset=UTF-8");
+//		    PrintWriter out = response.getWriter();
+//		    out.println("<script>");
+//		    out.println("alert('로그인이 필요합니다.');");
+//		    out.println("location.href='/app/login/login.jsp';");
+//		    out.println("</script>");
+//		    out.close();
+//		    return null;
+//		}
 		
 		//postNumber가 빈 문자열이거나 null인경우
 		String postNumberStr = request.getParameter("postNumber");
