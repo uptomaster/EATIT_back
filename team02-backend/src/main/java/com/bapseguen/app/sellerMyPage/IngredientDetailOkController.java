@@ -19,15 +19,7 @@ public class IngredientDetailOkController implements Execute {
 		ItemDTO itemDTO = new ItemDTO();
 		SellerMyPageDAO dao = new SellerMyPageDAO();
 		Result result = new Result();
-		
 
-		int itemNumber = Integer.parseInt(request.getParameter("itemNumber"));
-		itemDTO = dao.detaileIngredient(itemNumber);
-
-		request.setAttribute("itemDTO", itemDTO);
-
-		result.setRedirect(false);
-		result.setPath("/app/sellerMyPage/ingredientSalesView.jsp");
 		return result;
 	}
 }

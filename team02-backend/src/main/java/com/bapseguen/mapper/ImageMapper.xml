@@ -4,16 +4,21 @@
 	<!-- 음식 사진 -->
 	<!-- 파일 추가 -->
 	<insert id="itemInsert" parameterType="ItemImageDTO">
+		<selectKey keyProperty="itemImageNumber" resultType="int" order="BEFORE">
+		SELECT SEQ_ITEM_IMAGE_NUMBER.NEXTVAL FROM dual
+		</selectKey>
 		INSERT INTO TBL_ITEM_IMAGE(
+			ITEM_IMAGE_NUMBER,
 			ITEM_IMAGE_SYSTEM_NAME ,
 			ITEM_IMAGE_ORIGINAL_NAME,
 			ITEM_NUMBER )
-		VALUES (#{itemImageSystemNumber}, #{itemImageOriginNumber},#{itemNumber})	
+		VALUES (#{itemImageNumber},#{itemImageSystemName}, #{itemImageOriginalName},#{itemNumber})	
 	</insert>
 	
 	<!-- 파일 조회 -->
 	<select id="itemSelect" parameterType="int" resultType="ItemImageDTO">
 		SELECT 
+			ITEM_IMAGE_NUMBER,
 			ITEM_IMAGE_SYSTEM_NAME ,
 			ITEM_IMAGE_ORIGINAL_NAME,
 			ITEM_NUMBER
