@@ -111,8 +111,11 @@
 		       	  	<h3><c:out value="${post.freeContent}" /></h3>
 					
 				  </div>
-	          	  <div class="func_button">
-		          	  <!-- 수정/삭제 버튼(로그인한 사용자가 작성자인 경우에만 표시) -->
+				  
+				  
+				  <div class="post_buttons">
+					  <div class="func_button">
+			          	<!-- 수정/삭제 버튼(로그인한 사용자가 작성자인 경우에만 표시) -->
 						<c:if test="${sessionScope.memberNumber eq post.getMemberNumber() }">
 							<!-- 수정 버튼 -->
 							<form action="${pageContext.request.contextPath}/community/postUpdate.co" method="get">
@@ -122,8 +125,9 @@
 									data-member-number="${sessionScope.memberNumber}">수정
 								</button>
 							</form>
+							
 							<!-- 삭제 버튼 -->
-							<form action="${pageContext.request.contextPath}/community/postDeleteOK.co" method="get">
+							<form action="${pageContext.request.contextPath}/community/postUpdateOk.co" method="get">
 								<input type="hidden" name="postNumber" value="${post.postNumber}">
 								<button type="submit" class="delete delete-btn"
 									data-board-number="${post.postNumber}"
@@ -131,14 +135,9 @@
 								</button>
 							</form>
 						</c:if>
-	          	  </div>
+		          	  </div>
+				  </div>
 			  </div>
-	         <!-- <div class="post_buttons">
-	            <div class="func_button">
-	              <button class="edit">수정</button>
-	              <button class="delete">삭제</button>
-	            </div>
-	          </div> -->
 	        </section>
 	             
 	        
