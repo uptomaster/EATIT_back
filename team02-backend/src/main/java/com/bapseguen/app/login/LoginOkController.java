@@ -41,13 +41,7 @@ public class LoginOkController implements Execute {
             return result;
         }
 
-        // 3) 회원유형 조회 (ADMIN 차단)
         String memberType = loginDAO.getMemberType(memberNumber);
-        if ("ADMIN".equalsIgnoreCase(memberType)) {
-            result.setRedirect(true);
-            result.setPath(ctx + "/login/login.lo?login=admin"); // 관리자 로그인 차단
-            return result;
-        }
 
         // 4) 세션 설정 및 메인으로
         session.setAttribute("memberNumber", memberNumber);

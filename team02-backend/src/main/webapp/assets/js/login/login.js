@@ -20,9 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
       case 'wrongpw':
         alert('아이디 또는 비밀번호가 일치하지 않습니다.');
         break;
-      case 'admin':
-        alert('관리자 계정은 이 화면에서 로그인할 수 없습니다.');
-        break;
       case 'fail':
         alert('아이디 또는 비밀번호를 다시 확인해주세요.');
         break;
