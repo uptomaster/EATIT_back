@@ -51,6 +51,7 @@ public class CommunityDAO {
 		return list;
 	}
 
+	
 	// 공지사항 게시글 총 개수 가져오기
 	public int noticeGetTotal() {
 		System.out.println("공지 게시글 총 개수 조회 - noticeGetTotal 메소드 실행");
@@ -101,6 +102,7 @@ public class CommunityDAO {
 		sqlSession.update("post.postUpdate", postDetailDTO);
 	}
 	
+	
 	// 게시글 추가 후 자동으로 생성된 boardNumber 반환 -> 파일 테이블에서도 써야하기 때문에
 //	public int insertPost(PostDTO postDTO) {
 //		int insert = sqlSession.insert("post.insert", postDTO);
@@ -112,7 +114,7 @@ public class CommunityDAO {
 //		return postDTO.getPostNumber();
 //	}
 	
-
+	//게시글 상세 
     private SqlSessionFactory sqlSessionFactory = MyBatisConfig.getSqlSessionFactory();
 
     public void insertFreePost(Map<String, Object> postParams) {

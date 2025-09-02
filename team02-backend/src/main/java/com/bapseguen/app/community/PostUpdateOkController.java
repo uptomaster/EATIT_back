@@ -1,7 +1,8 @@
 package com.bapseguen.app.community;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,81 +14,109 @@ import com.bapseguen.app.community.dao.CommunityDAO;
 import com.bapseguen.app.dto.PostImageDTO;
 import com.bapseguen.app.dto.view.PostDetailDTO;
 import com.bapseguen.app.img.dao.PostImageDAO;
-import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.oreilly.servlet.multipart.FilePart;
+import com.oreilly.servlet.multipart.MultipartParser;
+import com.oreilly.servlet.multipart.ParamPart;
+import com.oreilly.servlet.multipart.Part;
 
 public class PostUpdateOkController implements Execute{
 
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 		
+		System.out.println("====PostUpdateOkController 실행====");
 		CommunityDAO communityDAO = new CommunityDAO();
-		PostDetailDTO postDetailDTO = new PostDetailDTO();
-		Result result = new Result();
-		PostImageDAO postImageDAO = new PostImageDAO();
-		PostImageDTO postImageDTO = new PostImageDTO();
-		
-		//로그인 한 회원 정보 가져오기
-		Integer memberNumber = (Integer)request.getSession().getAttribute("memberNumber");
-		
-		if(memberNumber == null) {
-			System.out.println("오류 : 로그인된 사용자가 없습니다");
-			response.sendRedirect("login.jsp");
-			return null;
-		}
-		
-		//파일 업로드 환경 설정
-		final String UPLOAD_PATH = request.getSession().getServletContext().getRealPath("/") + "upload/";
-		final int FILE_SIZE = 1024 * 1024 * 5; //5MB
-		System.out.println("파일 업로드 경로 : " + UPLOAD_PATH);
-		
-		//MultipartRequest를 이용한 데이터 파싱
-		MultipartRequest multipartRequest = new MultipartRequest(request, UPLOAD_PATH, FILE_SIZE, "utf-8", new DefaultFileRenamePolicy());
-		//request : HTTP 요청객체
-		//UPLOAD_PATH : 파일을 저장할 경로
-		//FILE_SIZE : 파일의 최대 크기
-		//"utf-8" : 파일명 인코딩 방식
-		//new DefaultFileRenamePolicy() : 파일명이 중복될 경우 자동으로 이름 변경해주는 정책
+        PostDetailDTO postDetailDTO = new PostDetailDTO();
+        PostImageDAO postImageDAO = new PostImageDAO();
+        Result result = new Result();
 
-		//게시글 정보 설정
-		PostDetailDTO.setPostTitle(multipartRequest.getParameter("postTitle"));
-		PostDetailDTO.setFreeContent(multipartRequest.getParameter("freeContent"));
-		PostDetailDTO.setPromoContent(multipartRequest.getParameter("promoContent"));
-		PostDetailDTO.setRecipeContent(multipartRequest.getParameter("recipeContent"));
-		PostDetailDTO.setMemberNumber(memberNumber);
-		System.out.println("게시글 추가 - PostDetailDTO : " + postDetailDTO);
-		
-		//게시글 추가
-		int boardNumber = boardDAO.insertBoard(postDetailDTO);
-		System.out.println("생성된 게시글 번호 : " + boardNumber);
-		
-		//파일 업로드 처리
-		//Enumeration : java.util 패키지에 포함된 인터페이스, Iterator와 비슷한 역할함
-		Enumeration<String> fileNames = multipartRequest.getFileNames();
-		while(fileNames.hasMoreElements()) {
-			String name = fileNames.nextElement();
-			String fileSystemName = multipartRequest.getFilesystemName(name);
-			String fileOriginalName = multipartRequest.getOriginalFileName(name);
-			
-			if(fileSystemName == null) {
-				continue;
-			}
-			
-			fileDTO.setFileSystemName(fileSystemName);
-			fileDTO.setFileOriginalName(fileOriginalName);
-			fileDTO.setBoardNumber(boardNumber);
-			
-			System.out.println("업로드 된 파일 정보 : " + fileDTO);
-			fileDAO.insert(fileDTO);
-		}
-		
-		result.setPath("/board/boardListOk.bo");
-		result.setRedirect(false);
-		
-		return result;
+        final String UPLOAD_PATH = request.getSession().getServletContext().getRealPath("/") + "upload/";
+        final int FILE_SIZE = 1024 * 1024 * 5; 
+
+        // MultipartParser 실행
+        MultipartParser parser = new MultipartParser(request, FILE_SIZE);
+        parser.setEncoding("utf-8");
+        System.out.println("MultipartParser 초기화 완료");
+
+        int postNumber = 0;
+        boolean isFileUpload = false;
 	
-	
-	
+     // 파일, 텍스트 데이터 처리
+        Part part;
+        while ((part = parser.readNextPart()) != null) {
+            System.out.println("Part: " + part.getClass().getSimpleName());
+
+            if (part.isParam()) {
+                // 텍스트 파라미터 처리
+                ParamPart paramPart = (ParamPart) part;
+                String paramName = paramPart.getName();
+                String paramValue = paramPart.getStringValue();
+
+                System.out.println("파라미터: " + paramName + " = " + paramValue);
+
+                if ("postNumber".equals(paramName)) {
+                	postNumber = Integer.parseInt(paramValue);
+                	postDetailDTO.setPostNumber(postNumber);
+                } else if ("postTitle".equals(paramName)) {
+                	postDetailDTO.setPostTitle(paramValue);
+                } else if ("freeContent".equals(paramName)) {
+                	postDetailDTO.setFreeContent(paramValue);
+                }
+            } else if (part.isFile() && !isFileUpload) {
+                FilePart filePart = (FilePart) part;
+                filePart.setRenamePolicy(new DefaultFileRenamePolicy());
+                String fileOriginalName = filePart.getFileName();
+                
+                // 기존 파일 삭제
+                if (postNumber != 0) {
+                    List<PostImageDTO> existingFiles = postImageDAO.select(postNumber);
+                    for (PostImageDTO file : existingFiles) {
+                        File oldFile = new File(UPLOAD_PATH, file.getPostImageSystemName());
+                        if (oldFile.exists()) {
+                            System.out.println("기존 파일 삭제: " + oldFile.getAbsolutePath());
+                            oldFile.delete();
+                        }
+                    }
+                    postImageDAO.delete(postNumber);
+                    System.out.println("기존 파일 DB 삭제 완료");
+                }
+
+                if (fileOriginalName != null) {
+                    String newFileName = System.currentTimeMillis() + "_" + fileOriginalName;
+                    File newFile = new File(UPLOAD_PATH, newFileName);
+                    filePart.writeTo(newFile);
+
+                    if (newFile.exists()) {
+                        System.out.println("새로운 파일 저장 완료: " + newFile.getAbsolutePath());
+                    } else {
+                        System.out.println("새로운 파일 저장 실패: " + newFile.getAbsolutePath());
+                    }
+
+                    // DB 저장
+                    PostImageDTO postImageDTO = new PostImageDTO();
+                    postImageDTO.setPostImageSystemName(newFileName);
+                    postImageDTO.setPostImageOriginalName(fileOriginalName);
+                    postImageDTO.setPostImageNumber(postNumber);
+                    postImageDAO.insert(postImageDTO);
+                    System.out.println("새로운 파일 DB 저장 완료: " + postImageDTO);
+
+                    isFileUpload = true; // 파일이 업로드되었음을 표시
+                } else {
+                    System.out.println("업로드된 파일이 없습니다 (파일 선택하지 않음)");
+                }
+            }
+        }
+
+        // 게시글 업데이트 실행
+        postDetailDTO.setMemberNumber((Integer) request.getSession().getAttribute("memberNumber"));
+        communityDAO.update(postDetailDTO);
+        System.out.println("게시글 수정 완료");
+
+        //수정 완료 후 리스트 페이지로 이동
+        result.setPath("/community/freeBoardListOk.co");
+        result.setRedirect(true);
+        return result;
 	
 	}
 
