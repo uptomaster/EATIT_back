@@ -7,7 +7,7 @@ import javax.servlet.http.*;
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.admin.dao.AdminDAO;
-import com.bapseguen.app.dto.MemberDTO;
+import com.bapseguen.app.dto.AdminDTO;
 
 public class AdminLoginOkController implements Execute {
 
@@ -21,8 +21,8 @@ public class AdminLoginOkController implements Execute {
 
         String adminIdInput = request.getParameter("adminId");
         String adminPwInput = request.getParameter("adminPw");
-        
-        // 아이디/비번이 null일 경우도 걸러지고, 공백일 경우도 걸러짐.
+
+        // 입력값 검증
         if (adminIdInput == null || adminIdInput.isBlank() ||
             adminPwInput == null || adminPwInput.isBlank()) {
             request.setAttribute("loginError", "아이디와 비밀번호를 입력하세요.");
@@ -32,24 +32,24 @@ public class AdminLoginOkController implements Execute {
             return result;
         }
 
-        MemberDTO dto = new MemberDTO();
-        
-        // 입력받은 아이디와 비밀번호
-        dto.setMemberId(adminIdInput);
-        dto.setMemberPassword(adminPwInput);
+        AdminDTO adminDTO = new AdminDTO();
+        adminDTO.setAdminId(adminIdInput);
+        adminDTO.setAdminPassword(adminPwInput);
 
         AdminDAO dao = new AdminDAO();
-        int memberNumber = dao.loginAdmin(dto); // 일치하면 회원번호, 아니면 -1 반환
+        AdminDTO loginAdmin = dao.loginAdmin(adminDTO);
 
-        if (memberNumber > 0) {
+        if (loginAdmin != null) {
+            // 로그인 성공 → 세션 저장
             HttpSession session = request.getSession();
-            session.setAttribute("adminNumber", memberNumber);
-            session.setAttribute("memberId", adminIdInput);
-            session.setAttribute("memberType", "ADMIN");
+            session.setAttribute("adminNumber", loginAdmin.getAdminNumber());
+            session.setAttribute("adminId", loginAdmin.getAdminId());
+            session.setAttribute("adminGrade", loginAdmin.getAdminTreeGrade());
 
             result.setPath(request.getContextPath() + "/admin/dashboard.ad");
             result.setRedirect(true);
         } else {
+            // 로그인 실패
             request.setAttribute("loginError", "일치하는 관리자 정보가 없습니다.");
             request.setAttribute("inputAdminId", adminIdInput);
             result.setPath("/app/admin/adminLogin.jsp");
