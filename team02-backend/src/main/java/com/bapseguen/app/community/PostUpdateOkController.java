@@ -62,6 +62,8 @@ public class PostUpdateOkController implements Execute{
                 	postDetailDTO.setPostTitle(paramValue);
                 } else if ("freeContent".equals(paramName)) {
                 	postDetailDTO.setFreeContent(paramValue);
+                } else if ("postType".equals(paramName)) { 
+                    postDetailDTO.setPostType(paramValue);
                 }
             } else if (part.isFile() && !isFileUpload) {
                 FilePart filePart = (FilePart) part;

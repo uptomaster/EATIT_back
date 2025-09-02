@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.community.dao.CommunityDAO;
+import com.bapseguen.app.dto.view.PostDetailDTO;
 
 public class PostUpdateController implements Execute{
 
@@ -20,9 +21,13 @@ public class PostUpdateController implements Execute{
         CommunityDAO communityDAO = new CommunityDAO();
         Result result = new Result();
 		
-		request.setAttribute("post", communityDAO.select(postNumber));
-		
-		result.setPath("/app/community/viewOtherPost.jsp");
+		//request.setAttribute("post", communityDAO.select(postNumber));
+        PostDetailDTO post = communityDAO.select(postNumber);
+        request.setAttribute("post", post);
+        request.setAttribute("postType", post.getPostType());
+        
+        
+		result.setPath("/app/community/updatePost.jsp");
 		result.setRedirect(false);
 			
 		return result;
