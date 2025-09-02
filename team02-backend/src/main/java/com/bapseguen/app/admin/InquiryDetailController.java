@@ -10,12 +10,11 @@ import com.bapseguen.app.admin.dao.AdminDAO;
 import com.bapseguen.app.dto.view.AdminPostDTO;
 
 public class InquiryDetailController implements Execute {
-
     @Override
     public Result execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        System.out.println("[ADMIN] 문의글 상세 요청");
+        System.out.println("[ADMIN] 문의 상세 요청");
 
         int postNumber = Integer.parseInt(request.getParameter("postNumber"));
 

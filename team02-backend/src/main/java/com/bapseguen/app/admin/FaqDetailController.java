@@ -1,16 +1,18 @@
 package com.bapseguen.app.admin;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.admin.dao.AdminDAO;
+import com.bapseguen.app.dto.AdminImageDTO;
 import com.bapseguen.app.dto.view.AdminPostDTO;
 
 public class FaqDetailController implements Execute {
-
     @Override
     public Result execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -21,6 +23,9 @@ public class FaqDetailController implements Execute {
 
         AdminDAO dao = new AdminDAO();
         AdminPostDTO faq = dao.selectFaqDetail(postNumber);
+        List<AdminImageDTO> images = dao.selectAdminImagesByPost(postNumber);
+
+        faq.setImages(images); // DTO에 이미지 리스트 주입
 
         request.setAttribute("faq", faq);
 

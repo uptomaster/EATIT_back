@@ -2,12 +2,10 @@ package com.bapseguen.app.admin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Enumeration;
+import java.util.*;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
@@ -18,60 +16,60 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class NoticeWriteOkController implements Execute {
-
     @Override
     public Result execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        System.out.println("[ADMIN] 공지 작성 + 이미지 업로드 처리");
+        System.out.println("[ADMIN] 공지/이벤트 글 작성 처리");
 
         Result result = new Result();
-        HttpSession session = request.getSession();
-        Integer adminNumber = (Integer) session.getAttribute("adminNumber");
+        AdminDAO dao = new AdminDAO();
 
-        // 업로드 경로 (웹 서버 기준)
+        // 업로드 경로
         String uploadPath = request.getServletContext().getRealPath("/") + "upload/admin/";
         File folder = new File(uploadPath);
         if (!folder.exists()) {
             folder.mkdirs();
         }
 
-        int fileSize = 1024 * 1024 * 10; // 10MB 제한
+        // multipart 처리
         MultipartRequest multi = new MultipartRequest(
                 request,
                 uploadPath,
-                fileSize,
+                1024 * 1024 * 20, // 20MB
                 "UTF-8",
                 new DefaultFileRenamePolicy()
         );
 
-        // 글 데이터
-        String postTitle = multi.getParameter("postTitle");
-        String noticeContent = multi.getParameter("noticeContent");
+        // 로그인한 관리자 번호
+        HttpSession session = request.getSession();
+        int adminNumber = (int) session.getAttribute("adminNumber");
 
+        // 게시글 정보
         AdminPostDTO postDTO = new AdminPostDTO();
         postDTO.setAdminNumber(adminNumber);
-        postDTO.setPostTitle(postTitle);
-        postDTO.setNoticeContent(noticeContent);
+        postDTO.setPostTitle(multi.getParameter("postTitle"));
+        postDTO.setNoticeContent(multi.getParameter("noticeContent"));
 
-        AdminDAO dao = new AdminDAO();
-        dao.insertNoticePost(postDTO); // TBL_POST + TBL_NOTICE insert
+        // 1) 게시글 등록
+        dao.insertNoticePost(postDTO);
+        dao.insertNotice(postDTO);
 
-        // 업로드된 이미지 처리
-        Enumeration<String> fileNames = multi.getFileNames();
+        // 2) 이미지 등록
+        Enumeration<?> fileNames = multi.getFileNames();
         while (fileNames.hasMoreElements()) {
-            String paramName = fileNames.nextElement();
-            String systemName = multi.getFilesystemName(paramName);   // 서버에 저장된 이름
-            String originalName = multi.getOriginalFileName(paramName); // 사용자가 업로드한 이름
+            String paramName = (String) fileNames.nextElement();
+            String systemName = multi.getFilesystemName(paramName);
+            String originalName = multi.getOriginalFileName(paramName);
 
             if (systemName != null) {
-                AdminImageDTO imageDTO = new AdminImageDTO();
-                imageDTO.setAdminNumber(adminNumber);
-                imageDTO.setPostNumber(postDTO.getPostNumber()); // insert 후 CURRVAL or selectKey로 세팅
-                imageDTO.setAdminImageSystemName(systemName);
-                imageDTO.setAdminImageOriginalName(originalName);
+                AdminImageDTO imgDTO = new AdminImageDTO();
+                imgDTO.setAdminImageSystemName(systemName);
+                imgDTO.setAdminImageOriginalName(originalName);
+                imgDTO.setAdminNumber(adminNumber);
+                imgDTO.setPostNumber(postDTO.getPostNumber());
 
-                dao.insertAdminImage(imageDTO);
+                dao.insertAdminImage(imgDTO);
             }
         }
 

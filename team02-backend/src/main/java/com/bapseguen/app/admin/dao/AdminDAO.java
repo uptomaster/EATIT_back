@@ -7,6 +7,9 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.bapseguen.app.dto.AdminDTO;
 import com.bapseguen.app.dto.AdminImageDTO;
+import com.bapseguen.app.dto.MemberBlacklistDTO;
+import com.bapseguen.app.dto.MemberSuspendDTO;
+import com.bapseguen.app.dto.PostReportDTO;
 import com.bapseguen.app.dto.view.AdminPostDTO;
 import com.bapseguen.config.MyBatisConfig;
 
@@ -14,26 +17,33 @@ public class AdminDAO {
     private SqlSession sqlSession;
 
     public AdminDAO() {
-        sqlSession = MyBatisConfig.getSqlSessionFactory().openSession(true); // auto-commit
+        sqlSession = MyBatisConfig.getSqlSessionFactory().openSession(true);
     }
 
-    /* ===================== 관리자 로그인 ===================== */
-    public AdminDTO loginAdmin(AdminDTO adminDTO) {
-        return sqlSession.selectOne("admin.loginAdmin", adminDTO);
+    /* ===================== 로그인 ===================== */
+    public AdminDTO loginAdmin(AdminDTO dto) {
+        return sqlSession.selectOne("admin.loginAdmin", dto);
     }
 
-    /* ===================== 공지/이벤트 ===================== */
+    /* ===================== 공지 ===================== */
     public void insertNoticePost(AdminPostDTO postDTO) {
         sqlSession.insert("admin.insertNoticePost", postDTO);
+    }
+
+    public void insertNotice(AdminPostDTO postDTO) {
         sqlSession.insert("admin.insertNotice", postDTO);
     }
 
-    public List<AdminPostDTO> selectNoticeList(Map<String, Object> pageMap) {
-        return sqlSession.selectList("admin.selectNoticeList", pageMap);
+    public List<AdminPostDTO> selectNoticeList(Map<String, Object> params) {
+        return sqlSession.selectList("admin.selectNoticeList", params);
     }
 
-    public int countNotices(Map<String, Object> pageMap) {
-        return sqlSession.selectOne("admin.countNotices", pageMap);
+    public int countNotices(Map<String, Object> params) {
+        return sqlSession.selectOne("admin.countNotices", params);
+    }
+
+    public int countNotices() {
+        return sqlSession.selectOne("admin.countNotices");
     }
 
     public AdminPostDTO selectNoticeDetail(int postNumber) {
@@ -55,15 +65,22 @@ public class AdminDAO {
     /* ===================== FAQ ===================== */
     public void insertFaqPost(AdminPostDTO postDTO) {
         sqlSession.insert("admin.insertFaqPost", postDTO);
+    }
+
+    public void insertFaq(AdminPostDTO postDTO) {
         sqlSession.insert("admin.insertFaq", postDTO);
     }
 
-    public List<AdminPostDTO> selectFaqList(Map<String, Object> pageMap) {
-        return sqlSession.selectList("admin.selectFaqList", pageMap);
+    public List<AdminPostDTO> selectFaqList(Map<String, Object> params) {
+        return sqlSession.selectList("admin.selectFaqList", params);
     }
 
-    public int countFaqs(Map<String, Object> pageMap) {
-        return sqlSession.selectOne("admin.countFaqs", pageMap);
+    public int countFaqs(Map<String, Object> params) {
+        return sqlSession.selectOne("admin.countFaqs", params);
+    }
+
+    public int countFaqs() {
+        return sqlSession.selectOne("admin.countFaqs");
     }
 
     public AdminPostDTO selectFaqDetail(int postNumber) {
@@ -83,8 +100,8 @@ public class AdminDAO {
     }
 
     /* ===================== 관리자 이미지 ===================== */
-    public void insertAdminImage(AdminImageDTO imageDTO) {
-        sqlSession.insert("admin.insertAdminImage", imageDTO);
+    public void insertAdminImage(AdminImageDTO imgDTO) {
+        sqlSession.insert("admin.insertAdminImage", imgDTO);
     }
 
     public List<AdminImageDTO> selectAdminImagesByPost(int postNumber) {
@@ -95,26 +112,17 @@ public class AdminDAO {
         sqlSession.delete("admin.deleteAdminImagesByPost", postNumber);
     }
 
-    /* ===================== 대시보드 통계 ===================== */
-    public int countReports() {
-        return sqlSession.selectOne("admin.countReports");
+    /* ===================== 문의(Inquiry) ===================== */
+    public List<AdminPostDTO> selectInquiryList(Map<String, Object> params) {
+        return sqlSession.selectList("admin.selectInquiryList", params);
+    }
+
+    public int countInquiries(Map<String, Object> params) {
+        return sqlSession.selectOne("admin.countInquiries", params);
     }
 
     public int countInquiries() {
         return sqlSession.selectOne("admin.countInquiries");
-    }
-
-    public int countUnansweredInquiries() {
-        return sqlSession.selectOne("admin.countUnansweredInquiries");
-    }
-    
-    /* ===================== 문의(Inquiry) ===================== */
-    public List<AdminPostDTO> selectInquiryList(Map<String, Object> pageMap) {
-        return sqlSession.selectList("admin.selectInquiryList", pageMap);
-    }
-
-    public int countInquiries(Map<String, Object> pageMap) {
-        return sqlSession.selectOne("admin.countInquiries", pageMap);
     }
 
     public AdminPostDTO selectInquiryDetail(int postNumber) {
@@ -124,4 +132,56 @@ public class AdminDAO {
     public void updateInquiryStatus(AdminPostDTO postDTO) {
         sqlSession.update("admin.updateInquiryStatus", postDTO);
     }
+
+    /* ===================== 신고 / 정지 / 블랙리스트 ===================== */
+    public List<PostReportDTO> selectReportList() {
+        return sqlSession.selectList("admin.selectReportList");
+    }
+
+    public List<MemberSuspendDTO> selectSuspendList() {
+        return sqlSession.selectList("admin.selectSuspendList");
+    }
+
+    public List<MemberBlacklistDTO> selectBlacklistList() {
+        return sqlSession.selectList("admin.selectBlacklistList");
+    }
+
+    public void insertSuspend(MemberSuspendDTO dto) {
+        sqlSession.insert("admin.insertSuspend", dto);
+    }
+
+    public void insertBlacklist(MemberBlacklistDTO dto) {
+        sqlSession.insert("admin.insertBlacklist", dto);
+    }
+
+    /* ===================== 대시보드 통계 ===================== */
+    public int memberListCount(Map<String, Object> params) {
+        return sqlSession.selectOne("admin.memberListCount", params);
+    }
+
+    public int memberListCount() {
+        return sqlSession.selectOne("admin.memberListCount", new java.util.HashMap<>());
+    }
+
+    public int countUnansweredInquiries() {
+        return sqlSession.selectOne("admin.countUnansweredInquiries");
+    }
+
+    public int countReports() {
+        return sqlSession.selectOne("admin.countReports");
+    }
+
+    public List<Map<String, Object>> countMonthlyMembers() {
+        return sqlSession.selectList("admin.countMonthlyMembers");
+    }
+    
+    /* ===================== 회원 ===================== */
+    public Map<String, Object> selectMemberDetail(int memberNumber) {
+        return sqlSession.selectOne("admin.selectMemberDetail", memberNumber);
+    }
+
+    public List<Map<String, Object>> selectMemberList(Map<String, Object> params) {
+        return sqlSession.selectList("admin.selectMemberList", params);
+    }
+
 }

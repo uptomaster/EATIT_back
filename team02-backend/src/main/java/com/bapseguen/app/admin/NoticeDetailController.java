@@ -10,15 +10,13 @@ import com.bapseguen.app.admin.dao.AdminDAO;
 import com.bapseguen.app.dto.view.AdminPostDTO;
 
 public class NoticeDetailController implements Execute {
-
     @Override
     public Result execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        System.out.println("[ADMIN] 공지 상세 요청");
+        System.out.println("[ADMIN] 공지/이벤트 상세보기 요청");
 
         int postNumber = Integer.parseInt(request.getParameter("postNumber"));
-
         AdminDAO dao = new AdminDAO();
         AdminPostDTO notice = dao.selectNoticeDetail(postNumber);
 

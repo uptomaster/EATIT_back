@@ -27,7 +27,8 @@ public class FaqWriteOkController implements Execute {
         HttpSession session = request.getSession();
         Integer adminNumber = (Integer) session.getAttribute("adminNumber");
 
-        String uploadPath = request.getServletContext().getRealPath("/") + "upload/admin/";
+        // 업로드 경로
+        String uploadPath = request.getServletContext().getRealPath("/") + "upload/admin/faq/";
         File folder = new File(uploadPath);
         if (!folder.exists()) { folder.mkdirs(); }
 
@@ -49,7 +50,8 @@ public class FaqWriteOkController implements Execute {
         postDTO.setFaqContent(faqContent);
 
         AdminDAO dao = new AdminDAO();
-        dao.insertFaqPost(postDTO); // TBL_POST + TBL_FAQ insert
+        dao.insertFaqPost(postDTO); // TBL_POST insert
+        dao.insertFaq(postDTO);     // TBL_FAQ insert
 
         // 파일 업로드 처리
         Enumeration<String> fileNames = multi.getFileNames();

@@ -8,11 +8,9 @@ import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 
 public class FaqWriteController implements Execute {
-
     @Override
     public Result execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         System.out.println("[ADMIN] FAQ 작성 페이지 요청");
 
         Result result = new Result();

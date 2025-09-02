@@ -8,12 +8,10 @@ import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 
 public class NoticeWriteController implements Execute {
-
     @Override
     public Result execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        System.out.println("[ADMIN] 공지 작성 페이지 요청");
+        System.out.println("[ADMIN] 공지/이벤트 작성 페이지 요청");
 
         Result result = new Result();
         result.setPath("/app/admin/noticeWrite.jsp");
