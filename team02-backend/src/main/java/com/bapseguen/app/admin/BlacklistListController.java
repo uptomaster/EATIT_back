@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
@@ -13,26 +12,20 @@ import com.bapseguen.app.admin.dao.AdminDAO;
 import com.bapseguen.app.dto.MemberBlacklistDTO;
 
 public class BlacklistListController implements Execute {
-
     @Override
     public Result execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        System.out.println("==== BlacklistListController 실행 ====");
+        System.out.println("[ADMIN] 블랙리스트 목록 요청");
 
-        // 1. DAO 호출
-        AdminDAO adminDAO = new AdminDAO();
-        List<MemberBlacklistDTO> blacklist = adminDAO.selectBlacklistList();
+        AdminDAO dao = new AdminDAO();
+        List<MemberBlacklistDTO> blacklist = dao.selectBlacklistList();
 
-        // 2. request에 저장
         request.setAttribute("blacklist", blacklist);
 
-        // 3. 이동 경로 지정 (포워드)
         Result result = new Result();
         result.setPath("/app/admin/blacklistList.jsp");
         result.setRedirect(false);
-
-        System.out.println("==== BlacklistListController 완료 ====");
         return result;
     }
 }

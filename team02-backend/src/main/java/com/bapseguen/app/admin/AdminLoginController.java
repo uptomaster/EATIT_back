@@ -16,16 +16,16 @@ public class AdminLoginController implements Execute {
 
         System.out.println("[ADMIN] 관리자 로그인 페이지 요청");
 
-        // 이미 로그인된 ADMIN이면 메인으로
+        // 이미 로그인된 관리자라면 → 대시보드로 이동
         HttpSession session = request.getSession(false);
-        if (session != null && "ADMIN".equals(String.valueOf(session.getAttribute("memberType")))) {
+        if (session != null && session.getAttribute("adminNumber") != null) {
             Result redirect = new Result();
             redirect.setPath(request.getContextPath() + "/admin/dashboard.ad");
             redirect.setRedirect(true);
             return redirect;
         }
 
-        // 로그인 폼 JSP로 forward
+        // 로그인 페이지로 forward
         Result result = new Result();
         result.setPath("/app/admin/adminLogin.jsp");
         result.setRedirect(false);
