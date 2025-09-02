@@ -66,10 +66,10 @@
                   <c:out value="${review.itemName}" />
                 </div>
                 <div class="seller_myreviews_quantity">
-                  <fmt:formatNumber value="${review.orderItemQuantity}" />
+                  <c:out value="${review.orderItemQuantity}" />
                 </div>
                 <div class="seller_myreviews_price">
-                  <fmt:formatNumber value="${review.ordersTotalAmount}" pattern="#,###" />원
+                  <c:out value="${review.ordersTotalAmount}" />원
                 </div>
                 <div class="seller_myreviews_date">
                   <c:out value="${review.reviewCreateDate}" />
