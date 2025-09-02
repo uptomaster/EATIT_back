@@ -1,6 +1,8 @@
  package com.bapseguen.app.community;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -125,13 +127,23 @@ public class CommunityFrontController extends HttpServlet {
 			
 		}
 
-		if (result != null) {
-			if (result.isRedirect()) {
-				response.sendRedirect(result.getPath());
-			} else {
-				request.getRequestDispatcher(result.getPath()).forward(request, response);
-			}
+		/*
+		 * if (result != null) { if (result.isRedirect()) {
+		 * response.sendRedirect(result.getPath()); } else {
+		 * request.getRequestDispatcher(result.getPath()).forward(request, response); }
+		 * }
+		 */
+		
+		
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher(result.getPath());
+
+		if (dispatcher == null) {
+		    System.out.println("Dispatcher is null! Path = " + result.getPath());
+		} else {
+		    dispatcher.forward(request, response);
 		}
+		
 	}
 
 }

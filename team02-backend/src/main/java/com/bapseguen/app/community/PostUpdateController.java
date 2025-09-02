@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.community.dao.CommunityDAO;
-import com.bapseguen.app.dto.view.PostDetailDTO;
 
 public class PostUpdateController implements Execute{
 
@@ -22,7 +21,6 @@ public class PostUpdateController implements Execute{
         Result result = new Result();
 		
 		request.setAttribute("post", communityDAO.select(postNumber));
-		System.out.println("-------------경로 확인중---------------");
 		
 		result.setPath("/app/community/viewOtherPost.jsp");
 		result.setRedirect(false);
