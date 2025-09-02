@@ -45,7 +45,7 @@
 				</div>
 				<h1 class="post_title">
 					<c:choose>
-						<c:when test="${postType == 'FREE'}">
+						<c:when test="${post.postType == 'FREE'}">
 		            자유게시글 작성
 		        		</c:when>
 						<%-- <c:when test="${postType == 'NOTICE'}">
