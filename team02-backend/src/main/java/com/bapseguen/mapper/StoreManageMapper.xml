@@ -26,8 +26,8 @@
 
 
 	<!-- 음식 판매 상세 조회 -->
-	<select id="detaileFood" parameterType="int" resultType="ItemListDTO">
-		<![CDATA[
+	<select id="detaileItem" parameterType="int" resultType="ItemDTO">
+		
 		SELECT
 		    i.ITEM_NUMBER AS itemNumber,
 		    i.BUSINESS_NUMBER AS businessNumber,
@@ -39,12 +39,11 @@
 		    i.ITEM_EXPIRE_DATE AS itemExpireDate,
 		    i.ITEM_CREATED_TIME AS itemCreatedTime,
 		    i.ITEM_UPDATED_TIME AS itemUpdatedTime,
-		    CASE WHEN i.ITEM_SELL_STATE = 'Y' THEN '판매중' ELSE '판매중지' END AS itemSellState,
+		    i.ITEM_SELL_STATE AS itemSellState,
 		    s.STORE_NAME AS businessName
 		FROM TBL_ITEM i
-		JOIN TBL_STORE s ON i.BUSINESS_NUMBER = s.BUSINESS_NUMBER
 		WHERE i.ITEM_NUMBER = #{itemNumber}
-		]]>
+		
 	</select>
 
 	<!-- 음식 판매 수정 -->
