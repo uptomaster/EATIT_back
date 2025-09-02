@@ -22,9 +22,10 @@ public class FoodDetailOkController implements Execute {
     	System.out.println("FoodDetailOkController 진입 성공 ===");
     	Result result = new Result();
 		
-		//itemNumber가 빈 문자열이거나 null인경우
 		String itemNumberStr = request.getParameter("itemNumber"); //!!!!!!!!어디서 주어야 하는지 
 		System.out.println("[FoodDetailOkController] : "+itemNumberStr);
+		
+		//itemNumber가 빈 문자열이거나 null인경우
 		if(itemNumberStr == null || itemNumberStr.trim().isEmpty()){
 			System.out.println("[FoodDetailOkController] itemNumberStr 값이 없습니다");
 			result.setPath("/sellerMyPage/storeInfo.se"); //게시글 목록 페이지로 리다이렉트
@@ -38,7 +39,7 @@ public class FoodDetailOkController implements Execute {
 		ItemImageDAO fileDAO = new ItemImageDAO();
 
 		//DB에서 게시글 가져오기
-		ItemListDTO ItemListDTO = sellerDAO.detaileFood(itemNumber);
+		ItemListDTO ItemListDTO = sellerDAO.detaileItem(itemNumber);
 		
 		//게시글이 존재하지 않을 경우 처리
 		if(ItemListDTO == null) {
