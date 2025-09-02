@@ -29,20 +29,7 @@ public class FoodEditController implements Execute{
         result.setPath("/app/sellerMyPage/foodSalesEdit.jsp");
         result.setRedirect(false);
         return result;
-//        String raw = request.getParameter("itemNumber");
-        
-//        if (raw == null || raw.isBlank()) {
-//        	response.sendError(HttpServletResponse.SC_BAD_REQUEST, "missing param: itemNumber");
-//        	return null;
-//        }
-//        
-//        int itemNumber;
-//        try {
-//        	itemNumber = Integer.parseInt(raw.trim());
-//        } catch (NumberFormatException e) {
-//        	response.sendError(HttpServletResponse.SC_BAD_REQUEST, "invalid int: itemNumber=" + raw);
-//        	return null;
-//        }
+
 	}
 	
 	

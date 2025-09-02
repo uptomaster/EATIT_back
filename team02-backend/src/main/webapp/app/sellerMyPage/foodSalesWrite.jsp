@@ -109,14 +109,14 @@
         
           <div class="foodsaleswrite_quantitiy_container">
             <label for="foodsaleswrite_quantity" class="foodsaleswrite_small_label">수량</label>
-            <input name="itemPrice" type="number" id="foodsaleswrite_quantity" min="0" placeholder="개수">
+            <input name="itemQuantity" type="number" id="foodsaleswrite_quantity" min="0" placeholder="개수">
             <span id="foodsaleswrite_food_count">개</span>
             <!-- <button type="button">등록</button> -->
           </div>
           
           <div class="foodsaleswrite_price_container">
             <label for="foodsaleswrite_price" class="foodsaleswrite_small_label">가격</label>
-            <input name="itemQuantity" type="number" id="foodsaleswrite_price" min="0" placeholder="원단위">
+            <input name="itemPrice" type="number" id="foodsaleswrite_price" min="0" placeholder="원단위">
             <span>원</span>
             <!-- <button type="button">등록</button> -->
           </div>

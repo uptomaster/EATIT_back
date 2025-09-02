@@ -2,25 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="storeManage">
 
+	<!-- 마지막 아이템 번호 불러오기 -->
+	<select id="getItemNumber" resultType="int">
+	SELECT SEQ_ITEM_NUMBER.currval FROM dual
+	</select>
+
+
+
+
 	<!-- 음식 판매 등록 -->
-	<insert id="addFood" parameterType="ItemWithImgDTO">
-		<selectKey keyProperty="itemNumebr" resultType="int" order="BEFORE">
+	<insert id="addFood" parameterType="ItemInsertDTO">
+		<selectKey keyProperty="itemNumber" resultType="int" order="BEFORE">
 			SELECT SEQ_ITEM_NUMBER.NEXTVAL FROM dual
 		</selectKey>
 		INSERT INTO TBL_ITEM (
 			item_number,business_number,item_type,item_name,item_price,item_content,
-			item_quantity,item_origin,item_expire_date,item_created_date
+			item_quantity, item_expire_date,item_created_time, ITEM_SELL_STATE
 		) VALUES (
 			#{itemNumber},#{businessNumber},'FOOD',#{itemName},#{itemPrice},#{itemContent},
-			#{itemQuantity},#{itemOrigin},#{itemExpireDate},SYSDATE
+			#{itemQuantity},SYSDATE+1,SYSDATE, #{itemSellState}
 		)
 	</insert>
-	<!-- 마지막 아이템 번호 불러오기 -->
-	<select id="getLastItemNumber" resultType="int">
-	SELECT MAX(item_number)
-	FROM TBL_ITEM 
-	WHERE BUSINESS_NUMBER = #{businessNumber};
-	</select>
+
 
 	<!-- 음식 판매 상세 조회 -->
 	<select id="detaileFood" parameterType="int" resultType="ItemListDTO">
@@ -33,7 +36,6 @@
 		    i.ITEM_PRICE AS itemPrice,
 		    i.ITEM_CONTENT AS itemContent,
 		    i.ITEM_QUANTITY AS itemQuantity,
-		    i.ITEM_ORIGIN AS itemOrigin,
 		    i.ITEM_EXPIRE_DATE AS itemExpireDate,
 		    i.ITEM_CREATED_TIME AS itemCreatedTime,
 		    i.ITEM_UPDATED_TIME AS itemUpdatedTime,
@@ -52,7 +54,6 @@
 			ITEM_PRICE 	= #{itemPrice}, 
 			ITEM_CONTENT	= #{itemContent},
 			ITEM_QUANTITY 	= #{itemQuantity}, 
-			ITEM_ORIGIN 	= #{itemOrigin}, 
 			ITEM_UPDATED_TIME 	= SYSDATE,
 			ITEM_EXPIRE_DATE 	= #{itemExpireDate},
 			ITEM_SELL_STATE 	= #{itemSellState}
@@ -73,7 +74,7 @@
 		SELECT * FROM (
 			SELECT ROWNUM AS RNUM, SUBQUERY.* FROM (
 				SELECT 
-					i.item_number, i.item_name,i.item_price,i.item_content,i.item_quantity,i.item_origin,i.item_expire_date,
+					i.item_number, i.item_name,i.item_price,i.item_content,i.item_quantity,i.item_expire_date,
 					im.item_image_system_name
 				FROM TBL_ITEM i
 				JOIN TBL_STORE s ON i.business_number = s.business_number
@@ -90,32 +91,22 @@
 
 
 	<!-- 재료 판매 등록 -->
-	<insert id="addIngredient" parameterType="ItemDTO">
-		<selectKey keyProperty="itemNumebr" resultType="int"
-			order="BEFORE">
+	<insert id="addIngredient" parameterType="ItemInsertDTO">
+		<selectKey keyProperty="itemNumber" resultType="int" order="BEFORE">
 			SELECT SEQ_ITEM_NUMBER.NEXTVAL FROM dual
 		</selectKey>
 		INSERT INTO TBL_ITEM (
-			item_number,
-			business_number,
-			item_type,
-			item_name,
-			item_price,
-			item_content,
-			item_quantity,
-			item_origin,
-			item_expire_date,
-			item_created_time,
-			ITEM_SELL_STATE
+			item_number,business_number,item_type,item_name,item_price,item_content,
+			item_quantity, item_expire_date,item_created_time, ITEM_SELL_STATE
 		) VALUES (
 			#{itemNumber},#{businessNumber},'INGREDIENT',#{itemName},#{itemPrice},#{itemContent},
-			#{itemQuantity},#{itemOrigin},#{itemExpireDate},SYSDATE, 'Y'
+			#{itemQuantity}, #{itemExpireDate}, SYSDATE, #{itemSellState}
 		)
 	</insert>
 	<!-- 재료 판매 상세 조회 -->
 	<select id="detaileIngredient" parameterType="ItemListDTO">
 		select
-		item_name,item_price,item_content,item_quantity,item_origin,item_expire_date, item_sell_state
+		item_name,item_price,item_content,item_quantity,item_expire_date, item_sell_state
 		from tbl_item
 		where item_number =	#{itemNumber}
 	</select>
@@ -123,7 +114,7 @@
 	<update id="editIngredient" parameterType="ItemDTO">
 		UPDATE TBL_ITEM SET
 		ITEM_NAME= #{itemName}, ITEM_PRICE = #{itemPrice}, ITEM_CONTENT	= #{itemContent},
-		ITEM_QUANTITY = #{itemQuantity}, ITEM_ORIGIN = #{itemOrigin}, ITEM_UPDATED_TIME = SYSDATE
+		ITEM_QUANTITY = #{itemQuantity}, ITEM_UPDATED_TIME = SYSDATE
 		WHERE ITEM_NUMBER =	#{itemNumber}
 		AND ITEM_TYPE = 'INGREDIENT'
 	</update>
@@ -140,7 +131,7 @@
 	SELECT * FROM (
 		SELECT ROWNUM AS RNUM, SUBQUERY.* FROM(
 		SELECT
-				i.item_number, i.item_name,i.item_price,i.item_content,i.item_quantity,i.item_origin,i.item_expire_date,
+				i.item_number, i.item_name,i.item_price,i.item_content,i.item_quantity,i.item_expire_date,
 				im.item_image_system_name
 			FROM TBL_ITEM i
 			JOIN TBL_STORE s ON i.business_number = s.business_number

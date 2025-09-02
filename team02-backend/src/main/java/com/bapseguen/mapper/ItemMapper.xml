@@ -36,7 +36,6 @@
 		i.ITEM_PRICE AS itemPrice,
 		i.ITEM_CONTENT AS itemContent,
 		i.ITEM_QUANTITY AS itemQuantity,
-		i.ITEM_ORIGIN AS itemOrigin,
 		TO_CHAR(i.ITEM_EXPIRE_DATE, 'YYYY-MM-DD') AS itemExpireDate,
 		TO_CHAR(i.ITEM_CREATED_TIME, 'YYYY-MM-DD HH24:MI:SS') AS
 		itemCreatedTime,
@@ -141,7 +140,6 @@
 		I.ITEM_PRICE,
 		I.ITEM_CONTENT,
 		I.ITEM_QUANTITY,
-		I.ITEM_ORIGIN,
 		TO_CHAR(I.ITEM_EXPIRE_DATE, 'YYYY-MM-DD') AS
 		itemExpireDate,
 		I.ITEM_SELL_STATE,
@@ -201,7 +199,6 @@
         i.ITEM_PRICE        AS itemPrice,
         i.ITEM_CONTENT      AS itemContent,
         i.ITEM_QUANTITY     AS itemQuantity,
-        i.ITEM_ORIGIN       AS itemOrigin,
         TO_CHAR(i.ITEM_EXPIRE_DATE, 'YYYY-MM-DD') AS itemExpireDate,
         TO_CHAR(i.ITEM_CREATED_TIME, 'YYYY-MM-DD HH24:MI:SS') AS itemCreatedTime,
         TO_CHAR(i.ITEM_UPDATED_TIME, 'YYYY-MM-DD HH24:MI:SS') AS itemUpdatedTime,

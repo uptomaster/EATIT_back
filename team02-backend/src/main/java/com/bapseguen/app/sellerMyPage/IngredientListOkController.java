@@ -14,9 +14,9 @@ public class IngredientListOkController implements Execute{
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		 result.setRedirect(false);
-			result.setPath("/app/sellerMyPage/foodSalesWrite.jsp");
-			return result;	
+
+		Result result = new Result();
+		return result;	
 	}
 	
 }
