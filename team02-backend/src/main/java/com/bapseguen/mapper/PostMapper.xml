@@ -96,20 +96,34 @@
 	
 	<!-- 게시글 삭제 쿼리 -->
 	<delete id="postDelete" parameterType="int">
-		DELETE FROM TBL_POST
-		WHERE POST_NUMBER =#{postNumber}
+	    <!-- 댓글 -->
+	    DELETE FROM TBL_COMMENT WHERE POST_NUMBER = #{postNumber}
+	    <!-- 이미지-->
+	    DELETE FROM TBL_POST_IMAGE WHERE POST_NUMBER = #{postNumber}
+	    <!-- 자유게시판 내용 -->
+	    DELETE FROM TBL_FREE_BOARD WHERE POST_NUMBER = #{postNumber}
+	    <!-- 마지막으로 게시글 삭제 -->
+	    DELETE FROM TBL_POST WHERE POST_NUMBER = #{postNumber}
 	</delete>
 
-	<!-- 게시글 수정쿼리 -->
-	<update id="postUpdate" parameterType="PostDTO">
-		UPDATE TBL_POST
-		SET POST_TITLE=#{postTitle}, FREE_CONTENT=#{freeContent},PROMO_CONTENT=#{promoContent},RECIPE_CONTENT=#{recipeContent}
-		WHERE POST_NUMBER=#{postNumber}
+	<!-- 게시글 수정쿼리/제목,날짜 -->
+	<update id="updatePostTitle" parameterType="PostDetailDTO">
+	    UPDATE TBL_POST
+	    SET 
+	        POST_TITLE = #{postTitle},
+	        POST_UPDATED_DATE = SYSDATE
+	    WHERE POST_NUMBER = #{postNumber}
+	</update>
+	<!-- 게시글 수정쿼리 / 내용 -->
+	<update id="updateFreeContent" parameterType="PostDetailDTO">
+	    UPDATE TBL_FREE_BOARD
+	    SET 
+	        FREE_CONTENT = #{freeContent}
+	    WHERE POST_NUMBER = #{postNumber}
 	</update>
 	
 	<!-- 게시글 상세(1건조회) -->
-	<select id="postDetailSelect" parameterType="int"
-	        resultType="PostDetailDTO">
+	<select id="postDetailSelect" parameterType="int" resultType="PostDetailDTO">
 	  SELECT
 	    M.MEMBER_NUMBER      AS memberNumber,
 	    M.MEMBER_ID          AS memberId,
@@ -118,6 +132,7 @@
 	    P.POST_CREATED_DATE  AS postCreatedDate,
 	    P.POST_VIEW_COUNT    AS postViewCount,
 	    P.POST_LIKE_COUNT    AS postLikeCount,
+	    P.POST_TYPE          AS postType,        <!-- 이 부분 추가 -->
 	    F.FREE_CONTENT       AS freeContent
 	  FROM TBL_MEMBER M
 	  JOIN TBL_POST P

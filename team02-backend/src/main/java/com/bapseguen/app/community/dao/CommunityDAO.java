@@ -92,15 +92,48 @@ public class CommunityDAO {
 		sqlSession.update("post.postUpdateReadCount", postNumber);
 	}
 
-	// 게시글 삭제
+	// 게시글 삭제 
 	public void delete(int postNumber) {
-		sqlSession.delete("post.postDelete", postNumber);
+	    SqlSession session = null;
+	    try {
+	        session = MyBatisConfig.getSqlSessionFactory().openSession(false); // 트랜잭션 수동 처리
+
+	        session.delete("post.postDelete", postNumber);
+
+	        session.commit();
+	        System.out.println("게시글 삭제 성공");
+	    } catch (Exception e) {
+	        if (session != null) session.rollback();
+	        e.printStackTrace();
+	    } finally {
+	        if (session != null) session.close();
+	    }
 	}
 
 	// 게시글 수정
 	public void update(PostDetailDTO postDetailDTO) {
-		sqlSession.update("post.postUpdate", postDetailDTO);
+	    if (postDetailDTO.getPostType() == null) {
+	        throw new IllegalArgumentException("postType이 null입니다.");
+	        // 또는 기본값으로 설정: postDetailDTO.setPostType("FREE");
+	    }
+
+	    sqlSession.update("post.updatePostTitle", postDetailDTO);
+
+	    switch (postDetailDTO.getPostType()) {
+	        case "FREE":
+	            sqlSession.update("post.updateFreeContent", postDetailDTO);
+	            break;
+	        case "PROMOTION":
+	            sqlSession.update("post.updatePromoContent", postDetailDTO);
+	            break;
+	        case "RECIPE":
+	            sqlSession.update("post.updateRecipeContent", postDetailDTO);
+	            break;
+	        default:
+	            throw new IllegalArgumentException("지원하지 않는 게시판 타입입니다: " + postDetailDTO.getPostType());
+	    }
 	}
+
 	
 	
 	// 게시글 추가 후 자동으로 생성된 boardNumber 반환 -> 파일 테이블에서도 써야하기 때문에
