@@ -20,6 +20,17 @@
 
 	<!-- Comment -->
 	<servlet>
+		<servlet-name>PostReport</servlet-name>
+		<servlet-class>com.bapseguen.app.postReport.PostReportFrontController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>PostReport</servlet-name>
+		<url-pattern>*.pr</url-pattern>
+	</servlet-mapping>
+
+	<!-- Comment -->
+	<servlet>
 		<servlet-name>Main</servlet-name>
 		<servlet-class>com.bapseguen.app.main.MainFrontController</servlet-class>
 	</servlet>
