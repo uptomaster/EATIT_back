@@ -41,31 +41,29 @@
 
 	<!-------------------- 메인 ------------------------>
 	<main id="main">
-		<!-- 메인 배너 영역 -->
-		<div id="main_banner">
-			<div class="main_banner_middle">
-				<c:choose>
-					<c:when test="${empty bannerList}">
-						<p style="color: #888">표시할 상품이 없습니다.</p>
-					</c:when>
-					<c:otherwise>
-						<c:forEach var="banner" items="${bannerList}">
-							<ul class="main_slide_box">
-								<li class="main_slide_img"><img
-									src="${pageContext.request.contextPath}/assets/img/${banner.adminImageSystemName}"
-									alt="${banner.bannerTitle} 이미지"></li>
-							</ul>
-						</c:forEach>
-					</c:otherwise>
-				</c:choose>
-				<div class="main_banner_prev">
-					<a href="#"><img src="./assets/img/main_banner_prev.png" alt=""></a>
-				</div>
-				<div class="main_banner_next">
-					<a href="#"><img src="./assets/img/main_banner_next.png" alt=""></a>
-				</div>
-			</div>
-		</div>
+    <!-- 메인 배너 영역 -->
+    <div id="main_banner">
+      <div class="main_banner_middle">
+        <ul class="main_slide_box">
+          <li class="main_slide_img">
+            <img src="./assets/img/banner_ex.jpg" alt="">
+          </li>
+          <li class="main_slide_img">
+            <img src="./assets/img/banner_ex.jpg" alt="">
+          </li>
+          <li class="main_slide_img">
+            <img src="./assets/img/banner_ex.jpg" alt="">
+          </li>
+        </ul>
+        <div class="main_banner_prev">
+          <a href="#"><img src="./assets/img/main_banner_prev.png" alt=""></a>
+        </div>
+        <div class="main_banner_next">
+          <a href="#"><img src="./assets/img/main_banner_next.png" alt=""></a>
+        </div>
+      </div>
+    </div>
+
 
 
 		<!-- 메인 컨텐츠 영역 -->
