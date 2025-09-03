@@ -193,4 +193,65 @@ public class AdminDAO {
 		}
 	}
 
+	// 자유게시판 목록
+	public List<Map<String, Object>> selectBoardFreeList(Map<String, Object> params) {
+		return sqlSession.selectList("admin.selectBoardFreeList", params);
+	}
+
+	// 자유게시판 상세
+	public Map<String, Object> selectBoardFreeDetail(int postNumber) {
+		return sqlSession.selectOne("admin.selectBoardFreeDetail", postNumber);
+	}
+
+	// 자유게시판 삭제
+	public int deleteBoardFree(int postNumber) {
+		return sqlSession.delete("admin.deleteBoardFree", postNumber);
+	}
+
+	// 홍보게시판 목록
+	public List<Map<String, Object>> selectBoardPromotionList(Map<String, Object> params) {
+		return sqlSession.selectList("admin.selectBoardPromotionList", params);
+	}
+
+	// 홍보게시판 상세
+	public Map<String, Object> selectBoardPromotionDetail(int postNumber) {
+		return sqlSession.selectOne("admin.selectBoardPromotionDetail", postNumber);
+	}
+
+	// 홍보게시판 삭제
+	public int deleteBoardPromotion(int postNumber) {
+		return sqlSession.delete("admin.deleteBoardPromotion", postNumber);
+	}
+
+	// 레시피게시판 목록
+	public List<Map<String, Object>> selectBoardRecipeList(Map<String, Object> params) {
+		return sqlSession.selectList("admin.selectBoardRecipeList", params);
+	}
+
+	// 레시피게시판 상세
+	public Map<String, Object> selectBoardRecipeDetail(int postNumber) {
+		return sqlSession.selectOne("admin.selectBoardRecipeDetail", postNumber);
+	}
+
+	// 레시피게시판 삭제
+	public int deleteBoardRecipe(int postNumber) {
+		return sqlSession.delete("admin.deleteBoardRecipe", postNumber);
+	}
+	
+	// 자유게시판 count
+	public int countBoardFree(Map<String,Object> params) {
+	    return sqlSession.selectOne("admin.countBoardFree", params);
+	}
+
+	// 홍보게시판 count
+	public int countBoardPromotion(Map<String,Object> params) {
+	    return sqlSession.selectOne("admin.countBoardPromotion", params);
+	}
+
+	// 레시피게시판 count
+	public int countBoardRecipe(Map<String,Object> params) {
+	    return sqlSession.selectOne("admin.countBoardRecipe", params);
+	}
+
+
 }

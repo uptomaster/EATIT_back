@@ -93,6 +93,54 @@ public class AdminFrontController extends HttpServlet {
 			result = new NoticeDeleteOkController().execute(request, response);
 			break;
 
+		/* =================== 자유게시판 ===================== */
+		case "/admin/boardFree/list.ad":
+			System.out.println("→ [ADMIN] 자유게시판 목록 요청");
+			result = new BoardFreeListController().execute(request, response);
+			break;
+
+		case "/admin/boardFree/detail.ad":
+			System.out.println("→ [ADMIN] 자유게시판 상세 요청");
+			result = new BoardFreeDetailController().execute(request, response);
+			break;
+
+		case "/admin/boardFree/deleteOk.ad":
+			System.out.println("→ [ADMIN] 자유게시판 삭제 처리");
+			result = new BoardFreeDeleteOkController().execute(request, response);
+			break;
+
+		/* =================== 홍보게시판 ===================== */
+		case "/admin/boardPromotion/list.ad":
+			System.out.println("→ [ADMIN] 홍보게시판 목록 요청");
+			result = new BoardPromotionListController().execute(request, response);
+			break;
+
+		case "/admin/boardPromotion/detail.ad":
+			System.out.println("→ [ADMIN] 홍보게시판 상세 요청");
+			result = new BoardPromotionDetailController().execute(request, response);
+			break;
+
+		case "/admin/boardPromotion/deleteOk.ad":
+			System.out.println("→ [ADMIN] 홍보게시판 삭제 처리");
+			result = new BoardPromotionDeleteOkController().execute(request, response);
+			break;
+
+		/* =================== 레시피게시판 ===================== */
+		case "/admin/boardRecipe/list.ad":
+			System.out.println("→ [ADMIN] 레시피 게시판 목록 요청");
+			result = new BoardRecipeListController().execute(request, response);
+			break;
+
+		case "/admin/boardRecipe/detail.ad":
+			System.out.println("→ [ADMIN] 레시피 게시판 상세 요청");
+			result = new BoardRecipeDetailController().execute(request, response);
+			break;
+
+		case "/admin/boardRecipe/deleteOk.ad":
+			System.out.println("→ [ADMIN] 레시피 게시판 삭제 처리");
+			result = new BoardRecipeDeleteOkController().execute(request, response);
+			break;
+
 		/* =================== FAQ ===================== */
 		case "/admin/faq/list.ad":
 			System.out.println("→ [ADMIN] FAQ 목록 요청");
