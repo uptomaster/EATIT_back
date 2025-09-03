@@ -33,31 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
      });
    
 
-   // ====== 게시글 삭제 ======
-   /*deleteBtn?.addEventListener("click", async () => {
-	console.log("=====클릭=====", e.target);
-	 const postNumber = window.postNumber;
-     if (!postNumber) return alert("postNumber가 없습니다");
-     if (!confirm("정말 삭제하시겠습니까?")) return;
-
-     try {
-       const res = await fetch(`/community/postDeleteOK.co?postNumber=${encodeURIComponent(postNumber)}`, {
-         method: "GET",
-         headers: { "X-Requested-With": "XMLHttpRequest" },
-       });
-       if (!res.ok) throw new Error("삭제 요청 실패");
-
-       alert("게시글이 삭제되었습니다.");
-       window.location.href = "/community/freeBoardListOk.co";
-     } catch (err) {
-       console.error("게시글 삭제 실패 :", err);
-       alert("게시글 삭제에 실패했습니다.");
-     }
-   });*/
-   
-   
-   document.body.addEventListener("click", async (e) => {
-	   console.log("=====클릭=====", e.target);
+   //  게시글 삭제 버튼 클릭시
+	document.body.addEventListener("click", async (e) => {
+	   //console.log("=====클릭=====", e.target);
        const deleteBtn = e.target.closest(".delete-btn");
        if (deleteBtn) {
          const postNumber = window.postNumber;
@@ -85,37 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
    
   
 });
-
-/*document.addEventListener("DOMContentLoaded", () => {
-console.log("=====클릭=====", e.target);
-  const deleteBtn = document.querySelector(".delete-btn");
-  if (!deleteBtn) {
-    console.log("삭제 버튼이 존재하지 않습니다.");
-    return;
-  }
-
-  deleteBtn.addEventListener("click", async () => {
-    console.log("삭제 버튼 클릭됨");
-
-    const postNumber = window.postNumber;
-    if (!postNumber) return alert("postNumber가 없습니다");
-    if (!confirm("정말 삭제하시겠습니까?")) return;
-
-    try {
-      const res = await fetch(`/community/postDeleteOK.co?postNumber=${encodeURIComponent(postNumber)}`, {
-        method: "GET",
-        headers: { "X-Requested-With": "XMLHttpRequest" },
-      });
-      if (!res.ok) throw new Error("삭제 요청 실패");
-
-      alert("게시글이 삭제되었습니다.");
-      window.location.href = "/community/freeBoardListOk.co";
-    } catch (err) {
-      console.error("게시글 삭제 실패 :", err);
-      alert("게시글 삭제에 실패했습니다.");
-    }
-  });
-});*/
 
 
 

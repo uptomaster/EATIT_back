@@ -82,7 +82,7 @@
 	        <!-- 게시글 내용 -->
 	        <section class="content_section">
 	          <div class="view-content">
-	            <h3><c:out value="${post.freeContent}" /></h3>
+	            <p><c:out value="${post.freeContent}" /></p>
 	          </div>
 	
 	          <!-- 수정/삭제 버튼 -->
