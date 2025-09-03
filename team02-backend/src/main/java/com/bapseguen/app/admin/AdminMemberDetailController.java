@@ -1,6 +1,8 @@
 package com.bapseguen.app.admin;
 
 import java.io.IOException;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +12,7 @@ import com.bapseguen.app.Result;
 import com.bapseguen.app.admin.dao.AdminDAO;
 import com.bapseguen.app.dto.view.MemberDetailDTO;
 
-public class MemberDetailController implements Execute {
+public class AdminMemberDetailController implements Execute {
 
     @Override
     public Result execute(HttpServletRequest request, HttpServletResponse response)
@@ -41,8 +43,8 @@ public class MemberDetailController implements Execute {
 
         // DAO 통해 상세 조회
         AdminDAO adminDAO = new AdminDAO();
-        MemberDetailDTO memberDetail = adminDAO.selectMemberDetail(memberNumber);
-
+        Map<String,Object> memberDetail = adminDAO.selectMemberDetail(memberNumber);
+        
         // 조회 결과 null 체크
         if (memberDetail == null) {
             System.out.println("⚠ 회원번호 " + memberNumber + " 상세정보 없음 → 목록으로 이동");

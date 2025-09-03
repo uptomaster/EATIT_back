@@ -45,6 +45,7 @@ public class AdminLoginOkController implements Execute {
             session.setAttribute("adminNumber", loginAdmin.getAdminNumber());
             session.setAttribute("adminId", loginAdmin.getAdminId());
             session.setAttribute("adminGrade", loginAdmin.getAdminTreeGrade());
+            session.setAttribute("memberType", "ADMIN");
 
             result.setPath(request.getContextPath() + "/admin/dashboard.ad");
             result.setRedirect(true);
