@@ -24,13 +24,10 @@ public class ReportPostOkController implements Execute {
             return null;
         }
 
-        try {
+
             // 2) 파라미터
             int postNumber = Integer.parseInt(request.getParameter("postNumber"));
             String reason = request.getParameter("reason"); // 'ADV','BADWORDS','PORN','PERSONAL','ETC'
-
-            // (선택) 한글 라디오값 -> 코드 매핑을 서버에서 하고 싶다면 여기에 매핑 로직 추가
-            // reason = mapKoToCode(reason);
 
             // 3) 신고 처리 (트랜잭션 포함)
             PostReportDAO dao = new PostReportDAO();
@@ -42,9 +39,6 @@ public class ReportPostOkController implements Execute {
             } else {
                 response.getWriter().write("{\"ok\":false,\"reason\":\"ALREADY_REPORTED\"}");
             }
-        } catch (Exception e) {
-            response.getWriter().write("{\"ok\":false,\"reason\":\"ERROR\"}");
-        }
         return null;
     }
 }

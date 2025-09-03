@@ -19,7 +19,7 @@
   </select>
 
   <!-- 신고 등록 -->
-  <insert id="insertReport" parameterType="com.bapseguen.app.dto.PostReportDTO">
+  <insert id="insertReport" parameterType="PostReportDTO">
     <selectKey keyProperty="postReportNumber" resultType="int" order="BEFORE">
       SELECT SEQ_POST_REPORT_NUMBER.NEXTVAL FROM DUAL
     </selectKey>

@@ -16,7 +16,8 @@ public class PostReportDAO {
 	
     public boolean reportOnce(int postNumber, int memberNumber, String reasonCode) {
         	// 트랜잭션 전용 세션(수동 커밋)
-        try (SqlSession tx = MyBatisConfig.getSqlSessionFactory().openSession(false)) {
+    	SqlSession tx = MyBatisConfig.getSqlSessionFactory().openSession(false);
+        try  {
             // 1) 한 건씩 처리
             tx.selectOne("postReport.lockPostForUpdate", postNumber);
 
@@ -49,9 +50,11 @@ public class PostReportDAO {
             // 6) 커밋
             tx.commit();
             return true;
-        } catch (Exception e) {
-            // 필요시 로깅
-            return false;
-        }	
+        } catch (RuntimeException | Error e) {
+            try { tx.rollback(); } catch (Exception ignore) {}
+            throw e; // 예외 숨기지 말고 재던지기(원인 추적)
+        } finally {
+            try { tx.close(); } catch (Exception ignore) {}
+        }
     }
 }
