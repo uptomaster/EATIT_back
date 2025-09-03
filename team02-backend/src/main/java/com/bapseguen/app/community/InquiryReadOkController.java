@@ -1,6 +1,7 @@
 package com.bapseguen.app.community;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Objects;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.community.dao.CommunityDAO;
 import com.bapseguen.app.dto.PostImageDTO;
+import com.bapseguen.app.dto.view.InquiryDetailDTO;
 import com.bapseguen.app.dto.view.PostDetailDTO;
 import com.bapseguen.app.img.dao.PostImageDAO;
 
@@ -44,7 +46,7 @@ public class InquiryReadOkController implements Execute{
 			String postNumberStr = request.getParameter("postNumber");
 			if(postNumberStr == null || postNumberStr.trim().isEmpty()){
 				System.out.println("postNumber 값이 없습니다");
-				result.setPath("/community/inquiryList.co"); //게시글 목록 페이지로 리다이렉트
+				result.setPath("/community/inquiryListOk.co"); //게시글 목록 페이지로 리다이렉트
 				result.setRedirect(true);
 				return result;
 			}
@@ -57,18 +59,18 @@ public class InquiryReadOkController implements Execute{
 			 
 
 			//DB에서 게시글 가져오기
-			PostDetailDTO postDetailDTO = communityDAO.select(postNumber);
+			InquiryDetailDTO inquiryDetailDTO = communityDAO.selectInquiryDetail(postNumber);
 			
 			//게시글이 존재하지 않을 경우 처리
-			if(postDetailDTO == null) {
+			if(inquiryDetailDTO == null) {
 				System.out.println("존재하지 않는 게시글입니다. " + postNumber);
 				result.setPath("/app/community/communityMainUser.jsp");
 				result.setRedirect(true);
 				return result;
 			}
 			
-			request.setAttribute("post", postDetailDTO);
-			result.setPath("/app/community/viewOwnPost.jsp");
+			request.setAttribute("post", inquiryDetailDTO);
+			result.setPath("/app/community/viewOwnInquiryPost.jsp");
 			result.setRedirect(false);
 			
 			//로그인한 사용자 번호 가져오기
@@ -80,7 +82,7 @@ public class InquiryReadOkController implements Execute{
 			//System.out.println("현재 게시글 작성자 번호 : " + postWriterNumber);
 		
 			System.out.println("postdetailDTO.getMemberNumber() 호출 전");
-			int postWriterNumber = postDetailDTO.getMemberNumber();
+			int postWriterNumber = inquiryDetailDTO.getMemberNumber();
 			System.out.println("postdetailDTO.getMemberNumber() 반환값: " + postWriterNumber);
 			
 			//로그인한 사용자가 작성자가 아닐 때만 조회수 증가
@@ -88,12 +90,24 @@ public class InquiryReadOkController implements Execute{
 				communityDAO.updateReadCount(postNumber);
 			}
 			
-			//null값확인
-			System.out.println("제목: " + postDetailDTO.getPostTitle());
-			System.out.println("작성일: " + postDetailDTO.getPostCreatedDate());
+			// 해당 글 작성자가 아닐 경우 
+			if(loginMemberNumber == null || loginMemberNumber != postWriterNumber) {
+			    response.setContentType("text/html; charset=UTF-8");
+			    PrintWriter out = response.getWriter();
+			    out.println("<script>");
+			    out.println("alert('해당 게시글 작성자만 이용 가능합니다.');");
+			    out.println("history.back();");
+			    out.println("</script>");
+			    out.close();
+				return null;
+			}
 			
-			request.setAttribute("post", postDetailDTO);
-			result.setPath("/app/community/viewOwnPost.jsp");
+			//null값확인
+			System.out.println("제목: " + inquiryDetailDTO.getPostTitle());
+			System.out.println("작성일: " + inquiryDetailDTO.getPostCreatedDate());
+			
+			request.setAttribute("post", inquiryDetailDTO);
+			result.setPath("/app/community/viewOwnInquiryPost.jsp");
 			result.setRedirect(false);		
 			return result;
 		}
