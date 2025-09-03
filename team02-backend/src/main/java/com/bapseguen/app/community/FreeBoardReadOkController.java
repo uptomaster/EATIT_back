@@ -1,7 +1,7 @@
 package com.bapseguen.app.community;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import java.util.Objects;
 
 import javax.servlet.ServletException;
@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.community.dao.CommunityDAO;
-import com.bapseguen.app.dto.PostDTO;
 import com.bapseguen.app.dto.PostImageDTO;
 import com.bapseguen.app.dto.view.PostDetailDTO;
 import com.bapseguen.app.img.dao.PostImageDAO;
@@ -27,6 +26,8 @@ public class FreeBoardReadOkController implements Execute{
 		HttpSession session = request.getSession();
 		Integer memberNumber = (Integer)session.getAttribute("memberNumber");
 		String path = null;
+		
+
 		
 		
 		//memberNumber 값이 null이거나 0일때
@@ -59,6 +60,9 @@ public class FreeBoardReadOkController implements Execute{
 
 		//DB에서 게시글 가져오기
 		PostDetailDTO postDetailDTO = communityDAO.select(postNumber);
+		// 이미지 리스트 가져오기
+		List<PostImageDTO> postImages = postImageDAO.select(postNumber);
+		request.setAttribute("postImages", postImages);
 		
 		//게시글이 존재하지 않을 경우 처리
 		if(postDetailDTO == null) {
@@ -89,10 +93,7 @@ public class FreeBoardReadOkController implements Execute{
 			communityDAO.updateReadCount(postNumber);
 		}
 		
-		//null값확인
-		System.out.println("제목: " + postDetailDTO.getPostTitle());
-		System.out.println("작성일: " + postDetailDTO.getPostCreatedDate());
-		
+		request.setAttribute("postImages", postImages);
 		request.setAttribute("post", postDetailDTO);
 		result.setPath("/app/community/viewOtherPost.jsp");
 		result.setRedirect(false);		

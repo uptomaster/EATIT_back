@@ -157,60 +157,26 @@ public class CommunityDAO {
 	private SqlSessionFactory sqlSessionFactory = MyBatisConfig.getSqlSessionFactory();
 
 	public int insertFreePost(Map<String, Object> postParams) {
-	    SqlSession session = null;
 	    int postNumber = 0;
 
-	    try {
-	        session = sqlSessionFactory.openSession(false); // 수동 커밋
-
+	    try (SqlSession session = sqlSessionFactory.openSession(false)) {
+	        // insertFreePost와 insertFreeContent 실행
 	        session.insert("post.insertFreePost", postParams);
 	        session.insert("post.insertFreeContent", postParams);
 
 	        session.commit();
 
-	        // insert 후 selectKey로 채워진 postNumber 가져오기
+	        // insert 시 <selectKey>에서 채워진 postNumber 가져오기
 	        postNumber = (int) postParams.get("postNumber");
 
 	    } catch (Exception e) {
-	        if (session != null) session.rollback();
 	        e.printStackTrace();
-	    } finally {
-	        if (session != null) session.close();
 	    }
 
 	    return postNumber;
 	}
-
-    
-//    public int insertFreePost(Map<String, Object> postParams) {
-//        SqlSession session = null;
-//        int postNumber = 0;
-//
-//        try {
-//            session = sqlSessionFactory.openSession(false); // 수동 커밋
-//
-//            // insertFreePost mapper 실행
-//            session.insert("post.insertFreePost", postParams);
-//            session.insert("post.insertFreeContent", postParams);
-//
-//            session.commit();
-//
-//            // mapper에서 selectKey로 채운 postNumber 가져오기
-//            postNumber = (int) postParams.get("postNumber");
-//
-//        } catch (Exception e) {
-//            if (session != null) session.rollback();
-//            e.printStackTrace();
-//        } finally {
-//            if (session != null) session.close();
-//        }
-//
-//        return postNumber;
-//    }
-    
-    
-
-
+	
+	
 	// 내가 작성한 게시글 목록 조회
 	public List<PostDTO> myPostSelect(Map<String, Integer> pageMap) {
 		System.out.println("모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
