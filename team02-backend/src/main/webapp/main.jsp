@@ -83,14 +83,18 @@
 					</div>
 					<!-- 가게정보 -->
 					<!-- 상품이미지(임시) -->
-						<div class="main_food_buy_article">
-					<a href="${pageContext.request.contextPath}/orders/storeDetail.or">
 							<c:choose>
-								<c:when test="${not empty storeList }">
+								<c:when test="${empty storeList}">
+									<p style="color: #888">표시할 상품이 없습니다.</p>
+								</c:when>
+								<c:otherwise>
 									<c:forEach var="store" items="${storeList}">
+						<article class="main_food_buy_article">
+									<a
+										href="${pageContext.request.contextPath}/orders/storeDetail.or">
 										<img
-											src="${pageContext.request.contextPath}/assets/img/${store.itemImageSystemName}"
-											alt="${store.storeName} 이미지">
+										src="${pageContext.request.contextPath}/assets/img/${store.itemImageSystemName}"
+										alt="${store.storeName} 이미지">
 										<div class="main_store_info">
 											<div class="main_store_name">
 												<c:out value="${store.storeName}" />
@@ -108,14 +112,11 @@
 												<c:out value="${store.itemPrice}원" />
 											</div>
 										</div>
+									</a>
+								</article>
 									</c:forEach>
-								</c:when>
-								<c:otherwise>
-									<p style="color: #888">표시할 상품이 없습니다.</p>
 								</c:otherwise>
 							</c:choose>
-					</a>
-						</div>
 
 					<!-- 화살표 이동버튼 -->
 					<div class="main_content_next">

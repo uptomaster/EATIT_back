@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import com.bapseguen.app.dto.FaqDTO;
 import com.bapseguen.app.dto.InquiryDTO;
 import com.bapseguen.app.dto.PostDTO;
+import com.bapseguen.app.dto.view.InquiryDetailDTO;
 import com.bapseguen.app.dto.view.PostDetailDTO;
 import com.bapseguen.config.MyBatisConfig;
 
@@ -92,16 +93,19 @@ public class CommunityDAO {
 		sqlSession.update("post.postUpdateReadCount", postNumber);
 	}
 
-	// 게시글 삭제 
+	// 게시글 삭제
 	public void delete(int postNumber) {
 	    SqlSession session = null;
 	    try {
 	        session = MyBatisConfig.getSqlSessionFactory().openSession(false); // 트랜잭션 수동 처리
 
-	        session.delete("post.postDelete", postNumber);
+	        // 삭제 순서 중요
+	        session.delete("post.freeBoardImageDelete", postNumber); 
+	        session.delete("post.freeBoardDelete", postNumber);       
+	        session.delete("post.postDelete", postNumber);            
 
 	        session.commit();
-	        System.out.println("게시글 삭제 성공");
+	        System.out.println("게시글 전체 삭제 성공");
 	    } catch (Exception e) {
 	        if (session != null) session.rollback();
 	        e.printStackTrace();
@@ -109,6 +113,8 @@ public class CommunityDAO {
 	        if (session != null) session.close();
 	    }
 	}
+	
+	
 
 	// 게시글 수정
 	public void update(PostDetailDTO postDetailDTO) {
@@ -216,7 +222,7 @@ public class CommunityDAO {
     }
     
     // 고객센터 문의글 상세 조회
-    public InquiryDTO selectInquiryDetail(int postNumber) {
+    public InquiryDetailDTO selectInquiryDetail(int postNumber) {
     	return sqlSession.selectOne("inquiry.inquirySelect", postNumber);
     }
 

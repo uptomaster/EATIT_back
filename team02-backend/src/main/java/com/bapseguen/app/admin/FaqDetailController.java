@@ -30,7 +30,7 @@ public class FaqDetailController implements Execute {
         request.setAttribute("faq", faq);
 
         Result result = new Result();
-        result.setPath("/app/admin/faqDetail.jsp");
+        result.setPath("/app/admin/adminFaqDetail.jsp");
         result.setRedirect(false);
         return result;
     }

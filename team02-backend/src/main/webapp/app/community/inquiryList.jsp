@@ -42,22 +42,22 @@
 
 		<div class="main_container">
 
-			<!-- 법적 안내 문구 -->
-			<section class="legal_notice">
-				<p>※ 고객센터 문의는 소비자기본법 및 식품위생법을 준수하여 처리됩니다.</p>
-			</section>
-
-			<!-- FAQ / 문의목록 탭 -->
-			<nav class="community_category">
-				<ul>
-					<li><a
-						href="${pageContext.request.contextPath}/community/faqListOk.co"
-						class="tab_button">자주묻는질문</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/community/inquiryListOk.co"
-						class="tab_button active">문의목록</a></li>
-				</ul>
-			</nav>
+				<!-- 법적 안내 문구 -->
+				<section class="legal_notice">
+					<p>※ 고객센터 문의는 소비자기본법 및 식품위생법을 준수하여 처리됩니다.</p>
+				</section>
+	
+				<!-- FAQ / 문의목록 탭 -->
+				<nav class="community_category">
+					<ul>
+						<li><a
+							href="${pageContext.request.contextPath}/community/faqListOk.co"
+							class="tab_button">자주묻는질문</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/community/inquiryListOk.co"
+							class="tab_button active">문의목록</a></li>
+					</ul>
+				</nav>
 
 			<!-- 문의목록 섹션 -->
 <!-- 			<section id="inquiries_section" class="community_list"
@@ -76,7 +76,7 @@
 						<div class="list_row_flex_row" role="row">
 							<div class="col_title" role="cell">
 								<a
-									href="${pageContext.request.contextPath}/community/inquiry.co?postNumber=${inquiry.postNumber}"><c:out
+									href="${pageContext.request.contextPath}/community/inquiryReadOk.co?postNumber=${inquiry.postNumber}"><c:out
 										value="${inquiry.getPostTitle()}" /></a>
 							</div>
 							<div class="col_author" role="cell">

@@ -10,7 +10,7 @@
   <!-- 파비콘 -->
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
   <title>밥세권</title>
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/community/viewOtherPost.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/community/viewInquiryOwnPost.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/community/treeGrade.css" />
@@ -35,15 +35,22 @@
   <main class="main">
 	  <div class="container">
 	
-	    <!-- 카테고리 메뉴 -->
-	    <nav class="category_container">
-	      <ul class="category_list">
-	        <li class="category_item"><a href="${pageContext.request.contextPath}/community/communityMainOk.co">공지사항/이벤트</a></li>
-	        <li class="category_item"><a href="${pageContext.request.contextPath}/community/freeBoardReadOk.co">자유게시판</a></li>
-	        <li class="category_item"><a href="${pageContext.request.contextPath}/community/promoBoardListOk.co">홍보게시판</a></li>
-	        <li class="category_item"><a href="${pageContext.request.contextPath}/community/recipeListOk.co">레시피</a></li>
-	      </ul>
-	    </nav>
+				<!-- 법적 안내 문구 -->
+				<section class="legal_notice">
+					<p>※ 고객센터 문의는 소비자기본법 및 식품위생법을 준수하여 처리됩니다.</p>
+				</section>
+	
+				<!-- FAQ / 문의목록 탭 -->
+				<nav class="community_category">
+					<ul>
+						<li><a
+							href="${pageContext.request.contextPath}/community/faqListOk.co"
+							class="tab_button">자주묻는질문</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/community/inquiryListOk.co"
+							class="tab_button active">문의목록</a></li>
+					</ul>
+				</nav>
 	
 	    <!-- 게시글 -->
 	    <article>
@@ -82,7 +89,7 @@
 	        <!-- 게시글 내용 -->
 	        <section class="content_section">
 	          <div class="view-content">
-	            <p><c:out value="${post.freeContent}" /></p>
+	            <h3><c:out value="${post.inquiryContent}" /></h3>
 	          </div>
 	
 	          <!-- 수정/삭제 버튼 -->
@@ -100,17 +107,6 @@
 	            </div>
 	          </div>
 	        </section>
-	
-	        <!-- 추천/신고 버튼 -->
-	        <div class="post_buttons">
-	          <button class="recommend" id="recommendBtn" title="게시글 추천하기">
-	            <img src="${pageContext.request.contextPath}/assets/img/like.jpg" alt="추천 버튼" />
-	          </button>
-	          <span class="recommend_count" id="recommendCount">추천 0</span>
-	          <button type="button" class="report" id="openReportModal" title="신고하기">신고</button>
-	        </div>
-	      </div> <!-- .post -->
-	    </article>
 	
 	    <!-- 댓글 영역 -->
 	    <section class="comment_section">
@@ -141,27 +137,6 @@
 	
 	  </div> <!-- .container -->
 	</main>
-  
-
-  <!-- 신고 모달 -->
-  <div class="modal_bg" id="reportModal">
-    <div class="modal">
-      <h2>게시글 신고하기</h2>
-      <form id="reportForm">
-        <div class="report_reasons">
-          <label><input type="radio" name="reason" value="스팸/광고" required> 스팸/광고</label>
-          <label><input type="radio" name="reason" value="욕설/비방"> 욕설/비방</label>
-          <label><input type="radio" name="reason" value="음란물"> 음란물</label>
-          <label><input type="radio" name="reason" value="개인정보 노출"> 개인정보 노출</label>
-          <label><input type="radio" name="reason" value="기타"> 기타</label>
-        </div>
-        <div class="modal_buttons">
-          <button type="button" id="cancelReport">취소</button>
-          <button type="submit" id="submitReport">신고하기</button>
-        </div>
-      </form>
-    </div>
-  </div>
 
   <!-- 나무 등급 정보 모달 -->
   <div id="treeInfoModal" class="tree_modal_bg" aria-hidden="true" role="dialog" aria-labelledby="treeInfoTitle"
@@ -184,5 +159,8 @@
   window.ctx = "${pageContext.request.contextPath}";
   window.postNumber = ${post.postNumber != null ? post.postNumber : 'null'};
   window.memberNumber = ${sessionScope.memberNumber != null ? sessionScope.memberNumber : 'null'};
+
+  console.log("DEBUG: postNumber =", window.postNumber);
+  console.log("DEBUG: memberNumber =", window.memberNumber);
 </script>
 </html>
