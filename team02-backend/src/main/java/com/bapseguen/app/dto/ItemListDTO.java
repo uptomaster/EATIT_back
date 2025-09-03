@@ -7,14 +7,14 @@ public class ItemListDTO {
 	private String businessNumber; // 가게 의 사업자 번호
 	private String itemType; // 음식인지 재료인지
 	private String itemName; // 상품명
-	private String itemPrice; // 삼품가격
+	private int itemPrice; // 삼품가격
 	private String itemContent; // 상품설명
 	private int itemQuantity; // 상품 수량
 	private String itemExpireDate; // 소비기한
 	private String itemCreatedTime; // 상품 등록일
 	private String itemUpdatedTime; // 상품 수정일
 	private String itemSellState; // 판매 여부 "판매중(y
-	private String businessName; // 상호명 -> tbl_store랑 조인할거임
+	private String businessName; // 상호명 -> tbl_store랑 서브쿼리
 
 	private List<ItemImageDTO> files; //
 
@@ -50,11 +50,11 @@ public class ItemListDTO {
 		this.itemName = itemName;
 	}
 
-	public String getItemPrice() {
+	public int getItemPrice() {
 		return itemPrice;
 	}
 
-	public void setItemPrice(String itemPrice) {
+	public void setItemPrice(int itemPrice) {
 		this.itemPrice = itemPrice;
 	}
 
