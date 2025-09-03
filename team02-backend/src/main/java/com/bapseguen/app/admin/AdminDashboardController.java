@@ -1,15 +1,16 @@
 package com.bapseguen.app.admin;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.*;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.admin.dao.AdminDAO;
+import com.bapseguen.app.dto.view.AdminPostDTO;
+import com.bapseguen.app.dto.PostReportDTO;
+
+import java.util.List;
 
 public class AdminDashboardController implements Execute {
 
@@ -34,13 +35,12 @@ public class AdminDashboardController implements Execute {
         AdminDAO dao = new AdminDAO();
 
         // ===== 대시보드 주요 통계 =====
-        int totalMembers = dao.memberListCount();   // ✅ 오버로드 추가로 null 문제 해결
+        int totalMembers = dao.memberListCount();
         int totalNotices = dao.countNotices();
         int totalFaqs = dao.countFaqs();
         int totalInquiries = dao.countInquiries();
         int unansweredInquiries = dao.countUnansweredInquiries();
         int totalReports = dao.countReports();
-
 
         // JSP에 데이터 전달
         request.setAttribute("totalMembers", totalMembers);
@@ -50,21 +50,14 @@ public class AdminDashboardController implements Execute {
         request.setAttribute("unansweredInquiries", unansweredInquiries);
         request.setAttribute("totalReports", totalReports);
 
-        // ===== 월별 회원 증가 추세 =====
-        List<Map<String, Object>> monthlyMembers = dao.countMonthlyMembers();
+        // ===== 최근 문의글 / 신고글 =====
+        List<AdminPostDTO> recentInquiries = dao.selectInquiryList(
+            java.util.Map.of("startRow", 1, "endRow", 3)  // 최근 3개만
+        );
+        List<PostReportDTO> recentReports = dao.selectReportList();
 
-        List<String> months = new ArrayList<>();
-        List<Integer> memberCounts = new ArrayList<>();
-
-        for (Map<String, Object> row : monthlyMembers) {
-            String month = (String) row.get("JOINMONTH");
-            BigDecimal count = (BigDecimal) row.get("MEMBERCOUNT");
-            months.add(month);
-            memberCounts.add(count != null ? count.intValue() : 0);
-        }
-
-        request.setAttribute("months", months);
-        request.setAttribute("memberCounts", memberCounts);
+        request.setAttribute("recentInquiries", recentInquiries);
+        request.setAttribute("recentReports", recentReports);
 
         // ===== JSP forward =====
         result.setPath("/app/admin/dashboard.jsp");
