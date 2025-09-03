@@ -24,8 +24,8 @@ public class WriteFreeBoardOkController implements Execute {
 	    Result result = new Result();
 
 	    //업로드 경로 준비
-	    final String UPLOAD_PATH = request.getServletContext().getRealPath("/upload");
-	    final int FILE_SIZE = 10 * 1024 * 1024; // 10MB
+	    final String UPLOAD_PATH = request.getSession().getServletContext().getRealPath("/") + "upload/";
+		final int FILE_SIZE = 1024 * 1024 * 5; //5MB
 	    File dir = new File(UPLOAD_PATH);
 	    if (!dir.exists()) dir.mkdirs();
 
@@ -40,7 +40,7 @@ public class WriteFreeBoardOkController implements Execute {
 	        result.setRedirect(true);
 	        return result;
 	    }
-	    long memberNumber = ((Number) attr).longValue(); //Optional사용
+	    long memberNumber = ((Number) attr).longValue();
 
 	    //파라미터
 	    String postTitle   = multi.getParameter("postTitle");

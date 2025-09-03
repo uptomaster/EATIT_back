@@ -2,17 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="post">
 
-<!-- 	<게시글 INSERT 시퀀스 PK 생 : 강사확인 - 확인 후 지우기 
-	<insert id="insert" parameterType="PostDetailDTO">
-		<selectKey keyProperty="postNumber" resultType="int" order="BEFORE">
-			SELECT SEQ_POST_NUMBER.NEXTVAL FROM DUAL
-		</selectKey>
-		
-		INSERT INTO TBL_POST(POST_NUMBER, MEMBER_NUMBER, POST_TITLE, POST_CONTENT, POST_TYPE, POST_CREATED_DATE, POST_VIEW_COUNT)
-		VALUES ( #{postNumber}, #{memberNumber}, #{postTitle}, #{postContent}, #{postType},sysdate, 0}
-	 
-	</insert>
-	 -->
 	<insert id="insertFreePost" parameterType="map">
     	INSERT INTO TBL_POST (
       POST_NUMBER, MEMBER_NUMBER, POST_TITLE,
@@ -94,17 +83,24 @@
 		WHERE POST_NUMBER=#{postNumber}
 	</update>
 	
-	<!-- 게시글 삭제 쿼리 -->
-	<delete id="postDelete" parameterType="int">
-	    <!-- 댓글 -->
-	    DELETE FROM TBL_COMMENT WHERE POST_NUMBER = #{postNumber}
-	    <!-- 이미지-->
-	    DELETE FROM TBL_POST_IMAGE WHERE POST_NUMBER = #{postNumber}
-	    <!-- 자유게시판 내용 -->
-	    DELETE FROM TBL_FREE_BOARD WHERE POST_NUMBER = #{postNumber}
-	    <!-- 마지막으로 게시글 삭제 -->
-	    DELETE FROM TBL_POST WHERE POST_NUMBER = #{postNumber}
+	<!-- 자유게시판 게시글 삭제 쿼리 / 글 내용-->	
+	<delete id="freeBoardDelete" parameterType="int">
+	    DELETE FROM TBL_FREE_BOARD
+	    WHERE POST_NUMBER = #{postNumber}
 	</delete>
+	<!-- 자유게시판 게시글 삭제 쿼리 / 게시글 내용제외-->
+	<delete id="postDelete" parameterType="int">
+	    DELETE FROM TBL_POST
+	    WHERE POST_NUMBER = #{postNumber}
+	</delete>
+	<!-- 자유게시판 게시글 삭제 쿼리 / 이미지-->
+	<delete id="freeBoardImageDelete" parameterType="int">
+	    DELETE FROM TBL_POST_IMAGE
+	    WHERE POST_NUMBER = #{postNumber}
+	</delete>
+
+
+
 
 	<!-- 게시글 수정쿼리/제목,날짜 -->
 	<update id="updatePostTitle" parameterType="PostDetailDTO">
