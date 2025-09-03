@@ -104,6 +104,7 @@
 		<mapper resource="com/bapseguen/mapper/ImageMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/BannerMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/MainMapper.xml" />
+		<mapper resource="com/bapseguen/mapper/PostReportMapper.xml" />
 	</mappers>
 	
 </configuration>
