@@ -76,7 +76,7 @@
 						<div class="list_row_flex_row" role="row">
 							<div class="col_title" role="cell">
 								<a
-									href="${pageContext.request.contextPath}/community/inquiry.co?postNumber=${inquiry.postNumber}"><c:out
+									href="${pageContext.request.contextPath}/community/inquiryReadOk.co?postNumber=${inquiry.postNumber}"><c:out
 										value="${inquiry.getPostTitle()}" /></a>
 							</div>
 							<div class="col_author" role="cell">
