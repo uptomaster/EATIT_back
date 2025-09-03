@@ -59,8 +59,10 @@
 		a.ADMIN_ID AS adminId,
 		a.ADMIN_TREE_GRADE AS adminTreeGrade
 		FROM TBL_POST p
-		JOIN TBL_NOTICE n ON n.POST_NUMBER = p.POST_NUMBER
-		JOIN TBL_ADMIN a ON a.ADMIN_NUMBER = p.ADMIN_NUMBER
+		JOIN TBL_NOTICE n
+		ON n.POST_NUMBER = p.POST_NUMBER
+		JOIN TBL_ADMIN a ON a.ADMIN_NUMBER =
+		p.ADMIN_NUMBER
 		WHERE p.POST_TYPE = 'NOTICE'
 		<if test="searchWord != null and searchWord != ''">
 			AND p.POST_TITLE LIKE '%' || #{searchWord} || '%'
@@ -69,7 +71,8 @@
 		) A
 		WHERE ROWNUM &lt;= #{endRow}
 		)
-		WHERE rowNumber &gt;= #{startRow}
+		WHERE
+		rowNumber &gt;= #{startRow}
 	</select>
 
 	<select id="countNotices" parameterType="map" resultType="int">
@@ -163,13 +166,16 @@
 		TO_CHAR(p.POST_UPDATED_DATE, 'YYYY-MM-DD') AS postUpdatedDate,
 		p.POST_TYPE AS postType,
 		f.FAQ_CONTENT AS faqContent,
-		a.ADMIN_NUMBER AS adminNumber,
+		a.ADMIN_NUMBER AS
+		adminNumber,
 		a.ADMIN_ID AS adminId,
 		a.ADMIN_TREE_GRADE AS adminTreeGrade
 		FROM TBL_POST p
 		JOIN TBL_FAQ f ON f.POST_NUMBER = p.POST_NUMBER
-		JOIN TBL_ADMIN a ON a.MEMBER_NUMBER = p.MEMBER_NUMBER
-		WHERE p.POST_TYPE = 'FAQ'
+		JOIN
+		TBL_ADMIN a ON a.MEMBER_NUMBER = p.MEMBER_NUMBER
+		WHERE p.POST_TYPE =
+		'FAQ'
 		<if test="searchWord != null and searchWord != ''">
 			AND p.POST_TITLE LIKE '%' || #{searchWord} || '%'
 		</if>
@@ -177,7 +183,8 @@
 		) A
 		WHERE ROWNUM &lt;= #{endRow}
 		)
-		WHERE rowNumber &gt;= #{startRow}
+		WHERE
+		rowNumber &gt;= #{startRow}
 	</select>
 
 	<select id="countFaqs" parameterType="map" resultType="int">
@@ -283,15 +290,21 @@
 		m.MEMBER_NUMBER AS memberNumber,
 		m.MEMBER_ID AS memberId,
 		CASE m.MEMBER_TYPE
-		WHEN 'GENERAL' THEN g.GENERAL_NAME
+		WHEN 'GENERAL' THEN
+		g.GENERAL_NAME
 		WHEN 'SELLER' THEN s.SELLER_NAME
 		END AS memberName
-		FROM TBL_POST p
+		FROM
+		TBL_POST p
 		JOIN TBL_INQUIRY i ON i.POST_NUMBER = p.POST_NUMBER
-		JOIN TBL_MEMBER m ON m.MEMBER_NUMBER = p.MEMBER_NUMBER
-		LEFT JOIN TBL_GENERAL_MEMBER g ON g.MEMBER_NUMBER = m.MEMBER_NUMBER
-		LEFT JOIN TBL_SELLER_MEMBER s ON s.MEMBER_NUMBER = m.MEMBER_NUMBER
-		WHERE p.POST_TYPE = 'INQUIRY'
+		JOIN
+		TBL_MEMBER m ON m.MEMBER_NUMBER = p.MEMBER_NUMBER
+		LEFT JOIN
+		TBL_GENERAL_MEMBER g ON g.MEMBER_NUMBER = m.MEMBER_NUMBER
+		LEFT JOIN
+		TBL_SELLER_MEMBER s ON s.MEMBER_NUMBER = m.MEMBER_NUMBER
+		WHERE
+		p.POST_TYPE = 'INQUIRY'
 		<if test="searchWord != null and searchWord != ''">
 			AND p.POST_TITLE LIKE '%' || #{searchWord} || '%'
 		</if>
@@ -299,7 +312,8 @@
 		) A
 		WHERE ROWNUM &lt;= #{endRow}
 		)
-		WHERE rowNumber &gt;= #{startRow}
+		WHERE
+		rowNumber &gt;= #{startRow}
 	</select>
 
 	<select id="countInquiries" parameterType="map" resultType="int">
@@ -331,19 +345,24 @@
 		memberNumber,
 		m.MEMBER_ID AS memberId,
 		CASE m.MEMBER_TYPE
-		WHEN 'GENERAL' THEN g.GENERAL_NAME
+		WHEN 'GENERAL'
+		THEN g.GENERAL_NAME
 		WHEN 'SELLER' THEN s.SELLER_NAME
 		END AS memberName
 		FROM TBL_POST p
 		JOIN
 		TBL_INQUIRY i ON i.POST_NUMBER = p.POST_NUMBER
-		JOIN TBL_MEMBER m ON
+		JOIN
+		TBL_MEMBER m ON
 		m.MEMBER_NUMBER = p.MEMBER_NUMBER
-		LEFT JOIN TBL_GENERAL_MEMBER g ON
+		LEFT JOIN
+		TBL_GENERAL_MEMBER g ON
 		g.MEMBER_NUMBER = m.MEMBER_NUMBER
-		LEFT JOIN TBL_SELLER_MEMBER s ON
+		LEFT JOIN
+		TBL_SELLER_MEMBER s ON
 		s.MEMBER_NUMBER = m.MEMBER_NUMBER
-		WHERE p.POST_NUMBER = #{postNumber}
+		WHERE
+		p.POST_NUMBER = #{postNumber}
 	</select>
 
 	<update id="updateInquiryStatus"
@@ -417,17 +436,24 @@
 		m.MEMBER_TYPE AS memberType,
 		m.MEMBER_ID AS memberId,
 		CASE m.MEMBER_TYPE
-		WHEN 'GENERAL' THEN g.GENERAL_NAME
+		WHEN 'GENERAL' THEN
+		g.GENERAL_NAME
 		WHEN 'SELLER' THEN s.SELLER_NAME
 		ELSE m.MEMBER_ID
-		END AS memberName,
-		COALESCE(g.GENERAL_WARNING_COUNT, s.SELLER_WARNING_COUNT,0) AS warningCount,
-		COALESCE(g.GENERAL_TREE_GRADE, s.SELLER_TREE_GRADE,'') AS treeGrade,
-		COALESCE(g.GENERAL_PAYMENT_AMOUNT, s.SELLER_PAYMENT_AMOUNT, 0) AS
+		END AS
+		memberName,
+		COALESCE(g.GENERAL_WARNING_COUNT, s.SELLER_WARNING_COUNT,0)
+		AS warningCount,
+		COALESCE(g.GENERAL_TREE_GRADE, s.SELLER_TREE_GRADE,'')
+		AS treeGrade,
+		COALESCE(g.GENERAL_PAYMENT_AMOUNT,
+		s.SELLER_PAYMENT_AMOUNT, 0) AS
 		paymentAmount
 		FROM TBL_MEMBER m
-		LEFT JOIN TBL_GENERAL_MEMBER g ON g.MEMBER_NUMBER = m.MEMBER_NUMBER
-		LEFT JOIN TBL_SELLER_MEMBER s ON s.MEMBER_NUMBER = m.MEMBER_NUMBER
+		LEFT JOIN
+		TBL_GENERAL_MEMBER g ON g.MEMBER_NUMBER = m.MEMBER_NUMBER
+		LEFT JOIN
+		TBL_SELLER_MEMBER s ON s.MEMBER_NUMBER = m.MEMBER_NUMBER
 		<where>
 			<if test="memberType != null and memberType != ''">
 				m.MEMBER_TYPE = #{memberType}
@@ -448,7 +474,8 @@
 		) A
 		WHERE ROWNUM &lt;= #{endRow}
 		)
-		WHERE rowNumber &gt;= #{startRow}
+		WHERE
+		rowNumber &gt;= #{startRow}
 	</select>
 
 	<select id="countMembers" parameterType="map" resultType="int">
@@ -484,36 +511,49 @@
 		"memberType",
 		m.MEMBER_ID AS "memberId",
 		CASE m.MEMBER_TYPE
-		WHEN 'GENERAL' THEN g.GENERAL_NAME
+		WHEN
+		'GENERAL' THEN g.GENERAL_NAME
 		WHEN 'SELLER' THEN s.SELLER_NAME
-		ELSE m.MEMBER_ID
+		ELSE
+		m.MEMBER_ID
 		END AS "memberName",
 		CASE m.MEMBER_TYPE
-		WHEN 'GENERAL' THEN g.GENERAL_PHONE_NUMBER
+		WHEN 'GENERAL' THEN
+		g.GENERAL_PHONE_NUMBER
 		WHEN 'SELLER' THEN s.SELLER_PHONE_NUMBER
-		END AS "phoneNumber",
+		END AS
+		"phoneNumber",
 		CASE
 		m.MEMBER_TYPE
-		WHEN 'GENERAL' THEN g.GENERAL_TREE_GRADE
+		WHEN 'GENERAL' THEN
+		g.GENERAL_TREE_GRADE
 		WHEN 'SELLER' THEN s.SELLER_TREE_GRADE
-		END AS "treeGrade",
+		END AS
+		"treeGrade",
 		CASE
 		m.MEMBER_TYPE
-		WHEN 'GENERAL' THEN g.GENERAL_PAYMENT_AMOUNT
+		WHEN 'GENERAL' THEN
+		g.GENERAL_PAYMENT_AMOUNT
 		WHEN 'SELLER' THEN s.SELLER_PAYMENT_AMOUNT
-		END AS "paymentAmount",
+		END
+		AS "paymentAmount",
 		CASE
 		m.MEMBER_TYPE
-		WHEN 'GENERAL' THEN g.GENERAL_WARNING_COUNT
+		WHEN 'GENERAL' THEN
+		g.GENERAL_WARNING_COUNT
 		WHEN 'SELLER' THEN s.SELLER_WARNING_COUNT
-		END AS "warningCount"
+		END AS
+		"warningCount"
 		FROM
 		TBL_MEMBER m
-		LEFT JOIN TBL_GENERAL_MEMBER g ON g.MEMBER_NUMBER =
+		LEFT JOIN TBL_GENERAL_MEMBER g ON
+		g.MEMBER_NUMBER =
 		m.MEMBER_NUMBER
-		LEFT JOIN TBL_SELLER_MEMBER s ON s.MEMBER_NUMBER =
+		LEFT JOIN TBL_SELLER_MEMBER s ON
+		s.MEMBER_NUMBER =
 		m.MEMBER_NUMBER
-		WHERE m.MEMBER_NUMBER = #{memberNumber}
+		WHERE m.MEMBER_NUMBER =
+		#{memberNumber}
 	</select>
 
 	<select id="memberListCount" resultType="int">
@@ -544,14 +584,16 @@
 		WHERE p.POST_TYPE = 'INQUIRY'
 		ORDER BY p.POST_CREATED_DATE DESC
 		)
-		WHERE ROWNUM <![CDATA[ <= ]]>
+		WHERE
+		ROWNUM <![CDATA[ <= ]]>
 		3
 	</select>
 
 	<select id="selectRecentReports" resultType="PostReportDTO">
 		SELECT * FROM (
 		SELECT r.POST_REPORT_REASON, r.POST_REPORT_DATE
-		FROM TBL_POST_REPORT r
+		FROM
+		TBL_POST_REPORT r
 		ORDER BY r.POST_REPORT_DATE DESC
 		)
 		WHERE ROWNUM <![CDATA[ <= ]]>
