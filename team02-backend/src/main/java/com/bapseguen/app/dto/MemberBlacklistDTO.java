@@ -1,12 +1,13 @@
 package com.bapseguen.app.dto;
 
 public class MemberBlacklistDTO {
-	private int blacklistNumber;
-	private int memberNumber;
-	private String reason;
-	private String createdDate;
+	private int blacklistNumber; // 블랙리스트 PK
+	private int memberNumber; // 블랙리스트 대상 회원 번호
+	private String blacklistStartDate; // 블랙리스트 등록일
 
-	// getter & setter
+	public MemberBlacklistDTO() {
+	}
+
 	public int getBlacklistNumber() {
 		return blacklistNumber;
 	}
@@ -23,19 +24,17 @@ public class MemberBlacklistDTO {
 		this.memberNumber = memberNumber;
 	}
 
-	public String getReason() {
-		return reason;
+	public String getBlacklistStartDate() {
+		return blacklistStartDate;
 	}
 
-	public void setReason(String reason) {
-		this.reason = reason;
+	public void setBlacklistStartDate(String blacklistStartDate) {
+		this.blacklistStartDate = blacklistStartDate;
 	}
 
-	public String getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(String createdDate) {
-		this.createdDate = createdDate;
+	@Override
+	public String toString() {
+		return "MemberBlacklistDTO{" + "blacklistNumber=" + blacklistNumber + ", memberNumber=" + memberNumber
+				+ ", blacklistStartDate='" + blacklistStartDate + '\'' + '}';
 	}
 }
