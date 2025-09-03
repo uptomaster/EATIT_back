@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bapseguen.app.Result;
-import com.bapseguen.app.dto.BannerDTO;
 import com.bapseguen.app.dto.view.ItemWithImgDTO;
 import com.bapseguen.app.dto.view.MainStoreListDTO;
 import com.bapseguen.app.dto.view.PostDetailDTO;
@@ -23,11 +22,6 @@ public class MainListController {
 
         MainDAO mainDAO = new MainDAO();
         Result result = new Result();
-        
-        // 배너 목록 출력
-        List<BannerDTO> bannerList = mainDAO.selectMainBannerList();
-        request.setAttribute("bannerList", bannerList);
-        System.out.println("배너 목록 : " + bannerList);
         
         // 가게 목록 출력
         List<MainStoreListDTO> storeList = mainDAO.selectMainStoreList();

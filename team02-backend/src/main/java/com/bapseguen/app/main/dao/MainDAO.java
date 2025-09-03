@@ -16,11 +16,6 @@ public class MainDAO {
 	public MainDAO() {
 		sqlSession = MyBatisConfig.getSqlSessionFactory().openSession(true);
 	}
-	
-	// 배너 리스트
-	public List<BannerDTO> selectMainBannerList() {
-		return sqlSession.selectList("main.bannerList");
-	}
 
 	// 메인 가게 리스트
 	public List<MainStoreListDTO> selectMainStoreList() {
