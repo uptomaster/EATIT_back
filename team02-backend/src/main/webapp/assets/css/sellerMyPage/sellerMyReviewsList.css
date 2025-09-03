@@ -71,10 +71,12 @@ main{
 }
 /* 좌측 메뉴바 끝 */
 
+/* 페이지 제목 */
 .seller_myreviews_list{
   margin: 100px 0 45px 70px;
   font-size: 30px;
 }
+/* 목록 제목 라인 */
 .seller_myreviews_top{
   margin-left: 50px;
   background-color: #a69980;
@@ -84,7 +86,9 @@ main{
   align-items: center;
   display: flex;
   border: 1px solid black;
+  padding: 6px 10px;
 }
+/* 각 목록 내용 */
 .seller_myreviews_comments_list{
   margin-left: 50px;
   background-color: white;
@@ -94,57 +98,75 @@ main{
   align-items: center;
   display: flex;
   border: 1px solid black;  
+  padding: 6px 10px;
 }
+/* 각 요소 */
 .seller_myreviews_restaurant_name{
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50px;
-  width: 225px;
+  width: 130px;
 }
 .seller_myreviews_meal_name{
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50px;
-  width: 225px;
+  width: 150px;
+}
+.seller_myreviews_content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 350px;
 }
 .seller_myreviews_quantity{
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50px;
-  width: 100px;
+  width: 70px;
 }
 .seller_myreviews_price{
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50px;
-  width: 150px;
+  width: 100px;
 }
 .seller_myreviews_date{
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50px;
-  width: 150px;
+  width: 110px;
 }
 .seller_myreviews_grade{
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50px;
-  width: 150px;
+  width: 80px;
 }
 
-.seller_myreviews_pagination{
+/* 페이지네이션  */
+/* 페이지네이션 위치 잡기 */
+.pagination {
   display: flex;
-  justify-self: center;
-  position: relative;
-  top: 1000px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
 }
-.seller_myreviews_pagination > a{
+/* 페이지네이션 ul 마크 제거 */
+.pagination > ul {
+  display: flex;
+  list-style: none;
+  gap: 10px;
+}
+/* 페이지네이션 요소 */
+.pagination a {
   width: 32px;
   height: 32px;
   background-color: white;
@@ -157,6 +179,16 @@ main{
   border-radius: 6px;
   color: black;
 }
-.seller_myreviews_pagination > a:hover{
-  background-color: #FF873C;
+/* 페이지네이션 hover */
+.pagination a:hover {
+  background-color: #ffd580;
+  color: #4a3000;
 }
+/* 현제 페이지의 페이지네이션 강조 */
+.pagination .active {
+  background-color: #ffb84d;
+  color: white;
+  cursor: default;
+  border-color: #ffae42;
+}
+

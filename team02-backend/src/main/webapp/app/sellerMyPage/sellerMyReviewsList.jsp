@@ -49,6 +49,7 @@
         <div class="seller_myreviews_top">
           <div class="seller_myreviews_restaurant_name">가게명</div>
           <div class="seller_myreviews_meal_name">음식/재료 명</div>
+          <div class="seller_myreviews_content">리뷰</div>
           <div class="seller_myreviews_quantity">수량</div>
           <div class="seller_myreviews_price">금액</div>
           <div class="seller_myreviews_date">작성 일자</div>
@@ -60,16 +61,19 @@
             <c:forEach var="review" items="${myReviewList}">
               <div class="seller_myreviews_comments_list">
                 <div class="seller_myreviews_restaurant_name">
-                  <c:out value="${review.storeName}" />
+                  <c:out value="${review.getStoreName()}" />
                 </div>
                 <div class="seller_myreviews_meal_name">
                   <c:out value="${review.itemName}" />
+                </div>
+                <div class="seller_myreviews_content">
+                  <c:out value="${review.reviewContent}" />
                 </div>
                 <div class="seller_myreviews_quantity">
                   <c:out value="${review.orderItemQuantity}" />
                 </div>
                 <div class="seller_myreviews_price">
-                  <c:out value="${review.ordersTotalAmount}" />원
+                  <c:out value="${review.orderItemUnitPrice}" />원
                 </div>
                 <div class="seller_myreviews_date">
                   <c:out value="${review.reviewCreateDate}" />
@@ -87,8 +91,8 @@
       </div>
 
       <!-- 페이지네이션 자리 (요청하신 블록: 변경 없이 그대로 삽입) -->
-      <div class="seller_store_info_pagination">
-        <ul class="seller_store_info_pagination_ul">
+      <div class="pagination">
+        <ul class="pagination_ul">
           <c:if test="${prev}">
             <li><a
               href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?page=${startPage - 1}"
