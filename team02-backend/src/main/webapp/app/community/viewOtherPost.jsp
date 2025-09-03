@@ -84,7 +84,21 @@
 	          <div class="view-content">
 	            <p><c:out value="${post.freeContent}" /></p>
 	          </div>
-	
+			  <!-- 첨부파일 출력 -->
+			  <c:if test="${not empty post.files}">
+			    <div class="view-attach">
+			        <c:forEach var="file" items="${post.files}">
+			            <div class="img-box">
+			                <img src="${pageContext.request.contextPath}/upload/${file.postImageSystemName}" alt="${file.postImageOriginalName}" />
+			            </div>
+			        </c:forEach>
+			    </div>
+			  </c:if>
+				
+				
+				
+				
+				
 	          <!-- 수정/삭제 버튼 -->
 	          <div class="post_buttons">
 	            <div class="func_button">
