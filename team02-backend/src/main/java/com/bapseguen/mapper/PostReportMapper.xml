@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="postReport">
+
+  <!-- 같은 글에 같은 회원이 이미 신고했는지 -->
+  <select id="alreadyReport" parameterType="map" resultType="int">
+    SELECT COUNT(1)
+    FROM TBL_POST_REPORT
+    WHERE POST_NUMBER = #{postNumber}
+      AND MEMBER_NUMBER = #{memberNumber}
+  </select>
+  
+  <!-- 동시 신고 방지 -->
+  <select id="lockPostForUpdate" parameterType="int" resultType="int">
+    SELECT POST_NUMBER
+    FROM TBL_POST
+    WHERE POST_NUMBER = #{postNumber}
+    FOR UPDATE
+  </select>
+
+  <!-- 신고 등록 -->
+  <insert id="insertReport" parameterType="PostReportDTO">
+    <selectKey keyProperty="postReportNumber" resultType="int" order="BEFORE">
+      SELECT SEQ_POST_REPORT_NUMBER.NEXTVAL FROM DUAL
+    </selectKey>
+    INSERT INTO TBL_POST_REPORT
+      (POST_REPORT_NUMBER, POST_NUMBER, MEMBER_NUMBER, POST_REPORT_REASON, POST_REPORT_DATE, POST_REPORT_COUNT)
+    VALUES
+      (#{postReportNumber}, #{postNumber}, #{memberNumber}, #{postReportReason}, SYSDATE, NULL)
+  </insert>
+  
+  <!-- 글 테이블의 누적 신고수 = 실제 신고 행 수로 동기화 -->
+  <update id="syncPostCountFromReports" parameterType="int">
+    UPDATE TBL_POST p
+       SET p.POST_REPORT_COUNT = (
+         SELECT COUNT(*) FROM TBL_POST_REPORT r
+          WHERE r.POST_NUMBER = p.POST_NUMBER
+       )
+     WHERE p.POST_NUMBER = #{postNumber}
+  </update>
+
+  <!-- 방금 삽입된 신고행의 POST_REPORT_COUNT를 해당 글의 총 신고수로 동기화 -->
+  <update id="syncInsertedReportRowCount" parameterType="map">
+    UPDATE TBL_POST_REPORT r
+       SET r.POST_REPORT_COUNT = (
+         SELECT COUNT(*) FROM TBL_POST_REPORT x
+          WHERE x.POST_NUMBER = r.POST_NUMBER
+       )
+     WHERE r.POST_REPORT_NUMBER = #{postReportNumber}
+       AND r.POST_NUMBER        = #{postNumber}
+  </update>  
+</mapper>

@@ -38,9 +38,9 @@ public class PostImageDAO {
 	}
 
 	// 파일 삭제 메소드
-	public void delete(int boardNumber) {
-		sqlSession.delete("postImage.delete", boardNumber);
-	}
+//	public void delete(int postNumber) {
+//		sqlSession.delete("postImage.delete", postNumber);
+//	}
 	
 	
 	
