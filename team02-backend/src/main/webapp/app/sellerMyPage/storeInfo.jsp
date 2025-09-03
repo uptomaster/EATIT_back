@@ -103,6 +103,8 @@
     <c:choose>
         <c:when test="${not empty foodList}">
             <c:forEach var="food" items="${foodList}">
+						<form action="${pageContext.request.contextPath}/sellerMyPage/editFood.se" method="post" class="editFoodForm">
+            
                 <div class="store_info_ingredient_menu_list">
                     <img src="${pageContext.request.contextPath}/assets/img/store.jpg" alt="">
                     <div class="store_info_ingredient_menu_info_stock">
@@ -110,17 +112,23 @@
                             <div class="store_info_ingredient_stock">
                                 <c:out value="${food.itemQuantity}"/> 개 남음
                             </div>
-                            <button href="${pageContext.request.contextPath}/sellerMyPage/editFood.se"
-                            class="store_info_ingredient_edit_btn"
-                            data-food-itemNumber="${food.itemNumber}">
-                            수정</button>
+                     <!-- 1번 방식 각 메뉴 블록마다 form태그를 넣고 button으로 사용하기  -->
+                     <input type="hidden" name="itemNumber" value="${food.itemNumber}">
+                     <button type="submit" class="store_info_ingredient_edit_btn"
+						       			data-member-number="${sessionScope.memberNumber}"
+						       			data-store-businessnumber="${sessionScope.businessNumber}"
+						       			data-item-itemNumber="${food.itemNumber}"
+							       	>수정</button>
                             <%-- <button href="${pageContext.request.contextPath}/sellerMyPage/detailFood.se
                              class="store_info_ingredient_view_btn"
                              data-food-itemNumbe="${food.itemNumber}">
                                 상세보기</button> --%>
-                               <a href="${pageContext.request.contextPath}/sellerMyPage/editFood.se" >
-								<div class="store_info_ingredient_edit_btn">수정</div>
-							</a>
+                                
+                                
+                    <!-- 2번 방식 a태그 안에 서블릿 경로 넣기 -->
+  									<a href="${pageContext.request.contextPath}/sellerMyPage/editFood.se?itemNumber=${food.itemNumber}">
+											<div class="store_info_ingredient_edit_btn">수정</div>
+										</a>
                         </div>
                         <div class="store_info_ingredient_menu_info">
                             <h3><c:out value="${food.itemName}"/></h3>
@@ -130,6 +138,7 @@
                     </div>
                 </div>
                 <hr>
+                </form>
             </c:forEach>
         </c:when>
         <c:otherwise>
