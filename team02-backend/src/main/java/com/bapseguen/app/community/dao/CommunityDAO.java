@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import com.bapseguen.app.dto.FaqDTO;
 import com.bapseguen.app.dto.InquiryDTO;
 import com.bapseguen.app.dto.PostDTO;
+import com.bapseguen.app.dto.view.InquiryDetailDTO;
 import com.bapseguen.app.dto.view.PostDetailDTO;
 import com.bapseguen.config.MyBatisConfig;
 
@@ -221,7 +222,7 @@ public class CommunityDAO {
     }
     
     // 고객센터 문의글 상세 조회
-    public InquiryDTO selectInquiryDetail(int postNumber) {
+    public InquiryDetailDTO selectInquiryDetail(int postNumber) {
     	return sqlSession.selectOne("inquiry.inquirySelect", postNumber);
     }
 
