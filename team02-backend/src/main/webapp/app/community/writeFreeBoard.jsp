@@ -45,7 +45,7 @@
 				</div>
 				<h1 class="post_title">
 					<c:choose>
-						<c:when test="${post.postType == 'FREE'}">
+						<c:when test="${postType == 'FREE'}">
 		            자유게시글 작성
 		        		</c:when>
 						<%-- <c:when test="${postType == 'NOTICE'}">
@@ -85,37 +85,8 @@
 				<!-- 기존 html형식 -->
 				<div class="form_group">
 					<label for="imageUpload">사진 첨부</label>
-					<input type="file" id="imageUpload" name="imageUpload" />
+					<input type="file" id="imageUpload" name="uploadFile" />
 				</div>
-
-
-
-
-
-				<div class="form-group">
-					<label for="file">사진 첨부</label>
-					<div class="image-upload-wrap">
-						<input type="file" id="file imageUpload" name="boardFile" />
-						<div class="image-upload-box"></div>
-					</div>
-					<div class="img-controller-box">
-						<ul class="file-list"></ul>
-					</div>
-				</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 				<div class="button_group">
 					<c:url var="listUrl" value="/community/freeBoardListOk.co" />
