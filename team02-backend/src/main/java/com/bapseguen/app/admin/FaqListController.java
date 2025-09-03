@@ -39,7 +39,7 @@ public class FaqListController implements Execute {
         request.setAttribute("page", page);
         request.setAttribute("rowCount", rowCount);
 
-        result.setPath("/app/admin/faqList.jsp");
+        result.setPath("/app/admin/adminFaqList.jsp");
         result.setRedirect(false);
         return result;
     }

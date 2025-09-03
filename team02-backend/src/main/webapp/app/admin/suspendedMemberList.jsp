@@ -25,7 +25,6 @@
         <li class="sidebar_list"><a href="${pageContext.request.contextPath}/admin/member/list.ad">회원관리</a></li>
         <li class="sidebar_list"><a href="${pageContext.request.contextPath}/admin/postTrade/list.ad">게시글 관리</a></li>
         <li class="sidebar_list" id="sidebar_list_warning"><a href="${pageContext.request.contextPath}/admin/report/list.ad">신고관리</a></li>
-        <li class="sidebar_list"><a href="${pageContext.request.contextPath}/admin/banner/list.ad">배너/광고</a></li>
         <li class="sidebar_list"><a href="${pageContext.request.contextPath}/admin/inquiry/list.ad">고객센터</a></li>
       </ul>
       <form action="${pageContext.request.contextPath}/admin/logoutOk.ad" method="post">
