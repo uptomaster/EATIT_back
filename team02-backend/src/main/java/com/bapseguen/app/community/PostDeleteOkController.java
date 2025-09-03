@@ -18,9 +18,11 @@ public class PostDeleteOkController implements Execute{
 
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		System.out.println("====PostDeleteOkController 실행====");
 		int postNumber = Integer.parseInt(request.getParameter("postNumber"));
 
-        CommunityDAO communityDAO = new CommunityDAO();
+		CommunityDAO communityDAO = new CommunityDAO();
         PostImageDAO postImageDAO = new PostImageDAO();
         Result result = new Result();
 
@@ -36,12 +38,13 @@ public class PostDeleteOkController implements Execute{
         }
 
         // 2. 이미지 DB 삭제
-        postImageDAO.delete(postNumber);
+        //postImageDAO.delete(postNumber);
 
         // 3. 게시글 삭제
         communityDAO.delete(postNumber);
 
         // 4. 리다이렉트
+        System.out.println("확인용 Result path: " + result.getPath());
         result.setPath("/community/freeBoardListOk.co");
         result.setRedirect(true);
         return result;

@@ -94,17 +94,24 @@
 		WHERE POST_NUMBER=#{postNumber}
 	</update>
 	
-	<!-- 게시글 삭제 쿼리 -->
-	<delete id="postDelete" parameterType="int">
-	    <!-- 댓글 -->
-	    DELETE FROM TBL_COMMENT WHERE POST_NUMBER = #{postNumber}
-	    <!-- 이미지-->
-	    DELETE FROM TBL_POST_IMAGE WHERE POST_NUMBER = #{postNumber}
-	    <!-- 자유게시판 내용 -->
-	    DELETE FROM TBL_FREE_BOARD WHERE POST_NUMBER = #{postNumber}
-	    <!-- 마지막으로 게시글 삭제 -->
-	    DELETE FROM TBL_POST WHERE POST_NUMBER = #{postNumber}
+	<!-- 자유게시판 게시글 삭제 쿼리 / 글 내용-->	
+	<delete id="freeBoardDelete" parameterType="int">
+	    DELETE FROM TBL_FREE_BOARD
+	    WHERE POST_NUMBER = #{postNumber}
 	</delete>
+	<!-- 자유게시판 게시글 삭제 쿼리 / 게시글 내용제외-->
+	<delete id="postDelete" parameterType="int">
+	    DELETE FROM TBL_POST
+	    WHERE POST_NUMBER = #{postNumber}
+	</delete>
+	<!-- 자유게시판 게시글 삭제 쿼리 / 이미지-->
+	<delete id="freeBoardImageDelete" parameterType="int">
+	    DELETE FROM TBL_POST_IMAGE
+	    WHERE POST_NUMBER = #{postNumber}
+	</delete>
+
+
+
 
 	<!-- 게시글 수정쿼리/제목,날짜 -->
 	<update id="updatePostTitle" parameterType="PostDetailDTO">

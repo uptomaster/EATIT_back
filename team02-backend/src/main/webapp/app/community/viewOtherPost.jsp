@@ -184,8 +184,5 @@
   window.ctx = "${pageContext.request.contextPath}";
   window.postNumber = ${post.postNumber != null ? post.postNumber : 'null'};
   window.memberNumber = ${sessionScope.memberNumber != null ? sessionScope.memberNumber : 'null'};
-
-  console.log("DEBUG: postNumber =", window.postNumber);
-  console.log("DEBUG: memberNumber =", window.memberNumber);
 </script>
 </html>
