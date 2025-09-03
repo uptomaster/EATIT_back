@@ -26,7 +26,7 @@
 
 
 	<!-- 음식 판매 상세 조회 -->
-	<select id="detaileItem" parameterType="int" resultType="ItemDTO">
+	<select id="detailItem" parameterType="int" resultType="ItemListDTO">
 		
 		SELECT
 		    i.ITEM_NUMBER AS itemNumber,
@@ -39,8 +39,7 @@
 		    i.ITEM_EXPIRE_DATE AS itemExpireDate,
 		    i.ITEM_CREATED_TIME AS itemCreatedTime,
 		    i.ITEM_UPDATED_TIME AS itemUpdatedTime,
-		    i.ITEM_SELL_STATE AS itemSellState,
-		    s.STORE_NAME AS businessName
+		    i.ITEM_SELL_STATE AS itemSellState
 		FROM TBL_ITEM i
 		WHERE i.ITEM_NUMBER = #{itemNumber}
 		
