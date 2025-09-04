@@ -16,7 +16,10 @@ public class ItemListDTO {
 	private String itemSellState; // 판매 여부 "판매중(y
 	private String businessName; // 상호명 -> tbl_store랑 서브쿼리
 
-	private List<ItemImageDTO> files; //
+	//
+	private int itemImageNumber;
+	private String itemImageSystemName;
+	private String itemImageOriginalName;
 
 	public int getItemNumber() {
 		return itemNumber;
