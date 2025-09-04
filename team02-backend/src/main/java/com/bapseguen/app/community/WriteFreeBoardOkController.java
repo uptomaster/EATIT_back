@@ -22,8 +22,6 @@ public class WriteFreeBoardOkController implements Execute {
 
     @Override
     public Result execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("==== WriteFreeBoardOkController 실행 ====");
-        
         Result result = new Result();
         PostImageDAO postImageDAO = new PostImageDAO();
         CommunityDAO communityDAO = new CommunityDAO();
@@ -64,8 +62,11 @@ public class WriteFreeBoardOkController implements Execute {
         postParams.put("postTitle", postTitle);
         postParams.put("freeContent", freeContent);
 
-     // 게시글 insert → postNumber 확보
-        int postNumber = communityDAO.insertFreePost(postParams);
+        // 게시글 insert
+        communityDAO.insertFreePost(postParams);
+
+        // postNumber 가져오기
+        int postNumber = (Integer) postParams.get("postNumber");
 
         // 파일 업로드 반복
         Enumeration<?> files = multi.getFileNames();
@@ -78,12 +79,12 @@ public class WriteFreeBoardOkController implements Execute {
                 PostImageDTO fileDTO = new PostImageDTO();
                 fileDTO.setPostImageOriginalName(originalName);
                 fileDTO.setPostImageSystemName(savedName);
-                fileDTO.setPostNumber(postNumber); // FK 안전
+                fileDTO.setPostNumber(postNumber);
                 postImageDAO.insert(fileDTO);
             }
         }
 
-        // 완료 후 목록 페이지로 이동request.setAttribute("postType", postType);
+        // 완료 후 목록 페이지로 이동
         result.setPath(request.getContextPath() + "/community/freeBoardListOk.co");
         result.setRedirect(true);
         return result;
