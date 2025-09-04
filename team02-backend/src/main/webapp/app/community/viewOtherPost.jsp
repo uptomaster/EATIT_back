@@ -81,21 +81,13 @@
 	
 	        <!-- 게시글 내용 -->
 	        <section class="content_section">
-	          <div class="view-content">
+	          <div class="view-content post_content">
 	            <p><c:out value="${post.freeContent}" /></p>
 	          </div>
 			  <!-- 첨부파일 출력 -->
-			  <c:if test="${not empty post.files}">
-			    <div class="view-attach">
-			        <c:forEach var="file" items="${post.files}">
-			            <div class="img-box">
-			                <img src="${pageContext.request.contextPath}/upload/${file.postImageSystemName}" alt="${file.postImageOriginalName}" />
-			            </div>
-			        </c:forEach>
-			    </div>
-			  </c:if>
-				
-				
+			  <c:forEach var="img" items="${postImages}">
+			    <img src="${pageContext.request.contextPath}/upload/${img.postImageSystemName}" alt="${img.postImageOriginalName}" />
+			  </c:forEach>
 				
 				
 				

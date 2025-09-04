@@ -91,8 +91,7 @@
 									<a
 										href="${pageContext.request.contextPath}/orders/storeDetail.or">
 										<img
-										src="${pageContext.request.contextPath}/assets/img/${store.itemImageSystemName}"
-										alt="${store.storeName} 이미지">
+										src="${pageContext.request.contextPath}/assets/img/${store.itemImageSystemName}" alt="${store.storeName} 이미지">
 										<div class="main_store_info">
 											<div class="main_store_name">
 												<c:out value="${store.storeName}" />
