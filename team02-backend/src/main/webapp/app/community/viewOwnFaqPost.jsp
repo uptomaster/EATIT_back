@@ -45,10 +45,10 @@
 					<ul>
 						<li><a
 							href="${pageContext.request.contextPath}/community/faqListOk.co"
-							class="tab_button">자주묻는질문</a></li>
+							class="tab_button active">자주묻는질문</a></li>
 						<li><a
 							href="${pageContext.request.contextPath}/community/inquiryListOk.co"
-							class="tab_button active">문의목록</a></li>
+							class="tab_button">문의목록</a></li>
 					</ul>
 				</nav>
 	
@@ -91,42 +91,6 @@
 	          <div class="view-content">
 	            <h3><c:out value="${post.inquiryContent}" /></h3>
 	          </div>
-	
-	          <!-- 수정/삭제 버튼 -->
-	          <div class="post_buttons">
-	            <div class="func_button">
-	              <c:if test="${sessionScope.memberNumber eq post.getMemberNumber()}">
-	                <button type="button" class="delete-btn delete"
-	                  data-board-number="${post.postNumber}"
-	                  data-member-number="${sessionScope.memberNumber}">삭제</button>
-	              </c:if>
-	            </div>
-	          </div>
-	        </section>
-	
-	    <!-- 댓글 영역 -->
-	    <section class="comment_section">
-	      <h2 class="comment_count">
-	        <img src="${pageContext.request.contextPath}/assets/img/comment_box.svg" alt="댓글 아이콘" />
-	        댓글
-	      </h2>
-	
-	      <ul class="comment_list" id="commentList"><!-- JS가 채움 --></ul>
-	
-	      <form class="comment_form" id="commentForm" onsubmit="return false;">
-	        <img class="comment_profile" src="${pageContext.request.contextPath}/assets/img/나무.png" alt="프로필" />
-	        <span class="comment_author">
-	          <c:choose>
-	            <c:when test="${not empty sessionScope.memberId}">
-	              ${sessionScope.memberId}
-	            </c:when>
-	            <c:otherwise>비회원</c:otherwise>
-	          </c:choose>
-	        </span>
-	        <input type="text" id="commentInput" name="comment" placeholder="댓글을 입력하세요" required />
-	        <button type="button" id="commentSubmit">등록</button>
-	      </form>
-	    </section>
 	
 	    <!-- 다크 모드 버튼 -->
 	    <button id="darkModeToggle" title="다크 모드 토글">🌓</button>
