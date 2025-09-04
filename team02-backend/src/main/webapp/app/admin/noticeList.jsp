@@ -7,7 +7,6 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>공지사항 관리</title>
 <script defer
 	src="${pageContext.request.contextPath}/assets/js/admin/noticeList.js"></script>
@@ -23,7 +22,6 @@
 	<div class="admin_innerwrapper">
 		<!-- 좌측 사이드바 -->
 		<aside class="sidebar">
-			<!-- 관리자페이지 로고 -->
 			<a href="${pageContext.request.contextPath}/admin/dashboard.ad">
 				<img
 				src="${pageContext.request.contextPath}/assets/img/admin_logo.png"
@@ -31,22 +29,17 @@
 			</a>
 			<ul class="sidebar_ul">
 				<li class="sidebar_list" id="sidebar_list_dashboard"><a
-					href="${pageContext.request.contextPath}/admin/dashboard.ad">대시보드</a>
-				</li>
+					href="${pageContext.request.contextPath}/admin/dashboard.ad">대시보드</a></li>
 				<li class="sidebar_list" id="sidebar_list_member"><a
-					href="${pageContext.request.contextPath}/admin/member/list.ad">회원관리</a>
-				</li>
+					href="${pageContext.request.contextPath}/admin/member/list.ad">회원관리</a></li>
 				<li class="sidebar_list active" id="sidebar_list_community"><a
 					href="${pageContext.request.contextPath}/admin/notice/list.ad">게시글
 						관리</a></li>
 				<li class="sidebar_list" id="sidebar_list_warning"><a
-					href="${pageContext.request.contextPath}/admin/report/list.ad">신고관리</a>
-				</li>
+					href="${pageContext.request.contextPath}/admin/report/list.ad">신고관리</a></li>
 				<li class="sidebar_list" id="sidebar_list_customerservice"><a
-					href="${pageContext.request.contextPath}/admin/faq/list.ad">고객센터</a>
-				</li>
+					href="${pageContext.request.contextPath}/admin/faq/list.ad">고객센터</a></li>
 			</ul>
-			<!-- 로그아웃 버튼 -->
 			<form action="${pageContext.request.contextPath}/admin/logoutOk.ad"
 				method="post">
 				<button id="admin_logoutbtn">로그아웃</button>
@@ -62,71 +55,50 @@
 				<div class="admin_list_title">
 					<ul class="admin_list">
 						<li id="admin_list_menu_notice" class="admin_list_menu"><a
-							href="${pageContext.request.contextPath}/admin/notice/list.ad">공지사항</a>
-						</li>
+							href="${pageContext.request.contextPath}/admin/notice/list.ad">공지사항</a></li>
 						<li id="admin_list_menu_free" class="admin_list_menu"><a
-							href="${pageContext.request.contextPath}/admin/boardFree/list.ad">자유게시판</a>
-						</li>
-						<li id="admin_list_menu_propaganda" class="admin_list_menu">
-							<a
-							href="${pageContext.request.contextPath}/admin/boardPromotion/list.ad">홍보게시판</a>
-						</li>
+							href="${pageContext.request.contextPath}/admin/boardFree/list.ad">자유게시판</a></li>
+						<li id="admin_list_menu_propaganda" class="admin_list_menu"><a
+							href="${pageContext.request.contextPath}/admin/boardPromotion/list.ad">홍보게시판</a></li>
 						<li id="admin_list_menu_recipe" class="admin_list_menu"><a
-							href="${pageContext.request.contextPath}/admin/boardRecipe/list.ad">레시피</a>
-						</li>
+							href="${pageContext.request.contextPath}/admin/boardRecipe/list.ad">레시피</a></li>
 					</ul>
 				</div>
 
-				<!-- 회원 목록 -->
+				<!-- 게시글 목록 -->
 				<div class="admin_list_whitebox">
-					<div class="admin_list_namebox">
-						<!-- 컬럼 명 -->
-						<ul class="admin_list_name">
-							<li id="admin_list_num" class="admin_list_row">번호</li>
-							<li id="admin_list_title" class="admin_list_row">제목</li>
-							<li id="admin_list_userid" class="admin_list_row">작성자</li>
-							<li id="admin_list_date" class="admin_list_row">등록일</li>
-							<li id="admin_list_views" class="admin_list_row">조회</li>
-							<li id="admin_list_likes" class="admin_list_row">추천</li>
-						</ul>
-					</div>
-					<!-- 글 목록 행 -->
+					<!-- 컬럼 명 -->
+					<ul class="admin_list_name">
+						<li class="admin_list_row col-num">번호</li>
+						<li class="admin_list_row col-title">제목</li>
+						<li class="admin_list_row col-user">작성자</li>
+						<li class="admin_list_row col-date">등록일</li>
+						<li class="admin_list_row col-views">조회</li>
+						<li class="admin_list_row col-likes">추천</li>
+					</ul>
+
+					<!-- 글 목록 -->
 					<ul class="admin_list_valuebox">
 						<c:choose>
 							<c:when test="${not empty noticeList}">
 								<c:forEach var="notice" items="${noticeList}">
 									<li class="admin_list_value">
-										<!-- 번호 -->
-										<p class="admin_list_row">
-											<c:out value="${notice.postNumber}" />
-										</p> <!-- 제목 + 태그 -->
-										<p class="admin_list_row">
+										<p class="admin_list_row col-num">${notice.postNumber}</p>
+										<p class="admin_list_row col-title">
 											<a
 												href="${pageContext.request.contextPath}/admin/notice/detail.ad?postNumber=${notice.postNumber}"
-												class="admin_list_userid_link"> <c:out
-													value="${notice.postTitle}" />
-											</a> <span class="notice_tag"> <c:choose>
-													<c:when test="${fn:startsWith(notice.postTitle, '[이벤트]')}">이벤트</c:when>
-													<c:otherwise>공지</c:otherwise>
-												</c:choose>
-											</span>
+												class="admin_list_userid_link"> ${notice.postTitle} </a> <span
+												class="notice_tag ${fn:startsWith(notice.postTitle, '[이벤트]') ? 'event' : 'notice'}">
+												${fn:startsWith(notice.postTitle, '[이벤트]') ? '이벤트' : '공지'} </span>
 										</p>
-
-										<p class="admin_list_row">
+										<p class="admin_list_row col-user">
 											<img class="grade_icon"
 												src="${pageContext.request.contextPath}/assets/img/관리자.png"
-												alt="관리자">
-											<c:out value="${notice.adminId}" />
-										</p> <!-- 등록일 -->
-										<p class="admin_list_row">
-											<c:out value="${notice.postCreatedDate}" />
-										</p> <!-- 조회 -->
-										<p class="admin_list_row">
-											<c:out value="${notice.postViewCount}" />
-										</p> <!-- 추천 -->
-										<p class="admin_list_row">
-											<c:out value="${notice.postLikeCount}" />
+												alt="관리자"> ${notice.adminId}
 										</p>
+										<p class="admin_list_row col-date">${notice.postCreatedDate}</p>
+										<p class="admin_list_row col-views">${notice.postViewCount}</p>
+										<p class="admin_list_row col-likes">${notice.postLikeCount}</p>
 									</li>
 								</c:forEach>
 							</c:when>
@@ -135,20 +107,16 @@
 							</c:otherwise>
 						</c:choose>
 					</ul>
-
 				</div>
 
-
-				<!-- 페이지네이션, 검색창 -->
+				<!-- 페이지네이션 + 검색창-->
 				<div class="admin_pagenation_search">
-					<!-- 공지작성버튼 -->
 					<form
 						action="${pageContext.request.contextPath}/admin/notice/write.ad"
 						method="get">
 						<button id="prepare_notice_btn" type="submit">공지작성</button>
 					</form>
 
-					<!-- 페이지네이션 -->
 					<ul class="admin_pagenation">
 						<c:if test="${prev}">
 							<li><a
@@ -158,13 +126,11 @@
 						<c:forEach var="i" begin="${startPage}" end="${endPage}">
 							<c:choose>
 								<c:when test="${i == page}">
-									<li><a href="#" class="active"><c:out value="${i}" /></a></li>
+									<li><a href="#" class="active">${i}</a></li>
 								</c:when>
 								<c:otherwise>
 									<li><a
-										href="${pageContext.request.contextPath}/admin/notice/list.ad?page=${i}">
-											<c:out value="${i}" />
-									</a></li>
+										href="${pageContext.request.contextPath}/admin/notice/list.ad?page=${i}">${i}</a></li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -175,7 +141,6 @@
 						</c:if>
 					</ul>
 
-					<!-- 검색 -->
 					<form
 						action="${pageContext.request.contextPath}/admin/notice/list.ad"
 						method="get">
@@ -192,6 +157,7 @@
 						</div>
 					</form>
 				</div>
+
 			</div>
 		</div>
 	</div>

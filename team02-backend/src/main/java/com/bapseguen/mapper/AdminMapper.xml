@@ -47,7 +47,8 @@
 	<select id="selectNoticeList" parameterType="map"
 		resultType="com.bapseguen.app.dto.view.AdminPostDTO">
 		SELECT * FROM (
-		SELECT ROWNUM AS rowNumber, A.* FROM (
+		SELECT ROWNUM rn, A.*
+		FROM (
 		SELECT
 		p.POST_NUMBER AS postNumber,
 		p.POST_TITLE AS postTitle,
@@ -59,10 +60,8 @@
 		a.ADMIN_ID AS adminId,
 		a.ADMIN_TREE_GRADE AS adminTreeGrade
 		FROM TBL_POST p
-		JOIN TBL_NOTICE n
-		ON n.POST_NUMBER = p.POST_NUMBER
-		JOIN TBL_ADMIN a ON a.ADMIN_NUMBER =
-		p.ADMIN_NUMBER
+		JOIN TBL_NOTICE n ON n.POST_NUMBER = p.POST_NUMBER
+		JOIN TBL_ADMIN a ON a.ADMIN_NUMBER = p.ADMIN_NUMBER
 		WHERE p.POST_TYPE = 'NOTICE'
 		<if test="searchWord != null and searchWord != ''">
 			AND p.POST_TITLE LIKE '%' || #{searchWord} || '%'
@@ -71,9 +70,9 @@
 		) A
 		WHERE ROWNUM &lt;= #{endRow}
 		)
-		WHERE
-		rowNumber &gt;= #{startRow}
+		WHERE rn &gt;= #{startRow}
 	</select>
+
 
 	<select id="countNotices" parameterType="map" resultType="int">
 		SELECT COUNT(*)
@@ -891,12 +890,16 @@
 		p.POST_NUMBER AS postNumber,
 		p.POST_TITLE AS postTitle,
 		i.ADMIN_IMAGE_SYSTEM_NAME AS systemName,
-		i.ADMIN_IMAGE_ORIGINAL_NAME AS originalName
+		i.ADMIN_IMAGE_ORIGINAL_NAME AS
+		originalName
 		FROM TBL_POST p
-		JOIN TBL_NOTICE n ON n.POST_NUMBER = p.POST_NUMBER
-		LEFT JOIN TBL_ADMIN_IMAGE i ON i.POST_NUMBER = p.POST_NUMBER
+		JOIN TBL_NOTICE n ON n.POST_NUMBER =
+		p.POST_NUMBER
+		LEFT JOIN TBL_ADMIN_IMAGE i ON i.POST_NUMBER =
+		p.POST_NUMBER
 		WHERE p.POST_TYPE = 'NOTICE'
-		AND p.POST_TITLE LIKE '[이벤트]%'
+		AND p.POST_TITLE LIKE
+		'[이벤트]%'
 		ORDER BY p.POST_CREATED_DATE DESC
 		)
 		WHERE ROWNUM = 1
