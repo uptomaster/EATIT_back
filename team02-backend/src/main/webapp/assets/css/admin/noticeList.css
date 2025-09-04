@@ -14,6 +14,26 @@
   display: flex;
   position: relative;
 }
+
+.notice_tag {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.notice_tag:contains("공지") {
+  background-color: #505FA9; /* 파란색 */
+}
+
+.notice_tag:contains("이벤트") {
+  background-color: #f39c12; /* 주황색 */
+}
+
+
 /* 왼쪽 메뉴바 */
 .sidebar{
   min-width: 220px;
