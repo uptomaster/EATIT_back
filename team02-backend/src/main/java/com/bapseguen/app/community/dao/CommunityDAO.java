@@ -195,8 +195,8 @@ public class CommunityDAO {
 	}
 	
 	// FAQ 개별 조회
-    public FaqDTO selectFaqDetail(int faqNumber) {
-        return sqlSession.selectOne("faq.faqSelect", faqNumber);
+    public FaqDTO selectFaqDetail(int postNumber) {
+        return sqlSession.selectOne("faq.faqSelect", postNumber);
     }
     
     // 회원정보 총 개수 반환

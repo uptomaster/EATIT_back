@@ -58,11 +58,11 @@
 	        <!-- 게시글 헤더 -->
 	        <div class="post_header">
 	          <div class="post_box">
-	            <!-- 작성자 -->
+	            <%-- <!-- 작성자 -->
 	            <div class="author_box">
 	              <img src="${pageContext.request.contextPath}/assets/img/관리자.png" alt="관리자" class="tree_icon" />
 	              <span>${post.memberId}</span>
-	            </div>
+	            </div> --%>
 	
 	            <!-- 게시글 제목 -->
 	            <div class="post_title">
