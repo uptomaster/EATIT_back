@@ -96,10 +96,6 @@
 	          <div class="post_buttons">
 	            <div class="func_button">
 	              <c:if test="${sessionScope.memberNumber eq post.getMemberNumber()}">
-	                <button type="button" class="modify-btn edit"
-	                  data-board-number="${post.postNumber}"
-	                  data-member-number="${sessionScope.memberNumber}">수정</button>
-	
 	                <button type="button" class="delete-btn delete"
 	                  data-board-number="${post.postNumber}"
 	                  data-member-number="${sessionScope.memberNumber}">삭제</button>
