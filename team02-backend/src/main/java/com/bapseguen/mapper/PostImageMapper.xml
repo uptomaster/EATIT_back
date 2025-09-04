@@ -35,5 +35,6 @@
 		DELETE FROM TBL_POST_IMAGE
 		WHERE POST_NUMBER = #{postNumber}
 	</delete>
+	
 
 </mapper>
