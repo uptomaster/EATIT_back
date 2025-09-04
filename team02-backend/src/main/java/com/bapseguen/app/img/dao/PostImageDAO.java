@@ -1,5 +1,6 @@
 package com.bapseguen.app.img.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -33,10 +34,25 @@ public class PostImageDAO {
 	}
 
 	// 파일 조회 메소드
-	public List<PostImageDTO> select(int postNumber) {
-		return sqlSession.selectList("postImage.select", postNumber);
-	}
+//	public List<PostImageDTO> select(int postNumber) {
+//		return sqlSession.selectList("postImage.select", postNumber);
+//	}
 
+	public List<PostImageDTO> select(int postNumber) {
+	    List<PostImageDTO> images = new ArrayList<>();
+	    try {
+	        images = sqlSession.selectList("postImage.select", postNumber);
+	        System.out.println("조회된 파일 리스트 : " + images);
+	    } catch (Exception e) {
+	        System.out.println("첨부파일 조회 실패 : " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	    return images;
+	}
+	
+
+	
+	
 	// 파일 삭제 메소드
 //	public void delete(int postNumber) {
 //		sqlSession.delete("postImage.delete", postNumber);
