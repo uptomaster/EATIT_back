@@ -112,7 +112,7 @@ main {
 .general_gray_box{
   width: 615px;
   height: 50px;
-  background-color: rgba(128, 128, 128, 0.575);
+  background-color: #d9d9d9;
   border-radius: 10px;
   margin-left: 10px;
   display: flex;

@@ -9,9 +9,10 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/userMyPage/generalCheckPw.css">
-  <!-- 파비콘 -->
+    <!-- 파비콘 -->
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
-
+  <title>밥세권</title>
+  
   <!-- 헤더 js -->
   <script defer src="${pageContext.request.contextPath}/assets/js/main.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/footer.js"></script>   
@@ -30,7 +31,7 @@
       <!-- 페이지 제목 -->
       <h2 class="general_my_info">비밀번호 확인</h2>
       <!-- 컨텐츠 영역 -->
-      <form class="general_chk_pw" action="${pageContext.request.contextPath}/UserMyPage/chkPwOk.my" method="post">
+      <form class="general_chk_pw" action="${pageContext.request.contextPath}/userMyPage/generalCheckPwOk.my" method="post">
         <!-- 입력 -->
         <div class="general_chk_pw_input">
           <div class="general_chk_pw_info">비밀번호</div>
@@ -41,6 +42,7 @@
             <!-- 여기에 메시지 출력 -->
           </div>
           <button type="submit" id="general_chk_pw_btn">비밀번호 확인</button>
+          <%-- <a href="${pageContext.request.contextPath}/UserMyPage/editUserInfo.my" id="general_chk_pw_btn">비밀번호 확인</a> --%>
         </div>
         <c:if test="${not empty pwError}">
         	<p id="general_chk_pw_warning" class="general_notice_input_wrong_info">${pwError}</p>
