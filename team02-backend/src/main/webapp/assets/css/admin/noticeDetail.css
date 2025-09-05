@@ -14,6 +14,18 @@
   display: flex;
   position: relative;
 }
+
+/* 본문 이미지 */
+.admin_post_images img {
+  max-width: 80%;   /* 부모 영역 너비까지만 */
+  height: auto;      /* 세로는 비율에 맞게 자동 */
+  display: block;    /* 줄바꿈 */
+  margin: 10px auto; /* 가운데 정렬 */
+  border-radius: 8px; /* 살짝 둥글게 (옵션) */
+  object-fit: contain; /* 꽉 채우되 비율 유지 */
+}
+
+
 /* 왼쪽 메뉴바 */
 .sidebar{
   min-width: 220px;

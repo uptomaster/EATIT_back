@@ -2,79 +2,80 @@ package com.bapseguen.app.admin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.admin.dao.AdminDAO;
-import com.bapseguen.app.dto.AdminImageDTO;
 import com.bapseguen.app.dto.view.AdminPostDTO;
+import com.bapseguen.app.dto.AdminImageDTO;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class NoticeWriteOkController implements Execute {
-    @Override
-    public Result execute(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	@Override
+	public Result execute(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        System.out.println("[ADMIN] 공지/이벤트 글 작성 처리");
+		System.out.println("[ADMIN] 공지/이벤트 작성 처리");
 
-        Result result = new Result();
-        AdminDAO dao = new AdminDAO();
+		// 업로드 경로 (webapp/upload)
+		String uploadPath = request.getServletContext().getRealPath("/upload");
+		File dir = new File(uploadPath);
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
 
-        // 업로드 경로
-        String uploadPath = request.getServletContext().getRealPath("/") + "upload/admin/";
-        File folder = new File(uploadPath);
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
+		// MultipartRequest로 파일 업로드 처리
+		MultipartRequest multi = new MultipartRequest(request, uploadPath, 10 * 1024 * 1024, // 10MB
+				"UTF-8", new DefaultFileRenamePolicy());
 
-        // multipart 처리
-        MultipartRequest multi = new MultipartRequest(
-                request,
-                uploadPath,
-                1024 * 1024 * 20, // 20MB
-                "UTF-8",
-                new DefaultFileRenamePolicy()
-        );
+		String postTitle = multi.getParameter("postTitle");
+		String noticeContent = multi.getParameter("noticeContent");
 
-        // 로그인한 관리자 번호
-        HttpSession session = request.getSession();
-        int adminNumber = (int) session.getAttribute("adminNumber");
+		// 세션에서 관리자 번호 가져오기
+		HttpSession session = request.getSession();
+		Integer adminNumber = (Integer) session.getAttribute("adminNumber");
 
-        // 게시글 정보
-        AdminPostDTO postDTO = new AdminPostDTO();
-        postDTO.setAdminNumber(adminNumber);
-        postDTO.setPostTitle(multi.getParameter("postTitle"));
-        postDTO.setNoticeContent(multi.getParameter("noticeContent"));
+		// 글 등록
+		AdminPostDTO dto = new AdminPostDTO();
+		dto.setPostTitle(postTitle);
+		dto.setNoticeContent(noticeContent);
+		dto.setAdminNumber(adminNumber);
 
-        // 1) 게시글 등록
-        dao.insertNoticePost(postDTO);
-        dao.insertNotice(postDTO);
+		AdminDAO dao = new AdminDAO();
+		dao.insertNoticePost(dto);
+		dao.insertNotice(dto);
 
-        // 2) 이미지 등록
-        Enumeration<?> fileNames = multi.getFileNames();
-        while (fileNames.hasMoreElements()) {
-            String paramName = (String) fileNames.nextElement();
-            String systemName = multi.getFilesystemName(paramName);
-            String originalName = multi.getOriginalFileName(paramName);
+		int postNumber = dto.getPostNumber(); // selectKey 로 채워진 값
 
-            if (systemName != null) {
-                AdminImageDTO imgDTO = new AdminImageDTO();
-                imgDTO.setAdminImageSystemName(systemName);
-                imgDTO.setAdminImageOriginalName(originalName);
-                imgDTO.setAdminNumber(adminNumber);
-                imgDTO.setPostNumber(postDTO.getPostNumber());
+		// 이미지 업로드 처리
+		Enumeration<?> files = multi.getFileNames();
+		while (files.hasMoreElements()) {
+			String paramName = (String) files.nextElement();
+			String systemName = multi.getFilesystemName(paramName);
+			String originalName = multi.getOriginalFileName(paramName);
 
-                dao.insertAdminImage(imgDTO);
-            }
-        }
+			if (systemName != null) { // 업로드된 파일이 있을 때만
+				AdminImageDTO imageDTO = new AdminImageDTO();
+				imageDTO.setAdminNumber(adminNumber);
+				imageDTO.setPostNumber(postNumber);
+				imageDTO.setAdminImageSystemName(systemName);
+				imageDTO.setAdminImageOriginalName(originalName);
 
-        result.setPath(request.getContextPath() + "/admin/notice/list.ad");
-        result.setRedirect(true);
-        return result;
-    }
+				dao.insertAdminImage(imageDTO);
+			}
+		}
+
+		// 목록으로 리다이렉트
+		Result result = new Result();
+		result.setPath(request.getContextPath() + "/admin/notice/list.ad");
+		result.setRedirect(true);
+		return result;
+	}
 }
