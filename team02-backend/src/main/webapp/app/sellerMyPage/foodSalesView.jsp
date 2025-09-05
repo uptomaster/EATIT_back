@@ -44,7 +44,7 @@
 			</ul>
     </div>
 
-    <form action="" method="get" class="foodsalesview_content_container"> <!-- 컨텐츠 영역 -->
+    <form action="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se" method="get" class="foodsalesview_content_container"> <!-- 컨텐츠 영역 -->
       <div class="foodsalesview_container"> <!-- 1100px 영역-->
         <!-- 페이지 제목 -->
         <div class="foodsalesview_title">
@@ -95,7 +95,24 @@
             <!-- <button type="button">등록</button> -->
           </div>
         </div>
-        <button class="foodsaleswrite_buzz" type="button">등록</button>
+        <!-- 추가된 판매 상태 라디오 버튼 영역 -->
+				<div class="foodsaleswrite_box foodsaleswrite_sellstate_container">
+					<label class="foodsaleswrite_small_label">판매상태</label>
+					<div class="foodsaleswrite_sellstate_options">
+						<label> 
+						<input type="radio" name="itemSellState" value="Y" checked> 판매중
+						</label> 
+						<label> <input type="radio" name="itemSellState" value="N"> 판매중지
+						</label>
+					</div>
+				</div>
+				<!-- 끝 -->
+				<div class="foodsaleswrite_box foodsaleswrite_sellstate_container">
+	        <button class="foodsaleswrite_buzz" type="submit">목록으로</button>
+	        <a href="${pageContext.request.contextPath}/sellerMyPage/editFood.se?itemNumber=${item.itemNumber}">
+						<div class="view_ingredient_edit_btn">수정</div>
+					</a>  
+				</div>
     </div> <!-- 컨텐츠 -->
       </form> <!-- 1100px 영역 -->
   </main>
