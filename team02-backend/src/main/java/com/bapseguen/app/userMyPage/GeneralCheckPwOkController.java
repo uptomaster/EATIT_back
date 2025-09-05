@@ -41,7 +41,7 @@ public class GeneralCheckPwOkController implements Execute {
         if (ok) {
         	session.setAttribute("myPagePwVerified", Boolean.TRUE);
             result.setRedirect(true);
-            result.setPath(request.getContextPath() + "/UserMyPage/editUserInfo.my");
+            result.setPath(request.getContextPath() + "/userMyPage/editUserInfo.my");
         } else {
             request.setAttribute("pwError", "비밀번호가 일치하지 않습니다.");
             result.setRedirect(false);

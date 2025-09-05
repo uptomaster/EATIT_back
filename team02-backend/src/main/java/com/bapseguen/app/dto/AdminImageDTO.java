@@ -6,6 +6,7 @@ public class AdminImageDTO {
 	private String adminImageOriginalName; // ADMIN_IMAGE_ORIGINAL_NAME
 	private int adminNumber; // FK → TBL_ADMIN.ADMIN_NUMBER
 	private int postNumber; // FK → TBL_POST.POST_NUMBER
+	private String postTitle;
 
 	public AdminImageDTO() {
 	}
@@ -51,10 +52,19 @@ public class AdminImageDTO {
 		this.postNumber = postNumber;
 	}
 
+	public String getPostTitle() {
+		return postTitle;
+	}
+
+	public void setPostTitle(String postTitle) {
+		this.postTitle = postTitle;
+	}
+
 	@Override
 	public String toString() {
-		return "AdminImageDTO{" + "adminImageNumber=" + adminImageNumber + ", adminImageSystemName='"
-				+ adminImageSystemName + '\'' + ", adminImageOriginalName='" + adminImageOriginalName + '\''
-				+ ", adminNumber=" + adminNumber + ", postNumber=" + postNumber + '}';
+		return "AdminImageDTO [adminImageNumber=" + adminImageNumber + ", adminImageSystemName=" + adminImageSystemName
+				+ ", adminImageOriginalName=" + adminImageOriginalName + ", adminNumber=" + adminNumber
+				+ ", postNumber=" + postNumber + ", postTitle=" + postTitle + "]";
 	}
+
 }

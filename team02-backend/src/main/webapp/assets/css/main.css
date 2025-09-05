@@ -86,6 +86,13 @@ h3{
   margin: 10px 10px 10px 50px;
   display: inline-block;
 }
+
+.main_food_box{
+  display: flex;
+  height: 340px;
+  width: 1000px;	
+}
+
 .main_food_buy{
   height: 340px;
   /* border: 1px solid green; */
@@ -102,8 +109,8 @@ h3{
   margin: 3px;
   background-color: white;
   border-radius: 8px;
-  display: none;
 }
+
 .main_food_buy_article.visible {
   display: block;
 }

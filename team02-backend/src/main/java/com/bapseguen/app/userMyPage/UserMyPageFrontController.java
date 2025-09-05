@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bapseguen.app.Result;
+import com.bapseguen.app.community.CommunityMainOkController;
 
 /**
  * Servlet implementation class userMyPageFrontController
@@ -48,38 +49,37 @@ public class UserMyPageFrontController extends HttpServlet {
 		Result result = new Result();
 		
 		switch (target) {
-		case "/UserMyPage/generalCheckPw.my":
-			System.out.println("내 정보 수정 페이지 요청");
+		case "/userMyPage/generalCheckPw.my":
+			System.out.println("마이페이지 진입 비밀번호 재확인 페이지 요청");
 			request.getRequestDispatcher("/app/userMyPage/generalCheckPw.jsp").forward(request, response);
-			return;
-			
-		case "/UserMyPage/chkPwOk.my":
+			break;
+		case "/userMyPage/generalCheckPwOk.my":
+			System.out.println("비밀번호 재확인 처리 요청");
             result = new GeneralCheckPwOkController().execute(request, response);
             break;
             
-		case "/UserMyPage/editUserInfo.my":
+		case "/userMyPage/editUserInfo.my":
+			System.out.println("내 정보 수정 페이지 처리 요청");
 		    result = new EditUserInfoController().execute(request, response);
 		    break;
 		    
-		case "/UserMyPage/updateMember.my":
+		case "/userMyPage/updateMember.my":
 		    result = new UpdateMemberController().execute(request, response);
 		    break;
 		    
-		case "/UserMyPage/phoneCode.my":
+		case "/userMyPage/phoneCode.my":
 		    result = new PhoneCodeController().execute(request, response);
 		    break;
 		    
-		case "/UserMyPage/withdrawalAgreement.my":
+		case "/userMyPage/withdrawalAgreement.my":
 		    // 탈퇴 동의/비번 확인 페이지 진입
 		    request.getRequestDispatcher("/app/userMyPage/withdrawalAgreement.jsp").forward(request, response);
 		    break;
 
-		case "/UserMyPage/withdrawOk.my":
+		case "/userMyPage/withdrawOk.my":
 		    // 실제 탈퇴 처리
 		    result = new WithdrawOkController().execute(request, response);
 		    break;
-		
-		
 		
 		
 		}

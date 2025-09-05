@@ -86,7 +86,6 @@
 		    <p style="color:red;">${updateError}</p>
 		  </c:if>
 		    </div>
-		    <button type="submit" id="password_save_btn" class="info_save_pw_buzz">저장</button>
 		  </div>
 		
 		  <!-- 이름 표시(수정 불가라면 그대로 p로 표시) -->
