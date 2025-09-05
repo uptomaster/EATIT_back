@@ -315,11 +315,11 @@ input [type='file'] {
 .foodsaleswrite_submit_table .form-group .img-controller-box { order: 1; }
 
 /* 2) 파일 첨부 칸을 중간으로 */
-.foodsaleswrite_submit_table .form-group .image-upload-wrap { order: 2; }
+.foodsaleswrite_submit_table .form-group .image-upload-wrap { order: 3; 	}
 
 /* 3) "메뉴 사진 등록" 라벨을 맨 아래로 */
 .foodsaleswrite_submit_table .form-group .image-label { 
-  order: 3; 
+  order: 2; 
   align-self: flex-start;   /* 필요 시 왼쪽 정렬 */
 }
 

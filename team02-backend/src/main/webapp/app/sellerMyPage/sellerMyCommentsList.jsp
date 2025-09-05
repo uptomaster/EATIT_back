@@ -62,17 +62,14 @@
 							<div class="seller_mycomments_comments_list">
 								<div class="seller_mycomments_sort">
 									<!-- <a href="./../../app/community/freeBoardList.html"></a> -->
-									<c:out value="${comment.getPostType() }"/>
+									<c:out value="${comment.postType }"/>
 								</div>
-<!-- 								<div class="seller_mycomments_tag">
-									<c:out value="${ }" />
-								</div> -->
 								<div class="seller_mycomments_title">
 									<!-- <a href="./../../app/community/viewOwnPost.html"></a> -->
-									<c:out value="${comment.getCommentNumber() }"/>
+									<c:out value="${comment.postTitle }"/>
 								</div>
-								<div class="seller_mycomments_comments_info"><c:out value="${comment.getCommentContent() }"/></div>
-								<div class="seller_mycomments_date"><c:out value="${comment.getCommentedDate() }"/></div>
+								<div class="seller_mycomments_comments_info"><c:out value="${comment.commentContent }"/></div>
+								<div class="seller_mycomments_date"><c:out value="${comment.commentedDate }"/></div>
 							</div>
 							</c:forEach>
 						</c:when>
