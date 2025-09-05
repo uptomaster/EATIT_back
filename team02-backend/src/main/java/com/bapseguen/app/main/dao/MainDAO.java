@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.bapseguen.app.dto.BannerDTO;
+import com.bapseguen.app.dto.AdminImageDTO;
 import com.bapseguen.app.dto.view.ItemWithImgDTO;
 import com.bapseguen.app.dto.view.MainStoreListDTO;
 import com.bapseguen.app.dto.view.PostDetailDTO;
@@ -30,6 +30,10 @@ public class MainDAO {
 	// 레시피 리스트
 	public List<PostDetailDTO> selectMainRecipeList(){
 		return sqlSession.selectList("main.recipeList");
-	}	
+	}
+	
+	public List<AdminImageDTO> selectAdminImageDTO(){
+		return sqlSession.selectList("main.bannerList");
+	}
 
 }
