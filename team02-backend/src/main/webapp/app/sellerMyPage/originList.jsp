@@ -1,3 +1,5 @@
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -60,30 +62,27 @@
           <div class="origin_edit_btns">수정하기</div>
         </div>
         <!-- 원산지 목록 내용 -->
+        <c:choose>
+      	<c:when test="${not empty foodList }">
+      	<c:forEach var="origin" item="${originList}">
+      	
         <div class="origin_list">
-          <div class="origin_list_item"> 배추</div>
-          <div class="origin_list_origin">국내산</div>
-          <div class="origin_list_menu">김치</div>
+          <div class="origin_list_item"> <c:out value = "${origin.item}"/> </div>
+          <div class="origin_list_origin"><c:out value="${origin.lacation}"/></div>
+          <div class="origin_list_menu"><c:out value="${origin.menu }"/></div>
           <div class="origin_edit_btns">
             <button class="edit_btn">수정하기</button>
           </div>
         </div>
-        <div class="origin_list">
-          <div class="origin_list_item"> 돼지고기</div>
-          <div class="origin_list_origin">칠레산 </div>
-          <div class="origin_list_menu"> 스테이크</div>
-          <div class="origin_edit_btns">
-            <button class="edit_btn">수정하기</button>
-          </div>
-        </div>
-        <div class="origin_list">
-          <div class="origin_list_item"> 쌀</div>
-          <div class="origin_list_origin">국내산</div>
-          <div class="origin_list_menu">밥ㅇ</div>
-          <div class="origin_edit_btns">
-            <button class="edit_btn">수정하기</button>
-          </div>
-        </div>
+        </c:forEach>
+        </c:when>
+        <c:otherwise>
+        	<div>
+							<div colspan="4" align="center">작성한 내용이 없습니다.</div>
+					</div>
+        </c:otherwise>
+        </c:choose>
+        
         <!-- 추가버튼 눌렀을때 추가될 영역 -->
         <div id="origin_list_more"></div>
       </div> <!-- 목록 끝 -->

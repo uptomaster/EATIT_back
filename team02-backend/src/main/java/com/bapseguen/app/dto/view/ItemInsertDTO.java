@@ -9,7 +9,6 @@ public class ItemInsertDTO {
 	private int itemPrice; // 상품가격
 	private String itemContent; //상품설명
 	private int itemQuantity; // 상품 수량
-//	private String itemOrigin; //상품 원산지
 	private String itemExpireDate; // 소비기한
 	private String itemCreatedTime; //상품 등록일
 	private String itemUpdatedTime; // 상품 수정일

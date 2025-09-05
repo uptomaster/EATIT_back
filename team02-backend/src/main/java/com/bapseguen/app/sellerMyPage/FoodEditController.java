@@ -31,9 +31,11 @@ public class FoodEditController implements Execute{
 		//DAO DTO 세팅
 		Result result = new Result();
 		SellerMyPageDAO sellerDAO = new SellerMyPageDAO();   
+		ItemImageDAO ItemImageDAO = new ItemImageDAO();   
 	
 		
-        request.setAttribute("foodList", sellerDAO.detaileItem(itemNumber));
+        request.setAttribute("item", sellerDAO.detailItem(itemNumber));
+        request.setAttribute("itemImage", ItemImageDAO.select(itemNumber));
         
 
         
