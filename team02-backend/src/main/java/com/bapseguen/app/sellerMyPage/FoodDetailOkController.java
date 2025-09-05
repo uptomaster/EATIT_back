@@ -12,6 +12,7 @@ import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.dto.ItemImageDTO;
 import com.bapseguen.app.dto.ItemListDTO;
+import com.bapseguen.app.dto.view.ItemInsertDTO;
 import com.bapseguen.app.img.dao.ItemImageDAO;
 import com.bapseguen.app.sellerMyPage.dao.SellerMyPageDAO;
 
@@ -33,13 +34,13 @@ public class FoodDetailOkController implements Execute {
 			return result;
 		}
 		
-		int itemNumber = Integer.parseInt(itemNumberStr); ////!!!!!!!!!!!!!!!!!!!!!
+		int itemNumber = Integer.parseInt(itemNumberStr); //null 로 들어와서 형변환 실패했던 것
 		
 		SellerMyPageDAO sellerDAO = new SellerMyPageDAO();
 		ItemImageDAO fileDAO = new ItemImageDAO();
 
 		//DB에서 게시글 가져오기
-		ItemListDTO ItemListDTO = sellerDAO.detaileItem(itemNumber);
+		ItemListDTO ItemListDTO = sellerDAO.detailItemList(itemNumber);
 		
 		//게시글이 존재하지 않을 경우 처리
 		if(ItemListDTO == null) {
@@ -50,21 +51,23 @@ public class FoodDetailOkController implements Execute {
 		}
 		
 		//첨부파일 가져오기
-		List<ItemImageDTO> files = fileDAO.select(itemNumber);
+		ItemImageDTO files = fileDAO.selectone(itemNumber);
 		System.out.println("======파일 확인======");
 		System.out.println(files);
 		System.out.println("===================");
 		
 		//첨부파일 붙이기
-		ItemListDTO.setFiles(files);
+		ItemListDTO.setImg(files);
 		
-		//로그인한 사용자 번호 가져오기
-		Integer currItemNumber = (Integer) request.getSession().getAttribute("itemNumber");
-		System.out.println("선택한 메뉴 번호 : " + currItemNumber);
-		
+		//이 페이지의 메뉴 번호 가져오기
+		System.out.println("선택한 메뉴 번호 : " + itemNumber);
+		// 보내기전 DTO 확인
+		System.out.println(ItemListDTO);
 		
 		request.setAttribute("item", ItemListDTO);
-		result.setPath("app/sellerMyPage/foodSalesView.jsp");
+//		request.setAttribute("itemImage", ItemListDTO);
+		
+		result.setPath("/app/sellerMyPage/foodSalesView.jsp");
 		result.setRedirect(false);
 		
 		return result;

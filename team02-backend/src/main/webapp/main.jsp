@@ -41,28 +41,33 @@
 
 	<!-------------------- 메인 ------------------------>
 	<main id="main">
-    <!-- 메인 배너 영역 -->
-    <div id="main_banner">
-      <div class="main_banner_middle">
-        <ul class="main_slide_box">
-          <li class="main_slide_img">
-            <img src="./assets/img/banner_ex.jpg" alt="">
-          </li>
-          <li class="main_slide_img">
-            <img src="./assets/img/banner_ex.jpg" alt="">
-          </li>
-          <li class="main_slide_img">
-            <img src="./assets/img/banner_ex.jpg" alt="">
-          </li>
-        </ul>
-        <div class="main_banner_prev">
-          <a href="#"><img src="./assets/img/main_banner_prev.png" alt=""></a>
-        </div>
-        <div class="main_banner_next">
-          <a href="#"><img src="./assets/img/main_banner_next.png" alt=""></a>
-        </div>
-      </div>
-    </div>
+		<!-- 메인 배너 영역 -->
+		<c:choose>
+			<c:when test="${empty storeList}">
+				<p style="color: #888">표시할 상품이 없습니다.</p>
+			</c:when>
+			<c:otherwise>
+				<c:forEach var="banner" items="${bannerList}">
+					<div id="main_banner">
+						<div class="main_banner_middle">
+							<ul class="main_slide_box">
+								<li class="main_slide_img"><img
+									src="${pageContext.request.contextPath}/assets/img/${banner.adminImageSystemName}"
+									alt="${banner.adminImageOriginalName} 이미지"></li>
+							</ul>
+							<div class="main_banner_prev">
+								<a href="#"><img src="./assets/img/main_banner_prev.png"
+									alt=""></a>
+							</div>
+							<div class="main_banner_next">
+								<a href="#"><img src="./assets/img/main_banner_next.png"
+									alt=""></a>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+			</c:otherwise>
+		</c:choose>
 
 
 
@@ -73,48 +78,50 @@
 			<div id="main_content_buy_food">
 				<h3>거리순👀</h3>
 				<!-- 가게 이미지 및 정보 -->
-				<div class="main_food_buy">
+				<div class="main_food_box">
 					<!-- 화살표 이동 버튼 -->
 					<div class="main_content_prev">
 						<a href="#"><img src="./assets/img/main_banner_prev.png"
 							alt=""></a>
-					</div>
-					<!-- 가게정보 -->
-					<!-- 상품이미지(임시) -->
+						<div class="main_food_buy">
+							<!-- 가게정보 -->
+							<!-- 상품이미지(임시) -->
 							<c:choose>
 								<c:when test="${empty storeList}">
 									<p style="color: #888">표시할 상품이 없습니다.</p>
 								</c:when>
 								<c:otherwise>
 									<c:forEach var="store" items="${storeList}">
-						<article class="main_food_buy_article">
-									<a
-										href="${pageContext.request.contextPath}/orders/storeDetail.or">
-										<img
-										src="${pageContext.request.contextPath}/assets/img/${store.itemImageSystemName}" alt="${store.storeName} 이미지">
-										<div class="main_store_info">
-											<div class="main_store_name">
-												<c:out value="${store.storeName}" />
-											</div>
-											<div class="main_menu_name">
-												<c:out value="${store.storeName}" />
-											</div>
-											<div class="main_open_time">
-												영업시간 :
-												<c:out value="${store.storeOpenTime}" />
-												~
-												<c:out value="${store.storeCloseTime}" />
-											</div>
-											<div class="main_price">
-												<c:out value="${store.itemPrice}원" />
-											</div>
-										</div>
-									</a>
-								</article>
+										<article class="main_food_buy_article">
+											<a
+												href="${pageContext.request.contextPath}/orders/storeDetail.or">
+												<img
+												src="${pageContext.request.contextPath}/assets/img/${store.itemImageSystemName}"
+												alt="${store.storeName} 이미지">
+												<div class="main_store_info">
+													<div class="main_store_name">
+														<c:out value="${store.storeName}" />
+													</div>
+													<div class="main_menu_name">
+														<c:out value="${store.storeName}" />
+													</div>
+													<div class="main_open_time">
+														영업시간 :
+														<c:out value="${store.storeOpenTime}" />
+														~
+														<c:out value="${store.storeCloseTime}" />
+													</div>
+													<div class="main_price">
+														<c:out value="${store.itemPrice}원" />
+													</div>
+												</div>
+											</a>
+										</article>
 									</c:forEach>
 								</c:otherwise>
 							</c:choose>
-
+						</div>
+					</div>
 					<!-- 화살표 이동버튼 -->
 					<div class="main_content_next">
 						<a href="#"><img src="./assets/img/main_banner_next.png"
@@ -230,7 +237,6 @@
         </svg>
 			</a>
 		</div>
-
 	</main>
 
 	<!-------------------- 푸터 ------------------------>

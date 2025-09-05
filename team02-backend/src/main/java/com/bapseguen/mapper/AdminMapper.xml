@@ -47,7 +47,8 @@
 	<select id="selectNoticeList" parameterType="map"
 		resultType="com.bapseguen.app.dto.view.AdminPostDTO">
 		SELECT * FROM (
-		SELECT ROWNUM AS rowNumber, A.* FROM (
+		SELECT ROWNUM rn, A.*
+		FROM (
 		SELECT
 		p.POST_NUMBER AS postNumber,
 		p.POST_TITLE AS postTitle,
@@ -59,10 +60,8 @@
 		a.ADMIN_ID AS adminId,
 		a.ADMIN_TREE_GRADE AS adminTreeGrade
 		FROM TBL_POST p
-		JOIN TBL_NOTICE n
-		ON n.POST_NUMBER = p.POST_NUMBER
-		JOIN TBL_ADMIN a ON a.ADMIN_NUMBER =
-		p.ADMIN_NUMBER
+		JOIN TBL_NOTICE n ON n.POST_NUMBER = p.POST_NUMBER
+		JOIN TBL_ADMIN a ON a.ADMIN_NUMBER = p.ADMIN_NUMBER
 		WHERE p.POST_TYPE = 'NOTICE'
 		<if test="searchWord != null and searchWord != ''">
 			AND p.POST_TITLE LIKE '%' || #{searchWord} || '%'
@@ -71,9 +70,9 @@
 		) A
 		WHERE ROWNUM &lt;= #{endRow}
 		)
-		WHERE
-		rowNumber &gt;= #{startRow}
+		WHERE rn &gt;= #{startRow}
 	</select>
+
 
 	<select id="countNotices" parameterType="map" resultType="int">
 		SELECT COUNT(*)
@@ -173,7 +172,7 @@
 		FROM TBL_POST p
 		JOIN TBL_FAQ f ON f.POST_NUMBER = p.POST_NUMBER
 		JOIN
-		TBL_ADMIN a ON a.MEMBER_NUMBER = p.MEMBER_NUMBER
+		TBL_ADMIN a ON a.ADMIN_NUMBER = p.ADMIN_NUMBER
 		WHERE p.POST_TYPE =
 		'FAQ'
 		<if test="searchWord != null and searchWord != ''">
@@ -242,6 +241,7 @@
 		POST_NUMBER = #{postNumber}
 	</delete>
 
+
 	<!-- ===================== 관리자 이미지 ===================== -->
 	<insert id="insertAdminImage" parameterType="AdminImageDTO">
 		INSERT INTO
@@ -296,13 +296,17 @@
 		END AS memberName
 		FROM
 		TBL_POST p
-		JOIN TBL_INQUIRY i ON i.POST_NUMBER = p.POST_NUMBER
 		JOIN
-		TBL_MEMBER m ON m.MEMBER_NUMBER = p.MEMBER_NUMBER
+		TBL_INQUIRY i ON i.POST_NUMBER = p.POST_NUMBER
+		JOIN
+		TBL_MEMBER m ON
+		m.MEMBER_NUMBER = p.MEMBER_NUMBER
 		LEFT JOIN
-		TBL_GENERAL_MEMBER g ON g.MEMBER_NUMBER = m.MEMBER_NUMBER
+		TBL_GENERAL_MEMBER g ON
+		g.MEMBER_NUMBER = m.MEMBER_NUMBER
 		LEFT JOIN
-		TBL_SELLER_MEMBER s ON s.MEMBER_NUMBER = m.MEMBER_NUMBER
+		TBL_SELLER_MEMBER s ON
+		s.MEMBER_NUMBER = m.MEMBER_NUMBER
 		WHERE
 		p.POST_TYPE = 'INQUIRY'
 		<if test="searchWord != null and searchWord != ''">
@@ -371,6 +375,7 @@
 		SET INQUIRY_STATUS = #{inquiryStatus}
 		WHERE POST_NUMBER = #{postNumber}
 	</update>
+
 
 	<!-- ===================== 신고 / 정지 / 블랙리스트 ===================== -->
 	<select id="selectReportList" resultType="PostReportDTO">
@@ -442,7 +447,8 @@
 		ELSE m.MEMBER_ID
 		END AS
 		memberName,
-		COALESCE(g.GENERAL_WARNING_COUNT, s.SELLER_WARNING_COUNT,0)
+		COALESCE(g.GENERAL_WARNING_COUNT,
+		s.SELLER_WARNING_COUNT,0)
 		AS warningCount,
 		COALESCE(g.GENERAL_TREE_GRADE, s.SELLER_TREE_GRADE,'')
 		AS treeGrade,
@@ -451,9 +457,11 @@
 		paymentAmount
 		FROM TBL_MEMBER m
 		LEFT JOIN
-		TBL_GENERAL_MEMBER g ON g.MEMBER_NUMBER = m.MEMBER_NUMBER
+		TBL_GENERAL_MEMBER g ON
+		g.MEMBER_NUMBER = m.MEMBER_NUMBER
 		LEFT JOIN
-		TBL_SELLER_MEMBER s ON s.MEMBER_NUMBER = m.MEMBER_NUMBER
+		TBL_SELLER_MEMBER s ON
+		s.MEMBER_NUMBER = m.MEMBER_NUMBER
 		<where>
 			<if test="memberType != null and memberType != ''">
 				m.MEMBER_TYPE = #{memberType}
@@ -617,224 +625,286 @@
 	</update>
 
 	<!-- ================= 자유게시판 ================= -->
+	<!-- ================= 자유게시판 ================= -->
 	<!-- 자유게시판 목록 -->
 	<select id="selectBoardFreeList" parameterType="map"
 		resultType="map">
-	<![CDATA[
-	  SELECT *
-	  FROM (
-	    SELECT ROWNUM rn, a.*
-	    FROM (
-	      SELECT 
-	        p.POST_NUMBER       AS "postNumber",
-	        p.POST_TITLE        AS "postTitle",
-	        m.MEMBER_ID         AS "memberId",
-	        p.POST_CREATED_DATE AS "postCreatedDate",
-	        p.POST_VIEW_COUNT   AS "postViewCount",
-	        p.POST_LIKE_COUNT   AS "postLikeCount"
-	      FROM TBL_POST p
-	      JOIN TBL_FREE_BOARD f ON f.POST_NUMBER = p.POST_NUMBER
-	      LEFT JOIN TBL_MEMBER m ON m.MEMBER_NUMBER = p.MEMBER_NUMBER
-	      WHERE p.POST_TYPE = 'FREE'
-	      <if test="searchWord != null and searchWord != ''">
-	        AND (p.POST_TITLE LIKE '%' || #{searchWord} || '%'
-	          OR m.MEMBER_ID LIKE '%' || #{searchWord} || '%')
-	      </if>
-	      ORDER BY p.POST_NUMBER DESC
-	    ) a
-	    WHERE ROWNUM <= #{endRow}
-	  )
-	  WHERE rn >= #{startRow}
-	]]>
+		SELECT *
+		FROM (
+		SELECT ROWNUM rn, a.*
+		FROM (
+		SELECT
+		p.POST_NUMBER AS
+		"postNumber",
+		p.POST_TITLE AS "postTitle",
+		m.MEMBER_ID AS "memberId",
+		TO_CHAR(p.POST_CREATED_DATE, 'YYYY-MM-DD') AS "postCreatedDate",
+		p.POST_VIEW_COUNT AS "postViewCount",
+		p.POST_LIKE_COUNT AS
+		"postLikeCount"
+		FROM TBL_POST p
+		JOIN TBL_FREE_BOARD f ON f.POST_NUMBER =
+		p.POST_NUMBER
+		LEFT JOIN TBL_MEMBER m ON m.MEMBER_NUMBER =
+		p.MEMBER_NUMBER
+		WHERE p.POST_TYPE = 'FREE'
+		<if test="searchWord != null and searchWord != ''">
+			AND (
+			p.POST_TITLE LIKE '%' || #{searchWord} || '%'
+			OR
+			m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
+			)
+		</if>
+		ORDER BY p.POST_NUMBER DESC
+		) a
+		WHERE ROWNUM &lt;= #{endRow}
+		)
+		WHERE rn
+		&gt;= #{startRow}
 	</select>
 
 	<!-- 자유게시판 전체 글 개수 -->
 	<select id="countBoardFree" parameterType="map" resultType="int">
-	<![CDATA[
-	  SELECT COUNT(*)
-	  FROM TBL_POST p
-	  JOIN TBL_FREE_BOARD f ON f.POST_NUMBER = p.POST_NUMBER
-	  LEFT JOIN TBL_MEMBER m ON m.MEMBER_NUMBER = p.MEMBER_NUMBER
-	  WHERE p.POST_TYPE = 'FREE'
-	  <if test="searchWord != null and searchWord != ''">
-	    AND (p.POST_TITLE LIKE '%' || #{searchWord} || '%'
-	      OR m.MEMBER_ID LIKE '%' || #{searchWord} || '%')
-	  </if>
-	]]>
+		SELECT COUNT(*)
+		FROM TBL_POST p
+		JOIN TBL_FREE_BOARD f ON f.POST_NUMBER =
+		p.POST_NUMBER
+		LEFT JOIN TBL_MEMBER m ON m.MEMBER_NUMBER =
+		p.MEMBER_NUMBER
+		WHERE p.POST_TYPE = 'FREE'
+		<if test="searchWord != null and searchWord != ''">
+			AND (
+			p.POST_TITLE LIKE '%' || #{searchWord} || '%'
+			OR
+			m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
+			)
+		</if>
 	</select>
 
 	<!-- 자유게시판 상세 -->
 	<select id="selectBoardFreeDetail" parameterType="int"
 		resultType="map">
-	<![CDATA[
-	  SELECT 
-	    p.POST_NUMBER       AS "postNumber",
-	    p.POST_TITLE        AS "postTitle",
-	    m.MEMBER_ID         AS "memberId",
-	    p.POST_CREATED_DATE AS "postCreatedDate",
-	    p.POST_VIEW_COUNT   AS "postViewCount",
-	    p.POST_LIKE_COUNT   AS "postLikeCount",
-	    f.FREE_CONTENT      AS "freeContent"
-	  FROM TBL_POST p
-	  JOIN TBL_FREE_BOARD f ON f.POST_NUMBER = p.POST_NUMBER
-	  LEFT JOIN TBL_MEMBER m ON m.MEMBER_NUMBER = p.MEMBER_NUMBER
-	  WHERE p.POST_NUMBER = #{postNumber}
-	]]>
+		SELECT
+		p.POST_NUMBER AS "postNumber",
+		p.POST_TITLE AS
+		"postTitle",
+		m.MEMBER_ID AS "memberId",
+		TO_CHAR(p.POST_CREATED_DATE,
+		'YYYY-MM-DD') AS "postCreatedDate",
+		p.POST_VIEW_COUNT AS
+		"postViewCount",
+		p.POST_LIKE_COUNT AS "postLikeCount",
+		f.FREE_CONTENT AS
+		"freeContent"
+		FROM TBL_POST p
+		JOIN TBL_FREE_BOARD f ON f.POST_NUMBER
+		=
+		p.POST_NUMBER
+		LEFT JOIN TBL_MEMBER m ON m.MEMBER_NUMBER =
+		p.MEMBER_NUMBER
+		WHERE p.POST_NUMBER = #{postNumber}
 	</select>
 
 	<!-- 자유게시판 삭제 -->
 	<delete id="deleteBoardFree" parameterType="int">
-	<![CDATA[
-	  DELETE FROM TBL_POST WHERE POST_NUMBER = #{postNumber}
-	]]>
+		DELETE FROM TBL_POST
+		WHERE POST_NUMBER = #{postNumber}
 	</delete>
 
 	<!-- ================= 홍보게시판 ================= -->
 	<!-- 홍보게시판 목록 -->
 	<select id="selectBoardPromotionList" parameterType="map"
 		resultType="map">
-	<![CDATA[
-	  SELECT *
-	  FROM (
-	    SELECT ROWNUM rn, a.*
-	    FROM (
-	      SELECT 
-	        p.POST_NUMBER       AS "postNumber",
-	        p.POST_TITLE        AS "postTitle",
-	        m.MEMBER_ID         AS "memberId",
-	        p.POST_CREATED_DATE AS "postCreatedDate",
-	        p.POST_VIEW_COUNT   AS "postViewCount",
-	        p.POST_LIKE_COUNT   AS "postLikeCount"
-	      FROM TBL_POST p
-	      JOIN TBL_PROMO_BOARD pr ON pr.POST_NUMBER = p.POST_NUMBER
-	      LEFT JOIN TBL_MEMBER m ON m.MEMBER_NUMBER = p.MEMBER_NUMBER
-	      WHERE p.POST_TYPE = 'PROMOTION'
-	      <if test="searchWord != null and searchWord != ''">
-	        AND (p.POST_TITLE LIKE '%' || #{searchWord} || '%'
-	          OR m.MEMBER_ID LIKE '%' || #{searchWord} || '%')
-	      </if>
-	      ORDER BY p.POST_NUMBER DESC
-	    ) a
-	    WHERE ROWNUM <= #{endRow}
-	  )
-	  WHERE rn >= #{startRow}
-	]]>
+		SELECT *
+		FROM (
+		SELECT ROWNUM rn, a.*
+		FROM (
+		SELECT
+		p.POST_NUMBER AS
+		"postNumber",
+		p.POST_TITLE AS "postTitle",
+		m.MEMBER_ID AS "memberId",
+		TO_CHAR(p.POST_CREATED_DATE, 'YYYY-MM-DD') AS "postCreatedDate",
+		p.POST_VIEW_COUNT AS "postViewCount",
+		p.POST_LIKE_COUNT AS
+		"postLikeCount"
+		FROM TBL_POST p
+		JOIN TBL_PROMO_BOARD pr ON
+		pr.POST_NUMBER = p.POST_NUMBER
+		LEFT JOIN TBL_MEMBER m ON
+		m.MEMBER_NUMBER = p.MEMBER_NUMBER
+		WHERE p.POST_TYPE = 'PROMOTION'
+		<if test="searchWord != null and searchWord != ''">
+			AND (
+			p.POST_TITLE LIKE '%' || #{searchWord} || '%'
+			OR
+			m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
+			)
+		</if>
+		ORDER BY p.POST_NUMBER DESC
+		) a
+		WHERE ROWNUM &lt;= #{endRow}
+		)
+		WHERE rn
+		&gt;= #{startRow}
 	</select>
 
 	<!-- 홍보게시판 전체 글 개수 -->
 	<select id="countBoardPromotion" parameterType="map"
 		resultType="int">
-	<![CDATA[
-	  SELECT COUNT(*)
-	  FROM TBL_POST p
-	  JOIN TBL_PROMO_BOARD pr ON pr.POST_NUMBER = p.POST_NUMBER
-	  LEFT JOIN TBL_MEMBER m ON m.MEMBER_NUMBER = p.MEMBER_NUMBER
-	  WHERE p.POST_TYPE = 'PROMOTION'
-	  <if test="searchWord != null and searchWord != ''">
-	    AND (p.POST_TITLE LIKE '%' || #{searchWord} || '%'
-	      OR m.MEMBER_ID LIKE '%' || #{searchWord} || '%')
-	  </if>
-	]]>
+		SELECT COUNT(*)
+		FROM TBL_POST p
+		JOIN TBL_PROMO_BOARD pr ON
+		pr.POST_NUMBER = p.POST_NUMBER
+		LEFT JOIN TBL_MEMBER m ON
+		m.MEMBER_NUMBER = p.MEMBER_NUMBER
+		WHERE p.POST_TYPE = 'PROMOTION'
+		<if test="searchWord != null and searchWord != ''">
+			AND (
+			p.POST_TITLE LIKE '%' || #{searchWord} || '%'
+			OR
+			m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
+			)
+		</if>
 	</select>
 
 	<!-- 홍보게시판 상세 -->
 	<select id="selectBoardPromotionDetail" parameterType="int"
 		resultType="map">
-	<![CDATA[
-	  SELECT 
-	    p.POST_NUMBER       AS "postNumber",
-	    p.POST_TITLE        AS "postTitle",
-	    m.MEMBER_ID         AS "memberId",
-	    p.POST_CREATED_DATE AS "postCreatedDate",
-	    p.POST_VIEW_COUNT   AS "postViewCount",
-	    p.POST_LIKE_COUNT   AS "postLikeCount",
-	    pr.PROMO_CONTENT    AS "promoContent"
-	  FROM TBL_POST p
-	  JOIN TBL_PROMO_BOARD pr ON pr.POST_NUMBER = p.POST_NUMBER
-	  LEFT JOIN TBL_MEMBER m ON m.MEMBER_NUMBER = p.MEMBER_NUMBER
-	  WHERE p.POST_NUMBER = #{postNumber}
-	]]>
+		SELECT
+		p.POST_NUMBER AS "postNumber",
+		p.POST_TITLE AS
+		"postTitle",
+		m.MEMBER_ID AS "memberId",
+		TO_CHAR(p.POST_CREATED_DATE,
+		'YYYY-MM-DD') AS "postCreatedDate",
+		p.POST_VIEW_COUNT AS
+		"postViewCount",
+		p.POST_LIKE_COUNT AS "postLikeCount",
+		pr.PROMO_CONTENT
+		AS "promoContent"
+		FROM TBL_POST p
+		JOIN TBL_PROMO_BOARD pr ON
+		pr.POST_NUMBER = p.POST_NUMBER
+		LEFT JOIN TBL_MEMBER m ON
+		m.MEMBER_NUMBER = p.MEMBER_NUMBER
+		WHERE p.POST_NUMBER = #{postNumber}
 	</select>
 
 	<!-- 홍보게시판 삭제 -->
 	<delete id="deleteBoardPromotion" parameterType="int">
-	<![CDATA[
-	  DELETE FROM TBL_POST WHERE POST_NUMBER = #{postNumber}
-	]]>
+		DELETE FROM
+		TBL_POST WHERE POST_NUMBER = #{postNumber}
 	</delete>
 
 	<!-- ================= 레시피게시판 ================= -->
 	<!-- 레시피게시판 목록 -->
 	<select id="selectBoardRecipeList" parameterType="map"
 		resultType="map">
-	<![CDATA[
-	  SELECT *
-	  FROM (
-	    SELECT ROWNUM rn, a.*
-	    FROM (
-	      SELECT 
-	        p.POST_NUMBER       AS "postNumber",
-	        p.POST_TITLE        AS "postTitle",
-	        m.MEMBER_ID         AS "memberId",
-	        p.POST_CREATED_DATE AS "postCreatedDate",
-	        p.POST_VIEW_COUNT   AS "postViewCount",
-	        p.POST_LIKE_COUNT   AS "postLikeCount"
-	      FROM TBL_POST p
-	      JOIN TBL_RECIPE_BOARD r ON r.POST_NUMBER = p.POST_NUMBER
-	      LEFT JOIN TBL_MEMBER m ON m.MEMBER_NUMBER = p.MEMBER_NUMBER
-	      WHERE p.POST_TYPE = 'RECIPE'
-	      <if test="searchWord != null and searchWord != ''">
-	        AND (p.POST_TITLE LIKE '%' || #{searchWord} || '%'
-	          OR m.MEMBER_ID LIKE '%' || #{searchWord} || '%')
-	      </if>
-	      ORDER BY p.POST_NUMBER DESC
-	    ) a
-	    WHERE ROWNUM <= #{endRow}
-	  )
-	  WHERE rn >= #{startRow}
-	]]>
+		SELECT *
+		FROM (
+		SELECT ROWNUM rn, a.*
+		FROM (
+		SELECT
+		p.POST_NUMBER AS
+		"postNumber",
+		p.POST_TITLE AS "postTitle",
+		m.MEMBER_ID AS "memberId",
+		TO_CHAR(p.POST_CREATED_DATE, 'YYYY-MM-DD') AS "postCreatedDate",
+		p.POST_VIEW_COUNT AS "postViewCount",
+		p.POST_LIKE_COUNT AS
+		"postLikeCount"
+		FROM TBL_POST p
+		JOIN TBL_RECIPE_BOARD r ON r.POST_NUMBER
+		= p.POST_NUMBER
+		LEFT JOIN TBL_MEMBER m ON m.MEMBER_NUMBER =
+		p.MEMBER_NUMBER
+		WHERE p.POST_TYPE = 'RECIPE'
+		<if test="searchWord != null and searchWord != ''">
+			AND (
+			p.POST_TITLE LIKE '%' || #{searchWord} || '%'
+			OR
+			m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
+			)
+		</if>
+		ORDER BY p.POST_NUMBER DESC
+		) a
+		WHERE ROWNUM &lt;= #{endRow}
+		)
+		WHERE rn
+		&gt;= #{startRow}
 	</select>
 
 	<!-- 레시피게시판 전체 글 개수 -->
 	<select id="countBoardRecipe" parameterType="map"
 		resultType="int">
-	<![CDATA[
-	  SELECT COUNT(*)
-	  FROM TBL_POST p
-	  JOIN TBL_RECIPE_BOARD r ON r.POST_NUMBER = p.POST_NUMBER
-	  LEFT JOIN TBL_MEMBER m ON m.MEMBER_NUMBER = p.MEMBER_NUMBER
-	  WHERE p.POST_TYPE = 'RECIPE'
-	  <if test="searchWord != null and searchWord != ''">
-	    AND (p.POST_TITLE LIKE '%' || #{searchWord} || '%'
-	      OR m.MEMBER_ID LIKE '%' || #{searchWord} || '%')
-	  </if>
-	]]>
+		SELECT COUNT(*)
+		FROM TBL_POST p
+		JOIN TBL_RECIPE_BOARD r ON r.POST_NUMBER
+		= p.POST_NUMBER
+		LEFT JOIN TBL_MEMBER m ON m.MEMBER_NUMBER =
+		p.MEMBER_NUMBER
+		WHERE p.POST_TYPE = 'RECIPE'
+		<if test="searchWord != null and searchWord != ''">
+			AND (
+			p.POST_TITLE LIKE '%' || #{searchWord} || '%'
+			OR
+			m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
+			)
+		</if>
 	</select>
 
 	<!-- 레시피게시판 상세 -->
 	<select id="selectBoardRecipeDetail" parameterType="int"
 		resultType="map">
-	<![CDATA[
-	  SELECT 
-	    p.POST_NUMBER       AS "postNumber",
-	    p.POST_TITLE        AS "postTitle",
-	    m.MEMBER_ID         AS "memberId",
-	    p.POST_CREATED_DATE AS "postCreatedDate",
-	    p.POST_VIEW_COUNT   AS "postViewCount",
-	    p.POST_LIKE_COUNT   AS "postLikeCount",
-	    r.RECIPE_CONTENT    AS "recipeContent"
-	  FROM TBL_POST p
-	  JOIN TBL_RECIPE_BOARD r ON r.POST_NUMBER = p.POST_NUMBER
-	  LEFT JOIN TBL_MEMBER m ON m.MEMBER_NUMBER = p.MEMBER_NUMBER
-	  WHERE p.POST_NUMBER = #{postNumber}
-	]]>
+		SELECT
+		p.POST_NUMBER AS "postNumber",
+		p.POST_TITLE AS
+		"postTitle",
+		m.MEMBER_ID AS "memberId",
+		TO_CHAR(p.POST_CREATED_DATE,
+		'YYYY-MM-DD') AS "postCreatedDate",
+		p.POST_VIEW_COUNT AS
+		"postViewCount",
+		p.POST_LIKE_COUNT AS "postLikeCount",
+		r.RECIPE_CONTENT
+		AS "recipeContent"
+		FROM TBL_POST p
+		JOIN TBL_RECIPE_BOARD r ON
+		r.POST_NUMBER = p.POST_NUMBER
+		LEFT JOIN TBL_MEMBER m ON m.MEMBER_NUMBER
+		= p.MEMBER_NUMBER
+		WHERE p.POST_NUMBER = #{postNumber}
 	</select>
 
 	<!-- 레시피게시판 삭제 -->
 	<delete id="deleteBoardRecipe" parameterType="int">
-	<![CDATA[
-	  DELETE FROM TBL_POST WHERE POST_NUMBER = #{postNumber}
-	]]>
+		DELETE FROM
+		TBL_POST WHERE POST_NUMBER = #{postNumber}
 	</delete>
+
+	<select id="selectLatestEventBanner" resultType="map">
+		SELECT *
+		FROM (
+		SELECT
+		p.POST_NUMBER AS postNumber,
+		p.POST_TITLE AS postTitle,
+		i.ADMIN_IMAGE_SYSTEM_NAME AS systemName,
+		i.ADMIN_IMAGE_ORIGINAL_NAME AS
+		originalName
+		FROM TBL_POST p
+		JOIN TBL_NOTICE n ON n.POST_NUMBER =
+		p.POST_NUMBER
+		LEFT JOIN TBL_ADMIN_IMAGE i ON i.POST_NUMBER =
+		p.POST_NUMBER
+		WHERE p.POST_TYPE = 'NOTICE'
+		AND p.POST_TITLE LIKE
+		'[이벤트]%'
+		ORDER BY p.POST_CREATED_DATE DESC
+		)
+		WHERE ROWNUM = 1
+	</select>
+
+
 
 </mapper>
