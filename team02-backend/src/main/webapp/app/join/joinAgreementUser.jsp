@@ -44,45 +44,84 @@
           <input type="checkbox" name="joinAgreeAll" id="join_agree_all_chkbox" class="">
           <label for="join_agree_all_chkbox">전체 동의</label>
         </div>
-        <!-- 서비스 이용동의 약관 -->
-        <div>
-          <div class="join_agree_top_title">서비스 이용 약관 </div>
-          <div class="join_agree_top_term_container">
-            <input type="checkbox" name="essenAgree" class="essential" id="join_agree_top_term" required />
-            <label for="join_agree_top_term">[필수] 이용 약관 동의</label>
-            <!-- <span class="full-agreement">&gt;</span> -->
-            <div></div>
-          </div>
-          <div class="join_agree_top_financial_container">
-            <input type="checkbox" name="essenAgree" class="essential" id="join_agree_top_financial" required />
-            <label for="join_agree_top_financial">[필수] 전자금융거래 이용약관 동의</label>
-            <!-- <span>&gt;</span>/ -->
-            <div></div>
-          </div>
-        </div>
+		<!-- 서비스 이용 약관 -->
+		<div class="join_agree_top_term_container">
+		  <input type="checkbox" name="essenAgree" class="essential" id="join_agree_top_term" required />
+		  <label for="join_agree_top_term">[필수] 이용 약관 동의</label>
+		  <button type="button" class="term-view" 
+		          data-open-modal="service" 
+		          data-title="서비스 이용 약관">전문보기
+		  </button>
+		</div>
+		
+		<!-- 전자금융거래 약관 -->
+		<div class="join_agree_top_financial_container">
+		  <input type="checkbox" name="essenAgree" class="essential" id="join_agree_top_financial" required />
+		  <label for="join_agree_top_financial">[필수] 전자금융거래 이용약관 동의</label>
+		  <button type="button" class="term-view" 
+		          data-open-modal="financial" 
+		          data-title="전자금융거래 이용약관">전문보기
+		  </button>
+		</div>
         <hr>
         <!-- 개인정보 수집 및 이용약관 -->
-        <div>
-          <div class="join_agree_bottom_title">개인정보 수집 및 이용 약관</div>
-          <div class="join_agree_bottom_service_continer">
-            <input type="checkbox" name="agree" id="join_agree_bottom_service" class="">
-            <label for="join_agree_bottom_service">[선택] 서비스/이벤트 제공을 위한 개인정보 수집 이용동의</label>
-            <!-- <span class="full-agreement">&gt;</span> -->
-          </div>
-          <div class="join_agree_bottom_personal">
-            <input type="checkbox" name="essenAgree" class="essential" id="join_agree_bottom_peraonal" class="">
-            <label for="join_agree_bottom_personal">[필수] 밥세권 회원 연동을 위한 개인정보 수집 이용 동의</label>
-            <!-- <span class="full-agreement">&gt;</span> -->
-          </div>
-        </div>
+		<!-- 선택 수집·이용 -->
+		<div class="join_agree_bottom_service_continer">
+		  <input type="checkbox" name="agree" id="join_agree_bottom_service">
+		  <label for="join_agree_bottom_service">[선택] 서비스/이벤트 제공을 위한 개인정보 수집 이용동의</label>
+		  <button type="button" class="term-view" 
+		          data-open-modal="marketing" 
+		          data-title="개인정보 수집·이용(선택)">전문보기</button>
+		</div>
+		
+		<!-- 필수 수집·이용 -->
+		<div class="join_agree_bottom_personal">
+		  <input type="checkbox" name="essenAgree" class="essential" id="join_agree_bottom_personal" required>
+		  <label for="join_agree_bottom_personal">[필수] 밥세권 회원 연동을 위한 개인정보 수집 이용 동의</label>
+		  <button type="button" class="term-view" 
+		          data-open-modal="personal" 
+		          data-title="개인정보 수집·이용(필수)">전문보기
+		  </button>
+		</div>
         <!-- 다음버튼 -->
         <div class="join_agree_next">
           <button type="button" class="join_agree_next_btn" onclick="goNextPage()">다음</button>
         </div>
       </form>
-    </div> <!--//.container-->
+     </div>
   </main>
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
+  <!-- 보기용 공용 모달 -->
+<div class="modal" id="termsModal" role="dialog" aria-modal="true" hidden>
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__panel" tabindex="-1" aria-labelledby="termsModalTitle">
+    <header class="modal__header">
+      <h2 id="termsModalTitle" class="modal__title">약관</h2>
+      <button type="button" class="modal__close" aria-label="닫기" data-close>&times;</button>
+    </header>
+    <div class="modal__body"></div>
+    <footer class="modal__footer">
+      <button type="button" class="btn btn--ghost" data-close>닫기</button>
+    </footer>
+  </div>
+</div>
+
+<!-- 약관 전문 템플릿들 (필요 내용으로 교체) -->
+<template id="tmpl-service">
+  <p>서비스 이용 약관 전문이 들어갑니다.</p>
+</template>
+
+<template id="tmpl-financial">
+  <p>전자금융거래 이용약관 전문이 들어갑니다.</p>
+</template>
+
+<template id="tmpl-marketing">
+  <p>[선택] 개인정보 수집·이용 약관 전문이 들어갑니다.</p>
+</template>
+
+<template id="tmpl-personal">
+  <p>[필수] 개인정보 수집·이용 약관 전문이 들어갑니다.</p>
+</template>
 </body>
 
 </html>
