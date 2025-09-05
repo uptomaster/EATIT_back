@@ -1,65 +1,94 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>adminLogin</title>
-  <script defer src="./../../assets/js/admin/noticeEdit.js"></script>
-  <link rel="stylesheet" href="./../../assets/css/admin/noticeWrite.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-  integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-  crossorigin="anonymous" referrerpolicy="no-referrer" />
+<meta charset="UTF-8">
+<title>공지 수정</title>
+<script defer
+	src="${pageContext.request.contextPath}/assets/js/admin/noticeEdit.js"></script>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/assets/css/admin/noticeEdit.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+	integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-  <!-- 회색영역 -->
-  <div class="admin_innerwrapper">
-    <!-- 좌측 사이드바 -->
-    <aside class="sidebar">
-      <!-- 관리자페이지 로고 -->
-      <a href="./../../app/admin/dashboard.html"><img src="./../../assets/img/admin_logo.png" alt="admin_logo" class="admin_logo"></a>
-      <ul class="sidebar_ul">
-        <a href="./../../app/admin/dashboard.html"><li id="sidebar_list_dashboard" class="sidebar_list">대쉬보드</li></a>
-        <a href="./../../app/admin/memberList.html"><li id="sidebar_list_member" class="sidebar_list">회원관리</li></a>
-        <a href="./../../app/admin/postTradeList.html"><li id="sidebar_list_community" class="sidebar_list">게시글 관리</li></a>
-        <a href="./../../app/admin/reportList.html"><li id="sidebar_list_warning"class="sidebar_list">신고관리</li></a>
-        <a href="./../../app/admin/adminCustomerService.html"><li id="sidebar_list_customerservice"class="sidebar_list">고객센터</li></a>
-      </ul>
-      <!-- 로그아웃 버튼 -->
-      <button id="admin_logoutbtn">로그아웃</button>
-    </aside>
-    <!-- 메인컨텐츠 영역 -->
-    <div class="admin_inner">
-      <!-- 페이지 제목 -->
-      <h1>수정하기</h1>
-      <!-- 바깥 회색 영역 -->
-      <div class="admin_listwrapper">
-        <!-- 하얀영역 -->
-        <div class="admin_whitebox">
-          <form action="" method="post">
-            <div class="admin_notice_titlebox">
-              <!-- 태그 선택 -->
-              <select class="admin_notice_category">
-                <option value="notice">태그</option>
-                <option value="notice">공지 </option>
-              </select>
-              <label for="title">제목 : </label>
-              <input type="text" id="title">
-            </div>
-            <div class="write_api"></div>
-              <!-- 작성 영역 -->
-              <textarea name="" id="admin_notice_write"></textarea>
-            <div class="bottom_btn_area">
-              <!-- 파일 선택 -->
-              <input type="file" id="admin_file">
-              <!-- 작성완료 버튼 -->
-              <button type="button" id="admin_notice_dowrite">작성완료</button>
-            </div>
-          </form>
-        </div>       
-      </div>  
-    </div>
-  </div>
+	<div class="admin_innerwrapper">
+		<!-- 좌측 사이드바 -->
+		<aside class="sidebar">
+			<a href="${pageContext.request.contextPath}/admin/dashboard.ad">
+				<img
+				src="${pageContext.request.contextPath}/assets/img/admin_logo.png"
+				alt="admin_logo" class="admin_logo">
+			</a>
+			<ul class="sidebar_ul">
+				<li class="sidebar_list"><a
+					href="${pageContext.request.contextPath}/admin/dashboard.ad">대시보드</a></li>
+				<li class="sidebar_list"><a
+					href="${pageContext.request.contextPath}/admin/member/list.ad">회원관리</a></li>
+				<li class="sidebar_list active"><a
+					href="${pageContext.request.contextPath}/admin/notice/list.ad">게시글
+						관리</a></li>
+				<li class="sidebar_list"><a
+					href="${pageContext.request.contextPath}/admin/report/list.ad">신고관리</a></li>
+				<li class="sidebar_list"><a
+					href="${pageContext.request.contextPath}/admin/inquiry/list.ad">고객센터</a></li>
+			</ul>
+			<form action="${pageContext.request.contextPath}/admin/logoutOk.ad"
+				method="post">
+				<button id="admin_logoutbtn">로그아웃</button>
+			</form>
+		</aside>
+
+		<!-- 메인컨텐츠 -->
+		<div class="admin_inner">
+			<h1 class="admin_pagetitle">공지 수정</h1>
+
+			<div class="admin_listwrapper">
+				<div class="admin_whitebox">
+					<!-- 수정 폼 -->
+					<form
+						action="${pageContext.request.contextPath}/admin/notice/updateOk.ad"
+						method="post" enctype="multipart/form-data">
+
+						<!-- 글 번호 -->
+						<input type="hidden" name="postNumber"
+							value="${notice.postNumber}" />
+
+						<!-- 제목 -->
+						<div class="admin_notice_titlebox">
+							<label for="postTitle">제목 :</label> <input type="text"
+								id="postTitle" name="postTitle" value="${notice.postTitle}"
+								required />
+						</div>
+
+						<!-- 내용 -->
+						<div class="admin_notice_contentbox">
+							<label for="noticeContent">내용 :</label>
+							<textarea id="noticeContent" name="noticeContent" required>${notice.noticeContent}</textarea>
+						</div>
+
+						<!-- 첨부파일 -->
+						<div class="admin_notice_filebox">
+							<label for="uploadFile">첨부파일 :</label> <input type="file"
+								id="uploadFile" name="uploadFile" />
+							<p class="notice_file_hint">※ 수정 시 기존 이미지는 삭제되고 새 파일만 적용됩니다.</p>
+						</div>
+
+						<!-- 버튼 영역 -->
+						<div class="bottom_btn_area">
+							<button type="submit" id="admin_notice_updatebtn">수정완료</button>
+							<button type="button"
+								onclick="location.href='${pageContext.request.contextPath}/admin/notice/detail.ad?postNumber=${notice.postNumber}'">취소</button>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

@@ -73,6 +73,11 @@ public class AdminFrontController extends HttpServlet {
 			result = new NoticeDetailController().execute(request, response);
 			break;
 
+		case "/admin/notice/edit.ad":
+			System.out.println("→ [ADMIN] 공지 수정 페이지 이동");
+			result = new NoticeEditController().execute(request, response);
+			break;
+
 		case "/admin/notice/write.ad":
 			System.out.println("→ [ADMIN] 공지 작성 페이지 이동");
 			result = new NoticeWriteController().execute(request, response);

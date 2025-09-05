@@ -1,6 +1,7 @@
 package com.bapseguen.app.admin;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,23 +9,27 @@ import javax.servlet.http.HttpServletResponse;
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.admin.dao.AdminDAO;
+import com.bapseguen.app.dto.view.AdminPostDTO;
 
-public class BoardPromotionDeleteOkController implements Execute {
+public class NoticeEditController implements Execute {
     @Override
     public Result execute(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        // 삭제할 게시글 번호 가져오기
+        
         int postNumber = Integer.parseInt(request.getParameter("postNumber"));
+        AdminDAO dao = new AdminDAO();
 
-        // DAO 호출
-        AdminDAO adminDAO = new AdminDAO();
-        adminDAO.deleteBoardPromotion(postNumber);
+        // 기존 글 정보 가져오기
+        AdminPostDTO notice = dao.selectNoticeDetail(postNumber);
+        request.setAttribute("notice", notice);
 
-        // 결과 처리 (목록으로 리다이렉트)
+        // 기존 이미지 삭제
+        dao.deleteAdminImagesByPost(postNumber);
+
         Result result = new Result();
-        result.setRedirect(true);
-        result.setPath(request.getContextPath() + "/admin/boardPromotion/list.ad");
+        result.setPath("/app/admin/noticeEdit.jsp");
+        result.setRedirect(false);
         return result;
     }
 }
+

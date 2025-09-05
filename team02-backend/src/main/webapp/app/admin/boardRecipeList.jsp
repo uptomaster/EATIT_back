@@ -40,7 +40,6 @@
         <!-- 탭 메뉴 -->
         <div class="admin_list_title">
           <ul class="admin_list">
-            <li class="admin_list_menu"><a href="${pageContext.request.contextPath}/admin/postTrade/list.ad">구매/판매</a></li>
             <li class="admin_list_menu"><a href="${pageContext.request.contextPath}/admin/notice/list.ad">공지사항</a></li>
             <li class="admin_list_menu"><a href="${pageContext.request.contextPath}/admin/boardFree/list.ad">자유게시판</a></li>
             <li class="admin_list_menu"><a href="${pageContext.request.contextPath}/admin/boardPromotion/list.ad">홍보게시판</a></li>

@@ -14,6 +14,22 @@
   display: flex;
   position: relative;
 }
+
+.admin_notice_contentbox {
+  width: 100%;
+}
+
+.admin_notice_contentbox textarea {
+  width: 100%;          /* 가로 전체 꽉 차게 */
+  height: 50vh;         /* 세로 화면의 70% 차지 */
+  resize: none;         /* 크기 조절 못하게 (필요 없으면 제거 가능) */
+  padding: 15px;        /* 안쪽 여백 */
+  font-size: 16px;      /* 글씨 크기 */
+  line-height: 1.6;     /* 줄 간격 */
+  box-sizing: border-box;
+}
+
+
 /* 왼쪽 메뉴바 */
 .sidebar{
   min-width: 220px;
