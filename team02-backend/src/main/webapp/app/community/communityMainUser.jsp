@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -58,7 +59,7 @@
         <!-- 리스트 제목 부분 -->
         <div class="list_header flex_row" role="rowgroup">
           <div class="col_title" role="columnheader">제목</div>
-          <!-- <div class="col_author" role="columnheader">글쓴이</div> -->
+          <div class="col_author" role="columnheader">글쓴이</div>
           <div class="col_date" role="columnheader">등록일</div>
           <div class="col_views" role="columnheader">조회</div>
           <div class="col_likes" role="columnheader">추천</div>
@@ -76,15 +77,18 @@
 		   					 		<a href="${pageContext.request.contextPath}/community/viewOwnPostOk.co?postNumber=${post.postNumber}">
 		   					 		<c:out value="${post.getPostTitle()}" /></a>
 		   					 	</div>
-		   					 	<%-- <div class="board-item col_author">
+		   					 	<div class="board-item col_author">
 		   					 		<c:out value="${post.getMemberId() }" />
-		   					 	</div> --%>
+		   					 	</div>
 		   					 	<div class="board-item col_date">
-		   					 		<c:out value="${post.getPostCreatedDate() }" />
+		   					 		<fmt:formatDate value="${post.postCreatedDate}" pattern="yyyy-MM-dd"/>
 		   					 	</div>
 		   					 	<div class="board-item col_views">
 		   					 		<c:out value="${post.getPostViewCount() }" />
 		   					 	</div>
+		   					 	<div class="board-item col_likes">
+								    <c:out value="${post.getPostLikeCount()}" />
+								</div>
 		   					 </div>
 	   					 </c:forEach>
 	   				</c:when>
