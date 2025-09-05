@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="banner">
+
+  <!-- 배너 등록 -->
+  <insert id="insert" parameterType="BannerDTO">
+    INSERT INTO TBL_BANNER (
+      BANNER_NUMBER, BANNER_TITLE, ADMIN_IMAGE_NUMBER,
+      BANNER_END_DATE, BANNER_IS_ACTIVE, MEMBER_NUMBER, BANNER_CREATED_DATE
+    ) VALUES (
+      SEQ_BANNER_NUMBER.NEXTVAL,
+      #{bannerTitle},
+      #{imageNumber},
+      TO_DATE(#{bannerEndDate}, 'YYYY-MM-DD'),
+      CASE WHEN #{bannerIsActive} THEN 'Y' ELSE 'N' END,
+      #{memberNumber},
+      SYSDATE
+    )
+  </insert>
+
+  <!-- 배너 수정 -->
+  <update id="update" parameterType="BannerDTO">
+    UPDATE TBL_BANNER
+       SET BANNER_TITLE = #{bannerTitle},
+           ADMIN_IMAGE_NUMBER = #{imageNumber},
+           BANNER_END_DATE = TO_DATE(#{bannerEndDate}, 'YYYY-MM-DD'),
+           BANNER_IS_ACTIVE = CASE WHEN #{bannerIsActive} THEN 'Y' ELSE 'N' END,
+           BANNER_UPDATED_DATE = SYSDATE
+     WHERE BANNER_NUMBER = #{bannerNumber}
+  </update>
+
+  <!-- 배너 삭제 -->
+  <delete id="delete" parameterType="int">
+    DELETE FROM TBL_BANNER
+     WHERE BANNER_NUMBER = #{bannerNumber}
+  </delete>
+
+  <!-- 배너 상세 조회 (이미지 조인) -->
+  <select id="detail" parameterType="int" resultType="BannerDTO">
+    SELECT
+      b.BANNER_NUMBER           AS bannerNumber,
+      b.BANNER_TITLE            AS bannerTitle,
+      b.ADMIN_IMAGE_NUMBER      AS imageNumber,
+      TO_CHAR(b.BANNER_END_DATE, 'YYYY-MM-DD') AS bannerEndDate,
+      CASE b.BANNER_IS_ACTIVE WHEN 'Y' THEN 1 ELSE 0 END AS bannerIsActive,
+      b.MEMBER_NUMBER           AS memberNumber,
+      TO_CHAR(b.BANNER_CREATED_DATE, 'YYYY-MM-DD HH24:MI:SS') AS bannerCreatedDate,
+      TO_CHAR(b.BANNER_UPDATED_DATE, 'YYYY-MM-DD HH24:MI:SS') AS bannerUpdatedDate,
+      ai.ADMIN_IMAGE_SYSTEM_NAME    AS adminImageSystemName,
+      ai.ADMIN_IMAGE_ORIGINAL_NAME  AS adminImageOriginalName
+    FROM TBL_BANNER b
+    LEFT JOIN TBL_ADMIN_IMAGE ai
+      ON ai.ADMIN_IMAGE_NUMBER = b.ADMIN_IMAGE_NUMBER
+    WHERE b.BANNER_NUMBER = #{bannerNumber}
+  </select>
+
+  <!-- 배너 목록 (관리자용 전체) -->
+  <select id="list" resultType="BannerDTO">
+    SELECT
+      b.BANNER_NUMBER           AS bannerNumber,
+      b.BANNER_TITLE            AS bannerTitle,
+      b.ADMIN_IMAGE_NUMBER      AS imageNumber,
+      TO_CHAR(b.BANNER_END_DATE, 'YYYY-MM-DD') AS bannerEndDate,
+      CASE b.BANNER_IS_ACTIVE WHEN 'Y' THEN 1 ELSE 0 END AS bannerIsActive,
+      b.MEMBER_NUMBER           AS memberNumber,
+      TO_CHAR(b.BANNER_CREATED_DATE, 'YYYY-MM-DD HH24:MI:SS') AS bannerCreatedDate,
+      TO_CHAR(b.BANNER_UPDATED_DATE, 'YYYY-MM-DD HH24:MI:SS') AS bannerUpdatedDate,
+      ai.ADMIN_IMAGE_SYSTEM_NAME    AS adminImageSystemName,
+      ai.ADMIN_IMAGE_ORIGINAL_NAME  AS adminImageOriginalName
+    FROM TBL_BANNER b
+    LEFT JOIN TBL_ADMIN_IMAGE ai
+      ON ai.ADMIN_IMAGE_NUMBER = b.ADMIN_IMAGE_NUMBER
+    ORDER BY b.BANNER_CREATED_DATE DESC NULLS LAST, b.BANNER_NUMBER DESC
+  </select>
+
+  <!-- 메인 노출용: 활성(Y) + 마감일 유효 배너 상위 N개 -->
+  <select id="activeList" parameterType="int" resultType="BannerDTO">
+    <![CDATA[
+    SELECT * FROM (
+      SELECT
+        b.BANNER_NUMBER           AS bannerNumber,
+        b.BANNER_TITLE            AS bannerTitle,
+        b.ADMIN_IMAGE_NUMBER      AS imageNumber,
+        TO_CHAR(b.BANNER_END_DATE, 'YYYY-MM-DD') AS bannerEndDate,
+        CASE b.BANNER_IS_ACTIVE WHEN 'Y' THEN 1 ELSE 0 END AS bannerIsActive,
+        ai.ADMIN_IMAGE_SYSTEM_NAME    AS adminImageSystemName,
+        ai.ADMIN_IMAGE_ORIGINAL_NAME  AS adminImageOriginalName
+      FROM TBL_BANNER b
+      JOIN TBL_ADMIN_IMAGE ai
+        ON ai.ADMIN_IMAGE_NUMBER = b.ADMIN_IMAGE_NUMBER
+      WHERE b.BANNER_IS_ACTIVE = 'Y'
+        AND b.BANNER_END_DATE >= TRUNC(SYSDATE)
+      ORDER BY b.BANNER_CREATED_DATE DESC NULLS LAST, b.BANNER_NUMBER DESC
+    )
+    WHERE ROWNUM <= #{limit}
+    ]]>
+  </select>
+
+</mapper>
