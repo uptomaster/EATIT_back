@@ -68,11 +68,11 @@ public class MainFrontController extends HttpServlet {
 			result = new MainListController().execute(request, response);
 			break;
 
-		// 가게 상세 페이지 (storeDetail.jsp forward, 음식/재료 탭 포함)
-		case "/orders/storeDetail.or":
-			System.out.println("가게 상세 페이지 이동 요청");
-			result = new StoreDetailController().execute(request, response);
-			break;
+		/*
+		 * // 가게 상세 페이지 (storeDetail.jsp forward, 음식/재료 탭 포함) case
+		 * "/orders/storeDetail.or": System.out.println("가게 상세 페이지 이동 요청"); result = new
+		 * StoreDetailController().execute(request, response); break;
+		 */
 
 		// 구매 메인: 음식점/상품 목록 페이지 (storeList.jsp forward)
 		case "/orders/storeList.or":
