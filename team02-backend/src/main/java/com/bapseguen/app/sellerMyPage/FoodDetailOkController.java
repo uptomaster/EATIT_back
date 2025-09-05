@@ -34,7 +34,7 @@ public class FoodDetailOkController implements Execute {
 			return result;
 		}
 		
-		int itemNumber = Integer.parseInt(itemNumberStr); ////!!!!!!!!!!!!!!!!!!!!!
+		int itemNumber = Integer.parseInt(itemNumberStr); //null 로 들어와서 형변환 실패했던 것
 		
 		SellerMyPageDAO sellerDAO = new SellerMyPageDAO();
 		ItemImageDAO fileDAO = new ItemImageDAO();
@@ -59,10 +59,10 @@ public class FoodDetailOkController implements Execute {
 		//첨부파일 붙이기
 		ItemListDTO.setImg(files);
 		
-		//로그인한 사용자 번호 가져오기
-		Integer currItemNumber = (Integer) request.getSession().getAttribute("itemNumber");
-		System.out.println("선택한 메뉴 번호 : " + currItemNumber);
-		
+		//이 페이지의 메뉴 번호 가져오기
+		System.out.println("선택한 메뉴 번호 : " + itemNumber);
+		// 보내기전 DTO 확인
+		System.out.println(ItemListDTO);
 		
 		request.setAttribute("item", ItemListDTO);
 //		request.setAttribute("itemImage", ItemListDTO);
