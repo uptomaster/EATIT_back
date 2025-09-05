@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bapseguen.app.Result;
+import com.bapseguen.app.dto.AdminImageDTO;
 import com.bapseguen.app.dto.view.ItemWithImgDTO;
 import com.bapseguen.app.dto.view.MainStoreListDTO;
 import com.bapseguen.app.dto.view.PostDetailDTO;
@@ -37,6 +38,10 @@ public class MainListController {
         List<PostDetailDTO> recipeList = mainDAO.selectMainRecipeList();
         request.setAttribute("recipeList", recipeList);
         System.out.println("레시피 목록 : " + recipeList);
+        
+        List<AdminImageDTO> bannerList = mainDAO.selectAdminImageDTO();
+        request.setAttribute("bannerList", bannerList);
+        System.out.println("배너 목록 : " + bannerList);
        
         result.setPath("/main.jsp");
         result.setRedirect(false);

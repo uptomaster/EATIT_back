@@ -89,7 +89,7 @@
 	        <!-- 게시글 내용 -->
 	        <section class="content_section">
 	          <div class="view-content">
-	            <h3><c:out value="${post.faqContent}" /></h3>
+	            <h3><c:out value="${post.inquiryContent}" /></h3>
 	          </div>
 	
 	          <!-- 수정/삭제 버튼 -->
@@ -104,6 +104,28 @@
 	          </div>
 	        </section>
 	
+	    <!-- 댓글 영역 -->
+	    <section class="comment_section">
+	      <h2 class="comment_count">
+	        <img src="${pageContext.request.contextPath}/assets/img/comment_box.svg" alt="댓글 아이콘" />
+	        댓글
+	      </h2>
+	
+	      <ul class="comment_list" id="commentList"><!-- JS가 채움 --></ul>
+	
+	      <form class="comment_form" id="commentForm" onsubmit="return false;">
+	        <img class="comment_profile" src="${pageContext.request.contextPath}/assets/img/나무.png" alt="프로필" />
+	        <span class="comment_author">
+	          <c:choose>
+	            <c:when test="${not empty sessionScope.memberId}">
+	              ${sessionScope.memberId}
+	            </c:when>
+	            <c:otherwise>비회원</c:otherwise>
+	          </c:choose>
+	        </span>
+	        <input type="text" id="commentInput" name="comment" placeholder="댓글을 입력하세요" required />
+	        <button type="button" id="commentSubmit">등록</button>
+	      </form>
 	    </section>
 	
 	    <!-- 다크 모드 버튼 -->
