@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -65,7 +66,7 @@
 	            <!-- 메타 데이터 -->
 	            <div class="post_meta">
 	              <div class="post_date_area">
-	                <p>${post.postCreatedDate}</p>
+	                <fmt:formatDate value="${post.postCreatedDate}" pattern="yyyy-MM-dd"/>
 	              </div>
 	              <div class="post_hit_area">
 	                <span>조회</span>
@@ -82,8 +83,21 @@
 	        <!-- 게시글 내용 -->
 	        <section class="content_section">
 	          <div class="view-content post_content">
-	            <p><c:out value="${post.freeContent}" /></p>
-	          </div>
+			    <c:choose>
+			        <c:when test="${post.postType == 'FREE'}">
+			            <p><c:out value="${post.freeContent}" /></p>
+			        </c:when>
+			        <c:when test="${post.postType == 'PROMOTION'}">
+			            <p><c:out value="${post.promoContent}" /></p>
+			        </c:when>
+			        <c:when test="${post.postType == 'RECIPE'}">
+			            <p><c:out value="${post.recipeContent}" /></p>
+			        </c:when>
+			        <c:otherwise>
+			            <p>내용이 없습니다.</p>
+			        </c:otherwise>
+			    </c:choose>
+			  </div>
 			  <!-- 첨부파일 출력 -->
 			  <c:forEach var="img" items="${postImages}">
 			    <img src="${pageContext.request.contextPath}/upload/${img.postImageSystemName}" alt="${img.postImageOriginalName}" />
@@ -190,5 +204,6 @@
   window.ctx = "${pageContext.request.contextPath}";
   window.postNumber = ${post.postNumber != null ? post.postNumber : 'null'};
   window.memberNumber = ${sessionScope.memberNumber != null ? sessionScope.memberNumber : 'null'};
+  window.adminNumber = ${sessionScope.adminNumber  != null ? sessionScope.adminNumber  : 'null'};
 </script>
 </html>

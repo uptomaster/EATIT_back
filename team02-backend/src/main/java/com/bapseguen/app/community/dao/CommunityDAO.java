@@ -1,6 +1,5 @@
 package com.bapseguen.app.community.dao;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.bapseguen.app.dto.FaqDTO;
 import com.bapseguen.app.dto.InquiryDTO;
+import com.bapseguen.app.dto.NoticeDTO;
 import com.bapseguen.app.dto.PostDTO;
 import com.bapseguen.app.dto.view.InquiryDetailDTO;
 import com.bapseguen.app.dto.view.PostDetailDTO;
@@ -22,32 +22,30 @@ public class CommunityDAO {
 	}
 
 	//자유게시판 목록 조회
-	public List<PostDTO> freeSelectAll(Map<String, Integer> pageMap) {
-		System.out.println("자유게시판 게시글 조회하기 - freeSelectAll 메소드 실행 : " + pageMap);
-		List<PostDTO> list = sqlSession.selectList("post.freeSelectAll", pageMap);
-		System.out.println("조회결과 : " + list);
-		return list;
-	}
-	
+	public List<PostDetailDTO> freeSelectAll(Map<String, Integer> pageMap) {
+	    System.out.println("자유게시판 게시글 조회하기 - freeSelectAll 메소드 실행 : " + pageMap);
+	    List<PostDetailDTO> list = sqlSession.selectList("post.freeSelectAll", pageMap);
+	    System.out.println("조회결과 : " + list);
+	    return list;
+	}  
 	//공지목록 조회
-	public List<PostDTO> noticeSelectAll(Map<String, Integer> pageMap) {
+	public List<PostDetailDTO> noticeSelectAll(Map<String, Object> pageMap) {
 		System.out.println("공지 목록 모든 게시글 조회하기 - noticeSelectAll 메소드 실행 : " + pageMap);
-		List<PostDTO> list = sqlSession.selectList("notice.noticeSelectAll", pageMap);
+		List<PostDetailDTO> list = sqlSession.selectList("notice.noticeSelectAll", pageMap);
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
-	
 	//홍보게시판 목록 조회
-	public List<PostDTO> promoSelectAll(Map<String, Integer> pageMap) {
+	public List<PostDetailDTO> promoSelectAll(Map<String, Integer> pageMap) {
 		System.out.println("홍보게시판 게시글 조회하기 - promoSelectAll 메소드 실행 : " + pageMap);
-		List<PostDTO> list = sqlSession.selectList("post.promoSelectAll", pageMap);
+		List<PostDetailDTO> list = sqlSession.selectList("post.promoSelectAll", pageMap);
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
 	//레시피 게시판 목록 조회
-	public List<PostDTO> recipeSelectAll(Map<String, Integer> pageMap) {
+	public List<PostDetailDTO> recipeSelectAll(Map<String, Integer> pageMap) {
 		System.out.println("레시피 게시글 조회하기 - recipeSelectAll 메소드 실행 : " + pageMap);
-		List<PostDTO> list = sqlSession.selectList("post.recipeSelectAll", pageMap);
+		List<PostDetailDTO> list = sqlSession.selectList("post.recipeSelectAll", pageMap);
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
@@ -74,19 +72,25 @@ public class CommunityDAO {
 		return sqlSession.selectOne("post.recipeGetTotal");
 	}
 	
-
-	//공지목록 조회 (단건)
-	public List<PostDTO> noticeSelect(Map<String, Integer> pageMap) {
-		System.out.println("공지 목록 게시글 상세 조회하기 - noticeSelectOne 메소드 실행 : " + pageMap);
-		List<PostDTO> list = sqlSession.selectList("notice.noticeSelect", pageMap);
-		System.out.println("조회결과 : " + list);
-		return list;
-	}
 	
-	// 게시글 상세 조회
-	public PostDetailDTO select(int postNumber) {
-		return sqlSession.selectOne("post.postDetailSelect", postNumber);
+	// 공지사항 상세 조회
+	public NoticeDTO selectNotice(int postNumber) {
+	    return sqlSession.selectOne("notice.noticeSelect", postNumber);
 	}
+	// 자유게시판 게시글 상세 조회
+	public PostDetailDTO freePostselect(int postNumber) {
+		return sqlSession.selectOne("post.freePostSelect", postNumber);
+	}
+	// 홍보게시판 게시글 상세 조회
+	public PostDetailDTO promoPostSelect(int postNumber) {
+		return sqlSession.selectOne("post.promoPostSelect", postNumber);
+	}
+	// 레시피게시판 게시글 상세 조회
+	public PostDetailDTO recipePostSelect(int postNumber) {
+		return sqlSession.selectOne("post.recipePostSelect", postNumber);
+	}	
+	
+
 
 	// 게시글 조회수 증가
 	public void updateReadCount(int postNumber) {
@@ -114,8 +118,11 @@ public class CommunityDAO {
 	    }
 	}
 	
+	//게시글 삭제시 포스트 타입조회
+    public String getPostType(int postNumber) {
+        return sqlSession.selectOne("post.getPostType", postNumber);
+    }
 	
-
 	// 게시글 수정
 	public void update(PostDetailDTO postDetailDTO) {
 	    if (postDetailDTO.getPostType() == null) {
@@ -140,27 +147,19 @@ public class CommunityDAO {
 	    }
 	}
 
-	
-	
-	// 게시글 추가 후 자동으로 생성된 boardNumber 반환 -> 파일 테이블에서도 써야하기 때문에
-//	public int insertPost(PostDTO postDTO) {
-//		int insert = sqlSession.insert("post.insert", postDTO);
-//		System.out.println(postDTO + "출력");
-//		//System.out.println(postDTO.getBoardContent() + "출력 === ");
-//		System.out.println("게시글 작성 - insertBoard 메소드 실행 ");
-//		System.out.println("insert 결과 : " + insert);
-//		System.out.println("생성된 boardNumber : " + postDTO.getPostNumber());
-//		return postDTO.getPostNumber();
-//	}
-	
-	//게시글 상세 
+	//게시글 작성 
 	private SqlSessionFactory sqlSessionFactory = MyBatisConfig.getSqlSessionFactory();
 
+	
+	// 자유게시판 본문 저장
+	public void insertFreeContent(Map<String, Object> params) {
+	    sqlSession.insert("post.insertFreeContent", params);
+	}
+	//자유게시판 게시글 작성
 	public int insertFreePost(Map<String, Object> postParams) {
 	    int postNumber = 0;
 
 	    try (SqlSession session = sqlSessionFactory.openSession(false)) {
-	        // insertFreePost와 insertFreeContent 실행
 	        session.insert("post.insertFreePost", postParams);
 	        session.insert("post.insertFreeContent", postParams);
 
@@ -175,7 +174,51 @@ public class CommunityDAO {
 
 	    return postNumber;
 	}
-	
+
+
+	//홍보게시판 게시글 작성
+	public int insertPromoPost(Map<String, Object> postParams) {
+	    int postNumber = 0;
+
+	    try (SqlSession session = sqlSessionFactory.openSession(false)) {
+	        session.insert("post.insertPromoPost", postParams);
+	        session.insert("post.insertPromoContent", postParams);
+
+	        session.commit();
+
+	        postNumber = (int) postParams.get("postNumber");
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return postNumber;
+	}
+	// 홍보게시판 본문 저장
+		public void insertPromoContent(Map<String, Object> params) {
+		    sqlSession.insert("post.insertPromoContent", params);
+		}
+
+	//레시피게시판 게시글 작성
+	public int insertRecipePost(Map<String, Object> postParams) {
+	    int postNumber = 0;
+
+	    try (SqlSession session = sqlSessionFactory.openSession(false)) {
+	        session.insert("post.insertRecipePost", postParams);
+	        session.insert("post.insertRecipeContent", postParams);
+
+	        session.commit();
+
+	        postNumber = (int) postParams.get("postNumber");
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return postNumber;
+	}
+	// 레시피게시판 본문 저장
+		public void insertRecipeContent(Map<String, Object> params) {
+		    sqlSession.insert("post.insertRecipeContent", params);
+		}
 	
 	// 내가 작성한 게시글 목록 조회
 	public List<PostDTO> myPostSelect(Map<String, Integer> pageMap) {
@@ -230,4 +273,5 @@ public class CommunityDAO {
     	return sqlSession.selectOne("inquiry.inquiryListCount");
     }
 
+    
 }

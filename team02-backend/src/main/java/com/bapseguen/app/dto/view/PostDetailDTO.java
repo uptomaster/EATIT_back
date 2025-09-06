@@ -1,5 +1,6 @@
 package com.bapseguen.app.dto.view;
 
+import java.util.Date;
 import java.util.List;
 
 import com.bapseguen.app.dto.PostImageDTO;
@@ -11,8 +12,8 @@ public class PostDetailDTO {
    
    private String postType; // ‘NOTICE’,’FREE’,’PROMOTION’,’RECIPE’,’INQUIRY’,’FAQ’
    private String postTitle;
-   private String postCreatedDate;
-   private String postUpdatedDate;
+   private Date postCreatedDate;
+   private Date postUpdatedDate;
    private int postViewCount;
    private int postLikeCount;
    private boolean deleteState;
@@ -58,20 +59,22 @@ public class PostDetailDTO {
    public void setPostTitle(String postTitle) {
       this.postTitle = postTitle;
    }
-   public String getPostCreatedDate() {
-      return postCreatedDate;
-   }
-   public void setPostCreatedDate(String postCreatedDate) {
-      this.postCreatedDate = postCreatedDate;
-   }
-   public String getPostUpdatedDate() {
-      return postUpdatedDate;
-   }
-   public void setPostUpdatedDate(String postUpdatedDate) {
-      this.postUpdatedDate = postUpdatedDate;
-   }
-   public int getPostViewCount() {
-      return postViewCount;
+   
+   
+   public Date getPostCreatedDate() {
+	return postCreatedDate;
+	}
+	public void setPostCreatedDate(Date postCreatedDate) {
+		this.postCreatedDate = postCreatedDate;
+	}
+	public Date getPostUpdatedDate() {
+		return postUpdatedDate;
+	}
+	public void setPostUpdatedDate(Date postUpdatedDate) {
+		this.postUpdatedDate = postUpdatedDate;
+	}
+	public int getPostViewCount() {
+	      return postViewCount;
    }
    public void setPostViewCount(int postViewCount) {
       this.postViewCount = postViewCount;

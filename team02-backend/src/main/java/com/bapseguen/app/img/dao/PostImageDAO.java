@@ -34,10 +34,6 @@ public class PostImageDAO {
 	}
 
 	// 파일 조회 메소드
-//	public List<PostImageDTO> select(int postNumber) {
-//		return sqlSession.selectList("postImage.select", postNumber);
-//	}
-
 	public List<PostImageDTO> select(int postNumber) {
 	    List<PostImageDTO> images = new ArrayList<>();
 	    try {
@@ -54,9 +50,9 @@ public class PostImageDAO {
 	
 	
 	// 파일 삭제 메소드
-//	public void delete(int postNumber) {
-//		sqlSession.delete("postImage.delete", postNumber);
-//	}
+	public void delete(int postNumber) {
+		sqlSession.delete("postImage.delete", postNumber);
+	}
 	
 	
 	
