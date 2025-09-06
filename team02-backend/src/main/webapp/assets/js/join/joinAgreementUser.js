@@ -1,58 +1,77 @@
+// NodeList → Array로 안전하게
+const checkboxs  = Array.from(document.querySelectorAll("input[type='checkbox']"));
+const essenAgrees = Array.from(document.querySelectorAll("input[name='essenAgree']"));
+const agreeAll   = document.querySelector('input[name="joinAgreeAll"]');
+const agreeAdvs  = Array.from(document.querySelectorAll('input.join_agree_adv'));
+const agreeAdv   = document.querySelector('input#join_agree_bottom_adv');
 
-//전체동의
-NodeList.prototype.map = Array.prototype.map;
-NodeList.prototype.filter = Array.prototype.filter;
-
-let checkboxs = document.querySelectorAll("input[type='checkbox']");
-let essenAgrees = document.querySelectorAll("input[name='essenAgree']");
-let agreeAll = document.querySelector('input[name="joinAgreeAll"]');
-let agreeAdvs = document.querySelectorAll('input.join_agree_adv');
-let agreeAdv = document.querySelector('input#join_agree_bottom_adv');
-
-console.log(agreeAll);
-console.log(essenAgrees);
-console.log(checkboxs);
-console.log(agreeAdvs);
-console.log(agreeAdv);
-
-//전체동의 체크박스를 클릭할 때 마다 실행되는 이벤트 리스너
-agreeAll.addEventListener('click', () => {
-  checkboxs.forEach((checkbox) => {
-    console.log(checkbox);
-    checkbox.checked = agreeAll.checked;
-  });
+// 전체 동의
+agreeAll?.addEventListener('change', () => {
+  checkboxs.forEach(cb => { if (cb !== agreeAll) cb.checked = agreeAll.checked; });
 });
 
-//광고성정보 수신동의 체크박스를 클릭할 때 마다 실행되는 이벤트 리스너
-agreeAdv.addEventListener('click', () => {
-  agreeAdvs.forEach((adv) => {
-    console.log(adv);
-    adv.checked = agreeAdv.checked;
+// 광고성 동의 (있을 때만)
+if (agreeAdv) {
+  agreeAdv.addEventListener('change', () => {
+    agreeAdvs.forEach(adv => adv.checked = agreeAdv.checked);
   });
-});
+}
 
-//약관동의 체크박스를 클릭할 때마다 실행되는 이벤트 리스터
-checkboxs.forEach((checkbox) => {
-  checkbox.addEventListener('click', () =>{
-    agreeAll.checked = checkboxs.map((checkbox) =>
-      checkbox.checked).filter((checked) => checked).length === checkboxs.length;
+// 개별 체크 변화 → 전체 동의 갱신
+checkboxs.forEach(cb => {
+  cb.addEventListener('change', () => {
+    const targets = checkboxs.filter(x => x !== agreeAll);
+    agreeAll.checked = targets.every(x => x.checked);
   });
 });
 
 function goNextPage() {
-  let essenCount = 0;
-  // 필수동의 여부 확인
-  essenAgrees.forEach((essenAgree)=>{
-    if(essenAgree.checked){
-      essenCount++;
-    }
-  });
-  console.log(essenCount);
-  if(essenCount === essenAgrees.length ){
-    //모든 체크박스 체크 시 다음 페이지로 이동
-    location.href = "/join/generalJoin.jo";
+  const form = document.querySelector('form.join_agree');
+  const allEssentialChecked = essenAgrees.every(cb => cb.checked);
+
+  if (!allEssentialChecked) {
+    alert("필수 약관에 동의해야 다음단계로 이동할 수 있습니다.");
     return;
   }
-  alert("필수 약관에 동의해야 다음단계로 이동할 수 있습니다.");
-  // alert() -> return 일때 return 이 작동 안함 왜?
+  form?.submit(); // 폼 설정에 맞춰 이동(POST)
 }
+
+/* ===== 모달 ===== */
+document.addEventListener("DOMContentLoaded", () => {
+  const modal   = document.getElementById("termsModal");
+  const bodyEl  = modal?.querySelector(".modal__body");
+  const titleEl = modal?.querySelector(".modal__title");
+
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".term-view[data-open-modal]");
+    if (!btn) return;
+
+    const key   = btn.dataset.openModal;     // service | financial | marketing | personal
+    const title = btn.dataset.title || "약관";
+    const tpl   = document.getElementById(`tmpl-${key}`);
+
+    if (!modal || !bodyEl || !tpl) return;
+
+    titleEl.textContent = title;
+    bodyEl.innerHTML = tpl.innerHTML;
+    openModal(modal);
+  });
+
+  modal?.addEventListener("click", (e) => {
+    if (e.target.matches("[data-close]")) closeModal(modal);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !modal.hidden) closeModal(modal);
+  });
+
+  function openModal(m) {
+    m.hidden = false;
+    document.documentElement.style.overflow = "hidden";
+    m.querySelector(".modal__panel")?.focus();
+  }
+  function closeModal(m) {
+    m.hidden = true;
+    document.documentElement.style.overflow = "";
+  }
+});

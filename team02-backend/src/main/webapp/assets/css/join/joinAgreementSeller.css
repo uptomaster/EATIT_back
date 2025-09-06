@@ -56,7 +56,7 @@ main {
 
 /* 약관동의 단계 끝 ****/
 
-.user_join_agree_container {
+.seller_join_agree_container {
   /* border: 1px solid black; */
   font-size: 14px;
   display: flex;
@@ -129,3 +129,76 @@ form>div>div {
   color: white;
   border-radius: 10px;
 }
+
+/* ===== Modal (보기용) ===== */
+.modal[hidden]{
+	display:none;
+	}
+.modal{
+	position:fixed;
+	inset:0;
+	z-index:1000;
+	}
+.modal__backdrop{position:absolute;
+	inset:0;
+	background:rgba(0,0,0,.45);
+	}
+.modal__panel{
+  position:relative;
+  width:min(720px,92vw);
+  max-height:82vh;
+  margin:6vh auto 0;
+  background:#fff;
+  border-radius:16px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+.modal__header,.modal__footer{
+	padding:16px 20px;
+	flex:0 0 auto;
+	border-bottom:1px solid #eee;
+	}
+.modal__footer{
+	border-top:1px solid #eee;
+	border-bottom:0;
+	}
+.modal__body{
+	padding:16px 20px;
+	overflow:auto;
+	line-height:1.6;
+	}
+.modal__close{
+	border:0;
+	background:transparent;
+	font-size:24px;
+	line-height:1;
+	cursor:pointer;
+	margin-left:auto;
+	}
+
+.btn{
+	padding:10px 16px;
+	border-radius:10px;
+	border:0;
+	cursor:pointer;
+	background:#f3f4f6;
+	}
+.btn--ghost{
+	background:#f3f4f6;
+	}
+
+/* 전문 */
+.term-view{
+  margin-left:10px;
+  padding:4px 10px;
+  border-radius:8px;
+  border:1px solid #e5e7eb;
+  background:#fff;
+  cursor:pointer;
+  font-size:12px;
+}
+.term-view:hover{
+	background:#f9fafb;
+	}

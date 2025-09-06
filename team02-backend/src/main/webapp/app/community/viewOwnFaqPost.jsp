@@ -89,7 +89,7 @@
 	        <!-- 게시글 내용 -->
 	        <section class="content_section">
 	          <div class="view-content">
-	            <h3><c:out value="${post.inquiryContent}" /></h3>
+	            <h3><c:out value="${post.faqContent}" /></h3>
 	          </div>
 	
 	    <!-- 다크 모드 버튼 -->

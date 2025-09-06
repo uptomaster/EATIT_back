@@ -89,11 +89,19 @@ public class SellerMyPageDAO {
     
     
     // 음식 메뉴 상세
-    public ItemListDTO detaileItem(int itemNumber) {
+    public ItemInsertDTO detailItem(int itemNumber) {
     	System.out.println("[판페DAO] 음식메뉴상세 - detailFood 메소드 실행 ");
     	System.out.println("[판페DAO] itemNumber : "+itemNumber);
     	
-    	ItemListDTO answer= sqlSession.selectOne("storeManage.detailItem", itemNumber);
+    	ItemInsertDTO answer= sqlSession.selectOne("storeManage.detailItem", itemNumber);
+    	System.out.println("DB에서 가져온 값 : "+answer);
+    	return answer;
+    }
+    public ItemListDTO detailItemList(int itemNumber) {
+    	System.out.println("[판페DAO] 음식메뉴상세 - detailFood 메소드 실행 ");
+    	System.out.println("[판페DAO] itemNumber : "+itemNumber);
+    	
+    	ItemListDTO answer= sqlSession.selectOne("storeManage.detailItemList", itemNumber);
     	System.out.println("DB에서 가져온 값 : "+answer);
     	return answer;
     }

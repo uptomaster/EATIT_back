@@ -36,6 +36,9 @@ public class ItemImageDAO {
 	public List<ItemImageDTO> select(int postNumber) {
 		return sqlSession.selectList("image.itemSelect", postNumber);
 	}
+	public ItemImageDTO selectone(int postNumber) {
+		return sqlSession.selectOne("image.itemSelect", postNumber);
+	}
 
 	// 파일 삭제 메소드
 	public void delete(int boardNumber) {
