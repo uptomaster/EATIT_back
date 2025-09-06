@@ -141,19 +141,24 @@
 	
 	      <ul class="comment_list" id="commentList"><!-- JS가 채움 --></ul>
 	
-	      <form class="comment_form" id="commentForm" onsubmit="return false;">
-	        <img class="comment_profile" src="${pageContext.request.contextPath}/assets/img/나무.png" alt="프로필" />
-	        <span class="comment_author">
-	          <c:choose>
-	            <c:when test="${not empty sessionScope.memberId}">
-	              ${sessionScope.memberId}
-	            </c:when>
-	            <c:otherwise>비회원</c:otherwise>
-	          </c:choose>
-	        </span>
-	        <input type="text" id="commentInput" name="comment" placeholder="댓글을 입력하세요" required />
-	        <button type="button" id="commentSubmit">등록</button>
-	      </form>
+	      <c:if test="${not empty sessionScope.memberNumber and empty sessionScope.adminNumber}">
+		  <form class="comment_form" id="commentForm" onsubmit="return false;">
+		    <img class="comment_profile" src="${pageContext.request.contextPath}/assets/img/나무.png" alt="프로필" />
+		    <span class="comment_author">
+		      <c:choose>
+		        <c:when test="${not empty sessionScope.memberId}">${sessionScope.memberId}</c:when>
+		        <c:otherwise>비회원</c:otherwise>
+		      </c:choose>
+		    </span>
+		    <input type="text" id="commentInput" name="comment" placeholder="댓글을 입력하세요" required />
+		    <button type="button" id="commentSubmit">등록</button>
+		  </form>
+		  </c:if>
+			
+		  <!-- 비회원 또는 관리자 계정이면 안내만 -->
+		  <c:if test="${empty sessionScope.memberNumber or not empty sessionScope.adminNumber}">
+			<div class="comment_notice">댓글은 로그인한 일반/판매자 회원만 작성할 수 있습니다.</div>
+		  </c:if>
 	    </section>
 	
 	    <!-- 다크 모드 버튼 -->
@@ -168,13 +173,13 @@
     <div class="modal">
       <h2>게시글 신고하기</h2>
       <form id="reportForm">
-        <div class="report_reasons">
-          <label><input type="radio" name="reason" value="스팸/광고" required> 스팸/광고</label>
-          <label><input type="radio" name="reason" value="욕설/비방"> 욕설/비방</label>
-          <label><input type="radio" name="reason" value="음란물"> 음란물</label>
-          <label><input type="radio" name="reason" value="개인정보 노출"> 개인정보 노출</label>
-          <label><input type="radio" name="reason" value="기타"> 기타</label>
-        </div>
+		<div class="report_reasons">
+		  <label><input type="radio" name="reason" value="ADV" required> 스팸/광고</label>
+		  <label><input type="radio" name="reason" value="BADWORDS"> 욕설/비방</label>
+		  <label><input type="radio" name="reason" value="PORN"> 음란물</label>
+		  <label><input type="radio" name="reason" value="PERSONAL"> 개인정보 노출</label>
+		  <label><input type="radio" name="reason" value="ETC"> 기타</label>
+		</div>
         <div class="modal_buttons">
           <button type="button" id="cancelReport">취소</button>
           <button type="submit" id="submitReport">신고하기</button>
@@ -205,5 +210,6 @@
   window.postNumber = ${post.postNumber != null ? post.postNumber : 'null'};
   window.memberNumber = ${sessionScope.memberNumber != null ? sessionScope.memberNumber : 'null'};
   window.adminNumber = ${sessionScope.adminNumber  != null ? sessionScope.adminNumber  : 'null'};
+  window.postAuthorNumber = ${post.getMemberNumber() != null ? post.getMemberNumber() : 'null'};
 </script>
 </html>

@@ -30,7 +30,7 @@
 	<!-- 댓글 조회 -->
 	<select id="selectAll" parameterType="int" resultType="CommentListDTO">
 	    SELECT c.COMMENT_NUMBER, c.POST_NUMBER, NVL(c.MEMBER_NUMBER, 0) AS MEMBER_NUMBER, NVL(c.ADMIN_NUMBER,  0) AS ADMIN_NUMBER, c.COMMENT_CONTENT, TO_CHAR(c.COMMENTED_DATE, 'YYYY-MM-DD HH24:MI') AS COMMENTED_DATE,
-	      CASE WHEN c.ADMIN_NUMBER IS NOT NULL THEN a.ADMIN_ID ELSE m.MEMBER_ID END AS MEMBER_ID
+	      CASE WHEN c.ADMIN_NUMBER IS NOT NULL THEN '관리자' ELSE m.MEMBER_ID END AS MEMBER_ID
 	    FROM TBL_COMMENT c
 	    LEFT JOIN TBL_MEMBER m ON m.MEMBER_NUMBER = c.MEMBER_NUMBER
 	    LEFT JOIN TBL_ADMIN  a ON a.ADMIN_NUMBER  = c.ADMIN_NUMBER
@@ -46,7 +46,7 @@
 	
 	<!-- 댓글 작성자 조회 -->
 	<select id="findAuthor" parameterType="int" resultType="map">
-	    SELECT MEMBER_NUMBER AS memberNumber, ADMIN_NUMBER AS adminNumber
+	    SELECT MEMBER_NUMBER AS "memberNumber", ADMIN_NUMBER AS "adminNumber"
 	    FROM TBL_COMMENT
 	    WHERE COMMENT_NUMBER = #{value}
 	</select>
