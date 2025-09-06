@@ -35,7 +35,7 @@
 				<li class="sidebar_list"><a
 					href="${pageContext.request.contextPath}/admin/report/list.ad">신고관리</a></li>
 				<li class="sidebar_list"><a
-					href="${pageContext.request.contextPath}/admin/inquiry/list.ad">고객센터</a></li>
+					href="${pageContext.request.contextPath}/admin/faq/list.ad">고객센터</a></li>
 			</ul>
 			<form action="${pageContext.request.contextPath}/admin/logoutOk.ad"
 				method="post">
@@ -48,20 +48,19 @@
 			<h1 class="admin_pagetitle">공지/이벤트 작성</h1>
 			<div class="admin_listwrapper">
 				<div class="admin_whitebox">
-					<!-- 파일 업로드 가능하도록 enctype 추가 -->
 					<form
 						action="${pageContext.request.contextPath}/admin/notice/writeOk.ad"
 						method="post" enctype="multipart/form-data">
 
-						<!-- 제목 -->
+						<!-- 제목 영역 -->
 						<div class="admin_notice_titlebox">
 							<select name="noticeCategory" class="admin_notice_category"
 								required>
 								<option value="">태그 선택</option>
 								<option value="공지">공지</option>
 								<option value="이벤트">이벤트</option>
-							</select> <label for="postTitle">제목 : </label> <input type="text"
-								id="postTitle" name="postTitle" required>
+							</select> <input type="text" id="postTitle" name="postTitle"
+								placeholder="제목을 입력하세요" required>
 						</div>
 
 						<!-- 내용 -->
@@ -72,8 +71,12 @@
 
 						<!-- 파일 첨부 + 버튼 -->
 						<div class="bottom_btn_area">
-							<input type="file" id="admin_file" name="uploadFile" multiple>
-							<button type="submit" id="admin_notice_dowrite">작성완료</button>
+							<label for="admin_file" class="file_label"> <i
+								class="fas fa-paperclip"></i> 파일첨부
+							</label> <input type="file" id="admin_file" name="uploadFile" multiple>
+							<button type="submit" class="btn btn-primary">
+								<i class="fas fa-check"></i> 작성완료
+							</button>
 						</div>
 					</form>
 				</div>

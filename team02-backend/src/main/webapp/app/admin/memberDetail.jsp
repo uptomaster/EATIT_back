@@ -25,7 +25,7 @@
 				<li class="sidebar_list active" id="sidebar_list_member"><a
 					href="${pageContext.request.contextPath}/admin/member/list.ad">회원관리</a></li>
 				<li class="sidebar_list"><a
-					href="${pageContext.request.contextPath}/admin/postTrade/list.ad">게시글
+					href="${pageContext.request.contextPath}/admin/notice/list.ad">게시글
 						관리</a></li>
 				<li class="sidebar_list"><a
 					href="${pageContext.request.contextPath}/admin/report/list.ad">신고관리</a></li>
@@ -41,71 +41,78 @@
 		<!-- 메인 컨텐츠 -->
 		<div class="admin_inner">
 			<h1 class="admin_pagetitle">회원 상세</h1>
-			<div class="admin_listwrapper">
+			<div class="admin_listwrapper admin_whitebox">
 
 				<!-- 회원번호 -->
 				<div class="admin_memberDetail_rowWrapper">
-					<div class="admin_memberDetail_key"><p>회원번호</p></div>
-					<div class="admin_memberDetail_value"><p>${memberDetail.memberNumber}</p></div>
+					<div class="admin_memberDetail_key">회원번호</div>
+					<div class="admin_memberDetail_value">${memberDetail.memberNumber}</div>
 				</div>
 
 				<!-- 아이디 -->
 				<div class="admin_memberDetail_rowWrapper">
-					<div class="admin_memberDetail_key"><p>아이디</p></div>
-					<div class="admin_memberDetail_value"><p>${memberDetail.memberId}</p></div>
+					<div class="admin_memberDetail_key">아이디</div>
+					<div class="admin_memberDetail_value">${memberDetail.memberId}</div>
 				</div>
 
 				<!-- 이름 -->
 				<div class="admin_memberDetail_rowWrapper">
-					<div class="admin_memberDetail_key"><p>이름</p></div>
-					<div class="admin_memberDetail_value"><p>${memberDetail.memberName}</p></div>
+					<div class="admin_memberDetail_key">이름</div>
+					<div class="admin_memberDetail_value">${memberDetail.memberName}</div>
 				</div>
 
 				<!-- 유형 -->
 				<div class="admin_memberDetail_rowWrapper">
-					<div class="admin_memberDetail_key"><p>회원 유형</p></div>
-					<div class="admin_memberDetail_value"><p>${memberDetail.memberType}</p></div>
+					<div class="admin_memberDetail_key">회원 유형</div>
+					<div class="admin_memberDetail_value">${memberDetail.memberType}</div>
 				</div>
 
 				<!-- 경고수 -->
 				<div class="admin_memberDetail_rowWrapper">
-					<div class="admin_memberDetail_key"><p>경고 수</p></div>
-					<div class="admin_memberDetail_value"><p>${memberDetail.warningCount}</p></div>
+					<div class="admin_memberDetail_key">경고 수</div>
+					<div class="admin_memberDetail_value">${memberDetail.warningCount}</div>
 				</div>
 
 				<!-- 등급 -->
 				<div class="admin_memberDetail_rowWrapper">
-					<div class="admin_memberDetail_key"><p>등급</p></div>
+					<div class="admin_memberDetail_key">등급</div>
 					<div class="admin_memberDetail_value">
-						<p>
-							<c:out value="${memberDetail.treeGrade}" />
-							<img class="grade_icon" src="${pageContext.request.contextPath}/assets/img/씨앗.png" alt="등급아이콘">
-							(<c:out value="${memberDetail.paymentAmount}" />)
-						</p>
+						${memberDetail.treeGrade} <img class="grade_icon"
+							src="${pageContext.request.contextPath}/assets/img/씨앗.png"
+							alt="등급아이콘"> (${memberDetail.paymentAmount})
 					</div>
 				</div>
 
 				<!-- 버튼 영역 -->
-				<div class="admin_memberDetail_rowWrapper_btn">
-					<form action="${pageContext.request.contextPath}/admin/member/warningOk.ad" method="post" style="display:inline;">
-						<input type="hidden" name="memberNumber" value="${memberDetail.memberNumber}">
-						<input type="hidden" name="memberType" value="${memberDetail.memberType}">
-						<button type="submit" id="button_warning">⚠ 경고 주기</button>
+				<div class="admin_memberDetail_buttons">
+					<form
+						action="${pageContext.request.contextPath}/admin/member/warningOk.ad"
+						method="post" onsubmit="return confirm('정말 경고를 부여하시겠습니까?');">
+						<input type="hidden" name="memberNumber"
+							value="${memberDetail.memberNumber}"> <input
+							type="hidden" name="memberType"
+							value="${memberDetail.memberType}">
+						<button type="submit" class="btn btn-warning">
+							<i class="fas fa-exclamation-triangle"></i> 경고 주기
+						</button>
 					</form>
-					<!-- 목록으로 버튼 추가 -->
-					<button type="button" id="button_back" onclick="location.href='${pageContext.request.contextPath}/admin/member/list.ad'">목록으로</button>
+					<button type="button" class="btn btn-back"
+						onclick="location.href='${pageContext.request.contextPath}/admin/member/list.ad'">
+						<i class="fas fa-arrow-left"></i> 목록으로
+					</button>
 				</div>
+
 
 			</div>
 		</div>
 	</div>
 
-  <!-- 알림 스크립트 -->
-  <c:if test="${not empty param.warningSuccess}">
-    <script>
-      alert("경고를 부여했습니다.");
-      location.href = "${pageContext.request.contextPath}/admin/member/list.ad";
-    </script>
-  </c:if>
+	<!-- 알림 스크립트 -->
+	<c:if test="${not empty param.warningSuccess}">
+		<script>
+			alert("경고를 부여했습니다.");
+			location.href = "${pageContext.request.contextPath}/admin/member/list.ad";
+		</script>
+	</c:if>
 </body>
 </html>
