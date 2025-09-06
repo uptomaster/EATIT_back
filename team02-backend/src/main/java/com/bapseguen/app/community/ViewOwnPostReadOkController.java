@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.community.dao.CommunityDAO;
-import com.bapseguen.app.dto.view.PostDetailDTO;
+import com.bapseguen.app.dto.NoticeDTO;
 
 public class ViewOwnPostReadOkController implements Execute{
 
@@ -26,7 +26,7 @@ public class ViewOwnPostReadOkController implements Execute{
 		if(postNumberStr == null || postNumberStr.trim().isEmpty()){
 			System.out.println("postNumber 값이 없습니다");
 			
-			//result.setPath("/app/community/communityMainUser.jsp"); //게시글 목록 페이지로 리다이렉트
+			result.setPath("/app/community/communityMainUser.jsp"); //게시글 목록 페이지로 리다이렉트
 			result.setRedirect(true);
 			return result;
 		}
@@ -35,10 +35,11 @@ public class ViewOwnPostReadOkController implements Execute{
 		CommunityDAO communityDAO = new CommunityDAO();
 	
 		//DB에서 게시글 가져오기
-		PostDetailDTO postDetailDTO = communityDAO.select(postNumber);
+		NoticeDTO noticeDTO = communityDAO.selectNotice(postNumber);
+		request.setAttribute("notice", noticeDTO);  
 		
 		//게시글이 존재하지 않을 경우 처리
-		if(postDetailDTO == null) {
+		if(noticeDTO == null) {
 			System.out.println("존재하지 않는 게시글입니다. " + postNumber);
 			result.setPath("/app/community/communityMainUser.jsp");
 			result.setRedirect(true);
@@ -50,7 +51,7 @@ public class ViewOwnPostReadOkController implements Execute{
 		System.out.println("로그인 한 멤버 번호 : " + loginMemberNumber);
 		
 		//현재 게시글의 작성자 번호 가져오기
-		int postWriterNumber = postDetailDTO.getMemberNumber();
+		int postWriterNumber = noticeDTO.getAdminNumber();
 		System.out.println("현재 게시글 작성자 번호 : " + postWriterNumber);
 		
 		//로그인한 사용자가 작성자가 아닐 때만 조회수 증가
@@ -58,7 +59,6 @@ public class ViewOwnPostReadOkController implements Execute{
 			communityDAO.updateReadCount(postNumber);
 		}
 		
-		request.setAttribute("post", postDetailDTO);
 		result.setPath("/app/community/viewOwnPost.jsp");
 		result.setRedirect(false);		
 		

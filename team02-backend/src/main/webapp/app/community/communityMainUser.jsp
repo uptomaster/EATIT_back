@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css" />
 
   <!-- 스크립트 -->
- <%--  <script defer src="${pageContext.request.contextPath}/assets/js/community/communityMainUser.js"></script> --%>
+  <script defer src="${pageContext.request.contextPath}/assets/js/community/communityMainUser.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/community/mouseoverTreeIcon.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
@@ -48,7 +48,7 @@
       <nav class="community_category">
         <ul>
           <li><a href="${pageContext.request.contextPath}/community/communityMainOk.co" id="category_event" class="active">공지사항/이벤트</a></li>
-          <li><a href="${pageContext.request.contextPath}/community/freeBoardReadOk.co" id="category_free">자유게시판</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/freeBoardListOk.co" id="category_free">자유게시판</a></li>
           <li><a href="${pageContext.request.contextPath}/community/promoBoardListOk.co" id="category_advertise">홍보게시판</a></li>
           <li><a href="${pageContext.request.contextPath}/community/recipeListOk.co" id="category_recipe">레시피</a></li>
         </ul>
@@ -98,7 +98,8 @@
 	   					</div>
 	   				</c:otherwise>
 	   			</c:choose>
-	   		</div> 	
+	   		</div>
+	   	</div>	 	
       </section> 
 
       <!-- 페이지네이션 들어가는 자리 -->
@@ -123,7 +124,7 @@
           	</c:choose>
           </c:forEach>
           <c:if test="${next}">
-          	<li><a href="${pageContext.request.contextPath}/community/communityMainOk.co?page=${endPage + 1}" class="next">&gt;</a>
+          	<li><a href="${pageContext.request.contextPath}/community/communityMainOk.co?page=${endPage + 1}" class="next">&gt;</a></li>
           </c:if>
         </ul>
       </div>
@@ -133,11 +134,11 @@
         <div class="function_container">
           <!-- 검색 박스 -->
           <div class="search_box">
-            <input class="search_text" type="text" placeholder="검색어를 입력해 주세요" />
-            <button class="search_btn" type="button">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
+		    <input class="search_text" type="text" placeholder="검색어를 입력해 주세요">
+		    <button type="button" class="search_btn">
+		      <i class="fas fa-search"></i>
+		    </button>
+		  </div>
 
           <!-- 글쓰기 버튼/ 공지사항은 관리자만 작성가능 -->
           <!-- <div class="write_form">

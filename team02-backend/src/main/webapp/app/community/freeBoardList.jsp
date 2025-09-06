@@ -10,21 +10,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- 파비콘 -->
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
-  <title>자유게시판</title>
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/community/freeBoardList.css" />
+  <title>밥세권</title>
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/community/treeGrade.css">
-  <script defer src="${pageContext.request.contextPath}/assets/js/community/freeBoardList.js"></script>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/community/freeBoardList.css" />
   <script defer src="${pageContext.request.contextPath}/assets/js/community/mouseoverTreeIcon.js"></script>
   <script>
     let headerPath = '../../header.jsp';
     let footerPath = '../../footer.jsp';
   </script>
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/community/freeBoardList.js"></script>
 </head>
 
 <body>
@@ -39,7 +40,7 @@
       <nav class="community_category">
         <ul>
           <li><a href="${pageContext.request.contextPath}/community/communityMainOk.co" id="category_event">공지사항/이벤트</a></li>
-          <li><a href="${pageContext.request.contextPath}/community/freeBoardReadOk.co" id="category_free" class="active">자유게시판</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/freeBoardListOk.co" id="category_free" class="active">자유게시판</a></li>
           <li><a href="${pageContext.request.contextPath}/community/promoBoardListOk.co" id="category_advertise">홍보게시판</a></li>
           <li><a href="${pageContext.request.contextPath}/community/recipeListOk.co" id="category_recipe">레시피</a></li>
         </ul>
@@ -55,41 +56,42 @@
           <div class="col_likes" role="columnheader">추천</div>
         </div>
 	
-	
-		<!-- 게시글 목록 -->
-   		<div class="board-header">
-   			<c:choose>
-   				<c:when test="${not empty postList}">
-   					<c:forEach var="post" items="${postList}">
-	   					 <div class="board-row list_row flex_row">
-	   					 	<div class="board-item col_title">
-	   					 		<a href="${pageContext.request.contextPath}/community/freeBoardReadOk.co?postNumber=${post.postNumber}">
-	   					 			<c:out value="${post.postTitle}" />
-	   					 		</a>
-	   					 	</div>
-	   					 	<div class="board-item col_author">
-	   					 		<c:out value="${post.getMemberId() }" />
-	   					 	</div>
-	   					 	<div class="board-item col_date">
-	   					 		<fmt:formatDate value="${post.postCreatedDate}" pattern="yyyy-MM-dd"/>
-	   					 	</div>
-	   					 	<div class="board-item col_views">
-	   					 		<c:out value="${post.getPostViewCount() }" />
-	   					 	</div>
-	   					 	<div class="board-item col_likes">
-							    <c:out value="${post.getPostLikeCount()}" />
-							</div>
-	   					 </div>
-   					 </c:forEach>
-   				</c:when>
-   				<c:otherwise>
-   					<div>
-   						<div colspan="5" align="center">등록된 게시물이 없습니다.</div>
-   					</div>
-   				</c:otherwise>
-   			</c:choose>
-   		</div>
-	
+		<div id="postListBody" class="list_body" role="rowgroup">
+		
+			<!-- 게시글 목록 -->
+	   		<div class="board-header">
+	   			<c:choose>
+	   				<c:when test="${not empty postList}">
+	   					<c:forEach var="post" items="${postList}">
+		   					 <div class="board-row list_row flex_row">
+		   					 	<div class="board-item col_title">
+		   					 		<a href="${pageContext.request.contextPath}/community/freeBoardReadOk.co?postNumber=${post.postNumber}">
+		   					 			<c:out value="${post.postTitle}" />
+		   					 		</a>
+		   					 	</div>
+		   					 	<div class="board-item col_author">
+		   					 		<c:out value="${post.getMemberId() }" />
+		   					 	</div>
+		   					 	<div class="board-item col_date">
+		   					 		<fmt:formatDate value="${post.postCreatedDate}" pattern="yyyy-MM-dd"/>
+		   					 	</div>
+		   					 	<div class="board-item col_views">
+		   					 		<c:out value="${post.getPostViewCount() }" />
+		   					 	</div>
+		   					 	<div class="board-item col_likes">
+								    <c:out value="${post.getPostLikeCount()}" />
+								</div>
+		   					 </div>
+	   					 </c:forEach>
+	   				</c:when>
+	   				<c:otherwise>
+	   					<div>
+	   						<div colspan="5" align="center">등록된 게시물이 없습니다.</div>
+	   					</div>
+	   				</c:otherwise>
+	   			</c:choose>
+	   		</div>
+		</div>
       </section>
 
       <!-- 페이지네이션 들어가는 자리 -->
@@ -114,7 +116,7 @@
           	</c:choose>
           </c:forEach>
           <c:if test="${next}">
-          	<li><a href="${pageContext.request.contextPath}/community/freeBoardListOk.co?page=${endPage + 1}" class="next">&gt;</a>
+          	<li><a href="${pageContext.request.contextPath}/community/freeBoardListOk.co?page=${endPage + 1}" class="next">&gt;</a></li>
           </c:if>
         </ul>
       </div>
@@ -124,13 +126,15 @@
       <!-- 검색 & 글쓰기 -->
       <div class="controls_wrapper">
         <div class="function_container">
+          <!-- 검색 박스 -->
           <div class="search_box">
-            <input class="search_text" type="text" placeholder="검색어를 입력해 주세요" />
-            <button class="search_btn" type="button">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
+		    <input class="search_text" type="text" placeholder="검색어를 입력해 주세요">
+		    <button type="button" class="search_btn">
+		      <i class="fas fa-search"></i>
+		    </button>
+		  </div>
 
+		  <!-- 글쓰기 -->
           <div class="write_form">
             <a href="${pageContext.request.contextPath}/community/writeFreeBoard.co?postType=FREE" id="writeBtn">글쓰기</a>
           </div>

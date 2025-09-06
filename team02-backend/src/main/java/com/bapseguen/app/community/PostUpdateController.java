@@ -22,7 +22,7 @@ public class PostUpdateController implements Execute{
         Result result = new Result();
 		
 		//request.setAttribute("post", communityDAO.select(postNumber));
-        PostDetailDTO post = communityDAO.select(postNumber);
+        PostDetailDTO post = communityDAO.recipePostSelect(postNumber);
         request.setAttribute("post", post);
         request.setAttribute("postType", post.getPostType());
         

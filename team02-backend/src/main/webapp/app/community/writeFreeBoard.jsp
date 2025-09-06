@@ -88,7 +88,20 @@
 				</div>
 
 				<div class="button_group">
-					<c:url var="listUrl" value="/community/freeBoardListOk.co" />
+					<c:choose>
+					    <c:when test="${postType == 'FREE'}">
+					        <c:url var="listUrl" value="/community/freeBoardListOk.co"/>
+					    </c:when>
+					    <c:when test="${postType == 'PROMOTION'}">
+					        <c:url var="listUrl" value="/community/promoBoardListOk.co"/>
+					    </c:when>
+					    <c:when test="${postType == 'RECIPE'}">
+					        <c:url var="listUrl" value="/community/recipeBoardListOk.co"/>
+					    </c:when>
+					    <c:otherwise>
+					        <c:url var="listUrl" value="/community/freeBoardListOk.co"/>
+					    </c:otherwise>
+					</c:choose>
 					<a class="cancel_btn" href="${listUrl}">작성 취소</a>
 
 					<button type="submit" class="submit_btn">작성 완료</button>

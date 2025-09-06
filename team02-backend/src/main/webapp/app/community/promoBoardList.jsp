@@ -40,7 +40,7 @@
       <nav class="community_category">
         <ul>
           <li><a href="${pageContext.request.contextPath}/community/communityMainOk.co" id="category_event">공지사항/이벤트</a></li>
-          <li><a href="${pageContext.request.contextPath}/community/freeBoardReadOk.co" id="category_free">자유게시판</a></li>
+          <li><a href="${pageContext.request.contextPath}/community/freeBoardListOk.co" id="category_free">자유게시판</a></li>
           <li><a href="${pageContext.request.contextPath}/community/promoBoardListOk.co" id="category_advertise" class="active">홍보게시판</a></li>
           <li><a href="${pageContext.request.contextPath}/community/recipeListOk.co" id="category_recipe">레시피</a></li>
         </ul>
@@ -56,44 +56,46 @@
           <div class="col_likes" role="columnheader">추천</div>
         </div>
         
-        
-        <!-- 게시글 목록 -->
-   		<div class="board-header">
-   			<c:choose>
-   				<c:when test="${not empty postList}">
-   					<c:forEach var="post" items="${postList}">
-	   					 <div class="board-row list_row flex_row">
-	   					 	<div class="board-item col_title">
-	   					 		<a href="${pageContext.request.contextPath}/community/promoBoardListOk.co?postNumber=${post.postNumber}">
-	   					 			<c:out value="${post.postTitle}" />
-	   					 		</a>
-	   					 	</div>
-	   					 	<div class="board-item col_author">
-	   					 		<c:out value="${post.getMemberId() }" />
-	   					 	</div>
-	   					 	<div class="board-item col_date">
-	   					 		<fmt:formatDate value="${post.postCreatedDate}" pattern="yyyy-MM-dd"/>
-	   					 	</div>
-	   					 	<div class="board-item col_views">
-	   					 		<c:out value="${post.getPostViewCount() }" />
-	   					 	</div>
-	   					 	<div class="board-item col_likes">
-							    <c:out value="${post.getPostLikeCount()}" />
-							</div>
-	   					 </div>
-   					 </c:forEach>
-   				</c:when>
-   				<c:otherwise>
-   					<div>
-   						<div colspan="5" align="center">등록된 게시물이 없습니다.</div>
-   					</div>
-   				</c:otherwise>
-   			</c:choose>
-   		</div>
+        <!-- 게시글 내용 들어가는 곳 -->
+        <div id="postListBody" class="list_body" role="rowgroup">
+	        <!-- 게시글 목록 -->
+	   		<div class="board-header">
+	   			<c:choose>
+	   				<c:when test="${not empty postList}">
+	   					<c:forEach var="post" items="${postList}">
+		   					 <div class="board-row list_row flex_row">
+		   					 	<div class="board-item col_title">
+		   					 		<a href="${pageContext.request.contextPath}/community/promoBoardReadOk.co?postNumber=${post.postNumber}">
+		   					 			<c:out value="${post.postTitle}" />
+		   					 		</a>
+		   					 	</div>
+		   					 	<div class="board-item col_author">
+		   					 		<c:out value="${post.getMemberId() }" />
+		   					 	</div>
+		   					 	<div class="board-item col_date">
+		   					 		<fmt:formatDate value="${post.postCreatedDate}" pattern="yyyy-MM-dd"/>
+		   					 	</div>
+		   					 	<div class="board-item col_views">
+		   					 		<c:out value="${post.getPostViewCount() }" />
+		   					 	</div>
+		   					 	<div class="board-item col_likes">
+								    <c:out value="${post.getPostLikeCount()}" />
+								</div>
+		   					 </div>
+	   					 </c:forEach>
+	   				</c:when>
+	   				<c:otherwise>
+	   					<div>
+	   						<div colspan="5" align="center">등록된 게시물이 없습니다.</div>
+	   					</div>
+	   				</c:otherwise>
+	   			</c:choose>
+	   		</div>
+	   	 </div>	
       </section>
 
-      <!-- 페이지네이션 -->
-      <%-- <div class="pagination">
+ 	 <!-- 페이지네이션 들어가는 자리 -->
+      <div class="pagination">
         <ul>
           <c:if test="${prev}">
           	<li><a href="${pageContext.request.contextPath}/community/promoBoardListOk.co?page=${startPage - 1}" class="prev">&lt;</a></li>
@@ -114,20 +116,21 @@
           	</c:choose>
           </c:forEach>
           <c:if test="${next}">
-          	<li><a href="${pageContext.request.contextPath}/community/promoBoardListOk.co?page=${endPage + 1}" class="next">&gt;</a>
+          	<li><a href="${pageContext.request.contextPath}/community/freeBoardListOk.co?page=${endPage + 1}" class="next">&gt;</a></li>
           </c:if>
         </ul>
-      </div> --%>
+      </div>
 
       <!-- 검색 & 글쓰기 -->
       <div class="controls_wrapper">
         <div class="function_container">
+          <!-- 검색 박스 -->
           <div class="search_box">
-            <input class="search_text" type="text" placeholder="검색어를 입력해 주세요" />
-            <button class="search_btn" type="button">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
+		    <input class="search_text" type="text" placeholder="검색어를 입력해 주세요">
+		    <button type="button" class="search_btn">
+		      <i class="fas fa-search"></i>
+		    </button>
+		  </div>
 
           <div class="write_form">
             <a href="${pageContext.request.contextPath}/community/writeFreeBoard.co?postType=PROMOTION" id="writeBtn">글쓰기</a>

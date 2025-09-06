@@ -48,6 +48,7 @@ public class WriteFreeBoardOkController implements Execute {
         // 게시글 파라미터
         String postTitle = multi.getParameter("postTitle");
         String freeContent = multi.getParameter("freeContent");
+        String postType = multi.getParameter("postType");
 
         if (postTitle == null || postTitle.isBlank() || freeContent == null || freeContent.isBlank()) {
             request.setAttribute("error", "제목/내용을 입력하세요.");
@@ -62,13 +63,29 @@ public class WriteFreeBoardOkController implements Execute {
         postParams.put("postTitle", postTitle);
         postParams.put("freeContent", freeContent);
 
-        // 게시글 insert
-        communityDAO.insertFreePost(postParams);
+        // 1. 게시글 insert (게시판별)
+        int postNumber;
+        switch(postType) {
+        case "FREE":
+            postNumber = communityDAO.insertFreePost(postParams);
+            postParams.put("postNumber", postNumber);
+            communityDAO.insertFreeContent(postParams);
+            break;
+        case "PROMOTION":
+            postNumber = communityDAO.insertPromoPost(postParams);
+            postParams.put("postNumber", postNumber);
+            communityDAO.insertPromoContent(postParams);
+            break;
+        case "RECIPE":
+            postNumber = communityDAO.insertRecipePost(postParams);
+            postParams.put("postNumber", postNumber);
+            communityDAO.insertRecipeContent(postParams);
+            break;
+        default:
+            throw new IllegalArgumentException("Unknown postType: " + postType);
+    }
 
-        // postNumber 가져오기
-        int postNumber = (Integer) postParams.get("postNumber");
-
-        // 파일 업로드 반복
+        // 2. 파일 업로드 반복 (게시글 insert 후)
         Enumeration<?> files = multi.getFileNames();
         while (files.hasMoreElements()) {
             String fileName = (String) files.nextElement();
@@ -84,8 +101,21 @@ public class WriteFreeBoardOkController implements Execute {
             }
         }
 
-        // 완료 후 목록 페이지로 이동
-        result.setPath(request.getContextPath() + "/community/freeBoardListOk.co");
+        // 3. 완료 후 이동할 목록 페이지 설정
+        switch(postType) {
+            case "FREE":
+                result.setPath("/community/freeBoardListOk.co");
+                break;
+            case "PROMOTION":
+                result.setPath("/community/promoBoardListOk.co");
+                break;
+            case "RECIPE":
+                result.setPath("/community/recipeBoardListOk.co");
+                break;
+            default:
+                result.setPath("/community/freeBoardListOk.co");
+        }
+
         result.setRedirect(true);
         return result;
     }

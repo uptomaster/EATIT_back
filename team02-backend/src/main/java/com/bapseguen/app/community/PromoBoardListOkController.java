@@ -8,12 +8,11 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.community.dao.CommunityDAO;
-import com.bapseguen.app.dto.PostDTO;
+import com.bapseguen.app.dto.view.PostDetailDTO;
 
 public class PromoBoardListOkController implements Execute{
 
@@ -22,6 +21,7 @@ public class PromoBoardListOkController implements Execute{
 		
 		
 		System.out.println("====PromoBoardListOkController 실행====");
+		
 		CommunityDAO communityDAO = new CommunityDAO();
 		Result result = new Result();
 		
@@ -39,7 +39,7 @@ public class PromoBoardListOkController implements Execute{
 		pageMap.put("endRow", endRow);
 
 		// 게시글 목록 조회
-		List<PostDTO> postList = communityDAO.promoSelectAll(pageMap);
+		List<PostDetailDTO> postList = communityDAO.promoSelectAll(pageMap);
 		request.setAttribute("postList", postList);
 
 		// 페이징 정보 설정
