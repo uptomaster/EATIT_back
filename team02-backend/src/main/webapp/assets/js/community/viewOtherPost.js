@@ -68,7 +68,8 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener('DOMContentLoaded', () => {
   const postNumber   = window.postNumber ? parseInt(window.postNumber, 10) : null;
   const memberNumber = window.memberNumber ? parseInt(window.memberNumber, 10) : null;
-
+  const adminNumber  = window.adminNumber  ? parseInt(window.adminNumber, 10)  : null;
+  
   const listEl   = document.getElementById('commentList');
   const inputEl  = document.getElementById('commentInput');
   const submitEl = document.getElementById('commentSubmit');
@@ -103,12 +104,13 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderComments(items) {
     listEl.innerHTML = '';
     if (!items.length) {
-      listEl.innerHTML = `<li class="comment_item">첫 댓글의 주인공이 되어주세요!</li>`;
+      listEl.innerHTML = `<li class="comment_item">아직 답변이 없습니다.</li>`;
       return;
     }
     const frag = document.createDocumentFragment();
     items.forEach(c => {
       const isMine = memberNumber && String(memberNumber) === String(c.memberNumber);
+	  const isAdmin = adminNumber && Number(adminNumber) > 0;
       const li = document.createElement('li');
       li.className = 'comment_item';
       li.dataset.number = c.commentNumber;
@@ -119,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="comment_info">
             <span class="comment_author">${escHtml(c.memberId)}</span>
             <time class="comment_timeline">${escHtml(c.commentedDate || '')}</time>
-            ${isMine ? `<button class="comment_delete" data-number="${c.commentNumber}" title="댓글 삭제">[댓글 삭제]</button>` : ``}
+            ${(isMine || isAdmin) ? `<button class="comment_delete" data-number="${c.commentNumber}" title="댓글 삭제">[댓글 삭제]</button>` : ``}
             <p class="comment_text">${escHtml(c.commentContent)}</p>
           </div>
         </div>
@@ -134,7 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const content = (inputEl?.value || '').trim();
     if (!content) return alert('댓글을 입력해주세요.');
     if (!postNumber) return alert('postNumber가 없습니다.');
-    if (!memberNumber) return alert('로그인 후 이용해주세요.');
+	const canWrite = (memberNumber && memberNumber > 0) || (adminNumber && adminNumber > 0);
+	if (!canWrite) return alert('로그인 후 이용해주세요.');
 
     try {
       const res = await fetch(`/comment/writeOk.cm`, {
@@ -144,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
           'Accept':'application/json',
           'X-Requested-With':'XMLHttpRequest'
         },
-        body: JSON.stringify({ postNumber, memberNumber, commentContent: content })
+        body: JSON.stringify({ postNumber, commentContent: content })
       });
       const result = await safeJson(res);
       if (result?.status === 'success') {

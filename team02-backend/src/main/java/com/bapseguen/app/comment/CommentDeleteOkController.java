@@ -24,7 +24,6 @@ public class CommentDeleteOkController implements Execute {
 
         try {
             int commentNumber = Integer.parseInt(request.getParameter("commentNumber"));
-
             //세션/권한 확인
             HttpSession session = request.getSession();
             Integer loginMember = (session == null) ? null : (Integer) session.getAttribute("memberNumber");
@@ -52,8 +51,12 @@ public class CommentDeleteOkController implements Execute {
                 if (loginAdmin != null) {
                     authorized = true;
                 } else if (loginMember != null) {
-                    Map<String,Integer> author = commentDAO.findAuthor(commentNumber);
-                    Integer ownerMember = (author == null) ? null : author.get("memberNumber");
+                    Map<String,Object> author = commentDAO.findAuthor(commentNumber);
+                    Integer ownerMember = null;
+                    if (author != null && author.get("memberNumber") != null) {
+                        Object v = author.get("memberNumber");
+                        ownerMember = (v instanceof Number) ? ((Number) v).intValue() : Integer.valueOf(String.valueOf(v));
+                    }
                     authorized = (ownerMember != null && ownerMember.equals(loginMember));
                 }
             }
@@ -66,7 +69,6 @@ public class CommentDeleteOkController implements Execute {
 
             // 삭제 실행
             int affected = commentDAO.delete(commentNumber);
-
             response.setContentType("application/json; charset=utf-8");
             PrintWriter out = response.getWriter();
             out.print(gson.toJson(
