@@ -163,17 +163,22 @@ public class AdminFrontController extends HttpServlet {
 			break;
 
 		case "/admin/faq/writeOk.ad":
-			System.out.println("→ [ADMIN] FAQ 작성 처리 (POST + FAQ + 이미지)");
+			System.out.println("→ [ADMIN] FAQ 작성 처리 (POST)");
 			result = new FaqWriteOkController().execute(request, response);
 			break;
 
+		case "/admin/faq/edit.ad":
+			System.out.println("→ [ADMIN] FAQ 수정 페이지 이동");
+			result = new FaqEditController().execute(request, response);
+			break;
+
 		case "/admin/faq/updateOk.ad":
-			System.out.println("→ [ADMIN] FAQ 수정 처리 (제목/내용/이미지)");
-			result = new FaqUpdateOkController().execute(request, response);
+			System.out.println("→ [ADMIN] FAQ 수정 처리 (제목/내용)");
+			result = new FaqEditOkController().execute(request, response);
 			break;
 
 		case "/admin/faq/deleteOk.ad":
-			System.out.println("→ [ADMIN] FAQ 삭제 처리 (이미지 포함)");
+			System.out.println("→ [ADMIN] FAQ 삭제 처리");
 			result = new FaqDeleteOkController().execute(request, response);
 			break;
 

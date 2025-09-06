@@ -1,198 +1,237 @@
 @charset "UTF-8";
 
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
-/* 회색영역 */
-.admin_innerwrapper{
-  width: 1100px;
-  min-height: 1080px;
-  background-color: #d9d9d9;
-  margin: auto;
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+/* ===== 전체 레이아웃 ===== */
+.admin_innerwrapper {
+	width: 1100px;
+	min-height: 950px;
+	background-color: #f4f5fa;
+	margin: auto;
+	display: flex;
+	gap: 20px;
+}
+
+/* ===== 사이드바 ===== */
+/* 사이드바 */
+.sidebar {
+  min-width: 220px;
+  background: #505FA9;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  justify-content: flex-start;
   position: relative;
 }
 
-/* 본문 이미지 */
-.admin_post_images img {
-  max-width: 80%;   /* 부모 영역 너비까지만 */
-  height: auto;      /* 세로는 비율에 맞게 자동 */
-  display: block;    /* 줄바꿈 */
-  margin: 10px auto; /* 가운데 정렬 */
-  border-radius: 8px; /* 살짝 둥글게 (옵션) */
-  object-fit: contain; /* 꽉 채우되 비율 유지 */
-}
-
-
-/* 왼쪽 메뉴바 */
-.sidebar{
-  min-width: 220px;
-  min-height: 1080px;
-  background-color: #505FA9;
-  justify-content: center;
-  align-items: center;
-}
-/* 로고 */
-.admin_logo{
-  /* border: 1px solid black; */
-  margin-left: 57px;
-  margin-bottom: 10px;
-  width: 100px;
-}
-/* 사이드바 현재위치강조 */
-#sidebar_list_community{
-  background-color: #1e223f;
-}
-ul{
-  list-style: none;
-}
-a{
-  text-decoration: none;
-} 
-.sidebar_list{
-  /* border: 1px solid black; */
-  padding: 12px 0 14px;
-  color: white;
-  text-align: center;
-  font-size: 24px;
-  /* margin: 20px auto 20px; */
-  /* background-color: #1e223f;*/
-}
-.sidebar_list:hover{
-  background-color: #1e223f;
-  scale: 110%;
-}
-/* 메인컨텐츠 */
-.admin_inner{
-  /* border: 1px solid black */
-  width: 880px;
-  margin: 20px auto;
-}
-h1{
-  text-align: center;
-  padding-bottom: 20px;
-}
-.admin_listwrapper{
-  border: 1px solid black;
-  padding: 10px;
-  margin: auto;
-  width: 800px;
-  min-height: 800px;
-  justify-content: center;
-  background-color: #929292;
-  border-radius: 10px;
-}
-.admin_whitebox{
-  background-color: white;
-  margin: auto;
-  width: 700px;
-  height: 750px;
-  padding-top: 10px;
-}
-.admin_post_titlebox{
-  display: flex;
-  /* border: 1px solid black; */
-  background-color: #d9d9d9;
-  margin: auto;
-  width: 650px;
-  height: 40px;
-  font-size: 14px;
-  text-align: center;
-}
-.admin_post_titlebox div{
-  display: flex;
-  text-align: center;
-  align-items: center;
-}
-.admin_post_tag{
-  margin: 0 10px 0;
-}
-.admin_post_icon img{
-  margin-top: 5px;
-  width: 15px;
-  height: 15px;
-}
-.admin_post_userid{
-  margin-right: 30px;
-}
-.admin_post_title{
-  width: 270px;
-  max-width: 270px;
-  font-size: 16px;
-  font-weight: bold;
-  overflow: hidden;
-  text-align: left;
-  text-overflow: ellipsis;
-  white-space: nowrap; 
-  margin-right: 10px;
-}
-.admin_post_date, .admin_post_view, .admin_post_like{
-  margin-right: 10px;
-}
-.admin_post_content{
-  border: 1px solid black;
-  padding: 10px;
-  width: 650px;
-  min-height: 300px;
-  margin: 20px auto;
-}
-.admin_post_content p{
-  word-break: break-all;
-}
-.admin_post_comment_box{
-  width: 650px;
-  min-height: 150px;
-  margin: auto;
-  background-color: #d9d9d9;
-}
-.admin_post_comment_box ul{
-  padding-top: 10px;
-}
-.admin_post_comment{
-  /* border: 1px solid black; */
-  margin: auto;
-  width: 630px;
-  min-height: 80px;
-  background-color: white;
-  padding: 5px;
-}
-.admin_post_comment_info{
-  display: flex;
-  vertical-align: middle;
-  align-items: center;
-}
-.admin_post_delete img{
-  margin: auto;
-  width: 12px;
-}
-.admin_post_comment_content p{
-  word-break: break-all; 
-}
-.admin_detail_delete{
-  /* border: 1px solid black; */
-  width: 700px;
-  height: 30px;
-  margin: 10px auto;
-  display: flex;
-  justify-content: end;
-}
-/* 수정, 삭제 버튼 */
-.admin_detail_delete button{
-  width: 50px;
-  height: 30px;
-  background-color: #e89999;
-  border-radius: 5px;
-  font-weight: bold;
-  margin-left: 10px;  
-}
 /* 로그아웃 버튼 */
-#admin_logoutbtn{
-  background-color: #1e223f;
-  color: white;
-  width: 70px;
-  height: 30px;
-  margin: 70px 77px;
+#admin_logoutbtn {
+  background-color: #e74c3c;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  /* 사이드바 맨 아래 중앙 */
+  margin-top: auto;   /* 남는 공간을 밀어내려서 하단으로 */
+  margin-bottom: 20px;
+}
+#admin_logoutbtn:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
+
+.admin_logo {
+	margin-bottom: 20px;
+	width: 100px;
+}
+
+.sidebar_list {
+	width: 100%;
+	padding: 14px 0;
+	margin: 8px 0;
+	color: white;
+	text-align: center;
+	font-size: 20px;
+	transition: 0.2s;
+}
+
+.sidebar_list:hover {
+	background-color: #1e223f;
+}
+
+.sidebar_list.active {
+	background-color: #1e223f;
+	font-weight: bold;
+}
+
+/* ===== 메인 ===== */
+.admin_inner {
+	flex: 1;
+	margin: 20px 0;
+}
+
+.admin_pagetitle {
+	font-weight: 700;
+	margin-bottom: 20px;
+	font-size: 22px;
+	color: #333;
+}
+
+.admin_listwrapper {
+	width: 100%;
+}
+
+/* ===== 상세 카드 ===== */
+.admin_whitebox {
+	background: white;
+	border-radius: 8px;
+	border: 1px solid #ccc;
+	padding: 20px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 제목 박스 */
+.admin_post_titlebox {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px;
+	padding-bottom: 12px;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 20px;
+}
+
+.admin_post_tag {
+	background: #505FA9;
+	color: #fff;
+	padding: 2px 8px;
+	border-radius: 4px;
+	font-weight: bold;
+}
+
+.admin_post_icon {
+	width: 20px;
+	height: 20px;
+}
+
+.admin_post_title {
+	font-size: 18px;
+	font-weight: bold;
+	color: #222;
+}
+
+.admin_post_userid, .admin_post_date {
+	font-size: 14px;
+	color: #666;
+}
+
+.admin_post_view, .admin_post_like {
+	font-size: 14px;
+	color: #505FA9;
+	font-weight: bold;
+}
+
+.admin_post_view label, .admin_post_like label {
+	margin-right: 4px;
+	color: #333;
+}
+
+/* 본문 */
+.admin_post_content {
+	font-size: 16px;
+	line-height: 1.6;
+	color: #444;
+	min-height: 200px;
+	padding: 10px;
+	background: #fafafa;
+	border-radius: 6px;
+	border: 1px solid #eee;
+}
+
+/* 이미지 */
+.admin_post_images {
+	margin-top: 15px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.notice_img {
+	max-width: 200px;
+	border-radius: 6px;
+	border: 1px solid #ddd;
+	object-fit: cover;
+}
+
+/* 버튼 영역 */
+.admin_detail_buttons {
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+	margin-top: 20px;
+}
+
+#admin_updatebtn {
+	background: #4caf50;
+	color: #fff;
+	font-weight: bold;
+	border: none;
+	border-radius: 6px;
+	padding: 8px 16px;
+	cursor: pointer;
+	transition: 0.2s;
+}
+
+#admin_updatebtn:hover {
+	background: #388e3c;
+}
+
+#admin_deletebtn {
+	background: #f44336;
+	color: #fff;
+	font-weight: bold;
+	border: none;
+	border-radius: 6px;
+	padding: 8px 16px;
+	cursor: pointer;
+	transition: 0.2s;
+}
+
+#admin_deletebtn:hover {
+	background: #d32f2f;
+}
+
+#admin_listbtn {
+	display: inline-block;
+	background: #505FA9;
+	color: #fff;
+	font-weight: bold;
+	border-radius: 6px;
+	padding: 8px 16px;
+	text-align: center;
+	transition: 0.2s;
+}
+
+#admin_listbtn:hover {
+	background: #3b467d;
+}

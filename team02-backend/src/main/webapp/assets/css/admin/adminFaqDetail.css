@@ -1,0 +1,217 @@
+@charset "UTF-8";
+
+/* ===== Reset ===== */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Noto Sans KR", sans-serif;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+/* ===== Layout ===== */
+.admin_innerwrapper {
+	width: 1100px;
+	min-height: 950px;
+	background-color: #d9d9d9;
+	margin: auto;
+	display: flex;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+	min-width: 220px;
+	background: #505FA9;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 20px;
+}
+
+.admin_logo {
+	margin-bottom: 20px;
+	width: 100px;
+}
+
+.sidebar_ul {
+	list-style: none;
+	padding: 0;
+	width: 100%;
+}
+
+.sidebar_list {
+	padding: 14px 0;
+	text-align: center;
+	font-size: 20px;
+	transition: all 0.2s ease-in-out;
+}
+
+.sidebar_list a {
+	color: white;
+	text-decoration: none;
+	display: block;
+}
+
+.sidebar_list:hover, .sidebar_list.active {
+	background-color: #1e223f;
+	scale: 1.05;
+}
+
+/* 로그아웃 버튼 */
+.logout_form {
+	margin-top: 40px; /* 사이드바 아래쪽으로 살짝 띄우기 */
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+#admin_logoutbtn {
+	background-color: #e74c3c;
+	color: #fff;
+	font-weight: bold;
+	border: none;
+	border-radius: 20px;
+	padding: 8px 20px;
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+}
+
+#admin_logoutbtn:hover {
+	background-color: #c0392b;
+	transform: translateY(-2px);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== Main Content ===== */
+.admin_inner {
+	flex: 1;
+	padding: 30px;
+}
+
+.admin_pagetitle {
+	font-weight: 900;
+	margin-bottom: 20px;
+}
+
+/* White content box */
+.admin_whitebox {
+	background: #fff;
+	min-height: 600px;
+	border-radius: 8px;
+	padding: 20px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Post header */
+.admin_post_titlebox {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 12px;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 12px;
+	margin-bottom: 20px;
+}
+
+.admin_post_tag p {
+	font-weight: bold;
+	color: #505FA9;
+	background: #e9ecfb;
+	padding: 4px 10px;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+.admin_post_icon img {
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+}
+
+.admin_post_userid p {
+	font-weight: 600;
+	color: #333;
+}
+
+.admin_post_title p {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.admin_post_date p {
+	font-size: 14px;
+	color: #777;
+}
+
+.admin_post_view, .admin_post_like {
+	font-size: 14px;
+	color: #555;
+	margin-left: auto;
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+/* Post content */
+.admin_post_content {
+	font-size: 15px;
+	color: #333;
+	line-height: 1.6;
+	padding: 10px 0;
+	white-space: pre-line;
+}
+
+/* ===== Bottom Buttons ===== */
+.admin_detail_btns {
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+	margin-top: 20px;
+}
+
+#admin_updatebtn, #admin_deletebtn, #admin_listbtn {
+	padding: 8px 16px;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	font-weight: bold;
+	transition: 0.2s;
+}
+
+/* 수정 버튼 */
+#admin_updatebtn {
+	background: #3498db;
+	color: #fff;
+}
+
+#admin_updatebtn:hover {
+	background: #2980b9;
+}
+
+/* 삭제 버튼 */
+#admin_deletebtn {
+	background: #e74c3c;
+	color: #fff;
+}
+
+#admin_deletebtn:hover {
+	background: #c0392b;
+}
+
+/* 목록 버튼 */
+#admin_listbtn {
+	background: #7f8c8d;
+	color: #fff;
+}
+
+#admin_listbtn:hover {
+	background: #636e72;
+}
