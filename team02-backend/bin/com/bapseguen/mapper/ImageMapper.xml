@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="image">
+	<!-- 음식 사진 -->
+	<!-- 파일 추가 -->
+	<insert id="itemInsert" parameterType="ItemImageDTO">
+		<selectKey keyProperty="itemImageNumber" resultType="int" order="BEFORE">
+		SELECT SEQ_ITEM_IMAGE_NUMBER.NEXTVAL FROM dual
+		</selectKey>
+		INSERT INTO TBL_ITEM_IMAGE(
+			ITEM_IMAGE_NUMBER,
+			ITEM_IMAGE_SYSTEM_NAME ,
+			ITEM_IMAGE_ORIGINAL_NAME,
+			ITEM_NUMBER )
+		VALUES (#{itemImageNumber},#{itemImageSystemName}, #{itemImageOriginalName},#{itemNumber})	
+	</insert>
+	
+	<!-- 파일 조회 -->
+	<select id="itemSelect" parameterType="int" resultType="ItemImageDTO">
+		SELECT 
+			ITEM_IMAGE_NUMBER,
+			ITEM_IMAGE_SYSTEM_NAME ,
+			ITEM_IMAGE_ORIGINAL_NAME,
+			ITEM_NUMBER
+		FROM TBL_ITEM_IMAGE
+		WHERE ITEM_NUMBER = #{itemNumber}
+	</select>
+	
+	<!-- 파일 삭제 -->
+	<delete id="itemDelete" parameterType="int">
+		DELETE FROM TBL_ITEM_IMAGE
+		WHERE ITEM_NUMBER = #{itemNumber}
+	</delete>
+	
+	<!-- 가게 사진 -->
+	<!-- 파일 추가 -->
+	<insert id="storeInsert" parameterType="ItemImageDTO">
+		INSERT INTO TBL_ITEM_IMAGE(
+			STORE_IMAGE_SYSTEM_NAME ,
+			SOTRE_IMAGE_ORIGINAL_NAME,
+			STORE_NUMBER )
+		VALUES (#{itemImageSystemNumber}, #{itemImageOriginNumber},#{itemNumber})	
+	</insert>
+	
+	<!-- 파일 조회 -->
+	<select id="storeSelect" parameterType="int" resultType="ItemImageDTO">
+		SELECT 
+			STORE_IMAGE_SYSTEM_NAME ,
+			STORE_IMAGE_ORIGINAL_NAME,
+			STORE_NUMBER
+		FROM TBL_ITEM_IMAGE
+		WHERE ITEM_NUMBER = #{itemNumber}
+	</select>
+	
+	<!-- 파일 삭제 -->
+	<delete id="storeDelete" parameterType="int">
+		DELETE FROM TBL_STORE_IMAGE
+		WHERE STORE_NUMBER = #{storeNumberdd}
+	</delete>
+
+</mapper>

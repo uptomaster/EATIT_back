@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="noticeList">
+
+  <!-- 공지 총 개수 -->
+  <select id="countList" resultType="int">
+    SELECT COUNT(*) FROM TBL_NOTICE
+  </select>
+
+  <!-- 공지 목록 -->
+  <select id="selectList" parameterType="map" resultType="com.bapseguen.app.dto.view.NoticeListDTO">
+    SELECT
+      NOTICE_NUMBER AS noticeNumber,
+      NOTICE_TITLE AS noticeTitle,
+      TO_CHAR(NOTICE_DATE, 'YYYY-MM-DD') AS noticeDate,
+      NOTICE_VIEWS AS noticeViews,
+      NOTICE_LIKES AS noticeLikes
+    FROM TBL_NOTICE
+    ORDER BY NOTICE_NUMBER DESC
+    OFFSET #{startRow} ROWS FETCH NEXT #{rowCount} ROWS ONLY
+  </select>
+
+</mapper>

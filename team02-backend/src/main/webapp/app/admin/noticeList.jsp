@@ -14,11 +14,9 @@
 	href="${pageContext.request.contextPath}/assets/css/admin/noticeList.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-	integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-	<!-- 회색영역 -->
 	<div class="admin_innerwrapper">
 		<!-- 좌측 사이드바 -->
 		<aside class="sidebar">
@@ -46,7 +44,7 @@
 			</form>
 		</aside>
 
-		<!-- 메인컨텐츠 영역 -->
+		<!-- 메인컨텐츠 -->
 		<div class="admin_inner">
 			<h1 class="admin_pagetitle">게시글 관리</h1>
 			<div class="admin_listwrapper">
@@ -54,7 +52,7 @@
 				<!-- 탭 메뉴 -->
 				<div class="admin_list_title">
 					<ul class="admin_list">
-						<li id="admin_list_menu_notice" class="admin_list_menu"><a
+						<li id="admin_list_menu_notice" class="admin_list_menu active"><a
 							href="${pageContext.request.contextPath}/admin/notice/list.ad">공지사항</a></li>
 						<li id="admin_list_menu_free" class="admin_list_menu"><a
 							href="${pageContext.request.contextPath}/admin/boardFree/list.ad">자유게시판</a></li>
@@ -67,7 +65,6 @@
 
 				<!-- 게시글 목록 -->
 				<div class="admin_list_whitebox">
-					<!-- 컬럼 명 -->
 					<ul class="admin_list_name">
 						<li class="admin_list_row col-num">번호</li>
 						<li class="admin_list_row col-title">제목</li>
@@ -77,7 +74,6 @@
 						<li class="admin_list_row col-likes">추천</li>
 					</ul>
 
-					<!-- 글 목록 -->
 					<ul class="admin_list_valuebox">
 						<c:choose>
 							<c:when test="${not empty noticeList}">
@@ -87,7 +83,7 @@
 										<p class="admin_list_row col-title">
 											<a
 												href="${pageContext.request.contextPath}/admin/notice/detail.ad?postNumber=${notice.postNumber}"
-												class="admin_list_userid_link"> ${notice.postTitle} </a> <span
+												class="admin_list_userid_link">${notice.postTitle}</a> <span
 												class="notice_tag ${fn:startsWith(notice.postTitle, '[이벤트]') ? 'event' : 'notice'}">
 												${fn:startsWith(notice.postTitle, '[이벤트]') ? '이벤트' : '공지'} </span>
 										</p>
@@ -103,7 +99,7 @@
 								</c:forEach>
 							</c:when>
 							<c:otherwise>
-								<li class="admin_list_value">등록된 공지사항이 없습니다.</li>
+								<li class="admin_list_value empty">등록된 공지사항이 없습니다.</li>
 							</c:otherwise>
 						</c:choose>
 					</ul>
@@ -111,12 +107,7 @@
 
 				<!-- 페이지네이션 + 검색창-->
 				<div class="admin_pagenation_search">
-					<form
-						action="${pageContext.request.contextPath}/admin/notice/write.ad"
-						method="get">
-						<button id="prepare_notice_btn" type="submit">공지작성</button>
-					</form>
-
+					<!-- 페이지네이션 -->
 					<ul class="admin_pagenation">
 						<c:if test="${prev}">
 							<li><a
@@ -141,10 +132,11 @@
 						</c:if>
 					</ul>
 
-					<form
-						action="${pageContext.request.contextPath}/admin/notice/list.ad"
-						method="get">
-						<div class="admin_search">
+					<!-- 검색 + 공지작성 버튼 같이 -->
+					<div class="admin_search_wrapper">
+						<form
+							action="${pageContext.request.contextPath}/admin/notice/list.ad"
+							method="get" class="admin_search">
 							<select class="admin_notice_category" name="searchType">
 								<option value="title" ${searchType == 'title' ? 'selected' : ''}>제목</option>
 								<option value="adminId"
@@ -154,8 +146,13 @@
 							<button class="search_btn" type="submit">
 								<i class="fas fa-search"></i>
 							</button>
-						</div>
-					</form>
+						</form>
+						<form
+							action="${pageContext.request.contextPath}/admin/notice/write.ad"
+							method="get">
+							<button id="prepare_notice_btn" type="submit">공지작성</button>
+						</form>
+					</div>
 				</div>
 
 			</div>

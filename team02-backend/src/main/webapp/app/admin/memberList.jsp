@@ -5,20 +5,17 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>회원관리</title>
   <script defer src="${pageContext.request.contextPath}/assets/js/admin/memberList.js"></script>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin/memberList.css">
   <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
   <div class="admin_innerwrapper">
     <!-- 좌측 사이드바 -->
     <aside class="sidebar">
-      <!-- 관리자페이지 로고 -->
       <a href="${pageContext.request.contextPath}/admin/dashboard.ad">
         <img src="${pageContext.request.contextPath}/assets/img/admin_logo.png" alt="admin_logo" class="admin_logo">
       </a>
@@ -30,7 +27,7 @@
           <a href="${pageContext.request.contextPath}/admin/member/list.ad">회원관리</a>
         </li>
         <li class="sidebar_list">
-          <a href="${pageContext.request.contextPath}/admin/notice/list.ad">공지사항</a>
+          <a href="${pageContext.request.contextPath}/admin/notice/list.ad">게시글 관리</a>
         </li>
         <li class="sidebar_list">
           <a href="${pageContext.request.contextPath}/admin/report/list.ad">신고관리</a>
@@ -45,14 +42,14 @@
     </aside>
 
     <!-- 메인컨텐츠 영역 -->
-    <div class="admin_inner">
+    <main class="admin_inner">
       <h1 class="admin_pagetitle">회원관리</h1>
       <div class="admin_listwrapper">
-        
+
         <!-- 탭 메뉴 -->
         <div class="admin_list_title">
           <ul class="admin_list">
-            <li class="admin_list_menu">
+            <li class="admin_list_menu active">
               <a href="${pageContext.request.contextPath}/admin/member/list.ad">회원목록</a>
             </li>
           </ul>
@@ -60,16 +57,15 @@
 
         <!-- 회원 목록 -->
         <div class="admin_list_whitebox">
-          <div class="admin_list_namebox">
-            <ul class="admin_list_name">
-              <li class="admin_list_row">번호</li>
-              <li class="admin_list_row">아이디</li>
-              <li class="admin_list_row">이름</li>
-              <li class="admin_list_row">유형</li>
-              <li class="admin_list_row">누적 경고 수</li>
-              <li class="admin_list_row">등급(포인트)</li>
-            </ul>
-          </div>
+          <!-- 컬럼 명 -->
+          <ul class="admin_list_name">
+            <li class="admin_list_row col-num">번호</li>
+            <li class="admin_list_row col-id">아이디</li>
+            <li class="admin_list_row col-name">이름</li>
+            <li class="admin_list_row col-type">유형</li>
+            <li class="admin_list_row col-warning">누적 경고 수</li>
+            <li class="admin_list_row col-grade">등급(포인트)</li>
+          </ul>
 
           <!-- 데이터 반복 -->
           <ul class="admin_list_valuebox">
@@ -77,34 +73,36 @@
               <c:when test="${not empty memberList}">
                 <c:forEach var="member" items="${memberList}">
                   <li class="admin_list_value">
-                    <p class="admin_list_row">
+                    <p class="admin_list_row col-num">
                       <c:out value="${member.MEMBERNUMBER}" />
                     </p>
-                    <p class="admin_list_row">
+                    <p class="admin_list_row col-id">
                       <a href="${pageContext.request.contextPath}/admin/member/detail.ad?memberNumber=${member.MEMBERNUMBER}"
                          class="admin_list_userid_link">
                         <c:out value="${member.MEMBERID}" />
                       </a>
                     </p>
-                    <p class="admin_list_row">
+                    <p class="admin_list_row col-name">
                       <c:out value="${member.MEMBERNAME}" />
                     </p>
-                    <p class="admin_list_row">
+                    <p class="admin_list_row col-type">
                       <c:out value="${member.MEMBERTYPE}" />
                     </p>
-                    <p class="admin_list_row">
+                    <p class="admin_list_row col-warning">
                       <c:out value="${member.WARNINGCOUNT}" />
                     </p>
-                    <p class="admin_list_row">
+                    <p class="admin_list_row col-grade">
                       <c:out value="${member.TREEGRADE}" />
-                      <img class="grade_icon" src="${pageContext.request.contextPath}/assets/img/씨앗.png" alt="등급아이콘">
+                      <img class="grade_icon"
+                           src="${pageContext.request.contextPath}/assets/img/씨앗.png"
+                           alt="등급아이콘">
                       (<c:out value="${member.PAYMENTAMOUNT}" />)
                     </p>
                   </li>
                 </c:forEach>
               </c:when>
               <c:otherwise>
-                <li class="admin_list_value">등록된 회원이 없습니다.</li>
+                <li class="admin_list_value empty">등록된 회원이 없습니다.</li>
               </c:otherwise>
             </c:choose>
           </ul>
@@ -115,9 +113,7 @@
           <!-- 페이지네이션 -->
           <ul class="admin_pagenation">
             <c:if test="${prev}">
-              <li>
-                <a href="${pageContext.request.contextPath}/admin/member/list.ad?page=${startPage-1}" class="prev">&lt;</a>
-              </li>
+              <li><a href="${pageContext.request.contextPath}/admin/member/list.ad?page=${startPage-1}" class="prev">&lt;</a></li>
             </c:if>
             <c:forEach var="i" begin="${startPage}" end="${endPage}">
               <c:choose>
@@ -125,18 +121,12 @@
                   <li><a href="#" class="active"><c:out value="${i}" /></a></li>
                 </c:when>
                 <c:otherwise>
-                  <li>
-                    <a href="${pageContext.request.contextPath}/admin/member/list.ad?page=${i}">
-                      <c:out value="${i}" />
-                    </a>
-                  </li>
+                  <li><a href="${pageContext.request.contextPath}/admin/member/list.ad?page=${i}"><c:out value="${i}" /></a></li>
                 </c:otherwise>
               </c:choose>
             </c:forEach>
             <c:if test="${next}">
-              <li>
-                <a href="${pageContext.request.contextPath}/admin/member/list.ad?page=${endPage+1}" class="next">&gt;</a>
-              </li>
+              <li><a href="${pageContext.request.contextPath}/admin/member/list.ad?page=${endPage+1}" class="next">&gt;</a></li>
             </c:if>
           </ul>
 
@@ -156,7 +146,7 @@
           </form>
         </div>
       </div>
-    </div>
+    </main>
   </div>
 </body>
 </html>
