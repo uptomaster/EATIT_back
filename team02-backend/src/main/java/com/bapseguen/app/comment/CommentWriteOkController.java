@@ -23,8 +23,8 @@ public class CommentWriteOkController implements Execute {
         HttpSession session = request.getSession();
         CommentDTO commentDTO = new CommentDTO();
         CommentDAO commentDAO = new CommentDAO();
-        System.out.println("세션에 저장된 멤버 = " + session.getAttribute("memberNumber"));
-        
+        Integer loginMember = (session == null) ? null : (Integer) session.getAttribute("memberNumber");
+        Integer loginAdmin  = (session == null) ? null : (Integer) session.getAttribute("adminNumber");    
         request.setCharacterEncoding("utf-8");
         // JSON 응답
         Gson gson = new Gson();
@@ -34,23 +34,59 @@ public class CommentWriteOkController implements Execute {
         JsonObject json = JsonParser.parseString(reader.lines().collect(Collectors.joining())).getAsJsonObject();
 
         // 필수 파라미터 확인
-        if (!json.has("postNumber") || !json.has("memberNumber") || !json.has("commentContent")) {
+        if (!json.has("postNumber") || !json.has("commentContent")) {
             response.setContentType("application/json; charset=utf-8");
             response.getWriter().write(gson.toJson(Map.of("status","fail","message","필수 데이터가 없습니다")));
             return null;
         }
 
-        // DTO 설정 
-        commentDTO.setPostNumber(json.get("postNumber").getAsInt());
-        commentDTO.setMemberNumber(json.get("memberNumber").getAsInt());
-        commentDTO.setCommentContent(json.get("commentContent").getAsString());
-        System.out.println("commentDTO 확인 :" + commentDTO);
-        //DB 저장
-        commentDAO.insert(commentDTO);
-        System.out.println("댓글 작성 완료: " + commentDTO);
-        //JSON 응답
+        int postNumber = json.get("postNumber").getAsInt();
+        String commentContent = json.get("commentContent").getAsString().trim();
+        if (commentContent.isEmpty()) {
+            response.setContentType("application/json; charset=utf-8");
+            response.getWriter().write(gson.toJson(Map.of("status","fail","message","내용을 입력하세요")));
+            return null;
+        }
+
+        // 게시판 타입
+        String postType = commentDAO.findPostType(postNumber);
+        boolean isInquiry   = "INQUIRY".equalsIgnoreCase(postType);
+        boolean isCommunity = "FREE".equalsIgnoreCase(postType)
+                           || "PROMOTION".equalsIgnoreCase(postType)
+                           || "RECIPE".equalsIgnoreCase(postType);
+
+        if (postType == null) {
+            response.getWriter().write(gson.toJson(Map.of("status","fail","message","게시글이 존재하지 않습니다")));
+            return null;
+        }
+        if (isInquiry && loginAdmin == null) {
+            response.getWriter().write(gson.toJson(Map.of("status","fail","message","문의는 관리자만 댓글 작성 가능")));
+            return null;
+        }
+        if (isCommunity && (loginMember == null || loginAdmin != null)) {
+            response.getWriter().write(gson.toJson(Map.of("status","fail","message","권한이 없습니다")));
+            return null;
+        }
+        if (!isInquiry && !isCommunity) {
+            response.getWriter().write(gson.toJson(Map.of("status","fail","message","이 게시판은 댓글을 허용하지 않습니다")));
+            return null;
+        }
+
+        // === DTO 설정(한 번에) ===
+        commentDTO.setPostNumber(postNumber);
+        commentDTO.setCommentContent(commentContent);
+        commentDTO.setMemberNumber(isCommunity ? loginMember : 0);
+        commentDTO.setAdminNumber(isInquiry ? loginAdmin : 0);
+
+        // DB 저장
+        int affected = isInquiry? commentDAO.insertInquiry(commentDTO) : commentDAO.insertCommunity(commentDTO);
+
+        // JSON 응답
         response.setContentType("application/json; charset=utf-8");
-        response.getWriter().write(gson.toJson(Map.of("status","success","commentNumber", commentDTO.getCommentNumber())));
+        response.getWriter().write(
+        		gson.toJson(affected > 0 ? 
+        		Map.of("status","success","commentNumber", commentDTO.getCommentNumber()) : Map.of("status","fail","message","댓글 저장 실패"))
+        );
         return null;
     }
 }

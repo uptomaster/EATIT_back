@@ -4,6 +4,7 @@ public class CommentListDTO {
 	private int commentNumber;
     private int postNumber;
     private int memberNumber;
+    private int adminNumber;
     private String commentContent;
     private String commentedDate; 
     private boolean commentDeleteState;
@@ -11,8 +12,7 @@ public class CommentListDTO {
     //게시글 정보
     private String postTitle;
     private String postType; // ‘NOTICE’,’FREE’,’PROMOTION’,’RECIPE’,’INQUIRY’,’FAQ’
-    private int commtentCount;
-    
+    private int commentCount;
 	public int getCommentNumber() {
 		return commentNumber;
 	}
@@ -30,6 +30,12 @@ public class CommentListDTO {
 	}
 	public void setMemberNumber(int memberNumber) {
 		this.memberNumber = memberNumber;
+	}
+	public int getAdminNumber() {
+		return adminNumber;
+	}
+	public void setAdminNumber(int adminNumber) {
+		this.adminNumber = adminNumber;
 	}
 	public String getCommentContent() {
 		return commentContent;
@@ -55,35 +61,35 @@ public class CommentListDTO {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-	
-	// 0825에 추가한 DTO 게터세터
 	public String getPostTitle() {
 		return postTitle;
+	}
+	public void setPostTitle(String postTitle) {
+		this.postTitle = postTitle;
 	}
 	public String getPostType() {
 		return postType;
 	}
-	public int getCommtentCount() {
-		return commtentCount;
-	}
-
-	public void setPostTitle(String postTitle) {
-		this.postTitle = postTitle;
-	}
 	public void setPostType(String postType) {
 		this.postType = postType;
 	}
-	public void setCommtentCount(int commtentCount) {
-		this.commtentCount = commtentCount;
+	public int getCommentCount() {
+		return commentCount;
 	}
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
+	
 	@Override
 	public String toString() {
 		return "CommentListDTO [commentNumber=" + commentNumber + ", postNumber=" + postNumber + ", memberNumber="
-				+ memberNumber + ", commentContent=" + commentContent + ", commentedDate=" + commentedDate
-				+ ", commentDeleteState=" + commentDeleteState + ", memberId=" + memberId + ", postTitle=" + postTitle
-				+ ", postType=" + postType + ", commtentCount=" + commtentCount + "]";
+				+ memberNumber + ", adminNumber=" + adminNumber + ", commentContent=" + commentContent
+				+ ", commentedDate=" + commentedDate + ", commentDeleteState=" + commentDeleteState + ", memberId="
+				+ memberId + ", postTitle=" + postTitle + ", postType=" + postType + ", commentCount=" + commentCount
+				+ "]";
 	}
-	
+    
+
 	  
 	
     
