@@ -67,7 +67,7 @@ a {
 
 /* 로그아웃 버튼 */
 .logout_form {
-	margin-top: 40px; /* 사이드바 아래와 살짝 간격 */
+	margin-top: 40px; /* 사이드바 아래쪽으로 살짝 띄우기 */
 	width: 100%;
 	display: flex;
 	justify-content: center;
@@ -101,7 +101,7 @@ a {
 	margin-bottom: 20px;
 }
 
-/* ===== White Content Box ===== */
+/* White content box */
 .admin_whitebox {
 	background: #fff;
 	min-height: 600px;
@@ -110,7 +110,7 @@ a {
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* ===== Post Header ===== */
+/* Post header */
 .admin_post_titlebox {
 	display: flex;
 	align-items: center;
@@ -151,94 +151,49 @@ a {
 	color: #777;
 }
 
-.admin_post_status {
-	margin-left: auto;
+.admin_post_view, .admin_post_like {
 	font-size: 14px;
-	font-weight: bold;
-	color: #27ae60;
+	color: #555;
+	margin-left: auto;
+	display: flex;
+	align-items: center;
+	gap: 4px;
 }
 
-/* ===== Post Content ===== */
+/* Post content */
 .admin_post_content {
 	font-size: 15px;
 	color: #333;
 	line-height: 1.6;
 	padding: 10px 0;
 	white-space: pre-line;
-	margin-bottom: 20px;
-}
-
-/* ===== Reply Section ===== */
-.admin_reply_section {
-	margin-top: 20px;
-	border-top: 1px solid #eee;
-	padding-top: 15px;
-}
-
-.reply_title {
-	font-size: 16px;
-	font-weight: bold;
-	margin-bottom: 12px;
-	color: #505FA9;
-}
-
-.reply_list {
-	margin-bottom: 15px;
-}
-
-.reply_list li {
-	padding: 8px 12px;
-	border-bottom: 1px solid #f1f1f1;
-	color: #444;
-	font-size: 14px;
-}
-
-.reply_form textarea {
-	width: 100%;
-	min-height: 80px;
-	border: 1px solid #ccc;
-	border-radius: 6px;
-	padding: 8px;
-	resize: vertical;
-	font-size: 14px;
-	margin-bottom: 10px;
-}
-
-.reply_actions {
-	display: flex;
-	justify-content: flex-end;
-}
-
-#reply_submit {
-	padding: 8px 16px;
-	border: none;
-	border-radius: 6px;
-	background: #505FA9;
-	color: #fff;
-	font-weight: bold;
-	cursor: pointer;
-	transition: 0.2s;
-}
-
-#reply_submit:hover {
-	background: #1e223f;
 }
 
 /* ===== Bottom Buttons ===== */
-.admin_detail_delete {
+.admin_detail_btns {
 	display: flex;
 	justify-content: flex-end;
 	gap: 10px;
 	margin-top: 20px;
 }
 
-#admin_deletebtn, #admin_listbtn {
+#admin_updatebtn, #admin_deletebtn, #admin_listbtn {
 	padding: 8px 16px;
 	border: none;
 	border-radius: 6px;
 	cursor: pointer;
 	font-weight: bold;
 	transition: 0.2s;
+}
+
+/* 수정 버튼 */
+#admin_updatebtn {
+	background: #3498db;
+	color: #fff;
+}
+
+#admin_updatebtn:hover {
+	background: #2980b9;
 }
 
 /* 삭제 버튼 */

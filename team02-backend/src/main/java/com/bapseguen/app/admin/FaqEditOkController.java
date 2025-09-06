@@ -10,11 +10,11 @@ import com.bapseguen.app.Result;
 import com.bapseguen.app.admin.dao.AdminDAO;
 import com.bapseguen.app.dto.view.AdminPostDTO;
 
-public class FaqWriteOkController implements Execute {
+public class FaqEditOkController implements Execute {
 
     @Override
     public Result execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("==== [ADMIN] FaqWriteOkController 실행 ====");
+        System.out.println("==== [ADMIN] FaqEditOkController 실행 ====");
 
         Result result = new Result();
         HttpSession session = request.getSession(false);
@@ -26,23 +26,25 @@ public class FaqWriteOkController implements Execute {
             return result;
         }
 
+        int postNumber = Integer.parseInt(request.getParameter("postNumber"));
         int adminNumber = (Integer) session.getAttribute("memberNumber");
         String postTitle = request.getParameter("postTitle");
         String faqContent = request.getParameter("faqContent");
 
         AdminPostDTO postDTO = new AdminPostDTO();
+        postDTO.setPostNumber(postNumber);
         postDTO.setAdminNumber(adminNumber);
         postDTO.setPostTitle(postTitle);
         postDTO.setFaqContent(faqContent);
 
         AdminDAO adminDAO = new AdminDAO();
-        adminDAO.insertFaqPost(postDTO); // TBL_POST
-        adminDAO.insertFaq(postDTO);     // TBL_FAQ
+        adminDAO.updateFaqTitle(postDTO);
+        adminDAO.updateFaqContent(postDTO);
 
-        result.setPath(request.getContextPath() + "/admin/faq/list.ad");
+        result.setPath(request.getContextPath() + "/admin/faq/detail.ad?postNumber=" + postNumber);
         result.setRedirect(true);
 
-        System.out.println("==== [ADMIN] FaqWriteOkController 완료 (postNumber=" + postDTO.getPostNumber() + ") ====");
+        System.out.println("==== [ADMIN] FaqEditOkController 완료 (postNumber=" + postNumber + ") ====");
         return result;
     }
 }
