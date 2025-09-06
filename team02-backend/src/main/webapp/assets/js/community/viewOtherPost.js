@@ -34,31 +34,28 @@ document.addEventListener("DOMContentLoaded", () => {
    
 
    //  게시글 삭제 버튼 클릭시
-	document.body.addEventListener("click", async (e) => {
-	   //console.log("=====클릭=====", e.target);
+   document.body.addEventListener("click", async (e) => {
        const deleteBtn = e.target.closest(".delete-btn");
-       if (deleteBtn) {
-         const postNumber = window.postNumber;
-		 console.log("DEBUG deleteBtn =", deleteBtn);
-		 console.log("DEBUG postNumber =", postNumber);
-         if (!postNumber) return alert("postNumber가 없습니다");
-         if (!confirm("정말 삭제하시겠습니까?")) return;
+       if (!deleteBtn) return;
 
-         try {
+       const postNumber = window.postNumber; // 전역 변수로 postNumber를 받아옴
+       if (!postNumber) return alert("postNumber가 없습니다");
+       if (!confirm("정말 삭제하시겠습니까?")) return;
+
+       try {
            const res = await fetch(`/community/postDeleteOk.co?postNumber=${encodeURIComponent(postNumber)}`, {
-             method: "GET",
-             //headers: { "X-Requested-With": "XMLHttpRequest" },
+               method: "GET"
            });
+
            if (!res.ok) throw new Error("삭제 요청 실패");
 
+           // 서버에서 리다이렉트 처리되므로 JS에서 경로 변경 안 함
            alert("게시글이 삭제되었습니다.");
-           window.location.href = "/community/freeBoardListOk.co";
-         } catch (err) {
+       } catch (err) {
            console.error("게시글 삭제 실패 :", err);
            alert("게시글 삭제에 실패했습니다.");
-         }
        }
-     });
+   });
    
    
   

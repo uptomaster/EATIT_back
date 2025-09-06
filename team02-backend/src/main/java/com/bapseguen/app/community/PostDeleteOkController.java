@@ -42,13 +42,29 @@ public class PostDeleteOkController implements Execute{
 
         // 3. 게시글 삭제
         communityDAO.delete(postNumber);
+        
+        String postType = communityDAO.getPostType(postNumber);
+        
+        if(postType == null) {
+            result.setPath("/community/freeBoardListOk.co");
+            result.setRedirect(true);
+            return result;
+        }
 
-        // 4. 리다이렉트
-        System.out.println("확인용 Result path: " + result.getPath());
-        result.setPath("/community/freeBoardListOk.co");
+         if ("FREE".equals(postType)) {
+            result.setPath("/community/freeBoardListOk.co");
+        } else if ("PROMOTION".equals(postType)) {
+            result.setPath("/community/promoBoardListOk.co");
+        } else if ("RECIPE".equals(postType)) {
+            result.setPath("/community/recipeBoardListOk.co");
+        } else {
+            throw new IllegalArgumentException("Unknown postType: " + postType);
+        }
+
         result.setRedirect(true);
+        System.out.println("확인용 Result path: " + result.getPath());
         return result;
+    }
 		
-	}
-
 }
+

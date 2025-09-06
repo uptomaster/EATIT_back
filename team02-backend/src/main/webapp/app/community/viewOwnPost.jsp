@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -13,8 +14,8 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/community/viewOwnPost.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css" />
- <%--  <link rel="stylesheet" href="${pageContext.request.contextPath}/modal.css" /> --%>
-<%--   <script defer src="${pageContext.request.contextPath}/assets/js/community/reportPostModal.js"></script> --%>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/modal.css" />
+  <script defer src="${pageContext.request.contextPath}/assets/js/community/reportPostModal.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/community/viewOwnPost.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/community/darkmode.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/community/treeGradeModal.js"></script>
@@ -31,7 +32,7 @@
   <!-- <header id="header"></header> -->
   <jsp:include page="/header.jsp" />
 
-  <!-- <aside class="side"></aside>-->
+  <aside class="side"></aside>
   
   <main class="main">
     <div class="container">
@@ -46,107 +47,77 @@
       </nav>
 
       <!-- 게시글 헤더 -->
-     <%--  <article class="post">
-        <div class="post_header">
-          <div class="author_box">
-            <img src="${pageContext.request.contextPath}/assets/img/관리자.png" alt="관리자" class="tree_icon" />
-            <span class="author_name">관리자</span>
-          </div>
-          <h1 class="post_title">밥세권 앱 신규 기능 업데이트 안내</h1>
-          <div class="post_meta">
-            <time datetime="2025-08-03T14:13:02">[2025. 8. 3. 오전 12:22:53]</time>
-            <span class="views">조회 12</span>
-            <span class="likes">추천 0</span>
-          </div>
-        </div> --%>
-
-
-
-		<div class="post">
-		  <div class="post_header">
-		    <!-- 게시글 제목 -->
-		    <div class="post_title">
-		      <h1 class="post_title"><c:out value="${post.getPostTitle()}" /></h1>
-		    </div>
-		
-		    <!-- 메타 데이터 -->
-		    <div class="post_meta">
-		      <!-- 작성자 -->
-		      <div class="post_author_area">
-		        <img src="${pageContext.request.contextPath}/assets/img/관리자.png" alt="관리자" class="tree_icon" />
-		        <span class="author_name">관리자</span>
-		      </div>
-		
-		      <!-- 작성일 -->
-		      <div class="post_date_area">
-		        <c:out value="${post.getPostCreatedDate() }" />
-		      </div>
-		
-		      <!-- 조회수 -->
-		      <div class="post_hit_area">
-		        <span>조회</span>
-		        <span><c:out value="${post.getPostViewCount()}" /></span>
-		      </div>
-		
-		      <!-- 추천 -->
-		      <div class="post_like_area">
-		        <span>추천</span>
-		        <span><c:out value="${post.getPostLikeCount()}" /></span>
-		      </div>
-		    </div>
-		  </div>
-		
-
-        	<!-- 게시글 내용 -->
+	  <article>
+	      <div class="post">
+	        <!-- 게시글 헤더 -->
+	        <div class="post_header">
+	          <div class="post_box">
+	            <!-- 작성자 -->
+	            <div class="author_box">
+	              <img src="${pageContext.request.contextPath}/assets/img/관리자.png" alt="관리자" class="tree_icon" />
+	              <span>${notice.adminId}</span>
+	            </div>
+	
+	            <!-- 게시글 제목 -->
+	            <div class="post_title">
+	              <h1 class="post_title"><c:out value="${notice.postTitle}" /></h1>
+	            </div>
+	
+	            <!-- 메타 데이터 -->
+	            <div class="post_meta">
+	              <div class="post_date_area">
+	                <fmt:formatDate value="${notice.postCreatedDate}" pattern="yyyy-MM-dd"/>
+	              </div>
+	              <div class="post_hit_area">
+	                <span>조회</span>
+	                <span><c:out value="${notice.postViewCount}" /></span>
+	              </div>
+	              <div class="post_like_area">
+	                <span>추천</span>
+	                <span><c:out value="${notice.postLikeCount}" /></span>
+	              </div>
+	            </div> <!-- .post_meta -->
+	          </div> <!-- .post_box -->
+	        </div> <!-- .post_header -->
+	
+	        <!-- 게시글 내용 -->
 	        <section class="content_section">
-	          <div class="post_content">
-	            <c:out value="${post.getFreeContent()}" />
-	            
-	           <!-- 공지사항은 관리자만 작성 가능 -->
-	          <!-- <div class="post_buttons">
+	          <div class="view-content post_content">
+	            <p><c:out value="${notice.noticeContent}" /></p>
+	          </div>
+			  <!-- 첨부파일 출력 -->
+<%-- 			  <c:forEach var="img" items="${postImages}">
+			    <img src="${pageContext.request.contextPath}/upload/${img.postImageSystemName}" alt="${img.postImageOriginalName}" />
+			  </c:forEach> --%>
+				
+				
+				
+	          <!-- 수정/삭제 버튼 = 관리자만 가능 -->
+	          <%-- <div class="post_buttons">
 	            <div class="func_button">
-	              <button class="edit">수정</button>
-	              <button class="delete">삭제</button>
-	            </div>-->
-	          </div> 
+	              <c:if test="${sessionScope.memberNumber eq post.getMemberNumber()}">
+	                <button type="button" class="modify-btn edit"
+	                  data-board-number="${post.postNumber}"
+	                  data-member-number="${sessionScope.memberNumber}">수정</button>
+	
+	                <button type="button" class="delete-btn delete"
+	                  data-board-number="${post.postNumber}"
+	                  data-member-number="${sessionScope.memberNumber}">삭제</button>
+	              </c:if>
+	            </div>
+	          </div> --%>
 	        </section>
-		</div>
-		
-		
-        <!-- 게시글 버튼 -->
-        <div class="post_buttons">
-          <button class="recommend" id="recommendBtn" title="게시글 추천하기">
-            <img src="${pageContext.request.contextPath}/assets/img/like.jpg" alt="추천 버튼" />
-          </button>
-          <span class="recommend_count" id="recommendCount">추천 0</span>
-        </div>
-      </article>
-
-      <!-- 댓글 영역 -->
-      <%-- <section class="comment_section">
-        <h2 class="comment_count">
-          <img src="${pageContext.request.contextPath}/assets/img/comment_box.svg" alt="댓글 아이콘" />
-          댓글(1)
-        </h2> --%>
-
-        <%-- <ul class="comment_list">
-          <li class="comment_item">
-            <div class="comment_profile_container">
-              <img class="comment_profile" src="${pageContext.request.contextPath}/assets/img/잎새.png" alt="잎새" />
-              <div class="comment_info">
-                <span class="comment_author">seojin</span>
-                <time class="comment_timeline" datetime="2025-08-03T15:22">[2025-08-03 15:22]</time>
-                <p class="comment_text">ㅋㅋㅋ 이 빠요 잘 와준듯</p>
-              </div>
-            </div>
-            <div class="comment_recommend_container">
-              <button class="recommend" title="댓글 추천">
-                <img src="${pageContext.request.contextPath}/assets/img/like.jpg" alt="댓글 추천 버튼" />
-              </button>
-              <span class="recommend_count" id="recommendCount">0</span>
-            </div>
-          </li>
-        </ul> --%>
+	
+	        <!-- 추천/신고 버튼 -->
+	        <div class="post_buttons">
+	          <button class="recommend" id="recommendBtn" title="게시글 추천하기">
+	            <img src="${pageContext.request.contextPath}/assets/img/like.jpg" alt="추천 버튼" />
+	          </button>
+	          <span class="recommend_count" id="recommendCount">추천 0</span>
+	          <button type="button" class="report" id="openReportModal" title="신고하기">신고</button>
+	        </div>
+	      </div> <!-- .post -->
+	    </article>
 
         <!-- 댓글 작성 폼 -->
         <%-- <form class="comment_form" action="#" method="post">
@@ -195,6 +166,8 @@
   <!-- 푸터 -->
   <jsp:include page="/footer.jsp" />
 <!--   <footer id="footer"></footer> -->
+  
+  <aside class="side"></aside>
   
 </body>
 <script>

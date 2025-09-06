@@ -8,13 +8,11 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.community.dao.CommunityDAO;
-import com.bapseguen.app.dto.FaqDTO;
-import com.bapseguen.app.dto.PostDTO;
+import com.bapseguen.app.dto.view.PostDetailDTO;
 
 public class RecipeListOkController implements Execute{
 
@@ -41,7 +39,7 @@ public class RecipeListOkController implements Execute{
         pageMap.put("endRow", endRow);
 
         // 게시글 목록 조회
-        List<PostDTO> postList = communityDAO.recipeSelectAll(pageMap);
+        List<PostDetailDTO> postList = communityDAO.recipeSelectAll(pageMap);
 		request.setAttribute("postList", postList);
 
 
