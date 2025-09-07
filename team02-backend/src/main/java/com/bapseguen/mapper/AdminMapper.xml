@@ -283,9 +283,10 @@
 
 	<!-- ===================== 문의(Inquiry) ===================== -->
 	<select id="selectInquiryList" parameterType="map"
-		resultType="AdminPostDTO">
+		resultType="com.bapseguen.app.dto.view.AdminPostDTO">
 		SELECT * FROM (
-		SELECT ROWNUM AS rowNumber, A.* FROM (
+		SELECT ROWNUM AS rowNumber, A.*
+		FROM (
 		SELECT
 		p.POST_NUMBER AS postNumber,
 		p.POST_TITLE AS postTitle,
@@ -312,17 +313,34 @@
 		TBL_SELLER_MEMBER s ON s.MEMBER_NUMBER = m.MEMBER_NUMBER
 		WHERE
 		p.POST_TYPE = 'INQUIRY'
-		<if test="searchWord != null and searchWord != ''">
-			AND (
-			p.POST_TITLE LIKE '%' || #{searchWord} || '%'
-			OR
-			m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
-			OR (CASE m.MEMBER_TYPE
-			WHEN 'GENERAL' THEN g.GENERAL_NAME
-			WHEN 'SELLER' THEN s.SELLER_NAME
-			END) LIKE '%' || #{searchWord} || '%'
-			)
+
+		<!-- 제목 검색 -->
+		<if
+			test="searchType eq 'title' and searchWord != null and searchWord != ''">
+			AND p.POST_TITLE LIKE '%' || #{searchWord} || '%'
 		</if>
+
+		<!-- 작성자 검색 -->
+		<if
+			test="searchType eq 'memberId' and searchWord != null and searchWord != ''">
+			AND m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
+		</if>
+
+		<!-- 날짜 검색 -->
+		<if
+			test="searchType eq 'date' and startDate != null and endDate != null">
+			AND p.POST_CREATED_DATE &gt;= TO_DATE(#{startDate},
+			'YYYY-MM-DD')
+			AND p.POST_CREATED_DATE &lt; TO_DATE(#{endDate},
+			'YYYY-MM-DD') + 1
+		</if>
+
+		<!-- 상태 검색 -->
+		<if
+			test="searchType eq 'status' and searchWord != null and searchWord != ''">
+			AND i.INQUIRY_STATUS = #{searchWord}
+		</if>
+
 		ORDER BY p.POST_NUMBER DESC
 		) A
 		WHERE ROWNUM &lt;= #{endRow}
@@ -332,16 +350,44 @@
 	</select>
 
 
+
+
 	<select id="countInquiries" parameterType="map" resultType="int">
 		SELECT COUNT(*)
 		FROM TBL_POST p
-		JOIN TBL_INQUIRY i ON i.POST_NUMBER =
-		p.POST_NUMBER
+		JOIN TBL_INQUIRY i ON i.POST_NUMBER = p.POST_NUMBER
+		JOIN TBL_MEMBER m ON m.MEMBER_NUMBER = p.MEMBER_NUMBER
 		WHERE p.POST_TYPE = 'INQUIRY'
-		<if test="searchWord != null and searchWord != ''">
+
+		<!-- 제목 검색 -->
+		<if
+			test="searchType eq 'title' and searchWord != null and searchWord != ''">
 			AND p.POST_TITLE LIKE '%' || #{searchWord} || '%'
 		</if>
+
+		<!-- 작성자 검색 -->
+		<if
+			test="searchType eq 'memberId' and searchWord != null and searchWord != ''">
+			AND m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
+		</if>
+
+		<!-- 날짜 검색 -->
+		<if
+			test="searchType eq 'date' and startDate != null and endDate != null">
+			AND p.POST_CREATED_DATE &gt;= TO_DATE(#{startDate}, 'YYYY-MM-DD')
+			AND p.POST_CREATED_DATE &lt; TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+		</if>
+
+		<!-- 상태 검색 -->
+		<if
+			test="searchType eq 'status' and searchWord != null and searchWord != ''">
+			AND i.INQUIRY_STATUS = #{searchWord}
+		</if>
 	</select>
+
+
+
+
 
 	<select id="selectInquiryDetail" parameterType="int"
 		resultType="com.bapseguen.app.dto.view.AdminPostDTO">
@@ -379,16 +425,28 @@
 	</update>
 
 
+
+	<!-- 답변 등록 & 수정 -->
 	<update id="updateInquiryAnswer"
 		parameterType="com.bapseguen.app.dto.view.AdminPostDTO">
 		UPDATE TBL_INQUIRY
-		SET
-		ANSWER_CONTENT = #{answerContent},
+		SET ANSWER_CONTENT = #{answerContent},
 		ANSWER_DATE = SYSDATE,
 		INQUIRY_STATUS = 'IN_PROGRESS'
 		WHERE POST_NUMBER
 		= #{postNumber}
 	</update>
+
+	<!-- 답변 삭제 -->
+	<update id="deleteInquiryAnswer" parameterType="int">
+		UPDATE
+		TBL_INQUIRY
+		SET ANSWER_CONTENT = NULL,
+		ANSWER_DATE = NULL,
+		INQUIRY_STATUS = 'YET'
+		WHERE POST_NUMBER = #{postNumber}
+	</update>
+
 
 
 	<!-- ===================== 신고 / 정지 / 블랙리스트 ===================== -->
@@ -924,37 +982,44 @@
 	<insert id="insertInquiryComment"
 		parameterType="com.bapseguen.app.dto.view.InquiryCommentDTO">
 		INSERT INTO TBL_INQUIRY_COMMENT
-		(COMMENT_NUMBER, POST_NUMBER, MEMBER_NUMBER, COMMENT_CONTENT, COMMENT_CREATED_DATE)
+		(COMMENT_NUMBER,
+		POST_NUMBER, MEMBER_NUMBER, COMMENT_CONTENT, COMMENT_CREATED_DATE)
 		VALUES (SEQ_INQUIRY_COMMENT.NEXTVAL, #{postNumber}, #{memberNumber},
 		#{commentContent}, SYSDATE)
 	</insert>
 
 	<!-- 댓글 등록시 상태 자동 변경 -->
 	<update id="updateInquiryStatusAuto" parameterType="int">
-		UPDATE TBL_INQUIRY
+		UPDATE
+		TBL_INQUIRY
 		SET INQUIRY_STATUS = 'IN_PROGRESS'
-		WHERE POST_NUMBER = #{postNumber}
+		WHERE POST_NUMBER =
+		#{postNumber}
 		AND INQUIRY_STATUS = 'YET'
 	</update>
 
 
-	<!-- 문의 댓글 목록 조회 -->
 	<select id="selectInquiryComments" parameterType="int"
 		resultType="InquiryCommentDTO">
 		SELECT
-		COMMENT_NUMBER AS commentNumber,
-		POST_NUMBER AS
+		c.COMMENT_NUMBER AS commentNumber,
+		c.POST_NUMBER AS
 		postNumber,
-		ADMIN_NUMBER AS memberNumber,
-		COMMENT_CONTENT AS
-		commentContent,
-		TO_CHAR(COMMENT_CREATED_DATE, 'YYYY-MM-DD HH24:MI') AS
-		commentCreatedDate
-		FROM TBL_INQUIRY_COMMENT
-		WHERE POST_NUMBER =
-		#{postNumber}
-		ORDER BY COMMENT_NUMBER ASC
+		c.MEMBER_NUMBER AS memberNumber,
+		c.ADMIN_NUMBER AS
+		adminNumber,
+		c.COMMENT_CONTENT AS commentContent,
+		TO_CHAR(c.COMMENTED_DATE, 'YYYY-MM-DD HH24:MI:SS') AS commentedDate,
+		c.COMMENT_DELETE_STATE AS commentDeleteState,
+		a.ADMIN_ID AS adminId
+		FROM TBL_COMMENT c
+		LEFT JOIN TBL_ADMIN a ON a.ADMIN_NUMBER =
+		c.ADMIN_NUMBER
+		WHERE c.POST_NUMBER = #{postNumber}
+		ORDER BY
+		c.COMMENTED_DATE ASC
 	</select>
+
 
 
 </mapper>
