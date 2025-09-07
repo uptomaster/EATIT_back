@@ -1,11 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>adminLogin</title>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,6 +20,8 @@
 <!-- 헤더 js -->
 <script defer src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 <script defer
+	src="${pageContext.request.contextPath}/assets/js/gradeModal.js"></script>
+<script defer
 	src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
 <script defer
 	src="${pageContext.request.contextPath}/assets/js/header.js"></script>
@@ -34,7 +33,7 @@
 <title>밥세권</title>
 </head>
 
-<body>
+<body data-context-path="${pageContext.request.contextPath}" data-member="${empty sessionScope.memberNumber ? '' : sessionScope.memberNumber}">
 	<!-------------------- 헤더 ------------------------>
 	<jsp:include page="${pageContext.request.contextPath}/header.jsp" />
 	<!-- <header id="header"></header> -->
@@ -209,13 +208,14 @@
 
 		<!-- 고정 아이콘 영역 -->
 		<div class="icon_fixed_nav">
-			<a href="#" class="icon_btn" title="나무등급"> <svg
+			<button type="button" id="treeGradeBtn" class="icon_btn" title="나무등급" aria-controls="treeGradeModal" aria-haspopup="dialog"> 
+			<svg
 					xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
           <!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
           <path fill="#202020"
 						d="M320 32C327 32 333.7 35.1 338.3 40.5L474.3 200.5C480.4 207.6 481.7 217.6 477.8 226.1C473.9 234.6 465.4 240 456 240L431.1 240L506.3 328.5C512.4 335.6 513.7 345.6 509.8 354.1C505.9 362.6 497.4 368 488 368L449.5 368L538.3 472.5C544.4 479.6 545.7 489.6 541.8 498.1C537.9 506.6 529.4 512 520 512L352 512L352 576C352 593.7 337.7 608 320 608C302.3 608 288 593.7 288 576L288 512L120 512C110.6 512 102.1 506.6 98.2 498.1C94.3 489.6 95.6 479.6 101.7 472.5L190.5 368L152 368C142.6 368 134.1 362.6 130.2 354.1C126.3 345.6 127.6 335.6 133.7 328.5L208.9 240L184 240C174.6 240 166.1 234.6 162.2 226.1C158.3 217.6 159.6 207.6 165.7 200.5L301.7 40.5C306.3 35.1 313 32 320 32z" />
         </svg>
-			</a> <a href="#" class="icon_btn" title="위치"> <svg
+			</button> <a href="#" class="icon_btn" title="위치"> <svg
 					xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
           <!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
           <path fill="#202020"
@@ -238,10 +238,90 @@
 			</a>
 		</div>
 	</main>
-
 	<!-------------------- 푸터 ------------------------>
 	<jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
+	<!-- Tree Grade Modal -->
+	<div id="treeGradeModal" class="grade-modal hidden" role="dialog"
+		aria-modal="true" aria-labelledby="treeGradeTitle">
+		<div class="grade-modal__overlay" data-close="true"></div>
 
+		<div class="grade-modal__panel">
+			<button class="grade-modal__close" type="button" aria-label="닫기">×</button>
+
+			<h2 id="treeGradeTitle" class="grade-modal__title">나의 등급</h2>
+
+			<div class="grade-modal__me">
+				<div class="grade-modal__me-left">
+					<img id="gradeIcon" class="grade-modal__icon"
+						src="${pageContext.request.contextPath}/assets/img/grade-seed.png"
+						alt="등급 아이콘">
+					<div id="gradeName" class="grade-modal__name">-</div>
+					<div class="grade-modal__total">
+						누적 결제: <strong id="totalPayment">0원</strong>
+					</div>
+				</div>
+
+				<div class="grade-modal__me-right">
+					<div class="grade-modal__bar">
+						<div id="gradeProgress" class="grade-modal__bar-fill"
+							style="width: 0%"></div>
+					</div>
+					<div id="nextGradeText" class="grade-modal__next">다음 등급까지 - 원</div>
+				</div>
+			</div>
+
+			<!-- ⬇️ 등급 리스트(UL) 여기에 넣기 -->
+			<div class="grade-modal__levels">
+				<h3 class="grade-modal__subtitle">등급 정보</h3>
+				<ul class="grade-levels">
+					<li class="grade-level" data-key="SEED">
+						<div class="grade-level__left">
+							<img
+								src="${pageContext.request.contextPath}/assets/img/씨앗.png"
+								alt="씨앗 아이콘" class="grade-level__icon"> <span
+								class="grade-level__name">씨앗</span>
+						</div> <span class="grade-level__range">0 ~ 100,000</span>
+					</li>
+					<li class="grade-level" data-key="SPROUT">
+						<div class="grade-level__left">
+							<img
+								src="${pageContext.request.contextPath}/assets/img/새싹.png"
+								alt="새싹 아이콘" class="grade-level__icon"> <span
+								class="grade-level__name">새싹</span>
+						</div> <span class="grade-level__range">100,001 ~ 300,000</span>
+					</li>
+					<li class="grade-level" data-key="LEAF">
+						<div class="grade-level__left">
+							<img
+								src="${pageContext.request.contextPath}/assets/img/잎새.png"
+								alt="잎새 아이콘" class="grade-level__icon"> <span
+								class="grade-level__name">잎새</span>
+						</div> <span class="grade-level__range">300,001 ~ 700,000</span>
+					</li>
+					<li class="grade-level" data-key="BRANCH">
+						<div class="grade-level__left">
+							<img
+								src="${pageContext.request.contextPath}/assets/img/가지.png"
+								alt="가지 아이콘" class="grade-level__icon"> <span
+								class="grade-level__name">가지</span>
+						</div> <span class="grade-level__range">700,001 ~ 1,500,000</span>
+					</li>
+					<li class="grade-level" data-key="TREE">
+						<div class="grade-level__left">
+							<img
+								src="${pageContext.request.contextPath}/assets/img/나무.png"
+								alt="나무 아이콘" class="grade-level__icon"> <span
+								class="grade-level__name">나무</span>
+						</div> <span class="grade-level__range">1,500,001 ~</span>
+					</li>
+				</ul>
+			</div>
+
+			<div class="grade-modal__foot">
+				<button class="grade-modal__close-btn" type="button">닫기</button>
+			</div>
+		</div>
+	</div>
 	<script>
 		let memberNumber = "${sessionScope.memberNumber}";
 	</script>

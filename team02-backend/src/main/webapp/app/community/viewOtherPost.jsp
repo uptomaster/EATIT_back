@@ -143,7 +143,7 @@
 	
 	      <c:if test="${not empty sessionScope.memberNumber and empty sessionScope.adminNumber}">
 		  <form class="comment_form" id="commentForm" onsubmit="return false;">
-		    <img class="comment_profile" src="${pageContext.request.contextPath}/assets/img/나무.png" alt="프로필" />
+		    <img class="comment_profile" id="myCommentIcon" src="${pageContext.request.contextPath}/assets/img/나무.png" alt="프로필" />
 		    <span class="comment_author">
 		      <c:choose>
 		        <c:when test="${not empty sessionScope.memberId}">${sessionScope.memberId}</c:when>

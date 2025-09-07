@@ -12,7 +12,7 @@ public class GeneralMemberDTO {
 	private String generalJoinDate;
 	private String generalUpdatedDate;
 	private String generalTreeGrade;
-	private String generalPaymentAmount;
+	private int generalPaymentAmount;
 	
 	// getter & setter
 	public int getMemberNumber() {
@@ -95,11 +95,11 @@ public class GeneralMemberDTO {
 		this.generalTreeGrade = generalTreeGrade;
 	}
 
-	public String getGeneralPaymentAmount() {
+	public int getGeneralPaymentAmount() {
 		return generalPaymentAmount;
 	}
 
-	public void setGeneralPaymentAmount(String generalPaymentAmount) {
+	public void setGeneralPaymentAmount(int generalPaymentAmount) {
 		this.generalPaymentAmount = generalPaymentAmount;
 	}
 

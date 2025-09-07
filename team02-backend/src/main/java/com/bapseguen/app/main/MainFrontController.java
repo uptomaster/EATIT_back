@@ -103,7 +103,10 @@ public class MainFrontController extends HttpServlet {
 			System.out.println("레시피 리스트 페이지 이동 요청");
 			result = new FreeBoardReadOkController().execute(request, response);
 			break;
-			
+		//나무모달	
+	    case "/main/gradeInfo.ma":
+	        result = new GradeInfoOkController().execute(request, response);
+	        break;			
 
 		}
 
