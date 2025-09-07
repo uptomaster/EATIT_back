@@ -26,7 +26,7 @@
 
 
 	<!-- 음식 판매 상세 조회 -->
-	<select id="detailItem" parameterType="int" resultType="ItemListDTO">
+	<select id="detailItem" parameterType="int" resultType="ItemInsertDTO">
 		
 		SELECT
 		    i.ITEM_NUMBER AS itemNumber,
@@ -36,7 +36,25 @@
 		    i.ITEM_PRICE AS itemPrice,
 		    i.ITEM_CONTENT AS itemContent,
 		    i.ITEM_QUANTITY AS itemQuantity,
-		    i.ITEM_EXPIRE_DATE AS itemExpireDate,
+		    TO_CHAR(i.ITEM_EXPIRE_DATE,'YYYY-MM-DD') AS itemExpireDate,
+		    i.ITEM_CREATED_TIME AS itemCreatedTime,
+		    i.ITEM_UPDATED_TIME AS itemUpdatedTime,
+		    i.ITEM_SELL_STATE AS itemSellState
+		FROM TBL_ITEM i
+		WHERE i.ITEM_NUMBER = #{itemNumber}
+		
+	</select>
+	<select id="detailItemList" parameterType="int" resultType="ItemListDTO">
+		
+		SELECT
+		    i.ITEM_NUMBER AS itemNumber,
+		    i.BUSINESS_NUMBER AS businessNumber,
+		    i.ITEM_TYPE AS itemType,
+		    i.ITEM_NAME AS itemName,
+		    i.ITEM_PRICE AS itemPrice,
+		    i.ITEM_CONTENT AS itemContent,
+		    i.ITEM_QUANTITY AS itemQuantity,
+		    TO_CHAR(i.ITEM_EXPIRE_DATE,'YYYY-MM-DD') AS itemExpireDate,
 		    i.ITEM_CREATED_TIME AS itemCreatedTime,
 		    i.ITEM_UPDATED_TIME AS itemUpdatedTime,
 		    i.ITEM_SELL_STATE AS itemSellState

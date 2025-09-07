@@ -6,9 +6,9 @@
 <meta charset="UTF-8">
 <title>FAQ 작성</title>
 <script defer
-	src="${pageContext.request.contextPath}/assets/js/admin/faqWrite.js"></script>
+	src="${pageContext.request.contextPath}/assets/js/admin/adminFaqWrite.js"></script>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/css/admin/faqWrite.css">
+	href="${pageContext.request.contextPath}/assets/css/admin/adminFaqWrite.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 </head>

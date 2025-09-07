@@ -186,6 +186,9 @@ public class AdminFrontController extends HttpServlet {
 		case "/admin/inquiry/list.ad":
 			System.out.println("→ [ADMIN] 문의글 목록 요청");
 			result = new InquiryListController().execute(request, response);
+			// 경로를 inquiryList.jsp → adminInquiry.jsp 로 수정
+			result.setPath("/app/admin/adminInquiry.jsp");
+			result.setRedirect(false);
 			break;
 
 		case "/admin/inquiry/detail.ad":

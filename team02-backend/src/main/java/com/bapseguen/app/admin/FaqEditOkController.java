@@ -1,50 +1,57 @@
 package com.bapseguen.app.admin;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
-import com.bapseguen.app.admin.dao.AdminDAO;
 import com.bapseguen.app.dto.view.AdminPostDTO;
+import com.bapseguen.app.admin.dao.AdminDAO;
 
 public class FaqEditOkController implements Execute {
 
-    @Override
-    public Result execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("==== [ADMIN] FaqEditOkController 실행 ====");
+	@Override
+	public Result execute(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		System.out.println("==== [ADMIN] FaqEditOkController 실행 ====");
 
-        Result result = new Result();
-        HttpSession session = request.getSession(false);
+		Result result = new Result();
+		HttpSession session = request.getSession(false);
 
-        if (session == null || !"ADMIN".equals(String.valueOf(session.getAttribute("memberType")))) {
-            System.out.println("[ADMIN] 권한 없음 → 로그인 페이지로 이동");
-            result.setPath(request.getContextPath() + "/admin/login.ad");
-            result.setRedirect(true);
-            return result;
-        }
+		// 1) 로그인/권한 체크
+		Integer adminNumber = (session != null) ? (Integer) session.getAttribute("adminNumber") : null;
+		String adminGrade = (session != null) ? (String) session.getAttribute("adminGrade") : null;
 
-        int postNumber = Integer.parseInt(request.getParameter("postNumber"));
-        int adminNumber = (Integer) session.getAttribute("memberNumber");
-        String postTitle = request.getParameter("postTitle");
-        String faqContent = request.getParameter("faqContent");
+		if (adminNumber == null || adminGrade == null || !"관리자".equals(adminGrade)) {
+			System.out.println("[ADMIN] 세션 없음 또는 관리자 권한 아님 → 로그인 페이지로 이동");
+			result.setPath(request.getContextPath() + "/admin/login.ad");
+			result.setRedirect(true);
+			return result;
+		}
 
-        AdminPostDTO postDTO = new AdminPostDTO();
-        postDTO.setPostNumber(postNumber);
-        postDTO.setAdminNumber(adminNumber);
-        postDTO.setPostTitle(postTitle);
-        postDTO.setFaqContent(faqContent);
+		// 2) 파라미터 수집
+		int postNumber = Integer.parseInt(request.getParameter("postNumber"));
+		String postTitle = request.getParameter("postTitle");
+		String faqContent = request.getParameter("faqContent");
 
-        AdminDAO adminDAO = new AdminDAO();
-        adminDAO.updateFaqTitle(postDTO);
-        adminDAO.updateFaqContent(postDTO);
+		// 3) DTO 생성
+		AdminPostDTO faqDTO = new AdminPostDTO();
+		faqDTO.setPostNumber(postNumber);
+		faqDTO.setPostTitle(postTitle);
+		faqDTO.setFaqContent(faqContent);
+		faqDTO.setAdminNumber(adminNumber);
 
-        result.setPath(request.getContextPath() + "/admin/faq/detail.ad?postNumber=" + postNumber);
-        result.setRedirect(true);
+		// 4) DB 업데이트
+		AdminDAO adminDAO = new AdminDAO();
+		adminDAO.updateFaqTitle(faqDTO);
+		adminDAO.updateFaqContent(faqDTO);
 
-        System.out.println("==== [ADMIN] FaqEditOkController 완료 (postNumber=" + postNumber + ") ====");
-        return result;
-    }
+		// 5) 수정 완료 후 상세 페이지로 이동
+		result.setPath(request.getContextPath() + "/admin/faq/detail.ad?postNumber=" + postNumber);
+		result.setRedirect(true);
+
+		System.out.println("==== [ADMIN] FaqEditOkController 완료 (postNumber=" + postNumber + ") ====");
+		return result;
+	}
 }

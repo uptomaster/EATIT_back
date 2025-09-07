@@ -1,36 +1,49 @@
 package com.bapseguen.app.admin;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.admin.dao.AdminDAO;
 import com.bapseguen.app.dto.view.AdminPostDTO;
+import com.bapseguen.app.dto.view.InquiryCommentDTO;
 
 public class InquiryCommentOkController implements Execute {
+	@Override
+	public Result execute(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-    @Override
-    public Result execute(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+		System.out.println("[ADMIN] 문의 댓글 등록 요청");
 
-        System.out.println("[ADMIN] 문의글 답변 처리");
+		int postNumber = Integer.parseInt(request.getParameter("postNumber"));
+		String commentContent = request.getParameter("commentContent");
 
-        int postNumber = Integer.parseInt(request.getParameter("postNumber"));
-        String inquiryStatus = request.getParameter("inquiryStatus"); 
-        // "IN_PROGRESS" 또는 "COMPLETE" 값으로 넘어옴
+		HttpSession session = request.getSession();
+		Integer adminNumber = (Integer) session.getAttribute("adminNumber");
 
-        AdminPostDTO postDTO = new AdminPostDTO();
-        postDTO.setPostNumber(postNumber);
-        postDTO.setInquiryStatus(inquiryStatus);
+		// 댓글 DTO
+		InquiryCommentDTO commentDTO = new InquiryCommentDTO();
+		commentDTO.setPostNumber(postNumber);
+		commentDTO.setAdminNumber(adminNumber);
+		commentDTO.setCommentContent(commentContent);
 
-        AdminDAO dao = new AdminDAO();
-        dao.updateInquiryStatus(postDTO);
+		AdminDAO dao = new AdminDAO();
+		dao.insertInquiryComment(commentDTO);
 
-        Result result = new Result();
-        result.setPath(request.getContextPath() + "/admin/inquiry/detail.ad?postNumber=" + postNumber);
-        result.setRedirect(true);
-        return result;
-    }
+		// 댓글 등록 성공 후 상태 자동 업데이트 (최초 댓글이면 IN_PROGRESS)
+		AdminPostDTO dto = new AdminPostDTO();
+		dto.setPostNumber(postNumber);
+		dto.setInquiryStatus("IN_PROGRESS");
+		dao.updateInquiryStatus(dto);
+
+		Result result = new Result();
+		result.setPath(request.getContextPath() + "/admin/inquiry/detail.ad?postNumber=" + postNumber);
+		result.setRedirect(true);
+		return result;
+	}
 }

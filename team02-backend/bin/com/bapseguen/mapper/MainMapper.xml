@@ -4,25 +4,21 @@
 
 	<!-- 배너 목록 조회 활성(Y) + 마감일 유효 배너 상위 N개 -->
 	<select id="bannerList" parameterType="int"
-		resultType="BannerDTO">
+		resultType="AdminImageDTO">
     <![CDATA[
-    SELECT * FROM (
-      SELECT
-        b.BANNER_NUMBER           AS bannerNumber,
-        b.BANNER_TITLE            AS bannerTitle,
-        b.ADMIN_IMAGE_NUMBER      AS imageNumber,
-        TO_CHAR(b.BANNER_END_DATE, 'YYYY-MM-DD') AS bannerEndDate,
-        CASE b.BANNER_IS_ACTIVE WHEN 'Y' THEN 1 ELSE 0 END AS bannerIsActive,
-        ai.ADMIN_IMAGE_SYSTEM_NAME    AS adminImageSystemName,
-        ai.ADMIN_IMAGE_ORIGINAL_NAME  AS adminImageOriginalName
-      FROM TBL_BANNER b
-      JOIN TBL_ADMIN_IMAGE ai
-        ON ai.ADMIN_IMAGE_NUMBER = b.ADMIN_IMAGE_NUMBER
-      WHERE b.BANNER_IS_ACTIVE = 'Y'
-        AND b.BANNER_END_DATE >= TRUNC(SYSDATE)
-      ORDER BY b.BANNER_CREATED_DATE DESC NULLS LAST, b.BANNER_NUMBER DESC
-    )
-    WHERE ROWNUM <= #{limit}
+    SELECT 
+    ai.ADMIN_IMAGE_NUMBER,
+    ai.ADMIN_IMAGE_SYSTEM_NAME,
+    ai.ADMIN_IMAGE_ORIGINAL_NAME,
+    ai.ADMIN_NUMBER,
+    ai.POST_NUMBER,
+    p.POST_TITLE
+	FROM 
+    TBL_ADMIN_IMAGE ai
+	JOIN 
+    TBL_POST p ON ai.POST_NUMBER = p.POST_NUMBER
+	WHERE 
+    p.POST_TITLE LIKE '%이벤트%'
     ]]>
 	</select>
 

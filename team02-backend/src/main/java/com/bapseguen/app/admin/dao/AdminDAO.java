@@ -11,6 +11,7 @@ import com.bapseguen.app.dto.MemberBlacklistDTO;
 import com.bapseguen.app.dto.MemberSuspendDTO;
 import com.bapseguen.app.dto.PostReportDTO;
 import com.bapseguen.app.dto.view.AdminPostDTO;
+import com.bapseguen.app.dto.view.InquiryCommentDTO;
 import com.bapseguen.config.MyBatisConfig;
 
 public class AdminDAO {
@@ -237,21 +238,30 @@ public class AdminDAO {
 	public int deleteBoardRecipe(int postNumber) {
 		return sqlSession.delete("admin.deleteBoardRecipe", postNumber);
 	}
-	
+
 	// 자유게시판 count
-	public int countBoardFree(Map<String,Object> params) {
-	    return sqlSession.selectOne("admin.countBoardFree", params);
+	public int countBoardFree(Map<String, Object> params) {
+		return sqlSession.selectOne("admin.countBoardFree", params);
 	}
 
 	// 홍보게시판 count
-	public int countBoardPromotion(Map<String,Object> params) {
-	    return sqlSession.selectOne("admin.countBoardPromotion", params);
+	public int countBoardPromotion(Map<String, Object> params) {
+		return sqlSession.selectOne("admin.countBoardPromotion", params);
 	}
 
 	// 레시피게시판 count
-	public int countBoardRecipe(Map<String,Object> params) {
-	    return sqlSession.selectOne("admin.countBoardRecipe", params);
+	public int countBoardRecipe(Map<String, Object> params) {
+		return sqlSession.selectOne("admin.countBoardRecipe", params);
 	}
 
+	// 문의 댓글 등록
+	public void insertInquiryComment(InquiryCommentDTO commentDTO) {
+		sqlSession.insert("admin.insertInquiryComment", commentDTO);
+	}
+
+	// 문의 댓글 목록 조회
+	public List<InquiryCommentDTO> selectInquiryComments(int postNumber) {
+		return sqlSession.selectList("admin.selectInquiryComments", postNumber);
+	}
 
 }
