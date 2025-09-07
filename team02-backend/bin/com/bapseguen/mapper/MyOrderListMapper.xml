@@ -14,6 +14,7 @@
 			       FROM TBL_STORE s
 			      WHERE s.business_number = i.business_number)  AS storeName,
 			    i.item_name                                     AS itemName,
+			    oi.ORDER_ITEM_UNIT_PRICE												AS orederItemPrice,
 			    oi.order_item_quantity                          AS orderItemQuantity,
 			    (oi.order_item_unit_price * oi.order_item_quantity) AS ordersTotalAmount
 			FROM TBL_ORDERS o
@@ -49,7 +50,7 @@
 				  ON i.item_number = oi.item_number
 				WHERE o.orders_member_number = #{memberNumber}
 				  AND i.item_type = 'FOOD'
-				ORDER BY o.orders_date DESC, o.orders_number DESC, oi.order_item_number DESC;
+				ORDER BY o.orders_date DESC, o.orders_number DESC, oi.order_item_number DESC
 		)
 		]]>
 	</select>
@@ -61,19 +62,18 @@
 		SELECT ROWNUM AS RNUM, SUBQUERY.*
 		FROM (
 			SELECT
-		    o.orders_date                                   AS ordersDate,
-		    (SELECT s.store_name
+			o.orders_date                                   AS ordersDate,
+			(SELECT s.store_name
 			       FROM TBL_STORE s
 			      WHERE s.business_number = i.business_number)  AS storeName,
-			    i.item_name                                     AS itemName,
-			    oi.order_item_quantity                          AS orderItemQuantity,
-			    (oi.order_item_unit_price * oi.order_item_quantity) AS ordersTotalAmount
+			i.item_name                                     AS itemName,
+			oi.ORDER_ITEM_UNIT_PRICE						AS orederItemPrice,
+			oi.order_item_quantity                          AS orderItemQuantity,
+			(oi.order_item_unit_price * oi.order_item_quantity) AS ordersTotalAmount
 			FROM TBL_ORDERS o
-			JOIN TBL_ORDER_ITEM oi
-			  ON oi.orders_number = o.orders_number
-			JOIN TBL_ITEM i
-			  ON i.item_number = oi.item_number
-		 		WHERE o.orders_member_number = #{memberNumber}
+			JOIN TBL_ORDER_ITEM oi  ON oi.orders_number = o.orders_number
+			JOIN TBL_ITEM i  ON i.item_number = oi.item_number
+			WHERE o.orders_member_number = #{memberNumber},
 				  AND i.item_type = 'INGREDIENT'
 			ORDER BY o.orders_date DESC, o.orders_number DESC, oi.order_item_number DESC
 			) SUBQUERY
@@ -87,21 +87,20 @@
 			SELECT count(*)
 		FROM (
 				SELECT
-				    o.orders_date                                   AS ordersDate,
-				    (SELECT s.store_name
+				o.orders_date                                   AS ordersDate,
+				(SELECT s.store_name
 				       FROM TBL_STORE s
 				      WHERE s.business_number = i.business_number)  AS storeName,
-				    i.item_name                                     AS itemName,
-				    oi.order_item_quantity                          AS orderItemQuantity,
-				    (oi.order_item_unit_price * oi.order_item_quantity) AS ordersTotalAmount
+				i.item_name                                     AS itemName,
+				oi.ORDER_ITEM_UNIT_PRICE						AS orederItemPrice,
+				oi.order_item_quantity                          AS orderItemQuantity,
+				(oi.order_item_unit_price * oi.order_item_quantity) AS ordersTotalAmount
 				FROM TBL_ORDERS o
-				JOIN TBL_ORDER_ITEM oi
-				  ON oi.orders_number = o.orders_number
-				JOIN TBL_ITEM i
-				  ON i.item_number = oi.item_number
-				WHERE o.orders_member_number = #{memberNumber}
-				  AND i.item_type = 'INGREDIENT'
-				ORDER BY o.orders_date DESC, o.orders_number DESC, oi.order_item_number DESC;
+				JOIN TBL_ORDER_ITEM oi  ON oi.orders_number = o.orders_number
+				JOIN TBL_ITEM i  ON i.item_number = oi.item_number
+				WHERE o.orders_member_number = #{memberNumber},
+					  AND i.item_type = 'INGREDIENT'
+				ORDER BY o.orders_date DESC, o.orders_number DESC, oi.order_item_number DESC
 		)	
 		]]>
 	</select>

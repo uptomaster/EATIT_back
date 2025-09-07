@@ -3,11 +3,28 @@
 <mapper namespace="notice">
 
 	<!-- 공지목록 조희 -->
-	<select id="noticeSelectAll" resultType="PostDTO">
-		SELECT POST_TITLE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_LIKE_COUNT,POST_TYPE,POST_NUMBER
-		FROM TBL_POST
-		WHERE POST_TYPE = 'NOTICE'
-		ORDER BY POST_CREATED_DATE DESC
+	<select id="noticeSelectAll" resultType="PostDetailDTO">
+	  <![CDATA[
+	    SELECT * FROM (
+	      SELECT ROWNUM AS RNUM, SUBQ.* FROM (
+	        SELECT 
+	            P.POST_NUMBER       AS postNumber,
+	            P.POST_TITLE        AS postTitle,
+	            P.POST_CREATED_DATE AS postCreatedDate,
+	            P.POST_VIEW_COUNT   AS postViewCount,
+	            P.POST_LIKE_COUNT   AS postLikeCount,
+	            P.POST_TYPE         AS postType,
+	            A.ADMIN_NUMBER      AS memberNumber,  -- 공지 작성자는 관리자
+	            A.ADMIN_ID          AS memberId
+	        FROM TBL_POST P
+	        JOIN TBL_ADMIN A ON P.ADMIN_NUMBER = A.ADMIN_NUMBER
+	        WHERE P.POST_TYPE = 'NOTICE'
+	          AND P.POST_DELETE_STATE = 'N'
+	        ORDER BY P.POST_CREATED_DATE DESC
+	      ) SUBQ
+	    )
+	    WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+	  ]]>
 	</select>
 
 	<!-- 공지 게시글 총 개수 -->
@@ -19,19 +36,26 @@
 	
 	<!--조회수 쿼리  -->
 	<update id="noticeUpdateReadCount" parameterType="int">
-		UPDATE TBL_NOTICE
+		UPDATE TBL_POST
 		SET POST_VIEW_COUNT=POST_VIEW_COUNT+1
 		WHERE POST_NUMBER=#{postNumber}
 	</update>
 
-	<!-- 공지 상세(1건조회) -->
-	<select id="noticeSelect" parameterType="int" resultType="PostDTO">
-		<![CDATA[
-			SELECT M.MEMBER_NUMBER,M.MEMBER_ID, P.POST_NUMBER,P.POST_TITLE,P.POST_CREATED_DATE,P.POST_VIEW_COUNT
-			FROM TBL_MEMBER M JOIN TBL_POST P
-			ON P.MEMBER_NUMBER=M.MEMBER_NUMBER
-			WHERE P.POST_NUMBER= #{postNumber}
-		]]>
+	<!-- 공지사항 상세 조회 -->
+	<select id="noticeSelect" parameterType="int" resultType="com.bapseguen.app.dto.NoticeDTO">
+	    SELECT 
+	        p.post_number      AS postNumber,
+	        p.post_title       AS postTitle,
+	        p.post_created_date AS postCreatedDate,
+	        p.post_type        AS postType,
+	        n.notice_content   AS noticeContent,
+	        a.admin_id         AS adminId,
+	        a.admin_number     AS adminNumber
+	    FROM tbl_post p
+	    JOIN tbl_notice n ON p.post_number = n.post_number
+	    JOIN tbl_admin a ON p.admin_number = a.admin_number
+	    WHERE p.post_number = #{postNumber}
 	</select>
+
 
 </mapper>
