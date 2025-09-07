@@ -73,7 +73,44 @@ document.addEventListener('DOMContentLoaded', () => {
   const listEl   = document.getElementById('commentList');
   const inputEl  = document.getElementById('commentInput');
   const submitEl = document.getElementById('commentSubmit');
+  const ctx = window.ctx || document.body.dataset.contextPath || '';
+  const myIconEl = document.getElementById('myCommentIcon');
 
+  if (myIconEl) {
+    if (adminNumber && Number(adminNumber) > 0) {
+      myIconEl.src = `${ctx}/assets/img/${encodeURIComponent('관리자')}.png`;
+      myIconEl.alt = '관리자';
+    } else if (memberNumber) {
+      const gradeByTotal = (total) => {
+        if (total <= 100000)  return '씨앗';
+        if (total <= 300000)  return '새싹';
+        if (total <= 700000)  return '잎새';
+        if (total <= 1500000) return '가지';
+        return '나무';
+      };
+      (async () => {
+        try {
+          const res = await fetch(`${ctx}/main/gradeInfo.ma`, { headers: { 'Accept': 'application/json' }});
+          const data = res.ok ? await res.json() : null;
+          const total = Number(data?.totalPayment) || 0;
+          const grade = gradeByTotal(total);
+          myIconEl.src = `${ctx}/assets/img/${encodeURIComponent(grade)}.png`;
+          myIconEl.alt = grade;
+		  //로딩 실패시 기본이미지(씨앗)
+          myIconEl.onerror = () => { myIconEl.src = `${ctx}/assets/img/${encodeURIComponent('씨앗')}.png`; };
+        } catch (_) {
+          /* 실패 시 기본 아이콘 유지 */
+        }
+      })();
+    }
+  }
+  
+  function iconSrcByGrade(c) {
+    // 관리자면 '관리자.png', 아니면 등급명 그대로 파일명 사용
+    const name = (c.adminNumber && Number(c.adminNumber) > 0) ? '관리자' : (c.treeGrade || '씨앗');
+    // 한글 파일명 인코딩
+    return `${ctx}/assets/img/${encodeURIComponent(name)}.png`;
+  }
   function escHtml(s) {
     const d = document.createElement('div');
     d.textContent = String(s ?? '');
@@ -108,16 +145,21 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     const frag = document.createDocumentFragment();
+
     items.forEach(c => {
-      const isMine = memberNumber && String(memberNumber) === String(c.memberNumber);
-	  const isAdmin = adminNumber && Number(adminNumber) > 0;
+      const isMine  = memberNumber && String(memberNumber) === String(c.memberNumber);
+      const isAdmin = adminNumber && Number(adminNumber) > 0;
+
+      // ⬇️ 등급/관리자에 맞는 아이콘 경로 계산 (여기서 icon을 만든다!)
+      const icon = iconSrcByGrade(c);
+
       const li = document.createElement('li');
       li.className = 'comment_item';
       li.dataset.number = c.commentNumber;
 
       li.innerHTML = `
         <div class="comment_profile_container">
-          <img class="comment_profile" src="/assets/img/잎새.png" alt="프로필" />
+          <img class="comment_profile" src="${icon}" alt="프로필" onerror="this.src='${ctx}/assets/img/씨앗.png'"/>
           <div class="comment_info">
             <span class="comment_author">${escHtml(c.memberId)}</span>
             <time class="comment_timeline">${escHtml(c.commentedDate || '')}</time>
@@ -128,6 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
       frag.appendChild(li);
     });
+
     listEl.appendChild(frag);
   }
 

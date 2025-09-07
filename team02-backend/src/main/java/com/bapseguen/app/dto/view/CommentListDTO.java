@@ -9,6 +9,9 @@ public class CommentListDTO {
     private String commentedDate; 
     private boolean commentDeleteState;
     private String memberId;
+    private int paymentAmount;
+    private String treeGrade;
+    
     //게시글 정보
     private String postTitle;
     private String postType; // ‘NOTICE’,’FREE’,’PROMOTION’,’RECIPE’,’INQUIRY’,’FAQ’
@@ -80,14 +83,27 @@ public class CommentListDTO {
 		this.commentCount = commentCount;
 	}
 	
+	public int getPaymentAmount() {
+		return paymentAmount;
+	}
+	public void setPaymentAmount(int paymentAmuount) {
+		this.paymentAmount = paymentAmuount;
+	}
+	public String getTreeGrade() {
+		return treeGrade;
+	}
+	public void setTreeGrade(String treeGrade) {
+		this.treeGrade = treeGrade;
+	}
 	@Override
 	public String toString() {
 		return "CommentListDTO [commentNumber=" + commentNumber + ", postNumber=" + postNumber + ", memberNumber="
 				+ memberNumber + ", adminNumber=" + adminNumber + ", commentContent=" + commentContent
 				+ ", commentedDate=" + commentedDate + ", commentDeleteState=" + commentDeleteState + ", memberId="
-				+ memberId + ", postTitle=" + postTitle + ", postType=" + postType + ", commentCount=" + commentCount
-				+ "]";
+				+ memberId + ", paymentAmount=" + paymentAmount + ", treeGrade=" + treeGrade + ", postTitle="
+				+ postTitle + ", postType=" + postType + ", commentCount=" + commentCount + "]";
 	}
+
     
 
 	  
