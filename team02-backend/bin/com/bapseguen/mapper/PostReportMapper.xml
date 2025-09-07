@@ -49,4 +49,10 @@
      WHERE r.POST_REPORT_NUMBER = #{postReportNumber}
        AND r.POST_NUMBER        = #{postNumber}
   </update>  
+  
+  <select id="findAuthor" parameterType="int" resultType="int">
+    SELECT MEMBER_NUMBER
+    FROM TBL_POST
+    WHERE POST_NUMBER = #{postNumber}
+  </select>  
 </mapper>
