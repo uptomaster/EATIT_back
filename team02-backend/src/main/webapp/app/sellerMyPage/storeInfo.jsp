@@ -44,10 +44,10 @@
 					href="${pageContext.request.contextPath}/sellerMyPage/editSellerInfo.se">내
 						정보 수정</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/sellerMyPage/buiedFood.se">음식
+					href="${pageContext.request.contextPath}/sellerMyPage/sellerfoodPurchaseList.se">음식
 						구매 내역</a></li>
 				<li><a
-					href="${pageContext.request.contextPath}/sellerMyPage/buiedIngredient.se">재료
+					href="${pageContext.request.contextPath}/sellerMyPage/selleringredientPurchaseList.se">재료
 						구매 내역</a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/sellerMyPage/myPosts.se">내

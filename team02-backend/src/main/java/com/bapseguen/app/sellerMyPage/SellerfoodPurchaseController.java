@@ -43,7 +43,7 @@ public class SellerfoodPurchaseController implements Execute {
 		pageMap.put("endRow", endRow);
 		pageMap.put("memberNumber", memberNumber);
 		
-		// 게시글 목록 조회
+		//  목록 조회
 		List<MyPurchaseDTO> foodbuylist = sellerDAO.myFoodPurchaseList(pageMap);
 		request.setAttribute("foodbuylist", foodbuylist);
 
@@ -75,7 +75,7 @@ public class SellerfoodPurchaseController implements Execute {
 		System.out.println("startPage : " + startPage + ", endPage : " + endPage + ", prev : " + prev + ", next : " + next);
 		System.out.println("====================");
 
-		result.setPath("/app/sellerMyPage/.jsp");
+		result.setPath("/app/sellerMyPage/sellerfoodPurchaseList.jsp");
 		result.setRedirect(false);
 
 		return result;
