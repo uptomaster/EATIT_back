@@ -10,7 +10,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- 파비콘 -->
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
-  <title>홍보게시판</title>
+  <title>밥세권</title>
+  
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/community/promoBoardList.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />

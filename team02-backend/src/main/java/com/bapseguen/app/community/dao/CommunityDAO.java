@@ -1,5 +1,6 @@
 package com.bapseguen.app.community.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -216,10 +217,41 @@ public class CommunityDAO {
 	    return postNumber;
 	}
 	// 레시피게시판 본문 저장
-		public void insertRecipeContent(Map<String, Object> params) {
-		    sqlSession.insert("post.insertRecipeContent", params);
-		}
+	public void insertRecipeContent(Map<String, Object> params) {
+	    sqlSession.insert("post.insertRecipeContent", params);
+	}
 	
+	// 게시글에 내가 이미 추천했는지 확인
+	public boolean hasLiked(int postNumber, int memberNumber) {
+	    Map<String, Integer> map = new HashMap<>();
+	    map.put("postNumber", postNumber);
+	    map.put("memberNumber", memberNumber);
+	    return sqlSession.selectOne("post.checkLike", map) != null;
+	}
+
+	// 추천 추가
+	public void insertLike(int postNumber, int memberNumber) {
+	    Map<String, Integer> map = new HashMap<>();
+	    map.put("postNumber", postNumber);
+	    map.put("memberNumber", memberNumber);
+	    sqlSession.insert("post.insertLike", map);
+	}
+
+	// 게시글 추천수 증가
+	public void updateLikeCount(int postNumber) {
+	    sqlSession.update("post.updateLikeCount", postNumber);
+	}
+
+	// 현재 추천수 가져오기
+	public int getLikeCount(int postNumber) {
+	    return sqlSession.selectOne("post.getLikeCount", postNumber);
+	}	
+	// 게시글 작성자 번호 조회
+	public int getAuthorNumber(int postNumber) {
+	    return sqlSession.selectOne("post.getAuthorNumber", postNumber);
+	}
+	
+		
 	// 내가 작성한 게시글 목록 조회
 	public List<PostDTO> myPostSelect(Map<String, Integer> pageMap) {
 		System.out.println("모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);

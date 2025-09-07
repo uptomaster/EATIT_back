@@ -126,7 +126,7 @@
 	          <button class="recommend" id="recommendBtn" title="게시글 추천하기">
 	            <img src="${pageContext.request.contextPath}/assets/img/like.jpg" alt="추천 버튼" />
 	          </button>
-	          <span class="recommend_count" id="recommendCount">추천 0</span>
+	          <span class="recommend_count" id="recommendCount">추천 <c:out value="${post.postLikeCount}" /></span>
 	          <button type="button" class="report" id="openReportModal" title="신고하기">신고</button>
 	        </div>
 	      </div> <!-- .post -->

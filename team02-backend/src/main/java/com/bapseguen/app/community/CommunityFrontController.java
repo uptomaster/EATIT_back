@@ -112,6 +112,10 @@ public class CommunityFrontController extends HttpServlet {
 			System.out.println("게시글 삭제 완료 요청");
 			result = new PostDeleteOkController().execute(request, response);
 			break;	
+		case "/community/postlike.co":
+			System.out.println("게시글 추천 요청");
+			result = new PostLikeController().execute(request, response);
+			break;	
 					
 			
 			
