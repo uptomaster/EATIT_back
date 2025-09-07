@@ -52,7 +52,7 @@
 						<li class="admin_list_menu active"><a
 							href="${pageContext.request.contextPath}/admin/faq/list.ad">FAQ</a></li>
 						<li class="admin_list_menu"><a
-							href="${pageContext.request.contextPath}/admin/inquiry/list.ad">문의(INQUIRY)</a></li>
+							href="${pageContext.request.contextPath}/admin/inquiry/list.ad">문의</a></li>
 					</ul>
 				</div>
 

@@ -1,24 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>고객문의 관리</title>
+<title>고객센터 - 문의</title>
 <script defer
-	src="${pageContext.request.contextPath}/assets/js/admin/adminInquiry.js"></script>
+	src="${pageContext.request.contextPath}/assets/js/admin/inquiryList.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/admin/adminInquiry.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-	integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 	<div class="admin_innerwrapper">
-		<!-- ===== 사이드바 ===== -->
+		<!-- 사이드바 -->
 		<aside class="sidebar">
 			<a href="${pageContext.request.contextPath}/admin/dashboard.ad">
 				<img
@@ -33,22 +31,23 @@
 				<li class="sidebar_list"><a
 					href="${pageContext.request.contextPath}/admin/notice/list.ad">게시글
 						관리</a></li>
-				<li class="sidebar_list" id="sidebar_list_warning"><a
+				<li class="sidebar_list"><a
 					href="${pageContext.request.contextPath}/admin/report/list.ad">신고관리</a></li>
-				<li class="sidebar_list active" id="sidebar_list_customerservice"><a
-					href="${pageContext.request.contextPath}/admin/faq/list.ad">고객센터</a></li>
+				<li class="sidebar_list active" id="sidebar_list_customerservice">
+					<a href="${pageContext.request.contextPath}/admin/faq/list.ad">고객센터</a>
+				</li>
 			</ul>
+			<!-- 로그아웃 버튼 (맨 아래 중앙) -->
 			<form action="${pageContext.request.contextPath}/admin/logoutOk.ad"
 				method="post" class="logout_form">
 				<button id="admin_logoutbtn">로그아웃</button>
 			</form>
 		</aside>
 
-		<!-- ===== 메인 컨텐츠 ===== -->
-		<div class="admin_inner">
-			<h1 class="admin_pagetitle">고객센터 - 고객문의</h1>
+		<!-- 메인컨텐츠 -->
+		<main class="admin_inner">
+			<h1 class="admin_pagetitle">고객센터 - 문의</h1>
 			<div class="admin_listwrapper">
-
 				<!-- 탭 메뉴 -->
 				<div class="admin_list_title">
 					<ul class="admin_list">
@@ -57,12 +56,12 @@
 						</li>
 						<li class="admin_list_menu active"
 							id="admin_list_menu_admininquiry"><a
-							href="${pageContext.request.contextPath}/admin/inquiry/list.ad">고객문의</a>
+							href="${pageContext.request.contextPath}/admin/inquiry/list.ad">문의(INQUIRY)</a>
 						</li>
 					</ul>
 				</div>
 
-				<!-- 리스트 박스 -->
+				<!-- 리스트 -->
 				<div class="admin_list_whitebox">
 					<div class="admin_list_namebox">
 						<ul class="admin_list_name">
@@ -83,27 +82,19 @@
 										<p class="admin_list_row col-title">
 											<a
 												href="${pageContext.request.contextPath}/admin/inquiry/detail.ad?postNumber=${inq.postNumber}"
-												class="admin_list_userid_link"> <c:out
-													value="${inq.postTitle}" />
-											</a>
+												class="admin_list_userid_link">${inq.postTitle}</a>
 										</p>
 										<p class="admin_list_row col-user">
 											<img class="grade_icon"
-												src="${pageContext.request.contextPath}/assets/img/씨앗.png"
-												alt="등급아이콘">
-											<c:out value="${inq.memberName}" />
+												src="${pageContext.request.contextPath}/assets/img/새싹.png"
+												alt="등급아이콘"> ${inq.memberId} <input type="hidden"
+												name="memberNumber" value="${inq.memberNumber}" />
 										</p>
 										<p class="admin_list_row col-date">${inq.postCreatedDate}</p>
-										<p class="admin_list_row col-status">
-											<c:choose>
-												<c:when test="${inq.inquiryStatus == 'YET'}">접수</c:when>
-												<c:when test="${inq.inquiryStatus == 'IN_PROGRESS'}">처리중</c:when>
-												<c:when test="${inq.inquiryStatus == 'DONE'}">완료</c:when>
-												<c:otherwise>-</c:otherwise>
-											</c:choose>
-										</p>
+										<p class="admin_list_row col-status">${inq.inquiryStatus}</p>
 									</li>
 								</c:forEach>
+
 							</c:when>
 							<c:otherwise>
 								<li class="admin_list_value empty">등록된 문의글이 없습니다.</li>
@@ -128,7 +119,8 @@
 								</c:when>
 								<c:otherwise>
 									<li><a
-										href="${pageContext.request.contextPath}/admin/inquiry/list.ad?page=${i}">${i}</a></li>
+										href="${pageContext.request.contextPath}/admin/inquiry/list.ad?page=${i}">${i}</a>
+									</li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -140,27 +132,24 @@
 					</ul>
 
 					<!-- 검색 -->
-					<form
-						action="${pageContext.request.contextPath}/admin/inquiry/list.ad"
-						method="get">
-						<div class="admin_search">
+					<div class="admin_search_area">
+						<form
+							action="${pageContext.request.contextPath}/admin/inquiry/list.ad"
+							method="get" class="admin_search">
 							<select class="admin_notice_category" name="searchType">
 								<option value="title" ${searchType == 'title' ? 'selected' : ''}>제목</option>
-								<option value="memberId"
-									${searchType == 'memberId' ? 'selected' : ''}>아이디</option>
-								<option value="memberName"
-									${searchType == 'memberName' ? 'selected' : ''}>이름</option>
-							</select> <input type="text" id="search_word" name="searchWord"
+								<option value="memberNumber"
+									${searchType == 'memberNumber' ? 'selected' : ''}>작성자</option>
+							</select> <input type="text" id="searchWord" name="searchWord"
 								value="${searchWord}">
 							<button class="search_btn" type="submit">
 								<i class="fas fa-search"></i>
 							</button>
-						</div>
-					</form>
+						</form>
+					</div>
 				</div>
-
 			</div>
-		</div>
+		</main>
 	</div>
 </body>
 </html>

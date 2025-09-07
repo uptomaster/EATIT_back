@@ -39,7 +39,7 @@ public class InquiryListController implements Execute {
         request.setAttribute("page", page);
         request.setAttribute("rowCount", rowCount);
 
-        result.setPath("/app/admin/inquiryList.jsp");
+        result.setPath("/app/admin/adminInquiry.jsp");
         result.setRedirect(false);
         return result;
     }
