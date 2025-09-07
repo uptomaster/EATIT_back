@@ -196,6 +196,11 @@ public class AdminFrontController extends HttpServlet {
 			result = new InquiryDetailController().execute(request, response);
 			break;
 
+		case "/admin/inquiry/replyOk.ad":
+			System.out.println("→ [ADMIN] 문의 댓글 등록 요청");
+			result = new InquiryCommentOkController().execute(request, response);
+			break;
+
 		case "/admin/inquiry/statusOk.ad":
 			System.out.println("→ [ADMIN] 문의글 상태 변경 요청");
 			result = new InquiryUpdateStatusController().execute(request, response);
