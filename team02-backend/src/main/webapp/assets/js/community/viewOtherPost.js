@@ -6,20 +6,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const deleteBtn = document.querySelector(".delete-btn");
   const submitBtn = document.querySelector(".submit-btn");
 	  
-  recommendBtn.addEventListener('click', () => {
-    // 현재 '추천 0'에서 숫자만 추출
-    let currentLikes = parseInt(likesSpan.textContent.replace('추천 ', ''), 10);
-    currentLikes++;
+  recommendBtn.addEventListener('click', async () => {
+      const postNumber = window.postNumber;
+      const memberNumber = window.memberNumber;
+      if (!postNumber || !memberNumber) return alert('로그인 후 이용해주세요.');
+      
+      try {
+          const res = await fetch(`${ctx}/community/postlike.co?postNumber=${postNumber}`, {
+              method: 'POST',
+              headers: { 'Accept': 'application/json' }
+          });
+          const data = await res.json();
 
-    // 변경된 숫자 넣기
-    likesSpan.textContent = `추천 ${currentLikes}`;
-    counterRecommend.textContent = `추천 ${currentLikes}`;
-
-    // 숫자 애니메이션 효과
-    counterRecommend.classList.add('bump');
-    setTimeout(() => {
-      counterRecommend.classList.remove('bump');
-    }, 300);
+          if (!data.success) {
+              alert(data.message); // 서버에서 보내준 메시지 출력
+          } else {
+              likesSpan.textContent = `추천 ${data.likeCount}`;
+              counterRecommend.textContent = `추천 ${data.likeCount}`;
+              counterRecommend.classList.add('bump');
+              setTimeout(() => counterRecommend.classList.remove('bump'), 300);
+          }
+      } catch (err) {
+          console.error(err);
+          alert('추천 처리에 실패했습니다.');
+      }
   });
   
    //게시글 수정 버튼 클릭시

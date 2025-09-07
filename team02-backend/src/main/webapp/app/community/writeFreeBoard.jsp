@@ -7,7 +7,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>자유게시판 - 게시글 작성</title>
+ <!-- 파비콘 -->
+ <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
+ <title>밥세권</title>
+ 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/community/writeFreeBoard.css" />
 <link rel="stylesheet"
@@ -78,10 +81,19 @@
 
 				<div class="form_group">
 					<label for="content">내용</label>
-					<textarea id="content" name="freeContent" rows="10"
-						placeholder="내용을 입력하세요" required></textarea>
+					<c:choose>
+					    <c:when test="${postType == 'FREE'}">
+					        <textarea id="content" name="freeContent" rows="10" placeholder="내용을 입력하세요" required></textarea>
+					    </c:when>
+					    <c:when test="${postType == 'PROMOTION'}">
+					        <textarea id="content" name="promoContent" rows="10" placeholder="내용을 입력하세요" required></textarea>
+					    </c:when>
+					    <c:when test="${postType == 'RECIPE'}">
+					        <textarea id="content" name="recipeContent" rows="10" placeholder="내용을 입력하세요" required></textarea>
+					    </c:when>
+					</c:choose>
 				</div>
-
+				
 				<div class="form_group">
 					<label for="imageUpload">사진 첨부</label>
 					<input type="file" id="imageUpload" name="uploadFile" />
