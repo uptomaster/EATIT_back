@@ -12,40 +12,47 @@ import com.bapseguen.app.community.dao.CommunityDAO;
 
 public class PostLikeController implements Execute{
 
+	private CommunityDAO communityDAO = new CommunityDAO();
+	
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		System.out.println("====PostLikeController 실행====");
-		Result result = new Result();
-        CommunityDAO communityDAO = new CommunityDAO();
-
-        int postNumber = Integer.parseInt(request.getParameter("postNumber"));
+		int postNumber = Integer.parseInt(request.getParameter("postNumber"));
         int memberNumber = (Integer) request.getSession().getAttribute("memberNumber");
-        int postAuthorNumber = communityDAO.getAuthorNumber(postNumber);
-        System.out.println("세션 memberNumber: " + memberNumber);
-        System.out.println("작성자 memberNumber: " + postAuthorNumber);
-        
-        // 작성자가 본인인지 확인
-        if(memberNumber == postAuthorNumber) {
-            response.setContentType("application/json; charset=UTF-8");
-            response.getWriter().print("{\"success\":false,\"message\":\"본인 글은 추천할 수 없습니다.\"}");
-            return result;
-        }
 
-        // 이미 추천했는지 확인
-        boolean liked = communityDAO.hasLiked(postNumber, memberNumber);
-        if (!liked) {
-            communityDAO.insertLike(postNumber, memberNumber);
-            communityDAO.updateLikeCount(postNumber);
-        }
-
-        // 페이지 이동 없이 추천 수만 반환
-        int newLikeCount = communityDAO.getLikeCount(postNumber);
         response.setContentType("application/json; charset=UTF-8");
-        response.getWriter().print("{\"success\":true,\"likeCount\":" + newLikeCount + "}");
-        
-        return result;
-	
+
+        try {
+            // 작성자가 본인인지 체크
+            int postAuthor = communityDAO.getAuthorNumber(postNumber);
+            if (memberNumber == postAuthor) {
+                response.getWriter().print("{\"success\":false,\"message\":\"본인 글은 추천할 수 없습니다.\"}");
+                return null;
+            }
+
+            // 이미 추천했는지 확인
+            if (communityDAO.hasLiked(postNumber, memberNumber)) {
+                response.getWriter().print("{\"success\":false,\"message\":\"이미 추천했습니다.\"}");
+                return null;
+            }
+
+            // 추천 추가 + 카운트 증가
+            communityDAO.insertLikeAndUpdateCount(postNumber, memberNumber);
+
+            // 최신 추천 수 조회
+            int newLikeCount = communityDAO.getLikeCount(postNumber);
+
+            response.getWriter().print("{\"success\":true,\"likeCount\":" + newLikeCount + "}");
+            response.getWriter().flush();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.getWriter().print("{\"success\":false,\"message\":\"추천 처리 중 오류가 발생했습니다.\"}");
+        }
+
+        // JSON 반환이므로 JSP 이동 필요 없음
+        return null;
 	}
 	
 }
