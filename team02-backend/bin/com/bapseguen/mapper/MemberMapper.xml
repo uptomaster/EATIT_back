@@ -105,4 +105,24 @@ GENERAL_TREE_GRADE, GENERAL_PAYMENT_AMOUNT)
 	     SET SELLER_UPDATED_DATE = SYSDATE
 	   WHERE MEMBER_NUMBER = #{memberNumber}
 	</update>	
+	
+	<!-- GENERAL등급/누적결제 -->
+	<select id="getGeneralGradeInfo" parameterType="int" resultType="GeneralMemberDTO">
+	  SELECT
+	      g.MEMBER_NUMBER              AS memberNumber,
+	      g.GENERAL_TREE_GRADE         AS generalTreeGrade,
+	      NVL(g.GENERAL_PAYMENT_AMOUNT, 0) AS generalPaymentAmount
+	  FROM TBL_GENERAL_MEMBER g
+	  WHERE g.MEMBER_NUMBER = #{value}
+	</select>
+	
+	<!-- SELLER등급/누적결제 -->
+	<select id="getSellerGradeInfo" parameterType="int" resultType="SellerMemberDTO">
+	  SELECT
+	      s.MEMBER_NUMBER              AS memberNumber,
+	      s.SELLER_TREE_GRADE          AS sellerTreeGrade,
+	      NVL(s.SELLER_PAYMENT_AMOUNT, 0) AS sellerPaymentAmount
+	  FROM TBL_SELLER_MEMBER s
+	  WHERE s.MEMBER_NUMBER = #{value}
+	</select>	
 </mapper>

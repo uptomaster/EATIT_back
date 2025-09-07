@@ -39,7 +39,7 @@ public class CommentDAO {
         return sqlSession.selectOne("comment.findPostTypeByComment", commentNumber);
     }
     // 댓글 작성자(회원/관리자) 식별
-    public Map<String, Integer> findAuthor(int commentNumber) {
+    public Map<String, Object> findAuthor(int commentNumber) {
         return sqlSession.selectOne("comment.findAuthor", commentNumber);
     }
     

@@ -6,20 +6,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const deleteBtn = document.querySelector(".delete-btn");
   const submitBtn = document.querySelector(".submit-btn");
 	  
-  recommendBtn.addEventListener('click', () => {
-    // 현재 '추천 0'에서 숫자만 추출
-    let currentLikes = parseInt(likesSpan.textContent.replace('추천 ', ''), 10);
-    currentLikes++;
+  recommendBtn.addEventListener('click', async () => {
+      const postNumber = window.postNumber;
+      const memberNumber = window.memberNumber;
+      if (!postNumber || !memberNumber) return alert('로그인 후 이용해주세요.');
+      
+      try {
+          const res = await fetch(`${ctx}/community/postlike.co?postNumber=${postNumber}`, {
+              method: 'POST',
+              headers: { 'Accept': 'application/json' }
+          });
+          const data = await res.json();
 
-    // 변경된 숫자 넣기
-    likesSpan.textContent = `추천 ${currentLikes}`;
-    counterRecommend.textContent = `추천 ${currentLikes}`;
-
-    // 숫자 애니메이션 효과
-    counterRecommend.classList.add('bump');
-    setTimeout(() => {
-      counterRecommend.classList.remove('bump');
-    }, 300);
+          if (!data.success) {
+              alert(data.message); // 서버에서 보내준 메시지 출력
+          } else {
+              likesSpan.textContent = `추천 ${data.likeCount}`;
+              counterRecommend.textContent = `추천 ${data.likeCount}`;
+              counterRecommend.classList.add('bump');
+              setTimeout(() => counterRecommend.classList.remove('bump'), 300);
+          }
+      } catch (err) {
+          console.error(err);
+          alert('추천 처리에 실패했습니다.');
+      }
   });
   
    //게시글 수정 버튼 클릭시
@@ -68,11 +78,49 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener('DOMContentLoaded', () => {
   const postNumber   = window.postNumber ? parseInt(window.postNumber, 10) : null;
   const memberNumber = window.memberNumber ? parseInt(window.memberNumber, 10) : null;
-
+  const adminNumber  = window.adminNumber  ? parseInt(window.adminNumber, 10)  : null;
+  
   const listEl   = document.getElementById('commentList');
   const inputEl  = document.getElementById('commentInput');
   const submitEl = document.getElementById('commentSubmit');
+  const ctx = window.ctx || document.body.dataset.contextPath || '';
+  const myIconEl = document.getElementById('myCommentIcon');
 
+  if (myIconEl) {
+    if (adminNumber && Number(adminNumber) > 0) {
+      myIconEl.src = `${ctx}/assets/img/${encodeURIComponent('관리자')}.png`;
+      myIconEl.alt = '관리자';
+    } else if (memberNumber) {
+      const gradeByTotal = (total) => {
+        if (total <= 100000)  return '씨앗';
+        if (total <= 300000)  return '새싹';
+        if (total <= 700000)  return '잎새';
+        if (total <= 1500000) return '가지';
+        return '나무';
+      };
+      (async () => {
+        try {
+          const res = await fetch(`${ctx}/main/gradeInfo.ma`, { headers: { 'Accept': 'application/json' }});
+          const data = res.ok ? await res.json() : null;
+          const total = Number(data?.totalPayment) || 0;
+          const grade = gradeByTotal(total);
+          myIconEl.src = `${ctx}/assets/img/${encodeURIComponent(grade)}.png`;
+          myIconEl.alt = grade;
+		  //로딩 실패시 기본이미지(씨앗)
+          myIconEl.onerror = () => { myIconEl.src = `${ctx}/assets/img/${encodeURIComponent('씨앗')}.png`; };
+        } catch (_) {
+          /* 실패 시 기본 아이콘 유지 */
+        }
+      })();
+    }
+  }
+  
+  function iconSrcByGrade(c) {
+    // 관리자면 '관리자.png', 아니면 등급명 그대로 파일명 사용
+    const name = (c.adminNumber && Number(c.adminNumber) > 0) ? '관리자' : (c.treeGrade || '씨앗');
+    // 한글 파일명 인코딩
+    return `${ctx}/assets/img/${encodeURIComponent(name)}.png`;
+  }
   function escHtml(s) {
     const d = document.createElement('div');
     d.textContent = String(s ?? '');
@@ -103,29 +151,36 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderComments(items) {
     listEl.innerHTML = '';
     if (!items.length) {
-      listEl.innerHTML = `<li class="comment_item">첫 댓글의 주인공이 되어주세요!</li>`;
+      listEl.innerHTML = `<li class="comment_item">아직 답변이 없습니다.</li>`;
       return;
     }
     const frag = document.createDocumentFragment();
+
     items.forEach(c => {
-      const isMine = memberNumber && String(memberNumber) === String(c.memberNumber);
+      const isMine  = memberNumber && String(memberNumber) === String(c.memberNumber);
+      const isAdmin = adminNumber && Number(adminNumber) > 0;
+
+      // ⬇️ 등급/관리자에 맞는 아이콘 경로 계산 (여기서 icon을 만든다!)
+      const icon = iconSrcByGrade(c);
+
       const li = document.createElement('li');
       li.className = 'comment_item';
       li.dataset.number = c.commentNumber;
 
       li.innerHTML = `
         <div class="comment_profile_container">
-          <img class="comment_profile" src="/assets/img/잎새.png" alt="프로필" />
+          <img class="comment_profile" src="${icon}" alt="프로필" onerror="this.src='${ctx}/assets/img/씨앗.png'"/>
           <div class="comment_info">
             <span class="comment_author">${escHtml(c.memberId)}</span>
             <time class="comment_timeline">${escHtml(c.commentedDate || '')}</time>
-            ${isMine ? `<button class="comment_delete" data-number="${c.commentNumber}" title="댓글 삭제">[댓글 삭제]</button>` : ``}
+            ${(isMine || isAdmin) ? `<button class="comment_delete" data-number="${c.commentNumber}" title="댓글 삭제">[댓글 삭제]</button>` : ``}
             <p class="comment_text">${escHtml(c.commentContent)}</p>
           </div>
         </div>
       `;
       frag.appendChild(li);
     });
+
     listEl.appendChild(frag);
   }
 
@@ -134,7 +189,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const content = (inputEl?.value || '').trim();
     if (!content) return alert('댓글을 입력해주세요.');
     if (!postNumber) return alert('postNumber가 없습니다.');
-    if (!memberNumber) return alert('로그인 후 이용해주세요.');
+	const canWrite = (memberNumber && memberNumber > 0) || (adminNumber && adminNumber > 0);
+	if (!canWrite) return alert('로그인 후 이용해주세요.');
 
     try {
       const res = await fetch(`/comment/writeOk.cm`, {
@@ -144,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
           'Accept':'application/json',
           'X-Requested-With':'XMLHttpRequest'
         },
-        body: JSON.stringify({ postNumber, memberNumber, commentContent: content })
+        body: JSON.stringify({ postNumber, commentContent: content })
       });
       const result = await safeJson(res);
       if (result?.status === 'success') {

@@ -3,59 +3,94 @@
 <mapper namespace="comment">
 	<!-- 커뮤니티 댓글 등록 -->
 	<insert id="insertCommunity" parameterType="CommentDTO">
-	    <selectKey keyProperty="commentNumber" resultType="int" order="BEFORE">
-	      	SELECT SEQ_COMMENT_NUMBER.NEXTVAL FROM DUAL
-	    </selectKey>
-      	INSERT INTO TBL_COMMENT(
-      	COMMENT_NUMBER, POST_NUMBER, MEMBER_NUMBER, COMMENT_CONTENT, COMMENTED_DATE, COMMENT_DELETE_STATE) 
-      	VALUES (#{commentNumber}, #{postNumber}, #{memberNumber}, #{commentContent}, SYSDATE, 'N')
-    </insert>
-
-	<!-- 문의 댓글 등록 -->
-	<insert id="insertInquiry" parameterType="CommentDTO">
-		<selectKey keyProperty="commentNumber" resultType="int" order="BEFORE">
+		<selectKey keyProperty="commentNumber" resultType="int"
+			order="BEFORE">
 			SELECT SEQ_COMMENT_NUMBER.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO TBL_COMMENT(
-		COMMENT_NUMBER, POST_NUMBER, ADMIN_NUMBER, COMMENT_CONTENT, COMMENTED_DATE, COMMENT_DELETE_STATE)
-		VALUES (#{commentNumber}, #{postNumber}, #{adminNumber}, #{commentContent}, SYSDATE, 'N')
+		COMMENT_NUMBER, POST_NUMBER, MEMBER_NUMBER,
+		COMMENT_CONTENT, COMMENTED_DATE,
+		COMMENT_DELETE_STATE)
+		VALUES
+		(#{commentNumber}, #{postNumber}, #{memberNumber}, #{commentContent},
+		SYSDATE, 'N')
 	</insert>
-	
+
+	<!-- 문의 댓글 등록 -->
+	<insert id="insertInquiry" parameterType="CommentDTO">
+		<selectKey keyProperty="commentNumber" resultType="int"
+			order="BEFORE">
+			SELECT SEQ_COMMENT_NUMBER.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TBL_COMMENT(
+		COMMENT_NUMBER, POST_NUMBER, ADMIN_NUMBER,
+		COMMENT_CONTENT, COMMENTED_DATE, COMMENT_DELETE_STATE)
+		VALUES
+		(#{commentNumber}, #{postNumber}, #{adminNumber}, #{commentContent},
+		SYSDATE, 'N')
+	</insert>
+
 	<!-- 댓글 삭제 -->
-  	<delete id="delete" parameterType="int">
-  		DELETE FROM TBL_COMMENT
-  		WHERE COMMENT_NUMBER = #{value}
+	<delete id="delete" parameterType="int">
+		DELETE FROM TBL_COMMENT
+		WHERE
+		COMMENT_NUMBER = #{value}
 	</delete>
-	
+
 	<!-- 댓글 조회 -->
-	<select id="selectAll" parameterType="int" resultType="CommentListDTO">
-	    SELECT c.COMMENT_NUMBER, c.POST_NUMBER, NVL(c.MEMBER_NUMBER, 0) AS MEMBER_NUMBER, NVL(c.ADMIN_NUMBER,  0) AS ADMIN_NUMBER, c.COMMENT_CONTENT, TO_CHAR(c.COMMENTED_DATE, 'YYYY-MM-DD HH24:MI') AS COMMENTED_DATE,
-	      CASE WHEN c.ADMIN_NUMBER IS NOT NULL THEN a.ADMIN_ID ELSE m.MEMBER_ID END AS MEMBER_ID
-	    FROM TBL_COMMENT c
-	    LEFT JOIN TBL_MEMBER m ON m.MEMBER_NUMBER = c.MEMBER_NUMBER
-	    LEFT JOIN TBL_ADMIN  a ON a.ADMIN_NUMBER  = c.ADMIN_NUMBER
-	    WHERE c.POST_NUMBER = #{value}
+	<select id="selectAll" parameterType="int"
+		resultType="CommentListDTO">
+	  <![CDATA[
+	      SELECT
+	      c.COMMENT_NUMBER,
+	      c.POST_NUMBER,
+	      NVL(c.MEMBER_NUMBER, 0) AS MEMBER_NUMBER,
+	      NVL(c.ADMIN_NUMBER,  0) AS ADMIN_NUMBER,
+	      c.COMMENT_CONTENT,
+	      TO_CHAR(c.COMMENTED_DATE, 'YYYY-MM-DD HH24:MI') AS COMMENTED_DATE,
+	      CASE WHEN c.ADMIN_NUMBER IS NOT NULL THEN '관리자' ELSE m.MEMBER_ID END AS MEMBER_ID,
+	      COALESCE(g.GENERAL_PAYMENT_AMOUNT, s.SELLER_PAYMENT_AMOUNT, 0) AS PAYMENT_AMOUNT,
+	      CASE 
+	        WHEN c.ADMIN_NUMBER IS NOT NULL THEN '관리자'
+	        WHEN COALESCE(g.GENERAL_PAYMENT_AMOUNT, s.SELLER_PAYMENT_AMOUNT, 0) <= 100000  THEN '씨앗'
+	        WHEN COALESCE(g.GENERAL_PAYMENT_AMOUNT, s.SELLER_PAYMENT_AMOUNT, 0) <= 300000  THEN '새싹'
+	        WHEN COALESCE(g.GENERAL_PAYMENT_AMOUNT, s.SELLER_PAYMENT_AMOUNT, 0) <= 700000  THEN '잎새'
+	        WHEN COALESCE(g.GENERAL_PAYMENT_AMOUNT, s.SELLER_PAYMENT_AMOUNT, 0) <= 1500000 THEN '가지'
+	        ELSE '나무'
+	      END AS TREE_GRADE
+	      FROM TBL_COMMENT c
+	      LEFT JOIN TBL_MEMBER m         ON m.MEMBER_NUMBER = c.MEMBER_NUMBER
+	      LEFT JOIN TBL_GENERAL_MEMBER g ON g.MEMBER_NUMBER = c.MEMBER_NUMBER
+	      LEFT JOIN TBL_SELLER_MEMBER s  ON s.MEMBER_NUMBER = c.MEMBER_NUMBER
+	      LEFT JOIN TBL_ADMIN a          ON a.ADMIN_NUMBER  = c.ADMIN_NUMBER
+	      WHERE c.POST_NUMBER = #{value}
 	      AND NVL(c.COMMENT_DELETE_STATE, 'N') = 'N'
-	    ORDER BY c.COMMENT_NUMBER DESC
-  	</select>
-  	
-  	<!-- 게시글 타입 조회 -->
-	<select id="findPostType" parameterType="int" resultType="string">
-	    SELECT POST_TYPE FROM TBL_POST WHERE POST_NUMBER = #{value}
+	      ORDER BY c.COMMENT_NUMBER DESC
+	  ]]>
 	</select>
-	
+
+	<!-- 게시글 타입 조회 -->
+	<select id="findPostType" parameterType="int"
+		resultType="string">
+		SELECT POST_TYPE FROM TBL_POST WHERE POST_NUMBER = #{value}
+	</select>
+
 	<!-- 댓글 작성자 조회 -->
 	<select id="findAuthor" parameterType="int" resultType="map">
-	    SELECT MEMBER_NUMBER AS memberNumber, ADMIN_NUMBER AS adminNumber
-	    FROM TBL_COMMENT
-	    WHERE COMMENT_NUMBER = #{value}
+		SELECT
+		MEMBER_NUMBER AS "memberNumber", ADMIN_NUMBER AS "adminNumber"
+		FROM
+		TBL_COMMENT
+		WHERE COMMENT_NUMBER = #{value}
 	</select>
-	
+
 	<!-- 삭제권한 구분 -->
-	<select id="findPostTypeByComment" parameterType="int" resultType="string">
-	  SELECT p.POST_TYPE
-	  FROM TBL_COMMENT c
-	  JOIN TBL_POST p ON p.POST_NUMBER = c.POST_NUMBER
-	  WHERE c.COMMENT_NUMBER = #{value}
-	</select>	
+	<select id="findPostTypeByComment" parameterType="int"
+		resultType="string">
+		SELECT p.POST_TYPE
+		FROM TBL_COMMENT c
+		JOIN TBL_POST p ON
+		p.POST_NUMBER = c.POST_NUMBER
+		WHERE c.COMMENT_NUMBER = #{value}
+	</select>
 </mapper>
