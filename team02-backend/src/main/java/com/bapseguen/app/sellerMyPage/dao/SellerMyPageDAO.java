@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 
 import com.bapseguen.app.dto.ItemDTO;
+import com.bapseguen.app.dto.ItemImageDTO;
 import com.bapseguen.app.dto.ItemListDTO;
 import com.bapseguen.app.dto.OriginDTO;
 import com.bapseguen.app.dto.view.CommentListDTO;
@@ -64,6 +65,7 @@ public class SellerMyPageDAO {
         param.put("[판페DAO] businessNumber", ItemWithImgDTO.getBusinessNumber());
         sqlSession.insert("storeManage.addItemImage", param);
     }
+
 
     //음식 판매 목록
     public List<ItemWithImgDTO> foodList(Map<String, Object> pageMap) {
@@ -169,7 +171,11 @@ public class SellerMyPageDAO {
     	return list;
     }
     
-
+    // 가게 사진 조회
+    public String selectStoreImageSystemName(String businessNumber) {
+        return sqlSession.selectOne("storeManage.selectStoreImage", businessNumber);
+    }
+    //
 
     // 판매 내역
     // 오늘 판매 내역
