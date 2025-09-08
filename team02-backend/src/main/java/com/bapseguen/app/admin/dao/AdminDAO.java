@@ -129,8 +129,22 @@ public class AdminDAO {
 		return sqlSession.selectOne("admin.selectInquiryDetail", postNumber);
 	}
 
+	// 문의 상태 업데이트
 	public void updateInquiryStatus(AdminPostDTO postDTO) {
 		sqlSession.update("admin.updateInquiryStatus", postDTO);
+		sqlSession.commit();
+	}
+
+	// 문의 답변 등록 또는 수정
+	public void updateInquiryAnswer(AdminPostDTO postDTO) {
+	    sqlSession.update("admin.updateInquiryAnswer", postDTO);
+	    sqlSession.commit();
+	}
+
+	// 문의 답변 삭제
+	public void deleteInquiryAnswer(int postNumber) {
+	    sqlSession.update("admin.deleteInquiryAnswer", postNumber);
+	    sqlSession.commit();
 	}
 
 	/* ===================== 신고 / 정지 / 블랙리스트 ===================== */
@@ -237,21 +251,19 @@ public class AdminDAO {
 	public int deleteBoardRecipe(int postNumber) {
 		return sqlSession.delete("admin.deleteBoardRecipe", postNumber);
 	}
-	
+
 	// 자유게시판 count
-	public int countBoardFree(Map<String,Object> params) {
-	    return sqlSession.selectOne("admin.countBoardFree", params);
+	public int countBoardFree(Map<String, Object> params) {
+		return sqlSession.selectOne("admin.countBoardFree", params);
 	}
 
 	// 홍보게시판 count
-	public int countBoardPromotion(Map<String,Object> params) {
-	    return sqlSession.selectOne("admin.countBoardPromotion", params);
+	public int countBoardPromotion(Map<String, Object> params) {
+		return sqlSession.selectOne("admin.countBoardPromotion", params);
 	}
 
 	// 레시피게시판 count
-	public int countBoardRecipe(Map<String,Object> params) {
-	    return sqlSession.selectOne("admin.countBoardRecipe", params);
+	public int countBoardRecipe(Map<String, Object> params) {
+		return sqlSession.selectOne("admin.countBoardRecipe", params);
 	}
-
-
 }

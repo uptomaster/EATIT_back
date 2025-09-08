@@ -1,6 +1,7 @@
 package com.bapseguen.app.community;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,20 +28,17 @@ public class FreeBoardReadOkController implements Execute{
 		Integer memberNumber = (Integer)session.getAttribute("memberNumber");
 		String path = null;
 		
-
-		
-		
 		//memberNumber 값이 null이거나 0일때
-//		if (memberNumber == null || memberNumber == 0) {
-//		    response.setContentType("text/html; charset=UTF-8");
-//		    PrintWriter out = response.getWriter();
-//		    out.println("<script>");
-//		    out.println("alert('로그인이 필요합니다.');");
-//		    out.println("location.href='/app/login/login.jsp';");
-//		    out.println("</script>");
-//		    out.close();
-//		    return null;
-//		}
+		if (memberNumber == null || memberNumber == 0) {
+		    response.setContentType("text/html; charset=UTF-8");
+		    PrintWriter out = response.getWriter();
+		    out.println("<script>");
+		    out.println("alert('로그인이 필요합니다.');");
+		    out.println("location.href='/app/login/login.jsp';");
+		    out.println("</script>");
+		    out.close();
+		    return null;
+		}
 		
 		//postNumber가 빈 문자열이거나 null인경우
 		String postNumberStr = request.getParameter("postNumber");
@@ -55,11 +53,10 @@ public class FreeBoardReadOkController implements Execute{
 		
 		CommunityDAO communityDAO = new CommunityDAO();
 		PostImageDAO postImageDAO = new PostImageDAO();
-		PostImageDTO postImageDTO = new PostImageDTO();
 		 
 
 		//DB에서 게시글 가져오기
-		PostDetailDTO postDetailDTO = communityDAO.select(postNumber);
+		PostDetailDTO postDetailDTO = communityDAO.freePostselect(postNumber);
 		// 이미지 리스트 가져오기
 		List<PostImageDTO> postImages = postImageDAO.select(postNumber);
 		request.setAttribute("postImages", postImages);
@@ -67,24 +64,18 @@ public class FreeBoardReadOkController implements Execute{
 		//게시글이 존재하지 않을 경우 처리
 		if(postDetailDTO == null) {
 			System.out.println("존재하지 않는 게시글입니다. " + postNumber);
-			result.setPath("/app/community/communityMainUser.jsp");
+			result.setPath("/community/freeBoardListOk.co");
 			result.setRedirect(true);
 			return result;
 		}
-		
-		request.setAttribute("post", postDetailDTO);
-		result.setPath("/app/community/viewOtherPost.jsp");
-		result.setRedirect(false);
+	
 		
 		//로그인한 사용자 번호 가져오기
 		Integer loginMemberNumber = (Integer) request.getSession().getAttribute("memberNumber");
 		System.out.println("로그인 한 멤버 번호 : " + loginMemberNumber);
 		
-		//현재 게시글의 작성자 번호 가져오기
-		//int postWriterNumber = postDTO.getMemberNumber();
-		//System.out.println("현재 게시글 작성자 번호 : " + postWriterNumber);
-	
 		System.out.println("postdetailDTO.getMemberNumber() 호출 전");
+		//현재 게시글의 작성자 번호 가져오기
 		int postWriterNumber = postDetailDTO.getMemberNumber();
 		System.out.println("postdetailDTO.getMemberNumber() 반환값: " + postWriterNumber);
 		

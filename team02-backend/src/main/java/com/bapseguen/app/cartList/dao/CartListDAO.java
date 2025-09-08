@@ -117,4 +117,11 @@ public class CartListDAO {
 		sqlSession.update("cartList.updateQuantity", param);
 	}
 
+	public void updateQuantityByCartItem(int cartItemNumber, int quantity) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("cartItemNumber", cartItemNumber);
+		param.put("quantity", quantity);
+		sqlSession.update("cartList.updateQuantityByCartItem", param);
+	}
+
 }

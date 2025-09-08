@@ -45,6 +45,11 @@ public class CartListFrontController extends HttpServlet {
 			result = new CartListDeleteItemOkController().execute(request, response);
 			break;
 
+		// 장바구니 선택 삭제
+		case "/cartList/deleteSelectedOk.cl":
+			result = new CartListDeleteSelectedOkController().execute(request, response);
+			break;
+
 		// 장바구니 전체 비우기
 		case "/cartList/clearOk.cl":
 			result = new CartListClearOkController().execute(request, response);

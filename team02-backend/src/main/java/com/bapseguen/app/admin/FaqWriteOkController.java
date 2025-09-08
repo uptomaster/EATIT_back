@@ -1,78 +1,65 @@
 package com.bapseguen.app.admin;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Enumeration;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.admin.dao.AdminDAO;
-import com.bapseguen.app.dto.AdminImageDTO;
 import com.bapseguen.app.dto.view.AdminPostDTO;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class FaqWriteOkController implements Execute {
 
-    @Override
-    public Result execute(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	@Override
+	public Result execute(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        System.out.println("[ADMIN] FAQ 작성 + 이미지 업로드 처리");
+		System.out.println("==== [ADMIN] FaqWriteOkController 실행 ====");
 
-        Result result = new Result();
-        HttpSession session = request.getSession();
-        Integer adminNumber = (Integer) session.getAttribute("adminNumber");
+		Result result = new Result();
+		HttpSession session = request.getSession(false);
 
-        // 업로드 경로
-        String uploadPath = request.getServletContext().getRealPath("/") + "upload/admin/faq/";
-        File folder = new File(uploadPath);
-        if (!folder.exists()) { folder.mkdirs(); }
+		// 1) 로그인/권한 체크
+		Integer adminNumber = (session != null) ? (Integer) session.getAttribute("adminNumber") : null;
+		String adminGrade = (session != null) ? (String) session.getAttribute("adminGrade") : null;
 
-        int fileSize = 1024 * 1024 * 10; // 10MB
-        MultipartRequest multi = new MultipartRequest(
-                request,
-                uploadPath,
-                fileSize,
-                "UTF-8",
-                new DefaultFileRenamePolicy()
-        );
+		if (adminNumber == null || adminGrade == null || !"관리자".equals(adminGrade)) {
+			System.out.println("[ADMIN] 세션 없음 또는 관리자 권한 아님 → 로그인 페이지로 이동");
+			result.setPath(request.getContextPath() + "/admin/login.ad");
+			result.setRedirect(true);
+			return result;
+		}
 
-        String postTitle = multi.getParameter("postTitle");
-        String faqContent = multi.getParameter("faqContent");
+		// 2) 파라미터 수집
+		String postTitle = request.getParameter("postTitle");
+		String faqContent = request.getParameter("faqContent");
 
-        AdminPostDTO postDTO = new AdminPostDTO();
-        postDTO.setAdminNumber(adminNumber);
-        postDTO.setPostTitle(postTitle);
-        postDTO.setFaqContent(faqContent);
+		// 필수값 검증
+		if (postTitle == null || postTitle.isBlank() || faqContent == null || faqContent.isBlank()) {
+			request.setAttribute("writeError", "제목과 내용을 모두 입력해주세요.");
+			result.setPath("/app/admin/adminFaqWrite.jsp");
+			result.setRedirect(false);
+			return result;
+		}
 
-        AdminDAO dao = new AdminDAO();
-        dao.insertFaqPost(postDTO); // TBL_POST insert
-        dao.insertFaq(postDTO);     // TBL_FAQ insert
+		// 3) DTO 생성
+		AdminPostDTO faqDTO = new AdminPostDTO();
+		faqDTO.setAdminNumber(adminNumber);
+		faqDTO.setPostTitle(postTitle);
+		faqDTO.setFaqContent(faqContent);
+		faqDTO.setPostType("FAQ");
 
-        // 파일 업로드 처리
-        Enumeration<String> fileNames = multi.getFileNames();
-        while (fileNames.hasMoreElements()) {
-            String paramName = fileNames.nextElement();
-            String systemName = multi.getFilesystemName(paramName);
-            String originalName = multi.getOriginalFileName(paramName);
+		// 4) DB 저장
+		AdminDAO dao = new AdminDAO();
+		dao.insertFaqPost(faqDTO);
+		dao.insertFaq(faqDTO);
 
-            if (systemName != null) {
-                AdminImageDTO imageDTO = new AdminImageDTO();
-                imageDTO.setAdminNumber(adminNumber);
-                imageDTO.setPostNumber(postDTO.getPostNumber());
-                imageDTO.setAdminImageSystemName(systemName);
-                imageDTO.setAdminImageOriginalName(originalName);
+		// 5) 저장 완료 후 목록으로 이동
+		result.setPath(request.getContextPath() + "/admin/faq/list.ad");
+		result.setRedirect(true);
 
-                dao.insertAdminImage(imageDTO);
-            }
-        }
-
-        result.setPath(request.getContextPath() + "/admin/faq/list.ad");
-        result.setRedirect(true);
-        return result;
-    }
+		System.out.println("==== [ADMIN] FaqWriteOkController 완료 ====");
+		return result;
+	}
 }

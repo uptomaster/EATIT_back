@@ -14,6 +14,10 @@ public class PostReportDAO {
 		sqlSession = MyBatisConfig.getSqlSessionFactory().openSession(true);
 	}
 	
+	public Integer findAuthor(int postNumber) {
+	    return sqlSession.selectOne("postReport.findAuthor", postNumber);
+	}
+	
     public boolean reportOnce(int postNumber, int memberNumber, String reasonCode) {
         	// 트랜잭션 전용 세션(수동 커밋)
     	SqlSession tx = MyBatisConfig.getSqlSessionFactory().openSession(false);

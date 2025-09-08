@@ -1,277 +1,279 @@
 @charset "UTF-8";
 
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-/* 회색영역 */
-.admin_innerwrapper{
-  width: 1100px;
-  min-height: 1080px;
-  background-color: #d9d9d9;
-  margin: auto;
-  display: flex;
-  position: relative;
-}
-/* 왼쪽 메뉴바 */
-.sidebar{
-  min-width: 220px;
-  min-height: 1080px;
-  background-color: #505FA9;
-  justify-content: center;
-  align-items: center;
-}
-/* 로고 */
-.admin_logo{
-  /* border: 1px solid black; */
-  margin-left: 57px;
-  margin-bottom: 10px;
-  width: 100px;
-}
-/* 사이드바 현재위치강조 */
-#sidebar_list_customerservice{
-  background-color: #1e223f;
-}
-ul{
-  list-style: none;
-}
-a{
-  text-decoration: none;
-} 
-.sidebar_list{
-  /* border: 1px solid black; */
-  padding: 12px 0 14px;
-  color: white;
-  text-align: center;
-  font-size: 24px;
-  /* margin: 20px auto 20px; */
-  /* background-color: #1e223f;*/
-}
-.sidebar_list:hover{
-  background-color: #1e223f;
-  scale: 110%;
-}
-/* 메인컨텐츠 */
-.admin_inner{
-  /* border: 1px solid black */
-  width: 880px;
-  margin: 20px auto;
-}
-h1{
-  text-align: center;
-  padding-bottom: 20px;
-}
-.admin_listwrapper{
-  border: 1px solid black;
-  padding: 10px;
-  margin: auto;
-  width: 800px;
-  min-height: 800px;
-  justify-content: center;
-  background-color: #929292;
-  border-radius: 10px;
-}
-.admin_whitebox{
-  background-color: white;
-  margin: auto;
-  width: 700px;
-  min-height: 750px;
-  padding-top: 10px;
-}
-.admin_post_titlebox{
-  display: flex;
-  /* border: 1px solid black; */
-  background-color: #d9d9d9;
-  margin: auto;
-  width: 650px;
-  height: 40px;
-  font-size: 14px;
-  text-align: center;
-}
-.admin_post_titlebox div{
-  display: flex;
-  text-align: center;
-  align-items: center;
-}
-.admin_post_tag{
-  margin: 0 10px 0;
-}
-.admin_post_icon img{
-  margin-top: 5px;
-  width: 15px;
-  height: 15px;
-}
-.admin_post_userid{
-  margin-right: 30px;
-}
-.admin_post_title{
-  width: 330px;
-  max-width: 330px;
-  font-size: 16px;
-  font-weight: bold;
-  overflow: hidden;
-  text-align: left;
-  text-overflow: ellipsis;
-  white-space: nowrap; 
-  margin-right: 10px;
-}
-.admin_post_date{
-  margin-right: 10px;
-}
-.admin_post_content{
-  border: 1px solid black;
-  padding: 10px;
-  width: 650px;
-  min-height: 300px;
-  margin: 20px auto;
-}
-.admin_post_content p{
-  word-break: break-all;
+/* ===== Reset ===== */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Noto Sans KR", sans-serif;
 }
 
-.admin_detail_delete{
-  /* border: 1px solid black; */
-  width: 700px;
-  height: 30px;
-  margin: 10px auto;
-  display: flex;
-  justify-content: end;
+ul {
+	list-style: none;
 }
-/* 수정, 삭제 버튼 */
-.admin_detail_delete button{
-  width: 50px;
-  height: 30px;
-  background-color: #e89999;
-  border-radius: 5px;
-  font-weight: bold;
-  margin-left: 10px;  
+
+a {
+	text-decoration: none;
+	color: inherit;
 }
+
+/* ===== Layout ===== */
+.admin_innerwrapper {
+	width: 1100px;
+	min-height: 950px;
+	background-color: #d9d9d9;
+	margin: auto;
+	display: flex;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+	min-width: 220px;
+	background: #505FA9;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 20px;
+}
+
+.admin_logo {
+	margin-bottom: 20px;
+	width: 100px;
+}
+
+.sidebar_ul {
+	list-style: none;
+	padding: 0;
+	width: 100%;
+}
+
+.sidebar_list {
+	padding: 14px 0;
+	text-align: center;
+	font-size: 20px;
+	transition: all 0.2s ease-in-out;
+}
+
+.sidebar_list a {
+	color: white;
+	text-decoration: none;
+	display: block;
+}
+
+.sidebar_list:hover, 
+.sidebar_list.active {
+	background-color: #1e223f;
+	scale: 1.05;
+}
+
 /* 로그아웃 버튼 */
-#admin_logoutbtn{
-  background-color: #1e223f;
-  color: white;
-  width: 70px;
-  height: 30px;
-  margin: 70px 77px;
+.logout_form {
+	margin-top: 40px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
 }
 
-
-.admin_post_status { 
-  margin-left:6px;
-  font-size: 12px; 
-}
-#post_status_text { 
-  font-weight: 600; 
-}
-/* 답변 섹션 */
-.admin_reply_section { 
-  margin-top:16px; 
-  border-top:1px solid #ddd; 
-  padding-top:12px; 
-}
-.reply_title { 
-  font-size:16px; 
-  margin:0 0 8px; 
+#admin_logoutbtn {
+	background-color: #e74c3c;
+	color: #fff;
+	font-weight: bold;
+	border: none;
+	border-radius: 20px;
+	padding: 8px 20px;
+	cursor: pointer;
+	transition: 0.2s ease-in-out;
 }
 
-.reply_list { 
-  list-style:none; 
-  margin:0; 
-  padding:0; 
-  display:flex; 
-  flex-direction:column; 
-  gap:12px; 
-}
-.reply_item { 
-  background:#f8f8f8; 
-  border:1px solid #e5e5e5; 
-  border-radius:8px; 
-  padding:12px 44px 12px 12px;
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-}
-.reply_imgicon{
-  flex: 0 0 15px;
-  width: 15px;
-  height: 15px;
-  overflow: hidden;
-}
-.reply_imgicon img{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-}
-.reply_meta { 
-  font-size:12px; 
-  opacity:.7; 
-  margin-bottom:6px; 
-}
-.reply_body { 
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  word-break: break-word; 
-}
-.reply_delete{
-  position:absolute;
-  top:8px;
-  right:8px;
-  border:0;
-  border-radius:6px;
-  padding:6px 10px;
-  background:#e89999;
-  font-weight:600;
-  cursor:pointer;
-}
-.reply_form { 
-  margin-top:12px; 
-  display:flex; 
-  flex-direction:column; 
-  gap:8px; 
-}
-.reply_form textarea { 
-  width:100%;
-  min-height:110px;
-  padding:10px;
-  resize:none;
-  border:1px solid #ccc;
-  border-radius:8px;
-  font:inherit;
-}
-.reply_actions { 
-  display:flex; 
-  justify-content:flex-end; 
-}
-.reply_actions button { 
-  padding:8px 14px; 
-  border:0; 
-  border-radius:8px; 
-  cursor:pointer; 
-}
-.reply_content { 
-  flex: 1 1 auto; 
-  min-width: 0; }
-#reply_submit { 
-  background:#333; 
-  color:#fff; 
-  margin-bottom: 20px;
-  margin-right: 10px;
-}
-.reply_actions .ghost { 
-  background:#eee; 
+#admin_logoutbtn:hover {
+	background-color: #c0392b;
+	transform: translateY(-2px);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* 접근성용 숨김 라벨 */
-.sr-only { 
-  position:absolute; 
-  width:1px; 
-  height:1px; 
-  padding:0; 
-  margin:-1px; 
-  overflow:hidden; 
-  clip:rect(0,0,0,0); 
-  white-space:nowrap; 
-  border:0; 
+/* ===== Main Content ===== */
+.admin_inner {
+	flex: 1;
+	padding: 30px;
+}
+
+.admin_pagetitle {
+	font-weight: 900;
+	margin-bottom: 20px;
+}
+
+/* ===== White Content Box ===== */
+.admin_whitebox {
+	background: #fff;
+	min-height: 600px;
+	border-radius: 8px;
+	padding: 20px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Post Header ===== */
+.admin_post_titlebox {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 12px;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 12px;
+	margin-bottom: 20px;
+}
+
+.admin_post_tag p {
+	font-weight: bold;
+	color: #505FA9;
+	background: #e9ecfb;
+	padding: 4px 10px;
+	border-radius: 4px;
+	font-size: 14px;
+}
+
+.admin_post_icon img {
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+}
+
+.admin_post_userid p {
+	font-weight: 600;
+	color: #333;
+}
+
+.admin_post_title p {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.admin_post_date p {
+	font-size: 14px;
+	color: #777;
+}
+
+.admin_post_status {
+	margin-left: auto;
+	font-size: 14px;
+	font-weight: bold;
+	color: #27ae60;
+}
+
+/* ===== Post Content ===== */
+.admin_post_content {
+	font-size: 15px;
+	color: #333;
+	line-height: 1.6;
+	padding: 10px 0;
+	margin-bottom: 20px;
+	white-space: pre-line;
+}
+
+/* ===== Reply Section ===== */
+.admin_reply_section {
+	margin-top: 20px;
+	border-top: 1px solid #eee;
+	padding-top: 15px;
+}
+
+.reply_title {
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 12px;
+	color: #505FA9;
+}
+
+.reply_list {
+	margin-bottom: 15px;
+}
+
+.reply_list li {
+	padding: 8px 12px;
+	border-bottom: 1px solid #f1f1f1;
+	color: #444;
+	font-size: 14px;
+}
+
+.reply_list li.empty {
+	text-align: center;
+	color: #888;
+}
+
+/* ===== Reply Form ===== */
+.reply_form textarea {
+	width: 100%;
+	min-height: 80px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	padding: 8px;
+	resize: vertical;
+	font-size: 14px;
+	margin-bottom: 10px;
+}
+
+.reply_actions {
+	display: flex;
+	justify-content: flex-end;
+}
+
+/* ===== 공통 버튼 스타일 ===== */
+button,
+.btn-complete,
+.admin_updatebtn,
+#admin_deletebtn,
+#admin_listbtn,
+#reply_submit {
+	font-size: 14px;
+	font-weight: 600;
+	padding: 8px 16px;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.25s ease-in-out;
+}
+
+/* 답변 등록 버튼 */
+#reply_submit {
+	background: #505FA9; /* 보라색 */
+	color: #fff;
+}
+#reply_submit:hover {
+	background: #1e223f; /* 진한 네이비 */
+	transform: translateY(-2px);
+	box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* 답변 완료 버튼 */
+.admin_updatebtn, 
+.btn-complete {
+	background-color: #27ae60; /* 초록색 */
+	color: #fff;
+}
+.admin_updatebtn:hover, 
+.btn-complete:hover {
+	background-color: #1e8449; /* 진한 초록 */
+	transform: translateY(-2px);
+	box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* 삭제 버튼 */
+#admin_deletebtn {
+	background: #e74c3c; /* 빨강 */
+	color: #fff;
+}
+#admin_deletebtn:hover {
+	background: #c0392b;
+	transform: translateY(-2px);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* 목록 버튼 */
+#admin_listbtn {
+	background: #7f8c8d; /* 회색 */
+	color: #fff;
+}
+#admin_listbtn:hover {
+	background: #636e72;
+	transform: translateY(-2px);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }

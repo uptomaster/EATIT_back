@@ -1,5 +1,7 @@
 package com.bapseguen.app.dto;
 
+import java.util.Date;
+
 public class PostDTO {
 
 		private int postNumber;
@@ -11,8 +13,8 @@ public class PostDTO {
 		private int postViewCount;
 		private int postReportCount;
 		private boolean deleteState;
-		private String postCreatedDate;
-		private String postUpdatedDate;
+		private Date postCreatedDate;
+		private Date postUpdatedDate;
 		private String postType; // ‘NOTICE’,’FREE’,’PROMOTION’,’RECIPE’,’INQUIRY’,’FAQ’
 		
 		
@@ -59,16 +61,17 @@ public class PostDTO {
 		public void setDeleteState(boolean deleteState) {
 			this.deleteState = deleteState;
 		}
-		public String getPostCreatedDate() {
+		
+		public Date getPostCreatedDate() {
 			return postCreatedDate;
 		}
-		public void setPostCreatedDate(String postCreatedDate) {
+		public void setPostCreatedDate(Date postCreatedDate) {
 			this.postCreatedDate = postCreatedDate;
 		}
-		public String getPostUpdatedDate() {
+		public Date getPostUpdatedDate() {
 			return postUpdatedDate;
 		}
-		public void setPostUpdatedDate(String postUpdatedDate) {
+		public void setPostUpdatedDate(Date postUpdatedDate) {
 			this.postUpdatedDate = postUpdatedDate;
 		}
 		public String getPostType() {

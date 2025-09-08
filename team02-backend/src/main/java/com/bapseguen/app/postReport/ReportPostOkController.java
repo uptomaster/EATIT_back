@@ -31,6 +31,12 @@ public class ReportPostOkController implements Execute {
 
             // 3) 신고 처리 (트랜잭션 포함)
             PostReportDAO dao = new PostReportDAO();
+            Integer author = dao.findAuthor(postNumber);
+            if (author != null && author.equals(memberNumber)) {
+                response.getWriter().write("{\"ok\":false,\"reason\":\"SELF_REPORT_FORBIDDEN\"}");
+                return null;
+            }            
+            
             boolean ok = dao.reportOnce(postNumber, memberNumber, reason);
 
             if (ok) {

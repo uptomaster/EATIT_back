@@ -24,7 +24,7 @@ public class InquiryDetailController implements Execute {
         request.setAttribute("inquiry", inquiry);
 
         Result result = new Result();
-        result.setPath("/app/admin/inquiryDetail.jsp");
+        result.setPath("/app/admin/adminInquiryDetail.jsp");
         result.setRedirect(false);
         return result;
     }

@@ -84,9 +84,22 @@
 			    </div>
 			
 			    <div class="form_group">
-			        <label for="content">내용</label>
-			        <textarea id="content" name="freeContent" rows="10" placeholder="내용을 입력하세요" required>${post.freeContent}</textarea>
-			    </div>
+				    <label for="content">내용</label>
+				    <c:choose>
+				        <c:when test="${post.postType == 'FREE'}">
+				            <textarea id="content" name="freeContent" rows="10" placeholder="내용을 입력하세요" required>${post.freeContent}</textarea>
+				        </c:when>
+				        <c:when test="${post.postType == 'PROMOTION'}">
+				            <textarea id="content" name="promoContent" rows="10" placeholder="내용을 입력하세요" required>${post.promoContent}</textarea>
+				        </c:when>
+				        <c:when test="${post.postType == 'RECIPE'}">
+				            <textarea id="content" name="recipeContent" rows="10" placeholder="내용을 입력하세요" required>${post.recipeContent}</textarea>
+				        </c:when>
+				        <c:otherwise>
+				            <textarea id="content" name="content" rows="10" placeholder="내용을 입력하세요" required></textarea>
+				        </c:otherwise>
+				    </c:choose>
+				</div>
 			
 			    <div class="form_group">
 			        <label for="imageUpload">사진 첨부</label> 

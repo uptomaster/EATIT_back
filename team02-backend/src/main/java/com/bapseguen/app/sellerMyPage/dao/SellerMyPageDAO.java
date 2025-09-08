@@ -257,19 +257,31 @@ public class SellerMyPageDAO {
     // 음식 구매내역
     public List<MyPurchaseDTO> myFoodPurchaseList(Map<String, Integer> pageMap){
     	System.out.println("[판페DAO]내 음식 구매 목록 조회 - myFoodPurchseList 메소드 실행");
-    	List<MyPurchaseDTO> list = sqlSession.selectList("myOrder.myOrderSelect", pageMap);
+    	List<MyPurchaseDTO> list = sqlSession.selectList("myOrder.myOrderFoodSelect", pageMap);
     	System.out.println("조회결과 : " + list);
     	return list;
     }
     // 음식 구매내역 갯수
     public int myFoodPurchaseCount(Map<String, Integer> pageMap) {
-    	System.out.println("[판페DAO]내 게시글 총 개수 조회 - myReviewCount 메소드 실행");
-    	int count = sqlSession.selectOne("myOrder.myOrderCount",pageMap);
-    	System.out.println("[판페DAO] 내 리뷰 수 : "+count);
+    	System.out.println("[판페DAO]내 음식 구매 목록 개수 조회 - myReviewCount 메소드 실행");
+    	int count = sqlSession.selectOne("myOrder.myOrderFoodCount",pageMap);
+    	System.out.println("[판페DAO] 내 음식 구매 수 : "+count);
     	return count;
     }
     // 재료 구매내역
+    public List<MyPurchaseDTO> myIngrePurchaseList(Map<String, Integer> pageMap){
+    	System.out.println("[판페DAO]내 음식 구매 목록 조회 - myIngrePurchaseList 메소드 실행");
+    	List<MyPurchaseDTO> list = sqlSession.selectList("myOrder.myOrderIngreSelect", pageMap);
+    	System.out.println("조회결과 : " + list);
+    	return list;
+    }
     // 재료 구매내역 갯수
+    public int myIngrePurchaseCount(Map<String, Integer> pageMap) {
+    	System.out.println("[판페DAO]내 음식 구매 목록 개수 조회 - myIngrePurchaseCount 메소드 실행");
+    	int count = sqlSession.selectOne("myOrder.myOrderFoodCount",pageMap);
+    	System.out.println("[판페DAO] 내 음식 구매 수 : "+count);
+    	return count;
+    }
     
     // // 내정보수정
     // 내정보 조회

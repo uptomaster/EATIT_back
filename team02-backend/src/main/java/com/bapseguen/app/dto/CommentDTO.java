@@ -8,52 +8,72 @@ public class CommentDTO {
 	private String commentContent;
 	private String commentedDate;
 	private boolean commentDeleteState;
+	private int adminNumber;
 	
+	// getter & setter
 	public int getCommentNumber() {
 		return commentNumber;
 	}
-	
-	// getter & setter
+
 	public void setCommentNumber(int commentNumber) {
 		this.commentNumber = commentNumber;
 	}
+
 	public int getPostNumber() {
 		return postNumber;
 	}
+
 	public void setPostNumber(int postNumber) {
 		this.postNumber = postNumber;
 	}
+
 	public int getMemberNumber() {
 		return memberNumber;
 	}
+
 	public void setMemberNumber(int memberNumber) {
 		this.memberNumber = memberNumber;
 	}
+
 	public String getCommentContent() {
 		return commentContent;
 	}
+
 	public void setCommentContent(String commentContent) {
 		this.commentContent = commentContent;
 	}
+
 	public String getCommentedDate() {
 		return commentedDate;
 	}
+
 	public void setCommentedDate(String commentedDate) {
 		this.commentedDate = commentedDate;
 	}
+
 	public boolean isCommentDeleteState() {
 		return commentDeleteState;
 	}
+
 	public void setCommentDeleteState(boolean commentDeleteState) {
 		this.commentDeleteState = commentDeleteState;
 	}
-	
+
+	public int getAdminNumber() {
+		return adminNumber;
+	}
+
+	public void setAdminNumber(int adminNumber) {
+		this.adminNumber = adminNumber;
+	}
+
 	@Override
 	public String toString() {
 		return "CommentDTO [commentNumber=" + commentNumber + ", postNumber=" + postNumber + ", memberNumber="
 				+ memberNumber + ", commentContent=" + commentContent + ", commentedDate=" + commentedDate
-				+ ", commentDeleteState=" + commentDeleteState + "]";
+				+ ", commentDeleteState=" + commentDeleteState + ", adminNumber=" + adminNumber + "]";
 	}
+	
 	
 	
 }

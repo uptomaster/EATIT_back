@@ -1,485 +1,353 @@
 @charset "UTF-8";
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
-/* 모든 링크 기본 스타일 */
+li {
+	list-style: none;
+}
+
+body {
+	font-family: "Noto Sans KR", sans-serif;
+	background-color: #FFF5E4; /* 따뜻한 크림 배경 */
+	color: #333;
+	line-height: 1.6;
+}
+
+/* 기본 링크 스타일 */
 a {
-  color: #333;             /* 글씨 색 (검정/짙은 회색 추천) */
-  text-decoration: none;   /* 밑줄 제거 */
+	color: #333;
+	text-decoration: none;
+	transition: color 0.2s;
 }
 
-/* 마우스 올렸을 때 스타일 */
 a:hover {
-  color: #FF924E;          /* 강조 색상 (밥세권 메인 포인트 컬러) */
+	color: #FF924E; /* 포인트 오렌지 */
 }
 
-
-/* 구매 > 가게 상세 정보 */
+/* ---------------- 메인 레이아웃 ---------------- */
 #buy_store_detail {
-  width: 1920px;
-  background-color: #FFF5E4;
+	width: 100%;
+	padding: 40px 0;
 }
 
 .wrap {
-  width: 1100px;
-  background-color: #FBE3B9;
-  margin: 0 auto;
-  display: flex;
+	width: 1100px;
+	margin: 0 auto;
+	display: flex;
+	gap: 30px;
+	background-color: #FBE3B9; /* 연한 살구 배경 */
+	border-radius: 12px;
+	padding: 20px;
 }
 
-/* 가게상세정보 및 상품 구매 영역 */
+/* ---------------- 왼쪽 영역 ---------------- */
 .buy_left_area {
-  width: 550px;
-  height: 1080px;
-  margin-top: 70px;
+	flex: 2;
 }
 
+/* 가게 정보 카드 */
 .buy_store_info {
-  width: 530px;
-  height: 400px;
-  background-color: white;
-  border-radius: 10px;
-  margin: 0 auto;
-  position: relative;
+	background: #fff;
+	border-radius: 16px;
+	overflow: hidden;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	margin-bottom: 20px;
 }
 
-/* 가게 이미지 */
 .buy_store_info>img {
-  width: 530px;
-  height: 300px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  object-fit: cover;
+	width: 100%;
+	height: 280px;
+	object-fit: cover;
 }
 
-/* 가게 찜 하트 */
-.buy_add_heart {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-
-.buy_add_heart img {
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-}
-
-.active_heart {
-  display: none;
-}
-
-/* 가게 정보 텍스트 */
 .buy_store_info_detail {
-  margin-left: 30px;
-  margin-top: 10px;
+	padding: 16px 20px;
 }
 
 .buy_store_name {
-  font-size: 22px;
-  font-weight: bold;
+	font-size: 22px;
+	font-weight: bold;
+	color: #222;
 }
 
-.buy_store_address {
-  font-size: 18px;
+.buy_store_address, .buy_store_tel {
+	font-size: 15px;
+	color: #555;
+	margin-top: 6px;
 }
 
-.buy_store_open_time {
-  font-size: 16px;
-}
-
-/* 메뉴 영역 */
+/* ---------------- 메뉴 박스 ---------------- */
 .buy_food {
-  width: 530px;
-  height: 630px;
-  background-color: white;
-  border-radius: 10px;
-  margin: 10px auto;
+	background: #fff;
+	border-radius: 16px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+	overflow: hidden;
+	margin-bottom: 20px;
 }
 
-.buy_food ul {
-  display: flex;
-  list-style: none;
-  justify-content: space-around;
-}
-
-.link_review {
-  font-size: 1px;
-}
-
+/* 메뉴 탭 */
 .buy_food_menu_choice {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 30px;
-  background-color: #FF5656;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  list-style: none;
+	display: flex;
+	background: #FF924E; /* 메인 오렌지 */
 }
 
 .buy_food_menu_choice li {
-  /* display: inline-block; */
-  font-size: 30px;
+	flex: 1;
+	text-align: center;
 }
 
-.link_menu {
-  color: #ffb84d;
-  display: block;
-  text-decoration: none;
-  font-size: 20px;
-  font-weight: bold;
+.buy_food_menu_choice li a {
+	display: block;
+	padding: 14px 0;
+	color: #fff;
+	font-weight: 600;
+	transition: background 0.2s;
 }
 
-.link_ingredient,
-.link_review {
-  display: block;
-  text-decoration: none;
-  font-size: 20px;
-  font-weight: bold;
-  color: white;
+.buy_food_menu_choice li a.active {
+	background: #FFB84D; /* 밝은 오렌지 */
 }
 
-.buy_map img {
-  align-items: center;
-  width: 530px;
-  height: 800px;
+.buy_food_menu_choice li a:hover {
+	background: #ff7722;
 }
 
 /* 메뉴 리스트 */
-.buy_food_menu {
-  width: 530px;
-  height: 550px;
-  margin-top: 10px;
-}
-
 .buy_food_menu_list {
-  width: 450px;
-  height: 150px;
-  display: flex;
-  margin: 10px auto;
-  /* border:2px solid black; */
-  border-radius: 10px;
-
+	display: flex;
+	gap: 20px;
+	padding: 20px;
 }
 
 .buy_food_menu_list img {
-  width: 150px;
-  height: 150px;
-  border-radius: 8px;
-  object-fit: cover;
+	width: 140px;
+	height: 140px;
+	border-radius: 12px;
+	object-fit: cover;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.buy_each_container {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 10px;
 }
 
 .buy_food_stock {
-  width: 100px;
-  height: 30px;
-  background-color: #FF5656;
-  color: white;
-  text-align: center;
-  line-height: 30px;
-  border-radius: 6px;
-  margin-left: 30px;
-  font-size: 18px;
-  font-weight: bold;
+	background: #FF5656;
+	color: #fff;
+	padding: 4px 10px;
+	border-radius: 20px;
+	font-size: 14px;
+	font-weight: bold;
+	display: inline-block;
 }
 
 .buy_food_menu_name {
-  width: 100px;
-  height: 30px;
-  text-align: center;
-  line-height: 30px;
-  border-radius: 6px;
-  margin-left: 30px;
-  font-size: 18px;
-  font-weight: bold;
+	font-size: 20px;
+	font-weight: bold;
+	color: #222;
 }
 
-.buy_food_menu_info {
-  width: 250px;
-  margin-left: 30px;
+.price_menu {
+	font-size: 16px;
+	font-weight: bold;
+	color: #FF924E;
 }
 
 /* 수량 조절 */
 .buy_food_stock_choice {
-  width: 260px;
-  margin-left: 30px;
-  display: flex;
-  align-items: center;
-  /* justify-content: right; */
+	display: flex;
+	align-items: center;
+	gap: 10px;
 }
 
-.buy_food_stock_choice p {
-  margin: 0 10px;
-  font-size: 16px;
+.minus, .plus {
+	background-color: #FFB84D;
+	color: #fff;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 32px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: background 0.2s;
 }
 
-.buy_food_stock_choice_box {
-  width: 30px;
-  height: 30px;
+.minus:hover, .plus:hover {
+	background-color: #FF924E;
 }
 
-.buy_food_stock_choice_box>a {
-  width: 30px;
-  height: 30px;
-  display: block;
-  text-align: center;
-  line-height: 30px;
-  background: #eee;
-  border-radius: 4px;
-  text-decoration: none;
-  color: black;
-}
-
-.minus,
-.plus {
-  background-color: #f37878;
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  border-radius: 30px;
-  text-decoration: none;
-  color: black;
-  font-weight: bold;
-  padding-top:2px;
+.count {
+	font-size: 18px;
+	font-weight: bold;
 }
 
 /* 장바구니 버튼 */
 .buy_add_cart_btn {
-  width: 110px;
-  height: 30px;
-  background-color: #202020;
-  color: white;
-  border-radius: 6px;
-  text-align: center;
-  line-height: 30px;
-  text-decoration: none;
-  margin-left: auto;
+	background: #333;
+	color: white;
+	border-radius: 6px;
+	padding: 8px 16px;
+	font-size: 14px;
+	margin-top: 6px;
+	cursor: pointer;
+	transition: background 0.2s;
 }
 
-.buy_food_menu hr {
-  width: 480px;
-  margin: 0 auto;
+.buy_add_cart_btn:hover {
+	background: #FF924E;
 }
 
-/* 페이지네이션 */
+/* ---------------- 페이지네이션 ---------------- */
 .pagination_container {
-  display: flex;
-  gap: 10px;
-  font-size: 20px;
-  justify-content: center;
+	display: flex;
+	gap: 8px;
+	justify-content: center;
+	padding: 16px 0;
 }
 
 .page {
-  display: inline-block;
-  padding: 8px 14px;
-  background-color: #fff4d8;
-  border-radius: 6px;
-  border: 1px solid #ffdb70;
-  color: #6a4e00;
-  text-decoration: none;
-  font-weight: 600;
+	padding: 6px 12px;
+	border-radius: 6px;
+	border: 1px solid #ffdb70;
+	background-color: #fff8ec;
+	font-weight: bold;
+	color: #6a4e00;
+	transition: all 0.2s;
 }
 
 .page:hover {
-  background-color: #ffd580;
-  color: #4a3000;
+	background-color: #FFB84D;
+	color: #fff;
 }
 
 .page.active {
-  background-color: #ffb84d;
-  color: white;
-  cursor: default;
-  border-color: #ffae42;
+	background-color: #FF924E;
+	color: white;
+	border-color: #FF924E;
 }
 
-/* 지도 + 원산지 */
+/* ---------------- 오른쪽 영역 ---------------- */
 .buy_map_area {
-  width: 550px;
-  margin-top: 20px;
+	flex: 1;
 }
 
-.buy_back_store_list{
-  width: 180px;
-  height: 40px;
-  background-color: #FF924E;
-  text-align: center;
-  border-radius: 4px;
-  line-height: 40px;
-  margin-left: 360px;
-  margin-bottom: 10px;
-}
-.buy_back_store_list a{
-  text-decoration: none;
-  color: white;
-}
-.buy_back_store_list:hover{
-  background-color: #ff7722;
-}
-.buy_map {
-  width: 530px;
-  height: 800px;
-  background-color: white;
-  border-radius: 10px;
-  margin: 0 auto;
+/* 돌아가기 버튼 */
+.buy_back_store_list {
+	background: #FF924E;
+	padding: 10px;
+	border-radius: 8px;
+	text-align: center;
+	margin-bottom: 20px;
+	transition: background 0.2s;
 }
 
+.buy_back_store_list a {
+	color: #fff;
+	font-weight: bold;
+}
+
+.buy_back_store_list:hover {
+	background: #ff7722;
+}
+
+/* ---------------- 원산지/가게 정보 ---------------- */
 .buy_origin {
-  width: 530px;
-  height: 200px;
-  background-color: white;
-  border-radius: 10px;
-  margin: 10px auto;
+	background: #fff;
+	border-radius: 16px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	margin-bottom: 20px;
+	overflow: hidden;
 }
 
 .buy_origin_menu {
-  height: 30px;
-  list-style: none;
-  line-height: 30px;
-  display: flex;
+	display: flex;
+	background-color: #fafafa;
 }
 
 .buy_origin_info {
-  margin: 15px 0 0 30px;
+	flex: 1;
+	text-align: center;
 }
 
 .buy_origin_info a {
-  font-size: 20px;
-  font-weight: bold;
-  text-decoration: none;
-  color: black;
+	display: block;
+	padding: 12px 0;
+	font-size: 15px;
+	font-weight: 600;
+	color: #666;
+	transition: background 0.2s;
 }
 
-.buy_origin_info:nth-child(2) a {
-  color: #acacac;
+.buy_origin_info a:hover {
+	background-color: #FFF5E4;
 }
 
-.buy_origin_store_info {
-  height: 150px;
-  display: flex;
+.buy_origin_store_info, .origin_info_inactive {
+	padding: 20px;
 }
 
-.buy_origin_content,
-.buy_origin_seller {
-  list-style: none;
-  width: 150px;
-  margin: 30px 0 0 30px;
-  font-size: 14px;
+.buy_origin_content li {
+	margin-bottom: 8px;
+	font-size: 14px;
+	color: #444;
 }
 
 .origin_info_inactive {
-  display: none;
+	display: none;
 }
 
-.price_menu {
-  padding-left: 30px;
-  padding-top: 20px;
-  font-weight: bold;
-}
-
-.buy_each_container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.count {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.buy_food_menu_choice>li>a:hover {
-  color: #ffb84d;
-  transition: 0.3s ease;
-}
-
-.buy_map>img:hover{
-  border:2px solid red;
-}
-
-.buy_add_cart_btn:hover{
-  background-color: #ffb84d;
-}
-
-.minus:hover, .plus:hover{
-  background-color: #ffb84d;
-}
-
-/* 찜 메시지 스타일 */
-.heart-message {
-  position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #FF5656;
-  color: white;
-  padding: 15px 30px;
-  font-size: 18px;
-  border-radius: 20px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-  z-index: 9999;
-}
-
-.heart-message.show {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.origin_info_inactive>ul>li {
-  list-style-type: none;
-}
-
-.origin_info_inactive>ul {
-  margin: auto;
-  padding:30px;
-  padding-left:140px;
-}
-
-/* 사고보상정책 전체 영역 */
+/* ---------------- 사고보상정책 ---------------- */
 .buy_policy_toggle_section {
-  background-color: #fff4d8;
-  margin-top: 20px;
-  padding: 10px 20px;
-  width: 1100px;
-  text-align: center;
-  background-color: #FBE3B9;
-  margin: 0 auto;
+	background-color: #FBE3B9;
+	margin-top: 20px;
+	padding: 20px;
+	width: 1100px;
+	margin: 30px auto;
+	text-align: center;
+	border-radius: 16px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
-.buy_policy_toggle_section>p{
-  margin-bottom: 10px;
+
+.buy_policy_toggle_section>p {
+	margin-bottom: 12px;
+	font-size: 15px;
+	color: #444;
 }
+
+.buy_policy_toggle_header, .buy_policy_toggle_content {
+	width: 90%;
+	max-width: 1050px;
+	margin: 12px auto;
+	border-radius: 8px;
+	background-color: #fff;
+	padding: 14px 20px;
+	font-size: 14px;
+	line-height: 1.6;
+}
+
 .buy_policy_toggle_header {
-  width: 1050px;
-  margin: 0 auto;
-  background-color: white;
-  font-size: 18px;
-  font-weight: bold;
-  padding: 12px 20px;
-  cursor: pointer;
-  border-radius: 6px;
-  border: 1px solid #dddddd;
+	font-weight: bold;
+	cursor: pointer;
+	border: 1px solid #ddd;
+	transition: background 0.2s;
 }
-.buy_policy_toggle_header:hover{
-  background-color: #ebebeb;
+
+.buy_policy_toggle_header:hover {
+	background-color: #FFB84D;
+	color: white;
 }
+
 .buy_policy_toggle_content {
-  width: 1050px;
-  margin: 0 auto;
-  padding: 15px;
-  display: none;
-  background-color: white;
-  font-size: 14px;
-  color: #333333;
-  line-height: 1.6;
-}
-.buy_policy_toggle_content ul {
-  margin: 10px;
-  padding-left: 20px;
-  list-style-position: inside;
-  /* border: 1px solid red; */
+	display: none;
+	color: #333;
+	border: 1px solid #eee;
 }
