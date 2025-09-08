@@ -46,47 +46,106 @@
 
 		<div class="seller_myposts_page">
 			<h2 class="seller_myposts_list">내 글 관리</h2>
-			<div>
-				<div class="seller_myposts_top">
-					<div class="seller_myposts_sort">게시판 종류</div>
-					<!-- <div class="seller_myposts_tag">태그</div> -->
-					<div class="seller_myposts_title">글 제목</div>
-					<div class="seller_myposts_date">게시일</div>
-					<div class="seller_myposts_comments_count">댓글수</div>
-					<div class="seller_myposts_like_count">추천수</div>
-				</div>
-				<c:choose>
-					<c:when test="${not empty myPostList}">
-						<c:forEach var="post" items="${myPostList}">
-							<div class="seller_myposts_comments_list">
-								
-								<div class="seller_myposts_sort">
-									<c:out value="${post.getPostType() }" />
-								</div>
-								<div class="seller_myposts_title">
-									<a href="${pageContext.request.contextPath}/app/community/viewOwnPost.jsp"><c:out
-											value="${post.getPostTitle() }" /></a>
-								</div>
-								<div class="seller_myposts_date">
-									<c:out value="${post.getPostCreatedDate() }" />
-								</div>
-								<div class="seller_myposts_comments_count">
-									<c:out value="${post.getCommentCount() }" />
-								</div>
-								<div class="seller_myposts_like_count">
-									<c:out value="${post.getPostLikeCount() }" />
-								</div>
-							</div>
-						</c:forEach>
-					</c:when>
-					<c:otherwise>
-						<div>
-							<div colspan="5" align="center">작성한 게시글이 없습니다.</div>
-						</div>
-					</c:otherwise>
-				</c:choose>
 
-			</div>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<c:set var="ctx" value="${pageContext.request.contextPath}" />
+
+<div>
+  <div class="seller_myposts_top">
+    <div class="seller_myposts_sort">게시판 종류</div>
+    <!-- <div class="seller_myposts_tag">태그</div> -->
+    <div class="seller_myposts_title">글 제목</div>
+    <div class="seller_myposts_date">게시일</div>
+    <div class="seller_myposts_comments_count">댓글수</div>
+    <div class="seller_myposts_like_count">추천수</div>
+  </div>
+
+  <c:choose>
+    <c:when test="${not empty myPostList}">
+      <c:forEach var="post" items="${myPostList}">
+        <%-- postType → 라벨/엔드포인트 매핑 --%>
+        <c:choose>
+          <c:when test="${post.postType eq 'NOTICE'}">
+            <c:set var="typeLabel" value="공지/이벤트"/>
+            <c:set var="readEndpoint" value="/community/noticeBoardReadOk.co"/>
+            <c:set var="listEndpoint" value="/community/noticeBoardListOk.co"/>
+          </c:when>
+          <c:when test="${post.postType eq 'FREE'}">
+            <c:set var="typeLabel" value="자유게시판"/>
+            <c:set var="readEndpoint" value="/community/freeBoardReadOk.co"/>
+            <c:set var="listEndpoint" value="/community/freeBoardListOk.co"/>
+          </c:when>
+          <c:when test="${post.postType eq 'PROMOTION'}">
+            <c:set var="typeLabel" value="홍보게시판"/>
+            <c:set var="readEndpoint" value="/community/promotionBoardReadOk.co"/>
+            <c:set var="listEndpoint" value="/community/promotionBoardListOk.co"/>
+          </c:when>
+          <c:when test="${post.postType eq 'RECIPE'}">
+            <c:set var="typeLabel" value="레시피"/>
+            <c:set var="readEndpoint" value="/community/recipeBoardReadOk.co"/>
+            <c:set var="listEndpoint" value="/community/recipeBoardListOk.co"/>
+          </c:when>
+          <c:when test="${post.postType eq 'INQUIRY'}">
+            <c:set var="typeLabel" value="문의"/>
+            <c:set var="readEndpoint" value="/community/inquiryReadOk.co"/>
+            <c:set var="listEndpoint" value="/community/inquiryListOk.co"/>
+          </c:when>
+          <c:when test="${post.postType eq 'FAQ'}">
+            <c:set var="typeLabel" value="자주묻는질문"/>
+            <c:set var="readEndpoint" value="/community/faqReadOk.co"/>
+            <c:set var="listEndpoint" value="/community/faqListOk.co"/>
+          </c:when>
+          <c:otherwise>
+            <c:set var="typeLabel" value="${post.postType}"/>
+            <c:set var="readEndpoint" value="/community/boardReadOk.co"/>
+            <c:set var="listEndpoint" value="/community/boardListOk.co"/>
+          </c:otherwise>
+        </c:choose>
+
+        <%-- 컨텍스트 프리픽스 + 엔드포인트 --%>
+        <c:set var="listUrl" value="${ctx}${listEndpoint}" />
+        <%-- 요청대로 상세는 ?postNumber=${memberNumber} 를 부착 --%>
+        <c:set var="readUrl" value="${ctx}${readEndpoint}?postNumber=${post.postNumber}" />
+
+        <%-- 제목: myPostTitle 우선, 없으면 postTitle --%>
+        <c:set var="titleText" value="${post.postTitle}"/>
+
+        <div class="seller_myposts_comments_list">
+          <div class="seller_myposts_sort">
+            <a href="${listUrl}">${typeLabel}</a>
+          </div>
+
+          <div class="seller_myposts_title">
+            <a href="${readUrl}">
+              <c:out value="${titleText}"/>
+            </a>
+          </div>
+
+          <div class="seller_myposts_date">
+            <c:out value="${post.postCreatedDate}"/>
+          </div>
+
+          <div class="seller_myposts_comments_count">
+            <c:out value="${post.commentCount}"/>
+          </div>
+
+          <div class="seller_myposts_like_count">
+            <c:out value="${post.postLikeCount}"/>
+          </div>
+        </div>
+      </c:forEach>
+    </c:when>
+
+    <c:otherwise>
+      <div>
+        <div colspan="5" align="center">작성한 게시글이 없습니다.</div>
+      </div>
+    </c:otherwise>
+  </c:choose>
+</div>
+
+
 			<!-- 페이지네이션 들어가는 자리 -->
 			<div class="seller_myposts_pagination">
 				<ul class="seller_myposts_pagination_ul">

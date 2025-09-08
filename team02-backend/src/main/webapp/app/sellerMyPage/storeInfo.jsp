@@ -91,9 +91,18 @@
 						<form action="${pageContext.request.contextPath}/sellerMyPage/editFood.se" method="post" class="editFoodForm">
             
                 <div class="store_info_ingredient_menu_list">
-                    <img src="${pageContext.request.contextPath}/assets/img/store.jpg" alt="">
+                		<!-- 음식 사진 출력 -->
+                   	<div class="img-box">
+											<img
+												src="${pageContext.request.contextPath}/upload/${food.getItemImageSystemName()}" 
+												alt="${food.itemName }"/>
+
+										</div>
+                    <!-- 사진 옆 정보부분 -->
                     <div class="store_info_ingredient_menu_info_stock">
+                    		<!-- 최상단 : 수량, 수정 버튼, 상세 버튼 -->
                         <div class="store_info_btns">
+                        		<!-- 수량 -->
                             <div class="store_info_ingredient_stock">
                                 <c:out value="${food.itemQuantity}"/> 개 남음
                             </div>
@@ -102,15 +111,17 @@
                              class="store_info_ingredient_view_btn"
                              data-food-itemNumbe="${food.itemNumber}">
                                 상세보기</button> --%>
-                     <a href="${pageContext.request.contextPath}/sellerMyPage/editFood.se?itemNumber=${food.itemNumber}">
-											<div class="store_info_ingredient_edit_btn">수정</div>
-										</a>           
-                                
-                    <!-- 2번 방식 a태그 안에 서블릿 경로 넣기 -->
-  									<a href="${pageContext.request.contextPath}/sellerMyPage/detailFoodOk.se?itemNumber=${food.itemNumber}">
-											<div class="store_info_ingredient_edit_btn">상세</div>
-										</a>
+                            <!-- 수정 버튼 -->
+				                    <a href="${pageContext.request.contextPath}/sellerMyPage/editFood.se?itemNumber=${food.itemNumber}">
+															<div class="store_info_ingredient_edit_btn">수정</div>
+														</a>           
+                            <!-- 상세 버튼 -->
+				                    <!-- 2번 방식 a태그 안에 서블릿 경로 넣기 -->
+				  									<a href="${pageContext.request.contextPath}/sellerMyPage/detailFoodOk.se?itemNumber=${food.itemNumber}">
+															<div class="store_info_ingredient_edit_btn">상세</div>
+														</a>
                         </div>
+                        <!-- 하단부 : 이름, 소비기한, 가격 -->
                         <div class="store_info_ingredient_menu_info">
                             <h3><c:out value="${food.itemName}"/></h3>
                             <p>소비기한: <c:out value="${food.itemExpireDate}"/></p>
@@ -155,7 +166,7 @@
 								<c:if test="${next}">
 									<li><a
 										href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?page=${endPage + 1}"
-										class="next">&gt;</a>
+										class="next">&gt;</a></li>
 								</c:if>
 							</ul>
 						</div>

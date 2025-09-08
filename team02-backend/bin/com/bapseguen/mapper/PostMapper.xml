@@ -242,6 +242,13 @@
 		WHERE POST_NUMBER=#{postNumber}
 	</update>
 	
+	<!-- 현재 조회수 쿼리 -->
+	<select id="getViewCount" parameterType="int" resultType="int">
+	    SELECT POST_VIEW_COUNT
+	    FROM TBL_POST 
+	    WHERE POST_NUMBER=#{postNumber}
+	</select>
+	
 	<!-- 자유게시판 게시글 삭제 쿼리 / 글 내용-->	
 	<delete id="freeBoardDelete" parameterType="int">
 	    DELETE FROM TBL_FREE_BOARD
@@ -297,6 +304,7 @@
 	    WHERE POST_NUMBER = #{postNumber}
 	</update>
 		
+		
 	<!-- 추천수 이미 추천했는지 확인 -->
 	<select id="checkLike" parameterType="map" resultType="int">
 	    SELECT 1 
@@ -304,32 +312,39 @@
 	    WHERE POST_NUMBER=#{postNumber} AND MEMBER_NUMBER=#{memberNumber}
 	</select>
 	
-	<!-- 추천 추가 -->
-	<insert id="insertLike" parameterType="map">
-	    INSERT INTO TBL_LIKE (POST_NUMBER, MEMBER_NUMBER) VALUES (#{postNumber}, #{memberNumber})
-	</insert>
-	
-	<!-- 게시글 추천수 증가 -->
-	<update id="updateLikeCount" parameterType="int">
-	    UPDATE TBL_POST 
-	    SET POST_LIKE_COUNT = POST_LIKE_COUNT + 1 
-	    WHERE POST_NUMBER=#{postNumber}
-	</update>
-	
-	<!-- 현재 추천수 조회 -->
-	<select id="getLikeCount" parameterType="int" resultType="int">
-	    SELECT POST_LIKE_COUNT 
-	    FROM TBL_POST 
-	    WHERE POST_NUMBER=#{postNumber}
-	</select>
-	
-	<!-- 게시글 작성자 번호 조회  -->
-	<select id="getAuthorNumber" resultType="int" parameterType="int">
+	<!-- 작성자 조회 -->
+	<select id="getAuthorNumber" parameterType="int" resultType="int">
 	    SELECT MEMBER_NUMBER
 	    FROM TBL_POST
 	    WHERE POST_NUMBER = #{postNumber}
 	</select>
-
+	
+	<!-- 추천 중복 체크 -->
+	<select id="hasLiked" parameterType="map" resultType="int">
+	    SELECT COUNT(*)
+	    FROM TBL_LIKE
+	    WHERE POST_NUMBER = #{postNumber} AND MEMBER_NUMBER = #{memberNumber}
+	</select>
+	
+	<!-- 추천 추가 + 게시글 추천수 증가 -->
+	<update id="insertLikeAndUpdateCount" parameterType="map">
+	  BEGIN
+	    INSERT INTO TBL_LIKE (POST_NUMBER, MEMBER_NUMBER)
+	    VALUES (#{postNumber}, #{memberNumber});
+	    
+	    UPDATE TBL_POST
+	    SET POST_LIKE_COUNT = POST_LIKE_COUNT + 1
+	    WHERE POST_NUMBER = #{postNumber};
+	  END;
+	</update>
+	
+	<!-- 추천수 조회 -->
+	<select id="getLikeCount" parameterType="int" resultType="int">
+	    SELECT POST_LIKE_COUNT
+	    FROM TBL_POST
+	    WHERE POST_NUMBER=#{postNumber}
+	</select>
+	
 	
 	
 	<!-- 내가 작성한 게시글 조회 -->
@@ -337,16 +352,22 @@
 		<![CDATA[
 		SELECT * FROM (
 		  SELECT ROWNUM AS RNUM, SUBQUERY.*
-		    FROM (
-		      SELECT p.POST_NUMBER, p.POST_TITLE,p.POST_TYPE,p.POST_CREATED_DATE,p.POST_VIEW_COUNT,p.POST_LIKE_COUNT, p.POST_DELETE_STATE,
-		          (SELECT count(c.COMMENT_NUMBER) FROM TBL_COMMENT c WHERE c.POST_NUMBER = p.POST_NUMBER  ) AS comment_count
-		      FROM TBL_POST p 
-		      WHERE p.MEMBER_NUMBER = #{memberNumber}
-		        AND p.POST_DELETE_STATE = 'N'
-		      ORDER BY p.POST_CREATED_DATE DESC
-		    ) SUBQUERY
-		  )
-		  WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+	    FROM (
+	      SELECT 
+	      p.POST_NUMBER, 
+	      p.POST_TYPE,	     
+	      p.POST_TITLE,
+	      p.POST_CREATED_DATE AS postCreatedDate,
+	      p.POST_VIEW_COUNT AS postViewCount,
+	      p.POST_LIKE_COUNT AS postLikeCount,
+	      p.POST_DELETE_STATE AS deleteState,
+	          (SELECT count(c.COMMENT_NUMBER) FROM TBL_COMMENT c WHERE c.POST_NUMBER = p.POST_NUMBER  ) AS commentCount
+	      FROM TBL_POST p 
+	      WHERE p.MEMBER_NUMBER = #{memberNumber}
+	        AND p.POST_DELETE_STATE = 'N'
+	      ORDER BY p.POST_CREATED_DATE DESC
+	    ) SUBQUERY
+	  )WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 		]]>
 	</select>
 	
