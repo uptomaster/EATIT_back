@@ -94,8 +94,15 @@ public class CommunityDAO {
 
 
 	// 게시글 조회수 증가
-	public void updateReadCount(int postNumber) {
-		sqlSession.update("post.postUpdateReadCount", postNumber);
+	public int updateReadCount(int postNumber) {
+		return sqlSession.update("post.postUpdateReadCount", postNumber);
+	}
+	// 현재 조회수 가져오기
+	public int getViewCount(int postNumber) {
+	    try (SqlSession session = sqlSessionFactory.openSession()) {
+	        Integer count = session.selectOne("post.getViewCount", postNumber);
+	        return count != null ? count : 0;
+	    }
 	}
 
 	// 게시글 삭제
@@ -220,32 +227,34 @@ public class CommunityDAO {
 	public void insertRecipeContent(Map<String, Object> params) {
 	    sqlSession.insert("post.insertRecipeContent", params);
 	}
-	
-	// 게시글에 내가 이미 추천했는지 확인
+
+	// 중복 체크
 	public boolean hasLiked(int postNumber, int memberNumber) {
-	    Map<String, Integer> map = new HashMap<>();
-	    map.put("postNumber", postNumber);
-	    map.put("memberNumber", memberNumber);
-	    return sqlSession.selectOne("post.checkLike", map) != null;
+	    try (SqlSession session = sqlSessionFactory.openSession()) {
+	        Map<String, Object> param = Map.of("postNumber", postNumber, "memberNumber", memberNumber);
+	        Integer count = session.selectOne("post.hasLiked", param);
+	        return count != null && count > 0;
+	    }
 	}
 
-	// 추천 추가
-	public void insertLike(int postNumber, int memberNumber) {
-	    Map<String, Integer> map = new HashMap<>();
-	    map.put("postNumber", postNumber);
-	    map.put("memberNumber", memberNumber);
-	    sqlSession.insert("post.insertLike", map);
+	// 추천 추가 + 카운트 증가
+	public void insertLikeAndUpdateCount(int postNumber, int memberNumber) {
+	    try (SqlSession session = sqlSessionFactory.openSession(true)) { // auto-commit
+	        Map<String, Object> param = Map.of("postNumber", postNumber, "memberNumber", memberNumber);
+	        session.update("post.insertLikeAndUpdateCount", param);
+	    }
 	}
 
-	// 게시글 추천수 증가
-	public void updateLikeCount(int postNumber) {
-	    sqlSession.update("post.updateLikeCount", postNumber);
-	}
-
-	// 현재 추천수 가져오기
+	// 최신 추천수 조회
 	public int getLikeCount(int postNumber) {
-	    return sqlSession.selectOne("post.getLikeCount", postNumber);
-	}	
+	    try (SqlSession session = sqlSessionFactory.openSession()) {
+	        return session.selectOne("post.getLikeCount", postNumber);
+	    }
+	}
+
+	
+	
+	
 	// 게시글 작성자 번호 조회
 	public int getAuthorNumber(int postNumber) {
 	    return sqlSession.selectOne("post.getAuthorNumber", postNumber);

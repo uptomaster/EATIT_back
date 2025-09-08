@@ -116,7 +116,10 @@ public class CommunityFrontController extends HttpServlet {
 			System.out.println("게시글 추천 요청");
 			result = new PostLikeController().execute(request, response);
 			break;	
-					
+		case "/community/postViewCount.co":
+			System.out.println("게시글 추천 요청");
+			result = new PostViewCountController().execute(request, response);
+			break;			
 			
 			
 			
@@ -150,22 +153,19 @@ public class CommunityFrontController extends HttpServlet {
 		}
 
 		/*
-		 * if (result != null) { if (result.isRedirect()) {
-		 * response.sendRedirect(result.getPath()); } else {
-		 * request.getRequestDispatcher(result.getPath()).forward(request, response); }
-		 * }
+		 * RequestDispatcher dispatcher =
+		 * request.getRequestDispatcher(result.getPath());
+		 * 
+		 * if (dispatcher == null) { System.out.println("Dispatcher is null! Path = " +
+		 * result.getPath()); } else { dispatcher.forward(request, response); }
 		 */
 		
-		
-		
-		RequestDispatcher dispatcher = request.getRequestDispatcher(result.getPath());
-
-		if (dispatcher == null) {
-		    System.out.println("Dispatcher is null! Path = " + result.getPath());
-		} else {
+		if (result != null && result.getPath() != null) {
+		    RequestDispatcher dispatcher = request.getRequestDispatcher(result.getPath());
 		    dispatcher.forward(request, response);
+		} else {
+		    System.out.println("Forward/Redirect 필요 없음. result: " + result);
 		}
-		
 	}
 
 }

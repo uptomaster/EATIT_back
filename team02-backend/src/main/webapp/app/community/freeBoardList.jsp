@@ -63,7 +63,7 @@
 	   			<c:choose>
 	   				<c:when test="${not empty postList}">
 	   					<c:forEach var="post" items="${postList}">
-		   					 <div class="board-row list_row flex_row">
+		   					 <div class="board-row list_row flex_row" data-post-number="${post.postNumber}">
 		   					 	<div class="board-item col_title">
 		   					 		<a href="${pageContext.request.contextPath}/community/freeBoardReadOk.co?postNumber=${post.postNumber}">
 		   					 			<c:out value="${post.postTitle}" />
@@ -77,6 +77,7 @@
 		   					 	</div>
 		   					 	<div class="board-item col_views">
 		   					 		<c:out value="${post.getPostViewCount() }" />
+		   					 		
 		   					 	</div>
 		   					 	<div class="board-item col_likes">
 								    <c:out value="${post.getPostLikeCount()}" />
@@ -149,6 +150,9 @@
   <!-- <footer id="footer"></footer> -->
 </body>
 <script>
+		console.log("조회수 스크립트 실행됨!");
+		console.log("postNumber:", postNumber);
+		console.log("viewCountEl:", viewCountEl);
 		window.memberNumber = "${sessionScope.memberNumber}";
 </script>
 
