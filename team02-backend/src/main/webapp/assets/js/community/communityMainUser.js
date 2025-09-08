@@ -56,15 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 글쓰기 버튼 - 관리자만 작성 가능 (필요시 주석 해제)
-  /*
-  const writeBtn = document.getElementById("writeBtn");
-  writeBtn.addEventListener("click", function(event) {
-    event.preventDefault();
-    alert("관리자만 작성할 수 있습니다.");
-    window.location.href = window.location.pathname;
-  });
-  */
+
 
   // 초기 목록 표시
   displayList(currentPage);

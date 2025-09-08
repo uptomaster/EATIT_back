@@ -1,56 +1,45 @@
 package com.bapseguen.app.userMyPage;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
-import com.bapseguen.app.userMyPage.dao.UserMyPageDAO;
 import com.bapseguen.app.dto.view.MyPageDTO;
+import com.bapseguen.app.userMyPage.dao.UserMyPageDAO;
 
 public class EditUserInfoController implements Execute {
-    @Override
-    public Result execute(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
 
-        Result result = new Result();
-        HttpSession session = request.getSession(false);
 
-        Integer memberNumber = (session != null) ? (Integer) session.getAttribute("memberNumber") : null;
-        if (memberNumber == null) {
-            result.setRedirect(true);
-            result.setPath(request.getContextPath() + "/login/login.lo?login=required");
-            return result;
-        }
+	@Override
+    public Result execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+    	System.out.println("====EditUserInfoController 실행====");
         
-        if (session.getAttribute("myPagePwVerified") == null) {
-            result.setRedirect(true);
-            result.setPath(request.getContextPath() + "/UserMyPage/generalCheckPw.my");
-            return result;
-        }
+        Result result = new Result();
+		UserMyPageDAO userMyPageDAO = new UserMyPageDAO();
+		
+		// 로그인된 사용자 번호 가져오기 (세션)
+		Integer memberNumber = (Integer) request.getSession().getAttribute("memberNumber");
 
-        UserMyPageDAO dao = new UserMyPageDAO();
-        MyPageDTO my = dao.MyPageSelect(memberNumber);
-        Object msg = session.getAttribute("phoneFlashMsg");
-        if (msg != null) {
-            request.setAttribute("phoneMsg", msg);
-            session.removeAttribute("phoneFlashMsg");
-        }
-        Object color = session.getAttribute("phoneFlashColor");
-        if (color != null) {
-            request.setAttribute("phoneMsgColor", color);
-            session.removeAttribute("phoneFlashColor");
-        }
-        Object dev = session.getAttribute("phoneDevCode");
-        if (dev != null) {
-            request.setAttribute("phoneDevCode", dev);
-            session.removeAttribute("phoneDevCode");
-        }
-        request.setAttribute("my", my);
+		if (memberNumber == null) {
+			result.setPath("/member/login.me"); // 로그인 안된 경우 로그인 페이지로
+			result.setRedirect(true);
+			return result;
+		}
 
+		// 내 정보 조회
+		System.out.println("======확인용=======");
+		MyPageDTO userinfo = userMyPageDAO.myPageSelect(memberNumber);
+		request.setAttribute("userinfo", userinfo);
+
+		// JSP로 포워딩
         result.setRedirect(false);
         result.setPath("/app/userMyPage/editUserInfo.jsp");
         return result;
+        
     }
 }

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bapseguen.app.Result;
 import com.bapseguen.app.community.CommunityMainOkController;
+import com.bapseguen.app.community.FaqReadOkController;
 
 /**
  * Servlet implementation class userMyPageFrontController
@@ -62,6 +63,16 @@ public class UserMyPageFrontController extends HttpServlet {
 			System.out.println("내 정보 수정 페이지 처리 요청");
 		    result = new EditUserInfoController().execute(request, response);
 		    break;
+//		case "/userMyPage/editUserInfoOk.my":
+//			System.out.println("내 정보 수정 페이지 처리 요청");
+//		    result = new EditUserInfoOkController().execute(request, response);
+//		    break;    
+//		
+		    
+		case "/userMyPage/foodPurchaseListOk.my":
+			System.out.println("마이페이지 음식 구매목록 페이지 처리 요청");
+			result = new FoodPurchaseListOkController().execute(request, response);
+			break;
 		    
 		case "/userMyPage/updateMember.my":
 		    result = new UpdateMemberController().execute(request, response);
@@ -80,6 +91,12 @@ public class UserMyPageFrontController extends HttpServlet {
 		    // 실제 탈퇴 처리
 		    result = new WithdrawOkController().execute(request, response);
 		    break;
+		    
+
+
+		    
+		    
+		    
 		
 		
 		}

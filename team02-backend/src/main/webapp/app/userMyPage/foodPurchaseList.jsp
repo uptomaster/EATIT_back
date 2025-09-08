@@ -1,15 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
+  
+  <!-- css -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/userMyPage/foodPurchaseList.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
+  
+  <!-- js -->
   <script defer src="${pageContext.request.contextPath}/assets/js/userMyPage/foodPurchaseList.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
   <title>밥세권</title>
@@ -30,9 +35,9 @@
     <!-- 마이페이지 좌측 메뉴 리스트 -->
     <ul class="foodpurchaselist_side_bar">
       <!-- 현재 페이지는 음식 구매 내역 -->
-      <li><a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.jsp">내 정보 수정</a></li>
+      <li><a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.my">내 정보 수정</a></li>
       <li class="foodpurchaselist_main">
-        <a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseList.jsp">음식 구매 내역</a>
+        <a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListOk.my">음식 구매 내역</a>
       </li>
       <li><a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseList.jsp">재료 구매 내역</a></li>
       <li><a href="${pageContext.request.contextPath}/userMyPage/manageMyPostsList.jsp">내 글 관리</a></li>
@@ -59,23 +64,34 @@
         <div class="food_purchase_list_review">리뷰</div>
       </div>
 
-      <!-- 실제 구매 내역 1건 -->
+      <!-- 실제 구매 내역 -->
+      <!-- 수정해야함 우선 보류 -->
       <div class="foodpurchase_page_list">
-        <div class="food_purchase_date_list">2025.08.03</div>
-        <div class="food_purchase_img_list">
-          <img class="meal_img" src="./../../assets/img/나무.png" alt="">
+        <div class="food_purchase_date_list">
+        	<fmt:formatDate value="${myorder.ordersDate}" pattern="yyyy-MM-dd"/>
         </div>
-        <div class="food_purchase_restaurant_name_list">김사부 마라탕</div>
-        <div class="food_purchase_menu_info_list">마라탕</div>
-        <div class="food_purchase_how_many_list">1</div>
-        <div class="food_purchase_price_list">16000원</div>
+        <div class="food_purchase_img_list">
+          <img class="meal_img" src="${pageContext.request.contextPath}/assets/img/나무.png" alt="">
+        </div>
+        <div class="food_purchase_restaurant_name_list">
+        	<c:out value="${myorder.getStoreName()}" />
+        </div>
+        <div class="food_purchase_menu_info_list">
+        	<c:out value="${myorder.getItemName()}" />
+        </div>
+        <div class="food_purchase_how_many_list">
+        	<c:out value="${myorder.getOrderItemQuantity()}" />
+        </div>
+        <div class="food_purchase_price_list">
+        	<c:out value="${myorder.getOrderItemUnitPrice()}" />
+        </div>
         <div class="food_purchase_review_list">
           <a href="${pageContext.request.contextPath}/userMyPage/writeReview.jsp" class="food_purchase_review_meal">리뷰</a>
         </div>
       </div>
 
       <!-- 실제 구매 내역 2건 -->
-      <div class="foodpurchase_page_list">
+      <%-- <div class="foodpurchase_page_list">
         <div class="food_purchase_date_list">2025.08.04</div>
         <div class="food_purchase_img_list">
           <img class="meal_img" src="${pageContext.request.contextPath}/assets/img/새싹.png" alt="">
@@ -87,20 +103,43 @@
         <div class="food_purchase_review_list">
           <a href="${pageContext.request.contextPath}/userMyPage/writeReview.jsp" class="food_purchase_review_meal">리뷰</a>
         </div>
-      </div>
+      </div> --%>
     </div>
 
     <!-- 페이지네이션 (하단 페이지 넘기기) -->
-    <div class="foodpurchaselist_pagination">
-      <a href="#" class="foodpurchaselist_page_active">1</a>
-      <a href="#" class="foodpurchaselist_page">2</a>
-      <a href="#" class="foodpurchaselist_page">3</a>
-      <a href="#" class="foodpurchaselist_page">4</a>
-      <a href="#" class="foodpurchaselist_page">5</a>
-    </div>
+    <div class="pagination">
+        <ul>
+          <c:if test="${prev}">
+          	<li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListController.my?page=${startPage - 1}" class="prev">&lt;</a></li>
+          </c:if>
+          <c:set var="realStartPage" value="${startPage < 0 ? 0 : startPage}" />
+          <c:forEach var="i" begin="${realStartPage}" end="${endPage}">
+          	<c:choose>
+          		<c:when test="${!(i == page) }">
+          			<li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListController.my?page=${i}">
+          				<c:out value="${i}" />
+          			</a></li>
+          		</c:when>
+          		<c:otherwise>
+          			<li><a href="#" class="active">
+          				<c:out value="${i}" />
+          			</a></li>
+          		</c:otherwise>
+          	</c:choose>
+          </c:forEach>
+          <c:if test="${next}">
+          	<li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListController.my?page=${endPage + 1}" class="next">&gt;</a></li>
+          </c:if>
+        </ul>
+      </div>
+    
+    
   </div>
 </main>
 <!-- 푸터 -->
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </body>
+<script>
+
+</script>
 </html>
