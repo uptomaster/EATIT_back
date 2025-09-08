@@ -54,6 +54,12 @@
           <div class="foodsaleswrite_submit_table">
             <div id="food_edit_image_preview"></div>
             <div class="foodsaleswrite_box">
+<c:if test="${not empty itemImage}">
+    <div class="food_image_box">
+        <img src="${pageContext.request.contextPath}/upload/${itemImage.itemImageSystemName}" 
+             alt="${itemImage.itemImageOriginalName}" />
+    </div>
+</c:if>
               <label for="food_edit_photo">음식 사진 </label>
               <!-- <button type="button">등록</button> -->
             </div>

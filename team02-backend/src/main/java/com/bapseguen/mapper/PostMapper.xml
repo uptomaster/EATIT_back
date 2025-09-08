@@ -352,16 +352,22 @@
 		<![CDATA[
 		SELECT * FROM (
 		  SELECT ROWNUM AS RNUM, SUBQUERY.*
-		    FROM (
-		      SELECT p.POST_NUMBER, p.POST_TITLE,p.POST_TYPE,p.POST_CREATED_DATE,p.POST_VIEW_COUNT,p.POST_LIKE_COUNT, p.POST_DELETE_STATE,
-		          (SELECT count(c.COMMENT_NUMBER) FROM TBL_COMMENT c WHERE c.POST_NUMBER = p.POST_NUMBER  ) AS comment_count
-		      FROM TBL_POST p 
-		      WHERE p.MEMBER_NUMBER = #{memberNumber}
-		        AND p.POST_DELETE_STATE = 'N'
-		      ORDER BY p.POST_CREATED_DATE DESC
-		    ) SUBQUERY
-		  )
-		  WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+	    FROM (
+	      SELECT 
+	      p.POST_NUMBER, 
+	      p.POST_TYPE,	     
+	      p.POST_TITLE,
+	      p.POST_CREATED_DATE AS postCreatedDate,
+	      p.POST_VIEW_COUNT AS postViewCount,
+	      p.POST_LIKE_COUNT AS postLikeCount,
+	      p.POST_DELETE_STATE AS deleteState,
+	          (SELECT count(c.COMMENT_NUMBER) FROM TBL_COMMENT c WHERE c.POST_NUMBER = p.POST_NUMBER  ) AS commentCount
+	      FROM TBL_POST p 
+	      WHERE p.MEMBER_NUMBER = #{memberNumber}
+	        AND p.POST_DELETE_STATE = 'N'
+	      ORDER BY p.POST_CREATED_DATE DESC
+	    ) SUBQUERY
+	  )WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 		]]>
 	</select>
 	

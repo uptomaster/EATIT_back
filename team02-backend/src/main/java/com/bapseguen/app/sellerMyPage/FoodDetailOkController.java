@@ -65,7 +65,7 @@ public class FoodDetailOkController implements Execute {
 		System.out.println(ItemListDTO);
 		
 		request.setAttribute("item", ItemListDTO);
-//		request.setAttribute("itemImage", ItemListDTO);
+		request.setAttribute("itemImage", files);
 		
 		result.setPath("/app/sellerMyPage/foodSalesView.jsp");
 		result.setRedirect(false);
