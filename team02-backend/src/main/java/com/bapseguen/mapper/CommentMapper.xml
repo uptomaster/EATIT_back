@@ -37,8 +37,8 @@
 		COMMENT_NUMBER = #{value}
 	</delete>
 
-	<!-- 댓글 조회 -->
-	<select id="selectAll" parameterType="int"
+	<!-- 커뮤니티 댓글 조회 -->
+	<select id="selectCommunityComments" parameterType="int"
 		resultType="CommentListDTO">
 	  <![CDATA[
 	      SELECT
@@ -66,6 +66,28 @@
 	      WHERE c.POST_NUMBER = #{value}
 	      AND NVL(c.COMMENT_DELETE_STATE, 'N') = 'N'
 	      ORDER BY c.COMMENT_NUMBER DESC
+	  ]]>
+	</select>
+
+	<!-- 문의 댓글 조회 -->
+	<select id="selectInquiryComments" parameterType="int"
+		resultType="CommentListDTO">
+	  <![CDATA[
+	    SELECT
+	      0 AS COMMENT_NUMBER,
+	      p.POST_NUMBER AS POST_NUMBER,
+	      0 AS MEMBER_NUMBER,
+	      0 AS ADMIN_NUMBER,
+	      i.ANSWER_CONTENT AS COMMENT_CONTENT,
+	      TO_CHAR(i.ANSWER_DATE, 'YYYY-MM-DD HH24:MI') AS COMMENTED_DATE,
+	      '관리자' AS MEMBER_ID,
+	      0 AS PAYMENT_AMOUNT,
+	      '관리자' AS TREE_GRADE
+	    FROM TBL_INQUIRY i
+	    JOIN TBL_POST p ON p.POST_NUMBER = i.POST_NUMBER
+	    WHERE p.POST_TYPE = 'INQUIRY'
+	      AND p.POST_NUMBER = #{value}
+	      AND i.ANSWER_CONTENT IS NOT NULL
 	  ]]>
 	</select>
 

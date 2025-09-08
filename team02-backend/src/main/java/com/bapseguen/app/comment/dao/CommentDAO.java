@@ -24,10 +24,15 @@ public class CommentDAO {
 		return sqlSession.insert("comment.insertInquiry", dto);
 	}
 
-    //게시글 번호로 댓글 목록 조회
-    public List<CommentListDTO> selectAll(int postNumber) {
-        return sqlSession.selectList("comment.selectAll", postNumber);
-    }
+    //댓글 조회
+	public List<CommentListDTO> selectAll(int postNumber) {
+	    String postType = findPostType(postNumber);
+	    String qid = "comment.selectCommunityComments";
+	    if ("INQUIRY".equalsIgnoreCase(postType)) {
+	        qid = "comment.selectInquiryComments";
+	    }
+	    return sqlSession.selectList(qid, postNumber);
+	}
     
     // 게시글 타입 조회 (FREE/PROMOTION/RECIPE/INQUIRY/…)
     public String findPostType(int postNumber) {
