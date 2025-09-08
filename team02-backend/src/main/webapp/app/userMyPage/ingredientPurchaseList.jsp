@@ -6,13 +6,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--파비콘 -->
   <link rel="shortcut" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
+  <title>밥세권</title>
+  
+  <!--css  -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/userMyPage/ingredientPurchaseList.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
+  
+  <!--js  -->
   <script defer src="${pageContext.request.contextPath}/assets/js/userMyPage/ingredientPurchaseList.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-  <title>밥세권</title>
   <script>
     let headerPath = '../../header.jsp';
     let footerPath = '../../footer.jsp';
@@ -28,8 +33,8 @@
 
       <!-- 마이페이지 사이드 메뉴 리스트 -->
       <ul class="ingredientpurchase_side_bar">
-        <li><a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.jsp">내 정보 수정</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseList.jsp">음식 구매 내역</a></li>
+        <li><a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.my">내 정보 수정</a></li>
+        <li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListOk.my">음식 구매 내역</a></li>
 
         <!-- 현재 페이지는 '재료 구매 내역'이라 강조 클래스 적용 -->
         <li class="ingredientpurchase_main">
@@ -75,7 +80,7 @@
           </div>
         </div>
 
-        <!-- 구매 내역 2건 (예시 데이터) -->
+       <%--  <!-- 구매 내역 2건 (예시 데이터) -->
         <div class="ingredientpurchase_page_list">
           <div class="ingredientpurchase_date_list">2025.08.04</div>
           <div class="ingredientpurchase_img_list">
@@ -88,18 +93,21 @@
           <div class="ingredientpurchase_review_list">
             <a href="${pageContext.request.contextPath}/userMyPage/writeReview.jsp" class="ingredientpurchase_review_meal">리뷰</a>
           </div>
-        </div>
+        </div> --%>
       </div>
 
       <!-- 하단 페이지네이션 -->
-      <div class="ingredientpurchase_pagination">
-        <!-- 현재 페이지는 1번 -->
+ <!--      <div class="ingredientpurchase_pagination">
+        현재 페이지는 1번
         <a href="#" class="ingredientpurchase_page_active">1</a>
         <a href="#" class="ingredientpurchase_page">2</a>
         <a href="#" class="ingredientpurchase_page">3</a>
         <a href="#" class="ingredientpurchase_page">4</a>
         <a href="#" class="ingredientpurchase_page">5</a>
-      </div>
+      </div> -->
+      
+      
+      
 
     </div>
   </main>

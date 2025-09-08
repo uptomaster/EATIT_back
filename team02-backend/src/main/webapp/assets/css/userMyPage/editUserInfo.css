@@ -352,3 +352,39 @@ main {
 #add_ficture {
   cursor: pointer;
 }
+
+/* 페이지네이션 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.pagination > ul {
+  display: flex;
+  list-style: none;
+}
+
+.pagination a {
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px;
+  margin: 0 5px;
+  border-radius: 5px;
+  border-color: #ffae42;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination a:hover {
+  background-color:#ffd580;
+  color: #fff;
+}
+
+.pagination .active {
+  background-color: #ffb84d;
+  color: white;
+  cursor: default;
+  border-color: #ffae42;
+}
