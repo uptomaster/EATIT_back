@@ -8,8 +8,6 @@
 	</select>
 
 
-
-
 	<!-- 음식 판매 등록 -->
 	<insert id="addFood" parameterType="ItemInsertDTO">
 		<selectKey keyProperty="itemNumber" resultType="int" order="BEFORE">
@@ -90,7 +88,12 @@
 		SELECT * FROM (
 			SELECT ROWNUM AS RNUM, SUBQUERY.* FROM (
 				SELECT 
-					i.item_number, i.item_name,i.item_price,i.item_content,i.item_quantity,i.item_expire_date,
+					i.item_number, 
+					i.item_name,
+					i.item_price,
+					i.item_content,
+					i.item_quantity,
+					i.item_expire_date,
 					im.item_image_system_name
 				FROM TBL_ITEM i
 				JOIN TBL_STORE s ON i.business_number = s.business_number
@@ -186,6 +189,7 @@
 			#{itemImageOriginalName}
 		FROM DUAL
 	</insert>
+	<!-- 음식 사진 등록 -->
 
 	<!-- 가게 정보 조회 -->
 	<!-- 가게 정보 조회 -->

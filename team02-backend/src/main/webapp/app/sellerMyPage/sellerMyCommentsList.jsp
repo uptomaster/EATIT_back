@@ -64,7 +64,6 @@
 								<!-- 게시판 종류 -->
 								<div class="seller_mycomments_sort">
 									<!-- <a href="./../../app/community/freeBoardList.html"></a> -->
-								  	<div class="seller_mycomments_sort">
 								    <c:choose>
 								      <c:when test="${comment.postType eq 'INQUIRY'}">문의</c:when>
 								      <c:when test="${comment.postType eq 'FAQ'}">자주묻는질문</c:when>
@@ -74,7 +73,6 @@
 								      <c:when test="${comment.postType eq 'RECIPE'}">레시피</c:when>
 								      <c:otherwise><c:out value="${comment.postType}"/></c:otherwise>
 								    </c:choose>
-								  </div>
 								</div>
 								<!-- 게시글 제목 -->
 								<div class="seller_mycomments_title">

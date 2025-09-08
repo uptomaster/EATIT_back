@@ -110,8 +110,8 @@ public class FoodAddOkController implements Execute {
 			ItemImageDTO.setItemImageSystemName(fileSystemName);
 			ItemImageDTO.setItemImageOriginalName(fileOriginalName);
 
-			System.out.println("업로드 된 파일 정보 : " + ItemImageDTO);
 			ItemImageDAO.insert(ItemImageDTO);
+			System.out.println("업로드 된 파일 정보 : " + ItemImageDTO);
 		}
 		
 		 result.setRedirect(false);
