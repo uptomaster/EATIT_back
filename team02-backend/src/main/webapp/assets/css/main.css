@@ -90,29 +90,32 @@ h3{
 .main_food_box{
   display: flex;
   height: 340px;
-  width: 1000px;	
+  align-items: center;
+  justify-content: center;
 }
 
-.main_food_buy{
-  height: 340px;
-  /* border: 1px solid green; */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.4s ease-in-out;
+.main_food_buy {
+    height: 340px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    overflow: hidden;
+    width: 1000px;
+    /* transition 삭제 (transform 안 쓸거면) */
 }
-/*메인 음식판매 이미지 및 정보 전체 */
-.main_food_buy_article{
-  width: 245px;
-  height: 340px;
-  /* border: 1px solid blue; */
-  margin: 3px;
-  background-color: white;
-  border-radius: 8px;
+
+.main_food_buy_article {
+    width: 245px;
+    height: 340px;
+    margin: 3px;
+    background-color: white;
+    border-radius: 8px;
+    flex-shrink: 0;  /* 크기 고정 */
+    display: none;   /* 기본 숨김 */
 }
 
 .main_food_buy_article.visible {
-  display: block;
+    display: block; /* visible일 때 보임 */
 }
 .main_food_buy_article a{
   text-decoration: none;

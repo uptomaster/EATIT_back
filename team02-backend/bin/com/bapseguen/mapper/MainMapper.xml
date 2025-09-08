@@ -63,16 +63,29 @@
 
 	<!-- 레시피게시판 목록 조희 -->
 	<select id="recipeList" resultType="PostDTO">
-		<![CDATA[
-		SELECT
-		POST_TITLE,POST_CREATED_DATE,POST_VIEW_COUNT,POST_TYPE,
-		TO_CHAR(POST_CREATED_DATE, 'YYYY-MM-DD') AS postCreatedDate
-		FROM
-		TBL_POST
-		WHERE POST_TYPE = 'RECIPE'
-		AND ROWNUM <= 8 
-		ORDER BY POST_CREATED_DATE DESC
+ <![CDATA[
+		SELECT * FROM (
+    	SELECT SUBQ.*, ROWNUM AS RNUM FROM (
+        SELECT 
+        P.POST_NUMBER AS postNumber,
+        P.POST_TITLE AS postTitle,
+        P.POST_CREATED_DATE AS postCreatedDate,
+        P.POST_VIEW_COUNT AS postViewCount,
+        P.POST_LIKE_COUNT AS postLikeCount,
+        P.POST_TYPE AS postType,
+        P.MEMBER_NUMBER AS memberNumber,
+        M.MEMBER_ID AS memberId
+        FROM TBL_POST P
+        JOIN TBL_MEMBER M ON P.MEMBER_NUMBER = M.MEMBER_NUMBER
+        WHERE P.POST_TYPE = 'RECIPE' 
+        AND P.POST_DELETE_STATE = 'N'
+        ORDER BY P.POST_CREATED_DATE DESC
+    	) SUBQ
+    	WHERE ROWNUM <= 8
+		)
 		]]>
+
 	</select>
+
 
 </mapper>

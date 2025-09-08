@@ -103,8 +103,8 @@ const articles = document.querySelectorAll('.main_food_buy_article');
 const prev = document.querySelector('.main_content_prev a');
 const next = document.querySelector('.main_content_next a');
 
-let startIndex = 0;      // 보이는 첫번째 인덱스
-const visibleCount = 4;  // 한 번에 보일 개수
+let startIndex = 0;
+const visibleCount = 4;
 const total = articles.length;
 
 function updateVisible() {
@@ -117,10 +117,8 @@ function updateVisible() {
   });
 }
 
-// 초기 보이기
 updateVisible();
 
-// 다음 버튼 클릭
 next.addEventListener('click', e => {
   e.preventDefault();
   if (startIndex + visibleCount < total) {
@@ -129,7 +127,6 @@ next.addEventListener('click', e => {
   }
 });
 
-// 이전 버튼 클릭
 prev.addEventListener('click', e => {
   e.preventDefault();
   if (startIndex > 0) {
