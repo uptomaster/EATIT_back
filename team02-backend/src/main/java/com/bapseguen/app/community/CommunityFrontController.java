@@ -142,8 +142,14 @@ public class CommunityFrontController extends HttpServlet {
 			System.out.println("inquiry 상세 페이지 처리 요청");
 			result = new InquiryReadOkController().execute(request, response);
 			break;
-			
-			
+		case "/community/writeCustomerService.co":
+			System.out.println("문의게시판 게시글 작성페이지 이동 요청");
+			result = new WriteInquiryController().execute(request, response);
+			break;	
+		case "/community/writeInquiryOk.co":
+			System.out.println("문의게시판 게시글 작성완료 요청");
+			result = new WriteInquiryOkController().execute(request, response);
+			break;
 			
 			
 
