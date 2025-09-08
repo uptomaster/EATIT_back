@@ -129,35 +129,51 @@ public class AdminDAO {
 		return sqlSession.selectOne("admin.selectInquiryDetail", postNumber);
 	}
 
-	// 문의 상태 업데이트
 	public void updateInquiryStatus(AdminPostDTO postDTO) {
 		sqlSession.update("admin.updateInquiryStatus", postDTO);
 		sqlSession.commit();
 	}
 
-	// 문의 답변 등록 또는 수정
 	public void updateInquiryAnswer(AdminPostDTO postDTO) {
-	    sqlSession.update("admin.updateInquiryAnswer", postDTO);
-	    sqlSession.commit();
+		sqlSession.update("admin.updateInquiryAnswer", postDTO);
+		sqlSession.commit();
 	}
 
-	// 문의 답변 삭제
 	public void deleteInquiryAnswer(int postNumber) {
-	    sqlSession.update("admin.deleteInquiryAnswer", postNumber);
-	    sqlSession.commit();
+		sqlSession.update("admin.deleteInquiryAnswer", postNumber);
+		sqlSession.commit();
 	}
 
 	/* ===================== 신고 / 정지 / 블랙리스트 ===================== */
+	// 전체 신고 목록
 	public List<PostReportDTO> selectReportList() {
 		return sqlSession.selectList("admin.selectReportList");
 	}
 
-	public List<MemberSuspendDTO> selectSuspendList() {
-		return sqlSession.selectList("admin.selectSuspendList");
+	// 페이징/검색용 신고 목록
+	public List<PostReportDTO> selectReportListPaged(Map<String, Object> params) {
+		return sqlSession.selectList("admin.selectReportListPaged", params);
 	}
 
-	public List<MemberBlacklistDTO> selectBlacklistList() {
-		return sqlSession.selectList("admin.selectBlacklistList");
+	// 신고 목록 개수 (검색/페이징용)
+	public int countReportList(Map<String, Object> params) {
+		return sqlSession.selectOne("admin.countReportList", params);
+	}
+
+	public List<MemberSuspendDTO> selectSuspendList(Map<String, Object> params) {
+		return sqlSession.selectList("admin.selectSuspendList", params);
+	}
+
+	public int countSuspendList(Map<String, Object> params) {
+		return sqlSession.selectOne("admin.countSuspendList", params);
+	}
+
+	public List<MemberBlacklistDTO> selectBlacklistList(Map<String, Object> params) {
+		return sqlSession.selectList("admin.selectBlacklistList", params);
+	}
+
+	public int countBlacklistList(Map<String, Object> params) {
+		return sqlSession.selectOne("admin.countBlacklistList", params);
 	}
 
 	public void insertSuspend(MemberSuspendDTO dto) {
@@ -166,6 +182,31 @@ public class AdminDAO {
 
 	public void insertBlacklist(MemberBlacklistDTO dto) {
 		sqlSession.insert("admin.insertBlacklist", dto);
+	}
+
+	public void clearExpiredSuspends() {
+		sqlSession.delete("admin.clearExpiredSuspends");
+		sqlSession.commit();
+	}
+
+	public boolean isSuspended(int memberNumber) {
+		Integer result = sqlSession.selectOne("admin.checkSuspend", memberNumber);
+		return result != null && result > 0;
+	}
+
+	public boolean isBlacklisted(int memberNumber) {
+		Integer result = sqlSession.selectOne("admin.checkBlacklist", memberNumber);
+		return result != null && result > 0;
+	}
+
+	public void deleteBlacklist(int blacklistNumber) {
+		sqlSession.delete("admin.deleteBlacklist", blacklistNumber);
+		sqlSession.commit();
+	}
+
+	public void deleteSuspend(int memberNumber) {
+		sqlSession.delete("admin.deleteSuspend", memberNumber);
+		sqlSession.commit();
 	}
 
 	/* ===================== 대시보드 통계 ===================== */
@@ -198,7 +239,6 @@ public class AdminDAO {
 		return sqlSession.selectList("admin.selectMemberList", params);
 	}
 
-	// 회원 경고 부여
 	public void giveWarning(int memberNumber, String memberType) {
 		if ("GENERAL".equalsIgnoreCase(memberType)) {
 			sqlSession.update("admin.giveGeneralWarning", memberNumber);
@@ -207,62 +247,50 @@ public class AdminDAO {
 		}
 	}
 
-	// 자유게시판 목록
 	public List<Map<String, Object>> selectBoardFreeList(Map<String, Object> params) {
 		return sqlSession.selectList("admin.selectBoardFreeList", params);
 	}
 
-	// 자유게시판 상세
 	public Map<String, Object> selectBoardFreeDetail(int postNumber) {
 		return sqlSession.selectOne("admin.selectBoardFreeDetail", postNumber);
 	}
 
-	// 자유게시판 삭제
 	public int deleteBoardFree(int postNumber) {
 		return sqlSession.delete("admin.deleteBoardFree", postNumber);
 	}
 
-	// 홍보게시판 목록
 	public List<Map<String, Object>> selectBoardPromotionList(Map<String, Object> params) {
 		return sqlSession.selectList("admin.selectBoardPromotionList", params);
 	}
 
-	// 홍보게시판 상세
 	public Map<String, Object> selectBoardPromotionDetail(int postNumber) {
 		return sqlSession.selectOne("admin.selectBoardPromotionDetail", postNumber);
 	}
 
-	// 홍보게시판 삭제
 	public int deleteBoardPromotion(int postNumber) {
 		return sqlSession.delete("admin.deleteBoardPromotion", postNumber);
 	}
 
-	// 레시피게시판 목록
 	public List<Map<String, Object>> selectBoardRecipeList(Map<String, Object> params) {
 		return sqlSession.selectList("admin.selectBoardRecipeList", params);
 	}
 
-	// 레시피게시판 상세
 	public Map<String, Object> selectBoardRecipeDetail(int postNumber) {
 		return sqlSession.selectOne("admin.selectBoardRecipeDetail", postNumber);
 	}
 
-	// 레시피게시판 삭제
 	public int deleteBoardRecipe(int postNumber) {
 		return sqlSession.delete("admin.deleteBoardRecipe", postNumber);
 	}
 
-	// 자유게시판 count
 	public int countBoardFree(Map<String, Object> params) {
 		return sqlSession.selectOne("admin.countBoardFree", params);
 	}
 
-	// 홍보게시판 count
 	public int countBoardPromotion(Map<String, Object> params) {
 		return sqlSession.selectOne("admin.countBoardPromotion", params);
 	}
 
-	// 레시피게시판 count
 	public int countBoardRecipe(Map<String, Object> params) {
 		return sqlSession.selectOne("admin.countBoardRecipe", params);
 	}

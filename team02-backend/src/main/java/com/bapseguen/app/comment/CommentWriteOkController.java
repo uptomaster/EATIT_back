@@ -59,24 +59,23 @@ public class CommentWriteOkController implements Execute {
             response.getWriter().write(gson.toJson(Map.of("status","fail","message","게시글이 존재하지 않습니다")));
             return null;
         }
-        if (isInquiry && loginAdmin == null) {
-            response.getWriter().write(gson.toJson(Map.of("status","fail","message","문의는 관리자만 댓글 작성 가능")));
+        if (isInquiry) {
+            response.setContentType("application/json; charset=utf-8");
+            response.getWriter().write(gson.toJson(Map.of("status","fail","message","문의 답변은 관리자페이지에서만 등록됩니다")));
             return null;
         }
-        if (isCommunity && (loginMember == null || loginAdmin != null)) {
+        
+        // 커뮤니티만 작성 허용(회원만, 관리자는 불가)
+        if (!isCommunity || loginMember == null || loginAdmin != null) {
+            response.setContentType("application/json; charset=utf-8");
             response.getWriter().write(gson.toJson(Map.of("status","fail","message","권한이 없습니다")));
-            return null;
-        }
-        if (!isInquiry && !isCommunity) {
-            response.getWriter().write(gson.toJson(Map.of("status","fail","message","이 게시판은 댓글을 허용하지 않습니다")));
             return null;
         }
 
         // === DTO 설정(한 번에) ===
         commentDTO.setPostNumber(postNumber);
         commentDTO.setCommentContent(commentContent);
-        commentDTO.setMemberNumber(isCommunity ? loginMember : 0);
-        commentDTO.setAdminNumber(isInquiry ? loginAdmin : 0);
+        commentDTO.setMemberNumber(loginMember);
 
         // DB 저장
         int affected = isInquiry? commentDAO.insertInquiry(commentDTO) : commentDAO.insertCommunity(commentDTO);
