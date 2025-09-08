@@ -1,22 +1,33 @@
 @charset "UTF-8";
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-ul { list-style: none; }
-a { text-decoration: none; color: inherit; }
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+ul {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
 
 /* ===== 전체 레이아웃 ===== */
 .admin_innerwrapper {
-  width: 1100px;
-  min-height: 950px;
-  background-color: #f4f5fa;
-  margin: auto;
-  display: flex;
-  gap: 20px;
+	width: 1100px;
+	min-height: 950px;
+	background-color: #f4f5fa;
+	margin: auto;
+	display: flex;
+	gap: 20px;
 }
 
 /* ===== 사이드바 (공지/자유 등 공통 스타일 그대로) ===== */
 /* 사이드바 */
-.sidebar {
+/* .sidebar {
   min-width: 220px;
   background: #505FA9;
   display: flex;
@@ -25,123 +36,159 @@ a { text-decoration: none; color: inherit; }
   padding-top: 20px;
   justify-content: flex-start;
   position: relative;
-}
+} */
 
 /* 로그아웃 버튼 */
 #admin_logoutbtn {
-  background-color: #e74c3c;
-  color: #fff;
-  font-weight: bold;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 20px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-
-  /* 사이드바 맨 아래 중앙 */
-  margin-top: auto;   /* 남는 공간을 밀어내려서 하단으로 */
-  margin-bottom: 20px;
+	background-color: #e74c3c;
+	color: #fff;
+	font-weight: bold;
+	border: none;
+	border-radius: 20px;
+	padding: 8px 20px;
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+	/* 사이드바 맨 아래 중앙 */
+	margin-top: auto; /* 남는 공간을 밀어내려서 하단으로 */
+	margin-bottom: 20px;
 }
+
 #admin_logoutbtn:hover {
-  background-color: #c0392b;
-  transform: translateY(-2px);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+	background-color: #c0392b;
+	transform: translateY(-2px);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.admin_logo { margin-bottom: 20px; width: 100px; }
-.sidebar_list {
-  width: 100%;
-  padding: 14px 0;
-  margin: 8px 0;
-  color: white;
-  text-align: center;
-  font-size: 20px;
-  transition: 0.2s;
+.admin_logo {
+	margin-bottom: 20px;
+	width: 100px;
 }
-.sidebar_list:hover { background-color: #1e223f; }
-.sidebar_list.active { background-color: #1e223f; font-weight: bold; }
+
+.sidebar {
+	min-width: 220px;
+	background: #505FA9;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 20px;
+}
+
+.sidebar_ul {
+	width: 100%;
+}
+
+.sidebar_list {
+	padding: 14px 0;
+	text-align: center;
+	font-size: 20px;
+	transition: 0.2s;
+}
+
+.sidebar_list a {
+	color: white;
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.sidebar_list:hover, .sidebar_list.active {
+	background-color: #1e223f;
+	scale: 1.05;
+}
 
 /* ===== 메인 ===== */
-.admin_inner { flex: 1; margin: 20px 0; }
-.admin_pagetitle { font-weight: 700; margin-bottom: 20px; font-size: 22px; color: #333; }
-.admin_listwrapper { width: 100%; }
+.admin_inner {
+	flex: 1;
+	margin: 20px 0;
+}
+
+.admin_pagetitle {
+	font-weight: 700;
+	margin-bottom: 20px;
+	font-size: 22px;
+	color: #333;
+}
+
+.admin_listwrapper {
+	width: 100%;
+}
 
 /* ===== 상세 카드 ===== */
 .admin_whitebox {
-  background: white;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  padding: 20px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+	background: white;
+	border-radius: 8px;
+	border: 1px solid #ccc;
+	padding: 20px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* 제목 박스 */
 .admin_post_titlebox {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid #ddd;
-  margin-bottom: 20px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	padding-bottom: 12px;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 20px;
 }
 
 .admin_post_title p {
-  font-size: 20px;
-  font-weight: bold;
-  color: #222;
+	font-size: 20px;
+	font-weight: bold;
+	color: #222;
 }
 
-.admin_post_userid p,
-.admin_post_date p {
-  font-size: 14px;
-  color: #666;
+.admin_post_userid p, .admin_post_date p {
+	font-size: 14px;
+	color: #666;
 }
 
-.admin_post_view,
-.admin_post_like {
-  font-size: 14px;
-  color: #505FA9;
-  font-weight: bold;
+.admin_post_view, .admin_post_like {
+	font-size: 14px;
+	color: #505FA9;
+	font-weight: bold;
 }
-.admin_post_view label,
-.admin_post_like label {
-  margin-right: 4px;
-  color: #333;
+
+.admin_post_view label, .admin_post_like label {
+	margin-right: 4px;
+	color: #333;
 }
 
 /* 본문 */
 .admin_post_content {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #444;
-  min-height: 200px;
-  padding: 10px;
-  background: #fafafa;
-  border-radius: 6px;
-  border: 1px solid #eee;
+	font-size: 16px;
+	line-height: 1.6;
+	color: #444;
+	min-height: 200px;
+	padding: 10px;
+	background: #fafafa;
+	border-radius: 6px;
+	border: 1px solid #eee;
 }
 
 /* 삭제 버튼 */
 .admin_detail_delete {
-  text-align: right;
-  margin-top: 20px;
+	text-align: right;
+	margin-top: 20px;
 }
+
 #admin_deletebtn {
-  background: #f44336;
-  color: #fff;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 16px;
-  cursor: pointer;
-  font-size: 14px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  transition: all 0.2s ease-in-out;
+	background: #f44336;
+	color: #fff;
+	font-weight: bold;
+	border: none;
+	border-radius: 6px;
+	padding: 8px 16px;
+	cursor: pointer;
+	font-size: 14px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+	transition: all 0.2s ease-in-out;
 }
+
 #admin_deletebtn:hover {
-  background: #d32f2f;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+	background: #d32f2f;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
 }
