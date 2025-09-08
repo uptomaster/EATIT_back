@@ -201,7 +201,7 @@ public class AdminFrontController extends HttpServlet {
 			result = new InquiryCommentOkController().execute(request, response);
 			break;
 
-		case "/admin/inquiry/statusOk.ad":
+		case "/admin/inquiry/updateStatus.ad":
 			System.out.println("→ [ADMIN] 문의글 상태 변경 요청");
 			result = new InquiryUpdateStatusController().execute(request, response);
 			break;

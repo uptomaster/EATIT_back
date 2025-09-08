@@ -1,78 +1,40 @@
 package com.bapseguen.app.dto.view;
 
 /**
- * 
+ * 상품 + 가게 + 이미지 DTO
  */
 public class ItemWithImgDTO {
-	// 상품 정보 itemDTO
+	// 상품 정보
 	private int itemNumber; // 상품 번호
-	private String businessNumber; // 가게 의 사업자 번호
-	private String itemType; // 음식인지 재료인지
+	private String businessNumber; // 가게 사업자 번호
+	private String itemType; // 음식/재료 구분
 	private String itemName; // 상품명
 	private String itemPrice; // 상품가격
 	private String itemContent; // 상품설명
 	private int itemQuantity; // 상품 수량
 	private String itemExpireDate; // 소비기한
-	private String itemCreatedTime; // 상품 등록일
-	private String itemUpdatedTime; // 상품 수정일
-	private boolean itemSellState; // 판매 여부 "판매중(y)","보관중"(n),
+	private String itemCreatedTime; // 등록일
+	private String itemUpdatedTime; // 수정일
+	private boolean itemSellState; // 판매 여부
 
-    // 가게 정보
-    private String storeName;
-    private String storeAddress;
-    private String storeAddressDetail;
-    private String storeZipCode;
-    private String storeTel;
+	// ✅ 원산지 정보 (추가)
+	private String itemOrigin;
 
-	
-	
-	public String getStoreName() {
-		return storeName;
-	}
+	// 가게 정보
+	private String storeName;
+	private String storeAddress;
+	private String storeAddressDetail;
+	private String storeZipCode;
+	private String storeTel;
 
-	public void setStoreName(String storeName) {
-		this.storeName = storeName;
-	}
+	private String businessName; // 상호명 (조인)
 
-	public String getStoreAddress() {
-		return storeAddress;
-	}
-
-	public void setStoreAddress(String storeAddress) {
-		this.storeAddress = storeAddress;
-	}
-
-	public String getStoreAddressDetail() {
-		return storeAddressDetail;
-	}
-
-	public void setStoreAddressDetail(String storeAddressDetail) {
-		this.storeAddressDetail = storeAddressDetail;
-	}
-
-	public String getStoreZipCode() {
-		return storeZipCode;
-	}
-
-	public void setStoreZipCode(String storeZipCode) {
-		this.storeZipCode = storeZipCode;
-	}
-
-	public String getStoreTel() {
-		return storeTel;
-	}
-
-	public void setStoreTel(String storeTel) {
-		this.storeTel = storeTel;
-	}
-
-	private String businessName; // 상호명 -> tbl_store랑 조인할거임
-
-	// 이미지 정보 itemImageDTO
+	// 이미지 정보
 	private int itemImageNumber; // 상품 이미지 번호
-	private String itemImageSystemName; // 상품 이미지 서버의 파이명
-	private String itemImageOriginalName; // 상품 이미지 원본파일명
+	private String itemImageSystemName; // 서버 저장 파일명
+	private String itemImageOriginalName; // 원본 파일명
 
+	// ===== Getter / Setter =====
 	public int getItemNumber() {
 		return itemNumber;
 	}
@@ -161,6 +123,62 @@ public class ItemWithImgDTO {
 		this.itemSellState = itemSellState;
 	}
 
+	public String getItemOrigin() {
+		return itemOrigin;
+	}
+
+	public void setItemOrigin(String itemOrigin) {
+		this.itemOrigin = itemOrigin;
+	}
+
+	public String getStoreName() {
+		return storeName;
+	}
+
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+
+	public String getStoreAddress() {
+		return storeAddress;
+	}
+
+	public void setStoreAddress(String storeAddress) {
+		this.storeAddress = storeAddress;
+	}
+
+	public String getStoreAddressDetail() {
+		return storeAddressDetail;
+	}
+
+	public void setStoreAddressDetail(String storeAddressDetail) {
+		this.storeAddressDetail = storeAddressDetail;
+	}
+
+	public String getStoreZipCode() {
+		return storeZipCode;
+	}
+
+	public void setStoreZipCode(String storeZipCode) {
+		this.storeZipCode = storeZipCode;
+	}
+
+	public String getStoreTel() {
+		return storeTel;
+	}
+
+	public void setStoreTel(String storeTel) {
+		this.storeTel = storeTel;
+	}
+
+	public String getBusinessName() {
+		return businessName;
+	}
+
+	public void setBusinessName(String businessName) {
+		this.businessName = businessName;
+	}
+
 	public int getItemImageNumber() {
 		return itemImageNumber;
 	}
@@ -185,31 +203,16 @@ public class ItemWithImgDTO {
 		this.itemImageOriginalName = itemImageOriginalName;
 	}
 
-	public String getBusinessName() {
-		return businessName;
-	}
-
-	public void setBusinessName(String businessName) {
-		this.businessName = businessName;
-	}
-
 	@Override
 	public String toString() {
 		return "ItemWithImgDTO [itemNumber=" + itemNumber + ", businessNumber=" + businessNumber + ", itemType="
 				+ itemType + ", itemName=" + itemName + ", itemPrice=" + itemPrice + ", itemContent=" + itemContent
-				+ ", itemQuantity=" + itemQuantity + ", itemExpireDate=" + itemExpireDate
-				+ ", itemCreatedTime=" + itemCreatedTime + ", itemUpdatedTime=" + itemUpdatedTime + ", itemSellState="
-				+ itemSellState + ", storeName=" + storeName + ", storeAddress=" + storeAddress
+				+ ", itemQuantity=" + itemQuantity + ", itemExpireDate=" + itemExpireDate + ", itemCreatedTime="
+				+ itemCreatedTime + ", itemUpdatedTime=" + itemUpdatedTime + ", itemSellState=" + itemSellState
+				+ ", itemOrigin=" + itemOrigin + ", storeName=" + storeName + ", storeAddress=" + storeAddress
 				+ ", storeAddressDetail=" + storeAddressDetail + ", storeZipCode=" + storeZipCode + ", storeTel="
 				+ storeTel + ", businessName=" + businessName + ", itemImageNumber=" + itemImageNumber
 				+ ", itemImageSystemName=" + itemImageSystemName + ", itemImageOriginalName=" + itemImageOriginalName
 				+ "]";
 	}
-
-
-
-
-	
-
-
 }

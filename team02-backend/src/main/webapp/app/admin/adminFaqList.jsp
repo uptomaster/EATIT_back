@@ -104,9 +104,10 @@
 					<ul class="admin_pagenation">
 						<c:if test="${prev}">
 							<li><a
-								href="${pageContext.request.contextPath}/admin/faq/list.ad?page=${startPage-1}"
-								class="prev">&lt;</a></li>
+								href="${pageContext.request.contextPath}/admin/faq/list.ad?page=${startPage-1}&searchType=${searchType}&searchWord=${searchWord}">&lt;</a>
+							</li>
 						</c:if>
+
 						<c:forEach var="i" begin="${startPage}" end="${endPage}">
 							<c:choose>
 								<c:when test="${i == page}">
@@ -114,14 +115,16 @@
 								</c:when>
 								<c:otherwise>
 									<li><a
-										href="${pageContext.request.contextPath}/admin/faq/list.ad?page=${i}">${i}</a></li>
+										href="${pageContext.request.contextPath}/admin/faq/list.ad?page=${i}&searchType=${searchType}&searchWord=${searchWord}">${i}</a>
+									</li>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
+
 						<c:if test="${next}">
 							<li><a
-								href="${pageContext.request.contextPath}/admin/faq/list.ad?page=${endPage+1}"
-								class="next">&gt;</a></li>
+								href="${pageContext.request.contextPath}/admin/faq/list.ad?page=${endPage+1}&searchType=${searchType}&searchWord=${searchWord}">&gt;</a>
+							</li>
 						</c:if>
 					</ul>
 

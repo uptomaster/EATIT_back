@@ -60,14 +60,15 @@ a {
 	display: block;
 }
 
-.sidebar_list:hover, .sidebar_list.active {
+.sidebar_list:hover, 
+.sidebar_list.active {
 	background-color: #1e223f;
 	scale: 1.05;
 }
 
 /* 로그아웃 버튼 */
 .logout_form {
-	margin-top: 40px; /* 사이드바 아래와 살짝 간격 */
+	margin-top: 40px;
 	width: 100%;
 	display: flex;
 	justify-content: center;
@@ -81,7 +82,7 @@ a {
 	border-radius: 20px;
 	padding: 8px 20px;
 	cursor: pointer;
-	transition: all 0.2s ease-in-out;
+	transition: 0.2s ease-in-out;
 }
 
 #admin_logoutbtn:hover {
@@ -164,8 +165,8 @@ a {
 	color: #333;
 	line-height: 1.6;
 	padding: 10px 0;
-	white-space: pre-line;
 	margin-bottom: 20px;
+	white-space: pre-line;
 }
 
 /* ===== Reply Section ===== */
@@ -193,6 +194,12 @@ a {
 	font-size: 14px;
 }
 
+.reply_list li.empty {
+	text-align: center;
+	color: #888;
+}
+
+/* ===== Reply Form ===== */
 .reply_form textarea {
 	width: 100%;
 	min-height: 80px;
@@ -209,54 +216,64 @@ a {
 	justify-content: flex-end;
 }
 
+/* ===== 공통 버튼 스타일 ===== */
+button,
+.btn-complete,
+.admin_updatebtn,
+#admin_deletebtn,
+#admin_listbtn,
 #reply_submit {
+	font-size: 14px;
+	font-weight: 600;
 	padding: 8px 16px;
 	border: none;
-	border-radius: 6px;
-	background: #505FA9;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.25s ease-in-out;
+}
+
+/* 답변 등록 버튼 */
+#reply_submit {
+	background: #505FA9; /* 보라색 */
 	color: #fff;
-	font-weight: bold;
-	cursor: pointer;
-	transition: 0.2s;
 }
-
 #reply_submit:hover {
-	background: #1e223f;
+	background: #1e223f; /* 진한 네이비 */
+	transform: translateY(-2px);
+	box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
-/* ===== Bottom Buttons ===== */
-.admin_detail_delete {
-	display: flex;
-	justify-content: flex-end;
-	gap: 10px;
-	margin-top: 20px;
+/* 답변 완료 버튼 */
+.admin_updatebtn, 
+.btn-complete {
+	background-color: #27ae60; /* 초록색 */
+	color: #fff;
 }
-
-#admin_deletebtn, #admin_listbtn {
-	padding: 8px 16px;
-	border: none;
-	border-radius: 6px;
-	cursor: pointer;
-	font-weight: bold;
-	transition: 0.2s;
+.admin_updatebtn:hover, 
+.btn-complete:hover {
+	background-color: #1e8449; /* 진한 초록 */
+	transform: translateY(-2px);
+	box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 /* 삭제 버튼 */
 #admin_deletebtn {
-	background: #e74c3c;
+	background: #e74c3c; /* 빨강 */
 	color: #fff;
 }
-
 #admin_deletebtn:hover {
 	background: #c0392b;
+	transform: translateY(-2px);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 /* 목록 버튼 */
 #admin_listbtn {
-	background: #7f8c8d;
+	background: #7f8c8d; /* 회색 */
 	color: #fff;
 }
-
 #admin_listbtn:hover {
 	background: #636e72;
+	transform: translateY(-2px);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
