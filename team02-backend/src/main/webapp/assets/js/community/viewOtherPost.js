@@ -105,6 +105,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const postNumber   = window.postNumber ? parseInt(window.postNumber, 10) : null;
   const memberNumber = window.memberNumber ? parseInt(window.memberNumber, 10) : null;
   const adminNumber  = window.adminNumber  ? parseInt(window.adminNumber, 10)  : null;
+  const postType = (window.postType || '').toUpperCase();
+  const isInquiry = (postType === 'INQUIRY');
   
   const listEl   = document.getElementById('commentList');
   const inputEl  = document.getElementById('commentInput');
@@ -173,11 +175,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function emptyMessage() {
+    return isInquiry ? '아직 답변이 없습니다.' : '댓글이 없습니다.';
+  }
   // 렌더링
   function renderComments(items) {
     listEl.innerHTML = '';
     if (!items.length) {
-      listEl.innerHTML = `<li class="comment_item">아직 답변이 없습니다.</li>`;
+      listEl.innerHTML = `<li class="comment_item">${emptyMessage()}</li>`;
       return;
     }
     const frag = document.createDocumentFragment();

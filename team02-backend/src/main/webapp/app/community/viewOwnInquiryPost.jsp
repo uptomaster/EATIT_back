@@ -110,28 +110,7 @@
 	        <img src="${pageContext.request.contextPath}/assets/img/comment_box.svg" alt="댓글 아이콘" />
 	        댓글
 	      </h2>
-	
 	      <ul class="comment_list" id="commentList"><!-- JS가 채움 --></ul>
-	
-			<!-- 관리자만 댓글 폼 노출 -->
-		  <c:if test="${not empty sessionScope.adminNumber}">
-		    <form class="comment_form" id="commentForm" onsubmit="return false;">
-		      <img class="comment_profile" id="myCommentIcon" src="${pageContext.request.contextPath}/assets/img/나무.png" alt="프로필" />
-		      <span class="comment_author">
-		        <c:choose>
-		          <c:when test="${not empty sessionScope.memberId}">${sessionScope.memberId}</c:when>
-		          <c:otherwise>관리자</c:otherwise>
-		        </c:choose>
-		      </span>
-		      <input type="text" id="commentInput" name="comment" placeholder="댓글을 입력하세요" required />
-		      <button type="button" id="commentSubmit">등록</button>
-		    </form>
-		  </c:if>
-		
-		  <!-- 관리자 아니면 -->
-		  <c:if test="${empty sessionScope.adminNumber}">
-		    <div class="comment_notice">문의글 답변은 관리자만 작성할 수 있습니다.</div>
-		  </c:if>
 	    </section>
 	
 	    <!-- 다크 모드 버튼 -->
@@ -162,7 +141,7 @@
   window.postNumber = ${post.postNumber != null ? post.postNumber : 'null'};
   window.memberNumber = ${sessionScope.memberNumber != null ? sessionScope.memberNumber : 'null'};
   window.adminNumber = ${sessionScope.adminNumber  != null ? sessionScope.adminNumber  : 'null'};
-
+  window.postType = "INQUIRY";
   console.log("DEBUG: postNumber =", window.postNumber);
   console.log("DEBUG: memberNumber =", window.memberNumber);
 </script>

@@ -211,5 +211,6 @@
   window.memberNumber = ${sessionScope.memberNumber != null ? sessionScope.memberNumber : 'null'};
   window.adminNumber = ${sessionScope.adminNumber  != null ? sessionScope.adminNumber  : 'null'};
   window.postAuthorNumber = ${post.getMemberNumber() != null ? post.getMemberNumber() : 'null'};
+  window.postType = "${post.postType}";
 </script>
 </html>
