@@ -5,8 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
@@ -22,16 +23,19 @@ public class BlacklistListController implements Execute {
 		AdminDAO adminDAO = new AdminDAO();
 		Result result = new Result();
 
-		// 파라미터 처리
+		// 페이지 번호 처리
 		String temp = request.getParameter("page");
-		String searchType = request.getParameter("searchType");
-		String searchWord = request.getParameter("searchWord");
-
 		int page = temp == null ? 1 : Integer.parseInt(temp);
+
 		int rowCount = 10; // 한 페이지에 보여줄 게시글 수
-		int pageSize = 10; // 페이지 버튼 개수
+		int pageCount = 5; // 한 화면에 보여줄 페이지 버튼 수
+
 		int startRow = (page - 1) * rowCount + 1;
 		int endRow = page * rowCount;
+
+		// 검색 조건
+		String searchType = request.getParameter("searchType");
+		String searchWord = request.getParameter("searchWord");
 
 		Map<String, Object> pageMap = new HashMap<>();
 		pageMap.put("startRow", startRow);
@@ -39,35 +43,32 @@ public class BlacklistListController implements Execute {
 		pageMap.put("searchType", searchType);
 		pageMap.put("searchWord", searchWord);
 
-		// 전체 개수
-		int total = adminDAO.countBlacklists(pageMap);
+		// 전체 블랙리스트 수
+		int total = adminDAO.countBlacklistList(pageMap);
 
 		// 페이지네이션 계산
 		int realEndPage = (int) Math.ceil(total / (double) rowCount);
-		int startPage = ((page - 1) / pageSize) * pageSize + 1;
-		int endPage = startPage + pageSize - 1;
-		if (endPage > realEndPage) {
-			endPage = realEndPage;
-		}
+		int startPage = ((page - 1) / pageCount) * pageCount + 1;
+		int endPage = startPage + pageCount - 1;
+		endPage = endPage > realEndPage ? realEndPage : endPage;
+
 		boolean prev = startPage > 1;
 		boolean next = endPage < realEndPage;
 
-		// 목록 조회
+		// 데이터 조회
 		List<MemberBlacklistDTO> blacklist = adminDAO.selectBlacklistList(pageMap);
 
-		// 데이터 바인딩
+		// request에 담기
 		request.setAttribute("blacklist", blacklist);
 		request.setAttribute("total", total);
 		request.setAttribute("page", page);
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
-		request.setAttribute("realEndPage", realEndPage);
 		request.setAttribute("prev", prev);
 		request.setAttribute("next", next);
 		request.setAttribute("searchType", searchType);
 		request.setAttribute("searchWord", searchWord);
 
-		// JSP 경로
 		result.setPath("/app/admin/blacklistList.jsp");
 		result.setRedirect(false);
 

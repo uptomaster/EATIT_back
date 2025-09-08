@@ -13,54 +13,67 @@ import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.admin.dao.AdminDAO;
 import com.bapseguen.app.dto.PostReportDTO;
-import com.bapseguen.app.util.PageDTO;
 
 public class ReportListController implements Execute {
 
-    @Override
-    public Result execute(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        System.out.println("→ [ADMIN] ReportListController 실행");
+	@Override
+	public Result execute(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		System.out.println("→ [ADMIN] ReportListController 실행");
 
-        AdminDAO adminDAO = new AdminDAO();
+		AdminDAO adminDAO = new AdminDAO();
+		Result result = new Result();
 
-        // 파라미터 수집
-        String temp = request.getParameter("page");
-        String searchType = request.getParameter("searchType");
-        String searchWord = request.getParameter("searchWord");
+		// ================= 페이징 처리 =================
+		String temp = request.getParameter("page");
+		int page = temp == null ? 1 : Integer.parseInt(temp);
 
-        int page = (temp == null) ? 1 : Integer.parseInt(temp);
-        int rowCount = 10;
-        int pageSize = 10;
-        int startRow = (page - 1) * rowCount + 1;
-        int endRow = page * rowCount;
+		int rowCount = 10; // 한 페이지당 게시글 수
+		int pageCount = 10; // 한 화면에 보여줄 페이지 버튼 수
 
-        Map<String, Object> pageMap = new HashMap<>();
-        pageMap.put("startRow", startRow);
-        pageMap.put("endRow", endRow);
-        pageMap.put("searchType", searchType);
-        pageMap.put("searchWord", searchWord);
+		int startRow = (page - 1) * rowCount + 1;
+		int endRow = page * rowCount;
 
-        // 전체 데이터 개수 (검색 조건 포함)
-        int total = adminDAO.countReportList(pageMap);
+		// 검색 처리
+		String searchType = request.getParameter("searchType");
+		String searchWord = request.getParameter("searchWord");
 
-        // 페이징 처리
-        PageDTO pageDTO = new PageDTO(page, total, rowCount, pageSize);
+		Map<String, Object> pageMap = new HashMap<>();
+		pageMap.put("startRow", startRow);
+		pageMap.put("endRow", endRow);
+		pageMap.put("searchType", searchType);
+		pageMap.put("searchWord", searchWord);
 
-        // 신고 목록 조회
-        List<PostReportDTO> reportList = adminDAO.selectReportListPaged(pageMap);
+		int total = adminDAO.countReportList(pageMap);
 
-        request.setAttribute("reportList", reportList);
-        request.setAttribute("total", total);
-        request.setAttribute("page", page);
-        request.setAttribute("pageDTO", pageDTO);
-        request.setAttribute("searchType", searchType);
-        request.setAttribute("searchWord", searchWord);
+		int realEndPage = (int) Math.ceil(total / (double) rowCount);
+		int startPage = ((page - 1) / pageCount) * pageCount + 1;
+		int endPage = startPage + pageCount - 1;
 
-        Result result = new Result();
-        result.setPath("/app/admin/reportList.jsp");
-        result.setRedirect(false);
+		if (endPage > realEndPage) {
+			endPage = realEndPage == 0 ? 1 : realEndPage;
+		}
 
-        return result;
-    }
+		boolean prev = startPage > 1;
+		boolean next = endPage < realEndPage;
+
+		// 데이터 조회
+		List<PostReportDTO> reportList = adminDAO.selectReportListPaged(pageMap);
+
+		// request에 데이터 담기
+		request.setAttribute("reportList", reportList);
+		request.setAttribute("total", total);
+		request.setAttribute("page", page);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("prev", prev);
+		request.setAttribute("next", next);
+		request.setAttribute("searchType", searchType);
+		request.setAttribute("searchWord", searchWord);
+
+		result.setPath("/app/admin/reportList.jsp");
+		result.setRedirect(false);
+
+		return result;
+	}
 }

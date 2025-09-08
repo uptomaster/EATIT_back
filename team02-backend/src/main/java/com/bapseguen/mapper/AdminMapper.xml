@@ -460,28 +460,41 @@
 		SELECT ROWNUM RN, A.*
 		FROM (
 		SELECT
-		r.POST_REPORT_NUMBER AS postReportNumber,
+		r.POST_REPORT_NUMBER AS
+		postReportNumber,
 		r.POST_NUMBER AS postNumber,
+		p.POST_TITLE AS
+		postTitle,
 		r.POST_REPORT_REASON AS postReportReason,
 		TO_CHAR(r.POST_REPORT_DATE,'YYYY-MM-DD') AS postReportDate,
 		r.POST_REPORT_COUNT AS postReportCount,
-		r.MEMBER_NUMBER AS memberNumber,
-		m.MEMBER_ID AS memberId,
-		NVL(g.GENERAL_NAME, s.SELLER_NAME) AS memberName,
-		m.MEMBER_TYPE AS memberType
+		r.MEMBER_NUMBER AS
+		memberNumber,
+		reporter.MEMBER_ID AS reporterId,
+		m.MEMBER_NUMBER AS
+		reportedNumber,
+		NVL(g.GENERAL_NAME, s.SELLER_NAME) AS reportedName,
+		m.MEMBER_TYPE AS reportedType
 		FROM TBL_POST_REPORT r
-		LEFT JOIN TBL_MEMBER m ON r.MEMBER_NUMBER = m.MEMBER_NUMBER
-		LEFT JOIN TBL_GENERAL_MEMBER g ON m.MEMBER_NUMBER = g.MEMBER_NUMBER
-		LEFT JOIN TBL_SELLER_MEMBER s ON m.MEMBER_NUMBER = s.MEMBER_NUMBER
+		JOIN TBL_POST p ON
+		r.POST_NUMBER = p.POST_NUMBER
+		JOIN TBL_MEMBER reporter ON
+		r.MEMBER_NUMBER = reporter.MEMBER_NUMBER
+		JOIN TBL_MEMBER m ON
+		p.MEMBER_NUMBER = m.MEMBER_NUMBER
+		LEFT JOIN TBL_GENERAL_MEMBER g ON
+		m.MEMBER_NUMBER = g.MEMBER_NUMBER
+		LEFT JOIN TBL_SELLER_MEMBER s ON
+		m.MEMBER_NUMBER = s.MEMBER_NUMBER
 		<where>
 			<if
 				test="searchType != null and searchWord != null and searchType == 'reported'">
-				AND (NVL(g.GENERAL_NAME, s.SELLER_NAME) LIKE '%' || #{searchWord} ||
-				'%')
+				AND NVL(g.GENERAL_NAME, s.SELLER_NAME) LIKE '%' ||
+				#{searchWord} || '%'
 			</if>
 			<if
 				test="searchType != null and searchWord != null and searchType == 'reporter'">
-				AND m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
+				AND reporter.MEMBER_ID LIKE '%' || #{searchWord} || '%'
 			</if>
 		</where>
 		ORDER BY r.POST_REPORT_NUMBER DESC
@@ -491,37 +504,60 @@
 		WHERE RN &gt;= #{startRow}
 	</select>
 
-	<!-- 신고 전체 목록 (단순 조회용) -->
-	<select id="selectReportList"
+
+
+	<select id="selectReportList" parameterType="map"
 		resultType="com.bapseguen.app.dto.PostReportDTO">
 		SELECT
 		r.POST_REPORT_NUMBER AS postReportNumber,
 		r.POST_NUMBER AS postNumber,
+		p.POST_TITLE AS postTitle,
 		r.POST_REPORT_REASON AS postReportReason,
 		TO_CHAR(r.POST_REPORT_DATE,'YYYY-MM-DD') AS postReportDate,
 		r.POST_REPORT_COUNT AS postReportCount,
-		r.MEMBER_NUMBER AS memberNumber
+		r.MEMBER_NUMBER AS
+		memberNumber,
+		reporter.MEMBER_ID AS reporterId,
+		m.MEMBER_NUMBER AS
+		reportedNumber,
+		NVL(g.GENERAL_NAME, s.SELLER_NAME) AS reportedName,
+		m.MEMBER_TYPE AS reportedType
 		FROM TBL_POST_REPORT r
-		ORDER BY r.POST_REPORT_NUMBER DESC
+		JOIN TBL_POST p ON
+		r.POST_NUMBER = p.POST_NUMBER
+		JOIN TBL_MEMBER reporter ON
+		r.MEMBER_NUMBER = reporter.MEMBER_NUMBER
+		LEFT JOIN TBL_MEMBER m ON
+		p.MEMBER_NUMBER = m.MEMBER_NUMBER
+		LEFT JOIN TBL_GENERAL_MEMBER g ON
+		m.MEMBER_NUMBER = g.MEMBER_NUMBER
+		LEFT JOIN TBL_SELLER_MEMBER s ON
+		m.MEMBER_NUMBER = s.MEMBER_NUMBER
+		WHERE p.POST_TYPE IN
+		('FREE','PROMOTION','RECIPE','INQUIRY')
+		ORDER BY r.POST_REPORT_NUMBER
+		DESC
 	</select>
+
+
+
+
 
 	<!-- 신고 개수 (검색/페이징용) -->
 	<select id="countReportList" parameterType="map"
 		resultType="int">
 		SELECT COUNT(*)
 		FROM TBL_POST_REPORT r
-		LEFT JOIN TBL_MEMBER m ON r.MEMBER_NUMBER = m.MEMBER_NUMBER
-		LEFT JOIN TBL_GENERAL_MEMBER g ON m.MEMBER_NUMBER = g.MEMBER_NUMBER
-		LEFT JOIN TBL_SELLER_MEMBER s ON m.MEMBER_NUMBER = s.MEMBER_NUMBER
+		LEFT JOIN TBL_MEMBER m ON
+		r.MEMBER_NUMBER = m.MEMBER_NUMBER
 		<where>
 			<if
 				test="searchType != null and searchWord != null and searchType == 'reported'">
-				AND (NVL(g.GENERAL_NAME, s.SELLER_NAME) LIKE '%' || #{searchWord} ||
-				'%')
+				AND m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
 			</if>
 			<if
 				test="searchType != null and searchWord != null and searchType == 'reporter'">
-				AND m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
+				AND r.MEMBER_NUMBER LIKE '%' || #{searchWord} || '%'
 			</if>
 		</where>
 	</select>
@@ -530,12 +566,12 @@
 	<!-- 정지 회원 목록 (검색 + 페이징) -->
 	<select id="selectSuspendList" parameterType="map"
 		resultType="com.bapseguen.app.dto.MemberSuspendDTO">
-		SELECT *
-		FROM (
+		SELECT * FROM (
 		SELECT ROWNUM RN, A.*
 		FROM (
 		SELECT
-		s.MEMBER_NUMBER AS memberNumber,
+		s.MEMBER_NUMBER AS
+		memberNumber,
 		NVL(g.GENERAL_NAME, sm.SELLER_NAME) AS memberName,
 		m.MEMBER_TYPE AS memberType,
 		TO_CHAR(s.SUSPEND_START_DATE,'YYYY-MM-DD') AS suspendStartDate,
@@ -543,20 +579,23 @@
 		s.SUSPEND_REPORT_COUNT AS suspendReportCount
 		FROM TBL_MEMBER_SUSPEND s
 		JOIN TBL_MEMBER m ON s.MEMBER_NUMBER = m.MEMBER_NUMBER
-		LEFT JOIN TBL_GENERAL_MEMBER g ON m.MEMBER_NUMBER = g.MEMBER_NUMBER
-		LEFT JOIN TBL_SELLER_MEMBER sm ON m.MEMBER_NUMBER = sm.MEMBER_NUMBER
+		LEFT JOIN
+		TBL_GENERAL_MEMBER g ON m.MEMBER_NUMBER = g.MEMBER_NUMBER
+		LEFT JOIN
+		TBL_SELLER_MEMBER sm ON m.MEMBER_NUMBER = sm.MEMBER_NUMBER
 		<where>
 			<if
-				test="searchType eq 'id' and searchWord != null and searchWord != ''">
+				test="searchType != null and searchWord != null and searchType == 'id'">
 				AND m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
 			</if>
 			<if
-				test="searchType eq 'name' and searchWord != null and searchWord != ''">
-				AND (g.GENERAL_NAME LIKE '%' || #{searchWord} || '%'
-				OR sm.SELLER_NAME LIKE '%' || #{searchWord} || '%')
+				test="searchType != null and searchWord != null and searchType == 'name'">
+				AND (NVL(g.GENERAL_NAME, sm.SELLER_NAME) LIKE '%' ||
+				#{searchWord} ||
+				'%')
 			</if>
 			<if
-				test="searchType eq 'type' and searchWord != null and searchWord != ''">
+				test="searchType != null and searchWord != null and searchType == 'type'">
 				AND m.MEMBER_TYPE = #{searchWord}
 			</if>
 		</where>
@@ -567,26 +606,30 @@
 		WHERE RN &gt;= #{startRow}
 	</select>
 
-	<!-- 정지 회원 수 -->
+	<!-- 정지 회원 전체 수 (검색/페이징용) -->
 	<select id="countSuspendList" parameterType="map"
 		resultType="int">
 		SELECT COUNT(*)
 		FROM TBL_MEMBER_SUSPEND s
-		JOIN TBL_MEMBER m ON s.MEMBER_NUMBER = m.MEMBER_NUMBER
-		LEFT JOIN TBL_GENERAL_MEMBER g ON m.MEMBER_NUMBER = g.MEMBER_NUMBER
-		LEFT JOIN TBL_SELLER_MEMBER sm ON m.MEMBER_NUMBER = sm.MEMBER_NUMBER
+		JOIN TBL_MEMBER m ON
+		s.MEMBER_NUMBER = m.MEMBER_NUMBER
+		LEFT JOIN TBL_GENERAL_MEMBER g ON
+		m.MEMBER_NUMBER = g.MEMBER_NUMBER
+		LEFT JOIN TBL_SELLER_MEMBER sm ON
+		m.MEMBER_NUMBER = sm.MEMBER_NUMBER
 		<where>
 			<if
-				test="searchType eq 'id' and searchWord != null and searchWord != ''">
+				test="searchType != null and searchWord != null and searchType == 'id'">
 				AND m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
 			</if>
 			<if
-				test="searchType eq 'name' and searchWord != null and searchWord != ''">
-				AND (g.GENERAL_NAME LIKE '%' || #{searchWord} || '%'
-				OR sm.SELLER_NAME LIKE '%' || #{searchWord} || '%')
+				test="searchType != null and searchWord != null and searchType == 'name'">
+				AND (NVL(g.GENERAL_NAME, sm.SELLER_NAME) LIKE '%' ||
+				#{searchWord} ||
+				'%')
 			</if>
 			<if
-				test="searchType eq 'type' and searchWord != null and searchWord != ''">
+				test="searchType != null and searchWord != null and searchType == 'type'">
 				AND m.MEMBER_TYPE = #{searchWord}
 			</if>
 		</where>
@@ -601,27 +644,33 @@
 		SELECT ROWNUM RN, A.*
 		FROM (
 		SELECT
-		b.BLACKLIST_NUMBER AS blacklistNumber,
+		b.BLACKLIST_NUMBER AS
+		blacklistNumber,
 		b.MEMBER_NUMBER AS memberNumber,
-		NVL(g.GENERAL_NAME, sm.SELLER_NAME) AS memberName,
+		NVL(g.GENERAL_NAME,
+		sm.SELLER_NAME) AS memberName,
 		m.MEMBER_TYPE AS memberType,
 		TO_CHAR(b.BLACKLIST_START_DATE,'YYYY-MM-DD') AS blacklistStartDate
 		FROM TBL_MEMBER_BLACKLIST b
-		JOIN TBL_MEMBER m ON b.MEMBER_NUMBER = m.MEMBER_NUMBER
-		LEFT JOIN TBL_GENERAL_MEMBER g ON m.MEMBER_NUMBER = g.MEMBER_NUMBER
-		LEFT JOIN TBL_SELLER_MEMBER sm ON m.MEMBER_NUMBER = sm.MEMBER_NUMBER
+		JOIN TBL_MEMBER m ON b.MEMBER_NUMBER =
+		m.MEMBER_NUMBER
+		LEFT JOIN TBL_GENERAL_MEMBER g ON m.MEMBER_NUMBER =
+		g.MEMBER_NUMBER
+		LEFT JOIN TBL_SELLER_MEMBER sm ON m.MEMBER_NUMBER =
+		sm.MEMBER_NUMBER
 		<where>
 			<if
-				test="searchType eq 'id' and searchWord != null and searchWord != ''">
+				test="searchType != null and searchWord != null and searchType == 'id'">
 				AND m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
 			</if>
 			<if
-				test="searchType eq 'name' and searchWord != null and searchWord != ''">
-				AND (g.GENERAL_NAME LIKE '%' || #{searchWord} || '%'
-				OR sm.SELLER_NAME LIKE '%' || #{searchWord} || '%')
+				test="searchType != null and searchWord != null and searchType == 'name'">
+				AND (NVL(g.GENERAL_NAME, sm.SELLER_NAME) LIKE '%' ||
+				#{searchWord} ||
+				'%')
 			</if>
 			<if
-				test="searchType eq 'type' and searchWord != null and searchWord != ''">
+				test="searchType != null and searchWord != null and searchType == 'type'">
 				AND m.MEMBER_TYPE = #{searchWord}
 			</if>
 		</where>
@@ -629,29 +678,34 @@
 		) A
 		WHERE ROWNUM &lt;= #{endRow}
 		)
-		WHERE RN &gt;= #{startRow}
+		WHERE
+		RN &gt;= #{startRow}
 	</select>
 
-	<!-- 블랙리스트 수 -->
+	<!-- 블랙리스트 전체 수 (검색/페이징용) -->
 	<select id="countBlacklistList" parameterType="map"
 		resultType="int">
 		SELECT COUNT(*)
 		FROM TBL_MEMBER_BLACKLIST b
-		JOIN TBL_MEMBER m ON b.MEMBER_NUMBER = m.MEMBER_NUMBER
-		LEFT JOIN TBL_GENERAL_MEMBER g ON m.MEMBER_NUMBER = g.MEMBER_NUMBER
-		LEFT JOIN TBL_SELLER_MEMBER sm ON m.MEMBER_NUMBER = sm.MEMBER_NUMBER
+		JOIN TBL_MEMBER m ON
+		b.MEMBER_NUMBER = m.MEMBER_NUMBER
+		LEFT JOIN TBL_GENERAL_MEMBER g ON
+		m.MEMBER_NUMBER = g.MEMBER_NUMBER
+		LEFT JOIN TBL_SELLER_MEMBER sm ON
+		m.MEMBER_NUMBER = sm.MEMBER_NUMBER
 		<where>
 			<if
-				test="searchType eq 'id' and searchWord != null and searchWord != ''">
+				test="searchType != null and searchWord != null and searchType == 'id'">
 				AND m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
 			</if>
 			<if
-				test="searchType eq 'name' and searchWord != null and searchWord != ''">
-				AND (g.GENERAL_NAME LIKE '%' || #{searchWord} || '%'
-				OR sm.SELLER_NAME LIKE '%' || #{searchWord} || '%')
+				test="searchType != null and searchWord != null and searchType == 'name'">
+				AND (NVL(g.GENERAL_NAME, sm.SELLER_NAME) LIKE '%' ||
+				#{searchWord} ||
+				'%')
 			</if>
 			<if
-				test="searchType eq 'type' and searchWord != null and searchWord != ''">
+				test="searchType != null and searchWord != null and searchType == 'type'">
 				AND m.MEMBER_TYPE = #{searchWord}
 			</if>
 		</where>
@@ -662,8 +716,10 @@
 	<insert id="insertSuspend"
 		parameterType="com.bapseguen.app.dto.MemberSuspendDTO">
 		INSERT INTO TBL_MEMBER_SUSPEND
-		(MEMBER_NUMBER, SUSPEND_START_DATE, SUSPEND_END_DATE, SUSPEND_REPORT_COUNT)
-		VALUES (#{memberNumber}, SYSDATE, #{suspendEndDate}, #{suspendReportCount})
+		(MEMBER_NUMBER,
+		SUSPEND_START_DATE, SUSPEND_END_DATE, SUSPEND_REPORT_COUNT)
+		VALUES
+		(#{memberNumber}, SYSDATE, #{suspendEndDate}, #{suspendReportCount})
 	</insert>
 
 	<!-- 블랙리스트 등록 -->
@@ -674,19 +730,23 @@
 			SELECT SEQ_MEMBER_BLACKLIST_NUMBER.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO TBL_MEMBER_BLACKLIST
-		(BLACKLIST_NUMBER, MEMBER_NUMBER, BLACKLIST_START_DATE)
-		VALUES (#{blacklistNumber}, #{memberNumber}, SYSDATE)
+		(BLACKLIST_NUMBER, MEMBER_NUMBER,
+		BLACKLIST_START_DATE)
+		VALUES (#{blacklistNumber}, #{memberNumber},
+		SYSDATE)
 	</insert>
 
 	<!-- 정지 만료 처리 -->
 	<delete id="clearExpiredSuspends">
 		DELETE FROM TBL_MEMBER_SUSPEND
-		WHERE SUSPEND_END_DATE &lt; SYSDATE
+		WHERE SUSPEND_END_DATE
+		&lt; SYSDATE
 	</delete>
 
 	<!-- 특정 회원 정지 여부 확인 -->
 	<select id="checkSuspend" parameterType="int" resultType="int">
-		SELECT COUNT(*)
+		SELECT
+		COUNT(*)
 		FROM TBL_MEMBER_SUSPEND
 		WHERE MEMBER_NUMBER = #{memberNumber}
 		AND SYSDATE BETWEEN SUSPEND_START_DATE AND SUSPEND_END_DATE
@@ -696,18 +756,21 @@
 	<select id="checkBlacklist" parameterType="int" resultType="int">
 		SELECT COUNT(*)
 		FROM TBL_MEMBER_BLACKLIST
-		WHERE MEMBER_NUMBER = #{memberNumber}
+		WHERE MEMBER_NUMBER =
+		#{memberNumber}
 	</select>
 
 	<!-- 블랙리스트 해제 -->
 	<delete id="deleteBlacklist" parameterType="int">
-		DELETE FROM TBL_MEMBER_BLACKLIST
+		DELETE FROM
+		TBL_MEMBER_BLACKLIST
 		WHERE BLACKLIST_NUMBER = #{blacklistNumber}
 	</delete>
 
 	<!-- 정지 회원 해제 -->
 	<delete id="deleteSuspend" parameterType="int">
-		DELETE FROM TBL_MEMBER_SUSPEND
+		DELETE FROM
+		TBL_MEMBER_SUSPEND
 		WHERE MEMBER_NUMBER = #{memberNumber}
 	</delete>
 
@@ -1205,14 +1268,27 @@
 
 	<!-- 문의 댓글 등록 -->
 	<!-- 댓글 등록 -->
+	<!-- <insert id="insertInquiryComment" parameterType="InquiryCommentDTO"> 
+		INSERT INTO TBL_INQUIRY_COMMENT (COMMENT_NUMBER, POST_NUMBER, MEMBER_NUMBER, 
+		COMMENT_CONTENT, COMMENT_CREATED_DATE) VALUES (SEQ_INQUIRY_COMMENT.NEXTVAL, 
+		#{postNumber}, #{memberNumber}, #{commentContent}, SYSDATE) </insert> -->
+
+	<!-- 문의 댓글 등록 -->
 	<insert id="insertInquiryComment"
 		parameterType="InquiryCommentDTO">
-		INSERT INTO TBL_INQUIRY_COMMENT
-		(COMMENT_NUMBER,
-		POST_NUMBER, MEMBER_NUMBER, COMMENT_CONTENT, COMMENT_CREATED_DATE)
-		VALUES (SEQ_INQUIRY_COMMENT.NEXTVAL, #{postNumber}, #{memberNumber},
-		#{commentContent}, SYSDATE)
+		<selectKey resultType="int" keyProperty="commentNumber"
+			order="BEFORE">
+			SELECT SEQ_COMMENT_NUMBER.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TBL_COMMENT
+		(COMMENT_NUMBER, POST_NUMBER, MEMBER_NUMBER,
+		ADMIN_NUMBER, COMMENT_CONTENT,
+		COMMENTED_DATE, COMMENT_DELETE_STATE)
+		VALUES (#{commentNumber}, #{postNumber}, #{memberNumber},
+		#{adminNumber},
+		#{commentContent}, SYSDATE, 'N')
 	</insert>
+
 
 	<!-- 댓글 등록시 상태 자동 변경 -->
 	<update id="updateInquiryStatusAuto" parameterType="int">
