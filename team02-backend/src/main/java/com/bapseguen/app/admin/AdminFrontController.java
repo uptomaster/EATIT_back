@@ -238,6 +238,11 @@ public class AdminFrontController extends HttpServlet {
 			result = new SuspendInsertOkController().execute(request, response);
 			break;
 
+		case "/admin/suspend/deleteOk.ad":
+			System.out.println("→ [ADMIN] 정지 해제 요청");
+			result = new SuspendDeleteOkController().execute(request, response);
+			break;
+
 		case "/admin/blacklist/list.ad":
 			System.out.println("→ [ADMIN] 블랙리스트 목록 요청");
 			result = new BlacklistListController().execute(request, response);
@@ -246,6 +251,11 @@ public class AdminFrontController extends HttpServlet {
 		case "/admin/blacklist/insertOk.ad":
 			System.out.println("→ [ADMIN] 블랙리스트 등록 요청");
 			result = new BlacklistInsertOkController().execute(request, response);
+			break;
+
+		case "/admin/blacklist/deleteOk.ad":
+			System.out.println("→ [ADMIN] 블랙리스트 해제 요청");
+			result = new BlacklistDeleteOkController().execute(request, response);
 			break;
 
 		/* =================== 기본/예외 ===================== */

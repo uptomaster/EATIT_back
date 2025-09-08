@@ -20,8 +20,7 @@
 	</select>
 
 	<!-- ===================== 공지/이벤트(Notice) ===================== -->
-	<insert id="insertNoticePost"
-		parameterType="com.bapseguen.app.dto.view.AdminPostDTO">
+	<insert id="insertNoticePost" parameterType="AdminPostDTO">
 		<selectKey resultType="int" keyProperty="postNumber"
 			order="BEFORE">
 			SELECT SEQ_POST_NUMBER.NEXTVAL FROM DUAL
@@ -37,15 +36,14 @@
 		0, 0, 0, 'N', SYSDATE, 'NOTICE')
 	</insert>
 
-	<insert id="insertNotice"
-		parameterType="com.bapseguen.app.dto.view.AdminPostDTO">
+	<insert id="insertNotice" parameterType="AdminPostDTO">
 		INSERT INTO TBL_NOTICE
 		(POST_NUMBER, NOTICE_CONTENT)
 		VALUES (#{postNumber}, #{noticeContent})
 	</insert>
 
 	<select id="selectNoticeList" parameterType="map"
-		resultType="com.bapseguen.app.dto.view.AdminPostDTO">
+		resultType="AdminPostDTO">
 		SELECT * FROM (
 		SELECT ROWNUM rn, A.*
 		FROM (
@@ -93,7 +91,7 @@
 	</select>
 
 	<select id="selectNoticeDetail" parameterType="int"
-		resultType="com.bapseguen.app.dto.view.AdminPostDTO">
+		resultType="AdminPostDTO">
 		SELECT
 		p.POST_NUMBER AS postNumber,
 		p.POST_TITLE AS
@@ -116,16 +114,16 @@
 		WHERE p.POST_NUMBER = #{postNumber}
 	</select>
 
-	<update id="updateNoticeTitle"
-		parameterType="com.bapseguen.app.dto.view.AdminPostDTO">
+	<update id="updateNoticeTitle" parameterType="AdminPostDTO">
 		UPDATE TBL_POST
-		SET POST_TITLE = #{postTitle},
+		SET
+		POST_TITLE = #{postTitle},
 		POST_UPDATED_DATE = SYSDATE
-		WHERE POST_NUMBER = #{postNumber}
+		WHERE POST_NUMBER
+		= #{postNumber}
 	</update>
 
-	<update id="updateNoticeContent"
-		parameterType="com.bapseguen.app.dto.view.AdminPostDTO">
+	<update id="updateNoticeContent" parameterType="AdminPostDTO">
 		UPDATE TBL_NOTICE
 		SET NOTICE_CONTENT = #{noticeContent}
 		WHERE POST_NUMBER = #{postNumber}
@@ -137,8 +135,7 @@
 	</delete>
 
 	<!-- ===================== FAQ ===================== -->
-	<insert id="insertFaqPost"
-		parameterType="com.bapseguen.app.dto.view.AdminPostDTO">
+	<insert id="insertFaqPost" parameterType="AdminPostDTO">
 		<selectKey resultType="int" keyProperty="postNumber"
 			order="BEFORE">
 			SELECT SEQ_POST_NUMBER.NEXTVAL FROM DUAL
@@ -154,15 +151,15 @@
 		0, 0, 0, 'N', SYSDATE, 'FAQ')
 	</insert>
 
-	<insert id="insertFaq"
-		parameterType="com.bapseguen.app.dto.view.AdminPostDTO">
-		INSERT INTO TBL_FAQ (POST_NUMBER, FAQ_CONTENT)
+	<insert id="insertFaq" parameterType="AdminPostDTO">
+		INSERT INTO TBL_FAQ
+		(POST_NUMBER, FAQ_CONTENT)
 		VALUES
 		(#{postNumber}, #{faqContent})
 	</insert>
 
 	<select id="selectFaqList" parameterType="map"
-		resultType="com.bapseguen.app.dto.view.AdminPostDTO">
+		resultType="AdminPostDTO">
 		SELECT * FROM (
 		SELECT ROWNUM AS rowNumber, A.* FROM (
 		SELECT
@@ -205,7 +202,7 @@
 	</select>
 
 	<select id="selectFaqDetail" parameterType="int"
-		resultType="com.bapseguen.app.dto.view.AdminPostDTO">
+		resultType="AdminPostDTO">
 		SELECT
 		p.POST_NUMBER AS postNumber,
 		p.POST_TITLE AS
@@ -227,18 +224,19 @@
 		WHERE p.POST_NUMBER = #{postNumber}
 	</select>
 
-	<update id="updateFaqTitle"
-		parameterType="com.bapseguen.app.dto.view.AdminPostDTO">
+	<update id="updateFaqTitle" parameterType="AdminPostDTO">
 		UPDATE TBL_POST
-		SET POST_TITLE = #{postTitle},
+		SET
+		POST_TITLE = #{postTitle},
 		POST_UPDATED_DATE = SYSDATE
-		WHERE POST_NUMBER = #{postNumber}
+		WHERE POST_NUMBER
+		= #{postNumber}
 	</update>
 
-	<update id="updateFaqContent"
-		parameterType="com.bapseguen.app.dto.view.AdminPostDTO">
+	<update id="updateFaqContent" parameterType="AdminPostDTO">
 		UPDATE TBL_FAQ
-		SET FAQ_CONTENT = #{faqContent}
+		SET
+		FAQ_CONTENT = #{faqContent}
 		WHERE
 		POST_NUMBER = #{postNumber}
 	</update>
@@ -283,7 +281,7 @@
 
 	<!-- ===================== 문의(Inquiry) ===================== -->
 	<select id="selectInquiryList" parameterType="map"
-		resultType="com.bapseguen.app.dto.view.AdminPostDTO">
+		resultType="AdminPostDTO">
 		SELECT * FROM (
 		SELECT ROWNUM AS rowNumber, A.*
 		FROM (
@@ -355,7 +353,8 @@
 	<select id="countInquiries" parameterType="map" resultType="int">
 		SELECT COUNT(*)
 		FROM TBL_POST p
-		JOIN TBL_INQUIRY i ON i.POST_NUMBER = p.POST_NUMBER
+		JOIN TBL_INQUIRY i ON i.POST_NUMBER =
+		p.POST_NUMBER
 		JOIN TBL_MEMBER m ON m.MEMBER_NUMBER = p.MEMBER_NUMBER
 		WHERE p.POST_TYPE = 'INQUIRY'
 
@@ -374,8 +373,10 @@
 		<!-- 날짜 검색 -->
 		<if
 			test="searchType eq 'date' and startDate != null and endDate != null">
-			AND p.POST_CREATED_DATE &gt;= TO_DATE(#{startDate}, 'YYYY-MM-DD')
-			AND p.POST_CREATED_DATE &lt; TO_DATE(#{endDate}, 'YYYY-MM-DD') + 1
+			AND p.POST_CREATED_DATE &gt;= TO_DATE(#{startDate},
+			'YYYY-MM-DD')
+			AND p.POST_CREATED_DATE &lt; TO_DATE(#{endDate},
+			'YYYY-MM-DD') + 1
 		</if>
 
 		<!-- 상태 검색 -->
@@ -390,7 +391,7 @@
 
 
 	<select id="selectInquiryDetail" parameterType="int"
-		resultType="com.bapseguen.app.dto.view.AdminPostDTO">
+		resultType="AdminPostDTO">
 		SELECT
 		p.POST_NUMBER AS postNumber,
 		p.POST_TITLE AS
@@ -417,21 +418,23 @@
 	</select>
 
 
-	<update id="updateInquiryStatus"
-		parameterType="com.bapseguen.app.dto.view.AdminPostDTO">
-		UPDATE TBL_INQUIRY
+	<update id="updateInquiryStatus" parameterType="AdminPostDTO">
+		UPDATE
+		TBL_INQUIRY
 		SET INQUIRY_STATUS = #{inquiryStatus}
-		WHERE POST_NUMBER = #{postNumber}
+		WHERE POST_NUMBER =
+		#{postNumber}
 	</update>
 
 
 
 	<!-- 답변 등록 & 수정 -->
-	<update id="updateInquiryAnswer"
-		parameterType="com.bapseguen.app.dto.view.AdminPostDTO">
-		UPDATE TBL_INQUIRY
+	<update id="updateInquiryAnswer" parameterType="AdminPostDTO">
+		UPDATE
+		TBL_INQUIRY
 		SET ANSWER_CONTENT = #{answerContent},
-		ANSWER_DATE = SYSDATE,
+		ANSWER_DATE =
+		SYSDATE,
 		INQUIRY_STATUS = 'IN_PROGRESS'
 		WHERE POST_NUMBER
 		= #{postNumber}
@@ -447,10 +450,50 @@
 		WHERE POST_NUMBER = #{postNumber}
 	</update>
 
-
-
 	<!-- ===================== 신고 / 정지 / 블랙리스트 ===================== -->
-	<select id="selectReportList" resultType="PostReportDTO">
+
+	<!-- 신고 목록 (검색 + 페이징) -->
+	<select id="selectReportListPaged" parameterType="map"
+		resultType="com.bapseguen.app.dto.PostReportDTO">
+		SELECT *
+		FROM (
+		SELECT ROWNUM RN, A.*
+		FROM (
+		SELECT
+		r.POST_REPORT_NUMBER AS postReportNumber,
+		r.POST_NUMBER AS postNumber,
+		r.POST_REPORT_REASON AS postReportReason,
+		TO_CHAR(r.POST_REPORT_DATE,'YYYY-MM-DD') AS postReportDate,
+		r.POST_REPORT_COUNT AS postReportCount,
+		r.MEMBER_NUMBER AS memberNumber,
+		m.MEMBER_ID AS memberId,
+		NVL(g.GENERAL_NAME, s.SELLER_NAME) AS memberName,
+		m.MEMBER_TYPE AS memberType
+		FROM TBL_POST_REPORT r
+		LEFT JOIN TBL_MEMBER m ON r.MEMBER_NUMBER = m.MEMBER_NUMBER
+		LEFT JOIN TBL_GENERAL_MEMBER g ON m.MEMBER_NUMBER = g.MEMBER_NUMBER
+		LEFT JOIN TBL_SELLER_MEMBER s ON m.MEMBER_NUMBER = s.MEMBER_NUMBER
+		<where>
+			<if
+				test="searchType != null and searchWord != null and searchType == 'reported'">
+				AND (NVL(g.GENERAL_NAME, s.SELLER_NAME) LIKE '%' || #{searchWord} ||
+				'%')
+			</if>
+			<if
+				test="searchType != null and searchWord != null and searchType == 'reporter'">
+				AND m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
+			</if>
+		</where>
+		ORDER BY r.POST_REPORT_NUMBER DESC
+		) A
+		WHERE ROWNUM &lt;= #{endRow}
+		)
+		WHERE RN &gt;= #{startRow}
+	</select>
+
+	<!-- 신고 전체 목록 (단순 조회용) -->
+	<select id="selectReportList"
+		resultType="com.bapseguen.app.dto.PostReportDTO">
 		SELECT
 		r.POST_REPORT_NUMBER AS postReportNumber,
 		r.POST_NUMBER AS postNumber,
@@ -462,46 +505,213 @@
 		ORDER BY r.POST_REPORT_NUMBER DESC
 	</select>
 
-	<select id="selectSuspendList" resultType="MemberSuspendDTO">
-		SELECT
-		s.MEMBER_NUMBER
-		AS memberNumber,
-		TO_CHAR(s.SUSPEND_START_DATE,'YYYY-MM-DD') AS
-		suspendStartDate,
-		TO_CHAR(s.SUSPEND_END_DATE,'YYYY-MM-DD') AS
-		suspendEndDate,
-		s.SUSPEND_REPORT_COUNT AS suspendReportCount
-		FROM
-		TBL_MEMBER_SUSPEND s
-		ORDER BY s.SUSPEND_START_DATE DESC
+	<!-- 신고 개수 (검색/페이징용) -->
+	<select id="countReportList" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM TBL_POST_REPORT r
+		LEFT JOIN TBL_MEMBER m ON r.MEMBER_NUMBER = m.MEMBER_NUMBER
+		LEFT JOIN TBL_GENERAL_MEMBER g ON m.MEMBER_NUMBER = g.MEMBER_NUMBER
+		LEFT JOIN TBL_SELLER_MEMBER s ON m.MEMBER_NUMBER = s.MEMBER_NUMBER
+		<where>
+			<if
+				test="searchType != null and searchWord != null and searchType == 'reported'">
+				AND (NVL(g.GENERAL_NAME, s.SELLER_NAME) LIKE '%' || #{searchWord} ||
+				'%')
+			</if>
+			<if
+				test="searchType != null and searchWord != null and searchType == 'reporter'">
+				AND m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
+			</if>
+		</where>
 	</select>
 
-	<select id="selectBlacklistList" resultType="MemberBlacklistDTO">
+
+	<!-- 정지 회원 목록 (검색 + 페이징) -->
+	<select id="selectSuspendList" parameterType="map"
+		resultType="com.bapseguen.app.dto.MemberSuspendDTO">
+		SELECT *
+		FROM (
+		SELECT ROWNUM RN, A.*
+		FROM (
+		SELECT
+		s.MEMBER_NUMBER AS memberNumber,
+		NVL(g.GENERAL_NAME, sm.SELLER_NAME) AS memberName,
+		m.MEMBER_TYPE AS memberType,
+		TO_CHAR(s.SUSPEND_START_DATE,'YYYY-MM-DD') AS suspendStartDate,
+		TO_CHAR(s.SUSPEND_END_DATE,'YYYY-MM-DD') AS suspendEndDate,
+		s.SUSPEND_REPORT_COUNT AS suspendReportCount
+		FROM TBL_MEMBER_SUSPEND s
+		JOIN TBL_MEMBER m ON s.MEMBER_NUMBER = m.MEMBER_NUMBER
+		LEFT JOIN TBL_GENERAL_MEMBER g ON m.MEMBER_NUMBER = g.MEMBER_NUMBER
+		LEFT JOIN TBL_SELLER_MEMBER sm ON m.MEMBER_NUMBER = sm.MEMBER_NUMBER
+		<where>
+			<if
+				test="searchType eq 'id' and searchWord != null and searchWord != ''">
+				AND m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
+			</if>
+			<if
+				test="searchType eq 'name' and searchWord != null and searchWord != ''">
+				AND (g.GENERAL_NAME LIKE '%' || #{searchWord} || '%'
+				OR sm.SELLER_NAME LIKE '%' || #{searchWord} || '%')
+			</if>
+			<if
+				test="searchType eq 'type' and searchWord != null and searchWord != ''">
+				AND m.MEMBER_TYPE = #{searchWord}
+			</if>
+		</where>
+		ORDER BY s.SUSPEND_START_DATE DESC
+		) A
+		WHERE ROWNUM &lt;= #{endRow}
+		)
+		WHERE RN &gt;= #{startRow}
+	</select>
+
+	<!-- 정지 회원 수 -->
+	<select id="countSuspendList" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM TBL_MEMBER_SUSPEND s
+		JOIN TBL_MEMBER m ON s.MEMBER_NUMBER = m.MEMBER_NUMBER
+		LEFT JOIN TBL_GENERAL_MEMBER g ON m.MEMBER_NUMBER = g.MEMBER_NUMBER
+		LEFT JOIN TBL_SELLER_MEMBER sm ON m.MEMBER_NUMBER = sm.MEMBER_NUMBER
+		<where>
+			<if
+				test="searchType eq 'id' and searchWord != null and searchWord != ''">
+				AND m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
+			</if>
+			<if
+				test="searchType eq 'name' and searchWord != null and searchWord != ''">
+				AND (g.GENERAL_NAME LIKE '%' || #{searchWord} || '%'
+				OR sm.SELLER_NAME LIKE '%' || #{searchWord} || '%')
+			</if>
+			<if
+				test="searchType eq 'type' and searchWord != null and searchWord != ''">
+				AND m.MEMBER_TYPE = #{searchWord}
+			</if>
+		</where>
+	</select>
+
+
+	<!-- 블랙리스트 목록 (검색 + 페이징) -->
+	<select id="selectBlacklistList" parameterType="map"
+		resultType="com.bapseguen.app.dto.MemberBlacklistDTO">
+		SELECT *
+		FROM (
+		SELECT ROWNUM RN, A.*
+		FROM (
 		SELECT
 		b.BLACKLIST_NUMBER AS blacklistNumber,
 		b.MEMBER_NUMBER AS memberNumber,
+		NVL(g.GENERAL_NAME, sm.SELLER_NAME) AS memberName,
+		m.MEMBER_TYPE AS memberType,
 		TO_CHAR(b.BLACKLIST_START_DATE,'YYYY-MM-DD') AS blacklistStartDate
 		FROM TBL_MEMBER_BLACKLIST b
+		JOIN TBL_MEMBER m ON b.MEMBER_NUMBER = m.MEMBER_NUMBER
+		LEFT JOIN TBL_GENERAL_MEMBER g ON m.MEMBER_NUMBER = g.MEMBER_NUMBER
+		LEFT JOIN TBL_SELLER_MEMBER sm ON m.MEMBER_NUMBER = sm.MEMBER_NUMBER
+		<where>
+			<if
+				test="searchType eq 'id' and searchWord != null and searchWord != ''">
+				AND m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
+			</if>
+			<if
+				test="searchType eq 'name' and searchWord != null and searchWord != ''">
+				AND (g.GENERAL_NAME LIKE '%' || #{searchWord} || '%'
+				OR sm.SELLER_NAME LIKE '%' || #{searchWord} || '%')
+			</if>
+			<if
+				test="searchType eq 'type' and searchWord != null and searchWord != ''">
+				AND m.MEMBER_TYPE = #{searchWord}
+			</if>
+		</where>
 		ORDER BY b.BLACKLIST_NUMBER DESC
+		) A
+		WHERE ROWNUM &lt;= #{endRow}
+		)
+		WHERE RN &gt;= #{startRow}
 	</select>
 
-	<insert id="insertSuspend" parameterType="MemberSuspendDTO">
-		INSERT INTO
-		TBL_MEMBER_SUSPEND
-		(MEMBER_NUMBER, SUSPEND_START_DATE,
-		SUSPEND_END_DATE, SUSPEND_REPORT_COUNT)
-		VALUES (#{memberNumber},
-		SYSDATE, #{suspendEndDate}, #{suspendReportCount})
+	<!-- 블랙리스트 수 -->
+	<select id="countBlacklistList" parameterType="map"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM TBL_MEMBER_BLACKLIST b
+		JOIN TBL_MEMBER m ON b.MEMBER_NUMBER = m.MEMBER_NUMBER
+		LEFT JOIN TBL_GENERAL_MEMBER g ON m.MEMBER_NUMBER = g.MEMBER_NUMBER
+		LEFT JOIN TBL_SELLER_MEMBER sm ON m.MEMBER_NUMBER = sm.MEMBER_NUMBER
+		<where>
+			<if
+				test="searchType eq 'id' and searchWord != null and searchWord != ''">
+				AND m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
+			</if>
+			<if
+				test="searchType eq 'name' and searchWord != null and searchWord != ''">
+				AND (g.GENERAL_NAME LIKE '%' || #{searchWord} || '%'
+				OR sm.SELLER_NAME LIKE '%' || #{searchWord} || '%')
+			</if>
+			<if
+				test="searchType eq 'type' and searchWord != null and searchWord != ''">
+				AND m.MEMBER_TYPE = #{searchWord}
+			</if>
+		</where>
+	</select>
+
+
+	<!-- 정지 등록 -->
+	<insert id="insertSuspend"
+		parameterType="com.bapseguen.app.dto.MemberSuspendDTO">
+		INSERT INTO TBL_MEMBER_SUSPEND
+		(MEMBER_NUMBER, SUSPEND_START_DATE, SUSPEND_END_DATE, SUSPEND_REPORT_COUNT)
+		VALUES (#{memberNumber}, SYSDATE, #{suspendEndDate}, #{suspendReportCount})
 	</insert>
 
-	<insert id="insertBlacklist" parameterType="MemberBlacklistDTO">
-		INSERT INTO
-		TBL_MEMBER_BLACKLIST
-		(BLACKLIST_NUMBER, MEMBER_NUMBER,
-		BLACKLIST_START_DATE)
-		VALUES (SEQ_MEMBER_BLACKLIST_NUMBER.NEXTVAL,
-		#{memberNumber}, SYSDATE)
+	<!-- 블랙리스트 등록 -->
+	<insert id="insertBlacklist"
+		parameterType="com.bapseguen.app.dto.MemberBlacklistDTO">
+		<selectKey resultType="int" keyProperty="blacklistNumber"
+			order="BEFORE">
+			SELECT SEQ_MEMBER_BLACKLIST_NUMBER.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO TBL_MEMBER_BLACKLIST
+		(BLACKLIST_NUMBER, MEMBER_NUMBER, BLACKLIST_START_DATE)
+		VALUES (#{blacklistNumber}, #{memberNumber}, SYSDATE)
 	</insert>
+
+	<!-- 정지 만료 처리 -->
+	<delete id="clearExpiredSuspends">
+		DELETE FROM TBL_MEMBER_SUSPEND
+		WHERE SUSPEND_END_DATE &lt; SYSDATE
+	</delete>
+
+	<!-- 특정 회원 정지 여부 확인 -->
+	<select id="checkSuspend" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM TBL_MEMBER_SUSPEND
+		WHERE MEMBER_NUMBER = #{memberNumber}
+		AND SYSDATE BETWEEN SUSPEND_START_DATE AND SUSPEND_END_DATE
+	</select>
+
+	<!-- 특정 회원 블랙리스트 여부 확인 -->
+	<select id="checkBlacklist" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM TBL_MEMBER_BLACKLIST
+		WHERE MEMBER_NUMBER = #{memberNumber}
+	</select>
+
+	<!-- 블랙리스트 해제 -->
+	<delete id="deleteBlacklist" parameterType="int">
+		DELETE FROM TBL_MEMBER_BLACKLIST
+		WHERE BLACKLIST_NUMBER = #{blacklistNumber}
+	</delete>
+
+	<!-- 정지 회원 해제 -->
+	<delete id="deleteSuspend" parameterType="int">
+		DELETE FROM TBL_MEMBER_SUSPEND
+		WHERE MEMBER_NUMBER = #{memberNumber}
+	</delete>
+
+
 
 	<!-- ===================== 회원 관리 ===================== -->
 	<select id="selectMemberList" parameterType="map"
@@ -592,11 +802,13 @@
 		m.MEMBER_ID AS "memberId",
 		CASE m.MEMBER_TYPE
 		WHEN
-		'GENERAL' THEN g.GENERAL_NAME
+		'GENERAL'
+		THEN g.GENERAL_NAME
 		WHEN 'SELLER' THEN s.SELLER_NAME
 		ELSE
 		m.MEMBER_ID
-		END AS "memberName",
+		END
+		AS "memberName",
 		CASE m.MEMBER_TYPE
 		WHEN 'GENERAL' THEN
 		g.GENERAL_PHONE_NUMBER
@@ -614,25 +826,30 @@
 		m.MEMBER_TYPE
 		WHEN 'GENERAL' THEN
 		g.GENERAL_PAYMENT_AMOUNT
-		WHEN 'SELLER' THEN s.SELLER_PAYMENT_AMOUNT
+		WHEN 'SELLER'
+		THEN s.SELLER_PAYMENT_AMOUNT
 		END
 		AS "paymentAmount",
 		CASE
 		m.MEMBER_TYPE
 		WHEN 'GENERAL' THEN
 		g.GENERAL_WARNING_COUNT
-		WHEN 'SELLER' THEN s.SELLER_WARNING_COUNT
+		WHEN 'SELLER' THEN
+		s.SELLER_WARNING_COUNT
 		END AS
 		"warningCount"
 		FROM
 		TBL_MEMBER m
-		LEFT JOIN TBL_GENERAL_MEMBER g ON
+		LEFT JOIN
+		TBL_GENERAL_MEMBER g ON
 		g.MEMBER_NUMBER =
 		m.MEMBER_NUMBER
-		LEFT JOIN TBL_SELLER_MEMBER s ON
+		LEFT JOIN
+		TBL_SELLER_MEMBER s ON
 		s.MEMBER_NUMBER =
 		m.MEMBER_NUMBER
-		WHERE m.MEMBER_NUMBER =
+		WHERE
+		m.MEMBER_NUMBER =
 		#{memberNumber}
 	</select>
 
@@ -692,7 +909,8 @@
 		UPDATE
 		TBL_SELLER_MEMBER
 		SET SELLER_WARNING_COUNT =
-		NVL(SELLER_WARNING_COUNT,0) + 1
+		NVL(SELLER_WARNING_COUNT,0)
+		+ 1
 		WHERE MEMBER_NUMBER = #{memberNumber}
 	</update>
 
@@ -802,9 +1020,12 @@
 		"postLikeCount"
 		FROM TBL_POST p
 		JOIN TBL_PROMO_BOARD pr ON
-		pr.POST_NUMBER = p.POST_NUMBER
+		pr.POST_NUMBER
+		= p.POST_NUMBER
 		LEFT JOIN TBL_MEMBER m ON
-		m.MEMBER_NUMBER = p.MEMBER_NUMBER
+		m.MEMBER_NUMBER
+		=
+		p.MEMBER_NUMBER
 		WHERE p.POST_TYPE = 'PROMOTION'
 		<if test="searchWord != null and searchWord != ''">
 			AND (
@@ -827,9 +1048,12 @@
 		SELECT COUNT(*)
 		FROM TBL_POST p
 		JOIN TBL_PROMO_BOARD pr ON
-		pr.POST_NUMBER = p.POST_NUMBER
+		pr.POST_NUMBER
+		= p.POST_NUMBER
 		LEFT JOIN TBL_MEMBER m ON
-		m.MEMBER_NUMBER = p.MEMBER_NUMBER
+		m.MEMBER_NUMBER
+		=
+		p.MEMBER_NUMBER
 		WHERE p.POST_TYPE = 'PROMOTION'
 		<if test="searchWord != null and searchWord != ''">
 			AND (
@@ -859,7 +1083,8 @@
 		JOIN TBL_PROMO_BOARD pr ON
 		pr.POST_NUMBER = p.POST_NUMBER
 		LEFT JOIN TBL_MEMBER m ON
-		m.MEMBER_NUMBER = p.MEMBER_NUMBER
+		m.MEMBER_NUMBER
+		= p.MEMBER_NUMBER
 		WHERE p.POST_NUMBER = #{postNumber}
 	</select>
 
@@ -952,7 +1177,8 @@
 	<!-- 레시피게시판 삭제 -->
 	<delete id="deleteBoardRecipe" parameterType="int">
 		DELETE FROM
-		TBL_POST WHERE POST_NUMBER = #{postNumber}
+		TBL_POST
+		WHERE POST_NUMBER = #{postNumber}
 	</delete>
 
 	<select id="selectLatestEventBanner" resultType="map">
@@ -980,7 +1206,7 @@
 	<!-- 문의 댓글 등록 -->
 	<!-- 댓글 등록 -->
 	<insert id="insertInquiryComment"
-		parameterType="com.bapseguen.app.dto.view.InquiryCommentDTO">
+		parameterType="InquiryCommentDTO">
 		INSERT INTO TBL_INQUIRY_COMMENT
 		(COMMENT_NUMBER,
 		POST_NUMBER, MEMBER_NUMBER, COMMENT_CONTENT, COMMENT_CREATED_DATE)
@@ -1012,14 +1238,13 @@
 		TO_CHAR(c.COMMENTED_DATE, 'YYYY-MM-DD HH24:MI:SS') AS commentedDate,
 		c.COMMENT_DELETE_STATE AS commentDeleteState,
 		a.ADMIN_ID AS adminId
-		FROM TBL_COMMENT c
+		FROM
+		TBL_COMMENT c
 		LEFT JOIN TBL_ADMIN a ON a.ADMIN_NUMBER =
 		c.ADMIN_NUMBER
 		WHERE c.POST_NUMBER = #{postNumber}
 		ORDER BY
 		c.COMMENTED_DATE ASC
 	</select>
-
-
 
 </mapper>
