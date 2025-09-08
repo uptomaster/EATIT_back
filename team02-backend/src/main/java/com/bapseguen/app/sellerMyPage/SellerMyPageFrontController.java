@@ -102,7 +102,8 @@ public class SellerMyPageFrontController extends HttpServlet {
 			System.out.println("[판페f]음식 수정 페이지 요청");
 			result = new FoodEditOkController().execute(request, response);
 			break;
-        case "/sellerMyPage/deleteFoodOk.se":       
+        case "/sellerMyPage/deleteFoodOk.se":      
+        	System.out.println("[판페f]음식 삭제 요청");
         	 result = new FoodDeleteOkController().execute(request, response); 
         	 break;
 		case "/sellerMyPage/FoodlistOk.se":
@@ -113,21 +114,32 @@ public class SellerMyPageFrontController extends HttpServlet {
 //        	 break;
 
 	     // Ingredient
-	     case "/sellerMyPage/ingredient/addOk.se":    
-	    	 result = new IngredientAddOkController().execute(request, response); 
-	    	 break;
-	     case "/sellerMyPage/ingredient/detailOk.se": 
-	    	 result = new IngredientDetailOkController().execute(request, response); 
-	    	 break;
-	     case "/sellerMyPage/ingredient/editOk.se":   
-	    	 result = new IngredientEditOkController().execute(request, response); 
-	    	 break;
-	     case "/sellerMyPage/ingredient/deleteOk.se": 
-	    	 result = new IngredientDeleteOkController().execute(request, response); 
-	    	 break;
-	     case "/sellerMyPage/ingredient/listOk.se":   
-	    	 result = new IngredientListOkController().execute(request, response); 
-	    	 break;
+		case "/sellerMyPage/addIngre.se":
+			System.out.println("[판페f]음식 추가 페이지 요청");
+			result = new FoodAddController().execute(request, response); // 컨트롤러 사라짐..?
+			break;
+		case "/sellerMyPage/addIngreOk.se":
+			System.out.println("[판페f]음식 추가 완료 요청");
+			result = new FoodAddOkController().execute(request, response);
+			break;
+		case "/sellerMyPage/detailIngreOk.se":
+			System.out.println("[판페f]음식 상세 페이지 완료 요청");
+			result = new FoodDetailOkController().execute(request, response);
+			break;
+		case "/sellerMyPage/editIngre.se":
+			System.out.println("[판페f]음식 수정 페이지 요청");
+			result = new FoodEditController().execute(request, response);
+			break;
+		case "/sellerMyPage/editIngreOk.se":
+			System.out.println("[판페f]음식 수정 페이지 요청");
+			result = new FoodEditOkController().execute(request, response);
+			break;
+        case "/sellerMyPage/deleteIngreOk.se":       
+        	 result = new FoodDeleteOkController().execute(request, response); 
+        	 break;
+		case "/sellerMyPage/IngrelistOk.se":
+			result = new FoodListOkController().execute(request, response);
+			break;
 		//
 		/********************************************************************/
 		// // 내 게시글 관리

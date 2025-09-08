@@ -226,21 +226,45 @@
 	</select>
 
 	<!-- 총 판매 내역 -->
-	<select id="totalSaleHistory" parameterType="String">
+	<select id="totalSaleHistory" resultType="SaleHistoryDTO">
 		SELECT
-		o.orders_number,
-		o.orders_date,
-		o.orders_total_amount,
-		oi.order_item_quantity,
-		i.item_name,
-		i.item_price,
-		m.member_id
+		    o.orders_number,
+		    o.orders_date,
+		    o.orders_total_amount,
+		    oi.order_item_quantity,
+		    i.item_name,
+		    i.item_type,
+		    i.item_price,
+		    /* 멤버는 스칼라 서브쿼리로 */
+		    (SELECT m.member_id
+		       FROM TBL_MEMBER m
+		      WHERE m.member_number = o.orders_member_number) AS member_id
 		FROM TBL_ORDERS o
 		JOIN TBL_ORDER_ITEM oi ON o.orders_number = oi.orders_number
-		JOIN TBL_ITEM i ON oi.item_number = i.item_number
-		JOIN TBL_MEMBER m ON o.orders_member_number = m.member_number
+		JOIN TBL_ITEM i        ON oi.item_number   = i.item_number
 		WHERE i.business_number = #{businessNumber}
-		ORDER BY o.orders_date DESC 
+		ORDER BY o.orders_date DESC
+	</select>
+	
+	<!-- 총 판매 내역 -->
+	<select id="totalSaleHistoryCount" resultType="SaleHistoryDTO">
+		SELECT
+		    o.orders_number,
+		    o.orders_date,
+		    o.orders_total_amount,
+		    oi.order_item_quantity,
+		    i.item_name,
+		    i.item_type,
+		    i.item_price,
+		    /* 멤버는 스칼라 서브쿼리로 */
+		    (SELECT m.member_id
+		       FROM TBL_MEMBER m
+		      WHERE m.member_number = o.orders_member_number) AS member_id
+		FROM TBL_ORDERS o
+		JOIN TBL_ORDER_ITEM oi ON o.orders_number = oi.orders_number
+		JOIN TBL_ITEM i        ON oi.item_number   = i.item_number
+		WHERE i.business_number = #{businessNumber}
+		ORDER BY o.orders_date DESC
 	</select>
 	
 	
