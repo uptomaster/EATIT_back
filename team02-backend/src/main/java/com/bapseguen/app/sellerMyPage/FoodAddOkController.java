@@ -70,7 +70,7 @@ public class FoodAddOkController implements Execute {
 		System.out.println("itemName  "+multipartRequest.getParameter("itemName"));
 		
         int price = Integer.parseInt(multipartRequest.getParameter("itemPrice"));
-//        System.out.println(price+1); // 타입 확인용 출력문
+        System.out.println(price+1); // 타입 확인용 출력문
         itemInsertDTO.setItemPrice(price); //int
         
         itemInsertDTO.setItemContent(multipartRequest.getParameter("itemContent")); //String

@@ -15,6 +15,7 @@ import com.bapseguen.app.dto.view.ItemWithImgDTO;
 import com.bapseguen.app.dto.view.MyPurchaseDTO;
 import com.bapseguen.app.dto.view.PostDetailDTO;
 import com.bapseguen.app.dto.view.ReviewWriteDTO;
+import com.bapseguen.app.dto.view.SaleHistoryDTO;
 import com.bapseguen.app.dto.view.SellerInfoDTO;
 import com.bapseguen.config.MyBatisConfig;
 
@@ -278,8 +279,23 @@ public class SellerMyPageDAO {
     // 재료 구매내역 갯수
     public int myIngrePurchaseCount(Map<String, Integer> pageMap) {
     	System.out.println("[판페DAO]내 음식 구매 목록 개수 조회 - myIngrePurchaseCount 메소드 실행");
-    	int count = sqlSession.selectOne("myOrder.myOrderFoodCount",pageMap);
+    	int count = sqlSession.selectOne("myOrder.myOrderIngreCount",pageMap);
     	System.out.println("[판페DAO] 내 음식 구매 수 : "+count);
+    	return count;
+    }
+    
+    //총 판매 내역
+    public List<SaleHistoryDTO> totalSaleHistory(Map<String, Integer> pageMap){
+    	System.out.println("[판페DAO]총 판매 목록 조회 - totalSaleHistory 메소드 실행");
+    	List<SaleHistoryDTO> list = sqlSession.selectList("storeManage.totalSaleHistory", pageMap);
+    	System.out.println("조회결과 : " + list);
+    	return list;
+    }
+    // 총 판매 내역 갯수
+    public int totalSaleHistoryCount(Map<String, Integer> pageMap) {
+    	System.out.println("[판페DAO] 총 판매 목록 개수 조회 - totalSaleHistoryCount 메소드 실행");
+    	int count = sqlSession.selectOne("storeManage.totalSaleHistoryCount",pageMap);
+    	System.out.println("[판페DAO] 목록 수 : "+count);
     	return count;
     }
     

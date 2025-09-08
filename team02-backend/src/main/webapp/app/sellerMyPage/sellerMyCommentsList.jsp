@@ -33,9 +33,9 @@
 			<div class="seller_mycomments_menu_title">마이 페이지</div>
 			<ul class="seller_mycomments_menu_list">
 				<li><a href="${pageContext.request.contextPath}/sellerMyPage/editSellerInfo.se">내 정보 수정</a></li>
-				<li><a href="${pageContext.request.contextPath}/sellerMyPage/buiedFood.se">음식 구매 내역</a></li>
-				<li><a href="${pageContext.request.contextPath}/sellerMyPage/buiedIngredient.se">재료 구매 내역</a></li>
-				<li><a href="${pageContext.request.contextPath}sellerMyPage/myPosts.se">내 글 관리</a></li>
+				<li><a href="${pageContext.request.contextPath}/sellerMyPage/sellerfoodPurchaseList.se">음식 구매 내역</a></li>
+        <li><a href="${pageContext.request.contextPath}/sellerMyPage/selleringredientPurchaseList.se">재료 구매 내역</a></li>
+        <li><a href="${pageContext.request.contextPath}/sellerMyPage/myPosts.se">내 글 관리</a></li>
 				<li class="store_info_menu_list_current"><a
 					href="${pageContext.request.contextPath}/sellerMyPage/myComments.se">내 댓글 관리</a></li>
 				<li><a href="${pageContext.request.contextPath}/sellerMyPage/myReviews.se">내 리뷰 관리</a></li>
@@ -52,6 +52,7 @@
 					<div class="seller_mycomments_sort">게시판 종류</div>
 				<!-- 	<div class="seller_mycomments_tag">태그</div> -->
 					<div class="seller_mycomments_title">게시글 제목</div>
+					<div class="seller_mycomments_title">게시글 작성자</div>
 					<div class="seller_mycomments_comments_info">댓글 내용</div>
 					<div class="seller_mycomments_date">작성 일자</div>
 					<!-- <div class="seller_mycomments_like_count">추천수</div> -->
@@ -60,16 +61,34 @@
 					<c:when test="${not empty myCommentList}">
 						<c:forEach var="comment" items="${myCommentList}">
 							<div class="seller_mycomments_comments_list">
+								<!-- 게시판 종류 -->
 								<div class="seller_mycomments_sort">
 									<!-- <a href="./../../app/community/freeBoardList.html"></a> -->
-									<c:out value="${comment.postType }"/>
+								  	<div class="seller_mycomments_sort">
+								    <c:choose>
+								      <c:when test="${comment.postType eq 'INQUIRY'}">문의</c:when>
+								      <c:when test="${comment.postType eq 'FAQ'}">자주묻는질문</c:when>
+								      <c:when test="${comment.postType eq 'NOTICE'}">공지/이벤트</c:when>
+								      <c:when test="${comment.postType eq 'FREE'}">자유게시판</c:when>
+								      <c:when test="${comment.postType eq 'PROMOTION'}">홍보게시판</c:when>
+								      <c:when test="${comment.postType eq 'RECIPE'}">레시피</c:when>
+								      <c:otherwise><c:out value="${comment.postType}"/></c:otherwise>
+								    </c:choose>
+								  </div>
+								</div>
+								<!-- 게시글 제목 -->
+								<div class="seller_mycomments_title">
+									<!-- <a href="./../../app/community/viewOwnPost.html"></a> -->
+									<c:out value="${comment.postTitle}"/>
 								</div>
 								<div class="seller_mycomments_title">
 									<!-- <a href="./../../app/community/viewOwnPost.html"></a> -->
-									<c:out value="${comment.postTitle }"/>
+									<c:out value="${comment.memberId}"/>
 								</div>
-								<div class="seller_mycomments_comments_info"><c:out value="${comment.commentContent }"/></div>
-								<div class="seller_mycomments_date"><c:out value="${comment.commentedDate }"/></div>
+								<!-- 댓글 내용 -->
+								<div class="seller_mycomments_comments_info"><c:out value="${comment.commentContent}"/></div>
+								<!-- 작성일자 -->
+								<div class="seller_mycomments_date"><c:out value="${comment.commentedDate}"/></div>
 							</div>
 							</c:forEach>
 						</c:when>

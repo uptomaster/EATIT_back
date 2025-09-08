@@ -75,7 +75,7 @@ public class SellerIngrePurchaseController implements Execute{
 		System.out.println("startPage : " + startPage + ", endPage : " + endPage + ", prev : " + prev + ", next : " + next);
 		System.out.println("====================");
 
-		result.setPath("/app/sellerMyPage/sellerfoodPurchaseList.jsp");
+		result.setPath("/app/sellerMyPage/selleringredientPurchaseList.jsp");
 		result.setRedirect(false);
 
 		return result;
