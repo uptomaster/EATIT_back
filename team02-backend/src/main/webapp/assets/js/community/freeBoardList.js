@@ -10,6 +10,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let allRows = Array.from(listBody.querySelectorAll(".list_row"));
   let filteredRows = [...allRows];
+  
+  //조회수 적용
+  /*const postNumber = row.dataset.postNumber;
+  const viewCountEl = row.querySelector(".view_count");
+	  if (!postNumber || !viewCountEl) return;
+	
+	  try {
+	      const res = await fetch(`/community/postViewCount.co?postNumber=${postNumber}`, {
+	          method: "POST",
+	          headers: { "Accept": "application/json" }
+	      });
+	      if (!res.ok) return;
+	
+	      const data = await res.json();
+	      if (data?.viewCount !== undefined) {
+	          viewCountEl.textContent = data.viewCount; // 목록이니까 단순 숫자만
+	      }
+	  } catch (err) {
+	      console.error(`조회수 반영 실패: postNumber=${postNumber}`, err);
+	  }
+  });*/
 
   function displayList(page) {
     listBody.innerHTML = "";
@@ -79,3 +100,33 @@ document.addEventListener("DOMContentLoaded", () => {
   displayList(currentPage);
   
 });
+
+/*조회수 증가*/
+/*document.addEventListener("DOMContentLoaded", () => {
+  const rows = document.querySelectorAll(".board-row.list_row");
+
+  rows.forEach(row => {
+    const postNumber = row.querySelector("a")?.href.match(/postNumber=(\d+)/)?.[1];
+    const viewCountEl = row.querySelector(".col_views");
+
+    if (!postNumber || !viewCountEl) return;
+
+    (async () => {
+      try {
+        const res = await fetch(`/community/postViewCount.co?postNumber=${postNumber}`, {
+          method: "POST",
+          headers: { "Accept": "application/json" }
+        });
+
+        if (!res.ok) return;
+
+        const data = await res.json();
+        if (data?.viewCount !== undefined) {
+          viewCountEl.textContent = data.viewCount;
+        }
+      } catch (err) {
+        console.error("목록 조회수 반영 실패:", err);
+      }
+    })();
+  });
+});*/

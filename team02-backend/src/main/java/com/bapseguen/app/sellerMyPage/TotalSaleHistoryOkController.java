@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
-import com.bapseguen.app.dto.view.PostDetailDTO;
+import com.bapseguen.app.dto.view.SaleHistoryDTO;
 import com.bapseguen.app.sellerMyPage.dao.SellerMyPageDAO;
 
 public class TotalSaleHistoryOkController implements Execute {
@@ -42,16 +42,17 @@ public class TotalSaleHistoryOkController implements Execute {
 		pageMap.put("startRow", startRow);
 		pageMap.put("endRow", endRow);
 		pageMap.put("memberNumber", memberNumber);
+		pageMap.put("Number", memberNumber);
 		
 		// 게시글 목록 조회
-		List<PostDetailDTO> myPostList = sellerDAO.selectAllmyPost(pageMap);
+		List<SaleHistoryDTO> myPostList = sellerDAO.totalSaleHistory(pageMap);
 		request.setAttribute("myPostList", myPostList);
 
 		// 페이징 정보 설정
 		// BoardMapper.xml의 getTotal을 이용하여 전체 게시글 개수 조회
 		// 실제 마지막 페이지 번호(realEndPage)를 계산함
 
-		int total = sellerDAO.myPostCount(pageMap);
+		int total = sellerDAO.totalSaleHistoryCount(pageMap);
 		int realEndPage = (int) Math.ceil(total / (double) rowCount); // 실제 마지막 페이지(전체 게시글 기준으로 계산)
 		int endPage = (int) (Math.ceil(page / (double) pageCount) * pageCount); // 현재 페이지 그룹에서의 마지막 페이지
 		int startPage = endPage - (pageCount - 1); // 현재 페이지 그룹에서의 첫 페이지
@@ -75,7 +76,7 @@ public class TotalSaleHistoryOkController implements Execute {
 		System.out.println("startPage : " + startPage + ", endPage : " + endPage + ", prev : " + prev + ", next : " + next);
 		System.out.println("====================");
 
-		result.setPath("/app/sellerMyPage/sellerMyPostsList.jsp");
+		result.setPath("/app/sellerMyPage/salesHistoryList.jsp");
 //		result.setPath("/sellerMyPage/myPosts.se");
 		result.setRedirect(false);
 

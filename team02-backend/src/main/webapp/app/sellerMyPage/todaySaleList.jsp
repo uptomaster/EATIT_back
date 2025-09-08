@@ -32,14 +32,14 @@
       <div class="today_sell_menu_title">마이 페이지</div>
       <ul class="today_sell_menu_list">
 				<li><a href="${pageContext.request.contextPath}/sellerMyPage/editSellerInfo.se">내 정보 수정</a></li>
-				<li><a href="${pageContext.request.contextPath}/sellerMyPage/buiedFood.se">음식 	구매 내역</a></li>
-				<li><a href="${pageContext.request.contextPath}/sellerMyPage/buiedIngredient.se">재료 구매 내역</a></li>
-				<li><a href="${pageContext.request.contextPath}/sellerMyPage/myPosts.se">내	글 관리</a></li>
-				<li><a href="${pageContext.request.contextPath}/sellerMyPage/myComments.se">내 댓글 관리</a></li>
-				<li><a href="${pageContext.request.contextPath}/sellerMyPage/myReviews.se">내 리뷰 관리</a></li>
-				<li><a href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se">사업장관리</a></li>
-				<li class="store_info_menu_list_current"><a href="/sellerMyPage/todaySaleList.se">판매 내역</a></li>
-      </ul>
+        <li><a href="${pageContext.request.contextPath}/sellerMyPage/sellerfoodPurchaseList.se">음식 구매 내역</a></li>
+        <li><a href="${pageContext.request.contextPath}/sellerMyPage/selleringredientPurchaseList.se">재료 구매 내역</a></li>
+        <li><a href="${pageContext.request.contextPath}/sellerMyPage/myPosts.se">내 글 관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/sellerMyPage/myComments.se">내 댓글 관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/sellerMyPage/myReviews.se">내 리뷰 관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se">사업장관리</a></li>
+        <li class="store_info_menu_list_current"><a href="${pageContext.request.contextPath}/sellerMyPage/todaySaleList.se">판매 내역</a></li>
+			</ul>
     </div>
 
     <div class="today_sell_page"> <!-- 1100 영역-->
@@ -110,7 +110,7 @@
           <div class="today_sell_product">
             <div class="today_sell_product_image">
               <img src="brownie.jpg" alt="다노 프로틴 브라우니">
-            </div>
+            </div>	
             <div class="today_sell_product_info">
               <div class="today_sell_product_name">다노 프로틴 브라우니 1BOX(5개입)</div>
               <div class="today_sell_product_qty">1개</div>
