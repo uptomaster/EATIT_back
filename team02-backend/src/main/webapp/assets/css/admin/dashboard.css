@@ -95,15 +95,12 @@ a {
 	transition: 0.2s;
 }
 
-.sidebar_list:hover {
-	background-color: #1e223f;
-}
 
+.sidebar_list:hover,
 .sidebar_list.active {
-	background-color: #1e223f;
-	font-weight: bold;
+  background-color: #1e223f;
+  scale: 1.05;
 }
-
 /* ===== 메인 ===== */
 .admin_inner {
 	flex: 1;

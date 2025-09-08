@@ -70,7 +70,7 @@
 	              </div>
 	              <div class="post_hit_area">
 	                <span>조회</span>
-	                <span><c:out value="${post.postViewCount}" /></span>
+	                <span id="view_count"><c:out value="${post.postViewCount}" /></span>
 	              </div>
 	              <div class="post_like_area">
 	                <span>추천</span>

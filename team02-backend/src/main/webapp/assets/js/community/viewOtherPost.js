@@ -5,32 +5,60 @@ document.addEventListener("DOMContentLoaded", () => {
   const modifyBtn = document.querySelector(".modify-btn");
   const deleteBtn = document.querySelector(".delete-btn");
   const submitBtn = document.querySelector(".submit-btn");
+  const postNumber = window.postNumber;
+  const viewCountEl = document.querySelector("#view_count");
+
+  	  // 조회수 반영
+      if (!postNumber || !viewCountEl) return;
 	  
+	  if (!window.hasCountedView) {
+	      window.hasCountedView = true;
+
+	      const postNumber = window.postNumber;
+	      const viewCountEl = document.querySelector("#view_count");
+	      if (postNumber && viewCountEl) {
+	          fetch(`/community/postViewCount.co?postNumber=${postNumber}`, { method: "POST" })
+	              .then(res => res.json())
+	              .then(data => {
+	                  if (data?.viewCount !== undefined) {
+	                      viewCountEl.textContent = `${data.viewCount}`;
+	                  }
+	              }).catch(console.error);
+	      }
+	  }
+	  
+  //추천 버튼 클릭시
   recommendBtn.addEventListener('click', async () => {
       const postNumber = window.postNumber;
       const memberNumber = window.memberNumber;
       if (!postNumber || !memberNumber) return alert('로그인 후 이용해주세요.');
-      
+
       try {
-          const res = await fetch(`${ctx}/community/postlike.co?postNumber=${postNumber}`, {
+          const res = await fetch(`/community/postlike.co?postNumber=${postNumber}`, {
               method: 'POST',
               headers: { 'Accept': 'application/json' }
           });
+
+          if (!res.ok) throw new Error('서버 요청 실패');
+
           const data = await res.json();
+          if (!data || typeof data.success === 'undefined') throw new Error('잘못된 서버 응답');
 
           if (!data.success) {
-              alert(data.message); // 서버에서 보내준 메시지 출력
+              alert(data.message || '추천 실패');
           } else {
-              likesSpan.textContent = `추천 ${data.likeCount}`;
-              counterRecommend.textContent = `추천 ${data.likeCount}`;
-              counterRecommend.classList.add('bump');
-              setTimeout(() => counterRecommend.classList.remove('bump'), 300);
+              likesSpan && (likesSpan.textContent = `추천 ${data.likeCount}`);
+              counterRecommend && (counterRecommend.textContent = `추천 ${data.likeCount}`);
+              counterRecommend?.classList.add('bump');
+              setTimeout(() => counterRecommend?.classList.remove('bump'), 300);
+              alert('추천이 완료되었습니다!');
           }
       } catch (err) {
           console.error(err);
-          alert('추천 처리에 실패했습니다.');
+          alert('추천 처리에 실패했습니다. (예외 발생)');
       }
   });
+  
   
    //게시글 수정 버튼 클릭시
    document.body.addEventListener("click", (e) => {
@@ -66,9 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
            alert("게시글 삭제에 실패했습니다.");
        }
    });
-   
-   
-  
+ 
 });
 
 

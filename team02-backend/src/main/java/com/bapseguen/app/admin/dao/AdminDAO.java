@@ -11,7 +11,6 @@ import com.bapseguen.app.dto.MemberBlacklistDTO;
 import com.bapseguen.app.dto.MemberSuspendDTO;
 import com.bapseguen.app.dto.PostReportDTO;
 import com.bapseguen.app.dto.view.AdminPostDTO;
-import com.bapseguen.app.dto.view.InquiryCommentDTO;
 import com.bapseguen.config.MyBatisConfig;
 
 public class AdminDAO {
@@ -130,8 +129,22 @@ public class AdminDAO {
 		return sqlSession.selectOne("admin.selectInquiryDetail", postNumber);
 	}
 
+	// 문의 상태 업데이트
 	public void updateInquiryStatus(AdminPostDTO postDTO) {
 		sqlSession.update("admin.updateInquiryStatus", postDTO);
+		sqlSession.commit();
+	}
+
+	// 문의 답변 등록 또는 수정
+	public void updateInquiryAnswer(AdminPostDTO postDTO) {
+	    sqlSession.update("admin.updateInquiryAnswer", postDTO);
+	    sqlSession.commit();
+	}
+
+	// 문의 답변 삭제
+	public void deleteInquiryAnswer(int postNumber) {
+	    sqlSession.update("admin.deleteInquiryAnswer", postNumber);
+	    sqlSession.commit();
 	}
 
 	/* ===================== 신고 / 정지 / 블랙리스트 ===================== */
@@ -253,15 +266,4 @@ public class AdminDAO {
 	public int countBoardRecipe(Map<String, Object> params) {
 		return sqlSession.selectOne("admin.countBoardRecipe", params);
 	}
-
-	// 문의 댓글 등록
-	public void insertInquiryComment(InquiryCommentDTO commentDTO) {
-		sqlSession.insert("admin.insertInquiryComment", commentDTO);
-	}
-
-	// 문의 댓글 목록 조회
-	public List<InquiryCommentDTO> selectInquiryComments(int postNumber) {
-		return sqlSession.selectList("admin.selectInquiryComments", postNumber);
-	}
-
 }
