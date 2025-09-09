@@ -8,7 +8,7 @@ const slideCnt = slideImg.length;
 let currentIdx = 1; 
 let slideInterval;
 
-// 슬라이드 앞뒤로 복제 슬라이드 생성
+/*// 슬라이드 앞뒤로 복제 슬라이드 생성
 const firstClone = slideImg[0].cloneNode(true);
 const lastClone = slideImg[slideCnt - 1].cloneNode(true);
 
@@ -16,7 +16,7 @@ firstClone.classList.add("clone");
 lastClone.classList.add("clone");
 
 slideBox.appendChild(firstClone);
-slideBox.insertBefore(lastClone, slideImg[0]);
+slideBox.insertBefore(lastClone, slideImg[0]);*/
 
 // 총 슬라이드 수 (복제 포함)
 const totalSlides = slideCnt + 2;
@@ -46,7 +46,7 @@ function startSlide() {
 
 // 무한 루프 처리 함수
 function handleLoop() {
-  slideBox.removeEventListener("transitionend", handleLoop);
+  /*slideBox.removeEventListener("transitionend", handleLoop);
 
   if (currentIdx === totalSlides - 1) {
     // 마지막 슬라이드 → 첫 슬라이드
@@ -58,7 +58,7 @@ function handleLoop() {
     slideBox.style.transition = "none";
     currentIdx = slideCnt;
     slideBox.style.left = `-${slideWidth * currentIdx}px`;
-  }
+  }*/
 }
 
 // 수동 이동 (다음)
@@ -103,8 +103,8 @@ const articles = document.querySelectorAll('.main_food_buy_article');
 const prev = document.querySelector('.main_content_prev a');
 const next = document.querySelector('.main_content_next a');
 
-let startIndex = 0;      // 보이는 첫번째 인덱스
-const visibleCount = 4;  // 한 번에 보일 개수
+let startIndex = 0;
+const visibleCount = 4;
 const total = articles.length;
 
 function updateVisible() {
@@ -117,10 +117,8 @@ function updateVisible() {
   });
 }
 
-// 초기 보이기
 updateVisible();
 
-// 다음 버튼 클릭
 next.addEventListener('click', e => {
   e.preventDefault();
   if (startIndex + visibleCount < total) {
@@ -129,7 +127,6 @@ next.addEventListener('click', e => {
   }
 });
 
-// 이전 버튼 클릭
 prev.addEventListener('click', e => {
   e.preventDefault();
   if (startIndex > 0) {

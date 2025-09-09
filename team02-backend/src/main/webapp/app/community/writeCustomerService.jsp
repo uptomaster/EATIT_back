@@ -1,27 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>고객센터 - 신고글 작성</title>
-  <link rel="stylesheet" href="./../../assets/css/community/writeCustomerService.css" />
-  <link rel="stylesheet" href="./../../assets/css/header.css" />
-  <link rel="stylesheet" href="./../../assets/css/footer.css" />
+  <title>고객센터 - 문의글 작성</title>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/community/writeCustomerService.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css" />
   <link rel="stylesheet" href="./../../assets/css/community/treeGrade.css">
-  <script defer src="./../../assets/js/community/loadHeaderFooter.js"></script>
-  <script defer src="./../../assets/js/community/writeCustomerServiceList.js"></script>
-  <script>
-    let headerPath = '../../header_login.html';
-    let footerPath = '../../footer.html';
+  <script defer src="${pageContext.request.contextPath}/assets/js/community/writeCustomerServiceList.js"></script>
+<script>
+    let header_path = '../../header.jsp';
+    let footer_path = '../../footer.jsp';
   </script>
-  <script defer src="../../assets/js/header.js"></script>
 </head>
 
 <body>
-  <header id="header"></header>
+  <jsp:include page="/header.jsp" />
 
   <main class="layout">
     <aside class="side"></aside>
@@ -32,37 +31,10 @@
           <img src="./../../assets/img/나무.png" alt="나무" class="tree_icon author_profile" />
           namhyuk
         </div>
-        <h1 class="post_title">문의/신고글 작성</h1>
+        <h1 class="post_title">문의글 작성</h1>
       </div>
 
-      <form action="/submit_post" method="post" class="write_form" enctype="multipart/form-data">
-        <!-- 글 유형 선택 -->
-        <!-- <div class="form_group_type">
-          <label>글 유형</label><br><br>
-          <input type="radio" name="postType" value="inquiry" id="typeInquiry" checked>
-          <label for="typeInquiry">문의</label>
-          <input type="radio" name="postType" value="report" id="typeReport">
-          <label for="typeReport">신고</label>
-        </div> -->
-
-        <!-- 태그 선택 -->
-        <!-- <div class="form_group">
-          <label for="tagSelect">태그</label>
-          <select id="tagSelect" name="tagSelect" required>
-
-            <option value="[문의]" class="inquiry">[문의]</option>
-            <option value="[기타]" class="inquiry">[기타]</option>
-
-
-            <option value="[위생]" class="report">[위생]</option>
-            <option value="[서비스 불만족]" class="report">[서비스 불만족]</option>
-            <option value="[가격/환불 문제]" class="report">[가격/환불 문제]</option>
-            <option value="[제품 품질]" class="report">[제품 품질]</option>
-            <option value="[안전 문제]" class="report">[안전 문제]</option>
-            <option value="[기타]" class="report">[기타]</option>
-          </select>
-        </div> -->
-
+<form action="/community/writeInquiryOk.co" method="post" class="write_form" enctype="multipart/form-data">
         <div class="form_group">
           <label for="title">제목</label>
           <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required />
@@ -87,8 +59,10 @@
 
     <aside class="side"></aside>
   </main>
-
-  <footer id="footer"></footer>
+  <jsp:include page="/footer.jsp" />
+  
+  	<script>
+    let memberNumber = "${sessionScope.memberNumber}";
+	</script>
+	
 </body>
-
-</html>

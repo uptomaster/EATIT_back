@@ -178,7 +178,7 @@
 						</button>
 						<div class="write_form">
 							<a
-								href="${pageContext.request.contextPath}/community/writeFreeBoard.jsp"
+								href="${pageContext.request.contextPath}/community/writeCustomerService.co"
 								id="writeBtn" class="member-only">글쓰기</a>
 						</div>
 					</div>
