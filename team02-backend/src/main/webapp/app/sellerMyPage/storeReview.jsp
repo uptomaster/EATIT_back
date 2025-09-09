@@ -104,7 +104,7 @@
 
 				<!-- ✅ 음식/재료 선택 시작 -->
 				<!-- ✅ 음식/재료 선택 시작 -->
-				<%--         <div class="store_info_food_ingredient_tab">
+				<div class="store_info_food_ingredient_tab">
           <ul>
             <li class="${tab eq 'food' ? 'active' : ''}">
               <a href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?tab=food">음식</a>
@@ -113,7 +113,7 @@
               <a href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?tab=ingredient">재료</a>
             </li>
           </ul>
-        </div> --%>
+        </div> 
 				<!-- ✅ 음식/재료 선택 끝 -->
 				<div class="store_info_food_ingredient_tab">
 					<span>음식</span> | <span>재료</span>

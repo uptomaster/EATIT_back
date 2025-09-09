@@ -47,7 +47,6 @@
 		<div class="seller_myposts_page">
 			<h2 class="seller_myposts_list">내 글 관리</h2>
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 
@@ -68,8 +67,8 @@
         <c:choose>
           <c:when test="${post.postType eq 'NOTICE'}">
             <c:set var="typeLabel" value="공지/이벤트"/>
-            <c:set var="readEndpoint" value="/community/noticeBoardReadOk.co"/>
-            <c:set var="listEndpoint" value="/community/noticeBoardListOk.co"/>
+            <c:set var="readEndpoint" value="/community/viewOwnPostOk.co"/>
+            <c:set var="listEndpoint" value="/community/communityMainOk.co"/>
           </c:when>
           <c:when test="${post.postType eq 'FREE'}">
             <c:set var="typeLabel" value="자유게시판"/>
@@ -78,13 +77,13 @@
           </c:when>
           <c:when test="${post.postType eq 'PROMOTION'}">
             <c:set var="typeLabel" value="홍보게시판"/>
-            <c:set var="readEndpoint" value="/community/promotionBoardReadOk.co"/>
-            <c:set var="listEndpoint" value="/community/promotionBoardListOk.co"/>
+            <c:set var="readEndpoint" value="/community/promoBoardReadOk.co"/>
+            <c:set var="listEndpoint" value="/community/promoBoardListOk.co"/>
           </c:when>
           <c:when test="${post.postType eq 'RECIPE'}">
             <c:set var="typeLabel" value="레시피"/>
             <c:set var="readEndpoint" value="/community/recipeBoardReadOk.co"/>
-            <c:set var="listEndpoint" value="/community/recipeBoardListOk.co"/>
+            <c:set var="listEndpoint" value="/community/recipeListOk.co"/>
           </c:when>
           <c:when test="${post.postType eq 'INQUIRY'}">
             <c:set var="typeLabel" value="문의"/>
@@ -96,11 +95,6 @@
             <c:set var="readEndpoint" value="/community/faqReadOk.co"/>
             <c:set var="listEndpoint" value="/community/faqListOk.co"/>
           </c:when>
-          <c:otherwise>
-            <c:set var="typeLabel" value="${post.postType}"/>
-            <c:set var="readEndpoint" value="/community/boardReadOk.co"/>
-            <c:set var="listEndpoint" value="/community/boardListOk.co"/>
-          </c:otherwise>
         </c:choose>
 
         <%-- 컨텍스트 프리픽스 + 엔드포인트 --%>

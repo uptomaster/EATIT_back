@@ -152,6 +152,55 @@ input[type='file']::file-selector-button,
 }
 
 /* 음식 메뉴 목록 영역 *************************/
+/* ===== 탭바 ===== */
+/* 텝비 디자인 */
+.buy_food_menu_choice {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background-color: #ffba53;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  list-style: none;
+}
+/* 탭바 글씨 공통 */
+.buy_food_menu_choice li {
+  /* display: inline-block; */
+  font-size: 20px;
+}
+/* 현재 위치 강조 (메뉴) */
+.link_menu {
+  color: #444;
+  display: block;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
+}
+/* 탭바 글씨  */
+.link_ingredient,
+.link_review {
+  display: block;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+/* 메뉴 개수 / 새 메뉴 등록 라인 */
+.store_food_list{
+  align-items: center;
+  padding: 10px 30px;
+  font-size: 20px;
+  font-weight: bold;
+}
+/* 새 메뉴 등록 */
+.store_food_list_add>a{
+  color: #acacac;
+  font-weight: normal;
+}
+
+/* 메뉴영역 큰 묶음 */
 .store_info_food {
   width: 530px;
   height: 630px;
@@ -164,6 +213,7 @@ input[type='file']::file-selector-button,
 .store_info_food ul {
   display: flex;
   list-style: none;
+  justify-content: space-around;
 }
 
 .store_info_food_menu {
