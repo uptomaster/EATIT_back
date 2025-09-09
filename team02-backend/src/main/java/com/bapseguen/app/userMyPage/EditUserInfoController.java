@@ -32,9 +32,8 @@ public class EditUserInfoController implements Execute {
 		}
 
 		// 내 정보 조회
-		System.out.println("======확인용=======");
-		MyPageDTO userinfo = userMyPageDAO.myPageSelect(memberNumber);
-		request.setAttribute("userinfo", userinfo);
+		MyPageDTO myPage = userMyPageDAO.myPageSelect(memberNumber);
+		request.setAttribute("myPage", myPage);
 
 		// JSP로 포워딩
         result.setRedirect(false);

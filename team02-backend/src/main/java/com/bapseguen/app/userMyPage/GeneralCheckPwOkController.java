@@ -10,8 +10,9 @@ import com.bapseguen.app.userMyPage.dao.UserMyPageDAO;
 public class GeneralCheckPwOkController implements Execute {
 
     @Override
-    public Result execute(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
+    public Result execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+    	System.out.println("====GeneralCheckPwOkController 실행====");
 
         Result result = new Result();
         HttpSession session = request.getSession(false);
