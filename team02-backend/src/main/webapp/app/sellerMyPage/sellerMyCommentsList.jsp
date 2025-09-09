@@ -52,7 +52,7 @@
 					<div class="seller_mycomments_sort">게시판 종류</div>
 				<!-- 	<div class="seller_mycomments_tag">태그</div> -->
 					<div class="seller_mycomments_title">게시글 제목</div>
-					<div class="seller_mycomments_title">게시글 작성자</div>
+					<div class="seller_mycomments_id">게시글 작성자</div>
 					<div class="seller_mycomments_comments_info">댓글 내용</div>
 					<div class="seller_mycomments_date">작성 일자</div>
 					<!-- <div class="seller_mycomments_like_count">추천수</div> -->
@@ -64,23 +64,57 @@
 								<!-- 게시판 종류 -->
 								<div class="seller_mycomments_sort">
 									<!-- <a href="./../../app/community/freeBoardList.html"></a> -->
-								    <c:choose>
-								      <c:when test="${comment.postType eq 'INQUIRY'}">문의</c:when>
-								      <c:when test="${comment.postType eq 'FAQ'}">자주묻는질문</c:when>
-								      <c:when test="${comment.postType eq 'NOTICE'}">공지/이벤트</c:when>
-								      <c:when test="${comment.postType eq 'FREE'}">자유게시판</c:when>
-								      <c:when test="${comment.postType eq 'PROMOTION'}">홍보게시판</c:when>
-								      <c:when test="${comment.postType eq 'RECIPE'}">레시피</c:when>
-								      <c:otherwise><c:out value="${comment.postType}"/></c:otherwise>
-								    </c:choose>
+								    <c:set var="ctx" value="${pageContext.request.contextPath}" />
+
+						        <%-- postType → 라벨/엔드포인트 매핑 --%>
+						        <c:choose>
+						          <c:when test="${comment.postType eq 'NOTICE'}">
+						            <c:set var="typeLabel" value="공지/이벤트"/>
+						            <c:set var="readEndpoint" value="/community/viewOwnPostOk.co"/>
+						            <c:set var="listEndpoint" value="/community/communityMainOk.co"/>
+						          </c:when>
+						          <c:when test="${comment.postType eq 'FREE'}">
+						            <c:set var="typeLabel" value="자유게시판"/>
+						            <c:set var="readEndpoint" value="/community/freeBoardReadOk.co"/>
+						            <c:set var="listEndpoint" value="/community/freeBoardListOk.co"/>
+						          </c:when>
+						          <c:when test="${comment.postType eq 'PROMOTION'}">
+						            <c:set var="typeLabel" value="홍보게시판"/>
+						            <c:set var="readEndpoint" value="/community/promoBoardReadOk.co"/>
+						            <c:set var="listEndpoint" value="/community/promoBoardListOk.co"/>
+						          </c:when>
+						          <c:when test="${comment.postType eq 'RECIPE'}">
+						            <c:set var="typeLabel" value="레시피"/>
+						            <c:set var="readEndpoint" value="/community/recipeBoardReadOk.co"/>
+						            <c:set var="listEndpoint" value="/community/recipeListOk.co"/>
+						          </c:when>
+						          <c:when test="${comment.postType eq 'INQUIRY'}">
+						            <c:set var="typeLabel" value="문의"/>
+						            <c:set var="readEndpoint" value="/community/inquiryReadOk.co"/>
+						            <c:set var="listEndpoint" value="/community/inquiryListOk.co"/>
+						          </c:when>
+						          <c:when test="${comment.postType eq 'FAQ'}">
+						            <c:set var="typeLabel" value="자주묻는질문"/>
+						            <c:set var="readEndpoint" value="/community/faqReadOk.co"/>
+						            <c:set var="listEndpoint" value="/community/faqListOk.co"/>
+						          </c:when>
+						        </c:choose>
+						
+						        <%-- 컨텍스트 프리픽스 + 엔드포인트 --%>
+						        <c:set var="listUrl" value="${ctx}${listEndpoint}" />
+						        <%-- 요청대로 상세는 ?postNumber=${memberNumber} 를 부착 --%>
+						        <c:set var="readUrl" value="${ctx}${readEndpoint}?postNumber=${comment.postNumber}" />
+
+								</div>
+								<!-- 게시글 제목 -->
+								<div class="seller_mycomments_sort">
+									 <a href="${listUrl}">${typeLabel}</a>
 								</div>
 								<!-- 게시글 제목 -->
 								<div class="seller_mycomments_title">
-									<!-- <a href="./../../app/community/viewOwnPost.html"></a> -->
-									<c:out value="${comment.postTitle}"/>
+									<a href="${readUrl}"> <c:out value="${comment.postTitle}"/> </a>
 								</div>
-								<div class="seller_mycomments_title">
-									<!-- <a href="./../../app/community/viewOwnPost.html"></a> -->
+								<div class="seller_mycomments_id">
 									<c:out value="${comment.memberId}"/>
 								</div>
 								<!-- 댓글 내용 -->

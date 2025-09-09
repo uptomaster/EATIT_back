@@ -9,6 +9,7 @@
 	SELECT ROWNUM AS RNUM, SUBQUERY.*
 		FROM (
 			SELECT  
+					p.POST_NUMBER AS postNumber,
 			    P.POST_TYPE AS postType,
 			    P.POST_TITLE AS postTitle,
 			    (SELECT m.MEMBER_ID FROM TBL_MEMBER m WHERE p.MEMBER_NUMBER = m.MEMBER_NUMBER ) AS memberId,							

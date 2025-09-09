@@ -43,6 +43,8 @@
     </div>
     <div class="seller_ingredient_purchase_page">
       <h2 class="seller_ingredient_purchase_list">재료 구매 내역</h2>
+     
+      		<%-- <c:set  var="itemimg" value="${pageContext.request.contextPath}/upload/${itemImage.itemImageSystemName}">--%>
       <div>
         <div class="seller_ingredient_purchaselist_top">
           <div class="seller_ingredient_purchaselist_date">구매날짜</div>
@@ -53,29 +55,31 @@
           <div class="seller_ingredient_purchaselist_price">금액</div>
           <div class="seller_ingredient_purchaselist_review">리뷰</div>
         </div>
+        <c:choose>
+      	<c:when test ="${not empty foodbuyList}">
+        <c:forEach var="buy" items="${foodbuyList}">
         <div class="seller_ingredient_purchase_page_list">
-          <div class="seller_ingredient_purchase_date_list">2025.08.03</div>
-          <div class="seller_ingredient_purchase_img_list"><img class="seller_ingredient_purchase_img"
+          <div class="seller_ingredient_purchase_date_list"><c:out value="${buy.ordersDate}"/></div>
+          <div class="seller_ingredient_purchase_img_list">
+          <img class="seller_ingredient_purchase_img"
               src="./../../assets/img/carrot.jpg" alt=""></div>
-          <div class="seller_ingredient_purchase_restaurant_name_list">오늘 카레 어떄</div>
-          <div class="seller_ingredient_purchase_menu_info_list">당근</div>
-          <div class="seller_ingredient_purchase_how_many_list">4</div>
-          <div class="seller_ingredient_purchase_price_list">16000원</div>
+          <div class="seller_ingredient_purchase_restaurant_name_list"><c:out value="${buy.storeName}"/></div>
+          <div class="seller_ingredient_purchase_menu_info_list"><c:out value="${buy.itemName }"/></div>
+          <div class="seller_ingredient_purchase_how_many_list"><c:out value="${buy.orderItemQuantity }"/></div>
+          <div class="seller_ingredient_purchase_price_list"><c:out value="${buy.orderItemUnitPrice }"/>원</div>
           <div class="seller_ingredient_purchase_review_list"><a href="./../sellerMyPage/sellerwriteReview.html"
               class="seller_ingredient_purchase_review_meal">리뷰</a></div>
         </div>
-        <div class="seller_ingredient_purchase_page_list">
-          <div class="seller_ingredient_purchase_date_list">2025.08.04</div>
-          <div class="seller_ingredient_purchase_img_list"><img class="seller_ingredient_purchase_img"
-              src="./../../assets/img/gimchiJjigae.jpg" alt=""></div>
-          <div class="seller_ingredient_purchase_restaurant_name_list">장충동 왕족발 보쌈</div>
-          <div class="seller_ingredient_purchase_menu_info_list">상추</div>
-          <div class="seller_ingredient_purchase_how_many_list">2</div>
-          <div class="seller_ingredient_purchase_price_list">5000원</div>
-          <div class="seller_ingredient_purchase_review_list"><a href="./../sellerMyPage/sellerwriteReview.html"
-              class="seller_ingredient_purchase_review_meal">리뷰</a></div>
-        </div>
+      </c:forEach>
+      </c:when>
+      <c:otherwise>
+	      <div class="seller_ingredient_purchase_page_list">
+	       <div colspan="7" align="center">작성한 게시글이 없습니다.</div>
+       </div>
+      </c:otherwise>
+      </c:choose>
       </div>
+      
       <div class="seller_ingredient_purchase_pagination">
         <a href="#" class="seller_ingredient_purchase_page_active">1</a>
         <a href="#" class="seller_ingredient_purchase_page">2</a>

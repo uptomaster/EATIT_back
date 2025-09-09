@@ -80,11 +80,22 @@ public class SellerMyPageFrontController extends HttpServlet {
 			System.out.println("[판페f] 사업장관리 페이지 이동 요청");
 			result = new SellerStoreInfoController().execute(request, response);
 			break;
+			// 이 페이지에서 음식 메뉴 목록, 재료 메뉴 목록 출력함
+		case "/sellerMyPage/storeIngre.se":
+			System.out.println("[판페f] 사업장관리 페이지 이동 요청");
+			result = new SellerStoreIngreController().execute(request, response);
+			break;
+			// 이 페이지에서 음식 메뉴 목록, 재료 메뉴 목록 출력함
+		case "/sellerMyPage/storeReview.se":
+			System.out.println("[판페f] 사업장관리 페이지 이동 요청");
+			result = new SellerStoreReviewController().execute(request, response);
+			break;
+			
 
 		// Food
 		case "/sellerMyPage/addFood.se":
 			System.out.println("[판페f]음식 추가 페이지 요청");
-			result = new FoodAddController().execute(request, response); // 컨트롤러 사라짐..?
+			result = new FoodAddController().execute(request, response);
 			break;
 		case "/sellerMyPage/addFoodOk.se":
 			System.out.println("[판페f]음식 추가 완료 요청");
@@ -104,8 +115,8 @@ public class SellerMyPageFrontController extends HttpServlet {
 			break;
         case "/sellerMyPage/deleteFoodOk.se":      
         	System.out.println("[판페f]음식 삭제 요청");
-        	 result = new FoodDeleteOkController().execute(request, response); 
-        	 break;
+        	result = new FoodDeleteOkController().execute(request, response); 
+        	break;
 		case "/sellerMyPage/FoodlistOk.se":
 			result = new FoodListOkController().execute(request, response);
 			break;
@@ -115,27 +126,31 @@ public class SellerMyPageFrontController extends HttpServlet {
 
 	     // Ingredient
 		case "/sellerMyPage/addIngre.se":
-			System.out.println("[판페f]음식 추가 페이지 요청");
-			result = new FoodAddController().execute(request, response); // 컨트롤러 사라짐..?
+			System.out.println("[판페f]재료 추가 페이지 요청");
+			result = new IngredientAddController().execute(request, response);
+			 // 컨트롤러 사라짐..?
 			break;
 		case "/sellerMyPage/addIngreOk.se":
-			System.out.println("[판페f]음식 추가 완료 요청");
-			result = new FoodAddOkController().execute(request, response);
+			System.out.println("[판페f]재료 추가 완료 요청");
+			result = new IngredientAddOkController().execute(request, response);
 			break;
 		case "/sellerMyPage/detailIngreOk.se":
-			System.out.println("[판페f]음식 상세 페이지 완료 요청");
-			result = new FoodDetailOkController().execute(request, response);
+			System.out.println("[판페f]재료 상세 페이지 완료 요청");
+			result = new IngredientDetailOkController().execute(request, response);
+			
 			break;
 		case "/sellerMyPage/editIngre.se":
-			System.out.println("[판페f]음식 수정 페이지 요청");
-			result = new FoodEditController().execute(request, response);
+			System.out.println("[판페f]재료 수정 페이지 요청");
+			result = new IngredientEditController().execute(request, response);
+			
 			break;
 		case "/sellerMyPage/editIngreOk.se":
-			System.out.println("[판페f]음식 수정 페이지 요청");
-			result = new FoodEditOkController().execute(request, response);
+			System.out.println("[판페f]재료 수정 페이지 요청");
+			result = new IngredientEditOkController().execute(request, response);
+			
 			break;
         case "/sellerMyPage/deleteIngreOk.se":       
-        	 result = new FoodDeleteOkController().execute(request, response); 
+        	 result = new IngredientDeleteOkController().execute(request, response);
         	 break;
 		case "/sellerMyPage/IngrelistOk.se":
 			result = new FoodListOkController().execute(request, response);
