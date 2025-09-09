@@ -58,13 +58,22 @@ public class UserMyPageFrontController extends HttpServlet {
 			System.out.println("비밀번호 재확인 처리 요청");
             result = new GeneralCheckPwOkController().execute(request, response);
             break;
-            
+ 
 		case "/userMyPage/editUserInfo.my":
 			System.out.println("내 정보 수정 페이지 처리 요청");
 		    result = new EditUserInfoController().execute(request, response);
 		    break;
+		case "/userMyPage/updateMember.my":
+			System.out.println("내 정보 수정 처리 요청 ");
+		    result = new UpdateMemberController().execute(request, response);
+		    break;
+		case "/userMyPage/checkPwOk.my":
+		    //System.out.println("내 정보 수정 비밀번호 비교 ");
+		    new CheckPwOkController().execute(request, response);
+		    return;     
+        
 //		case "/userMyPage/editUserInfoOk.my":
-//			System.out.println("내 정보 수정 페이지 처리 요청");
+//			System.out.println("내 정보 수정 완료 페이지 처리 요청");
 //		    result = new EditUserInfoOkController().execute(request, response);
 //		    break;    
 //		
@@ -74,9 +83,7 @@ public class UserMyPageFrontController extends HttpServlet {
 			result = new FoodPurchaseListOkController().execute(request, response);
 			break;
 		    
-		case "/userMyPage/updateMember.my":
-		    result = new UpdateMemberController().execute(request, response);
-		    break;
+
 		    
 		case "/userMyPage/phoneCode.my":
 		    result = new PhoneCodeController().execute(request, response);
@@ -91,11 +98,6 @@ public class UserMyPageFrontController extends HttpServlet {
 		    // 실제 탈퇴 처리
 		    result = new WithdrawOkController().execute(request, response);
 		    break;
-		    
-
-
-		    
-		    
 		    
 		
 		
