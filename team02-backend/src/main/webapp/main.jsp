@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,32 +43,36 @@
 	<!-------------------- 메인 ------------------------>
 	<main id="main">
 		<!-- 메인 배너 영역 -->
-		<c:choose>
-			<c:when test="${empty storeList}">
-				<p style="color: #888">표시할 상품이 없습니다.</p>
-			</c:when>
-			<c:otherwise>
-				<c:forEach var="banner" items="${bannerList}">
-					<div id="main_banner">
-						<div class="main_banner_middle">
+		<div id="main_banner">
+			<div class="main_banner_middle">
+				<c:choose>
+					<c:when test="${empty bannerList}">
+						<p style="color: #888">표시할 상품이 없습니다.</p>
+					</c:when>
+					<c:otherwise>
 							<ul class="main_slide_box">
-								<li class="main_slide_img"><img
-									src="${pageContext.request.contextPath}/assets/img/${banner.adminImageSystemName}"
-									alt="${banner.adminImageOriginalName} 이미지"></li>
+								<li class="main_slide_img">
+						<c:forEach var="banner" items="${bannerList}">
+								<a
+									href="${pageContext.request.contextPath}/community/viewOwnPostOk.co?postNumber=${banner.postNumber}">
+										<img
+										src="${pageContext.request.contextPath}/upload/${banner.adminImageSystemName}"
+										alt="${banner.adminImageOriginalName} 이미지">
+								</a>
+						</c:forEach>
+								</li>
 							</ul>
-							<div class="main_banner_prev">
-								<a href="#"><img src="./assets/img/main_banner_prev.png"
-									alt=""></a>
-							</div>
-							<div class="main_banner_next">
-								<a href="#"><img src="./assets/img/main_banner_next.png"
-									alt=""></a>
-							</div>
-						</div>
-					</div>
-				</c:forEach>
-			</c:otherwise>
-		</c:choose>
+					</c:otherwise>
+				</c:choose>
+
+				<div class="main_banner_prev">
+					<a href="#"><img src="./assets/img/main_banner_prev.png" alt=""></a>
+				</div>
+				<div class="main_banner_next">
+					<a href="#"><img src="./assets/img/main_banner_next.png" alt=""></a>
+				</div>
+			</div>
+		</div>
 
 
 
@@ -194,7 +198,8 @@
 													value="${recipe.postTitle}" /> </a>
 										</div>
 										<div class="main_recipe_col_date" role="columnheader">
-											<fmt:formatDate value="${recipe.postCreatedDate}" pattern="yyyy-MM-dd"/>
+											<fmt:formatDate value="${recipe.postCreatedDate}"
+												pattern="yyyy-MM-dd" />
 										</div>
 										<div class="main_recipe_col_views" role="columnheader">
 											<c:out value="${recipe.postViewCount}" />

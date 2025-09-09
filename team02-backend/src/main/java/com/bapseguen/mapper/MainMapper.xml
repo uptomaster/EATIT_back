@@ -18,7 +18,7 @@
 	JOIN 
     TBL_POST p ON ai.POST_NUMBER = p.POST_NUMBER
 	WHERE 
-    p.POST_TITLE LIKE '%이벤트%'
+    p.POST_TITLE LIKE '%[이벤트]%'
     ]]>
 	</select>
 
