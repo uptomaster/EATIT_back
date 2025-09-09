@@ -1,16 +1,10 @@
 package com.bapseguen.app.sellerMyPage;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,12 +12,10 @@ import javax.servlet.http.HttpSession;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
-import com.bapseguen.app.dto.ItemImageDTO;
 import com.bapseguen.app.dto.view.ItemWithImgDTO;
-import com.bapseguen.app.img.dao.ItemImageDAO;
 import com.bapseguen.app.sellerMyPage.dao.SellerMyPageDAO;
 
-public class SellerStoreInfoController implements Execute{
+public class SellerStoreReviewController implements Execute{
 
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
@@ -98,10 +90,11 @@ public class SellerStoreInfoController implements Execute{
 	        
 	        // 결과 설정
 	        Result result = new Result();
-	        result.setPath("/app/sellerMyPage/storeInfo.jsp");
+	        result.setPath("/app/sellerMyPage/storeReview.jsp");
 //	        result.setRedirect(false);
 	        
 	        return result;
 	}
+
 	
 }

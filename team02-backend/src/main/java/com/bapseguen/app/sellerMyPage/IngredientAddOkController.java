@@ -89,7 +89,7 @@ public class IngredientAddOkController implements Execute {
 //        System.out.println(sellStateStr);
         
 		// 게시글 추가
-        int itemNumber = sellerDAO.addFood(itemInsertDTO); // 음식 정보 등록 + 등록한 아이템 번호 가져오기
+        int itemNumber = sellerDAO.addIngredient(itemInsertDTO); // 음식 정보 등록 + 등록한 아이템 번호 가져오기
 		System.out.println("생성된 게시글 번호 : " + itemNumber);
 		
 		
@@ -116,7 +116,7 @@ public class IngredientAddOkController implements Execute {
 		}
 		
 		 result.setRedirect(false);
-		 String path = "/sellerMyPage/storeInfo.se";
+		 String path = "/sellerMyPage/storeIngre.se";
 		 System.out.println("[IngredientAddOkController] 지정한 path : "+path);
 		 result.setPath(path);
 			return result;	

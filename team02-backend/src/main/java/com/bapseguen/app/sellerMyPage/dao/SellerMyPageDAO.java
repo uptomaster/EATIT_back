@@ -41,7 +41,6 @@ public class SellerMyPageDAO {
 		return business;
 	}
 	
-	
 	//sellerInfo 정보 채우는 메소드
 //	public SellerInfoDTO takeSellerInfoDTO(String businessNumber) {
 //		System.out.println("[판페DAO] seller의 모든 정보 불러오기===");
@@ -130,15 +129,28 @@ public class SellerMyPageDAO {
     	
         return sqlSession.selectOne("storeManage.alreadyfood", dto);
     }
-    //
+    // 음식 개수
+    public int foodCount(String bussinessNumber) {
+    	System.out.println("[판페DAO] 음식 개수 - foodCount 메소드 실행 ");
+    	System.out.println("[판페DAO] itemNumber : "+bussinessNumber);
+    	
+    	int answer= sqlSession.selectOne("storeManage.foodCount", bussinessNumber);
+    	System.out.println("총 음식 개수 : "+answer);
+    	return answer;
+    }
 
     // INGREDIENT
     //재료 판매 등록
-    public int addIngredient(ItemListDTO dto) {
-    	System.out.println("[판페DAO] 재료판매등록 - addIngredient 메소드 실행");
-    	System.out.println("[판페DAO] itemDTO : "+dto);
-    	
-        return sqlSession.insert("storeManage.addIngredient", dto);
+    public int addIngredient(ItemInsertDTO itemDTO) {
+    	System.out.println("[판페DAO] 음식판매등록 - addFood 메소드 실행 ");
+    	System.out.println("itemDTO : "+itemDTO);
+        sqlSession.insert("storeManage.addIngredient", itemDTO);
+        int itemNum = sqlSession.selectOne("storeManage.getItemNumber", itemDTO);
+        System.out.println("itemNumber : "+itemNum);
+        itemDTO.setItemNumber(itemNum);
+        System.out.println("DTO itemNumber : "+itemDTO.getItemNumber());
+        
+        return itemDTO.getItemNumber();
     }
     // 재료 판매 상세
     public ItemListDTO detaileIngredient(int itemNumber) {
@@ -170,12 +182,21 @@ public class SellerMyPageDAO {
     	List<ItemWithImgDTO> list = sqlSession.selectList("storeManage.ingredientList", pageMap);
     	return list;
     }
+    // 음식 개수
+    public int ingredientCount(String bussinessNumber) {
+    	System.out.println("[판페DAO] 음식 개수 - foodCount 메소드 실행 ");
+    	System.out.println("[판페DAO] itemNumber : "+bussinessNumber);
+    	
+    	int answer= sqlSession.selectOne("storeManage.ingredientCount", bussinessNumber);
+    	System.out.println("총 음식 개수 : "+answer);
+    	return answer;
+    }
     
     // 가게 사진 조회
     public String selectStoreImageSystemName(String businessNumber) {
         return sqlSession.selectOne("storeManage.selectStoreImage", businessNumber);
     }
-    //
+    // 
 
     // 판매 내역
     // 오늘 판매 내역
