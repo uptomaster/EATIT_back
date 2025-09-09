@@ -44,7 +44,8 @@
     </div>
 
 	<!-- 내 정보 수정 입력 폼 -->
-	<form class="edit_user_info" action="${pageContext.request.contextPath}/UserMyPage/updateMember.my" method="post">
+	<%-- <form class="edit_user_info" action="${pageContext.request.contextPath}/UserMyPage/updateMember.my" method="post"> --%>
+	<form class="edit_user_info" method="post">
 	  <h2 class="my_info">내 정보 수정</h2>
 	
 	  <!-- 아이디(수정 불가) -->
@@ -62,8 +63,7 @@
 	    <div class="info_menu">비밀번호*</div>
 	    <div>
 	      <div class="gray_box">
-	      	<p>${myPage.memberPassword}</p>
-	        <!-- <input id="current_password" name="currentPassword" class="input_info" type="password" placeholder="[입력가능] 현재 비밀번호 확인"> -->
+	        <input id="current_password" name="currentPassword" class="input_info" type="password" placeholder="[입력가능] 현재 비밀번호 확인">
 	      </div>
 	      <p id="current_password_error" class="notice_input_wrong_info"></p>
 	    </div>
@@ -88,16 +88,10 @@
 	    <div class="info_menu">새 비밀번호 확인*</div>
 	    <div>
 	      <div class="gray_box">
-	        <input id="confirm_password" name="confirmPassword" class="input_info" type="password" placeholder="[입력가능] 새 비밀번호를 다시입력해주세요">
+	        <input id="confirm_password" name="confirmPassword" class="input_info" type="password" placeholder="변경할 비밀번호를 다시입력해주세요">
 	      </div>
-	      <c:if test="${param.updated == '1'}">
-	      <!-- 비밀번호 불일치시 안내글 공간  -->
-	      <!-- <p id="new_password_error" class="notice_input_wrong_info"></p> -->
-	      <p style="color:green;">저장되었습니다.</p>
-	 	  </c:if>
-		  <c:if test="${not empty updateError}">
-		    <p style="color:red;">${updateError}</p>
-		  </c:if>
+	      <%-- <c:if test="${param.updated == '1'}"> --%>
+	      <p id="confirm_password_error" class="notice_input_wrong_info"></p>
 	    </div>
 	  </div>
 	

@@ -125,4 +125,30 @@ GENERAL_TREE_GRADE, GENERAL_PAYMENT_AMOUNT)
 	  FROM TBL_SELLER_MEMBER s
 	  WHERE s.MEMBER_NUMBER = #{value}
 	</select>	
+	
+	<select id="findActiveSuspend" parameterType="int" resultType="com.bapseguen.app.dto.MemberSuspendDTO">
+	  SELECT
+	    MEMBER_NUMBER                                    AS memberNumber,
+	    TO_CHAR(SUSPEND_START_DATE,'YYYY-MM-DD')         AS suspendStartDate,
+	    TO_CHAR(SUSPEND_END_DATE,'YYYY-MM-DD')           AS suspendEndDate,
+	    NVL(SUSPEND_REPORT_COUNT,0)                      AS suspendReportCount
+	  FROM (SELECT * FROM TBL_MEMBER_SUSPEND
+	        WHERE MEMBER_NUMBER = #{value}
+	        AND TRUNC(SYSDATE) BETWEEN TRUNC(SUSPEND_START_DATE)
+	        AND TRUNC(NVL(SUSPEND_END_DATE, DATE '9999-12-31'))
+	        ORDER BY SUSPEND_END_DATE DESC NULLS LAST, SUSPEND_START_DATE DESC
+	  )
+	  WHERE ROWNUM = 1
+	</select>
+	
+	<!-- 블랙리스트/블랙상태 여부: 있으면 1, 없으면 0 -->
+	<select id="isBlacklisted" parameterType="int" resultType="int">
+	  SELECT CASE WHEN
+	    EXISTS (SELECT 1 FROM TBL_MEMBER_BLACKLIST b WHERE b.MEMBER_NUMBER = #{value})
+	    OR EXISTS (SELECT 1 FROM TBL_GENERAL_MEMBER g WHERE g.MEMBER_NUMBER = #{value} AND g.GENERAL_BLACK_STATE = 'Y')
+	    OR EXISTS (SELECT 1 FROM TBL_SELLER_MEMBER  s WHERE s.MEMBER_NUMBER = #{value} AND s.SELLER_BLACK_STATE  = 'Y')
+	  THEN 1 ELSE 0 END
+	  FROM dual
+	</select>
+	
 </mapper>
