@@ -1,7 +1,9 @@
 package com.bapseguen.app.login.dao;
 
 import org.apache.ibatis.session.SqlSession;
+
 import com.bapseguen.app.dto.MemberDTO;
+import com.bapseguen.app.dto.MemberSuspendDTO;
 import com.bapseguen.config.MyBatisConfig;
 
 public class LoginDAO {
@@ -27,4 +29,15 @@ public class LoginDAO {
         String type = sqlSession.selectOne("member.getMemberType", memberNumber);
         return type;
     }
+    
+    // 블랙리스트/블랙상태 여부 (있으면 true)
+    public boolean isBlacklisted(int memberNumber) {
+        Integer isblacked = sqlSession.selectOne("member.isBlacklisted", memberNumber);
+        return isblacked != null && isblacked > 0;
+    }
+
+    // 현재 활성 정지 1건 조회 (없으면 null)
+    public MemberSuspendDTO findActiveSuspend(int memberNumber) {
+        return sqlSession.selectOne("member.findActiveSuspend", memberNumber);
+    }    
 }
