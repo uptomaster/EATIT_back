@@ -50,18 +50,16 @@
 						<p style="color: #888">표시할 상품이 없습니다.</p>
 					</c:when>
 					<c:otherwise>
-							<ul class="main_slide_box">
-								<li class="main_slide_img">
-						<c:forEach var="banner" items="${bannerList}">
-								<a
+						<ul class="main_slide_box">
+							<c:forEach var="banner" items="${bannerList}">
+								<li class="main_slide_img"><a
 									href="${pageContext.request.contextPath}/community/viewOwnPostOk.co?postNumber=${banner.postNumber}">
 										<img
 										src="${pageContext.request.contextPath}/upload/${banner.adminImageSystemName}"
 										alt="${banner.adminImageOriginalName} 이미지">
-								</a>
-						</c:forEach>
-								</li>
-							</ul>
+								</a></li>
+							</c:forEach>
+						</ul>
 					</c:otherwise>
 				</c:choose>
 
