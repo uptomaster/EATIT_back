@@ -55,37 +55,70 @@
           <div class="ingredient_edit_submit_table">
             <div class="ingredient_edit_box">
               <label for="ingredient_edit_photo">음식 사진 등록</label>
+              <div class="image-upload-wrap">
+								<input name="boardFile" type="file" id="file" />
+								<!-- 						accept=".jpg, .jpeg, .png" multiple /> -->
+								<div class="image-upload-box">
+									<div class="upload-text">
+										<div class="upload-icon">
+											<svg viewBox="50 50 650 380">
+											<path fill-rule="evenodd" clip-rule="evenodd"
+													d="M25.9087 8.12155L36.4566 18.3158C37.2603 18.7156 38.2648 18.6156 38.968 18.3158C39.6712 17.5163 39.6712 16.4169 38.968 15.7173L25.3059 2.5247C24.6027 1.8251 23.4977 1.8251 22.7945 2.5247L9.03196 15.8172C8.32877 16.5168 8.32877 17.6162 9.03196 18.3158C9.73516 19.0154 10.9406 19.0154 11.6438 18.3158L22.2922 8.12155V28.4111C22.2922 29.4106 23.0959 30.2091 24.1005 30.2091C25.105 30.2091 25.9087 29.4106 25.9087 28.4111V8.12155ZM5.61644 29.4104C5.61644 28.4109 4.81279 27.6104 3.80822 27.6104C2.80365 27.6104 2 28.5099 2 29.5093V44.202C2 45.2015 2.80365 46 3.80822 46H44.1918C45.1963 46 46 45.2015 46 44.202V29.5093C46 28.5099 45.1963 27.7113 44.1918 27.7113C43.1872 27.7113 42.3836 28.5099 42.3836 29.5093V42.3021H5.61644V29.4104Z"></path></svg>
+										</div>
+										<div class="upload-count">
+											이미지 업로드(<span class="cnt">0</span>/1)
+										</div>
+									</div>
+									<div class="upload-text">최대 1개까지 업로드 가능</div>
+									<div class="upload-text">파일 형식 : jpg, png</div>
+									<div class="upload-text">※ 이미지를 등록하면 즉시 반영됩니다.</div>
+								</div>
+							</div>
+
+							<div class="img-controller-box">
+								<ul class="file-list">
+
+								</ul>
+							</div>
             </div>
           </div>
         </div>
         <div class="ingredient_edit_box">
           <label for="ingredient_edit_menu">메뉴명</label>
-          <input name="itemName" type="text" id="ingredient_edit_munu">
+          <input name="itemName" type="text" id="ingredient_edit_munu"
+          value="<c:out value="${item.itemName}"/>">
         </div>
         <div class="ingredient_edit_box">
           <label for="ingredient_edit_explain">음식 설명</label>
-          <textarea  name="itemContent"  id="ingredient_edit_explain" maxlength="100" placeholder="100자 이내로 입력해주세요"></textarea>
+          <textarea  name="itemContent"  id="ingredient_edit_explain" maxlength="100" placeholder="100자 이내로 입력해주세요">
+          <c:out value="${item.itemContent}" /></textarea>
           <span id="ingredient_edit_char_count">0/100</span>
         </div>
         <div class="ingredient_edit_expiry_container">
           <label for="ingredient_edit_expiry">소비기한</label>
-          <input name="itemExpiry" type="text" id="ingredient_edit_expiry" placeholder="YYYY-MM-DD-MIN -SS">
+          <input name="itemExpiry" type="text" id="ingredient_edit_expiry" placeholder="YYYY-MM-DD"
+          value="<c:out value="${item.itemExpireDate}"/>">
         </div>
         <div class="ingredient_edit_box">
           <div class="ingredient_edit_quantitiy_container">
             <label for="ingredient_edit_quantity" class="ingredient_edit_small_label">수량</label>
-            <input name="itemQuantity" type="number" id="ingredient_edit_quantity" min="0" placeholder="개수">
+            <input name="itemQuantity" type="number" id="ingredient_edit_quantity" min="0" placeholder="개수"
+            value="<c:out value="${item.itemQuantity}"/>">
             <span id="ingredient_edit_food_count">개</span>
           </div>
           <div class="ingredient_edit_price_container">
             <label for="ingredient_edit_price" class="ingredient_edit_small_label">가격</label>
-            <input name="itemPrice" type="number" id="ingredient_edit_price" min="0" placeholder="원단위">
+            <input name="itemPrice" type="number" id="ingredient_edit_price" min="0" placeholder="원단위"
+             value="<c:out value="${item.itemPrice}"/>">
             <span>원</span>
           </div>
         </div>
         <div class="edit_delete_btns">
           <button class="ingredient_delte_buzz" type="button">삭제</button>
-          <button class="ingredient_edit_buzz" type="button">저장</button>
+          <button class="ingredient_edit_buzz" type="submit">저장</button>
+          <button type="button" class="delete-btn delete"
+	                  data-board-number="${item.itemNumber}"
+	                  data-member-number="${sessionScope.itemNumber}">삭제</button>
         </div>
     </form> <!-- 1100px 영역 -->
     </div> <!-- 컨텐츠 -->

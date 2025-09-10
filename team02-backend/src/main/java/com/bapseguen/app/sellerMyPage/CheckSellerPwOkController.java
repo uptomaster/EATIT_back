@@ -11,6 +11,7 @@ import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.dto.view.SellerInfoDTO;
 import com.bapseguen.app.sellerMyPage.dao.SellerMyPageDAO;
+import com.bapseguen.app.userMyPage.dao.UserMyPageDAO;
 
 public class CheckSellerPwOkController implements Execute{
 	@Override
@@ -48,5 +49,19 @@ public class CheckSellerPwOkController implements Execute{
 		 result.setPath("/sellerMyPage/storeInfo.se"); 
 		 result.setRedirect(true);
 		 return result;
+//		 
+//		 Integer memberNumber = (session != null) ? (Integer) session.getAttribute("memberNumber") : null;
+//        String inputPw = request.getParameter("currentPassword");
+//
+//        boolean ok = false;
+//        if(memberNumber != null && inputPw != null){
+//            UserMyPageDAO userMyPageDAO = new UserMyPageDAO();
+//            ok = userMyPageDAO.checkPassword(memberNumber, inputPw);
+//        }
+//
+//        // JSON 직접 출력
+//        response.setContentType("application/json; charset=UTF-8");
+//        response.getWriter().write("{\"result\":\"" + (ok ? "success" : "fail") + "\"}");
+//        return null; // JSON 출력했으니 Result는 필요 없음
 	}
 }

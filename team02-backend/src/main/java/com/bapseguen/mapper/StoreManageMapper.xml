@@ -62,17 +62,17 @@
 	</select>
 
 	<!-- 음식 판매 수정 -->
-	<update id="editFood" parameterType="ItemDTO">
+	<update id="editFood" parameterType="itemInsertDTO">
 		UPDATE TBL_ITEM SET
 			ITEM_NAME	= #{itemName}, 
 			ITEM_PRICE 	= #{itemPrice}, 
 			ITEM_CONTENT	= #{itemContent},
 			ITEM_QUANTITY 	= #{itemQuantity}, 
 			ITEM_UPDATED_TIME 	= SYSDATE,
-			ITEM_EXPIRE_DATE 	= #{itemExpireDate},
+			ITEM_EXPIRE_DATE 	= to_DATE(#{itemExpireDate},'yyyy-MM-DD'),
 			ITEM_SELL_STATE 	= #{itemSellState}
 		WHERE ITEM_NUMBER 	= #{itemNumber}
-		AND ITEM_TYPE = 'FOOD'
+		-- AND ITEM_TYPE = 'FOOD'
 	</update>
 
 	<!-- 음식 판매 삭제 -->
