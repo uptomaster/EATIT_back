@@ -22,8 +22,9 @@ public class SmsService {
       params.put("from", FROM_NUMBER);
       params.put("type", "SMS");
       params.put("text", "인증번호는 [" + verificationCode + "] 입니다.");
-
+      System.out.println("인증코드 생성on");
       JSONObject obj = (JSONObject) coolsms.send(params);
+      System.out.println("전송시도 on");
       System.out.println(obj.toString());
 
       return verificationCode;

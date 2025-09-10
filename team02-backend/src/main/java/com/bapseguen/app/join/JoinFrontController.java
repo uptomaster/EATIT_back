@@ -88,8 +88,16 @@ public class JoinFrontController extends HttpServlet {
             System.out.println("회원가입성공 페이지 요청");
             request.getRequestDispatcher("/app/join/successJoin.jsp").forward(request, response);
             break;        
-        }
-
+        
+    	case "/join/sendSMS.jo":
+	        System.out.println("문자인증 처리");
+	        result = new JoinSMSController().execute(request, response);
+	        break;
+    	case "/join/sendSMSOK.jo":
+	        System.out.println("문자인증 완료 처리");
+	        result = new VerifyCodeController().execute(request, response);
+	        break;
+	    }
         if (result != null && result.getPath() != null) {
             if (result.isRedirect()) {
                 response.sendRedirect(result.getPath());
