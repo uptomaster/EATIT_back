@@ -31,60 +31,72 @@ document.addEventListener("DOMContentLoaded", function () {
       phoneInput.value = (phoneInput.value || "").replace(/\D/g, "");
     });
   }
+  const phoneRegex = /^01[016789]-?\d{3,4}-?\d{4}$/;
 
-  // [인증요청] — 이름/전화 필수 체크 후 임시코드 발급
-  if (reqBtn) {
-    reqBtn.addEventListener("click", function () {
-      const name = nameInput ? nameInput.value.trim() : "";
-      if (!name) { setWarn("이름을 입력해주세요.", "red"); if (nameInput) nameInput.focus(); return; }
-
-      const phone = phoneInput ? phoneInput.value.trim().replace(/\D/g, "") : "";
-      if (!phone) { setWarn("핸드폰 번호를 입력해주세요.", "red"); if (phoneInput) phoneInput.focus(); return; }
-
-      tempCode = String(Math.floor(100000 + Math.random() * 900000));
-      verified = false;
-
-      if (codeInput) {
-        codeInput.disabled = false;
-        codeInput.focus();
-      }
-
-      console.log("임시 인증번호:", tempCode);
-      alert("임시 인증번호는 [" + tempCode + "] 입니다.");
-      setWarn("인증번호가 발급되었습니다.", "green");
-    });
-  }
-
+  reqBtn.addEventListener("click", function () {
+    const phoneNumber = phoneInput.value.trim();
+    if (!phoneRegex.test(phoneNumber)) {
+      alert("핸드폰 번호를 입력해주세요.");
+      return;
+    }
+  fetch(`${base}/join/sendSMS.jo?memberPhoneNumber=${encodeURIComponent(phoneNumber)}`, {
+  			method: "GET",
+  			headers: {
+  				"Accept": "text/plain",
+  				"X-Requested-With": "XMLHttpRequest" // 이걸 추가해야 서버를 다시로드 하지 않고 인증번호를 받을 수 있음
+  			}
+  		})
+  			.then(res => {
+  				if (!res.ok) throw new Error("발송 실패: " + res.status);
+  				return res.text(); // text 형식으로 받음
+  			})
+  			.then(msg => {
+  				// 서버가 성공적으로 처리했을 때만 실행
+  				alert(msg);               // 발송 메시지
+  			})
+  			.catch(err => {
+  				// 실패했을 때
+  				alert("SMS 발송 중 오류가 발생했습니다.\n" + err);
+  			});
+  	});		
+	
+	
   // [인증확인] — 코드 비교
   if (chkBtn) {
     chkBtn.addEventListener("click", function () {
       const code = codeInput ? codeInput.value.trim() : "";
-      if (!code) { setWarn("인증번호를 입력해주세요.", "red"); return; }
-
-      if (code === tempCode) {
-        verified = true;
-        if (codeInput) codeInput.dataset.verified = "true";
-        setWarn("인증에 성공했습니다.", "green");
-      } else {
+      if (!/^\d{6}$/.test(code)) {
+        setWarn("인증번호 6자리를 정확히 입력해주세요.", "red");
+        codeInput?.focus();
         verified = false;
-        if (codeInput) codeInput.dataset.verified = "false";
-        setWarn("인증번호가 일치하지 않습니다.", "red");
+        codeInput && (codeInput.dataset.verified = "false");
+        return;
       }
+
+      fetch(`${base}/join/sendSMSOK.jo?verificationCode=${encodeURIComponent(code)}`, {
+        method: "GET",
+        headers: { "Accept": "text/plain", "X-Requested-With": "XMLHttpRequest" }
+      })
+      .then(res => res.text().then(t => ({ ok: res.ok, text: t.trim() })))
+      .then(({ ok, text }) => {
+        if (ok && text.includes("성공")) {
+          setWarn("인증에 성공했습니다.", "green");
+          verified = true;
+          codeInput && (codeInput.dataset.verified = "true");
+        } else {
+          setWarn(text || "인증번호가 일치하지 않습니다.", "red");
+          verified = false;
+          codeInput && (codeInput.dataset.verified = "false");
+        }
+      })
+      .catch(() => {
+        setWarn("요청 중 오류가 발생했습니다.", "red");
+        verified = false;
+        codeInput && (codeInput.dataset.verified = "false");
+      });
     });
   }
 
-  // blur 시에도 성공 처리
-  if (codeInput) {
-    codeInput.addEventListener("blur", function () {
-      const code = codeInput ? codeInput.value.trim() : "";
-      if (!code || !tempCode) return;
-      if (code === tempCode) {
-        verified = true;
-        codeInput.dataset.verified = "true";
-        setWarn("인증에 성공했습니다.", "green");
-      }
-    });
-  }
 
   // [폼 제출] — 이름/전화/인증 최종검사
   form.addEventListener("submit", function (e) {

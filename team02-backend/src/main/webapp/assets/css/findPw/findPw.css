@@ -98,3 +98,61 @@ main {
   text-decoration: none;
   color: black;
 }
+
+/* 각 입력 줄을 라벨-인풋-버튼 가로 정렬 */
+.findPw_input_container > div {
+  display: grid;
+  grid-template-columns: 80px 260px 110px; /* 라벨폭 / 인풋폭 / 버튼폭 */
+  align-items: center;
+  justify-content: end;   /* 오른쪽 정렬 느낌 유지 */
+  gap: 10px;
+  margin: 15px;
+  font-size: 14px;
+  text-align: right;
+}
+
+
+/* 라벨은 오른쪽 정렬 */
+.findPw_input_container > div > label {
+  margin-right: 0;        /* gap 사용 */
+  justify-self: end;
+}
+
+/* 인풋은 너비 260px, 높이 34px 그대로 */
+.findPw_input_container > div > input {
+  width: 260px;
+  height: 34px;
+  border: 0.3px solid #000;
+  border-radius: 5px;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+/* 버튼은 동일 폭으로 고정(아이디 줄은 빈 칸으로 남아 정렬 유지) */
+.findPw_input_container > div > button,
+.findPwAuth_req_auth,
+.findPwAuth_chk_auth {
+  width: 110px;           /* ← 중요: 세 줄 정렬의 기준 */
+  height: 34px;
+  padding: 0 12px;
+  border: 0.5px solid #000;
+  border-radius: 5px;
+  background: #ff924e;    /* 네가 지정한 색 유지 */
+  cursor: pointer;
+}
+
+/* 경고 메시지도 같은 축에 맞추고 싶다면 (선택) */
+.warning_space {
+  display: grid;
+  grid-template-columns: 80px 260px 110px;
+  align-items: center;
+  justify-content: end;
+  gap: 10px;
+  margin: 5px 15px 0;
+}
+.warning_space .warning_empty   { /* 라벨 칸 */
+  height: 1px;
+}
+.warning_space .warning_message { /* 인풋 칸 */
+  text-align: left;
+}
