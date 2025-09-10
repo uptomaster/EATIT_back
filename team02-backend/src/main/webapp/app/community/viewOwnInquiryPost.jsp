@@ -18,17 +18,25 @@
   <script defer src="${pageContext.request.contextPath}/assets/js/community/viewOtherPost.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/community/darkmode.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/community/treeGradeModal.js"></script>
-  <script>
-    let headerPath = '../../header.jsp';
-    let footerPath = '../../footer.jsp';
-  </script>
-  <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
+<!-- 파비콘 -->
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath}/assets/img/favicon.ico"
+	type="image/x-icon">
+
+<!-- 헤더 js -->
+<script defer
+	src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
+<script defer
+	src="${pageContext.request.contextPath}/assets/js/header.js"></script>
+
+<script>
+	let headerPath = './../../header.jsp';
+	let footerPath = './../../footer.jsp';
+</script>
 </head>
 
 <body>
-  <!-- 헤더 -->
-<!--   <header id="header"></header> -->
-  <jsp:include page="/header.jsp" />
+	<jsp:include page="${pageContext.request.contextPath}/header.jsp" />
 
   <aside class="side"></aside>
 
@@ -131,9 +139,8 @@
 
 
 
-  <!-- 푸터 -->
-  <jsp:include page="/footer.jsp" />
-<!--   <footer id="footer"></footer> -->
+<!-------------------- 푸터 ------------------------>
+	<jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
   
 </body>
 <script>

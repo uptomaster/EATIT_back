@@ -27,14 +27,25 @@
 	src="${pageContext.request.contextPath}/assets/js/community/customerServiceList.js"></script>
 <script defer
 	src="${pageContext.request.contextPath}/assets/js/community/mouseoverTreeIcon.js"></script>
+<!-- 파비콘 -->
+<link rel="shortcut icon"
+	href="${pageContext.request.contextPath}/assets/img/favicon.ico"
+	type="image/x-icon">
+
+<!-- 헤더 js -->
+<script defer
+	src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
+<script defer
+	src="${pageContext.request.contextPath}/assets/js/header.js"></script>
+
 <script>
-	let header_path = '../../header.jsp';
-	let footer_path = '../../footer.jsp';
+	let headerPath = './../../header.jsp';
+	let footerPath = './../../footer.jsp';
 </script>
 </head>
 
 <body>
-	<jsp:include page="/header.jsp" />
+	<jsp:include page="${pageContext.request.contextPath}/header.jsp" />
 
 	<main>
 		<!-- 왼쪽 사이드바 -->
@@ -150,8 +161,8 @@
 		<!-- 오른쪽 사이드바 -->
 		<aside class="side_bar"></aside>
 	</main>
-	<jsp:include page="/footer.jsp" />
-	<!-- <footer id="footer"></footer> -->
+	<!-------------------- 푸터 ------------------------>
+	<jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 
 	<script>
 		let memberNumber = "${sessionScope.memberNumber}";
