@@ -33,15 +33,28 @@
 		#{postNumber}
 	</update>
 
-	<!-- 고객센터 문의 글 작성 -->
-	<insert id="inquiryInsert" parameterType="InquiryDetailDTO">
-		INSERT INTO
-		TBL_INQUIRY (
-		POST_NUMBER, INQUIRY_CONTENT, INQUIRY_STATUS
-		)
-		VALUES (
-		#{postNumber}, #{inquiryContent}, #{inquiryStatus}
-		)
+	<!-- 레시피게시판 게시글 작성 -->
+	<insert id="insertInquiryPost" parameterType="map" useGeneratedKeys="true" keyProperty="postNumber">
+	    INSERT INTO TBL_POST (
+	        POST_NUMBER, MEMBER_NUMBER, POST_TITLE,
+	        POST_LIKE_COUNT, POST_VIEW_COUNT, POST_REPORT_COUNT,
+	        POST_DELETE_STATE, POST_CREATED_DATE, POST_TYPE
+	    )
+	    VALUES (
+	        SEQ_POST_NUMBER.NEXTVAL,
+	        #{memberNumber},
+	        #{postTitle},
+	        0,0,0,
+	        'N', SYSDATE, 'INQUIRY'
+	    )
+	    <selectKey keyProperty="postNumber" resultType="int" order="AFTER">
+	        SELECT SEQ_POST_NUMBER.CURRVAL FROM DUAL
+	    </selectKey>
+	</insert>
+	
+	<insert id="insertInquiryContent" parameterType="map">
+	    INSERT INTO TBL_INQUIRY (POST_NUMBER, INQUIRY_CONTENT)
+	    VALUES (#{postNumber}, #{inquiryContent})
 	</insert>
 
 	<!-- 고객센터 문의글 상세(1건조회) -->

@@ -22,8 +22,6 @@ public class WriteInquiryOkController implements Execute {
 
     @Override
     public Result execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("====WriteInquiryOkController 실행====");
-
         Result result = new Result();
         PostImageDAO postImageDAO = new PostImageDAO();
         CommunityDAO communityDAO = new CommunityDAO();
@@ -47,17 +45,10 @@ public class WriteInquiryOkController implements Execute {
         MultipartRequest multi = new MultipartRequest(
                 request, UPLOAD_PATH, FILE_SIZE, "UTF-8", new DefaultFileRenamePolicy());
 
-        // 게시글 파라미터 (form input name과 정확히 일치해야 함)
-        String postTitle = multi.getParameter("title");   // <-- 수정: "postTitle" -> "title"
-        String content = multi.getParameter("content");
-        String postType = multi.getParameter("postType");
+        // 게시글 파라미터
+        String postTitle = multi.getParameter("postTitle");
+        String content = multi.getParameter("inquiryContent");
 
-        Map<String, Object> postParams = new HashMap<>();
-        postParams.put("memberNumber", memberNumber);
-        postParams.put("postTitle", postTitle);
-        postParams.put("postContent", content);
-
-        // 유효성 검사
         if (postTitle == null || postTitle.isBlank() || content == null || content.isBlank()) {
             request.setAttribute("error", "제목/내용을 입력하세요.");
             result.setPath("/app/community/writeCustomerService.jsp");
@@ -65,25 +56,15 @@ public class WriteInquiryOkController implements Execute {
             return result;
         }
 
-        // 게시글 INSERT
-        int insertCount = 0;
-        if ("INQUIRY".equals(postType)) {
-            insertCount = communityDAO.insertInquiry(postParams);
-        }
+        Map<String, Object> postParams = new HashMap<>();
+        postParams.put("memberNumber", memberNumber);
+        postParams.put("postTitle", postTitle);
+        postParams.put("inquiryContent", content);
 
-        // insert 결과 확인 및 게시글 번호 가져오기 (MyBatis selectKey 등에서 postParams에 postNumber를 넣어줬다고 가정)
-        Integer postNumber = (Integer) postParams.get("postNumber");
-        System.out.println("insertCount: " + insertCount);
-        System.out.println("postNumber: " + postNumber);
+        // 1. 게시글 insert
+        int postNumber = communityDAO.insertInquiryPost(postParams);
 
-        if (postNumber == null || postNumber == 0) {
-            request.setAttribute("error", "게시글 등록에 실패했습니다.");
-            result.setPath("/app/community/writeCustomerService.jsp");
-            result.setRedirect(false);
-            return result;
-        }
-
-        // 이미지 업로드 처리
+        // 2. 파일 업로드 반복 (게시글 insert 후)
         Enumeration<?> files = multi.getFileNames();
         while (files.hasMoreElements()) {
             String fileName = (String) files.nextElement();
@@ -99,14 +80,10 @@ public class WriteInquiryOkController implements Execute {
             }
         }
 
-        // 작성 완료 후 이동할 경로 설정
-        if ("INQUIRY".equals(postType)) {
-            result.setPath("/community/inquiryListOk.co");
-        } else {
-            result.setPath("/community/listCustomerService.co"); // fallback or default
-        }
-
+        // 3. 완료 후 목록 페이지로 이동
+        result.setPath(request.getContextPath() + "/community/inquiryListOk.co");
         result.setRedirect(true);
         return result;
     }
 }
+

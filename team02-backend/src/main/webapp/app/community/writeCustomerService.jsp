@@ -47,7 +47,8 @@
 			<div class="title_section">
 				<div class="profile_tree">
 					<img src="./../../assets/img/나무.png" alt="나무"
-						class="tree_icon author_profile" /> <c:out value="memberName"></c:out>
+						class="tree_icon author_profile" />
+						<c:out value="${inquiry.MemberId}" />
 				</div>
 				<h1 class="post_title">문의글 작성</h1>
 			</div>
@@ -66,8 +67,8 @@
 				</div>
 
 				<div class="form_group">
-					<label for="imageUpload">사진 첨부</label> <input type="file"
-						id="imageUpload" name="imageUpload" accept="image/*" multiple />
+					<label for="imageUpload">사진 첨부</label> 
+					<input type="file" id="imageUpload" name="uploadFile" />
 				</div>
 
 				<div class="button_group">
