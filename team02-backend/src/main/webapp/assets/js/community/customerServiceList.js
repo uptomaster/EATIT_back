@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const rowsPerPage = 10;           
-  let currentPage = 1;              
+  const rowsPerPage = 10;                        
 
   const listBody = document.getElementById("inquiry_list_body");
   console.log(listBody);

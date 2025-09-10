@@ -45,11 +45,6 @@
 
 		<section class="container">
 			<div class="title_section">
-				<div class="profile_tree">
-					<img src="./../../assets/img/나무.png" alt="나무"
-						class="tree_icon author_profile" />
-						<c:out value="${inquiry.MemberId}" />
-				</div>
 				<h1 class="post_title">문의글 작성</h1>
 			</div>
 
@@ -72,7 +67,7 @@
 				</div>
 
 				<div class="button_group">
-					<button type="reset" class="cancel_btn">작성 취소</button>
+					<a type="reset" class="cancel_btn" href = "${pageContext.request.contextPath}/community/inquiryListOk.co">작성 취소</a>
 					<button type="submit" class="submit_btn">작성 완료</button>
 				</div>
 			</form>

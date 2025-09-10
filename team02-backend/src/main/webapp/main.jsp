@@ -192,7 +192,7 @@
 										</div>
 										<div class="main_recipe_col_title" role="columnheader">
 											<a
-												href="${pageContext.request.contextPath}/community/recipeList.co"><c:out
+												href="${pageContext.request.contextPath}/community/recipeBoardReadOk.co?postNumber=${recipe.postNumber}"><c:out
 													value="${recipe.postTitle}" /> </a>
 										</div>
 										<div class="main_recipe_col_date" role="columnheader">

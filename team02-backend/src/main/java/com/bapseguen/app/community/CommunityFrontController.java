@@ -150,7 +150,10 @@ public class CommunityFrontController extends HttpServlet {
 			System.out.println("문의게시판 게시글 작성완료 요청");
 			result = new WriteInquiryOkController().execute(request, response);
 			break;
-			
+		case "/community/inquiryDeleteOk.co":
+			System.out.println("게시글 삭제 완료 요청");
+			result = new InquiryDeleteOkController().execute(request, response);
+			break;	
 			
 
 
