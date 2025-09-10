@@ -58,10 +58,13 @@
 			<form
 				action="${pageContext.request.contextPath}/sellerMyPage/editFoodOk.se"
 				method="post" enctype="multipart/form-data"
-				class="food_edit_content_container">
+				class="food_edit_content_container"
+				>
 				<!-- 페이지 제목 -->
 				<div class="food_edit_title">음식 판매 수정</div>
 				<!-- 음식 정보 수정 -->
+				<!-- 숨겨진 값 -->
+        <input type="hidden" name="itemNumber" value="${item.itemNumber}">
 				<!-- 음식 사진 -->
 				<div class="food_edit_photo_container">
 					<div class="food_edit_submit_table">
@@ -100,38 +103,38 @@
 				<!-- 메뉴명 -->
 				<div class="food_edit_box">
 					<label for="food_edit_menu">메뉴명</label> <input name="itemName"
-						type="text" id="food_edit_munu"
+						type="text" id="food_edit_munu" required
 						value="<c:out value="${item.itemName}"/>">
 				</div>
 				<!-- 음식 설명 -->
 				<div class="food_edit_box">
 					<label for="food_edit_explain">음식 설명</label>
 					<textarea name="itemContent" id="food_edit_explain" maxlength="100"
-						placeholder="100자 이내로 입력해주세요">
-           <c:out value="${item.itemContent}" /></textarea>
+						placeholder="100자 이내로 입력해주세요" required>
+           <c:out value="${item.getItemContent()}" /></textarea>
 					<span id="food_edit_char_count">0/100</span>
 				</div>
 				<!-- 소비기한 -->
 				<div class="food_edit_expiry_container">
-					<label for="food_edit_expiry">소비기한</label> <input
+					<label for="food_edit_expiry">소비기한</label> <input required
 						name="itemExpireDate" type="date" id="food_edit_expiry"
-						value="<c:out value="${item.itemExpireDate}"/>"
-						placeholder="YYYY-MM-DD-MIN -SS">
+						value="<c:out value="${item.getItemExpireDate()}"/>"
+						placeholder="YYYY-MM-DD">
 				</div>
 				<!-- 수량 & 가격 -->
 				<div class="food_edit_box">
 					<!-- 수량 -->
 					<div class="food_edit_quantitiy_container">
 						<label for="food_edit_quantity" class="food_edit_small_label">수량</label>
-						<input name="itemQuantity" type="number" id="food_edit_quantity"
-							value="<c:out value="${item.itemQuantity}"/>" min="0"
+						<input name="itemQuantity" type="number" id="food_edit_quantity" required
+							value="<c:out value="${item.getItemQuantity()}"/>" min="0"
 							placeholder="개수"> <span id="food_edit_food_count">개</span>
 					</div>
 					<!-- 가격 -->
 					<div class="food_edit_price_container">
 						<label for="food_edit_price" class="food_edit_small_label">가격</label>
-						<input name="itemPrice" type="number" id="food_edit_price" min="0"
-							placeholder="원단위" value="<c:out value="${item.itemPrice}"/>">
+						<input name="itemPrice" type="number" id="food_edit_price" min="0" required
+							placeholder="원단위" value="<c:out value="${item.getItemPrice()}"/>">
 						<span>원</span>
 					</div>
 				</div>
@@ -139,25 +142,41 @@
 				<div class="foodsaleswrite_box foodsaleswrite_sellstate_container">
 					<label class="foodsaleswrite_small_label">판매상태</label>
 					<div class="foodsaleswrite_sellstate_options">
-						<label> <input type="radio" name="itemSellState" value="Y"
+					<c:if test="${item.getItemSellState }=='Y">
+						<label> <input type="radio" name="itemSellState" value="Y" 
 							checked> 판매중
 						</label> <label> <input type="radio" name="itemSellState"
 							value="N"> 판매중지
 						</label>
+					</c:if>
+					<c:otherwise>
+						<label> <input type="radio" name="itemSellState" value="Y" 
+							> 판매중
+						</label> <label> <input type="radio" name="itemSellState"
+							value="N" checked> 판매중지
+						</label>
+					</c:otherwise>
 					</div>
 				</div>
 				<!-- 라디오버튼 끝 -->
+
 				<!-- 삭제 저장 버튼 -->
 				<div class="food_edit_btn_container">
-					<button class="food_delete_buzz" type="button">삭제</button>
-					<button class="food_edit_buzz" type="button">저장</button>
-				</div>
+					<button type="button" id="food_delete_buzz"
+                onclick="location.href='${pageContext.request.contextPath}/sellerMyPage/deleteFoodOk.se?itemNumber=${item.itemNumber}'">
+                삭제</button>
+					<button type="submit" id="modify-btn edit" >수정</button>				
+       </div>
 			</form>
 		<!-- 컨텐츠 영역 끝 -->
 		</div>
 		<!-- 1100px 영역 끝 -->
 	</main>
 	<jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
+	<script>
+			window.itemNumber = "${item.itemNumber}";
+			window.bussinessNumber =  "${sessionScope.bussinessNumber}";
+			window.memberNumber =  "${sessionScope.memberNumber}";
+	</script>
 </body>
-
 </html>
