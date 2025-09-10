@@ -102,9 +102,22 @@ public class InquiryReadOkController implements Execute{
 				return null;
 			}
 			
+			String inquiryStatus = inquiryDetailDTO.getInquiryStatus();
+			
+			if(inquiryStatus == null) {
+				 response.setContentType("text/html; charset=UTF-8");
+				    PrintWriter out = response.getWriter();
+				    out.println("<script>");
+				    out.println("YET");
+				    out.println("</script>");
+				    out.close();
+			}
+			
+			
 			//null값확인
 			System.out.println("제목: " + inquiryDetailDTO.getPostTitle());
 			System.out.println("작성일: " + inquiryDetailDTO.getPostCreatedDate());
+			System.out.println("답변상태:" + inquiryDetailDTO.getInquiryStatus());
 			
 			request.setAttribute("post", inquiryDetailDTO);
 			result.setPath("/app/community/viewOwnInquiryPost.jsp");

@@ -301,28 +301,31 @@ public class CommunityDAO {
 		return list;
 	}
 
-	// 고객센터 문의글 작성
-	public int insertInquiry(Map<String, Object> postParams) {
-		int postNumber = 0;
-
-		try (SqlSession session = sqlSessionFactory.openSession(false)) {
-			session.insert("post.insertInquiry", postParams);
-			session.insert("post.insertInquiryContent", postParams);
-
-			session.commit();
-
-			postNumber = (int) postParams.get("postNumber");
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return sqlSession.insert("inquiry.inquiryInsert", postParams);
-	}
-	
-	// 문의글 본문 저장
+	// 자유게시판 본문 저장
 		public void insertInquiryContent(Map<String, Object> params) {
-			sqlSession.insert("post.insertInquiryContent", params);
+			sqlSession.insert("inquiry.insertInquiryContent", params);
 		}
+
+		// 자유게시판 게시글 작성
+		public int insertInquiryPost(Map<String, Object> postParams) {
+			int postNumber = 0;
+
+			try (SqlSession session = sqlSessionFactory.openSession(false)) {
+				session.insert("inquiry.insertInquiryPost", postParams);
+				session.insert("inquiry.insertInquiryContent", postParams);
+
+				session.commit();
+
+				// insert 시 <selectKey>에서 채워진 postNumber 가져오기
+				postNumber = (int) postParams.get("postNumber");
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			return postNumber;
+		}
+
 
 	// 고객센터 문의글 상세 조회
 	public InquiryDetailDTO selectInquiryDetail(int postNumber) {

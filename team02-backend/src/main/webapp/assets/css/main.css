@@ -32,17 +32,22 @@
   overflow: hidden;
   /* border: 1px solid red; */
 }
-.main_slide_box{
+.main_slide_box {
   display: flex;
-  width: 1920px;
-  height: 400px;
   position: absolute;
+  height: 400px;
   left: 0;
+  transition: left 0.8s ease;
 }
 .main_slide_img{
   width: 1920px;
   height: 400px;
   background-color: rgb(51, 51, 51);
+}
+
+.main_slide_img > a > img{
+  width: 1920px;
+  height: 400px;
 }
 
 .main_banner_prev, .main_banner_next {
