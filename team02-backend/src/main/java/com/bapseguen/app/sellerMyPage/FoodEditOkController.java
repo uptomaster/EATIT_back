@@ -1,9 +1,8 @@
 package com.bapseguen.app.sellerMyPage;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Enumeration;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,16 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.dto.ItemImageDTO;
-import com.bapseguen.app.dto.ItemListDTO;
 import com.bapseguen.app.dto.view.ItemInsertDTO;
 import com.bapseguen.app.img.dao.ItemImageDAO;
 import com.bapseguen.app.sellerMyPage.dao.SellerMyPageDAO;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-import com.oreilly.servlet.multipart.FilePart;
-import com.oreilly.servlet.multipart.MultipartParser;
-import com.oreilly.servlet.multipart.ParamPart;
-import com.oreilly.servlet.multipart.Part;
 
 public class FoodEditOkController implements Execute {
 
@@ -33,6 +27,18 @@ public class FoodEditOkController implements Execute {
 		request.setCharacterEncoding("UTF-8");
 		
 		Result result = new Result();
+		
+		System.out.println("request 요청");
+		Enumeration<String> parameterNames = request.getParameterNames();
+		while (parameterNames.hasMoreElements()) {
+		    String name = parameterNames.nextElement();
+		    String value = request.getParameter(name);
+		    System.out.println("param: " + name + " = " + value);
+		}
+		System.out.println("=== Request Parameters ===");
+		request.getParameterMap().forEach((k, v) -> {
+		    System.out.println(k + " : " + Arrays.toString(v));
+		});
 		// 이미지 file
 		ItemImageDAO ItemImageDAO = new ItemImageDAO();
 		ItemImageDTO ItemImageDTO = new ItemImageDTO();
@@ -40,6 +46,7 @@ public class FoodEditOkController implements Execute {
 		ItemInsertDTO itemInsertDTO = new ItemInsertDTO();
 		SellerMyPageDAO sellerDAO = new SellerMyPageDAO();
 		
+		//1) 세션 정보 확인하기
 //		System.out.println(""+multipartRequest.get);
 		//로그인 한 회원 정보 가져오기
 		Integer memberNumber = (Integer)request.getSession().getAttribute("memberNumber");
@@ -53,25 +60,25 @@ public class FoodEditOkController implements Execute {
 		}
 		
 		
-		//파일 업로드 환경 설정
+
+		
+		// 2) 파일 업로드 환경 설정
 		final String UPLOAD_PATH = request.getSession().getServletContext().getRealPath("/") + "upload/";
 		final int FILE_SIZE = 1024 * 1024 * 5; //5MB
 		System.out.println("파일 업로드 경로 : " + UPLOAD_PATH);
 				
-		
-		//MultipartRequest를 이용한 데이터 파싱 왜? 
-		// multipartRequest 생성 : 요청을 파트단위로 순회하며 텍스트, 파일 을 분리
 		MultipartRequest multipartRequest = new MultipartRequest(request, UPLOAD_PATH, FILE_SIZE, "utf-8", new DefaultFileRenamePolicy());
-		//request : HTTP 요청객체
-		//UPLOAD_PATH : 파일을 저장할 경로 
-		//FILE_SIZE : 파일의 최대 크기
-		//"utf-8" : 파일명 인코딩 방식
-		//new DefaultFileRenamePolicy() : 파일명이 중복될 경우 자동으로 이름 변경해주는 정책
-		
 
+		
+		// 3) 파라미터 수집 및 DTO 설정
+		int itemNumber = Integer.parseInt(request.getParameter("itemNumber"));
+		System.out.println(itemNumber);
+		
+		
 		// 게시글 정보 설정
 		itemInsertDTO.setBusinessNumber(businessNumber); // String
 		itemInsertDTO.setItemType("FOOD");
+		itemInsertDTO.setItemNumber(itemNumber);
 
 		itemInsertDTO.setItemName(multipartRequest.getParameter("itemName")); //String
 		System.out.println("itemName  "+multipartRequest.getParameter("itemName"));
@@ -95,8 +102,7 @@ public class FoodEditOkController implements Execute {
 //        System.out.println(sellStateStr);
         
 		// 게시글 추가
-        int itemNumber = sellerDAO.addFood(itemInsertDTO); // 음식 정보 등록 + 등록한 아이템 번호 가져오기
-		System.out.println("생성된 게시글 번호 : " + itemNumber);
+        sellerDAO.editFood(itemInsertDTO); // 음식 정보 등록 + 등록한 아이템 번호 가져오기
 		
 		
 		
@@ -118,9 +124,13 @@ public class FoodEditOkController implements Execute {
 			ItemImageDTO.setItemImageOriginalName(fileOriginalName);
 
 			System.out.println("업로드 된 파일 정보 : " + ItemImageDTO);
+			
+			ItemImageDAO.delete(itemNumber);
 			ItemImageDAO.insert(ItemImageDTO);
 		}
 		
+		//
+		System.out.println(itemInsertDTO);
 		 result.setRedirect(false);
 		 String path = "/sellerMyPage/storeInfo.se";
 		 System.out.println("[FoodAddOkController] 지정한 path : "+path);

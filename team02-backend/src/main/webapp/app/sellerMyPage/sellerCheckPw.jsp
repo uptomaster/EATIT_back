@@ -48,7 +48,7 @@
       <!-- 페이지 제목 -->
       <h2 class="seller_my_info">비밀번호 확인</h2>
       <!-- 컨텐츠 영역 -->
-      <form class="seller_chk_pw" action="/sellerMyPage/chkPwOk.se" method="post">
+      <form class="seller_chk_pw" action="${pageContext.request.contextPath}/sellerMyPage/chkPwOk.se" method="post">
         <!-- 입력 -->
         <div class="seller_chk_pw_input">
           <div class="seller_chk_pw_info">비밀번호</div>
@@ -58,15 +58,12 @@
             </div>
             <!-- 여기에 메시지 출력 -->
           </div>
-          <button type="summit" id="seller_chk_pw_btn">비밀번호 확인</button>
+          <button type="submit" id="seller_chk_pw_btn">비밀번호 확인</button>
         </div>
-        <p id="seller_chk_pw_warning" class="seller_notice_input_wrong_info"></p>
-        <div class="withdraw_cancel_btns">
-          <button type="button" class="seller_withdraw_buzz">탈퇴하기</button>
-          <button type="button" class="seller_chk_pw_cancel_buzz" onclick="history.back()">취소</button>
-        </div><!--버튼묶음 -->
+        <c:if test="${not empty pwError}">
+        	<p id="seller_chk_pw_warning" class="seller_notice_input_wrong_info">${pwError}</p>
+        </c:if>
       </form> <!-- 컨텐츠 영역 -->
-    </div>
     </div> <!-- 1100px 영역 -->
   </main>
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />

@@ -108,7 +108,7 @@ public class SellerMyPageDAO {
     	return answer;
     }
     // 음식 판매 수정
-    public int editFood(ItemListDTO dto) {
+    public int editFood(ItemInsertDTO dto) {
     	System.out.println("[판페DAO] 음식판매 수정 - editFood 메소드 실행");
     	System.out.println("[판페DAO] itemDTO : "+dto);
     	
