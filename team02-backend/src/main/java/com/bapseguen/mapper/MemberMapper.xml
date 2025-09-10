@@ -33,8 +33,8 @@
   		<selectKey keyProperty="memberNumber" resultType="int" order="BEFORE">
     		SELECT SEQ_MEMBER_NUMBER.NEXTVAL FROM dual
   		</selectKey>
-  		INSERT INTO TBL_MEMBER (MEMBER_NUMBER, MEMBER_ID, MEMBER_PASSWORD)
-  		VALUES (#{memberNumber}, #{memberId}, #{memberPassword})
+  		INSERT INTO TBL_MEMBER (MEMBER_NUMBER, MEMBER_ID, MEMBER_PASSWORD, MEMBER_TYPE)
+  		VALUES (#{memberNumber}, #{memberId}, #{memberPassword}, #{memberType})
 	</insert>
 
 	<!-- 일반회원 상세 -->

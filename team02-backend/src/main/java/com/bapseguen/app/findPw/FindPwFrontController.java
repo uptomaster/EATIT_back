@@ -14,63 +14,68 @@ import com.bapseguen.app.findId.FindIdOkController;
  */
 public class FindPwFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public FindPwFrontController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public FindPwFrontController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doProcess(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doProcess(request, response);
 	}
 
-	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doProcess(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 
 		String target = request.getRequestURI().substring(request.getContextPath().length());
 		System.out.println("현재 경로 : " + target);
-		Result result = new Result();	
+		Result result = new Result();
 		switch (target) {
 		case "/findPw/findPwOk.fp":
 			System.out.println("비밀번호 찾기 요청");
 			result = new FindPwOkController().execute(request, response);
 			break;
-		
-		case "/findPw/tempPw.fp":
-			System.out.println("임시비밀번호 저장 요청");
-			result = new TempPwController().execute(request, response);
+
+		case "/findPw/startReset.fp":
+			System.out.println("비밀번호 변경 세션 시작 요청");
+			result = new StartResetController().execute(request, response);
 			break;
-		
+
 		case "/findPw/updatePwOk.fp":
 			System.out.println("비밀번호 수정 페이지 요청");
 			result = new UpdatePwOkController().execute(request, response);
 			break;
-		
+
 		}
-		
-        if (result != null && result.getPath() != null) {
-            if (result.isRedirect()) {
-                response.sendRedirect(result.getPath());
-            } else {
-                request.getRequestDispatcher(result.getPath()).forward(request, response);
-            }
-        }
+
+		if (result != null && result.getPath() != null) {
+			if (result.isRedirect()) {
+				response.sendRedirect(result.getPath());
+			} else {
+				request.getRequestDispatcher(result.getPath()).forward(request, response);
+			}
+		}
 	}
 
 }
