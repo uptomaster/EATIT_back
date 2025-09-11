@@ -97,8 +97,7 @@
 							<c:otherwise>
 								<c:forEach var="store" items="${storeList}">
 									<article class="main_food_buy_article">
-										<a
-											href="${pageContext.request.contextPath}/orders/storeDetail.or">
+										<a href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${store.itemNumber}">
 											<img
 											src="${pageContext.request.contextPath}/assets/img/${store.itemImageSystemName}"
 											alt="${store.storeName} 이미지">
