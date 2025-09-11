@@ -47,15 +47,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const cancelBtn = document.querySelector(".cancel_btn");
   const submitBtn = document.querySelector(".submit_btn");
 
-  // 작성 취소
+/*  // 작성 취소
   cancelBtn.addEventListener("click", (e) => {
     e.preventDefault();
     const confirmCancel = confirm("작성 중인 글이 취소됩니다. 정말 취소하시겠습니까?");
     if (confirmCancel) {
-      window.location.href = "./customerServiceList.html"; // 레시피 게시판 목록으로 이동
+      window.location.href = "${pageContext.request.contextPath}/community/inquiryListOk.co"; // 레시피 게시판 목록으로 이동
     }
   });
-
+*/
   // 작성 완료
   form.addEventListener("submit", (e) => {
     e.preventDefault();

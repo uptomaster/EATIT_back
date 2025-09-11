@@ -97,8 +97,7 @@
 							<c:otherwise>
 								<c:forEach var="store" items="${storeList}">
 									<article class="main_food_buy_article">
-										<a
-											href="${pageContext.request.contextPath}/orders/storeDetail.or">
+										<a href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${store.itemNumber}">
 											<img
 											src="${pageContext.request.contextPath}/assets/img/${store.itemImageSystemName}"
 											alt="${store.storeName} 이미지">
@@ -192,7 +191,7 @@
 										</div>
 										<div class="main_recipe_col_title" role="columnheader">
 											<a
-												href="${pageContext.request.contextPath}/community/recipeList.co"><c:out
+												href="${pageContext.request.contextPath}/community/recipeBoardReadOk.co?postNumber=${recipe.postNumber}"><c:out
 													value="${recipe.postTitle}" /> </a>
 										</div>
 										<div class="main_recipe_col_date" role="columnheader">

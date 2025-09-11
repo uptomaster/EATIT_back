@@ -2,6 +2,7 @@ package com.bapseguen.app.community;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Objects;
 
 import javax.servlet.ServletException;
@@ -101,24 +102,18 @@ public class InquiryReadOkController implements Execute{
 			    out.close();
 				return null;
 			}
+			// 이미지 리스트 가져오기
+			List<PostImageDTO> postImages = postImageDAO.select(postNumber);
+			request.setAttribute("postImages", postImages);
 			
 			String inquiryStatus = inquiryDetailDTO.getInquiryStatus();
-			
-			if(inquiryStatus == null) {
-				 response.setContentType("text/html; charset=UTF-8");
-				    PrintWriter out = response.getWriter();
-				    out.println("<script>");
-				    out.println("YET");
-				    out.println("</script>");
-				    out.close();
-			}
-			
 			
 			//null값확인
 			System.out.println("제목: " + inquiryDetailDTO.getPostTitle());
 			System.out.println("작성일: " + inquiryDetailDTO.getPostCreatedDate());
 			System.out.println("답변상태:" + inquiryDetailDTO.getInquiryStatus());
 			
+			request.setAttribute("postImages", postImages);
 			request.setAttribute("post", inquiryDetailDTO);
 			result.setPath("/app/community/viewOwnInquiryPost.jsp");
 			result.setRedirect(false);		

@@ -100,7 +100,7 @@
 							</div>
 							<div class="col_status" role="cell">
 								<div class="status received">
-									<c:out value="${inquiry.getInquiryStatus()}" />
+									<c:out value="${inquiry.inquiryStatus}" default="YET" />
 								</div>
 							</div>
 						</div>
