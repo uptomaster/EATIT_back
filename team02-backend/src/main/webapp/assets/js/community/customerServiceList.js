@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updatePagination();
   }
 
-  // ---------------- 페이지 번호 ----------------
+/*  // ---------------- 페이지 번호 ----------------
   function updatePagination() {
     pagination.innerHTML = "";
     const totalPages = Math.max(1, Math.ceil(filteredRows.length / rowsPerPage));
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       pagination.appendChild(pageLink);
     }
-  }
+  }*/
 
   // ---------------- 검색 기능 ----------------
   function searchList() {

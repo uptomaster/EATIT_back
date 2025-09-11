@@ -191,12 +191,13 @@ main {
 }
 
 .pagination_number > a {
-    text-decoration: none;
-    color : white;
+  text-decoration: none;
+  color : white;
+  display:flex;
+  padding: 9px 16px;
 }
 .pagination_number {
   display: inline-block;
-  padding: 9px 16px;
   background-color: #fff7c4;
   border-radius: 8px;
   border: 1.5px solid #ffdb70;
