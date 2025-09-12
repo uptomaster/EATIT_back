@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const rowsPerPage = 10;           
-  let currentPage = 1;              
+  const rowsPerPage = 10;                        
 
   const listBody = document.getElementById("inquiry_list_body");
   console.log(listBody);
@@ -44,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updatePagination();
   }
 
-  // ---------------- 페이지 번호 ----------------
+/*  // ---------------- 페이지 번호 ----------------
   function updatePagination() {
     pagination.innerHTML = "";
     const totalPages = Math.max(1, Math.ceil(filteredRows.length / rowsPerPage));
@@ -61,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       pagination.appendChild(pageLink);
     }
-  }
+  }*/
 
   // ---------------- 검색 기능 ----------------
   function searchList() {

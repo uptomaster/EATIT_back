@@ -294,19 +294,19 @@ public class CommunityDAO {
 	}
 
 	// 고객센터 문의 목록 조회 (페이징 적용)
-	public List<InquiryDTO> inquirySelectAll(Map<String, Integer> pageMap) {
+	public List<InquiryDetailDTO> inquirySelectAll(Map<String, Integer> pageMap) {
 		System.out.println("고객센터 모든 게시글 조회하기 - selectAll 메소드 실행 : " + pageMap);
-		List<InquiryDTO> list = sqlSession.selectList("inquiry.inquirySelectAll", pageMap);
+		List<InquiryDetailDTO> list = sqlSession.selectList("inquiry.inquirySelectAll", pageMap);
 		System.out.println("조회결과 : " + list);
 		return list;
 	}
 
-	// 자유게시판 본문 저장
+	// 문의 본문 저장
 		public void insertInquiryContent(Map<String, Object> params) {
 			sqlSession.insert("inquiry.insertInquiryContent", params);
 		}
 
-		// 자유게시판 게시글 작성
+		// 문의 작성
 		public int insertInquiryPost(Map<String, Object> postParams) {
 			int postNumber = 0;
 
@@ -326,6 +326,28 @@ public class CommunityDAO {
 			return postNumber;
 		}
 
+		// 게시글 삭제
+		public void deleteInquiry (int postNumber) {
+			SqlSession session = null;
+			try {
+				session = MyBatisConfig.getSqlSessionFactory().openSession(false); // 트랜잭션 수동 처리
+
+				// 삭제 순서 중요
+				session.delete("inquiry.inquiryImageDelete", postNumber);
+				session.delete("inquiry.inquiryDelete", postNumber);
+				session.delete("inquiry.postDelete", postNumber);
+
+				session.commit();
+				System.out.println("게시글 전체 삭제 성공");
+			} catch (Exception e) {
+				if (session != null)
+					session.rollback();
+				e.printStackTrace();
+			} finally {
+				if (session != null)
+					session.close();
+			}
+		}
 
 	// 고객센터 문의글 상세 조회
 	public InquiryDetailDTO selectInquiryDetail(int postNumber) {

@@ -191,11 +191,13 @@ main {
 }
 
 .pagination_number > a {
-    text-decoration: none;
-}
-.page {
-  display: inline-block;
+  text-decoration: none;
+  color : white;
+  display:flex;
   padding: 9px 16px;
+}
+.pagination_number {
+  display: inline-block;
   background-color: #fff7c4;
   border-radius: 8px;
   border: 1.5px solid #ffdb70;
@@ -205,15 +207,15 @@ main {
   transition: background-color 0.25s, color 0.25s;
 }
 
-.page:hover {
+.pagination_number:hover {
   background-color: #ffce6d;
   color: #4a3000;
 }
 
-.page.active {
+.pagination_number {
   background-color: #ffae42;
   color: white;
-  cursor: default;
+  cursor: pointer;
   border-color: #ff9c00;
 }
 

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -86,10 +86,6 @@
 	                <span>조회</span>
 	                <span><c:out value="${post.postViewCount}" /></span>
 	              </div>
-	              <div class="post_like_area">
-	                <span>추천</span>
-	                <span><c:out value="${post.postLikeCount}" /></span>
-	              </div>
 	            </div> <!-- .post_meta -->
 	          </div> <!-- .post_box -->
 	        </div> <!-- .post_header -->
@@ -98,9 +94,13 @@
 	        <section class="content_section">
 	          <div class="view-content">
 	            <h3><c:out value="${post.inquiryContent}" /></h3>
+	            <c:forEach var="img" items="${postImages}">
+			    <img src="${pageContext.request.contextPath}/upload/${img.postImageSystemName}" alt="${img.postImageOriginalName}" />
+			  </c:forEach>
 	          </div>
+	          
 	
-	          <!-- 수정/삭제 버튼 -->
+	          <!-- 삭제 버튼 -->
 	          <div class="post_buttons">
 	            <div class="func_button">
 	              <c:if test="${sessionScope.memberNumber eq post.getMemberNumber()}">

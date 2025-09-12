@@ -13,6 +13,7 @@ import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.community.dao.CommunityDAO;
 import com.bapseguen.app.dto.InquiryDTO;
+import com.bapseguen.app.dto.view.InquiryDetailDTO;
 
 public class InquiryController implements Execute {
 
@@ -38,7 +39,7 @@ public class InquiryController implements Execute {
 		pageMap.put("endRow", endRow);
 
 		// 게시글 목록 조회
-		List<InquiryDTO> inquiryList = communityDAO.inquirySelectAll(pageMap);
+		List<InquiryDetailDTO> inquiryList = communityDAO.inquirySelectAll(pageMap);
 		request.setAttribute("inquiry", inquiryList);
 
 		// 전체 게시글 수 가져오기
