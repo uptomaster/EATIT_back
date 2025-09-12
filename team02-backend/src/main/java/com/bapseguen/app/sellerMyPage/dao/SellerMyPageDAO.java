@@ -108,18 +108,18 @@ public class SellerMyPageDAO {
     	return answer;
     }
     // 음식 판매 수정
-    public int editFood(ItemInsertDTO dto) {
+    public void editFood(ItemInsertDTO dto) {
     	System.out.println("[판페DAO] 음식판매 수정 - editFood 메소드 실행");
     	System.out.println("[판페DAO] itemDTO : "+dto);
     	
-        return sqlSession.update("storeManage.editFood", dto);
+       sqlSession.update("storeManage.editFood", dto);
     }
     // 음식 판매 삭제
-    public int deleteFood(int itemNumber) {
+    public void deleteFood(int itemNumber) {
     	System.out.println("[판페DAO] 음식판매삭제 - deleteFood 메소드 실행");
     	System.out.println("[판페DAO] itemNumber : "+itemNumber);
     	
-        return sqlSession.delete("storeManage.deleteFood", itemNumber);
+        sqlSession.delete("storeManage.deleteFood", itemNumber);
     }
 
     // 이미 준비된 음식

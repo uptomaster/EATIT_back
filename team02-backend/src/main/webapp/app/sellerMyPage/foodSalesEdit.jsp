@@ -102,7 +102,8 @@
 				</div>
 				<!-- 메뉴명 -->
 				<div class="food_edit_box">
-					<label for="food_edit_menu">메뉴명</label> <input name="itemName"
+					<label for="food_edit_menu">메뉴명</label> 
+					<input name="itemName"
 						type="text" id="food_edit_munu" required
 						value="<c:out value="${item.itemName}"/>">
 				</div>
@@ -111,7 +112,8 @@
 					<label for="food_edit_explain">음식 설명</label>
 					<textarea name="itemContent" id="food_edit_explain" maxlength="100"
 						placeholder="100자 이내로 입력해주세요" required>
-           <c:out value="${item.getItemContent()}" /></textarea>
+            <c:out value="${item.itemContent}" />
+          </textarea>
 					<span id="food_edit_char_count">0/100</span>
 				</div>
 				<!-- 소비기한 -->
@@ -142,20 +144,14 @@
 				<div class="foodsaleswrite_box foodsaleswrite_sellstate_container">
 					<label class="foodsaleswrite_small_label">판매상태</label>
 					<div class="foodsaleswrite_sellstate_options">
-					<c:if test="${item.getItemSellState }=='Y">
-						<label> <input type="radio" name="itemSellState" value="Y" 
-							checked> 판매중
-						</label> <label> <input type="radio" name="itemSellState"
-							value="N"> 판매중지
+						<label> 
+						<input type="radio" name="itemSellState" value="Y" 
+							 <c:if test="${item.itemSellState eq 'Y'}">checked</c:if>> 판매중
 						</label>
-					</c:if>
-					<c:otherwise>
-						<label> <input type="radio" name="itemSellState" value="Y" 
-							> 판매중
-						</label> <label> <input type="radio" name="itemSellState"
-							value="N" checked> 판매중지
+						<label> 
+							 <input type="radio" name="itemSellState" value="N"
+								<c:if test="${item.itemSellState eq 'N'}">checked</c:if>> 판매중지
 						</label>
-					</c:otherwise>
 					</div>
 				</div>
 				<!-- 라디오버튼 끝 -->

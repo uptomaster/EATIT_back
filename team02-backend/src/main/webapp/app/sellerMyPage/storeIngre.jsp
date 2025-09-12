@@ -89,7 +89,7 @@
             <li><a class="link_review" href="${pageContext.request.contextPath}/sellerMyPage/storeReview.se">리뷰 보기</a></li>
           </ul>
           <ul class="store_food_list">
-            <li class="store_food_list_count">총 개수 :6개</li>
+            <li class="store_food_list_count">총 개수 :<c:out value="${ingreListCount}"/>개</li>
             <li class="store_food_list_add">
               <a href="${pageContext.request.contextPath}/sellerMyPage/addIngre.se">새 메뉴 등록</a>
             </li>

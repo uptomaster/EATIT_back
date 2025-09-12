@@ -71,7 +71,7 @@
             <li><a class="link_review" href="${pageContext.request.contextPath}/sellerMyPage/storeReview.se">리뷰 보기</a></li>
           </ul>
           <ul class="store_food_list">
-            <li class="store_food_list_count">총 개수 :6개</li>
+            <li class="store_food_list_count">총 개수 :<c:out value="${foodListCount}"/>개</li>
             <li class="store_food_list_add">
               <a href="${pageContext.request.contextPath}/sellerMyPage/addFood.se">새 메뉴 등록</a>
             </li>
@@ -230,7 +230,6 @@
 </body>
 <script>
   window.foodItemNumber = "${food.itemNumber}";
-  let itemNumber = "${sessionScope.itemNumber}";
   console.log(itemNumber);
 </script>
 </html>

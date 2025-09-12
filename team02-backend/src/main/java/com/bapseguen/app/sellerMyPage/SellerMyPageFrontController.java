@@ -146,7 +146,7 @@ public class SellerMyPageFrontController extends HttpServlet {
 			
 			break;
 		case "/sellerMyPage/editIngreOk.se":
-			System.out.println("[판페f]재료 수정 페이지 요청");
+			System.out.println("[판페f]재료 수정 페이지 완료 요청");
 			result = new IngredientEditOkController().execute(request, response);
 			
 			break;

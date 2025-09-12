@@ -127,6 +127,17 @@ main {
 	display: flex;
 	/* flex-direction: row; */
 }
+
+.foodsaleswrite_btns_container{
+	display: flex;
+	align-items: right;
+	margin-bottom: 14px;
+	flex-wrap: wrap;
+	flex: 1;
+	gap : 10px;
+}
+
+
 /* 이미지 보기 하얀칸*/
 #food_edit_image_preview {
 	width: 700px;
@@ -199,7 +210,6 @@ button {
 	margin-left: 10px;
 	cursor: pointer;
 	height: 45px;
-	display: none;
 }
 
 button:hover {
