@@ -12,6 +12,9 @@ public class ReviewWithUserDTO {
 	private String itemName;
 	private String storeName;
 	private String storeTel;
+	private String storeAddress;
+	private String storeImageSystemName;
+	private String storeImageOriginalName; 
 
 	// ===== Getter / Setter =====
 	public int getReviewNumber() {
@@ -100,5 +103,29 @@ public class ReviewWithUserDTO {
 
 	public void setStoreTel(String storeTel) {
 		this.storeTel = storeTel;
+	}
+
+	public String getStoreAddress() {
+		return storeAddress;
+	}
+
+	public void setStoreAddress(String storeAddress) {
+		this.storeAddress = storeAddress;
+	}
+
+	public String getStoreImageSystemName() {
+		return storeImageSystemName;
+	}
+
+	public void setStoreImageSystemName(String storeImageSystemName) {
+		this.storeImageSystemName = storeImageSystemName;
+	}
+
+	public String getStoreImageOriginalName() {
+		return storeImageOriginalName;
+	}
+
+	public void setStoreImageOriginalName(String storeImageOriginalName) {
+		this.storeImageOriginalName = storeImageOriginalName;
 	}
 }
