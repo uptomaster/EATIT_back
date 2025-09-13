@@ -2,7 +2,6 @@ package com.bapseguen.app.orders;
 
 import java.io.IOException;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,38 +20,47 @@ public class IngredientDetailController implements Execute {
         Result result = new Result();
         ItemDAO itemDAO = new ItemDAO();
 
-        // 파라미터 파싱
         int itemNumber = -1;
         try {
             itemNumber = Integer.parseInt(request.getParameter("itemNumber"));
         } catch (NumberFormatException ignore) {}
 
         if (itemNumber <= 0) {
-            // 잘못된 접근 시  목록으로 돌려보냄
             result.setPath(request.getContextPath() + "/orders/ingredientList.or");
             result.setRedirect(true);
             return result;
         }
 
-        // 상품 상세 조회
         ItemWithImgDTO item = itemDAO.selectItemDetail(itemNumber);
-
-        if (item == null || !"INGREDIENT".equalsIgnoreCase(item.getItemType())) {
-            // 없는 상품이거나 음식인데 재료 페이지로 들어왔을 경우
+        if (item == null) {
             result.setPath(request.getContextPath() + "/orders/ingredientList.or");
             result.setRedirect(true);
             return result;
         }
 
-        // 상품 이미지들 조회
         List<ItemImageDTO> images = itemDAO.selectItemImages(itemNumber);
 
-        // JSP로 전달
+        int page = 1;
+        int limit = 5;
+        try {
+            page = Integer.parseInt(request.getParameter("page"));
+        } catch (NumberFormatException e) {}
+        int offset = (page - 1) * limit;
+
+        // 같은 가게 재료 목록
+        List<ItemWithImgDTO> ingredientList =
+                itemDAO.list(item.getBusinessNumber(), "INGREDIENT", offset, limit);
+        int totalCount = itemDAO.count(item.getBusinessNumber(), "INGREDIENT");
+        int maxPage = (int) Math.ceil((double) totalCount / limit);
+
         request.setAttribute("item", item);
         request.setAttribute("images", images);
+        request.setAttribute("ingredientList", ingredientList);
+        request.setAttribute("page", page);
+        request.setAttribute("maxPage", maxPage);
 
         result.setPath("/app/orders/ingredientDetail.jsp");
-        result.setRedirect(false); // forward
+        result.setRedirect(false);
         return result;
     }
 }

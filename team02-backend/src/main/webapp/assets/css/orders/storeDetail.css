@@ -35,13 +35,14 @@ a:hover {
 }
 
 .wrap {
-	width: 1100px;
+	max-width: 1100px; /* 반응형 개선 */
 	margin: 0 auto;
 	display: flex;
 	gap: 30px;
 	background-color: #FBE3B9; /* 연한 살구 배경 */
 	border-radius: 12px;
 	padding: 20px;
+	box-shadow: 0 4px 16px rgba(0,0,0,0.05); /* 살짝 그림자 */
 }
 
 /* ---------------- 왼쪽 영역 ---------------- */
@@ -56,6 +57,11 @@ a:hover {
 	overflow: hidden;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 	margin-bottom: 20px;
+	transition: transform 0.2s;
+}
+
+.buy_store_info:hover {
+	transform: translateY(-2px);
 }
 
 .buy_store_info>img {
@@ -72,12 +78,13 @@ a:hover {
 	font-size: 22px;
 	font-weight: bold;
 	color: #222;
+	margin-bottom: 6px;
 }
 
 .buy_store_address, .buy_store_tel {
 	font-size: 15px;
 	color: #555;
-	margin-top: 6px;
+	margin-top: 4px;
 }
 
 /* ---------------- 메뉴 박스 ---------------- */
@@ -121,6 +128,12 @@ a:hover {
 	display: flex;
 	gap: 20px;
 	padding: 20px;
+	border-bottom: 1px solid #f3f3f3;
+	transition: box-shadow 0.2s;
+}
+
+.buy_food_menu_list:hover {
+	box-shadow: 0 3px 10px rgba(0,0,0,0.05);
 }
 
 .buy_food_menu_list img {
@@ -144,13 +157,13 @@ a:hover {
 	color: #fff;
 	padding: 4px 10px;
 	border-radius: 20px;
-	font-size: 14px;
+	font-size: 13px;
 	font-weight: bold;
 	display: inline-block;
 }
 
 .buy_food_menu_name {
-	font-size: 20px;
+	font-size: 18px;
 	font-weight: bold;
 	color: #222;
 }
@@ -166,16 +179,17 @@ a:hover {
 	display: flex;
 	align-items: center;
 	gap: 10px;
+	margin-top: 6px;
 }
 
 .minus, .plus {
 	background-color: #FFB84D;
 	color: #fff;
-	width: 32px;
-	height: 32px;
+	width: 30px;
+	height: 30px;
 	border-radius: 50%;
 	text-align: center;
-	line-height: 32px;
+	line-height: 30px;
 	font-weight: bold;
 	cursor: pointer;
 	transition: background 0.2s;
@@ -186,24 +200,26 @@ a:hover {
 }
 
 .count {
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: bold;
 }
 
 /* 장바구니 버튼 */
 .buy_add_cart_btn {
-	background: #333;
+	background: #FF924E;
 	color: white;
 	border-radius: 6px;
 	padding: 8px 16px;
 	font-size: 14px;
+	font-weight: bold;
 	margin-top: 6px;
 	cursor: pointer;
 	transition: background 0.2s;
+	border: none;
 }
 
 .buy_add_cart_btn:hover {
-	background: #FF924E;
+	background: #ff7722;
 }
 
 /* ---------------- 페이지네이션 ---------------- */
@@ -310,7 +326,8 @@ a:hover {
 	background-color: #FBE3B9;
 	margin-top: 20px;
 	padding: 20px;
-	width: 1100px;
+	width: 100%;
+	max-width: 1100px;
 	margin: 30px auto;
 	text-align: center;
 	border-radius: 16px;
