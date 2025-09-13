@@ -106,6 +106,7 @@
 		<mapper resource="com/bapseguen/mapper/BannerMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/MainMapper.xml" />
 		<mapper resource="com/bapseguen/mapper/PostReportMapper.xml" />
+		<mapper resource="com/bapseguen/mapper/ReviewMapper.xml" />
 	</mappers>
 	
 </configuration>

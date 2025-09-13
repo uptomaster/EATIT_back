@@ -75,5 +75,24 @@ public class ItemDAO {
         return sqlSession.selectOne("item.countSearchItems", params);
     }
 
+    /** 같은 가게의 모든 상품 조회 */
+    public List<ItemWithImgDTO> selectItemsByBusinessNumber(String businessNumber) {
+        return sqlSession.selectList("item.selectItemsByBusinessNumber", businessNumber);
+    }
+
+    /** 같은 가게 상품 페이징 조회 */
+    public List<ItemWithImgDTO> selectItemsByBusinessNumberPaged(String businessNumber, int offset, int limit) {
+        Map<String, Object> p = new HashMap<>();
+        p.put("businessNumber", businessNumber);
+        p.put("offset", offset);
+        p.put("limit", limit);
+        return sqlSession.selectList("item.selectItemsByBusinessNumberPaged", p);
+    }
+
+    /** 같은 가게 상품 총 개수 */
+    public int countItemsByBusinessNumber(String businessNumber) {
+        return sqlSession.selectOne("item.countItemsByBusinessNumber", businessNumber);
+    }
+
 
 }
