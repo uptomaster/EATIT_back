@@ -5,26 +5,50 @@
 
 <mapper namespace="review">
 
-    <!-- 특정 가게 리뷰 목록 -->
-    <select id="selectReviewsByBusiness" parameterType="string" resultType="com.bapseguen.app.dto.view.ReviewWithUserDTO">
-        SELECT
-            r.REVIEW_NUMBER     AS reviewNumber,
-            r.ORDERS_NUMBER     AS ordersNumber,
-            r.BUSINESS_NUMBER   AS businessNumber,
-            r.MEMBER_NUMBER     AS memberNumber,
-            r.REVIEW_RATING     AS reviewRating,
-            r.REVIEW_CONTENT    AS reviewContent,
-            TO_CHAR(r.REVIEW_CREATE_DATE, 'YYYY-MM-DD') AS reviewCreateDate,
-            m.MEMBER_ID         AS memberId,
-            (SELECT i.ITEM_NAME
-             FROM TBL_ORDER_ITEM oi
-             JOIN TBL_ITEM i ON oi.ITEM_NUMBER = i.ITEM_NUMBER
-             WHERE oi.ORDERS_NUMBER = r.ORDERS_NUMBER
-             FETCH FIRST 1 ROWS ONLY) AS itemName
-        FROM TBL_REVIEW r
-        LEFT JOIN TBL_MEMBER m ON r.MEMBER_NUMBER = m.MEMBER_NUMBER
-        WHERE r.BUSINESS_NUMBER = #{businessNumber}
-        ORDER BY r.REVIEW_CREATE_DATE DESC
-    </select>
+	<!-- 특정 가게 리뷰 목록 -->
+	<select id="selectReviewsByBusiness" parameterType="string"
+		resultType="com.bapseguen.app.dto.view.ReviewWithUserDTO">
+		SELECT
+		r.REVIEW_NUMBER AS reviewNumber,
+		r.ORDERS_NUMBER AS
+		ordersNumber,
+		r.BUSINESS_NUMBER AS businessNumber,
+		r.MEMBER_NUMBER AS
+		memberNumber,
+		m.MEMBER_ID AS memberId,
+		r.REVIEW_RATING AS reviewRating,
+		r.REVIEW_CONTENT AS reviewContent,
+		TO_CHAR(r.REVIEW_CREATE_DATE,
+		'YYYY-MM-DD') AS reviewCreateDate,
+		i.ITEM_NAME AS itemName,
+		s.STORE_NAME AS storeName,
+		s.STORE_TEL AS storeTel
+		FROM TBL_REVIEW r
+		JOIN TBL_MEMBER m ON r.MEMBER_NUMBER = m.MEMBER_NUMBER
+		JOIN TBL_ORDERS
+		o ON r.ORDERS_NUMBER = o.ORDERS_NUMBER
+		JOIN TBL_STORE s ON
+		r.BUSINESS_NUMBER = s.BUSINESS_NUMBER
+		LEFT JOIN TBL_ORDER_ITEM oi ON
+		o.ORDERS_NUMBER = oi.ORDERS_NUMBER
+		LEFT JOIN TBL_ITEM i ON
+		oi.ITEM_NUMBER = i.ITEM_NUMBER
+		WHERE r.BUSINESS_NUMBER =
+		#{businessNumber}
+		ORDER BY r.REVIEW_CREATE_DATE DESC
+	</select>
+
+	<!-- 특정 가게 정보 조회 -->
+	<select id="selectStoreInfo" parameterType="string"
+		resultType="com.bapseguen.app.dto.StoreDTO">
+		SELECT
+		BUSINESS_NUMBER AS businessNumber,
+		STORE_NAME AS storeName,
+		STORE_TEL AS storeTel,
+		STORE_ADDRESS AS storeAddress
+		FROM TBL_STORE
+		WHERE BUSINESS_NUMBER = #{businessNumber}
+	</select>
+
 
 </mapper>
