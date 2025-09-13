@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bapseguen.app.Result;
-import com.bapseguen.app.community.CommunityMainOkController;
-import com.bapseguen.app.community.FaqReadOkController;
 
 /**
  * Servlet implementation class userMyPageFrontController
@@ -70,7 +68,11 @@ public class UserMyPageFrontController extends HttpServlet {
 		case "/userMyPage/checkPwOk.my":
 		    //System.out.println("내 정보 수정 비밀번호 비교 ");
 		    new CheckPwOkController().execute(request, response);
-		    return;     
+		    return;
+		case "/userMyPage/userMyPageSmsSend.my":
+		    System.out.println("변경할 전화번호 인증번호 전송 요청");
+		    result=new UserMypageSMSController().execute(request, response);
+		    break;
         
 //		case "/userMyPage/editUserInfoOk.my":
 //			System.out.println("내 정보 수정 완료 페이지 처리 요청");
