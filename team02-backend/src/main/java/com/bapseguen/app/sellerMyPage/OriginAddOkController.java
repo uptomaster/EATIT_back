@@ -18,6 +18,7 @@ public class OriginAddOkController implements Execute {
 
 		request.setCharacterEncoding("UTF-8");
 		OriginDTO originDTO = new OriginDTO();
+		SellerMyPageDAO sellerDAO = new SellerMyPageDAO();
 		Result result = new Result();		
 		
 		originDTO.setOriginItem(request.getParameter("originItem"));
@@ -25,10 +26,10 @@ public class OriginAddOkController implements Execute {
 		originDTO.setOriginLocation(request.getParameter("originLocation"));
 		originDTO.setBusinessNumber(request.getParameter("businessNumber"));
 
-		new SellerMyPageDAO().addOrigin(originDTO);
+		sellerDAO.addOrigin(originDTO);
 
 		result.setRedirect(true);
-		result.setPath(request.getContextPath() + "/seller/origin/listOk.se?businessNumber=" + originDTO.getBusinessNumber());
+		result.setPath(request.getContextPath() + "/sellerMyPage/originList.se?businessNumber=" + originDTO.getBusinessNumber());
 		return result;
 	}
 }

@@ -52,8 +52,7 @@
         
         <!-- 음식 정보 등록 -->
         <div class="foodsaleswrite_photo_container">
-          <div class="foodsaleswrite_submit_table">
-            <div id="food_edit_image_preview"></div>
+          <!-- <div class="foodsaleswrite_submit_table"> -->
             <div class="foodsaleswrite_box">
 							<c:if test="${not empty itemImage}">
 							    <div class="food_image_box">
@@ -64,7 +63,7 @@
               <label for="food_edit_photo">음식 사진 </label>
               <!-- <button type="button">등록</button> -->
             </div>
-          </div>
+          <!-- </div> -->
         </div>
         <div class="foodsaleswrite_box">
           <label for="foodsaleswrite_menu">메뉴명</label>

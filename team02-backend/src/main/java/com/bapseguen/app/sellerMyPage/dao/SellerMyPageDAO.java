@@ -198,7 +198,7 @@ public class SellerMyPageDAO {
     }
     // 
 
-    // 판매 내역
+    //=== 판매 내역 ===========
     // 오늘 판매 내역
     public List<Map<String, Object>> todaySaleHistory(String businessNumber) {
     	System.out.println("[판페DAO]오늘판매내역 - todaySalehistory 메소드 실행");
@@ -212,28 +212,6 @@ public class SellerMyPageDAO {
         return sqlSession.selectList("storeManage.totalSaleHistory", businessNumber);
     }
     
-    // 원산지
-    //원산지 정보 추가
-    public int addOrigin(OriginDTO dto) {
-    	System.out.println();
-        return sqlSession.insert("origin.addOrigin", dto);
-    }
-    // 원산지 정보 목록
-    public List<OriginDTO> originList(String businessNumber) {
-        return sqlSession.selectList("origin.originList", businessNumber);
-    }
-    // 원산지 정보 수정
-    public int updateOrigin(OriginDTO dto) {
-        return sqlSession.update("origin.updateOrigin", dto);
-    }
-    // 원산지 정보 삭제
-    public int deleteOrigin(int originNumber) {
-        return sqlSession.delete("origin.deleteOrigin", originNumber);
-    }
-    // 이미 등록한 원산지 정보
-    public int alreadyOrigin(OriginDTO dto) {
-        return sqlSession.selectOne("origin.alreadyOrigin", dto);
-    }
 
 	// // 내 게시글 관리
     // 내 게시글 관리
@@ -338,5 +316,27 @@ public class SellerMyPageDAO {
     	System.out.println("[판페DAO] 내정보수정 updateSellerInfo");
         sqlSession.update("seller.updateSellerInfo", dto);
     }
+
+    // ==== 원산지 목록 =======
+    public List<OriginDTO> selectOriginListByBusiness(String businessNumber) {
+        return sqlSession.selectList("origin.originList", businessNumber);
+    }
+
+    public OriginDTO selectOriginOne(int originNumber) {
+        return sqlSession.selectOne("origin.selectOne", originNumber);
+    }
+
+    public void insertOrigin(OriginDTO dto) {
+        sqlSession.insert("origin.addOrigin", dto);
+    }
+
+    public int updateOriginByNumber(OriginDTO dto) {
+        return sqlSession.update("origin.updateOrigin", dto);
+    }
+
+    public int deleteOriginByNumber(int originNumber) {
+        return sqlSession.delete("origin.deleteOrigin", originNumber);
+    }
+    
     
 }

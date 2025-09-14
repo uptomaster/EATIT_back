@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +19,7 @@
   <script defer src="${pageContext.request.contextPath}/assets/js/footer.js"></script>   
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/sellerMyPage/salesHistoryList.js"></script>
-S
+
 <script>
     let headerPath = './../../header.jsp';
     let footerPath = './../../footer.jsp';
@@ -45,44 +47,97 @@ S
     <div class="sale_history_page">
       <!-- 페이지 네목 -->
       <h2 class="sale_history_title">판매 내역</h2>
-      <!-- 총/오늘 판매내역 선택  -->
-      <ul class="sale_history_categaory_container">
-        <li class="sale_history_today"><a href="${pageContext.request.contextPath}/todaySaleList.jsp">오늘 판매 내역</a></li>
-        <li class="sale_history_total"><a href="${pageContext.request.contextPath}/salesHistoryList">총 판매내역</a></li>
-      </ul>
-      <!-- 일자 검색을 할 수 있을까요.. 아니요 자문자답-->
-      <div>
-        <div class="sale_history_list_top">
-          <div class="sale_history_sale_num_top">전표번호</div>
-          <div class="sale_history_sale_date_top">판매일자</div>
-          <div class="sale_history_buyer_id_top">구매자아이디</div>
-          <div class="sale_history_idx_top">품목번호</div>
-          <div class="sale_history_category_top">분류</div>
-          <div class="sale_history_menu_name_top">메뉴명</div>
-          <div class="sale_history_quantity_top">판매개수</div>
-          <div class="sale_history_price_top">금액</div>
-        </div>
-        <div class="sale_history_sales_list">
-          <div class="sale_history_sale_num"><c:out value=""/></div>
-          <div class="sale_history_sale_date">2025.08.01.15:36</div>
-          <div class="sale_history_buyer_id">dltjwls</div>
-          <div class="sale_history_idx">01</div>
-          <div class="sale_history_category">음식</div>
-          <div class="sale_history_menu_name">파스타</div>
-          <div class="sale_history_quantity">1</div>
-          <div class="sale_history_price">7,000</div>
-        </div>
-        
-        
-      </div>
-      <!-- 페이지 네이션 -->
-      <div class="sale_history_pagination">
-        <a href="#" class="sale_history_page_active">1</a>
-        <a href="#" class="sale_history_page">2</a>
-        <a href="#" class="sale_history_page">3</a>
-        <a href="#" class="sale_history_page">4</a>
-        <a href="#" class="sale_history_page">5</a>
-      </div>
+		 <div class="container">
+		    <div class="tabs">
+		      <a href="${pageContext.request.contextPath}/sellerMyPage/todaySale.se">오늘 판매</a>
+		      <a href="${pageContext.request.contextPath}/sellerMyPage/monthSale.se">이번달 판매</a>
+		      <a href="${pageContext.request.contextPath}/sellerMyPage/totalSale.se" class="active">누적 판매</a>
+		    </div>
+		
+		    <div class="sales_summary">
+		      <div class="sales_card"><div class="title">오늘 매출</div>   <div class="value"><c:out value="${summary.todayAmount}"/> 원</div></div>
+		      <div class="sales_card"><div class="title">이번 달 매출</div><div class="value"><c:out value="${summary.monthAmount}"/> 원</div></div>
+		      <div class="sales_card"><div class="title">누적 매출</div>   <div class="value"><c:out value="${summary.totalAmount}"/> 원</div></div>
+		    </div>
+		
+		    <form class="sales_filters" method="get" action="${pageContext.request.contextPath}/sellerMyPage/totalSale.se">
+		      <input type="date" name="from" value="${param.from}"/>
+		      <span>~</span>
+		      <input type="date" name="to" value="${param.to}"/>
+		      <select name="status">
+		        <option value="">상태 전체</option>
+		        <option value="PAID" ${param.status == 'PAID' ? 'selected' : ''}>결제완료</option>
+		        <option value="CANCELLED" ${param.status == 'CANCELLED' ? 'selected' : ''}>취소</option>
+		      </select>
+		      <input type="text" name="q" placeholder="주문번호/상품명/구매자" value="${fn:escapeXml(param.q)}"/>
+		      <button type="submit" class="btn">검색</button>
+		    </form>
+		
+		    <div class="list_header">
+		      <div class="col col_date">주문일자</div>
+		      <div class="col col_order">주문번호</div>
+		      <div class="col col_title">상품명</div>
+		      <div class="col col_qty">수량</div>
+		      <div class="col col_price">단가</div>
+		      <div class="col col_amount">금액</div>
+		      <div class="col col_buyer">구매자</div>
+		      <div class="col col_rate">평점</div>
+		      <div class="col col_status">상태</div>
+		    </div>
+		
+		    <div class="list_body">
+		      <c:if test="${empty saleList}">
+		        <div class="list_row"><div class="col empty">판매내역이 없습니다.</div></div>
+		      </c:if>
+		
+		      <c:forEach var="row" items="${saleList}">
+		        <div class="list_row">
+		          <div class="col col_date"><c:out value="${row.ordersDate}"/></div>
+		          <div class="col col_order">
+		            <a href="${pageContext.request.contextPath}/sellerMyPage/orderDetail.se?ordersNumber=${row.ordersNumber}">
+		              <c:out value="${row.orderId != null ? row.orderId : row.ordersNumber}"/>
+		            </a>
+		          </div>
+		          <div class="col col_title"><c:out value="${row.itemName}"/></div>
+		          <div class="col col_qty"><c:out value="${row.orderItemQuantity}"/></div>
+		          <div class="col col_price"><c:out value="${row.itemPrice}"/></div>
+		          <div class="col col_amount"><c:out value="${row.itemPrice * row.orderItemQuantity}"/></div>
+		          <div class="col col_buyer"><c:out value="${row.memberId}"/></div>
+		          <div class="col col_rate">
+		            <c:choose>
+		              <c:when test="${row.reviewRating != null}">★ <c:out value="${row.reviewRating}"/></c:when>
+		              <c:otherwise>-</c:otherwise>
+		            </c:choose>
+		          </div>
+		          <div class="col col_status">
+		            <span class="tag ${row.ordersPaymentStatus == 'PAID' ? 'paid' : 'cancel'}">
+		              <c:out value="${row.ordersPaymentStatus}"/>
+		            </span>
+		          </div>
+		        </div>
+		      </c:forEach>
+		    </div>
+		
+		    <div class="seller_store_info_pagination">
+		      <ul class="seller_store_info_pagination_ul">
+		        <c:if test="${prev}">
+		          <li><a href="${pageContext.request.contextPath}/sellerMyPage/totalSale.se?page=${startPage - 1}&from=${param.from}&to=${param.to}&status=${param.status}&q=${fn:escapeXml(param.q)}" class="prev">&lt;</a></li>
+		        </c:if>
+		        <c:set var="realStartPage" value="${startPage < 0 ? 0 : startPage}" />
+		        <c:forEach var="i" begin="${realStartPage}" end="${endPage}">
+		          <c:choose>
+		            <c:when test="${!(i == page)}">
+		              <li><a class="pagination_item" href="${pageContext.request.contextPath}/sellerMyPage/totalSale.se?page=${i}&from=${param.from}&to=${param.to}&status=${param.status}&q=${fn:escapeXml(param.q)}"><c:out value="${i}" /></a></li>
+		            </c:when>
+		            <c:otherwise><li><a href="#" class="active"><c:out value="${i}" /></a></li></c:otherwise>
+		          </c:choose>
+		        </c:forEach>
+		        <c:if test="${next}">
+		          <li><a href="${pageContext.request.contextPath}/sellerMyPage/totalSale.se?page=${endPage + 1}&from=${param.from}&to=${param.to}&status=${param.status}&q=${fn:escapeXml(param.q)}" class="next">&gt;</a></li>
+		        </c:if>
+		      </ul>
+		    </div>
+		  </div>
     </div>
   </main>
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />

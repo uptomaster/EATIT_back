@@ -118,12 +118,6 @@ public class SellerMyPageFrontController extends HttpServlet {
         	System.out.println("[판페f]음식 삭제 요청");
         	result = new FoodDeleteOkController().execute(request, response); 
         	break;
-		case "/sellerMyPage/FoodlistOk.se":
-			result = new FoodListOkController().execute(request, response);
-			break;
-//        case "/sellerMyPage/food/alreadyOk.se":      
-//        	 result = new AlreadyFoodOkController().execute(request, response); 
-//        	 break;
 
 	     // Ingredient
 		case "/sellerMyPage/addIngre.se":
@@ -179,14 +173,19 @@ public class SellerMyPageFrontController extends HttpServlet {
 			System.out.println("[판페f] 내 재료 구매목록 페이지 요청");
 			result = new SellerIngrePurchaseController().execute(request, response);
 			break;
-		case "/sellerMyPage/mySaleHistory.se":
-			System.out.println("[판페f] 판매목록 페이지 요청");
-			result = new TotalSaleHistoryOkController().execute(request, response);
-			break;
-		case "/sellerMyPage/todaySaleHistory.se":
-			System.out.println("[판페f] 내 오늘 판매목록 페이지 요청");
-			result = new TodaySaleHistoryOkController().execute(request, response);
-			break;
+		/********************************************************************/
+		case "/sellerMyPage/todaySale.se":
+			System.out.println("[판페f] 오늘 판매내역 페이지 요청");
+		    result = new TodaySaleHistoryOkController().execute(request, response);
+		    break;
+//		  case "/sellerMyPage/monthSale.se":
+//			System.out.println("[판페f] 내 재료 구매목록 페이지 요청");
+//		    result = new MonthSaleController().execute(request, response); 
+//		    break;
+		  case "/sellerMyPage/totalSale.se":
+			System.out.println("[판페f] 총 판매내역 페이지 요청");
+		    result = new TotalSaleHistoryOkController().execute(request, response); 
+		    break;
 			
 		/********************************************************************/
 		case "/sellerMyPage/editSellerInfo.se":
@@ -203,14 +202,26 @@ public class SellerMyPageFrontController extends HttpServlet {
 //			break;
 
 		/********************************************************************/
-		case "/sellerMyPage/origin.se":
-			System.out.println("[판페f] 내 원산지 페이지 요청");
-			result = new SellerMyPostController().execute(request, response);
-			break;
-		case "/sellerMyPage/originmodal.se":
-			System.out.println("[판페f] 내 댓글 관리 페이지 요청");
-			result = new SellerMyCommentController().execute(request, response);
-			break;	
+			// 원산지 목록 페이지
+		case "/sellerMyPage/originList.se":
+		    result = new OriginListOkController().execute(request, response);
+		    break;
+
+		// 추가
+		case "/sellerMyPage/originAddOk.se":
+		    result = new OriginAddOkController().execute(request, response);
+		    break;
+
+		// 단건 조회(수정 모달)
+		case "/sellerMyPage/originDetail.se":
+		    result = new OriginDetailController().execute(request, response);
+		    break;
+
+		// 수정 저장
+		case "/sellerMyPage/originEditOk.se":
+		    result = new OriginEditOkController().execute(request, response);
+		    break;
+		/********************************************************************/
 		}
 
 		if (result != null) {
@@ -222,6 +233,7 @@ public class SellerMyPageFrontController extends HttpServlet {
 				request.getRequestDispatcher(result.getPath()).forward(request, response);
 			}
 		} // result 가
+		
+		
 	}
-
 }
