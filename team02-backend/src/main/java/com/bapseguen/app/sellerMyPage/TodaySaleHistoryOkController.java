@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
+import com.bapseguen.app.dto.view.SaleHistoryDTO;
 import com.bapseguen.app.sellerMyPage.dao.SellerMyPageDAO;
 
 public class TodaySaleHistoryOkController implements Execute {
@@ -19,54 +20,61 @@ public class TodaySaleHistoryOkController implements Execute {
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		System.out.println("[판페] SellerMyReviewController 진입 성공 ===");
 		
-		HttpSession session = request.getSession(false);
-	    Integer memberNumber = (session != null) ? (Integer) session.getAttribute("memberNumber") : null;
+		System.out.println("[판페] TodaySaleHistoryOkController 진입 성공 ===");
 
-	    // businessNumber 조회 (이미 가지고 있다면 생략)
-	    String businessNumber = new SellerMyPageDAO().getBusinessNumber(memberNumber);
+		// 1) 세션 → 판매자 식별 → 사업자번호 조회(프로젝트 기존 메서드 사용)
+        HttpSession session = request.getSession(false);
+        Integer memberNumber = (session != null) ? (Integer) session.getAttribute("memberNumber") : null;
 
-	    // params
-	    String q = request.getParameter("q");
-	    String status = request.getParameter("status"); // 선택: today 페이지에 상태 필터를 쓰려면 폼에 select 추가
+        SellerMyPageDAO sellerMyPageDAO = new SellerMyPageDAO();
+        String businessNumber = sellerMyPageDAO.getBusinessNumber(memberNumber);
 
-	    // pagination
-	    int page = 1;
-	    int rowCount = 10;   // 페이지 당 행 수
-	    int pageCount = 10;  // 페이지 블록 크기
-	    try { page = Integer.parseInt(request.getParameter("page")); } catch(Exception ignore){}
+        // 2) 페이징 파라미터 (기존 페이지네이션 규칙)
+        int page = 1;
+        int rowCount = 10;   // 페이지 당 행 수
+        int pageCount = 10;  // 페이지 블록 크기
+        try { page = Integer.parseInt(request.getParameter("page")); } catch (Exception ignore) {}
 
-	    int startRow = (page - 1) * rowCount + 1;
-	    int endRow   = startRow + rowCount - 1;
+        int startRow = (page - 1) * rowCount + 1;
+        int endRow   = startRow + rowCount - 1;
 
-	    SellerMyPageDAO dao = new SellerMyPageDAO();
-	    int total = dao.todaySaleCount(businessNumber, status, q);
-	    List<SaleHistoryDTO> saleList = dao.todaySaleList(businessNumber, startRow, endRow, status, q);
+        // 3) Mapper로 넘길 파라미터 Map (여기서 세팅 끝)
+        Map<String, Object> p = new HashMap<>();
+        p.put("businessNumber", businessNumber);
+        p.put("startRow", startRow);
+        p.put("endRow", endRow);
 
-	    // 페이지네이션 계산 (네가 쓰던 로직과 동일하게 맞춰둠)
-	    int realEndPage = (int)Math.ceil(total / (double)rowCount);
-	    int startPage = ((page - 1) / pageCount) * pageCount;
-	    int endPage = Math.min(startPage + pageCount, realEndPage);
-	    boolean prev = startPage > 0;
-	    boolean next = endPage < realEndPage;
+        // 4) 오늘 판매내역(결제완료, 당일) 조회
+        int total = sellerMyPageDAO.todaySaleCount(p);                  // storeManage.todaySaleCount
+        List<SaleHistoryDTO> saleList = sellerMyPageDAO.todaySaleList(p); // storeManage.todaySaleList
 
-	    request.setAttribute("saleList", saleList);
-	    request.setAttribute("page", page);
-	    request.setAttribute("startPage", startPage);
-	    request.setAttribute("endPage", endPage);
-	    request.setAttribute("prev", prev);
-	    request.setAttribute("next", next);
-	    request.setAttribute("totalCount", total);
-	    request.setAttribute("tab", "today");
+        // 5) 페이지네이션 계산 (네 기존 계산식 유지)
+        int realEndPage = (int) Math.ceil(total / (double) rowCount);
+        int startPage = ((page - 1) / pageCount) * pageCount;
+        int endPageForView = Math.min(startPage + pageCount, realEndPage);
+        boolean prev = startPage > 0;
+        boolean next = endPageForView < realEndPage;
 
-	    // 요약 카드 금액 계산(원하면 DAO로 합계 쿼리 제공)
-	    request.setAttribute("summary", new SummaryService().buildSummary(businessNumber));
+        // 6) 요약 카드(오늘/이번달/누적) — PAID 기준 합계
+        Map<String, Object> summary = sellerMyPageDAO.saleSummary(businessNumber);
 
-	    Result result = new Result();
-	    result.setPath("/app/sellerMyPage/todaySales.jsp");
-	    return result;
+        // 7) 뷰에 전달
+        request.setAttribute("saleList", saleList);
+        request.setAttribute("summary", summary);
+
+        request.setAttribute("page", page);
+        request.setAttribute("startPage", startPage);
+        request.setAttribute("endPage", endPageForView);
+        request.setAttribute("prev", prev);
+        request.setAttribute("next", next);
+        request.setAttribute("totalCount", total);
+        request.setAttribute("tab", "today");
+
+        // 8) 포워딩 (반드시 .se 경로 체계 준수)
+        Result result = new Result();
+        result.setPath("/app/sellerMyPage/todaySaleList.jsp");
+        return result;
 	}
 	
 

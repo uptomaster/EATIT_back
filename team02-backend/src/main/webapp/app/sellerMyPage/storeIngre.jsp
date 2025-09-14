@@ -100,7 +100,7 @@
             <c:choose>
               <c:when test="${not empty ingreList}">
                 <c:forEach var="ingre" items="${ingreList}">
-                  <form action="${pageContext.request.contextPath}/sellerMyPage/editFood.se" method="post" class="editFoodForm">
+                  <form action="${pageContext.request.contextPath}/sellerMyPage/editIngre.se" method="post" class="editFoodForm">
                     <div class="store_info_ingredient_menu_list">
                       <!-- 음식 사진 출력 -->
                       <div class="img-box">

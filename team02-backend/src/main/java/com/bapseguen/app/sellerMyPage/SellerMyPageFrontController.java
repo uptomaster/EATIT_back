@@ -174,7 +174,7 @@ public class SellerMyPageFrontController extends HttpServlet {
 			result = new SellerIngrePurchaseController().execute(request, response);
 			break;
 		/********************************************************************/
-		case "/sellerMyPage/todaySale.se":
+		case "/sellerMyPage/todaySaleList.se":
 			System.out.println("[판페f] 오늘 판매내역 페이지 요청");
 		    result = new TodaySaleHistoryOkController().execute(request, response);
 		    break;

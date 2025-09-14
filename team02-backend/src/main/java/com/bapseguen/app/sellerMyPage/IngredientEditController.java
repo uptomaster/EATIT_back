@@ -39,7 +39,7 @@ public class IngredientEditController implements Execute{
         
 
         
-        result.setPath("/app/sellerMyPage/editIngreOk.se");
+        result.setPath("/app/sellerMyPage/ingredientSalesEdit.jsp");
         result.setRedirect(false);
         return result;
 

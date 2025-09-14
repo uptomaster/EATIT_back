@@ -20,44 +20,59 @@ public class TotalSaleHistoryOkController implements Execute {
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 	
-		System.out.println("[판페] SellerMyPostController 진입 성공 ===");
+		System.out.println("[판페] TotalSaleHistoryOkController 진입 성공 ===");
 		
-		HttpSession session = request.getSession(false);
-	    Integer memberNumber = (session != null) ? (Integer) session.getAttribute("memberNumber") : null;
-	    String businessNumber = new SellerMyPageDAO().getBusinessNumber(memberNumber);
+        // 1) 로그인 세션 → 판매자 식별 → 사업자번호 조회(프로젝트 기존 방식 재사용)
+        HttpSession session = request.getSession(false);
+        Integer memberNumber = (session != null) ? (Integer) session.getAttribute("memberNumber") : null;
 
-	    String from = request.getParameter("from"); // YYYY-MM-DD
-	    String to   = request.getParameter("to");   // YYYY-MM-DD
-	    String status = request.getParameter("status");
-	    String q = request.getParameter("q");
+        SellerMyPageDAO sellerMyPageDAO = new SellerMyPageDAO();
+        String businessNumber = sellerMyPageDAO.getBusinessNumber(memberNumber);
 
-	    int page = 1, rowCount = 10, pageCount = 10;
-	    try { page = Integer.parseInt(request.getParameter("page")); } catch(Exception ignore){}
-	    int startRow = (page - 1) * rowCount + 1;
-	    int endRow   = startRow + rowCount - 1;
+        // 2) 페이징 파라미터
+        int page = 1;
+        int rowCount = 10;   // 페이지 당 행 수
+        int pageCount = 10;  // 페이지 블록(네가 쓰던 값)
+        try { page = Integer.parseInt(request.getParameter("page")); } catch (Exception ignore) {}
 
-		SellerMyPageDAO dao = new SellerMyPageDAO();
-	    int total = dao.totalSaleCount(businessNumber, from, to, status, q);
-	    List<SaleHistoryDTO> saleList = dao.totalSaleList(businessNumber, from, to, startRow, endRow, status, q);
+        int startRow = (page - 1) * rowCount + 1;
+        int endRow   = startRow + rowCount - 1;
 
-	    int realEndPage = (int)Math.ceil(total / (double)rowCount);
-	    int startPage = ((page - 1) / pageCount) * pageCount;
-	    int endPage = Math.min(startPage + pageCount, realEndPage);
-	    boolean prev = startPage > 0;
-	    boolean next = endPage < realEndPage;
+        // 3) Mapper로 넘길 파라미터(Map) — 컨트롤러에서 세팅 끝
+        Map<String, Object> p = new HashMap<>();
+        p.put("businessNumber", businessNumber);
+        p.put("startRow", startRow);
+        p.put("endRow", endRow);
 
-	    request.setAttribute("saleList", saleList);
-	    request.setAttribute("page", page);
-	    request.setAttribute("startPage", startPage);
-	    request.setAttribute("endPage", endPage);
-	    request.setAttribute("prev", prev);
-	    request.setAttribute("next", next);
-	    request.setAttribute("totalCount", total);
-	    request.setAttribute("tab", "total");
-	    request.setAttribute("summary", new SummaryService().buildSummary(businessNumber));
+        // 4) 전체 판매내역(결제완료 고정) 조회
+        int total = sellerMyPageDAO.salesHistoryCount(p);              // storeManage.salesHistoryCount
+        List<SaleHistoryDTO> saleList = sellerMyPageDAO.salesHistoryList(p); // storeManage.salesHistoryList
 
-	    Result result = new Result();
-	    result.setPath("/app/sellerMyPage/totalSales.jsp");
-	    return result;
+        // 5) 페이지네이션 계산 (기존 구조 유지)
+        int realEndPage = (int) Math.ceil(total / (double) rowCount);
+        int startPage = ((page - 1) / pageCount) * pageCount;
+        int endPageForView = Math.min(startPage + pageCount, realEndPage);
+        boolean prev = startPage > 0;
+        boolean next = endPageForView < realEndPage;
+
+        // 6) 요약 카드(오늘/이번달/누적) — ‘PAID’ 기준 합계
+        Map<String, Object> summary = sellerMyPageDAO.saleSummary(businessNumber);
+
+        // 7) JSP에 전달
+        request.setAttribute("saleList", saleList);
+        request.setAttribute("summary", summary);
+
+        request.setAttribute("page", page);
+        request.setAttribute("startPage", startPage);
+        request.setAttribute("endPage", endPageForView);
+        request.setAttribute("prev", prev);
+        request.setAttribute("next", next);
+        request.setAttribute("totalCount", total);
+        request.setAttribute("tab", "total"); // 탭 하이라이트용
+
+        // 8) 포워딩 (.se 경로 필수, JSP는 div-only 버전 사용)
+        Result result = new Result();
+        result.setPath("/app/sellerMyPage/salesHistoryList.jsp");
+        return result;
 	}
 }

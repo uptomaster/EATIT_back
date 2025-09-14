@@ -288,21 +288,7 @@ public class SellerMyPageDAO {
     	System.out.println("[판페DAO] 내 음식 구매 수 : "+count);
     	return count;
     }
-    
-    //총 판매 내역
-    public List<SaleHistoryDTO> totalSaleHistory(Map<String, Integer> pageMap){
-    	System.out.println("[판페DAO]총 판매 목록 조회 - totalSaleHistory 메소드 실행");
-    	List<SaleHistoryDTO> list = sqlSession.selectList("storeManage.totalSaleHistory", pageMap);
-    	System.out.println("조회결과 : " + list);
-    	return list;
-    }
-    // 총 판매 내역 갯수
-    public int totalSaleHistoryCount(Map<String, Integer> pageMap) {
-    	System.out.println("[판페DAO] 총 판매 목록 개수 조회 - totalSaleHistoryCount 메소드 실행");
-    	int count = sqlSession.selectOne("storeManage.totalSaleHistoryCount",pageMap);
-    	System.out.println("[판페DAO] 목록 수 : "+count);
-    	return count;
-    }
+   
     
     // // 내정보수정
     // 내정보 조회
@@ -338,5 +324,42 @@ public class SellerMyPageDAO {
         return sqlSession.delete("origin.deleteOrigin", originNumber);
     }
     
+    // ==== 판매내역 ======
+    //총 판매 내역
+    public List<SaleHistoryDTO> todaySaleList(Map<String, Object> pageMap){
+    	System.out.println("[판페DAO]총 판매 목록 조회 - todaySaleList 메소드 실행");
+    	List<SaleHistoryDTO> list = sqlSession.selectList("storeManage.todaySaleList", pageMap);
+    	System.out.println("조회결과 : " + list);
+    	return list;
+    }
+    // 총 판매 내역 갯수
+    public int todaySaleCount(Map<String, Object> pageMap) {
+    	System.out.println("[판페DAO] 총 판매 목록 개수 조회 - todaySaleCount 메소드 실행");
+    	int count = sqlSession.selectOne("storeManage.todaySaleCount",pageMap);
+    	System.out.println("[판페DAO] 목록 수 : "+count);
+    	return count;
+    }
+    /** 판매내역 목록 (페이징) */
+    public List<SaleHistoryDTO> salesHistoryList(Map<String, Object> params) {
+        // params: businessNumber, startRow, endRow  (필수)
+        // Mapper: storeManage.salesHistoryList
+        return sqlSession.selectList("storeManage.salesHistoryList", params);
+    }
+
+    /** 판매내역 총 건수 (페이지네이션 계산용) */
+    public int salesHistoryCount(Map<String, Object> params) {
+        // params: businessNumber (필수)
+        // Mapper: storeManage.salesHistoryCount
+    	System.out.println("[sellerDAO] salesHistoryCount");
+    	int count = sqlSession.selectOne("storeManage.salesHistoryCount", params);
+        System.out.println("판매내역 건수 : "+count);
+    	return count;
+    }
+
+    /** 요약 카드(오늘/이번달/누적) 금액 */
+    public Map<String, Object> saleSummary(String businessNumber) {
+        // Mapper: storeManage.saleSummary
+        return sqlSession.selectMap("storeManage.saleSummary", businessNumber);
+    }
     
 }

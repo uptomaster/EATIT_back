@@ -50,17 +50,18 @@
 		 <div class="container">
 		    <div class="tabs">
 		      <a href="${pageContext.request.contextPath}/sellerMyPage/todaySale.se">오늘 판매</a>
-		      <a href="${pageContext.request.contextPath}/sellerMyPage/monthSale.se">이번달 판매</a>
+		      <%-- <a href="${pageContext.request.contextPath}/sellerMyPage/monthSale.se">이번달 판매</a> --%>
 		      <a href="${pageContext.request.contextPath}/sellerMyPage/totalSale.se" class="active">누적 판매</a>
 		    </div>
 		
 		    <div class="sales_summary">
 		      <div class="sales_card"><div class="title">오늘 매출</div>   <div class="value"><c:out value="${summary.todayAmount}"/> 원</div></div>
-		      <div class="sales_card"><div class="title">이번 달 매출</div><div class="value"><c:out value="${summary.monthAmount}"/> 원</div></div>
+ 		      <div class="sales_card"><div class="title">이번 달 매출</div><div class="value"><c:out value="${summary.monthAmount}"/> 원</div></div> 
 		      <div class="sales_card"><div class="title">누적 매출</div>   <div class="value"><c:out value="${summary.totalAmount}"/> 원</div></div>
 		    </div>
 		
-		    <form class="sales_filters" method="get" action="${pageContext.request.contextPath}/sellerMyPage/totalSale.se">
+<%-- 		 검색   
+				<form class="sales_filters" method="get" action="${pageContext.request.contextPath}/sellerMyPage/totalSale.se">
 		      <input type="date" name="from" value="${param.from}"/>
 		      <span>~</span>
 		      <input type="date" name="to" value="${param.to}"/>
@@ -71,52 +72,52 @@
 		      </select>
 		      <input type="text" name="q" placeholder="주문번호/상품명/구매자" value="${fn:escapeXml(param.q)}"/>
 		      <button type="submit" class="btn">검색</button>
-		    </form>
+		    </form> --%>
 		
 		    <div class="list_header">
-		      <div class="col col_date">주문일자</div>
-		      <div class="col col_order">주문번호</div>
-		      <div class="col col_title">상품명</div>
-		      <div class="col col_qty">수량</div>
-		      <div class="col col_price">단가</div>
-		      <div class="col col_amount">금액</div>
-		      <div class="col col_buyer">구매자</div>
-		      <div class="col col_rate">평점</div>
-		      <div class="col col_status">상태</div>
+				  <div class="col col_order">주문번호</div>
+				  <div class="col col_date">주문일자</div>
+				  <div class="col col_title">상품명</div>
+				  <div class="col col_type">상품종류</div>
+				  <div class="col col_price">단가</div>
+				  <div class="col col_qty">수량</div>
+				  <div class="col col_amount">총액</div>
+				  <div class="col col_buyer">구매자ID</div>
+				  <div class="col col_phone">구매자전화번호</div>
+				  <div class="col col_rate">평점</div>
 		    </div>
 		
-		    <div class="list_body">
-		      <c:if test="${empty saleList}">
-		        <div class="list_row"><div class="col empty">판매내역이 없습니다.</div></div>
-		      </c:if>
-		
-		      <c:forEach var="row" items="${saleList}">
-		        <div class="list_row">
-		          <div class="col col_date"><c:out value="${row.ordersDate}"/></div>
-		          <div class="col col_order">
-		            <a href="${pageContext.request.contextPath}/sellerMyPage/orderDetail.se?ordersNumber=${row.ordersNumber}">
-		              <c:out value="${row.orderId != null ? row.orderId : row.ordersNumber}"/>
-		            </a>
-		          </div>
-		          <div class="col col_title"><c:out value="${row.itemName}"/></div>
-		          <div class="col col_qty"><c:out value="${row.orderItemQuantity}"/></div>
-		          <div class="col col_price"><c:out value="${row.itemPrice}"/></div>
-		          <div class="col col_amount"><c:out value="${row.itemPrice * row.orderItemQuantity}"/></div>
-		          <div class="col col_buyer"><c:out value="${row.memberId}"/></div>
-		          <div class="col col_rate">
-		            <c:choose>
-		              <c:when test="${row.reviewRating != null}">★ <c:out value="${row.reviewRating}"/></c:when>
-		              <c:otherwise>-</c:otherwise>
-		            </c:choose>
-		          </div>
-		          <div class="col col_status">
-		            <span class="tag ${row.ordersPaymentStatus == 'PAID' ? 'paid' : 'cancel'}">
-		              <c:out value="${row.ordersPaymentStatus}"/>
-		            </span>
-		          </div>
-		        </div>
-		      </c:forEach>
-		    </div>
+		    <!-- [NEW] 총 판매내역 바디 -->
+				<div class="list_body">
+				  <c:if test="${empty saleList}">
+				    <div class="list_row"><div class="col empty">판매내역이 없습니다.</div></div>
+				  </c:if>
+				
+				  <c:forEach var="row" items="${saleList}">
+				    <div class="list_row">
+				      <div class="col col_order">
+				        <a href="${pageContext.request.contextPath}/sellerMyPage/orderDetail.se?ordersNumber=${row.ordersNumber}">
+				          <c:out value="${row.ordersNumber}"/>
+				        </a>
+				      </div>
+				      <div class="col col_date"><c:out value="${row.ordersDate}"/></div>
+				      <div class="col col_title"><c:out value="${row.itemName}"/></div>
+				      <div class="col col_type"><c:out value="${row.itemType}"/></div>
+				      <div class="col col_price"><c:out value="${row.unitPrice}"/></div>
+				      <div class="col col_qty"><c:out value="${row.quantity}"/></div>
+				      <div class="col col_amount"><c:out value="${row.ordersTotalAmount}"/></div>
+				      <div class="col col_buyer"><c:out value="${row.memberId}"/></div>
+				      <div class="col col_phone"><c:out value="${row.memberPhoneNumber}"/></div>
+				      <div class="col col_rate">
+				        <c:choose>
+				          <c:when test="${row.reviewRating != null}">★ <c:out value="${row.reviewRating}"/></c:when>
+				          <c:otherwise>-</c:otherwise>
+				        </c:choose>
+				      </div>
+				    </div>
+				  </c:forEach>
+				</div>
+
 		
 		    <div class="seller_store_info_pagination">
 		      <ul class="seller_store_info_pagination_ul">
