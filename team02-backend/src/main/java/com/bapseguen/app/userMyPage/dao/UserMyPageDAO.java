@@ -37,21 +37,18 @@ public class UserMyPageDAO {
 		return sqlSession.selectOne("myPage.myPageSelect", memberNumber);
 	}
 
+	
 	// 비밀번호 업데이트
-	public int updatePassword(int memberNumber, String newPassword) {
-	    Map<String, Object> map = new HashMap<>();
-	    map.put("memberNumber", memberNumber);
-	    map.put("memberPassword", newPassword);
-	    return sqlSession.update("myPage.updatePassword", map);
+	public int updatePassword(Map<String, Object> paramMap) {
+	    return sqlSession.update("myPage.updatePassword", paramMap);
 	}
 
 	// 전화번호 업데이트
-	public int updatePhone(int memberNumber, String newPhone) {
-	    Map<String, Object> map = new HashMap<>();
-	    map.put("memberNumber", memberNumber);
-	    map.put("memberPhoneNumber", newPhone);
-	    return sqlSession.update("myPage.updatePhone", map);
+	public int updatePhone(Map<String, Object> paramMap) {
+	    return sqlSession.update("myPage.updatePhone", paramMap);
 	}
+	
+	//회원탈퇴
 	public int delete(int memberNumber) {
         return sqlSession.delete("myPage.withDrawDelete", memberNumber);
     }

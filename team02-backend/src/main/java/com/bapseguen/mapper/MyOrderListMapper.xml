@@ -2,154 +2,156 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="myOrder">
 
-	<!-- 내 음식 구매 내역 조회 (전체)  -->
-	<select id="myOrderFoodSelect" resultType="MyPurchaseDTO" >
-		<![CDATA[
-		SELECT * FROM (
-		SELECT ROWNUM AS RNUM, SUBQUERY.*
-		FROM (
-			SELECT
-		    o.orders_date                                   AS ordersDate,
-		    (SELECT s.store_name
-			       FROM TBL_STORE s
-			      WHERE s.business_number = i.business_number)  AS storeName,
-			    i.item_name                                     AS itemName,
-			    oi.ORDER_ITEM_UNIT_PRICE												AS orederItemPrice,
-			    oi.order_item_quantity                          AS orderItemQuantity,
-			    (oi.order_item_unit_price * oi.order_item_quantity) AS ordersTotalAmount
-			FROM TBL_ORDERS o
-			JOIN TBL_ORDER_ITEM oi
-			  ON oi.orders_number = o.orders_number
-			JOIN TBL_ITEM i
-			  ON i.item_number = oi.item_number
-				WHERE o.orders_member_number = #{memberNumber}
-				  AND i.item_type = 'FOOD'
-			ORDER BY o.orders_date DESC, o.orders_number DESC, oi.order_item_number DESC
-			) SUBQUERY
-		)
-		]]>
-	</select>
-	
-	<!-- 내 구매 내역 조회 개수  -->
-	<select id="myOrderFoodCount" resultType="int" >
-	<![CDATA[
-		SELECT count(*)
-		FROM (
-				SELECT
-				    o.orders_date                                   AS ordersDate,
-				    (SELECT s.store_name
-				       FROM TBL_STORE s
-				      WHERE s.business_number = i.business_number)  AS storeName,
-				    i.item_name                                     AS itemName,
-				    oi.order_item_quantity                          AS orderItemQuantity,
-				    (oi.order_item_unit_price * oi.order_item_quantity) AS ordersTotalAmount
-				FROM TBL_ORDERS o
-				JOIN TBL_ORDER_ITEM oi
-				  ON oi.orders_number = o.orders_number
-				JOIN TBL_ITEM i
-				  ON i.item_number = oi.item_number
-				WHERE o.orders_member_number = #{memberNumber}
-				  AND i.item_type = 'FOOD'
-				ORDER BY o.orders_date DESC, o.orders_number DESC, oi.order_item_number DESC
-		)
-		]]>
-	</select>
-	
-	<!-- 내 재료 구매 내역 조회 (전체)  -->
-	<select id="myOrderIngreSelect" resultType="MyPurchaseDTO" >
-		<![CDATA[
-		SELECT * FROM (
-		SELECT ROWNUM AS RNUM, SUBQUERY.*
-		FROM (
-			SELECT
-			o.orders_date                                   AS ordersDate,
-			(SELECT s.store_name  FROM TBL_STORE s  WHERE s.business_number = i.business_number)  AS storeName,
-			i.item_name                                     AS itemName,
-			oi.ORDER_ITEM_UNIT_PRICE						AS orederItemPrice,
-			oi.order_item_quantity                          AS orderItemQuantity,
-			(oi.order_item_unit_price * oi.order_item_quantity) AS ordersTotalAmount
-			FROM TBL_ORDERS o
-			JOIN TBL_ORDER_ITEM oi  ON oi.orders_number = o.orders_number
-			JOIN TBL_ITEM i  ON i.item_number = oi.item_number
-			WHERE o.orders_member_number = #{memberNumber}
-				  AND i.item_type = 'INGREDIENT'
-			ORDER BY o.orders_date DESC, o.orders_number DESC, oi.order_item_number DESC
-			) SUBQUERY
-		)
-		]]>
-	</select>
-	
-	<!-- 내 재료 내역 조회 개수  -->
-	<select id="myOrderIngreCount" resultType="int" >
-	<![CDATA[
-			SELECT count(*)
-		FROM (
-				SELECT
-				o.orders_date                                   AS ordersDate,
-				(SELECT s.store_name
-				       FROM TBL_STORE s
-				      WHERE s.business_number = i.business_number)  AS storeName,
-				i.item_name                                     AS itemName,
-				oi.ORDER_ITEM_UNIT_PRICE						AS orederItemPrice,
-				oi.order_item_quantity                          AS orderItemQuantity,
-				(oi.order_item_unit_price * oi.order_item_quantity) AS ordersTotalAmount
-				FROM TBL_ORDERS o
-				JOIN TBL_ORDER_ITEM oi  ON oi.orders_number = o.orders_number
-				JOIN TBL_ITEM i  ON i.item_number = oi.item_number
-				WHERE o.orders_member_number = #{memberNumber}
-					  AND i.item_type = 'INGREDIENT'
-				ORDER BY o.orders_date DESC, o.orders_number DESC, oi.order_item_number DESC
-		)	
-		]]>
-	</select>
-	
-	<!-- 내 구매 내역 조회 (전체)  -->
-	<select id="myOrderSelect" resultType="MyPurchaseDTO" >
-		<![CDATA[
-		  SELECT * FROM (
-				SELECT ROWNUM AS RNUM, SUBQUERY.*
-					FROM (
-				SELECT
-				    o.orders_date                           AS ordersDate,
-				    (SELECT s.store_name FROM TBL_STORE s
-				      WHERE s.business_number = i.business_number) AS storeName, -- 서브쿼리로 가게명
-				    i.item_name                             AS itemName,
-				    oi.order_item_quantity                  AS orderItemQuantity,
-				    (oi.order_item_unit_price * oi.order_item_quantity) AS ordersTotalAmount
-				FROM TBL_ORDERS o
-				JOIN TBL_ORDER_ITEM oi
-				  ON oi.orders_number = o.orders_number
-				JOIN TBL_ITEM i
-				  ON i.item_number = oi.item_number
-				--WHERE o.orders_member_number = #{memberNumber}
-				ORDER BY o.orders_date DESC, o.orders_number DESC, oi.order_item_number DESC
-				) SUBQUERY
-			)
-		]]>
-	</select>
+    <!-- 내 음식 구매 내역 조회 (전체)  -->
+    <select id="myOrderFoodSelect" resultType="MyPurchaseDTO" >
+        <![CDATA[
+        SELECT * FROM (
+        SELECT ROWNUM AS RNUM, SUBQUERY.*
+        FROM (
+            SELECT
+            o.orders_date                                   AS ordersDate,
+            (SELECT s.store_name
+                   FROM TBL_STORE s
+                  WHERE s.business_number = i.business_number)  AS storeName,
+                i.item_name                                     AS itemName,
+                oi.ORDER_ITEM_UNIT_PRICE                        AS orderItemUnitPrice,
+                oi.order_item_quantity                          AS orderItemQuantity,
+                (oi.order_item_unit_price * oi.order_item_quantity) AS ordersTotalAmount
+            FROM TBL_ORDERS o
+            JOIN TBL_ORDER_ITEM oi
+              ON oi.orders_number = o.orders_number
+            JOIN TBL_ITEM i
+              ON i.item_number = oi.item_number
+                WHERE o.orders_member_number = #{memberNumber}
+                  AND i.item_type = 'FOOD'
+            ORDER BY o.orders_date DESC, o.orders_number DESC, oi.order_item_number DESC
+            ) SUBQUERY
+        )
+        ]]>
+    </select>
+    
+    <!-- 내 구매 내역 조회 개수  -->
+    <select id="myOrderFoodCount" resultType="int" >
+    <![CDATA[
+        SELECT count(*)
+        FROM (
+                SELECT
+                    o.orders_date                                   AS ordersDate,
+                    (SELECT s.store_name
+                       FROM TBL_STORE s
+                      WHERE s.business_number = i.business_number)  AS storeName,
+                    i.item_name                                     AS itemName,
+                    oi.order_item_quantity                          AS orderItemQuantity,
+                    (oi.order_item_unit_price * oi.order_item_quantity) AS ordersTotalAmount,
+                    oi.ORDER_ITEM_UNIT_PRICE                        AS orderItemUnitPrice
+                FROM TBL_ORDERS o
+                JOIN TBL_ORDER_ITEM oi
+                  ON oi.orders_number = o.orders_number
+                JOIN TBL_ITEM i
+                  ON i.item_number = oi.item_number
+                WHERE o.orders_member_number = #{memberNumber}
+                  AND i.item_type = 'FOOD'
+                ORDER BY o.orders_date DESC, o.orders_number DESC, oi.order_item_number DESC
+        )
+        ]]>
+    </select>
+    
+    <!-- 내 재료 구매 내역 조회 (전체)  -->
+    <select id="myOrderIngreSelect" resultType="MyPurchaseDTO" >
+        <![CDATA[
+        SELECT * FROM (
+        SELECT ROWNUM AS RNUM, SUBQUERY.*
+        FROM (
+            SELECT
+            o.orders_date                                   AS ordersDate,
+            (SELECT s.store_name  FROM TBL_STORE s  WHERE s.business_number = i.business_number)  AS storeName,
+            i.item_name                                     AS itemName,
+            oi.ORDER_ITEM_UNIT_PRICE                        AS orderItemUnitPrice,
+            oi.order_item_quantity                          AS orderItemQuantity,
+            (oi.order_item_unit_price * oi.order_item_quantity) AS ordersTotalAmount
+            FROM TBL_ORDERS o
+            JOIN TBL_ORDER_ITEM oi  ON oi.orders_number = o.orders_number
+            JOIN TBL_ITEM i  ON i.item_number = oi.item_number
+            WHERE o.orders_member_number = #{memberNumber}
+                  AND i.item_type = 'INGREDIENT'
+            ORDER BY o.orders_date DESC, o.orders_number DESC, oi.order_item_number DESC
+            ) SUBQUERY
+        )
+        ]]>
+    </select>
+    
+    <!-- 내 재료 내역 조회 개수  -->
+    <select id="myOrderIngreCount" resultType="int" >
+    <![CDATA[
+            SELECT count(*)
+        FROM (
+                SELECT
+                o.orders_date                                   AS ordersDate,
+                (SELECT s.store_name
+                       FROM TBL_STORE s
+                      WHERE s.business_number = i.business_number)  AS storeName,
+                i.item_name                                     AS itemName,
+                oi.ORDER_ITEM_UNIT_PRICE                        AS orderItemUnitPrice,
+                oi.order_item_quantity                          AS orderItemQuantity,
+                (oi.order_item_unit_price * oi.order_item_quantity) AS ordersTotalAmount
+                FROM TBL_ORDERS o
+                JOIN TBL_ORDER_ITEM oi  ON oi.orders_number = o.orders_number
+                JOIN TBL_ITEM i  ON i.item_number = oi.item_number
+                WHERE o.orders_member_number = #{memberNumber}
+                      AND i.item_type = 'INGREDIENT'
+                ORDER BY o.orders_date DESC, o.orders_number DESC, oi.order_item_number DESC
+        )   
+        ]]>
+    </select>
+    
+    <!-- 내 구매 내역 조회 (전체)  -->
+    <select id="myOrderSelect" resultType="MyPurchaseDTO" >
+        <![CDATA[
+          SELECT * FROM (
+                SELECT ROWNUM AS RNUM, SUBQUERY.*
+                    FROM (
+                SELECT
+                    o.orders_date                           AS ordersDate,
+                    (SELECT s.store_name FROM TBL_STORE s
+                      WHERE s.business_number = i.business_number) AS storeName, -- 서브쿼리로 가게명
+                    i.item_name                             AS itemName,
+                    oi.order_item_quantity                  AS orderItemQuantity,
+                    (oi.order_item_unit_price * oi.order_item_quantity) AS ordersTotalAmount,
+                    oi.ORDER_ITEM_UNIT_PRICE                        AS orderItemUnitPrice
+                FROM TBL_ORDERS o
+                JOIN TBL_ORDER_ITEM oi
+                  ON oi.orders_number = o.orders_number
+                JOIN TBL_ITEM i
+                  ON i.item_number = oi.item_number
+                --WHERE o.orders_member_number = #{memberNumber}
+                ORDER BY o.orders_date DESC, o.orders_number DESC, oi.order_item_number DESC
+                ) SUBQUERY
+            )
+        ]]>
+    </select>
 
-	<!-- 내 구매 내역 조회 개수  -->
-	<select id="myOrderCount" resultType="int" >
-		<![CDATA[
-		  SELECT COUNT(*)
-					FROM (
-				SELECT
-				    o.orders_date                           AS ordersDate,
-				    (SELECT s.store_name FROM TBL_STORE s
-				      WHERE s.business_number = i.business_number) AS storeName, -- 서브쿼리로 가게명
-				    i.item_name                             AS itemName,
-				    oi.order_item_quantity                  AS orderItemQuantity,
-				    (oi.order_item_unit_price * oi.order_item_quantity) AS ordersTotalAmount
-				FROM TBL_ORDERS o
-				JOIN TBL_ORDER_ITEM oi
-				  ON oi.orders_number = o.orders_number
-				JOIN TBL_ITEM i
-				  ON i.item_number = oi.item_number
-				--WHERE o.orders_member_number = #{memberNumber}
-				ORDER BY o.orders_date DESC, o.orders_number DESC, oi.order_item_number DESC
-				) 
-		]]>
-	</select>
-
+    <!-- 내 구매 내역 조회 개수  -->
+    <select id="myOrderCount" resultType="int" >
+        <![CDATA[
+          SELECT COUNT(*)
+                    FROM (
+                SELECT
+                    o.orders_date                           AS ordersDate,
+                    (SELECT s.store_name FROM TBL_STORE s
+                      WHERE s.business_number = i.business_number) AS storeName, -- 서브쿼리로 가게명
+                    i.item_name                             AS itemName,
+                    oi.order_item_quantity                  AS orderItemQuantity,
+                    (oi.order_item_unit_price * oi.order_item_quantity) AS ordersTotalAmount,
+                    oi.ORDER_ITEM_UNIT_PRICE                        AS orderItemUnitPrice
+                FROM TBL_ORDERS o
+                JOIN TBL_ORDER_ITEM oi
+                  ON oi.orders_number = o.orders_number
+                JOIN TBL_ITEM i
+                  ON i.item_number = oi.item_number
+                --WHERE o.orders_member_number = #{memberNumber}
+                ORDER BY o.orders_date DESC, o.orders_number DESC, oi.order_item_number DESC
+                ) 
+        ]]>
+    </select>
 
 </mapper>
