@@ -24,7 +24,7 @@
   </script>
 </head>
 <body>
-  <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
+  <jsp:include page="/header.jsp" />
   <!-- 메인 -->
   <main>
       <!-- 마이페이지 전체 레이아웃 영역 -->
@@ -36,16 +36,17 @@
       <ul class="side_bar">
         <li class="my_page_list_main"><a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.my">내 정보 수정</a></li>
   		<li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListOk.my">음식 구매 내역</a></li>
-  		<li><a href="${pageContext.request.contextPath}/UserMyPage/ingredientPurchaseList.my">재료 구매 내역</a></li>
-  		<li><a href="${pageContext.request.contextPath}/UserMyPage/manageMyPostsList.my">내 글 관리</a></li>
-  		<li><a href="${pageContext.request.contextPath}/UserMyPage/manageMyCommentsList.my">내 댓글 관리</a></li>
-  		<li><a href="${pageContext.request.contextPath}/UserMyPage/manageMyReviewsList.my">내 리뷰 관리</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseList.my">재료 구매 내역</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/manageMyPostsList.my">내 글 관리</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/manageMyCommentsList.my">내 댓글 관리</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/manageMyReviewsList.my">내 리뷰 관리</a></li>
       </ul>
     </div>
 
 	<!-- 내 정보 수정 입력 폼 -->
 	<%-- <form class="edit_user_info" action="${pageContext.request.contextPath}/UserMyPage/updateMember.my" method="post"> --%>
 	<form class="edit_user_info" method="post">
+	  <input type="hidden" name="mode" id="mode_input" value="">
 	  <h2 class="my_info">내 정보 수정</h2>
 	
 	  <!-- 아이디(수정 불가) -->
@@ -120,10 +121,10 @@
 	      </div>
 	      <p id="phone_error" class="notice_input_wrong_info" style="color:red;"></p>
 	    </div>
-	    <button type="submit"
-           formaction="${pageContext.request.contextPath}/UserMyPage/phoneCode.my" name="mode" value="send" 
-           id="send_code_btn" class="info_send_code_buzz">인증번호 전송
-           </button>
+         <button type="button"
+		        formaction="${pageContext.request.contextPath}/userMyPage/userMyPageSmsSend.my" value="send"
+		        id="send_code_btn" class="info_send_code_buzz">인증번호 전송
+		</button>
 	  </div>
 	
 	  <!-- 인증번호 입력 -->
@@ -136,20 +137,12 @@
 	      
 	      <p id="code_error" class="notice_input_wrong_info" style="color:red;"></p>
 	    </div>
-	    <button type="submit"
-           formaction="${pageContext.request.contextPath}/UserMyPage/phoneCode.my"
-           name="mode" value="check"
-           id="check_code_btn" class="info_check_code_buzz">인증번호 확인
-   		</button>
+		<button type="button"
+		        formaction="${pageContext.request.contextPath}/userMyPage/userMyPageSmsSend.my" value="check"
+		        id="check_code_btn" class="info_check_code_buzz">인증번호 확인
+		</button>
 	  </div>
-		<c:if test="${not empty phoneMsg}">
- 				<p style="margin-top:8px; color:${empty phoneMsgColor ? 'green' : phoneMsgColor};">
-   				${phoneMsg}
- 				</p>
-		  </c:if>
-		  <c:if test="${not empty phoneDevCode}">
- 				<p style="margin-top:4px; color:#888;">${phoneDevCode}</p>
-		  </c:if>
+	  
 	  <!-- 생년월일 -->
 	  <div class="info_unable_modify_area">
 	    <div class="info_menu">생년월일</div>
@@ -168,7 +161,7 @@
 	  <!-- 전체 저장 버튼 -->
 	  <div class="bottom_btn_container">
 	  	  <div class="agreement_buzz">
-		    <a href="${pageContext.request.contextPath}/UserMyPage/withdrawalAgreement.my">회원탈퇴</a>
+		    <a href="${pageContext.request.contextPath}/userMyPage/withdrawalAgreement.my">회원탈퇴</a>
 		  </div>
 		  <button type="submit" class="total_info_save_buzz"
 		   data-member-number="${member.memberNumber}"
@@ -177,6 +170,6 @@
 	</form>
   </main>
   <!-- 푸터 -->
-  <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
+  <jsp:include page="/footer.jsp" />
 </body>
 </html>

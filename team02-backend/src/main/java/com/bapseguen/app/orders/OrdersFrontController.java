@@ -51,6 +51,14 @@ public class OrdersFrontController extends HttpServlet {
 			result = new IngredientDetailController().execute(request, response);
 			break; // GET
 
+		case "/orders/storeReview.or":
+			if (!isGet(request)) {
+				response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+				return;
+			}
+			result = new StoreReviewController().execute(request, response);
+			break;
+
 		// ---- Orders ----
 		case "/orders/createOk.or":
 			if (!isPost(request)) {

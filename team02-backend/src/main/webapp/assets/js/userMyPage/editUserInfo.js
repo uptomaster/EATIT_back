@@ -24,45 +24,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- 현재 비밀번호 입력 시 서버 검증 ---
   if (currentPasswordInput) {
-
     const checkCurrentPassword = () => {
       const entered = currentPasswordInput.value.trim();
-
-      if(entered === "") {
-          currentPasswordError.textContent = "";
-          newPasswordInput.disabled = true;
-          confirmPasswordInput.disabled = true;
-          return;
+      if (entered === "") {
+        currentPasswordError.textContent = "";
+        newPasswordInput.disabled = true;
+        confirmPasswordInput.disabled = true;
+        return;
       }
-
       fetch(`/userMyPage/checkPwOk.my?currentPassword=${encodeURIComponent(entered)}`)
-          .then(res => res.json())
-          .then(data => {
-              if(data.result === "success"){
-                  currentPasswordError.textContent = "현재 비밀번호가 일치합니다.";
-                  currentPasswordError.style.color = "green";
-                  newPasswordInput.disabled = false;
-                  confirmPasswordInput.disabled = false;
-              } else {
-                  currentPasswordError.textContent = "*현재 비밀번호와 일치하지 않습니다.";
-                  currentPasswordError.style.color = "red";
-                  newPasswordInput.disabled = true;
-                  confirmPasswordInput.disabled = true;
-                  newPasswordInput.value = "";
-                  confirmPasswordInput.value = "";
-              }
-          });
+        .then(res => res.json())
+        .then(data => {
+          if (data.result === "success") {
+            currentPasswordError.textContent = "현재 비밀번호가 일치합니다.";
+            currentPasswordError.style.color = "green";
+            newPasswordInput.disabled = false;
+            confirmPasswordInput.disabled = false;
+          } else {
+            currentPasswordError.textContent = "*현재 비밀번호와 일치하지 않습니다.";
+            currentPasswordError.style.color = "red";
+            newPasswordInput.disabled = true;
+            confirmPasswordInput.disabled = true;
+            newPasswordInput.value = "";
+            confirmPasswordInput.value = "";
+          }
+        });
     };
 
-    // 엔터키 입력 시 submit 방지 및 체크
     currentPasswordInput.addEventListener("keydown", e => {
-      if(e.key === "Enter"){
+      if (e.key === "Enter") {
         e.preventDefault();
         checkCurrentPassword();
       }
     });
-
-    // 입력 시 자동 검증
     currentPasswordInput.addEventListener("input", checkCurrentPassword);
   }
 
@@ -75,28 +69,28 @@ document.addEventListener('DOMContentLoaded', () => {
         newPasswordError.style.color = "red";
       } else {
         newPasswordError.textContent = "올바르게 입력되었습니다";
-		newPasswordError.style.color = "green";
+        newPasswordError.style.color = "green";
       }
     });
   }
 
   // --- 새 비밀번호 확인 ---
-  confirmPasswordInput.addEventListener("input", () => {
-      console.log("confirm input event"); // 이벤트 호출 확인
-      if(confirmPasswordInput.value !== newPasswordInput.value){
-          confirmPasswordError.textContent = "비밀번호가 일치하지 않습니다.";
-          confirmPasswordError.style.color = "red";
-      } else {
-          confirmPasswordError.textContent = "비밀번호가 일치합니다.";
-          confirmPasswordError.style.color = "green";
-      }
-  });
-
   if (confirmPasswordInput) {
-        confirmPasswordInput.addEventListener("input", checkPasswordMatch);
-        newPasswordInput.addEventListener("input", checkPasswordMatch); // 새 비밀번호 바뀌어도 비교
+    const checkPasswordMatch = () => {
+      if (confirmPasswordInput.value !== newPasswordInput.value) {
+        confirmPasswordError.textContent = "비밀번호가 일치하지 않습니다.";
+        confirmPasswordError.style.color = "red";
+        return false;
+      } else {
+        confirmPasswordError.textContent = "비밀번호가 일치합니다.";
+        confirmPasswordError.style.color = "green";
+        return true;
       }
-  
+    };
+    confirmPasswordInput.addEventListener("input", checkPasswordMatch);
+    newPasswordInput.addEventListener("input", checkPasswordMatch);
+  }
+
   // --- 전화번호 숫자만 허용 ---
   if (phoneInput) {
     phoneInput.addEventListener("input", () => {
@@ -105,46 +99,60 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- 전화번호 인증 ---
-  /*function isValidPhone(phone) { return /^01[0-9]{8,9}$/.test(phone); }
-
+  // --- SMS 인증번호 전송 (AJAX) ---
   if (sendCodeBtn) {
     sendCodeBtn.addEventListener("click", e => {
       e.preventDefault();
       const phone = phoneInput.value.trim();
-      phoneError.textContent = "";
-      if (!isValidPhone(phone)) {
-        phoneError.textContent = "전화번호를 정확히 입력해주세요.";
-      } else {
-        alert("인증번호가 전송되었습니다.");
+      if (!phone) {
+        phoneError.textContent = "전화번호를 입력해주세요.";
+        phoneError.style.color = "red";
+        return;
       }
+      fetch(`/userMyPage/userMyPageSmsSend.my?mode=send&newPhone=${encodeURIComponent(phone)}`)
+        .then(res => res.text())
+        .then(msg => {
+          phoneError.textContent = msg;
+          phoneError.style.color = "green";
+        })
+        .catch(err => {
+          phoneError.textContent = "SMS 전송 실패";
+          phoneError.style.color = "red";
+          console.error(err);
+        });
     });
   }
 
+  // --- 인증번호 확인 (AJAX) ---
   if (checkCodeBtn) {
     checkCodeBtn.addEventListener("click", e => {
       e.preventDefault();
-      if (codeInput.value.trim() !== generatedCode) {
-        codeError.textContent = "인증번호가 일치하지 않습니다.";
-        codeError.style.color = "red";
-      } else {
-        codeError.textContent = "인증되었습니다.";
-        codeError.style.color = "green";
+      const code = codeInput.value.trim();
+      if (!code) return;
+      fetch(`/userMyPage/userMyPageSmsSend.my?mode=check&phoneCode=${encodeURIComponent(code)}`)
+        .then(res => res.text())
+        .then(msg => {
+          codeError.textContent = msg;
+          codeError.style.color = msg === "인증 성공" ? "green" : "red";
+        })
+        .catch(err => {
+          codeError.textContent = "인증 오류";
+          codeError.style.color = "red";
+          console.error(err);
+        });
+    });
+  }
+
+  // --- 전체 저장 버튼 클릭 시 ---
+  if (totalSaveBtn) {
+    totalSaveBtn.addEventListener("click", e => {
+      const pwMatch = confirmPasswordInput ? confirmPasswordInput.value === newPasswordInput.value : true;
+      if (!pwMatch) {
+        e.preventDefault();
+        alert("비밀번호가 일치하지 않습니다.");
+        return false;
       }
     });
-  }*/
-
-    // --- 전체 저장 버튼 클릭 시 ---
-    if (totalSaveBtn) {
-      totalSaveBtn.addEventListener("click", e => {
-        const pwMatch = checkPasswordMatch();
-        if (!pwMatch) {
-          e.preventDefault(); 
-          alert("비밀번호가 일치하지 않습니다.");
-          return false;
-        }
-      });
-    }
-  
+  }
 
 });
