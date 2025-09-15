@@ -67,7 +67,7 @@
           <div class="seller_ingredient_purchase_menu_info_list"><c:out value="${buy.itemName }"/></div>
           <div class="seller_ingredient_purchase_how_many_list"><c:out value="${buy.orderItemQuantity }"/></div>
           <div class="seller_ingredient_purchase_price_list"><c:out value="${buy.orderItemUnitPrice }"/>원</div>
-          <div class="seller_ingredient_purchase_review_list"><a href="./../sellerMyPage/sellerwriteReview.html"
+          <div class="seller_ingredient_purchase_review_list"><a href="${pageContext.request.contextPath}/sellerMyPage/sellerwriteReview.se"
               class="seller_ingredient_purchase_review_meal">리뷰</a></div>
         </div>
       </c:forEach>

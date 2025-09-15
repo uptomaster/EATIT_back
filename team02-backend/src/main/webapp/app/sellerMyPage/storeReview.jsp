@@ -87,8 +87,8 @@
 				<!-- ✅ 가게 정보 시작 -->
 				<div class="store_info_store_info">
 					<!-- 가게 이미지 -->
-					<img src="${pageContext.request.contextPath}/assets/img/store.jpg"
-						alt="가게 이미지 추가하기">
+					<img src="${pageContext.request.contextPath}/assets/img/store.jpg" alt="가게 이미지 추가하기">
+				<%-- <img src="${pageContext.request.contextPath}/upload/${storeImage.storeImageSystemName}" alt="가게 이미지 추가하기"> --%>
 					<div class="store_info_store_info_detail">
 						<p class="store_info_store_name">가게명</p>
 						<p class="store_info_store_address">가게 주소</p>
@@ -97,7 +97,8 @@
 					<!-- 가게정보, 이미지 수정 버튼 -->
 					<div class="store_info_edit_btns">
 						<input type="file" id="edit_store_img" accept="image/*">
-						<button type="button" id="edit_store_info_btn">수정</button>
+						<button type="button" id="edit_store_info_btn"
+						 onclick="location.href='${pageContext.request.contextPath}/sellerMyPage/editSellerInfo.se'">수정</button>
 					</div>
 				</div>
 				<!-- ✅ 가게 정보 끝 -->

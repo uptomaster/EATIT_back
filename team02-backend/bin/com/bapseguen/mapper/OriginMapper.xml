@@ -10,30 +10,36 @@
 		INSERT INTO TBL_ORIGIN (
 		ORIGIN_NUMBER,origin_item,origin_menu,origin_location,business_number
 		) VALUES (
-		SEQ_ORIGIN_NUMBER.NEXTVAL,#{originItem},#{originMenu},#{originLocation},#{businessNumber}
+		#{originNumebr},#{originItem},#{originMenu},#{originLocation},#{businessNumber}
 		)
 	</insert>
 
+	<!-- 원산지 하나만 출력 -->
+	<select id="selectOne" parameterType="int" resultType="OriginDTO">
+	  SELECT ORIGIN_NUMBER, ORIGIN_ITEM, ORIGIN_MENU, ORIGIN_LOCATION, BUSINESS_NUMBER
+	  FROM TBL_ORIGIN
+	  WHERE ORIGIN_NUMBER = #{originNumber}
+	</select>
+
 	<!-- 원산지 정보 목록 조회 -->
-	<select id="originList" parameterType="String"
-		resultType="OriginDTO">
-		SELECT o.origin_number, o.origin_item, o.origin_menu,
-		o.origin_location, s.store_name
+	<select id="originList" parameterType="String" resultType="OriginDTO">
+		SELECT 
+			o.origin_number, 
+			o.origin_item, 
+			o.origin_menu,
+			o.origin_location, 
+			(SELECT s.store_name FROM tbl_store s WHERE s.business_number = o.business_number) AS storeName
 		FROM TBL_ORIGIN o
-		WHERE
-		o.business_number = #{businessNumber}
+		WHERE o.business_number = #{businessNumber}
 	</select>
 
 	<!-- 원산지 정보 수정 -->
 	<update id="updateOrigin" parameterType="OriginDTO">
-		UPDATE TBL_ORIGIN
-		SET
-		origin_item = #{originItem},origin_menu = #{originMenu},
-		origin_location = #{originLocation}
-		WHERE origin_number =
-		#{originNumber}
-		where origin_number = #{originNumber} and businessNumber =
-		#{businessNumber}
+    UPDATE TBL_ORIGIN
+       SET ORIGIN_ITEM     = #{originItem},
+           ORIGIN_MENU     = #{originMenu},
+           ORIGIN_LOCATION = #{originLocation}
+     WHERE ORIGIN_NUMBER   = #{originNumber}
 	</update>
 
 	<!-- 원산지 정보 삭제 -->

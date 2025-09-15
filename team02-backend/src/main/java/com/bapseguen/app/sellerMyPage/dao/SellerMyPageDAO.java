@@ -10,6 +10,7 @@ import com.bapseguen.app.dto.ItemDTO;
 import com.bapseguen.app.dto.ItemImageDTO;
 import com.bapseguen.app.dto.ItemListDTO;
 import com.bapseguen.app.dto.OriginDTO;
+import com.bapseguen.app.dto.ReviewDTO;
 import com.bapseguen.app.dto.view.CommentListDTO;
 import com.bapseguen.app.dto.view.ItemInsertDTO;
 import com.bapseguen.app.dto.view.ItemWithImgDTO;
@@ -108,18 +109,18 @@ public class SellerMyPageDAO {
     	return answer;
     }
     // 음식 판매 수정
-    public int editFood(ItemInsertDTO dto) {
+    public void editFood(ItemInsertDTO dto) {
     	System.out.println("[판페DAO] 음식판매 수정 - editFood 메소드 실행");
     	System.out.println("[판페DAO] itemDTO : "+dto);
     	
-        return sqlSession.update("storeManage.editFood", dto);
+       sqlSession.update("storeManage.editFood", dto);
     }
     // 음식 판매 삭제
-    public int deleteFood(int itemNumber) {
+    public void deleteFood(int itemNumber) {
     	System.out.println("[판페DAO] 음식판매삭제 - deleteFood 메소드 실행");
     	System.out.println("[판페DAO] itemNumber : "+itemNumber);
     	
-        return sqlSession.delete("storeManage.deleteFood", itemNumber);
+        sqlSession.delete("storeManage.deleteFood", itemNumber);
     }
 
     // 이미 준비된 음식
@@ -198,7 +199,7 @@ public class SellerMyPageDAO {
     }
     // 
 
-    // 판매 내역
+    //=== 판매 내역 ===========
     // 오늘 판매 내역
     public List<Map<String, Object>> todaySaleHistory(String businessNumber) {
     	System.out.println("[판페DAO]오늘판매내역 - todaySalehistory 메소드 실행");
@@ -212,28 +213,6 @@ public class SellerMyPageDAO {
         return sqlSession.selectList("storeManage.totalSaleHistory", businessNumber);
     }
     
-    // 원산지
-    //원산지 정보 추가
-    public int addOrigin(OriginDTO dto) {
-    	System.out.println();
-        return sqlSession.insert("origin.addOrigin", dto);
-    }
-    // 원산지 정보 목록
-    public List<OriginDTO> originList(String businessNumber) {
-        return sqlSession.selectList("origin.originList", businessNumber);
-    }
-    // 원산지 정보 수정
-    public int updateOrigin(OriginDTO dto) {
-        return sqlSession.update("origin.updateOrigin", dto);
-    }
-    // 원산지 정보 삭제
-    public int deleteOrigin(int originNumber) {
-        return sqlSession.delete("origin.deleteOrigin", originNumber);
-    }
-    // 이미 등록한 원산지 정보
-    public int alreadyOrigin(OriginDTO dto) {
-        return sqlSession.selectOne("origin.alreadyOrigin", dto);
-    }
 
 	// // 내 게시글 관리
     // 내 게시글 관리
@@ -310,21 +289,7 @@ public class SellerMyPageDAO {
     	System.out.println("[판페DAO] 내 음식 구매 수 : "+count);
     	return count;
     }
-    
-    //총 판매 내역
-    public List<SaleHistoryDTO> totalSaleHistory(Map<String, Integer> pageMap){
-    	System.out.println("[판페DAO]총 판매 목록 조회 - totalSaleHistory 메소드 실행");
-    	List<SaleHistoryDTO> list = sqlSession.selectList("storeManage.totalSaleHistory", pageMap);
-    	System.out.println("조회결과 : " + list);
-    	return list;
-    }
-    // 총 판매 내역 갯수
-    public int totalSaleHistoryCount(Map<String, Integer> pageMap) {
-    	System.out.println("[판페DAO] 총 판매 목록 개수 조회 - totalSaleHistoryCount 메소드 실행");
-    	int count = sqlSession.selectOne("storeManage.totalSaleHistoryCount",pageMap);
-    	System.out.println("[판페DAO] 목록 수 : "+count);
-    	return count;
-    }
+   
     
     // // 내정보수정
     // 내정보 조회
@@ -337,6 +302,76 @@ public class SellerMyPageDAO {
     public void updateSellerInfo(SellerInfoDTO dto) {
     	System.out.println("[판페DAO] 내정보수정 updateSellerInfo");
         sqlSession.update("seller.updateSellerInfo", dto);
+    }
+
+    // ==== 원산지 목록 =======
+    public List<OriginDTO> selectOriginListByBusiness(String businessNumber) {
+        return sqlSession.selectList("origin.originList", businessNumber);
+    }
+
+    public OriginDTO selectOriginOne(int originNumber) {
+        return sqlSession.selectOne("origin.selectOne", originNumber);
+    }
+
+    public void insertOrigin(OriginDTO dto) {
+        sqlSession.insert("origin.addOrigin", dto);
+    }
+
+    public int updateOriginByNumber(OriginDTO dto) {
+        return sqlSession.update("origin.updateOrigin", dto);
+    }
+
+    public int deleteOriginByNumber(int originNumber) {
+        return sqlSession.delete("origin.deleteOrigin", originNumber);
+    }
+    
+    // ==== 판매내역 ======
+    //총 판매 내역
+    public List<SaleHistoryDTO> todaySaleList(Map<String, Object> pageMap){
+    	System.out.println("[판페DAO]총 판매 목록 조회 - todaySaleList 메소드 실행");
+    	List<SaleHistoryDTO> list = sqlSession.selectList("storeManage.todaySaleList", pageMap);
+    	System.out.println("조회결과 : " + list);
+    	return list;
+    }
+    // 총 판매 내역 갯수
+    public int todaySaleCount(Map<String, Object> pageMap) {
+    	System.out.println("[판페DAO] 총 판매 목록 개수 조회 - todaySaleCount 메소드 실행");
+    	int count = sqlSession.selectOne("storeManage.todaySaleCount",pageMap);
+    	System.out.println("[판페DAO] 목록 수 : "+count);
+    	return count;
+    }
+    /** 판매내역 목록 (페이징) */
+    public List<SaleHistoryDTO> salesHistoryList(Map<String, Object> params) {
+        // params: businessNumber, startRow, endRow  (필수)
+        // Mapper: storeManage.salesHistoryList
+        return sqlSession.selectList("storeManage.salesHistoryList", params);
+    }
+
+    /** 판매내역 총 건수 (페이지네이션 계산용) */
+    public int salesHistoryCount(Map<String, Object> params) {
+        // params: businessNumber (필수)
+        // Mapper: storeManage.salesHistoryCount
+    	System.out.println("[sellerDAO] salesHistoryCount");
+    	int count = sqlSession.selectOne("storeManage.salesHistoryCount", params);
+        System.out.println("판매내역 건수 : "+count);
+    	return count;
+    }
+
+    /** 요약 카드(오늘/이번달/누적) 금액 */
+    public Map<String, Object> saleSummary(String businessNumber) {
+        // Mapper: storeManage.saleSummary
+        return sqlSession.selectMap("storeManage.saleSummary", businessNumber);
+    }
+    // === 리뷰 작성 =====
+ // 리뷰 저장
+    public int insertReview(ReviewDTO dto) {
+        return sqlSession.insert("review.insertReview", dto); // selectKey로 reviewNumber 세팅됨
+    }
+
+    // 이미 리뷰 존재 여부
+    public boolean existsReview(Map<String,Object> review) {
+	    Integer cnt = sqlSession.selectOne("review.existsReview", review);
+	    return cnt != null && cnt > 0;
     }
     
 }
