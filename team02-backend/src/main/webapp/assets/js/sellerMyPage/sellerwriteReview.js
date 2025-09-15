@@ -19,6 +19,42 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     });
   });
+	
+	(function(){
+	  const container = document.querySelector('.review_rating');
+	  const text = document.getElementById('review_rating_text');
+	  const form = document.getElementById('review_write_form');
+
+	  function currentRating(){
+	    const checked = container.querySelector('.review_star_input:checked');
+	    return checked ? Number(checked.value) : 0;
+	  }
+
+	  container.addEventListener('click', function(e){
+	    if(e.target.matches('.review_star')){
+	      // 연결된 라디오가 체크되면 currentRating 갱신
+	      requestAnimationFrame(()=>{
+	        text.textContent = `별점을 선택해주세요 (${currentRating()}/5)`;
+	      });
+	    }
+	  });
+
+	  // 폼 제출 전 별점/내용 검증
+	  form.addEventListener('submit', function(e){
+	    const rating = currentRating();
+	    const content = document.getElementById('review_content').value.trim();
+	    if(rating < 1){
+	      e.preventDefault();
+	      alert('별점을 1점 이상 선택해주세요.');
+	      return;
+	    }
+	    if(content.length < 5){
+	      e.preventDefault();
+	      alert('리뷰 내용을 5자 이상 입력해주세요.');
+	      return;
+	    }
+	  });
+	})();
 
   // 작성 완료 버튼 클릭 시 유효성 검사
   const submitBtn = document.querySelector(".seller_write_review_submit_btn");
@@ -33,8 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
       alert("작성되었습니다.");
     }
   });
-});
-document.addEventListener("DOMContentLoaded", function () {
+	
   // 이미 작성된 코드들이 있을 경우, 아래 코드만 추가하면 됩니다
 
   const cancelBtn = document.querySelector(".seller_write_review_cancel_btn");

@@ -20,66 +20,59 @@ public class TotalSaleHistoryOkController implements Execute {
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 	
-		System.out.println("[판페] SellerMyPostController 진입 성공 ===");
-		SellerMyPageDAO sellerDAO = new SellerMyPageDAO();
-		HttpSession session = request.getSession(false);
-		int memberNumber = (int) session.getAttribute("memberNumber");
-		System.out.println("세션의 회원번호 : "+memberNumber);
+		System.out.println("[판페] TotalSaleHistoryOkController 진입 성공 ===");
 		
-		
-		
-		Result result = new Result();
-		String temp = request.getParameter("page"); // 목록의 현재 페이지 네이션 위치
-		int page = (temp == null) ? 1 :Integer.valueOf(temp); //페이지 번호의 기본값을 1로 설정하겠다
-		int rowCount = 10; // 한 페이지에서 보여지는 목록 내용의 개수
-		int pageCount = 5; //페이지네이션 한묶음의 개수
-		
-		// 한 페이지에 보여지는 게시글 시작, 끝 계산
-		int startRow = (page - 1) * rowCount + 1; // 시작행(1, 11, 21, ..)
-		int endRow = startRow + rowCount - 1; // 끝 행(10, 20, 30, ..)
+        // 1) 로그인 세션 → 판매자 식별 → 사업자번호 조회(프로젝트 기존 방식 재사용)
+        HttpSession session = request.getSession(false);
+        Integer memberNumber = (session != null) ? (Integer) session.getAttribute("memberNumber") : null;
 
-		Map<String, Integer> pageMap = new HashMap<>();
-		pageMap.put("startRow", startRow);
-		pageMap.put("endRow", endRow);
-		pageMap.put("memberNumber", memberNumber);
-		pageMap.put("Number", memberNumber);
-		
-		// 게시글 목록 조회
-		List<SaleHistoryDTO> myPostList = sellerDAO.totalSaleHistory(pageMap);
-		request.setAttribute("myPostList", myPostList);
+        SellerMyPageDAO sellerMyPageDAO = new SellerMyPageDAO();
+        String businessNumber = sellerMyPageDAO.getBusinessNumber(memberNumber);
 
-		// 페이징 정보 설정
-		// BoardMapper.xml의 getTotal을 이용하여 전체 게시글 개수 조회
-		// 실제 마지막 페이지 번호(realEndPage)를 계산함
+        // 2) 페이징 파라미터
+        int page = 1;
+        int rowCount = 10;   // 페이지 당 행 수
+        int pageCount = 10;  // 페이지 블록(네가 쓰던 값)
+        try { page = Integer.parseInt(request.getParameter("page")); } catch (Exception ignore) {}
 
-		int total = sellerDAO.totalSaleHistoryCount(pageMap);
-		int realEndPage = (int) Math.ceil(total / (double) rowCount); // 실제 마지막 페이지(전체 게시글 기준으로 계산)
-		int endPage = (int) (Math.ceil(page / (double) pageCount) * pageCount); // 현재 페이지 그룹에서의 마지막 페이지
-		int startPage = endPage - (pageCount - 1); // 현재 페이지 그룹에서의 첫 페이지
+        int startRow = (page - 1) * rowCount + 1;
+        int endRow   = startRow + rowCount - 1;
 
-		// endPage가 실제 존재하는 마지막 페이지보다 크면 조정
-		endPage = Math.min(endPage, realEndPage);
+        // 3) Mapper로 넘길 파라미터(Map) — 컨트롤러에서 세팅 끝
+        Map<String, Object> p = new HashMap<>();
+        p.put("businessNumber", businessNumber);
+        p.put("startRow", startRow);
+        p.put("endRow", endRow);
 
-		// prev, next 버튼 활성화 여부 확인
-		boolean prev = startPage > 1;
-		boolean next = endPage < realEndPage;
+        // 4) 전체 판매내역(결제완료 고정) 조회
+        int total = sellerMyPageDAO.salesHistoryCount(p);              // storeManage.salesHistoryCount
+        List<SaleHistoryDTO> saleList = sellerMyPageDAO.salesHistoryList(p); // storeManage.salesHistoryList
 
-		request.setAttribute("page", page);
-		request.setAttribute("startPage", startPage);
-		request.setAttribute("endPage", endPage);
-		request.setAttribute("prev", prev);
-		request.setAttribute("next", next);
+        // 5) 페이지네이션 계산 (기존 구조 유지)
+        int realEndPage = (int) Math.ceil(total / (double) rowCount);
+        int startPage = ((page - 1) / pageCount) * pageCount;
+        int endPageForView = Math.min(startPage + pageCount, realEndPage);
+        boolean prev = startPage > 0;
+        boolean next = endPageForView < realEndPage;
 
-		System.out.println("====페이징정보 확인====");
-		System.out.println("pageMap : " + pageMap);
-		System.out.println("boardList : " + myPostList);
-		System.out.println("startPage : " + startPage + ", endPage : " + endPage + ", prev : " + prev + ", next : " + next);
-		System.out.println("====================");
+        // 6) 요약 카드(오늘/이번달/누적) — ‘PAID’ 기준 합계
+        Map<String, Object> summary = sellerMyPageDAO.saleSummary(businessNumber);
 
-		result.setPath("/app/sellerMyPage/salesHistoryList.jsp");
-//		result.setPath("/sellerMyPage/myPosts.se");
-		result.setRedirect(false);
+        // 7) JSP에 전달
+        request.setAttribute("saleList", saleList);
+        request.setAttribute("summary", summary);
 
-		return result;
+        request.setAttribute("page", page);
+        request.setAttribute("startPage", startPage);
+        request.setAttribute("endPage", endPageForView);
+        request.setAttribute("prev", prev);
+        request.setAttribute("next", next);
+        request.setAttribute("totalCount", total);
+        request.setAttribute("tab", "total"); // 탭 하이라이트용
+
+        // 8) 포워딩 (.se 경로 필수, JSP는 div-only 버전 사용)
+        Result result = new Result();
+        result.setPath("/app/sellerMyPage/salesHistoryList.jsp");
+        return result;
 	}
 }

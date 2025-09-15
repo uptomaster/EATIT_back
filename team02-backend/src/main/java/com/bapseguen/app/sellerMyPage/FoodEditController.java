@@ -32,10 +32,16 @@ public class FoodEditController implements Execute{
 		Result result = new Result();
 		SellerMyPageDAO sellerDAO = new SellerMyPageDAO();   
 		ItemImageDAO ItemImageDAO = new ItemImageDAO();   
+		ItemInsertDTO ItemInsertDTO = new ItemInsertDTO();   
 	
-		
-        request.setAttribute("item", sellerDAO.detailItem(itemNumber));
-        request.setAttribute("itemImage", ItemImageDAO.select(itemNumber));
+		ItemInsertDTO = sellerDAO.detailItem(itemNumber); //itemInsertDTO
+		System.out.println(ItemInsertDTO);
+		System.out.println(ItemInsertDTO.getItemContent());
+		ItemInsertDTO.setItemContent(ItemInsertDTO.getItemContent().trim());
+		System.out.println(ItemInsertDTO.getItemContent());
+		System.out.println(ItemInsertDTO);
+        request.setAttribute("item", ItemInsertDTO); 
+        request.setAttribute("itemImage", ItemImageDAO.selectone(itemNumber)); //ItemImageDTO
         
 
         

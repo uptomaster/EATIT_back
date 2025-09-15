@@ -212,8 +212,7 @@
 
 	<!-- 가게 정보 조회 -->
 	<!-- 가게 정보 조회 -->
-	<select id="selectStoreInfo" parameterType="String"
-		resultType="StoreDTO">
+	<select id="selectStoreInfo" parameterType="String"	resultType="StoreDTO">
 		SELECT
 			business_number,
 			member_number,
@@ -230,65 +229,147 @@
 
 	<!-- 판매내역 -->
 	<!-- 오늘 판매 내역 -->
-	<select id="todaySaleHistory" parameterType="String">
-	SELECT 
-    o.orders_number,
-    o.orders_date,
-    o.orders_total_amount,
-    oi.order_item_quantity,
-    i.item_name,
-    i.item_price,
-    m.member_id,
-    m.member_phone_number
-	FROM TBL_ORDERS o
-	JOIN TBL_ORDER_ITEM oi ON o.orders_number = oi.orders_number
-	JOIN TBL_ITEM i ON oi.item_number = i.item_number
-	JOIN TBL_MEMBER m ON o.orders_member_number = m.member_number
-	WHERE i.business_number = #{businessNumber}
-    AND TRUNC(o.orders_date) = TRUNC(SYSDATE)
-	</select>
-
-	<!-- 총 판매 내역 -->
-	<select id="totalSaleHistory" resultType="SaleHistoryDTO">
-		SELECT
-		    o.orders_number,
-		    o.orders_date,
-		    o.orders_total_amount,
-		    oi.order_item_quantity,
-		    i.item_name,
-		    i.item_type,
-		    i.item_price,
-		    /* 멤버는 스칼라 서브쿼리로 */
-		    (SELECT m.member_id
-		       FROM TBL_MEMBER m
-		      WHERE m.member_number = o.orders_member_number) AS member_id
-		FROM TBL_ORDERS o
-		JOIN TBL_ORDER_ITEM oi ON o.orders_number = oi.orders_number
-		JOIN TBL_ITEM i        ON oi.item_number   = i.item_number
-		WHERE i.business_number = #{businessNumber}
-		ORDER BY o.orders_date DESC
+	<select id="todaySaleList" parameterType="map" resultType="SaleHistoryDTO">
+	  <![CDATA[
+	  SELECT *
+	  FROM (
+	    SELECT ROWNUM AS rnum, subq.*
+	    FROM (
+	      SELECT
+	        o.orders_number                                   AS ordersNumber,
+	        TO_CHAR(o.orders_date, 'YYYY-MM-DD')             AS ordersDate,
+	        i.item_name                                      AS itemName,
+	        i.item_type                                      AS itemType,
+	        oi.order_item_unit_price                         AS unitPrice,
+	        oi.order_item_quantity                           AS quantity,
+	        (oi.order_item_unit_price * oi.order_item_quantity) AS ordersTotalAmount,
+	        /* 구매자 ID/전화는 스칼라 서브쿼리로 */
+	        (SELECT m.member_id
+	           FROM TBL_MEMBER m
+	          WHERE m.member_number = o.orders_member_number)    AS memberId,
+	        /* 주문 단위 평균 평점(필요시 MAX로 변경 가능) */
+	        (SELECT ROUND(AVG(r.review_rating), 1)
+	           FROM TBL_REVIEW r
+	          WHERE r.orders_number = o.orders_number)           AS reviewRating
+	      FROM TBL_ORDERS o
+	      JOIN TBL_ORDER_ITEM oi ON o.orders_number = oi.orders_number
+	      JOIN TBL_ITEM       i  ON oi.item_number   = i.item_number
+	      WHERE i.business_number = #{businessNumber}
+	        AND o.orders_payment_status = 'PAID'
+	        AND TRUNC(o.orders_date) = TRUNC(SYSDATE)
+	      ORDER BY o.orders_date DESC, o.orders_number DESC
+	    ) subq
+	  )
+	  WHERE rnum BETWEEN #{startRow} AND #{endRow}
+	  ]]>
 	</select>
 	
-	<!-- 총 판매 내역 -->
-	<select id="totalSaleHistoryCount" resultType="SaleHistoryDTO">
-		SELECT
-		    o.orders_number,
-		    o.orders_date,
-		    o.orders_total_amount,
-		    oi.order_item_quantity,
-		    i.item_name,
-		    i.item_type,
-		    i.item_price,
-		    /* 멤버는 스칼라 서브쿼리로 */
-		    (SELECT m.member_id
-		       FROM TBL_MEMBER m
-		      WHERE m.member_number = o.orders_member_number) AS member_id
-		FROM TBL_ORDERS o
-		JOIN TBL_ORDER_ITEM oi ON o.orders_number = oi.orders_number
-		JOIN TBL_ITEM i        ON oi.item_number   = i.item_number
-		WHERE i.business_number = #{businessNumber}
-		ORDER BY o.orders_date DESC
+	<!-- 오늘 판매 내역 수 -->
+		<select id="todaySaleCount" parameterType="map" resultType="int">
+	  <![CDATA[
+	  SELECT COUNT(*)
+	  FROM (
+	    /* 목록과 동일한 조인/조건으로 '행 수(라인 수)'를 카운트 */
+	    SELECT 1
+	    FROM TBL_ORDERS o
+	    JOIN TBL_ORDER_ITEM oi ON o.orders_number = oi.orders_number
+	    JOIN TBL_ITEM       i  ON oi.item_number   = i.item_number
+	    WHERE i.business_number = #{businessNumber}
+	      AND o.orders_payment_status = 'PAID'
+	      AND TRUNC(o.orders_date) = TRUNC(SYSDATE)
+	  )
+	  ]]>
 	</select>
+	
+
+	<!-- 판매내역 목록(페이징) : if 없이, PAID 고정 -->
+	<select id="salesHistoryList" parameterType="map" resultType="SaleHistoryDTO">
+	  <![CDATA[
+	  SELECT *
+	  FROM (
+	    SELECT ROWNUM AS rnum, subq.*
+	    FROM (
+	      SELECT
+	        o.orders_number                                  AS ordersNumber,
+	        TO_CHAR(o.orders_date, 'YYYY-MM-DD')             AS ordersDate,
+	        i.item_name                                      AS itemName,
+	        i.item_type                                      AS itemType,
+	        oi.order_item_unit_price                         AS unitPrice,
+	        oi.order_item_quantity                           AS quantity,
+	        (oi.order_item_unit_price * oi.order_item_quantity) AS ordersTotalAmount,
+	        (SELECT m.member_id
+	           FROM TBL_MEMBER m
+	          WHERE m.member_number = o.orders_member_number)    AS memberId,
+	        (SELECT ROUND(AVG(r.review_rating), 1)
+	           FROM TBL_REVIEW r
+	          WHERE r.orders_number = o.orders_number)           AS reviewRating
+	      FROM TBL_ORDERS o
+	      JOIN TBL_ORDER_ITEM oi ON o.orders_number = oi.orders_number
+	      JOIN TBL_ITEM       i  ON oi.item_number   = i.item_number
+	      WHERE i.business_number = #{businessNumber}
+	        AND o.orders_payment_status = 'PAID'
+	      ORDER BY o.orders_date DESC, o.orders_number DESC
+	    ) subq
+	  )
+	  WHERE rnum BETWEEN #{startRow} AND #{endRow}
+	  ]]>
+	</select>
+	
+	<!-- 총 건수(페이징 계산용) : if 없이, PAID 고정 -->
+	<select id="salesHistoryCount" parameterType="map" resultType="int">
+	  <![CDATA[
+	  SELECT COUNT(*)
+	  FROM (
+	    SELECT o.orders_number
+	    FROM TBL_ORDERS o
+	    JOIN TBL_ORDER_ITEM oi ON o.orders_number = oi.orders_number
+	    JOIN TBL_ITEM       i  ON oi.item_number   = i.item_number
+	    WHERE i.business_number = #{businessNumber}
+	      AND o.orders_payment_status = 'PAID'
+	    GROUP BY o.orders_number
+	  )
+	  ]]>
+	</select>
+
+	<!-- 요약카드 -->
+	<select id="saleSummary" parameterType="map" resultType="map">
+	  <![CDATA[
+	  SELECT
+	    /* 오늘 */
+	    NVL((
+	      SELECT SUM(oi.order_item_quantity * i.item_price)
+	      FROM TBL_ORDERS o
+	      JOIN TBL_ORDER_ITEM oi ON o.orders_number = oi.orders_number
+	      JOIN TBL_ITEM i ON oi.item_number = i.item_number
+	      WHERE i.business_number = #{businessNumber}
+	        AND TRUNC(o.orders_date) = TRUNC(SYSDATE)
+	        AND o.orders_payment_status = 'PAID'
+	    ),0) AS todayAmount,
+	
+	    /* 이번달 */
+	    NVL((
+	      SELECT SUM(oi.order_item_quantity * i.item_price)
+	      FROM TBL_ORDERS o
+	      JOIN TBL_ORDER_ITEM oi ON o.orders_number = oi.orders_number
+	      JOIN TBL_ITEM i ON oi.item_number = i.item_number
+	      WHERE i.business_number = #{businessNumber}
+	        AND TO_CHAR(o.orders_date,'YYYY-MM') = TO_CHAR(SYSDATE,'YYYY-MM')
+	        AND o.orders_payment_status = 'PAID'
+	    ),0) AS monthAmount,
+	
+	    /* 누적 */
+	    NVL((
+	      SELECT SUM(oi.order_item_quantity * i.item_price)
+	      FROM TBL_ORDERS o
+	      JOIN TBL_ORDER_ITEM oi ON o.orders_number = oi.orders_number
+	      JOIN TBL_ITEM i ON oi.item_number = i.item_number
+	      WHERE i.business_number = #{businessNumber}
+	        AND o.orders_payment_status = 'PAID'
+	    ),0) AS totalAmount
+	  FROM DUAL
+	  ]]>
+	</select>
+
 	
 	
 	
