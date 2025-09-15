@@ -63,22 +63,21 @@
           <div class="seller_write_review_date">2025-08-02</div>
         </div>
         <div class="seller_write_review_set_rank">
-          <div>별점주기</div>
-          <button class="seller_write_review_counting_Star_button">
-            <img class="seller_write_review_counting_Star" src="./../../assets/img/gray_shake_it_ya.png" alt="별점">
-          </button>
-          <button class="seller_write_review_counting_Star_button">
-            <img class="seller_write_review_counting_Star" src="./../../assets/img/gray_shake_it_ya.png" alt="별점">
-          </button>
-          <button class="seller_write_review_counting_Star_button">
-            <img class="seller_write_review_counting_Star" src="./../../assets/img/gray_shake_it_ya.png" alt="별점">
-          </button>
-          <button class="seller_write_review_counting_Star_button">
-            <img class="seller_write_review_counting_Star" src="./../../assets/img/gray_shake_it_ya.png" alt="별점">
-          </button>
-          <button class="seller_write_review_counting_Star_button">
-            <img class="seller_write_review_counting_Star" src="./../../assets/img/gray_shake_it_ya.png" alt="별점">
-          </button>
+                    <label>별점</label>
+          <div class="review_rating" aria-label="별점 주기" role="radiogroup">
+            <!-- 접근성을 위해 라디오를 사용하되, 시각적으로는 별만 보이도록 처리 -->
+            <input class="review_star_input" type="radio" name="rating" id="rating-5" value="5" />
+            <label class="review_star" for="rating-5" aria-label="5점">★</label>
+            <input class="review_star_input" type="radio" name="rating" id="rating-4" value="4" />
+            <label class="review_star" for="rating-4" aria-label="4점">★</label>
+            <input class="review_star_input" type="radio" name="rating" id="rating-3" value="3" />
+            <label class="review_star" for="rating-3" aria-label="3점">★</label>
+            <input class="review_star_input" type="radio" name="rating" id="rating-2" value="2" />
+            <label class="review_star" for="rating-2" aria-label="2점">★</label>
+            <input class="review_star_input" type="radio" name="rating" id="rating-1" value="1" />
+            <label class="review_star" for="rating-1" aria-label="1점">★</label>
+          </div>
+          <p class="review_rating_help" id="review_rating_text">별점을 선택해주세요</p>
         </div>
         <form action="">
           <div class="seller_write_review_form_group">
@@ -87,7 +86,7 @@
           </div>
           <div class="seller_write_review_form_group">
             <label for="content">내용</label>
-            <textarea id="content" name="content" rows="10" placeholder="내용을 입력하세요" required></textarea>
+            <textarea id="content" name="content" rows="10" placeholder="맛, 양, 친절도, 재구매 의사 등을 자유롭게 작성해주세요." required></textarea>
           </div>
           <div class="seller_write_review_form_group">
             <label for="imageUpload">사진 첨부</label>

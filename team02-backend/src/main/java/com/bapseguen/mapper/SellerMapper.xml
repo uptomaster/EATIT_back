@@ -72,6 +72,31 @@
 	</update> -->
 	<!-- 전화번호 중복 여부 -->
 	
+	  <!-- 리뷰 저장 -->
+	  <insert id="insertReview" parameterType="com.bapseguen.app.dto.ReviewDTO">
+	    <selectKey keyProperty="reviewNumber" 
+	    
+	    
+	    resultType="int" order="BEFORE">
+	      SELECT SEQ_REVIEW_NUMBER.NEXTVAL FROM DUAL
+	    </selectKey>
+	    INSERT INTO TBL_REVIEW(
+	      REVIEW_NUMBER, MEMBER_NUMBER, ORDERS_NUMBER, BUSINESS_NUMBER, ITEM_NUMBER,
+	      REVIEW_RATING, REVIEW_CONTENT, REVIEW_CREATE_DATE
+	    ) VALUES (
+	      #{reviewNumber}, #{memberNumber}, #{ordersNumber}, #{businessNumber}, #{itemNumber},
+	      #{reviewRating}, #{reviewContent}, SYSDATE
+	    )
+	  </insert>
+	  
+	    <!-- 이미 리뷰 존재 여부 -->
+	  <select id="existsReview" parameterType="map" resultType="int">
+	    SELECT COUNT(*)
+	    FROM TBL_REVIEW
+	    WHERE ORDERS_NUMBER = #{ordersNumber}
+	      AND ITEM_NUMBER   = #{itemNumber}
+	      AND MEMBER_NUMBER = #{memberNumber}
+	  </select>
 	
 	<!-- 쿼리문에 문제가 업다면 일반 사용자의 마이페이지의 맵퍼를 사용하고 싶음 -->
 	<!-- 내 게시글 목록 조회 -->

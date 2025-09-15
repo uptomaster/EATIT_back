@@ -52,15 +52,14 @@
         <!-- 음식 정보 등록 -->
         <div class="foodsaleswrite_photo_container">
           <div class="foodsaleswrite_submit_table">
-            <div id="food_edit_image_preview"></div>
-            <div class="foodsaleswrite_box">
+            <div id="food_edit_image_preview">
+							<div class="foodsaleswrite_box"> <label>음식 사진 </label> </div>
 							<c:if test="${not empty itemImage}">
 							    <div class="food_image_box">
 							        <img src="${pageContext.request.contextPath}/upload/${itemImage.itemImageSystemName}" 
 							             alt="${itemImage.itemImageOriginalName}" />
 							    </div>
 							</c:if>
-              <label for="food_edit_photo">음식 사진 </label>
               <!-- <button type="button">등록</button> -->
             </div>
           </div>
@@ -112,11 +111,12 @@
 					</div>
 				</div>
 				<!-- 끝 -->
-				<div class="foodsaleswrite_box foodsaleswrite_sellstate_container">
+				<div class="food_edit_btn_container">
 	        <button class="foodsaleswrite_buzz" type="submit">목록으로</button>
-	        <a href="${pageContext.request.contextPath}/sellerMyPage/editFood.se?itemNumber=${item.itemNumber}">
-						<div class="view_ingredient_edit_btn">수정</div>
-					</a>  
+	        
+					<button type="button" class="view_ingredient_edit_btn"
+                onclick="location.href='${pageContext.request.contextPath}/sellerMyPage/editFood.se?itemNumber=${item.itemNumber}'">
+                수정</button>
 				</div>
     </div> <!-- 컨텐츠 -->
       </form> <!-- 1100px 영역 -->

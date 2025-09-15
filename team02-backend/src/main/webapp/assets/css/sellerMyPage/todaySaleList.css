@@ -1,8 +1,18 @@
 @charset "UTF-8";
-* {
+ * {
   margin: 0;
   padding: 0;
-  /* box-sizing: border-box; */
+} 
+
+/* 레이아웃 */
+.container {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(168, 6, 6, 0.15);
+  padding: 30px 40px;
+  margin: 30px 10px;
+  min-height: 60vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 main {
   background-color: #FFF5E4;
@@ -13,14 +23,14 @@ main {
 }
 
 /* 1100px 영역 */
-.today_sell_page {
+.sale_history_page {
   background-color: #FBE3B9;
   width: 1100px;
   margin-left: 410px;
 }
 
 /* 좌측 메뉴 바 */
-.today_sell_menu {
+.sale_history_menu {
   position: fixed;
   padding: 0;
   margin: 100px 20px 0 200px;
@@ -31,7 +41,7 @@ main {
   border-radius: 10px;
 }
 
-.today_sell_menu_title {
+.sale_history_menu_title {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   background-color: #FF873C;
@@ -42,9 +52,8 @@ main {
   justify-content: center;
   align-items: center;
 }
-
 /* 메뉴바 현재 위치 표시 */
-.today_sell_menu_list_current {
+.sale_history_menu_list_current {
   background-color: #FF873C;
   /* width: 190px; */
   border-radius: 10px;
@@ -52,8 +61,7 @@ main {
   justify-content: center;
   align-items: center;
 }
-
-.today_sell_menu_list>li {
+.sale_history_menu_list>li {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -62,151 +70,152 @@ main {
   width: 190px;
 }
 
-.today_sell_menu_list>li>a {
+.sale_history_menu_list>li>a {
   text-decoration: none;
   color: white;
 }
 
 
-.today_sell_menu_list>li:hover {
+.sale_history_menu_list>li:hover {
   width: 190px;
   background-color: #ff873c8c;
   border-radius: 10px;
 }
-
 /* 좌측 메뉴바 끝 */
 
 /* 페이지 제목 */
-.today_sell_title {
+.sale_history_title {
   margin: 100px 0 45px 70px;
   font-size: 30px;
 }
-/* 총판매내역/오늘판매내역 */
-/* 큰틀 */
-.sale_history_categaory_container{
-  margin: 10px 50px;
-  width: 400px;
-  font-size :16px;
-  align-items: center;
-  justify-content: space-evenly;
+
+/* 상단 탭 */
+.tabs {
   display: flex;
+  gap: 16px;
+  margin-bottom: 22px;
 }
-/* 각 요소 */
-.sale_history_total,
-.sale_history_today{
-  height: 50px;
-  width: 185px;
-  background-color: #FF873C;
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 17px;
-}
-.sale_history_total>a,
-.sale_history_today>a{
+.tabs a {
   text-decoration: none;
-  color: white;
+  font-weight: 600;
+  color: #555;
+  font-size: 17.6px;
+  padding: 8px 18px;
+  border-radius: 25px;
+  transition: background-color 0.3s, color 0.3s, border-color .3s;
+  border: 1.5px solid transparent;
+}
+.tabs a:hover,
+.tabs a.active {
+  background-color: #ffd580;
+  color: #6a4e00;
+  border-color: #ffb84d;
 }
 
-/* 컨텐츠 컨테이너 */
-.today_sell_container {
-  padding: 15px;
+/* 요약 카드 */
+.sales_summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.sales_card {
+  background: #fff9f0;
+  border: 1px solid #ffefcc;
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.sales_card .title {
+  font-weight: 700; color: #6a4e00; margin-bottom: 6px;
+}
+.sales_card .value {
+  font-size: 20px; color: #444; font-weight: 700;
 }
 
-
-/* 최상단 오늘의 판매 건수 */
-.today_sell_summary {
-  background-color: #a6998080;
-  text-align: center;
-  font-weight: bold;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-  gap: 10px;
+/* 필터 */
+.sales_filters {
+  display: flex; gap: 10px; align-items: center; margin-bottom: 14px; flex-wrap: wrap;
 }
-.today_sell_summary>span{
-  margin-right: 20px;
-}
-
-/* 한 주문 묶음 */
-.today_sell_order_wapper{
-  /* margin: 5px 10px; */
-  margin: 20px 0px;
-  background-color: white;
-}
-
-/* 구매자 정보 */
-.today_sell_buyer_info {
-  background-color: #000;
-  color: #fff;
-  padding: 10px;
-  font-size: 14px;
-  align-items: center;
-}
-
-.today_sell_total_price {
-  color: red;
-  font-weight: bold;
-}
-
-/* 상품 정보 */
-.today_sell_product {
-  display: flex;
-  border-bottom: 1px solid #ccc;
-  padding: 10px;
-  /* align-items: center; */
-}
-
-.today_sell_product_image img {
-  width: 100px;
-  height: auto;
-  border-radius: 5px;
-}
-
-.today_sell_product_info {
-  margin-left: 15px;
-  flex: 1;
-}
-
-.today_sell_product_name {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.today_sell_product_qty,
-.today_sell_product_exp {
-  font-size: 14px;
-  margin: 3px 0;
-}
-
-.today_sell_product_price {
-  font-size: 20px;
-  font-weight: bold;
-  color: black;
-}
-
-/* 페이지네이션 */
-.today_sell_pagination {
-  display: flex;
-  justify-self: center;
-  position: relative;
-  /* top: 1000px;/ */
-}
-
-.today_sell_pagination>a {
-  width: 32px;
-  height: 32px;
-  background-color: white;
-  display: flex;
-  margin: 0 8px 0 0;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  border: 1px solid #A69980;
+.sales_filters input[type="text"],
+.sales_filters input[type="date"],
+.sales_filters input[type="month"],
+.sales_filters select {
+  padding: 8px 14px;
+  border: 1.5px solid #ddd;
   border-radius: 6px;
-  color: black;
+  font-size: 16px;
+  transition: border-color 0.3s;
 }
+.sales_filters input:focus,
+.sales_filters select:focus { outline: none; border-color: #ffb84d; }
+.sales_filters .btn {
+  background-color: #ffb84d;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+.sales_filters .btn:hover { background-color: #ffa500; }
 
-.today_sell_pagination>a:hover {
-  background-color: #FF873C;
+/* 리스트 헤더/바디 (div 기반) */
+.list_header {
+  display: flex;
+  background-color: #ffefcc;
+  font-weight: 700;
+  color: #444;
+  padding: 14px 20px;
+  border-radius: 6px 6px 0 0;
+  user-select: none;
 }
+.list_body {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #eee;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+.list_row {
+  display: flex;
+  border-top: 1px solid #eee;
+  padding: 14px 18px;
+  color: #444;
+  align-items: center;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+}
+.list_row:first-child { border-top: none; }
+.list_row:hover { background-color: #fff4d8; }
+
+/* 공통 컬럼 베이스 */
+.col { padding: 0 10px; box-sizing: border-box; overflow: hidden; text-overflow: ellipsis; }
+.col_order   { flex: 0 0 150px; text-align: center; }
+.col_date    { flex: 0 0 120px; text-align: center; }
+.col_title   { flex: 1 1 auto;  text-align: left;  }
+.col_type    { flex: 0 0 110px; text-align: center; }
+.col_price   { flex: 0 0 90px;  text-align: right; }
+.col_qty     { flex: 0 0 70px;  text-align: center; }
+.col_amount  { flex: 0 0 110px; text-align: right; }
+.col_buyer   { flex: 0 0 120px; text-align: center; }
+.col_phone   { flex: 0 0 140px; text-align: center; }
+.col_rate    { flex: 0 0 70px;  text-align: center; }
+
+.col_title a { color: #5a5a5a; text-decoration: none; transition: color 0.3s; }
+.col_title a:hover { color: #ffae42; text-decoration: underline; }
+
+/* 태그(상태) - 혹시 쓰일 경우 유지 */
+.tag { display:inline-block; padding: 4px 8px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+.tag.paid { background: #e8f7ed; color:#2f7a3d; border:1px solid #bfe6cc; }
+.tag.cancel { background:#fdecea; color:#b3261e; border:1px solid #f5c2c0; }
+
+/* 페이지네이션(기존 클래스 유지, 룩은 프로모 스타일) */
+.seller_store_info_pagination { display:flex; justify-content:center; align-items:center; margin-top: 26px; }
+.seller_store_info_pagination_ul { display:flex; list-style:none; padding:0; margin:0; }
+.seller_store_info_pagination_ul > li a {
+  color:#333; text-decoration:none; font-weight:700; padding:10px; margin:0 5px;
+  border-radius:5px; transition: background-color .3s ease, color .3s ease; border:1px solid #ffae42;
+}
+.seller_store_info_pagination_ul > li a:hover { background:#ffd580; color:#fff; }
+.seller_store_info_pagination_ul > li a.active { background:#ffb84d; color:#fff; cursor:default; }

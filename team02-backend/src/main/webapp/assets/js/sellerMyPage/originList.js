@@ -92,10 +92,12 @@ document.addEventListener("DOMContentLoaded", () => {
     isEditMode = false;
     currentEditItem = null;
   });
-
+	
+	
+	
 });
 let gobackbtn = document.getElementById('back_to_storeInfo');
 gobackbtn.addEventListener('click', () => {
-  location.replace('./../sellerMyPage/storeInfo.html');
+  location.replace('${pageContext.request.contextPath}/sellerMyPage/storeInfo.se');
 });
 

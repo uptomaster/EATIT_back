@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 
-public class OriginUpdateOkController implements Execute{
+public class sellerwriteReviewOkContorller implements Execute{
 
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Result result = new Result();
-		 result.setRedirect(false);
-			result.setPath("/app/sellerMyPage/OriginList.jsp");
-			return result;	
+		
+		
+		
+		return null;
 	}
 	
 }
