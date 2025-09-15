@@ -10,6 +10,7 @@ import com.bapseguen.app.dto.ItemDTO;
 import com.bapseguen.app.dto.ItemImageDTO;
 import com.bapseguen.app.dto.ItemListDTO;
 import com.bapseguen.app.dto.OriginDTO;
+import com.bapseguen.app.dto.ReviewDTO;
 import com.bapseguen.app.dto.view.CommentListDTO;
 import com.bapseguen.app.dto.view.ItemInsertDTO;
 import com.bapseguen.app.dto.view.ItemWithImgDTO;
@@ -360,6 +361,17 @@ public class SellerMyPageDAO {
     public Map<String, Object> saleSummary(String businessNumber) {
         // Mapper: storeManage.saleSummary
         return sqlSession.selectMap("storeManage.saleSummary", businessNumber);
+    }
+    // === 리뷰 작성 =====
+ // 리뷰 저장
+    public int insertReview(ReviewDTO dto) {
+        return sqlSession.insert("review.insertReview", dto); // selectKey로 reviewNumber 세팅됨
+    }
+
+    // 이미 리뷰 존재 여부
+    public boolean existsReview(Map<String,Object> review) {
+	    Integer cnt = sqlSession.selectOne("review.existsReview", review);
+	    return cnt != null && cnt > 0;
     }
     
 }

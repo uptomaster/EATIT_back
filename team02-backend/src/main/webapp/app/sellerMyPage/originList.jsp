@@ -65,8 +65,8 @@
 			  </div>
 			
 			  <c:choose>
-			    <!-- 데이터 있을 때 -->
 			    <c:when test="${not empty originList}">
+			    <!-- 데이터 있을 때 -->
 			      <c:forEach var="o" items="${originList}">
 			        <div class="origin-row">
 			          <div>${o.originMenu}</div>
@@ -74,14 +74,14 @@
 			          <div>${o.originLocation}</div>
 			          <div class="origin-actions">
 			            <!-- 필요 시 링크 or 모달 트리거로 변경 -->
-			            <a class="btn" href="${pageContext.request.contextPath}/sellerMyPage/originList.se?edit=${o.originNumber}">수정</a>
+			            <a class="btn" href="${ctx}/sellerMyPage/originList.se?edit=${o.originNumber}">수정</a>
 			          </div>
 			        </div>
 			      </c:forEach>
 			    </c:when>
 			
-			    <!-- 데이터 없을 때 -->
 			    <c:otherwise>
+			    <!-- 데이터 없을 때 -->
 			      <div class="origin-row empty">
 			        <div>저장한 내용이 없습니다</div>
 			      </div>
@@ -89,29 +89,58 @@
 			  </c:choose>
 
         
-      <!-- 추가버튼 눌렀을때 추가될 영역 -->
-      <div id="origin_list_more"></div>
-     </div><!-- 목록 끝 -->
-      <!-- 모달창 -->
-      <div id="editModal" class="modal">
-        <div class="modal_content">
-          <span class="close_btn" id="closeModal">&times;</span>
-          <h2>원산지 수정</h2>
-          <form id="editForm">
-            <label for="product">표시품목</label>
-            <input type="text" id="product" name="product" required>
-
-            <label for="origin">원산지</label>
-            <input type="text" id="origin" name="origin" required>
-
-            <label for="foodName">음식명</label>
-            <input type="text" id="foodName" name="foodName" required>
-
-            <button type="submit" class="save_btn">저장</button>
-            <button type="button" id="delete_btn" class="delete_btn">삭제</button>
-          </form>
-        </div>
-      </div> <!-- 모달창 끝-->
+      <!-- [추가] 모달 -->
+		  <div class="modal-backdrop" id="addModal">
+		    <div class="modal">
+		      <h3>원산지 추가</h3>
+		      <form method="post" action="${ctx}/sellerMyPage/originAddOk.se">
+		        <div>
+		          <label>품목</label><br/>
+		          <input name="originItem" required />
+		        </div>
+		        <div>
+		          <label>메뉴</label><br/>
+		          <input name="originMenu" required />
+		        </div>
+		        <div>
+		          <label>원산지</label><br/>
+		          <input name="originLocation" required />
+		        </div>
+		        <div class="right" style="margin-top:10px;">
+		          <button class="btn" type="button" data-close="#addModal">취소</button>
+		          <button class="btn primary" type="submit">저장</button>
+		        </div>
+		      </form>
+		    </div>
+		  </div>
+		
+		  <!-- [수정] 모달: 서버가 editOrigin을 세팅했을 때만 필드 채워서 표시 -->
+		  <div class="modal-backdrop" id="editModal"
+		       style="<c:if test='${openEditModal}'>display:block;</c:if>">
+		    <div class="modal">
+		      <h3>원산지 수정</h3>
+		      <form method="post" action="${ctx}/sellerMyPage/originEditOk.se">
+		        <input type="hidden" name="originNumber" value="${editOrigin.originNumber}" />
+		        <div>
+		          <label>품목</label><br/>
+		          <input name="originItem" value="${editOrigin.originItem}" required />
+		        </div>
+		        <div>
+		          <label>메뉴</label><br/>
+		          <input name="originMenu" value="${editOrigin.originMenu}" required />
+		        </div>
+		        <div>
+		          <label>원산지</label><br/>
+		          <input name="originLocation" value="${editOrigin.originLocation}" required />
+		        </div>
+		        <div class="right" style="margin-top:10px;">
+		          <a class="btn" href="${ctx}/sellerMyPage/originList.se">취소</a>
+		          <button class="btn primary" type="submit">수정 저장</button>
+		        </div>
+		      </form>
+		    </div>
+		  </div>
+		  </div>
     </div> <!-- 1100px 영역 끝  -->
   </main>
 </body>
