@@ -75,9 +75,16 @@ main{
 }
 /* 목록 시작 */
 /* 목록 제목 */
+
+.foodpurchase_all{
+  width: 1100px;       
+  margin: 0 auto;
+}
 .food_purchase_list_top{
   display: flex; 
-  margin-left: 40px;
+  justify-content: center; /* 전체 중앙 정렬 */
+  align-items: center;
+  margin-right: 10px;
 }
 .food_purchase_list_date{
   width: 155px;
@@ -149,11 +156,12 @@ main{
   align-items: center;
   justify-content: center;
 }
-/* 목록 더미글 */
 /* 목록 한줄 */
 .foodpurchase_page_list{
   display: flex;
-  margin-left: 40px;
+  justify-content: center; /* 전체 중앙 정렬 */
+  align-items: center;
+  margin-right: 10px;
 }
 /* 목록 한줄의 각 요소들 */
 .food_purchase_date_list{

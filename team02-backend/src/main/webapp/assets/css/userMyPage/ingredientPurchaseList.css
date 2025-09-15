@@ -75,9 +75,15 @@ main{
   font-size: 30px;
 }
 /* 목록 제목 */
+.ingrepurchase_all{
+  width: 1100px;       
+  margin: 0 auto;
+}
 .ingredientpurchaselist_top{
   display: flex; 
-  margin-left: 40px;
+  justify-content: center; /* 전체 중앙 정렬 */
+  align-items: center;
+  margin-right: 10px;
 }
 /* 목록 제목 상세 시작*/
 .ingredientpurchaselist_date{
@@ -154,7 +160,9 @@ main{
 /* 목록 더미글 한줄 */
 .ingredientpurchase_page_list{
   display: flex;
-  margin-left: 40px;
+  justify-content: center; /* 전체 중앙 정렬 */
+  align-items: center;
+  margin-right: 10px;
 }
 /* 예시글 상세 시작 */
 .ingredientpurchase_date_list{

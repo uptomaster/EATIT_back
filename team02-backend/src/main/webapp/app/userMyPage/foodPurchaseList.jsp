@@ -52,10 +52,10 @@
     <h2 class="food_purchase_list">음식 구매 내역</h2>
 
     <!-- 테이블 형식 리스트 헤더 (구매 내역 항목 제목) -->
-    <div>
+    <div class="foodpurchase_all">
       <div class="food_purchase_list_top">
         <div class="food_purchase_list_date">구매날짜</div>
-        <div class="food_purchase_list_img">이미지</div>
+        <!-- <div class="food_purchase_list_img">이미지</div> -->
         <div class="food_purchase_list_restaurant_name">가게명</div>
         <div class="food_purchase_list_menu_info">상품정보</div>
         <div class="food_purchase_list_how_many">수량</div>
@@ -64,14 +64,14 @@
       </div>
 
       <!-- 실제 구매 내역 -->
-      <c:forEach var="myorder" items="${foodbuylist}">
+      <c:forEach var="myorder" items="${foodbuylist}" >
 		  <div class="foodpurchase_page_list">
 		    <div class="food_purchase_date_list">
 		      <c:out value="${myorder.ordersDate}"/>
 		    </div>
-		    <div class="food_purchase_img_list">
-		      <%-- <img class="meal_img" src="${pageContext.request.contextPath}/assets/img/나무.png" alt=""> --%>
-		    </div>
+		    <%-- <div class="food_purchase_img_list">
+		      <img class="meal_img" src="${pageContext.request.contextPath}/assets/img/나무.png" alt="">
+		    </div> --%>
 		    <div class="food_purchase_restaurant_name_list">
 		      <c:out value="${myorder.storeName}" />
 		    </div>
@@ -89,8 +89,8 @@
 		    </div>
 		  </div>
 	  </c:forEach>
-
-
+	
+	
 
     </div>
 

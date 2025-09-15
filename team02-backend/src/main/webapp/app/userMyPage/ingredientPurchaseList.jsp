@@ -51,10 +51,10 @@
       <h2 class="ingredientpurchase_list">재료 구매 내역</h2>
 
       <!-- 리스트 제목 영역 (표의 헤더 역할) -->
-      <div>
+      <div class="ingrepurchase_all">
         <div class="ingredientpurchaselist_top">
           <div class="ingredientpurchaselist_date">구매날짜</div>
-          <div class="ingredientpurchaselist_img">이미지</div>
+          <!-- <div class="ingredientpurchaselist_img">이미지</div> -->
           <div class="ingredientpurchaselist_restaurant_name">가게명</div>
           <div class="ingredientpurchaselist_menu_info">상품정보</div>
           <div class="ingredientpurchaselist_how_many">수량</div>
@@ -63,14 +63,14 @@
         </div>
 
         <!-- 실제 구매 내역 -->
-	      <c:forEach var="myorder" items="${foodbuylist}">
+	      <c:forEach var="myorder" items="${ingrebuylist}">
 			  <div class="foodpurchase_page_list">
 			    <div class="food_purchase_date_list">
 			      <c:out value="${myorder.ordersDate}"/>
 			    </div>
-			    <div class="food_purchase_img_list">
-			      <%-- <img class="meal_img" src="${pageContext.request.contextPath}/assets/img/나무.png" alt=""> --%>
-			    </div>
+			    <%-- <div class="food_purchase_img_list">
+			      <img class="meal_img" src="${pageContext.request.contextPath}/assets/img/나무.png" alt="">
+			    </div> --%>
 			    <div class="food_purchase_restaurant_name_list">
 			      <c:out value="${myorder.storeName}" />
 			    </div>
