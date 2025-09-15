@@ -8,7 +8,7 @@ import java.util.Base64;
 
 public class TossService {
     // 문서용(v2 Standard 가이드) 테스트 시크릿 키 (docs 키를 쓸 때만 사용)
-    public static final String DOCS_SECRET_KEY = "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6";
+    public static final String DOCS_SECRET_KEY = "";
 
     /**
      * 결제 승인(Confirm)
