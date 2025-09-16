@@ -28,7 +28,7 @@
       <li><a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseList.jsp">재료 구매 내역</a></li>
       <li><a href="${pageContext.request.contextPath}/userMyPage/manageMyPostsList.jsp">내 글 관리</a></li>
       <li><a href="${pageContext.request.contextPath}/userMyPage/manageMyCommentsList.jsp">내 댓글 관리</a></li>
-      <li class=><a href="${pageContext.request.contextPath}/userMyPage/manageMyReviewsList.jsp">내 리뷰 관리</a></li>
+      <li class="active"><a href="${pageContext.request.contextPath}/userMyPage/manageMyReviewsList.jsp">내 리뷰 관리</a></li>
     </div>
     <div class="writereview_page">
       <h2 class="writereview_list">리뷰 작성</h2>
@@ -76,10 +76,10 @@
             <label for="content">내용</label>
             <textarea id="content" name="content" rows="10" placeholder="내용을 입력하세요" required></textarea>
           </div>
-          <div class="writereview_form_group">
+          <!-- <div class="writereview_form_group">
             <label for="imageUpload">사진 첨부</label>
             <input type="file" id="imageUpload" name="imageUpload" accept="image/*" multiple />
-          </div>
+          </div> -->
           <div class="writereview_button_group">
             <button type="reset" class="writereview_cancel_btn">작성 취소</button>
             <button type="submit" class="writereview_submit_btn">작성 완료</button>

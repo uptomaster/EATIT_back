@@ -42,7 +42,7 @@ public class IngredientAddOkController implements Execute {
 		
 		if(memberNumber == null) {
 			System.out.println("오류 : 로그인된 사용자가 없습니다");
-			response.sendRedirect("login.jsp");
+			response.sendRedirect("/login/login.lo");
 			return null;
 		}
 		

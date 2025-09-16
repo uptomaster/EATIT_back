@@ -1,7 +1,9 @@
 package com.bapseguen.app.dto.view;
 
 public class ReviewWriteDTO {
+	
 	//리뷰내용
+	   private int reviewNumber;
 	   private int reviewRating;
 	   private String reviewContent;
 	   private String reviewCreateDate;
@@ -9,16 +11,25 @@ public class ReviewWriteDTO {
 	   private String ordersDate;
 	   private int ordersTotalAmount;
 	// 구매품목
+	   private int ordersNumber;
 	   private int orderItemNumber;
 	   private int orderItemUnitPrice;
 	   private int orderItemQuantity;
 	// 메뉴 정보 
 	   private String itemType;
 	   private String itemName;
-	   // 가게 정보
+   // 가게 정보
 	   private String storeName;
 	   private String businessNumber;
-	   	   
+   // 작성자 정보
+	   private int memberNumber;
+	
+	public int getReviewNumber() {
+		return reviewNumber;
+	}
+	public void setReviewNumber(int revieNumber) {
+		this.reviewNumber = revieNumber;
+	}   
 	public int getReviewRating() {
 		return reviewRating;
 	}
@@ -48,6 +59,12 @@ public class ReviewWriteDTO {
 	}
 	public void setOrdersTotalAmount(int ordersTotalAmount) {
 		this.ordersTotalAmount = ordersTotalAmount;
+	}
+	public int getOrdersNumber() {
+		return ordersNumber;
+	}
+	public void setOrdersNumber(int ordersNumber) {
+		this.ordersNumber = ordersNumber;
 	}
 	public int getOrderItemNumber() {
 		return orderItemNumber;
@@ -92,13 +109,23 @@ public class ReviewWriteDTO {
 	public void setBusinessNumber(String businessNumber) {
 		this.businessNumber = businessNumber;
 	}
+	public int getMemberNumber() {
+		return memberNumber;
+	}
+	public void setMemberNumber(int memberNumber) {
+		this.memberNumber = memberNumber;
+	}
 	@Override
 	public String toString() {
-		return "ReviewWriteDTO [reviewRating=" + reviewRating + ", reviewContent=" + reviewContent
-				+ ", reviewCreateDate=" + reviewCreateDate + ", ordersDate=" + ordersDate + ", ordersTotalAmount="
-				+ ordersTotalAmount + ", orderItemNumber=" + orderItemNumber + ", orderItemUnitPrice="
-				+ orderItemUnitPrice + ", orderItemQuantity=" + orderItemQuantity + ", itemType=" + itemType
-				+ ", itemName=" + itemName + ", storeName=" + storeName + ", businessNumber=" + businessNumber + "]";
+		return "ReviewWriteDTO [reviewNumber=" + reviewNumber + ", reviewRating=" + reviewRating + ", reviewContent="
+				+ reviewContent + ", reviewCreateDate=" + reviewCreateDate + ", ordersDate=" + ordersDate
+				+ ", ordersTotalAmount=" + ordersTotalAmount + ", ordersNumber=" + ordersNumber + ", orderItemNumber="
+				+ orderItemNumber + ", orderItemUnitPrice=" + orderItemUnitPrice + ", orderItemQuantity="
+				+ orderItemQuantity + ", itemType=" + itemType + ", itemName=" + itemName + ", storeName=" + storeName
+				+ ", businessNumber=" + businessNumber + ", memberNumber=" + memberNumber + "]";
 	}
+	
+	
+	
 	   
 }
