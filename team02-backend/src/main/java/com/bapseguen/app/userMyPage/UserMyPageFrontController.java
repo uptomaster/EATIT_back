@@ -74,18 +74,21 @@ public class UserMyPageFrontController extends HttpServlet {
 		    result=new UserMypageSMSController().execute(request, response);
 		    break;
         
-//		case "/userMyPage/editUserInfoOk.my":
-//			System.out.println("내 정보 수정 완료 페이지 처리 요청");
-//		    result = new EditUserInfoOkController().execute(request, response);
-//		    break;    
-//		
+		case "/userMyPage/editUserInfoOk.my":
+			System.out.println("내 정보 수정 완료 페이지 처리 요청");
+		    result = new EditUserInfoOkController().execute(request, response);
+		    break;    
 		    
 		case "/userMyPage/foodPurchaseListOk.my":
 			System.out.println("마이페이지 음식 구매목록 페이지 처리 요청");
 			result = new FoodPurchaseListOkController().execute(request, response);
 			break;
-		    
+		case "/userMyPage/ingredientPurchaseListOk.my":
+			System.out.println("마이페이지 음식 구매목록 페이지 처리 요청");
+			result = new IngredientPurchaseListOkController().execute(request, response);
+			break;    
 
+			
 		    
 		case "/userMyPage/phoneCode.my":
 		    result = new PhoneCodeController().execute(request, response);
