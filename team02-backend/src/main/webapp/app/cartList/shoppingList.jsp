@@ -30,7 +30,6 @@
       <div class="shopping_content">
         <!-- 왼쪽: 장바구니 목록 -->
         <div class="shopping_cart_area">
-
           <!-- 전체선택 + 선택삭제 + 전체삭제 -->
           <div class="shopping_select_all">
             <div>
@@ -74,7 +73,29 @@
 
                     <!-- 상품 정보 -->
                     <div class="shopping_item_info">
-                      <a href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${item.itemNumber}" class="shopping_item_name">${item.itemName}</a>
+                      <div class="shopping_item_name">
+                        <a href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${item.itemNumber}">
+                          ${item.itemName}
+                        </a>
+                        <!-- ✅ 소비기한 뱃지 -->
+                        <c:if test="${not empty item.itemExpireDate}">
+                          <c:set var="today" value="<%=new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(new java.util.Date())%>" />
+                          <fmt:parseDate var="expireDate" value="${item.itemExpireDate}" pattern="yyyy-MM-dd"/>
+                          <fmt:parseDate var="todayDate" value="${today}" pattern="yyyy-MM-dd"/>
+                          <c:set var="diffDays" value="${(expireDate.time - todayDate.time) / (1000*60*60*24)}"/>
+                          <c:choose>
+                            <c:when test="${diffDays le 3}">
+                              <span class="badge_small urgent">⏰ 마감임박</span>
+                            </c:when>
+                            <c:when test="${diffDays le 7}">
+                              <span class="badge_small sale">💸 할인추천</span>
+                            </c:when>
+                            <c:otherwise>
+                              <span class="badge_small fresh">🥬 신선</span>
+                            </c:otherwise>
+                          </c:choose>
+                        </c:if>
+                      </div>
                       <div class="shopping_item_price" data-price="${item.cartItemPrice}">
                         <fmt:formatNumber value="${item.cartItemPrice}" type="number" /> 원
                       </div>
@@ -126,9 +147,13 @@
                   </div>
                 </div>
               </c:if>
+
               <div class="shopping_price_row">
                 <span>선택 상품 금액</span>
-                <span id="selectedAmount">0 원</span>
+                <!-- ✅ 서버에서 미리 합산해서 totalAmount 전달 -->
+                <span id="selectedAmount">
+                  <fmt:formatNumber value="${totalAmount}" type="number"/> 원
+                </span>
               </div>
             </div>
 
@@ -154,7 +179,27 @@
                           <img src="${pageContext.request.contextPath}/assets/img/food1.jpg" alt="기본 이미지">
                         </c:otherwise>
                       </c:choose>
-                      <div class="rec_name">${rec.itemName}</div>
+                      <div class="rec_name">
+                        ${rec.itemName}
+                        <!-- ✅ 추천상품에도 뱃지 -->
+                        <c:if test="${not empty rec.itemExpireDate}">
+                          <c:set var="today" value="<%=new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(new java.util.Date())%>" />
+                          <fmt:parseDate var="expireDate" value="${rec.itemExpireDate}" pattern="yyyy-MM-dd"/>
+                          <fmt:parseDate var="todayDate" value="${today}" pattern="yyyy-MM-dd"/>
+                          <c:set var="diffDays" value="${(expireDate.time - todayDate.time) / (1000*60*60*24)}"/>
+                          <c:choose>
+                            <c:when test="${diffDays le 3}">
+                              <span class="badge_small urgent">⏰</span>
+                            </c:when>
+                            <c:when test="${diffDays le 7}">
+                              <span class="badge_small sale">💸</span>
+                            </c:when>
+                            <c:otherwise>
+                              <span class="badge_small fresh">🥬</span>
+                            </c:otherwise>
+                          </c:choose>
+                        </c:if>
+                      </div>
                       <div class="rec_price">
                         <fmt:formatNumber value="${rec.itemPrice}" type="number"/> 원
                       </div>
