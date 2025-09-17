@@ -47,29 +47,34 @@
       <div>
         <div class="sellerfoodPurchase_list_top">
           <div class="sellerfoodPurchase_list_date">구매날짜</div>
-          <div class="sellerfoodPurchase_list_img">이미지</div>
           <div class="sellerfoodPurchase_list_restaurant_name">가게명</div>
           <div class="sellerfoodPurchase_list_menu_info">상품정보</div>
           <div class="sellerfoodPurchase_list_how_many">수량</div>
           <div class="sellerfoodPurchase_list_price">금액</div>
           <div class="sellerfoodPurchase_list_review">리뷰</div>
         </div>
+        <form id="goReview" method="post" action="${pageContext.request.contextPath}/sellerMyPage/sellerwriteReview.se" style="display:inline">
         <c:choose>
 					<c:when test="${not empty foodbuylist}">
 						<c:forEach var="food" items="${foodbuylist}">
 		        <div class="sellerfoodPurchase_page_list">
+		         	<input type="hidden" name="ordersNumber" value="${food.ordersNumber}">
 		          <div class="sellerfoodPurchase_date_list"><c:out value="${food.ordersDate }"/></div>
-		          <div class="sellerfoodPurchase_img_list"><img class="meal_img" src="./../../assets/img/나무.png" alt=""></div>
 		          <div class="sellerfoodPurchase_restaurant_name_list"><c:out value="${food.storeName }"/></div>
 		          <div class="sellerfoodPurchase_menu_info_list"><c:out value="${food.itemName }"/></div>
 		          <div class="sellerfoodPurchase_how_many_list"><c:out value="${food.orderItemQuantity }"/></div>
 		          <div class="sellerfoodPurchase_price_list"><c:out value="${food.ordersTotalAmount }"/>원</div>
-		          <div class="sellerfoodPurchase_review_list"><a href="${pageContext.request.contextPath}/sellerMyPage/sellerwriteReview.se"
-		              class="sellerfoodPurchase_review_meal">리뷰</a></div>
-		        </div>	
+		          <div class="sellerfoodPurchase_review_list">
+		         	<%--  <button type="submit" class="purchase_review_btn"  data-orders="${food.ordersNumber}">리뷰 작성</button> --%>
+		        	 <a href="${pageContext.request.contextPath}/sellerMyPage/sellerwriteReview.se?ordersNumber=${food.ordersNumber}">
+                 <div class="purchase_review_btn">수정</div>
+               </a>
+		        	</div>	
+	        	</div>
 					</c:forEach>	
 				</c:when>
 			</c:choose>
+			</form>
       </div>
       <div class="sellerfoodPurchase_pagination">
         <a href="#" class="sellerfoodPurchase_page_active">1</a>
@@ -82,5 +87,14 @@
   </main>
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </body>
-
+<script>
+window.ordersNumber = "${food.ordersNumber}";
+console.log(ordersNumber);
+/* document.addEventListener('click', e=>{
+  if(!e.target.matches('.purchase_review_btn')) return;
+  const f = document.getElementById('goReview');
+  f.ordersNumber.value = e.target.dataset.orders;
+  f.submit();
+}); */
+</script>
 </html>
