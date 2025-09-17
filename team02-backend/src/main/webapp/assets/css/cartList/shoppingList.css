@@ -8,15 +8,20 @@
 
 body {
   font-family: "Pretendard", "Noto Sans KR", sans-serif;
-  background-color: #fff2e6; /* 따뜻한 오렌지 톤 */
+  background-color: #fff8f2;
   color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 /* 전체 영역 */
 #shopping_list {
   width: 100%;
   min-height: 100vh;
-  background: #fff2e6;
+  background: #fff8f2;
   display: flex;
   flex-direction: column;
 }
@@ -25,11 +30,11 @@ body {
 #wrap {
   width: 1100px;
   margin: 40px auto;
-  background: #ffe0b2; /* 조금 더 진한 베이지-오렌지 */
+  background: #fff;
   padding: 30px 24px;
-  border-radius: 18px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
-  border: 2px solid #ff9800;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  border: 2px solid #ffd8a8;
 }
 
 /* 제목 */
@@ -41,16 +46,15 @@ body {
   text-align: center;
   color: #fff;
   background: linear-gradient(90deg, #ff924e, #ff7043);
-  border-radius: 12px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 14px;
+  margin-bottom: 25px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
 }
 
 /* content 전체 영역 */
 .shopping_content {
   display: flex;
-  gap: 20px;
-  margin-top: 10px;
+  gap: 24px;
 }
 
 /* ---------------- 왼쪽: 장바구니 ---------------- */
@@ -66,20 +70,19 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #fff;
-  border: 2px solid #ffcc80;
+  background-color: #fffdf8;
+  border: 2px solid #ffd8a8;
   border-radius: 12px;
   padding: 12px 16px;
   font-size: 15px;
   font-weight: 600;
   color: #5a3825;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
 .shopping_select_all input[type="checkbox"] {
   width: 18px;
   height: 18px;
-  accent-color: #ff924e;
+  accent-color: #ff7043;
   cursor: pointer;
 }
 
@@ -110,12 +113,10 @@ body {
   min-height: 320px;
   background-color: #fff;
   border-radius: 12px;
-  border: 2px solid #ffcc80;
+  border: 2px solid #ffd8a8;
   padding: 10px 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-/* 장바구니 비었을 때 */
 .shopping_cart_list .empty {
   text-align: center;
   color: #888;
@@ -130,7 +131,6 @@ body {
   background-color: #ff924e;
   color: #fff;
   border-radius: 6px;
-  text-decoration: none;
   transition: background 0.3s ease;
 }
 .shopping_cart_list .empty .go_store:hover {
@@ -169,7 +169,6 @@ body {
   font-size: 17px;
   font-weight: 600;
   color: #333;
-  text-decoration: none;
 }
 .shopping_item_name:hover {
   color: #ff7043;
@@ -189,7 +188,7 @@ body {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #ffe0b2;
+  background: #fff3e0;
   border: 1px solid #ffb74d;
   color: #5a3825;
   font-weight: bold;
@@ -212,7 +211,6 @@ body {
   color: #ff5252;
   font-size: 14px;
   font-weight: 600;
-  text-decoration: none;
 }
 .shopping_item_delete a:hover {
   text-decoration: underline;
@@ -220,18 +218,18 @@ body {
 
 /* ---------------- 오른쪽: 결제 영역 ---------------- */
 .shopping_payment_area {
-  width: 350px;
+  width: 360px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 }
 
 .shopping_payment_summary {
   border: 2px solid #ffcc80;
-  border-radius: 12px;
+  border-radius: 14px;
   padding: 20px;
   background-color: #fffdf8;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
 }
 .shopping_payment_title {
   font-size: 20px;
@@ -239,42 +237,109 @@ body {
   color: #5a2d0c;
   margin-bottom: 14px;
 }
+
+.shopping_payment_preview_single {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.shopping_payment_preview_single img {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid #eee;
+}
+.shopping_preview_text {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
 .shopping_price_row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 8px 0;
-  font-size: 15px;
+  font-size: 16px;
   color: #444;
 }
 .shopping_price_row span:last-child {
-  font-size: 18px;
-  font-weight: 700;
-  color: #ff5c1a;
+  font-size: 22px;
+  font-weight: 800;
+  color: #ff3d00;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.08);
 }
 
 /* 결제 버튼 */
 .shopping_payment_btn {
   display: block;
   width: 100%;
-  height: 52px;
-  background: linear-gradient(135deg, #ff924e, #ff7043);
+  height: 56px;
+  background: linear-gradient(135deg, #ff7043, #ff924e);
   color: #fff;
   border: none;
-  border-radius: 10px;
-  font-size: 18px;
+  border-radius: 12px;
+  font-size: 20px;
   font-weight: 700;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .shopping_payment_btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
 }
 .shopping_payment_btn:disabled {
   background: #ddd;
   cursor: not-allowed;
 }
 
-/* 리스트 기본 스타일 제거 */
-li { list-style: none; }
+/* ---------------- 추천 상품 ---------------- */
+.shopping_recommend {
+  border: 2px solid #ffd8a8;
+  border-radius: 14px;
+  background: #fffdf8;
+  padding: 16px;
+}
+.shopping_recommend h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #5a2d0c;
+}
+.recommend_list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+.recommend_card {
+  background: #fff;
+  border: 1px solid #ffd8a8;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.recommend_card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+.recommend_card img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.rec_name {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 8px;
+  color: #333;
+}
+.rec_price {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ff5722;
+  margin-top: 4px;
+}
