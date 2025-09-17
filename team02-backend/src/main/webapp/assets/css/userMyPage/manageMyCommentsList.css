@@ -154,25 +154,37 @@ main{
   width: 100px;
 }
 /* 페이지네이션 */
-.managemycomments_pagination{
+.pagination {
   display: flex;
-  justify-self: center;
-  position: relative;
-  top: 1000px;
-}
-.managemycomments_pagination > a{
-  width: 32px;
-  height: 32px;
-  background-color: white;
-  display: flex;
-  margin: 0 8px 0 0;
   justify-content: center;
   align-items: center;
-  text-decoration: none;
-  border: 1px solid #A69980;
-  border-radius: 6px;
-  color: black;
+  margin-top: 50px;
 }
-.managemycomments_pagination > a:hover{
-  background-color: #FF873C;
+
+.pagination > ul {
+  display: flex;
+  list-style: none;
+}
+
+.pagination a {
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px;
+  margin: 0 5px;
+  border-radius: 5px;
+  border-color: #ffae42;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pagination a:hover {
+  background-color: #ffd580;
+  color: #fff;
+}
+
+.pagination .active {
+  background-color: #ffb84d;
+  color: white;
+  cursor: default;
+  border-color: #ffae42;
 }

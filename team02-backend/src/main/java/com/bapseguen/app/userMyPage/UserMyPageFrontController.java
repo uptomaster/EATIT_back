@@ -87,8 +87,14 @@ public class UserMyPageFrontController extends HttpServlet {
 			System.out.println("마이페이지 음식 구매목록 페이지 처리 요청");
 			result = new IngredientPurchaseListOkController().execute(request, response);
 			break;    
-
-			
+		case "/userMyPage/myPostListOk.my":
+			System.out.println("마이페이지 내가 쓴 게시글 페이지 처리 요청");
+			result = new MyPostListOkController().execute(request, response);
+			break;
+		case "/userMyPage/myCommentsListOk.my":
+			System.out.println("마이페이지 내가 쓴 댓글 페이지 처리 요청");
+			result = new MyCommentsListOkController().execute(request, response);
+			break;
 		    
 		case "/userMyPage/phoneCode.my":
 		    result = new PhoneCodeController().execute(request, response);

@@ -37,9 +37,9 @@
         <li class="my_page_list_main"><a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.my">내 정보 수정</a></li>
   		<li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListOk.my">음식 구매 내역</a></li>
   		<li><a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseListOk.my">재료 구매 내역</a></li>
-  		<li><a href="${pageContext.request.contextPath}/userMyPage/manageMyPostsList.my">내 글 관리</a></li>
-  		<li><a href="${pageContext.request.contextPath}/userMyPage/manageMyCommentsList.my">내 댓글 관리</a></li>
-  		<li><a href="${pageContext.request.contextPath}/userMyPage/manageMyReviewsList.my">내 리뷰 관리</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/myPostListOk.my">내 글 관리</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/myCommentsListOk.my">내 댓글 관리</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/">내 리뷰 관리</a></li>
       </ul>
     </div>
 
