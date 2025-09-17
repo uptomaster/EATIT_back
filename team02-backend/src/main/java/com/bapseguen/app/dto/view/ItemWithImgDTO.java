@@ -5,19 +5,19 @@ package com.bapseguen.app.dto.view;
  */
 public class ItemWithImgDTO {
 	// 상품 정보
-	private int itemNumber; // 상품 번호
-	private String businessNumber; // 가게 사업자 번호
-	private String itemType; // 음식/재료 구분
-	private String itemName; // 상품명
-	private String itemPrice; // 상품가격
-	private String itemContent; // 상품설명
-	private int itemQuantity; // 상품 수량
-	private String itemExpireDate; // 소비기한
-	private String itemCreatedTime; // 등록일
-	private String itemUpdatedTime; // 수정일
-	private boolean itemSellState; // 판매 여부
+	private int itemNumber;
+	private String businessNumber;
+	private String itemType;
+	private String itemName;
+	private String itemPrice;
+	private String itemContent;
+	private int itemQuantity;
+	private String itemExpireDate;
+	private String itemCreatedTime;
+	private String itemUpdatedTime;
+	private boolean itemSellState;
 
-	// ✅ 원산지 정보 (추가)
+	// 원산지
 	private String itemOrigin;
 
 	// 가게 정보
@@ -26,15 +26,19 @@ public class ItemWithImgDTO {
 	private String storeAddressDetail;
 	private String storeZipCode;
 	private String storeTel;
+	private String businessName;
 
-	private String businessName; // 상호명 (조인)
+	// 상품 이미지
+	private int itemImageNumber;
+	private String itemImageSystemName;
+	private String itemImageOriginalName;
 
-	// 이미지 정보
-	private int itemImageNumber; // 상품 이미지 번호
-	private String itemImageSystemName; // 서버 저장 파일명
-	private String itemImageOriginalName; // 원본 파일명
+	// 가게 이미지
+	private String storeImageSystemName;
+	private String storeImageOriginalName;
 
 	// ===== Getter / Setter =====
+	// 상품
 	public int getItemNumber() {
 		return itemNumber;
 	}
@@ -123,6 +127,7 @@ public class ItemWithImgDTO {
 		this.itemSellState = itemSellState;
 	}
 
+	// 원산지
 	public String getItemOrigin() {
 		return itemOrigin;
 	}
@@ -131,6 +136,7 @@ public class ItemWithImgDTO {
 		this.itemOrigin = itemOrigin;
 	}
 
+	// 가게
 	public String getStoreName() {
 		return storeName;
 	}
@@ -179,6 +185,7 @@ public class ItemWithImgDTO {
 		this.businessName = businessName;
 	}
 
+	// 상품 이미지
 	public int getItemImageNumber() {
 		return itemImageNumber;
 	}
@@ -203,6 +210,23 @@ public class ItemWithImgDTO {
 		this.itemImageOriginalName = itemImageOriginalName;
 	}
 
+	// 가게 이미지
+	public String getStoreImageSystemName() {
+		return storeImageSystemName;
+	}
+
+	public void setStoreImageSystemName(String storeImageSystemName) {
+		this.storeImageSystemName = storeImageSystemName;
+	}
+
+	public String getStoreImageOriginalName() {
+		return storeImageOriginalName;
+	}
+
+	public void setStoreImageOriginalName(String storeImageOriginalName) {
+		this.storeImageOriginalName = storeImageOriginalName;
+	}
+
 	@Override
 	public String toString() {
 		return "ItemWithImgDTO [itemNumber=" + itemNumber + ", businessNumber=" + businessNumber + ", itemType="
@@ -213,6 +237,7 @@ public class ItemWithImgDTO {
 				+ ", storeAddressDetail=" + storeAddressDetail + ", storeZipCode=" + storeZipCode + ", storeTel="
 				+ storeTel + ", businessName=" + businessName + ", itemImageNumber=" + itemImageNumber
 				+ ", itemImageSystemName=" + itemImageSystemName + ", itemImageOriginalName=" + itemImageOriginalName
-				+ "]";
+				+ ", storeImageSystemName=" + storeImageSystemName + ", storeImageOriginalName="
+				+ storeImageOriginalName + "]";
 	}
 }

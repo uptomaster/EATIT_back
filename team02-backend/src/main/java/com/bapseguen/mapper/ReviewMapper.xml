@@ -5,26 +5,84 @@
 
 <mapper namespace="review">
 
-    <!-- 특정 가게 리뷰 목록 -->
-    <select id="selectReviewsByBusiness" parameterType="string" resultType="com.bapseguen.app.dto.view.ReviewWithUserDTO">
-        SELECT
-            r.REVIEW_NUMBER     AS reviewNumber,
-            r.ORDERS_NUMBER     AS ordersNumber,
-            r.BUSINESS_NUMBER   AS businessNumber,
-            r.MEMBER_NUMBER     AS memberNumber,
-            r.REVIEW_RATING     AS reviewRating,
-            r.REVIEW_CONTENT    AS reviewContent,
-            TO_CHAR(r.REVIEW_CREATE_DATE, 'YYYY-MM-DD') AS reviewCreateDate,
-            m.MEMBER_ID         AS memberId,
-            (SELECT i.ITEM_NAME
-             FROM TBL_ORDER_ITEM oi
-             JOIN TBL_ITEM i ON oi.ITEM_NUMBER = i.ITEM_NUMBER
-             WHERE oi.ORDERS_NUMBER = r.ORDERS_NUMBER
-             FETCH FIRST 1 ROWS ONLY) AS itemName
-        FROM TBL_REVIEW r
-        LEFT JOIN TBL_MEMBER m ON r.MEMBER_NUMBER = m.MEMBER_NUMBER
-        WHERE r.BUSINESS_NUMBER = #{businessNumber}
-        ORDER BY r.REVIEW_CREATE_DATE DESC
-    </select>
+	<!-- 특정 가게의 리뷰 목록 -->
+	<select id="selectReviewsByBusiness" parameterType="string"
+		resultType="com.bapseguen.app.dto.view.ReviewWithUserDTO">
+		SELECT
+		r.REVIEW_NUMBER AS reviewNumber,
+		r.ORDERS_NUMBER AS
+		ordersNumber,
+		r.BUSINESS_NUMBER AS businessNumber,
+		r.MEMBER_NUMBER AS
+		memberNumber,
+		m.MEMBER_ID AS memberId,
+		r.REVIEW_RATING AS reviewRating,
+		r.REVIEW_CONTENT AS reviewContent,
+		TO_CHAR(r.REVIEW_CREATE_DATE,
+		'YYYY-MM-DD') AS reviewCreateDate,
+		(
+		SELECT
+		MAX(i.ITEM_NAME) ||
+		CASE
+		WHEN
+		COUNT(*) > 1 THEN ' 외 ' || (COUNT(*) - 1) || '개'
+		ELSE ''
+		END
+		FROM
+		TBL_ORDER_ITEM oi
+		JOIN TBL_ITEM i ON oi.ITEM_NUMBER = i.ITEM_NUMBER
+		WHERE oi.ORDERS_NUMBER = r.ORDERS_NUMBER
+		) AS itemName,
+		s.STORE_NAME AS
+		storeName,
+		s.STORE_TEL AS storeTel,
+		s.STORE_ADDRESS AS storeAddress,
+		si.STORE_IMAGE_SYSTEM_NAME AS storeImageSystemName,
+		si.STORE_IMAGE_ORIGINAL_NAME AS storeImageOriginalName
+		FROM TBL_REVIEW
+		r
+		JOIN TBL_MEMBER m ON r.MEMBER_NUMBER = m.MEMBER_NUMBER
+		JOIN TBL_STORE
+		s ON r.BUSINESS_NUMBER = s.BUSINESS_NUMBER
+		LEFT JOIN TBL_STORE_IMAGE si
+		ON s.BUSINESS_NUMBER = si.BUSINESS_NUMBER
+		WHERE r.BUSINESS_NUMBER =
+		#{businessNumber}
+		ORDER BY r.REVIEW_CREATE_DATE DESC
+	</select>
+
+
+	<!-- 특정 가게의 리뷰 개수 -->
+	<select id="countReviewsByBusiness" parameterType="string"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM TBL_REVIEW
+		WHERE BUSINESS_NUMBER =
+		#{businessNumber}
+	</select>
+
+
+	<!-- 특정 가게 정보 조회 -->
+	<select id="selectStoreInfo" parameterType="string"
+		resultType="com.bapseguen.app.dto.StoreDTO">
+		SELECT
+		BUSINESS_NUMBER AS businessNumber,
+		STORE_NAME AS
+		storeName,
+		STORE_TEL AS storeTel,
+		STORE_ADDRESS AS storeAddress
+		FROM
+		TBL_STORE
+		WHERE BUSINESS_NUMBER = #{businessNumber}
+	</select>
+
+	<!-- 특정 가게의 평균 별점 -->
+	<select id="selectAvgRatingByBusiness" parameterType="string"
+		resultType="double">
+		SELECT NVL(ROUND(AVG(REVIEW_RATING), 1), 0)
+		FROM TBL_REVIEW
+		WHERE BUSINESS_NUMBER = #{businessNumber}
+	</select>
+
 
 </mapper>

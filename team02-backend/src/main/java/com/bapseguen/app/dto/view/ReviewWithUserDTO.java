@@ -5,17 +5,18 @@ public class ReviewWithUserDTO {
 	private int ordersNumber;
 	private String businessNumber;
 	private int memberNumber;
+	private String memberId;
 	private int reviewRating;
 	private String reviewContent;
 	private String reviewCreateDate;
-
-	// 유저 닉네임/아이디 (조인해서 가져오기)
-	private String memberId;
-
-	// 상품명 (선택: 주문 아이템과 조인)
 	private String itemName;
+	private String storeName;
+	private String storeTel;
+	private String storeAddress;
+	private String storeImageSystemName;
+	private String storeImageOriginalName; 
 
-	// getter/setter
+	// ===== Getter / Setter =====
 	public int getReviewNumber() {
 		return reviewNumber;
 	}
@@ -48,6 +49,14 @@ public class ReviewWithUserDTO {
 		this.memberNumber = memberNumber;
 	}
 
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
 	public int getReviewRating() {
 		return reviewRating;
 	}
@@ -72,19 +81,51 @@ public class ReviewWithUserDTO {
 		this.reviewCreateDate = reviewCreateDate;
 	}
 
-	public String getMemberId() {
-		return memberId;
-	}
-
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
-
 	public String getItemName() {
 		return itemName;
 	}
 
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
+	}
+
+	public String getStoreName() {
+		return storeName;
+	}
+
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+
+	public String getStoreTel() {
+		return storeTel;
+	}
+
+	public void setStoreTel(String storeTel) {
+		this.storeTel = storeTel;
+	}
+
+	public String getStoreAddress() {
+		return storeAddress;
+	}
+
+	public void setStoreAddress(String storeAddress) {
+		this.storeAddress = storeAddress;
+	}
+
+	public String getStoreImageSystemName() {
+		return storeImageSystemName;
+	}
+
+	public void setStoreImageSystemName(String storeImageSystemName) {
+		this.storeImageSystemName = storeImageSystemName;
+	}
+
+	public String getStoreImageOriginalName() {
+		return storeImageOriginalName;
+	}
+
+	public void setStoreImageOriginalName(String storeImageOriginalName) {
+		this.storeImageOriginalName = storeImageOriginalName;
 	}
 }
