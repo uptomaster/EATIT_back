@@ -35,12 +35,9 @@
       <ul class="ingredientpurchase_side_bar">
         <li><a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.my">내 정보 수정</a></li>
         <li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListOk.my">음식 구매 내역</a></li>
-
-        <!-- 현재 페이지는 '재료 구매 내역'이라 강조 클래스 적용 -->
         <li class="ingredientpurchase_main">
-          <a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseList.jsp">재료 구매 내역</a>
+          <a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseListOk.my">재료 구매 내역</a>
         </li>
-
         <li><a href="${pageContext.request.contextPath}/userMyPage/manageMyPostsList.jsp">내 글 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/userMyPage/manageMyCommentsList.jsp">내 댓글 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/userMyPage/manageMyReviewsList.jsp">내 리뷰 관리</a></li>
@@ -54,10 +51,10 @@
       <h2 class="ingredientpurchase_list">재료 구매 내역</h2>
 
       <!-- 리스트 제목 영역 (표의 헤더 역할) -->
-      <div>
+      <div class="ingrepurchase_all">
         <div class="ingredientpurchaselist_top">
           <div class="ingredientpurchaselist_date">구매날짜</div>
-          <div class="ingredientpurchaselist_img">이미지</div>
+          <!-- <div class="ingredientpurchaselist_img">이미지</div> -->
           <div class="ingredientpurchaselist_restaurant_name">가게명</div>
           <div class="ingredientpurchaselist_menu_info">상품정보</div>
           <div class="ingredientpurchaselist_how_many">수량</div>
@@ -65,46 +62,59 @@
           <div class="ingredientpurchaselist_review">리뷰</div>
         </div>
 
-        <!-- 구매 내역 1건 (예시 데이터) -->
-        <div class="ingredientpurchase_page_list">
-          <div class="ingredientpurchase_date_list">2025.08.03</div>
-          <div class="ingredientpurchase_img_list">
-            <img class="ingredientpurchase_img" src="${pageContext.request.contextPath}/assets/img/carrot.jpg" alt="">
-          </div>
-          <div class="ingredientpurchase_restaurant_name_list">오늘 카레 어떄</div>
-          <div class="ingredientpurchase_menu_info_list">당근</div>
-          <div class="ingredientpurchase_how_many_list">4</div>
-          <div class="ingredientpurchase_price_list">16000원</div>
-          <div class="ingredientpurchase_review_list">
-            <a href="${pageContext.request.contextPath}/userMyPage/writeReview.jsp" class="ingredientpurchase_review_meal">리뷰</a>
-          </div>
-        </div>
+        <!-- 실제 구매 내역 -->
+	      <c:forEach var="myorder" items="${ingrebuylist}">
+			  <div class="foodpurchase_page_list">
+			    <div class="food_purchase_date_list">
+			      <c:out value="${myorder.ordersDate}"/>
+			    </div>
+			    <%-- <div class="food_purchase_img_list">
+			      <img class="meal_img" src="${pageContext.request.contextPath}/assets/img/나무.png" alt="">
+			    </div> --%>
+			    <div class="food_purchase_restaurant_name_list">
+			      <c:out value="${myorder.storeName}" />
+			    </div>
+			    <div class="food_purchase_menu_info_list">
+			      <c:out value="${myorder.itemName}" />
+			    </div>
+			    <div class="food_purchase_how_many_list">
+			      <c:out value="${myorder.orderItemQuantity}" />
+			    </div>
+			    <div class="food_purchase_price_list">
+			      <c:out value="${myorder.orderItemUnitPrice}" />
+			    </div>
+			    <div class="food_purchase_review_list">
+			      <a href="${pageContext.request.contextPath}/userMyPage/writeReview.jsp?orderItemNumber=${myorder.orderItemNumber}" class="food_purchase_review_meal">리뷰</a>
+			    </div>
+			  </div>
+		  </c:forEach>
 
-       <%--  <!-- 구매 내역 2건 (예시 데이터) -->
-        <div class="ingredientpurchase_page_list">
-          <div class="ingredientpurchase_date_list">2025.08.04</div>
-          <div class="ingredientpurchase_img_list">
-            <img class="ingredientpurchase_img" src="${pageContext.request.contextPath}/assets/img/씨앗.png" alt="">
-          </div>
-          <div class="ingredientpurchase_restaurant_name_list">장충동 왕족발 보쌈</div>
-          <div class="ingredientpurchase_menu_info_list">상추</div>
-          <div class="ingredientpurchase_how_many_list">2</div>
-          <div class="ingredientpurchase_price_list">5000원</div>
-          <div class="ingredientpurchase_review_list">
-            <a href="${pageContext.request.contextPath}/userMyPage/writeReview.jsp" class="ingredientpurchase_review_meal">리뷰</a>
-          </div>
-        </div> --%>
-      </div>
-
-      <!-- 하단 페이지네이션 -->
- <!--      <div class="ingredientpurchase_pagination">
-        현재 페이지는 1번
-        <a href="#" class="ingredientpurchase_page_active">1</a>
-        <a href="#" class="ingredientpurchase_page">2</a>
-        <a href="#" class="ingredientpurchase_page">3</a>
-        <a href="#" class="ingredientpurchase_page">4</a>
-        <a href="#" class="ingredientpurchase_page">5</a>
-      </div> -->
+      	<!-- 페이지네이션 (하단 페이지 넘기기) -->
+	    <div class="pagination">
+	        <ul>
+	          <c:if test="${prev}">
+	          	<li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListController.my?page=${startPage - 1}" class="prev">&lt;</a></li>
+	          </c:if>
+	          <c:set var="realStartPage" value="${startPage < 0 ? 0 : startPage}" />
+	          <c:forEach var="i" begin="${realStartPage}" end="${endPage}">
+	          	<c:choose>
+	          		<c:when test="${!(i == page) }">
+	          			<li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListController.my?page=${i}">
+	          				<c:out value="${i}" />
+	          			</a></li>
+	          		</c:when>
+	          		<c:otherwise>
+	          			<li><a href="#" class="active">
+	          				<c:out value="${i}" />
+	          			</a></li>
+	          		</c:otherwise>
+	          	</c:choose>
+	          </c:forEach>
+	          <c:if test="${next}">
+	          	<li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListController.my?page=${endPage + 1}" class="next">&gt;</a></li>
+	          </c:if>
+	        </ul>
+	      </div>
       
       
       

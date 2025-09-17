@@ -37,53 +37,55 @@ public class UserMyPageDAO {
 		return sqlSession.selectOne("myPage.myPageSelect", memberNumber);
 	}
 
+	
 	// 비밀번호 업데이트
-	public int updatePassword(int memberNumber, String newPassword) {
-	    Map<String, Object> map = new HashMap<>();
-	    map.put("memberNumber", memberNumber);
-	    map.put("memberPassword", newPassword);
-	    return sqlSession.update("myPage.updatePassword", map);
+	public int updatePassword(Map<String, Object> paramMap) {
+	    return sqlSession.update("myPage.updatePassword", paramMap);
 	}
 
 	// 전화번호 업데이트
-	public int updatePhone(int memberNumber, String newPhone) {
+	public int updatePhone(Map<String, Object> paramMap) {
+	    return sqlSession.update("myPage.updatePhone", paramMap);
+	}
+	
+	// 비밀번호 업데이트
+	public int updatePassword(int memberNumber, String memberPassword) {
 	    Map<String, Object> map = new HashMap<>();
 	    map.put("memberNumber", memberNumber);
-	    map.put("memberPhoneNumber", newPhone);
-	    return sqlSession.update("myPage.updatePhone", map);
+	    map.put("memberPassword", memberPassword);
+	    return updatePassword(map); 
 	}
+
+	// 전화번호 업데이트
+	public int updatePhone(int memberNumber, String memberPhone) {
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("memberNumber", memberNumber);
+	    map.put("memberPhone", memberPhone);
+	    return updatePhone(map); 
+	}
+	
+	//회원탈퇴
 	public int delete(int memberNumber) {
         return sqlSession.delete("myPage.withDrawDelete", memberNumber);
     }
-	
 
+	// 음식 구매 내역
+    public List<MyPurchaseDTO> selectMyFoodOrders(Map<String, Integer> pageMap) {
+        return sqlSession.selectList("myOrder.myOrderFoodSelect", pageMap);
+    }
+    // 음식 구매 내역 갯수
+    public int selectMyFoodOrdersCount(Map<String, Integer> pageMap) {
+        return sqlSession.selectOne("myOrder.myOrderFoodCount", pageMap);
+    }
+    
+    // 재료 구매 내역
+    public List<MyPurchaseDTO> selectMyIngreOrders(Map<String, Integer> pageMap) {
+        return sqlSession.selectList("myOrder.myOrderIngreSelect", pageMap);
+    }
 
-    // 음식 구매내역 조회
-    public List<MyPurchaseDTO> myFoodPurchaseList(Map<String, Integer> pageMap){
-    	System.out.println("[개인]내 음식 구매 목록 조회 - myFoodPurchseList 메소드 실행");
-    	List<MyPurchaseDTO> list = sqlSession.selectList("myOrder.myOrderFoodSelect", pageMap);
-    	System.out.println("조회결과 : " + list);
-    	return list;
+    //재료 구매 내역 개수
+    public int selectMyIngreOrdersCount(Map<String, Integer> pageMap) {
+        return sqlSession.selectOne("myOrder.myOrderIngreCount", pageMap);
     }
-    // 음식 구매내역 갯수
-    public int myFoodPurchaseCount(Map<String, Integer> pageMap) {
-    	System.out.println("[개인]내 음식 구매 목록 개수 조회 - myReviewCount 메소드 실행");
-    	int count = sqlSession.selectOne("myOrder.myOrderFoodCount",pageMap);
-    	System.out.println("[개인] 내 음식 구매 수 : "+count);
-    	return count;
-    }
-    // 재료 구매내역
-    public List<MyPurchaseDTO> myIngrePurchaseList(Map<String, Integer> pageMap){
-    	System.out.println("[개인]내 음식 구매 목록 조회 - myIngrePurchaseList 메소드 실행");
-    	List<MyPurchaseDTO> list = sqlSession.selectList("myOrder.myOrderIngreSelect", pageMap);
-    	System.out.println("조회결과 : " + list);
-    	return list;
-    }
-    // 재료 구매내역 갯수
-    public int myIngrePurchaseCount(Map<String, Integer> pageMap) {
-    	System.out.println("[개인]내 음식 구매 목록 개수 조회 - myIngrePurchaseCount 메소드 실행");
-    	int count = sqlSession.selectOne("myOrder.myOrderIngreCount",pageMap);
-    	System.out.println("[개인] 내 음식 구매 수 : "+count);
-    	return count;
-    }
+    
 }

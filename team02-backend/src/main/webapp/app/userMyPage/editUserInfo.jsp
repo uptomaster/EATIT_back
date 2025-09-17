@@ -36,7 +36,7 @@
       <ul class="side_bar">
         <li class="my_page_list_main"><a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.my">내 정보 수정</a></li>
   		<li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListOk.my">음식 구매 내역</a></li>
-  		<li><a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseList.my">재료 구매 내역</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseListOk.my">재료 구매 내역</a></li>
   		<li><a href="${pageContext.request.contextPath}/userMyPage/manageMyPostsList.my">내 글 관리</a></li>
   		<li><a href="${pageContext.request.contextPath}/userMyPage/manageMyCommentsList.my">내 댓글 관리</a></li>
   		<li><a href="${pageContext.request.contextPath}/userMyPage/manageMyReviewsList.my">내 리뷰 관리</a></li>
@@ -75,7 +75,8 @@
 	    <div class="info_menu">새 비밀번호*</div>
 	    <div>
 	      <div class="gray_box">
-	        <input id="new_password" name="newPassword" class="input_info" type="password" placeholder="현재 비밀번호 확인 후 입력 가능">
+	        <input id="new_password" name="newPassword" class="input_info" type="password" placeholder="현재 비밀번호 확인 후 입력 가능" 
+	         value="${param.newPassword != null && param.newPassword != 'null' ? param.newPassword : ''}">
 	      </div>
 	      <!-- 비밀번호 불일치시 안내글 공간  -->
 	      <p id="new_password_error" class="notice_input_wrong_info"></p>
@@ -117,7 +118,8 @@
 	    <div class="info_menu">새 전화번호*</div>
 	    <div>
 	      <div class="gray_box">
-	        <input id="new_phone" name="newPhone" class="input_info" type="text" placeholder="[입력가능] 새 전화번호">
+	        <input id="new_phone" name="newPhone" class="input_info" type="text" placeholder="[입력가능] 새 전화번호"
+	       	 value="${param.newPhone != null && param.newPhone != 'null' ? param.newPhone : ''}">
 	      </div>
 	      <p id="phone_error" class="notice_input_wrong_info" style="color:red;"></p>
 	    </div>
@@ -163,9 +165,7 @@
 	  	  <div class="agreement_buzz">
 		    <a href="${pageContext.request.contextPath}/userMyPage/withdrawalAgreement.my">회원탈퇴</a>
 		  </div>
-		  <button type="submit" class="total_info_save_buzz"
-		   data-member-number="${member.memberNumber}"
-		   data-store-businessnumber="${member.businessNumber}">저장</button>
+		  <button type="button" class="total_info_save_buzz" data-member-number="${member.memberNumber}">저장</button>
 	  </div>
 	</form>
   </main>
