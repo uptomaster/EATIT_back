@@ -48,50 +48,55 @@
       <div>
         <div class="seller_write_review_top">
           <div class="seller_write_review_restaurant_name">가게명</div>
-          <div class="seller_write_review_product_img">상품 이미지</div>
           <div class="seller_write_review_meal_name">음식/재료 명</div>
           <div class="seller_write_review_quantity">수량</div>
           <div class="seller_write_review_price">금액</div>
           <div class="seller_write_review_date">구매 일자</div>
         </div>
         <div class="seller_write_review_comments_list">
-          <div class="seller_write_review_restaurant_name">기수베이커리</div>
-          <div class="seller_write_review_product_img"><img class="seller_write_review_meal_img" src="" alt=""></div>
-          <div class="seller_write_review_meal_name">식빵</div>
-          <div class="seller_write_review_quantity">1</div>
-          <div class="seller_write_review_price">5000원</div>
-          <div class="seller_write_review_date">2025-08-02</div>
+          <div class="seller_write_review_restaurant_name"><c:out value="${order.storeName}"/></div>
+          <div class="seller_write_review_meal_name"><c:out value="${order.itemName}"/></div>
+          <div class="seller_write_review_quantity"><c:out value="${order.orderItemQuantity}"/></div>
+          <div class="seller_write_review_price"><c:out value="${order.ordersTotalAmount}"/>원</div>
+          <div class="seller_write_review_date"><c:out value="${order.ordersDate}"/></div>
         </div>
-        <div class="seller_write_review_set_rank">
-                    <label>별점</label>
-          <div class="review_rating" aria-label="별점 주기" role="radiogroup">
-            <!-- 접근성을 위해 라디오를 사용하되, 시각적으로는 별만 보이도록 처리 -->
-            <input class="review_star_input" type="radio" name="rating" id="rating-5" value="5" />
-            <label class="review_star" for="rating-5" aria-label="5점">★</label>
-            <input class="review_star_input" type="radio" name="rating" id="rating-4" value="4" />
-            <label class="review_star" for="rating-4" aria-label="4점">★</label>
-            <input class="review_star_input" type="radio" name="rating" id="rating-3" value="3" />
-            <label class="review_star" for="rating-3" aria-label="3점">★</label>
-            <input class="review_star_input" type="radio" name="rating" id="rating-2" value="2" />
-            <label class="review_star" for="rating-2" aria-label="2점">★</label>
-            <input class="review_star_input" type="radio" name="rating" id="rating-1" value="1" />
-            <label class="review_star" for="rating-1" aria-label="1점">★</label>
-          </div>
-          <p class="review_rating_help" id="review_rating_text">별점을 선택해주세요</p>
+        <form id="seller_write_review_form" action="${pageContext.request.contextPath}/sellerMyPage/sellerwriteReviewOk.se" method="post">
+          <input type="hidden" value="${order.ordersNumber }" name="ordersNumber">
+          <input type="hidden" value="${order.ordersDate }" name="ordersDate">
+          <input type="hidden" value="${order.memberNumber }" name="memberNumber">
+          <input type="hidden" value="${order.businessNumber }" name="businessNumber">
+          <input type="hidden" value="${order.itemType }" name="itemType">
+          <input type="hidden" name="reviewRating" id="seller_write_review_rating_value" value="0">
+         <div class="seller_write_review_set_rank">
+          <div>별점주기</div>
+          <button class="seller_write_review_counting_Star_button">
+            <img class="seller_write_review_counting_Star" src="${pageContext.request.contextPath}/assets/img/gray_shake_it_ya.png" alt="별점">
+          </button>
+          <button class="seller_write_review_counting_Star_button">
+            <img class="seller_write_review_counting_Star" src="${pageContext.request.contextPath}/assets/img/gray_shake_it_ya.png" alt="별점">
+          </button>
+          <button class="seller_write_review_counting_Star_button">
+            <img class="seller_write_review_counting_Star" src="${pageContext.request.contextPath}/assets/img/gray_shake_it_ya.png" alt="별점">
+          </button>
+          <button class="seller_write_review_counting_Star_button">
+            <img class="seller_write_review_counting_Star" src="${pageContext.request.contextPath}/assets/img/gray_shake_it_ya.png" alt="별점">
+          </button>
+          <button class="seller_write_review_counting_Star_button">
+            <img class="seller_write_review_counting_Star" src="${pageContext.request.contextPath}      /assets/img/gray_shake_it_ya.png" alt="별점">
+          </button>
         </div>
-        <form action="">
-          <div class="seller_write_review_form_group">
+          <!-- <div class="seller_write_review_form_group">
             <label for="title">제목</label>
             <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required />
-          </div>
+          </div> -->
           <div class="seller_write_review_form_group">
             <label for="content">내용</label>
-            <textarea id="content" name="content" rows="10" placeholder="맛, 양, 친절도, 재구매 의사 등을 자유롭게 작성해주세요." required></textarea>
+            <textarea id="content" name="reviewContent" rows="10" placeholder="맛, 양, 친절도, 재구매 의사 등을 자유롭게 작성해주세요." required></textarea>
           </div>
-          <div class="seller_write_review_form_group">
+         <!--  <div class="seller_write_review_form_group">
             <label for="imageUpload">사진 첨부</label>
             <input type="file" id="imageUpload" name="imageUpload" accept="image/*" multiple />
-          </div>
+          </div> -->
           <div class="seller_write_review_button_group">
             <button type="reset" class="seller_write_review_cancel_btn">작성 취소</button>
             <button type="submit" class="seller_write_review_submit_btn">작성 완료</button>

@@ -12,6 +12,9 @@ import javax.servlet.http.HttpSession;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.dto.MemberDTO;
 import com.bapseguen.app.login.dao.LoginDAO;
+import com.bapseguen.app.userMyPage.PhoneCodeController;
+import com.bapseguen.app.userMyPage.UserMypageSMSController;
+import com.bapseguen.app.userMyPage.WithdrawOkController;
 
 /**
  * Servlet implementation class sellerMyPageFrontController
@@ -204,6 +207,30 @@ public class SellerMyPageFrontController extends HttpServlet {
 			System.out.println("[판페f] 판매자 내정보수정 완료 요청");
 			result = new EditSellerInfoOkController().execute(request, response);
 			break;
+		
+		// 휴대폰 인증번호 전송 요청
+		case "/sellerMyPage/sellerMyPageSmsSend.se":
+		    System.out.println("[판페f] 변경할 전화번호 인증번호 전송 요청");
+		    result=new UserMypageSMSController().execute(request, response);
+		    break;	
+		    
+		// 휴대폰 인증번호 
+		case "/sellerMyPage/phoneCode.se":
+			System.out.println("[판페f] 변경할 전화번호 인증번호 전송 요청");
+		    result = new PhoneCodeController().execute(request, response);
+		    break;
+		    
+	    // 탈퇴 동의/비번 확인 페이지 진입
+		case "/sellerMyPage/withdrawalAgreement.se":
+			System.out.println("[판페f] 변경할 전화번호 인증번호 전송 요청");
+		    request.getRequestDispatcher("/app/userMyPage/withdrawalAgreement.jsp").forward(request, response);
+		    break;
+
+	    // 실제 탈퇴 처리
+		case "/sellerMyPage/withdrawOk.se":
+			System.out.println("[판페f] 변경할 전화번호 인증번호 전송 요청");
+		    result = new WithdrawOkController().execute(request, response);
+		    break;
 
 		/********************************************************************/
 			// 원산지 목록 페이지

@@ -47,11 +47,37 @@
 	
 	<!-- 내가 구매한 상품 리뷰 작성 -->
 	<insert id="myReviewInsert" parameterType="ReviewWriteDTO">
+	   <selectKey keyProperty="reviewNumber" resultType="int" order="BEFORE">
+	        SELECT SEQ_REVIEW_NUMBER.NEXTVAL FROM DUAL
+	   </selectKey>
 	  INSERT INTO TBL_REVIEW (REVIEW_NUMBER,ORDERS_NUMBER,BUSINESS_NUMBER,MEMBER_NUMBER,REVIEW_RATING,REVIEW_CONTENT,REVIEW_CREATE_DATE)
 	  VALUES (
-	    SEQ_REVIEW_NUMBER.NEXTVAL,#{ordersNumber},#{businessNumber},#{memberNumber},#{reviewRating},#{reviewContent},SYSDATE
+	    #{reviewNumber},#{ordersNumber},#{businessNumber},#{memberNumber},#{reviewRating},#{reviewContent},SYSDATE
 	  )
 	</insert>
+	
+	<!-- 주문 단건 조회  -->
+	<select id="selectOneOrder" resultType="ReviewWriteDTO">
+	<![CDATA[
+		SELECT
+			o.orders_date                                   AS ordersDate,
+			(oi.order_item_unit_price * oi.order_item_quantity) AS ordersTotalAmount,
+			oi.order_item_quantity                          AS orderItemQuantity,
+			i.item_type AS itemType,
+			i.item_name                                     AS itemName,
+			(SELECT s.store_name
+			       FROM TBL_STORE s
+			      WHERE s.business_number = i.business_number)  AS storeName,
+			oi.ORDER_ITEM_UNIT_PRICE						AS orderItemUnitPrice,
+			o.BUSINESS_NUMBER 			AS businessNumber,
+			o.orders_number 				AS ordersNumber,
+			o.orders_member_number	AS memberNumber
+		FROM TBL_ORDERS o
+		JOIN TBL_ORDER_ITEM oi ON oi.orders_number = o.orders_number
+		JOIN TBL_ITEM i ON i.item_number = oi.item_number
+		WHERE o.ORDERS_NUMBER = #{ordersNumber}
+		]]>
+	</select>
 	
 	
 

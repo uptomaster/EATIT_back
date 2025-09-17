@@ -364,14 +364,20 @@ public class SellerMyPageDAO {
     }
     // === 리뷰 작성 =====
  // 리뷰 저장
-    public int insertReview(ReviewDTO dto) {
-        return sqlSession.insert("review.insertReview", dto); // selectKey로 reviewNumber 세팅됨
+    public void insertReview(ReviewWriteDTO dto) {
+        sqlSession.insert("myReview.myReviewInsert", dto); // selectKey로 reviewNumber 세팅됨
     }
 
     // 이미 리뷰 존재 여부
     public boolean existsReview(Map<String,Object> review) {
-	    Integer cnt = sqlSession.selectOne("review.existsReview", review);
+	    Integer cnt = sqlSession.selectOne("myReview.existsReview", review);
 	    return cnt != null && cnt > 0;
+    }
+    public ReviewWriteDTO selectOneOrder(int ordersNumber) {
+    	System.out.println("[sellerDAO] selectOneOrder");
+    	ReviewWriteDTO dto = sqlSession.selectOne("myReview.selectOneOrder", ordersNumber);
+    	System.out.println(dto);
+    	return dto;
     }
     
 }
