@@ -26,6 +26,7 @@
 
 <body>
   <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
+  
   <main>
     <!-- 좌측 사이드 메뉴 -->
     <div class="store_info_menu">
@@ -222,13 +223,20 @@
         </div> <!-- //원산지  -->
 
         <!-- 재료 메뉴 영역 => 지도 영역 -->
-        <div class="store_info_ingredient"></div>
+        <div class="store_info_ingredient" id="map">
+        
+        </div>
 
       </div> <!-- //오른쪽 영역 -->
 
     </div> <!-- 1100px 영역 끝 -->
   </main>
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
+		<!-- 지도 api -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=937ab213367d17ef8276763fe2a063fb"></script>
+	<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=937ab213367d17ef8276763fe2a063fb&libraries=services,clusterer,drawing"></script>
+	
 </body>
 <script>
   window.foodItemNumber = "${food.itemNumber}";
