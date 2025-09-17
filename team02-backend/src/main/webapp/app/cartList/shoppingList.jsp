@@ -141,7 +141,7 @@
           <!-- 추천 상품 -->
           <c:if test="${not empty recommendedItems}">
             <div class="shopping_recommend">
-              <h4>이 가게의 다른 메뉴도 추천해요 🍽️</h4>
+              <h4>이 가게의 다른 메뉴 🍽️</h4>
               <div class="recommend_list">
                 <c:forEach var="rec" items="${recommendedItems}">
                   <div class="recommend_card">
