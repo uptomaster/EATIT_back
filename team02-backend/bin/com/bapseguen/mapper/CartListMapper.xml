@@ -241,9 +241,65 @@
 		AND CART_NUMBER = (
 		SELECT CART_NUMBER
 		FROM TBL_CART
-		WHERE MEMBER_NUMBER = #{memberNumber}
+		WHERE MEMBER_NUMBER
+		= #{memberNumber}
 		AND CART_ORDER_STATUS = 'OPEN'
 		)
 	</update>
+
+	<!-- 같은 가게 내 다른 추천 상품 조회 -->
+	<select id="selectRecommendedItems" parameterType="map"
+		resultType="com.bapseguen.app.dto.view.ItemWithImgDTO">
+		SELECT i.ITEM_NUMBER,
+		i.ITEM_NAME,
+		i.ITEM_PRICE,
+		(SELECT
+		ii.ITEM_IMAGE_SYSTEM_NAME
+		FROM TBL_ITEM_IMAGE ii
+		WHERE ii.ITEM_NUMBER =
+		i.ITEM_NUMBER
+		FETCH FIRST 1 ROWS ONLY) AS itemImageSystemName
+		FROM
+		TBL_ITEM i
+		WHERE i.BUSINESS_NUMBER = #{businessNumber}
+		AND i.ITEM_NUMBER
+		NOT IN
+		(SELECT ci.ITEM_NUMBER
+		FROM TBL_CART_ITEM ci
+		JOIN TBL_CART c ON
+		ci.CART_NUMBER = c.CART_NUMBER
+		WHERE c.MEMBER_NUMBER = #{memberNumber}
+		AND c.CART_ORDER_STATUS = 'OPEN')
+		AND i.ITEM_SELL_STATE = 'Y'
+		ORDER BY
+		DBMS_RANDOM.VALUE
+		FETCH FIRST 4 ROWS ONLY
+	</select>
+
+	<!-- ITEM_NUMBER → BUSINESS_NUMBER -->
+	<select id="findBusinessNumberByItem" parameterType="int"
+		resultType="string">
+		SELECT BUSINESS_NUMBER
+		FROM TBL_ITEM
+		WHERE ITEM_NUMBER =
+		#{itemNumber}
+	</select>
+
+	<!-- 아이템 재고 조회 -->
+	<select id="selectItemQuantity" parameterType="int"
+		resultType="int">
+		SELECT ITEM_QUANTITY
+		FROM TBL_ITEM
+		WHERE ITEM_NUMBER =
+		#{itemNumber}
+	</select>
+
+	<select id="selectCartItemQuantity" parameterType="map"
+		resultType="int">
+		SELECT CART_ITEM_QUANTITY
+		FROM TBL_CART_ITEM
+		WHERE CART_NUMBER = #{cartNumber}
+		AND ITEM_NUMBER = #{itemNumber}
+	</select>
 
 </mapper>

@@ -31,8 +31,8 @@
                 <div class="buy_store_info">
                     <div class="store_image_wrapper">
                         <c:choose>
-                            <c:when test="${not empty images}">
-                                <img src="${images[0].itemImageSystemName}" alt="${item.itemName}">
+                            <c:when test="${not empty item.storeImageSystemName}">
+                                <img src="${pageContext.request.contextPath}/upload/${item.storeImageSystemName}" alt="${item.storeName}">
                             </c:when>
                             <c:otherwise>
                                 <img src="${pageContext.request.contextPath}/assets/img/food1.jpg" alt="기본 이미지">
@@ -59,9 +59,14 @@
                 <!-- 탭 -->
                 <div class="buy_food">
                     <ul class="buy_food_menu_choice">
-                        <li><a class="active"
-                               href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${item.itemNumber}&tab=FOOD">음식</a></li>
-                        <li><a href="${pageContext.request.contextPath}/orders/ingredientDetail.or?itemNumber=${item.itemNumber}&tab=INGREDIENT">재료</a></li>
+                        <li>
+                            <a class="${param.tab eq 'FOOD' ? 'active' : ''}"
+                               href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${item.itemNumber}&tab=FOOD">음식</a>
+                        </li>
+                        <li>
+                            <a class="${param.tab eq 'INGREDIENT' ? 'active' : ''}"
+                               href="${pageContext.request.contextPath}/orders/ingredientDetail.or?itemNumber=${item.itemNumber}&tab=INGREDIENT">재료</a>
+                        </li>
                     </ul>
 
                     <!-- 상품 목록 -->
@@ -72,7 +77,7 @@
                                     <div class="buy_food_menu_list">
                                         <c:choose>
                                             <c:when test="${not empty p.itemImageSystemName}">
-                                                <img src="${p.itemImageSystemName}" alt="${p.itemName}">
+                                                <img src="${pageContext.request.contextPath}/upload/${p.itemImageSystemName}" alt="${p.itemName}">
                                             </c:when>
                                             <c:otherwise>
                                                 <img src="${pageContext.request.contextPath}/assets/img/food2.jpg" alt="기본 이미지">
@@ -105,7 +110,7 @@
                     <!-- 페이지네이션 -->
                     <div class="pagination">
                         <c:forEach var="i" begin="1" end="${maxPage}">
-                            <a href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${item.itemNumber}&page=${i}"
+                            <a href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${item.itemNumber}&page=${i}&tab=${param.tab}"
                                class="${i == page ? 'active' : ''}">${i}</a>
                         </c:forEach>
                     </div>
