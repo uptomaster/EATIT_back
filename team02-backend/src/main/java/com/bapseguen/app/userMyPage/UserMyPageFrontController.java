@@ -73,7 +73,6 @@ public class UserMyPageFrontController extends HttpServlet {
 		    System.out.println("변경할 전화번호 인증번호 전송 요청");
 		    result=new UserMypageSMSController().execute(request, response);
 		    break;
-        
 		case "/userMyPage/editUserInfoOk.my":
 			System.out.println("내 정보 수정 완료 페이지 처리 요청");
 		    result = new EditUserInfoOkController().execute(request, response);
@@ -86,7 +85,12 @@ public class UserMyPageFrontController extends HttpServlet {
 		case "/userMyPage/ingredientPurchaseListOk.my":
 			System.out.println("마이페이지 음식 구매목록 페이지 처리 요청");
 			result = new IngredientPurchaseListOkController().execute(request, response);
-			break;    
+			break;   
+		case "/userMyPage/writeReviewOk.my":
+			System.out.println("마이페이지 리뷰 작성 페이지 처리 요청");
+			result = new WriteReviewOkController().execute(request, response);
+			break;	
+			
 		case "/userMyPage/myPostListOk.my":
 			System.out.println("마이페이지 내가 쓴 게시글 페이지 처리 요청");
 			result = new MyPostListOkController().execute(request, response);
@@ -100,15 +104,14 @@ public class UserMyPageFrontController extends HttpServlet {
 			result = new MyReviewListOkController().execute(request, response);
 			break;
 			
+			
 		case "/userMyPage/phoneCode.my":
 		    result = new PhoneCodeController().execute(request, response);
 		    break;
-		    
 		case "/userMyPage/withdrawalAgreement.my":
 		    // 탈퇴 동의/비번 확인 페이지 진입
 		    request.getRequestDispatcher("/app/userMyPage/withdrawalAgreement.jsp").forward(request, response);
 		    break;
-
 		case "/userMyPage/withdrawOk.my":
 		    // 실제 탈퇴 처리
 		    result = new WithdrawOkController().execute(request, response);

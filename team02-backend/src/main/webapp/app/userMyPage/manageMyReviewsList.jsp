@@ -46,7 +46,7 @@
         </div>
         <c:choose>
 		    <c:when test="${empty myReviews}">
-		      <div class="managemyposts_no_data">작성한 글이 없습니다.</div>
+		      <div class="managemyposts_no_data">작성한 리뷰가 없습니다.</div>
 		    </c:when>
 		    <c:otherwise>
 		      <c:forEach var="review" items="${myReviews}">

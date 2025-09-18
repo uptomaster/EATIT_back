@@ -55,7 +55,6 @@
     <div class="foodpurchase_all">
       <div class="food_purchase_list_top">
         <div class="food_purchase_list_date">구매날짜</div>
-        <!-- <div class="food_purchase_list_img">이미지</div> -->
         <div class="food_purchase_list_restaurant_name">가게명</div>
         <div class="food_purchase_list_menu_info">상품정보</div>
         <div class="food_purchase_list_how_many">수량</div>

@@ -1,9 +1,5 @@
 @charset "UTF-8";
 
-/* header{
-  width : 1920px;
-  height : 150px;
-} */
 main{
   background-color: #FFF5E4;
   width: 1920px;
@@ -89,11 +85,15 @@ main{
   background-color: white;
   width: 1000px;
   height: 50px;
-  margin: 0 auto;
   font-size: 16px;
   align-items: center;
   display: flex;
   border: 1px solid black;  
+}
+.managemyposts_no_data{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 /* 목록 상세 */
 .managemyreviews_restaurant_name{
@@ -101,21 +101,21 @@ main{
   justify-content: center;
   align-items: center;
   height: 50px;
-  width: 225px;
+  width: 200px;
 }
 .managemyreviews_meal_name{
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50px;
-  width: 225px;
+  width: 250px;
 }
 .managemyreviews_quantity{
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50px;
-  width: 100px;
+  width: 50px;
 }
 .managemyreviews_price{
   display: flex;
@@ -139,7 +139,7 @@ main{
   width: 150px;
 }
 .counting_Star{
-	width:20px;
+  width:20px;
 }
 /* 페이지네이션 */
 .pagination {

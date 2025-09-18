@@ -1,9 +1,5 @@
 @charset "UTF-8";
 
-/* header{
-  width : 1920px;
-  height : 150px;
-} */
 main{
   background-color: #FFF5E4;
   width: 1920px;
@@ -94,9 +90,12 @@ main{
   display: flex;
   border: 1px solid black;
   
-    
 }
-
+.managemyposts_no_data{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 /* 게시글 구분 */
 /* 게시판 제목 */
 .managemyposts_sort{
