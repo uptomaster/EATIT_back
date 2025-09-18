@@ -38,7 +38,7 @@ public class StoreListController implements Execute {
 
         String keyword = request.getParameter("q"); // 검색어 (null 허용)
 
-        int limit = 10;
+        int limit = 8;
         int offset = (page - 1) * limit;
 
         // DAO 호출 

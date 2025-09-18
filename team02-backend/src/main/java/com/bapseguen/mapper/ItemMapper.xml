@@ -195,8 +195,8 @@
 
 	<!-- 상품 상세 조회 -->
 	<select id="selectItemDetail" parameterType="int"
-		resultType="ItemWithImgDTO">
-    <![CDATA[
+		resultType="com.bapseguen.app.dto.view.ItemWithImgDTO">
+<![CDATA[
     SELECT
         i.ITEM_NUMBER       AS itemNumber,
         i.BUSINESS_NUMBER   AS businessNumber,
@@ -208,20 +208,34 @@
         TO_CHAR(i.ITEM_EXPIRE_DATE, 'YYYY-MM-DD') AS itemExpireDate,
         TO_CHAR(i.ITEM_CREATED_TIME, 'YYYY-MM-DD HH24:MI:SS') AS itemCreatedTime,
         TO_CHAR(i.ITEM_UPDATED_TIME, 'YYYY-MM-DD HH24:MI:SS') AS itemUpdatedTime,
-        i.ITEM_SELL_STATE AS itemSellState,
+        i.ITEM_SELL_STATE   AS itemSellState,
         s.STORE_NAME        AS storeName,
         s.STORE_ADDRESS     AS storeAddress,
         s.STORE_ADDRESS_DETAIL AS storeAddressDetail,
         s.STORE_ZIP_CODE    AS storeZipCode,
         s.STORE_TEL         AS storeTel,
-        im.ITEM_IMAGE_SYSTEM_NAME  AS itemImageSystemName,
-        im.ITEM_IMAGE_ORIGINAL_NAME AS itemImageOriginalName
+        (SELECT ii.ITEM_IMAGE_SYSTEM_NAME
+           FROM TBL_ITEM_IMAGE ii
+          WHERE ii.ITEM_NUMBER = i.ITEM_NUMBER
+            AND ROWNUM = 1) AS itemImageSystemName,
+        (SELECT ii.ITEM_IMAGE_ORIGINAL_NAME
+           FROM TBL_ITEM_IMAGE ii
+          WHERE ii.ITEM_NUMBER = i.ITEM_NUMBER
+            AND ROWNUM = 1) AS itemImageOriginalName,
+        (SELECT si.STORE_IMAGE_SYSTEM_NAME
+           FROM TBL_STORE_IMAGE si
+          WHERE si.BUSINESS_NUMBER = s.BUSINESS_NUMBER
+            AND ROWNUM = 1) AS storeImageSystemName,
+        (SELECT si.STORE_IMAGE_ORIGINAL_NAME
+           FROM TBL_STORE_IMAGE si
+          WHERE si.BUSINESS_NUMBER = s.BUSINESS_NUMBER
+            AND ROWNUM = 1) AS storeImageOriginalName
     FROM TBL_ITEM i
     JOIN TBL_STORE s ON i.BUSINESS_NUMBER = s.BUSINESS_NUMBER
-    LEFT JOIN TBL_ITEM_IMAGE im ON i.ITEM_NUMBER = im.ITEM_NUMBER
     WHERE i.ITEM_NUMBER = #{itemNumber}
-    ]]>
+]]>
 	</select>
+
 
 	<!-- 같은 가게의 모든 판매중 상품 조회 -->
 	<select id="selectItemsByBusinessNumber" parameterType="string"
@@ -269,30 +283,36 @@
 		i.ITEM_TYPE AS itemType,
 		i.ITEM_NAME AS itemName,
 		i.ITEM_PRICE AS itemPrice,
-		i.ITEM_CONTENT AS itemContent,
+		i.ITEM_CONTENT AS
+		itemContent,
 		i.ITEM_QUANTITY AS itemQuantity,
 		TO_CHAR(i.ITEM_EXPIRE_DATE, 'YYYY-MM-DD') AS itemExpireDate,
 		i.ITEM_SELL_STATE AS itemSellState,
 		s.STORE_NAME AS storeName,
 		s.STORE_ADDRESS AS storeAddress,
 		s.STORE_TEL AS storeTel,
-		(SELECT ii.ITEM_IMAGE_SYSTEM_NAME
+		(SELECT
+		ii.ITEM_IMAGE_SYSTEM_NAME
 		FROM TBL_ITEM_IMAGE ii
-		WHERE ii.ITEM_NUMBER = i.ITEM_NUMBER
+		WHERE ii.ITEM_NUMBER =
+		i.ITEM_NUMBER
 		FETCH FIRST 1 ROWS ONLY) AS itemImageSystemName
-		FROM TBL_ITEM i
+		FROM
+		TBL_ITEM i
 		JOIN TBL_STORE s ON i.BUSINESS_NUMBER = s.BUSINESS_NUMBER
 		WHERE i.BUSINESS_NUMBER = #{businessNumber}
 		AND i.ITEM_SELL_STATE = 'Y'
 		ORDER BY i.ITEM_NUMBER
-		OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
+		OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS
+		ONLY
 	</select>
 
 	<select id="countItemsByBusinessNumber" parameterType="string"
 		resultType="int">
 		SELECT COUNT(*)
 		FROM TBL_ITEM
-		WHERE BUSINESS_NUMBER = #{businessNumber}
+		WHERE BUSINESS_NUMBER =
+		#{businessNumber}
 		AND ITEM_SELL_STATE = 'Y'
 	</select>
 
