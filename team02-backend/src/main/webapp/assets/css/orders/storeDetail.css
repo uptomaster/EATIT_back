@@ -1,373 +1,400 @@
 @charset "UTF-8";
 
-/* ---------------- 공통 Reset ---------------- */
+/* ---------------- Reset ---------------- */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 li {
-  list-style: none;
+	list-style: none;
 }
 
 body {
-  font-family: "Noto Sans KR", sans-serif;
-  background-color: #FFFDF9; /* 아이보리 톤 */
-  color: #2B2B2B;
-  line-height: 1.6;
+	font-family: "Pretendard", "Noto Sans KR", sans-serif;
+	background: #f2f1ed;
+	color: #2B2B2B;
+	line-height: 1.6;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.2s;
+	color: inherit;
+	text-decoration: none;
+	transition: color .2s;
 }
+
 a:hover {
-  color: #FF924E;
+	color: #FF6B4A;
 }
 
 /* ---------------- 메인 레이아웃 ---------------- */
 #buy_store_detail {
-  width: 100%;
-  padding: 40px 0;
+	width: 100%;
+	padding: 60px 0;
 }
 
 .wrap {
-  width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  gap: 30px;
+	width: 1100px;
+	margin: 0 auto;
+	display: flex;
+	gap: 30px;
 }
 
 /* ---------------- 왼쪽 영역 ---------------- */
 .buy_left_area {
-  flex: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+	flex: 2;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
 }
 
 /* ---------------- 가게 정보 ---------------- */
 .buy_store_info {
-  background: #fff;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  position: relative;
+	background: linear-gradient(135deg, #ffffff 0%, #fff8f3 40%, #ffe1cc 100%);
+	border-radius: 20px;
+	overflow: hidden;
+	box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+	position: relative;
 }
 
 .store_image_wrapper {
-  position: relative;
+	position: relative;
 }
+
 .store_image_wrapper img {
-  width: 100%;
-  height: 280px;
-  object-fit: cover;
+	width: 100%;
+	height: 300px;
+	object-fit: cover;
+	transition: transform .35s ease, filter .35s ease;
+}
+
+.store_image_wrapper img:hover {
+	transform: scale(1.03);
+	filter: brightness(1.08);
 }
 
 /* 찜 버튼 */
 .favorite-btn {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: rgba(255, 255, 255, 0.9);
-  border: none;
-  border-radius: 50%;
-  padding: 10px;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
+	position: absolute;
+	top: 18px;
+	right: 18px;
+	background: rgba(255, 255, 255, 0.95);
+	border: none;
+	border-radius: 50%;
+	padding: 12px;
+	cursor: pointer;
+	transition: all .25s ease;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
+
 .favorite-btn i {
-  font-size: 20px;
-  color: #FF5656;
+	font-size: 22px;
+	color: #FF4E2A;
 }
+
 .favorite-btn:hover {
-  background: #fff;
-  transform: scale(1.1);
+	transform: scale(1.2);
+	background: #fff;
 }
 
 .buy_store_info_detail {
-  padding: 16px 20px;
-}
-.buy_store_name {
-  font-size: 22px;
-  font-weight: bold;
-  color: #222;
-}
-.buy_store_address,
-.buy_store_tel,
-.buy_store_open_time {
-  font-size: 15px;
-  color: #555;
-  margin-top: 6px;
+	padding: 20px 24px;
 }
 
-/* 리뷰 탭 이동 버튼 */
+.buy_store_name {
+	font-size: 24px;
+	font-weight: 800;
+	background: linear-gradient(to right, #ff6b4a, #ffb84d);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.buy_store_address, .buy_store_tel, .buy_store_open_time {
+	font-size: 15px;
+	color: #555;
+	margin-top: 6px;
+}
+
+/* 리뷰 탭 이동 */
 .review-tab-link {
-  margin-top: 12px;
+	margin-top: 14px;
 }
+
 .review-tab-link a {
-  font-size: 14px;
-  font-weight: bold;
-  color: #FF924E;
-  border: 1px solid #FF924E;
-  padding: 6px 12px;
-  border-radius: 6px;
-  transition: all 0.2s;
+	font-size: 14px;
+	font-weight: 700;
+	color: #FF6B4A;
+	border: 1px solid #FF6B4A;
+	padding: 6px 14px;
+	border-radius: 8px;
+	transition: all .25s ease;
 }
+
 .review-tab-link a:hover {
-  background: #FF924E;
-  color: #fff;
+	background: #FF6B4A;
+	color: #fff;
 }
 
 /* ---------------- 탭 ---------------- */
 .buy_food {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
+	background: #fff;
+	border-radius: 20px;
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+	overflow: hidden;
 }
 
 .buy_food_menu_choice {
-  display: flex;
-  background: #FF924E;
+	display: flex;
+	background: linear-gradient(90deg, #ff9c6e, #ff6b4a);
 }
+
 .buy_food_menu_choice li {
-  flex: 1;
-  text-align: center;
+	flex: 1;
+	text-align: center;
 }
+
 .buy_food_menu_choice li a {
-  display: block;
-  padding: 14px 0;
-  color: #fff;
-  font-weight: 600;
-  transition: background 0.2s;
+	display: block;
+	padding: 15px 0;
+	color: #fff;
+	font-weight: 600;
+	transition: all .25s ease;
 }
+
 .buy_food_menu_choice li a.active {
-  background: #FFB84D;
+	background: #ffb84d;
 }
+
 .buy_food_menu_choice li a:hover {
-  background: #ff7722;
+	background: #ff834d;
 }
 
 /* ---------------- 상품 카드 ---------------- */
 .buy_food_menu_list {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-  border-bottom: 1px solid #f3eee8;
+	display: flex;
+	gap: 20px;
+	padding: 22px;
+	border-bottom: 1px solid #f3eee8;
 }
-.buy_food_menu_list img {
-  width: 140px;
-  height: 140px;
-  border-radius: 12px;
-  object-fit: cover;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+
+.food_img_wrapper {
+	position: relative;
 }
+
+.food_img_wrapper img {
+	width: 140px;
+	height: 140px;
+	border-radius: 14px;
+	object-fit: cover;
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
 .buy_each_container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  justify-content: center;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	justify-content: center;
 }
+
 .buy_food_stock {
-  background: #FF5656;
-  color: #fff;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: bold;
-  display: inline-block;
+	background: linear-gradient(135deg, #ff4e50, #d32f2f);
+	color: #fff;
+	padding: 4px 12px;
+	border-radius: 20px;
+	font-size: 13px;
+	font-weight: bold;
+	display: inline-block;
 }
+
 .buy_food_menu_name {
-  font-size: 18px;
-  font-weight: bold;
+	font-size: 18px;
+	font-weight: 700;
+	color: #222;
 }
+
 .price_menu {
-  font-size: 16px;
-  font-weight: bold;
-  color: #FF924E;
+	font-size: 16px;
+	font-weight: 800;
+	color: #FF6B4A;
 }
 
 /* 수량 선택 */
 .buy_food_stock_choice {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+	display: flex;
+	align-items: center;
+	gap: 12px;
 }
+
 .minus, .plus {
-  background: #FFB84D;
-  color: #fff;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  text-align: center;
-  line-height: 28px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s;
+	background: linear-gradient(135deg, #ffb84d, #ff924e);
+	color: #fff;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 30px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: all .25s ease;
 }
+
 .minus:hover, .plus:hover {
-  background: #FF924E;
+	background: #ff6b4a;
 }
+
 .count {
-  font-size: 16px;
-  font-weight: bold;
+	font-size: 16px;
+	font-weight: 700;
 }
+
 .buy_add_cart_btn {
-  background: #333;
-  color: #fff;
-  border-radius: 6px;
-  padding: 6px 14px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: background 0.2s;
+	background: #222;
+	color: #fff;
+	border-radius: 8px;
+	padding: 7px 16px;
+	font-size: 14px;
+	cursor: pointer;
+	transition: all .25s ease;
 }
+
 .buy_add_cart_btn:hover {
-  background: #FF924E;
+	background: #ff6b4a;
 }
 
 /* ---------------- 상품 없을 때 ---------------- */
 .no-items {
-  text-align: center;
-  padding: 30px;
-  color: #777;
-  font-size: 15px;
-}
-
-/* ---------------- 리뷰 리스트 ---------------- */
-.review_list {
-  padding: 20px;
-}
-.buy_review_area {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-  border-bottom: 1px solid #f3eee8;
-  background: #fffaf5;
-  border-radius: 12px;
-  margin-bottom: 16px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-.buy_review_img {
-  width: 100px;
-  height: 100px;
-  border-radius: 8px;
-  object-fit: cover;
-}
-.buy_review_detail {
-  flex: 1;
-}
-.buy_review_detail_top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.buy_review_user_info,
-.buy_review_dates {
-  display: flex;
-  gap: 8px;
-  font-size: 13px;
-  color: #6f5d48;
-}
-.buy_review_id {
-  font-weight: bold;
-  color: #FF924E;
-}
-.buy_review_star img {
-  width: 16px;
-  height: 16px;
-}
-.buy_review_detail h4 {
-  margin: 6px 0;
-  font-size: 15px;
-  font-weight: bold;
-}
-.buy_review_detail p {
-  font-size: 14px;
-  color: #4B3D2A;
-  line-height: 1.5;
+	text-align: center;
+	padding: 40px;
+	color: #777;
+	font-size: 15px;
 }
 
 /* ---------------- 페이지네이션 ---------------- */
 .pagination {
-  text-align: center;
-  padding: 16px 0;
+	text-align: center;
+	padding: 20px 0;
 }
+
 .pagination a {
-  display: inline-block;
-  padding: 6px 12px;
-  margin: 0 3px;
-  border-radius: 20px;
-  font-size: 13px;
-  background: #fff3e6;
-  color: #6a4e00;
-  transition: all 0.2s;
+	display: inline-block;
+	padding: 6px 14px;
+	margin: 0 3px;
+	border-radius: 20px;
+	font-size: 13px;
+	background: #fff3e6;
+	color: #6a4e00;
+	transition: all .25s ease;
 }
+
 .pagination a:hover {
-  background: #FFB84D;
-  color: #fff;
+	background: #ffb84d;
+	color: #fff;
 }
+
 .pagination a.active {
-  background: #FF924E;
-  color: #fff;
+	background: #ff6b4a;
+	color: #fff;
 }
 
 /* ---------------- 오른쪽 영역 ---------------- */
 .buy_map_area {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
 }
+
 .buy_back_store_list {
-  background: #FF924E;
-  padding: 10px;
-  border-radius: 8px;
-  text-align: center;
+	background: linear-gradient(135deg, #ff9c6e, #ff6b4a);
+	padding: 12px;
+	border-radius: 10px;
+	text-align: center;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+
 .buy_back_store_list a {
-  color: #fff;
-  font-weight: bold;
+	color: #fff;
+	font-weight: 700;
 }
+
 .buy_back_store_list:hover {
-  background: #ff7722;
+	background: #ff6b4a;
 }
+
 .buy_origin {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+	background: #fff;
+	border-radius: 18px;
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
+
 .buy_origin_menu {
-  display: flex;
-  border-bottom: 1px solid #eee;
+	display: flex;
+	border-bottom: 1px solid #eee;
 }
+
 .buy_origin_info {
-  flex: 1;
-  text-align: center;
+	flex: 1;
+	text-align: center;
 }
+
 .buy_origin_info a {
-  display: block;
-  padding: 12px 0;
-  font-size: 14px;
-  font-weight: bold;
-  color: #666;
-  transition: background 0.2s;
+	display: block;
+	padding: 14px 0;
+	font-size: 14px;
+	font-weight: 700;
+	color: #666;
+	transition: all .25s ease;
 }
+
 .buy_origin_info a:hover {
-  background: #FFF5E4;
+	background: #fff5e4;
 }
-.buy_origin_store_info,
-.origin_info_inactive {
-  padding: 16px;
+
+.buy_origin_store_info, .origin_info_inactive {
+	padding: 18px;
 }
+
 .buy_origin_content li {
-  margin-bottom: 6px;
-  font-size: 14px;
-  color: #444;
+	margin-bottom: 6px;
+	font-size: 14px;
+	color: #444;
 }
+
 .origin_info_inactive {
-  display: none;
+	display: none;
 }
+
+/* ---------------- 공통 뱃지 ---------------- */
+.badge {
+  position:absolute; 
+  top:10px; left:10px;
+  padding:6px 14px;
+  font-size:13px; 
+  font-weight:700;
+  border-radius:18px; 
+  color:#fff;
+  box-shadow:0 3px 8px rgba(0,0,0,0.15);
+  display:flex; 
+  align-items:center; 
+  gap:6px;           /* 아이콘과 텍스트 사이 간격 */
+}
+
+/* 마감임박 - 강렬한 레드 + ⏰ */
+.badge.urgent {
+  background:linear-gradient(135deg,#ff4e50,#d32f2f);
+}
+.badge.urgent::before { content:"⏰"; }
+
+/* 할인추천 - 따뜻한 오렌지 + 💸 */
+.badge.sale {
+  background:linear-gradient(135deg,#ffb74d,#ff9800);
+}
+.badge.sale::before { content:"💸"; }
+
+/* 신선 - 청량한 그린 + 🥬 */
+.badge.fresh {
+  background:linear-gradient(135deg,#43a047,#81c784);
+}
+.badge.fresh::before { content:"🥬"; }
