@@ -90,10 +90,26 @@
         AND NVL(C.COMMENT_DELETE_STATE,0) = 0
       ORDER BY C.COMMENTED_DATE DESC
     </select> -->
-    
-    
+
+    <!-- 작성자가 쓴 댓글 삭제 -->
+    <delete id="deleteUserComments" parameterType="int">
+	    DELETE FROM TBL_COMMENT
+	    WHERE MEMBER_NUMBER = #{memberNumber}
+	</delete>
+	<!-- 작성자가 쓴 리뷰 삭제 -->
+	<delete id="deleteUserReviews" parameterType="int">
+	    DELETE FROM TBL_REVIEW
+	    WHERE MEMBER_NUMBER = #{memberNumber}
+	</delete>
+	<!-- 작성자가 쓴 게시글 삭제  -->
+	<delete id="deleteUserPosts" parameterType="int">
+	    DELETE FROM TBL_POST
+	    WHERE MEMBER_NUMBER = #{memberNumber}
+	</delete>
+	<!-- 회원탈퇴 -->
 	<delete id="withDrawDelete" parameterType="int">
     DELETE FROM TBL_MEMBER
      WHERE MEMBER_NUMBER = #{memberNumber}
     </delete>
+    
 </mapper>

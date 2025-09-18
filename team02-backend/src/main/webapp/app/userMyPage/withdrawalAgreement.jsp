@@ -24,52 +24,57 @@
     <div class="withdrawalagreement_my_page_list">
       <div class="withdrawalagreement_my_page">마이 페이지</div>
       <ul class="withdrawalagreement_side_bar">
-        <li><a href="${pageContext.request.contextPath}/UserMyPage/editUserInfo.my">내 정보 수정</a></li>
-        <li><a href="${pageContext.request.contextPath}/UserMyPage/foodPurchaseList.my">음식 구매 내역</a></li>
-        <li><a href="${pageContext.request.contextPath}/UserMyPage/ingredientPurchaseList.my">재료 구매 내역</a></li>
-        <li><a href="${pageContext.request.contextPath}/UserMyPage/manageMyPostsList.my">내 글 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/UserMyPage/manageMyCommentsList.my">내 댓글 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/UserMyPage/manageMyReviewsList.my">내 리뷰 관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.my">내 정보 수정</a></li>
+        <li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListOk.my">음식 구매 내역</a></li>
+        <li><a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseListOk.my">재료 구매 내역</a></li>
+        <li><a href="${pageContext.request.contextPath}/userMyPage/myPostListOk.my">내 글 관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/userMyPage/myCommentsListOk.my">내 댓글 관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/userMyPage/myReviewListOk.my">내 리뷰 관리</a></li>
       </ul>
     </div>
-    <form class="withdrawalagreement" action="${pageContext.request.contextPath}/UserMyPage/withdrawOk.my" method="post">
+    <form class="withdrawalagreement" action="${pageContext.request.contextPath}/userMyPage/withdrawOk.my" method="post">
       <div class="withdrawalagreement_agreement_page">
         <h2>회원탈퇴동의</h2>
 
         <div class="withdrawalagreement_two_box">
-          <!-- 현재 비밀번호 -->
-          <div class="withdrawalagreement_box_set">
-            <div class="withdrawalagreement_password_now">비밀번호</div>
-            <div class="withdrawalagreement_gray_box">
-              <input id="passwordInput" name="password" class="withdrawalagreement_input_info" type="password" placeholder="현재 비밀번호 입력" required />
-              <c:if test="${not empty pwError}">
-                <p class="notice_input_wrong_info" style="color:#e53935;">${pwError}</p>
-              </c:if>
-            </div>
-          </div>
-
+          
+          <!-- 비밀번호 입력 -->
+	      <div class="withdrawalagreement_box_set">
+	        <div class="withdrawalagreement_password_now">비밀번호</div>
+	        <div class="withdrawalagreement_gray_box">
+	          <input id="passwordInput" name="password" class="withdrawalagreement_input_info" type="password" placeholder="현재 비밀번호 입력" required />
+	          <c:if test="${not empty pwError}">
+	            <p class="notice_input_wrong_info">${pwError}</p>
+	          </c:if>
+	        </div>
+	      </div>
+          
           <!-- 동의 라디오 -->
-          <div class="withdrawalagreement_box_set">
-            <div class="withdrawalagreement_password_now">탈퇴 동의</div>
-            <div class="withdrawalagreement_gray_box">
-              회원탈퇴에 동의하십니까?
-              <label style="margin-left:8px;">
-                <input type="radio" name="agree" value="yes"> 예, 동의합니다
-              </label>
-              <c:if test="${not empty agreeError}">
-                <p class="notice_input_wrong_info" style="color:#e53935;">${agreeError}</p>
-              </c:if>
-            </div>
-          </div>
+	      <div class="withdrawalagreement_box_set">
+	        <div class="withdrawalagreement_password_now">탈퇴 동의</div>
+	        <div class="withdrawalagreement_gray_box">
+	          회원탈퇴에 동의하십니까?
+	          <label class="agree_label">
+	            <input type="radio" name="agree" value="yes"> 예, 동의합니다
+	          </label>
+	          <c:if test="${not empty agreeError}">
+	            <p class="notice_input_wrong_info">${agreeError}</p>
+	          </c:if>
+	        </div>
+	      </div>
+	      
+	      
+          
 
           <!-- 버튼 -->
           <div class="withdrawalagreement_buzz_set">
             <button type="submit" id="withdrawBtn" class="withdrawalagreement_agreement_buzz">회원탈퇴</button>
             <div class="withdrawalagreement_cancle_buzz">
-              <a href="${pageContext.request.contextPath}/UserMyPage/editUserInfo.my">취소</a>
+              <a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.my">취소</a>
             </div>
           </div>
-        </div>
+    
+      	</div>
       </div>
     </form>
   </main>

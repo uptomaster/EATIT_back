@@ -113,7 +113,7 @@ public class UserMyPageFrontController extends HttpServlet {
 		    request.getRequestDispatcher("/app/userMyPage/withdrawalAgreement.jsp").forward(request, response);
 		    break;
 		case "/userMyPage/withdrawOk.my":
-		    // 실제 탈퇴 처리
+			System.out.println("마이페이지 탈퇴 처리 페이지 처리 요청");
 		    result = new WithdrawOkController().execute(request, response);
 		    break;
 		    

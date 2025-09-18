@@ -60,11 +60,6 @@ public class UserMyPageDAO {
 	    map.put("memberPhone", memberPhone);
 	    return updatePhone(map); 
 	}
-	
-	//회원탈퇴
-	public int delete(int memberNumber) {
-        return sqlSession.delete("myPage.withDrawDelete", memberNumber);
-    }
 
 	// 음식 구매 내역
     public List<MyPurchaseDTO> selectMyFoodOrders(Map<String, Integer> pageMap) {
@@ -112,5 +107,16 @@ public class UserMyPageDAO {
     public int myReviewCount(int memberNumber) {
         return sqlSession.selectOne("myReview.myReviewCount", memberNumber);
     }
-    
+
+	//회원탈퇴
+//	public int delete(int memberNumber) {
+//        return sqlSession.delete("myPage.withDrawDelete", memberNumber);
+//    }
+	//작성한 게시글,리뷰,댓글 삭제 후 회원 삭제
+    public void withdrawMember(int memberNumber) {
+    	sqlSession.delete("myPage.deleteUserComments", memberNumber);
+        sqlSession.delete("myPage.deleteUserReviews", memberNumber);
+        sqlSession.delete("myPage.deleteUserPosts", memberNumber);
+        sqlSession.delete("myPage.withDrawDelete", memberNumber);
+    }
 }
