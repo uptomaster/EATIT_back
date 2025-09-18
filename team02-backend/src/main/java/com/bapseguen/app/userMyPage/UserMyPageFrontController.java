@@ -96,7 +96,7 @@ public class UserMyPageFrontController extends HttpServlet {
 			result = new MyCommentsListOkController().execute(request, response);
 			break;
 		case "/userMyPage/myReviewListOk.my":
-			System.out.println("마이페이지 내가 쓴 댓글 페이지 처리 요청");
+			System.out.println("마이페이지 내가 쓴 리뷰 페이지 처리 요청");
 			result = new MyReviewListOkController().execute(request, response);
 			break;
 			

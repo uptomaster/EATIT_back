@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,21 +44,6 @@
           <div class="managemyreviews_date">작성 일자</div>
           <div class="managemyreviews_grade">평점</div>
         </div>
-        <div class="managemyreviews_comments_list">
-          <div class="managemyreviews_restaurant_name">기수베이커리</div>
-          <div class="managemyreviews_meal_name">식빵</div>
-          <div class="managemyreviews_quantity">1</div>
-          <div class="managemyreviews_price">5000원</div>
-          <div class="managemyreviews_date">2025-08-02</div>
-          <div class="managemyreviews_grade">
-            <img class="counting_Star" src="${pageContext.request.contextPath}/assets/img/counting_Star.png" alt="">
-            <img class="counting_Star" src="${pageContext.request.contextPath}/assets/img/counting_Star.png" alt="">
-            <img class="counting_Star" src="${pageContext.request.contextPath}/assets/img/counting_Star.png" alt="">
-            <img class="counting_Star" src="${pageContext.request.contextPath}/assets/img/counting_Star.png" alt="">
-            <img class="counting_Star" src="${pageContext.request.contextPath}/assets/img/counting_Star.png" alt="">
-          </div>
-        </div>
-        
         <c:choose>
 		    <c:when test="${empty myReviews}">
 		      <div class="managemyposts_no_data">작성한 글이 없습니다.</div>
@@ -88,11 +73,6 @@
 		      </c:forEach>
 		    </c:otherwise>
 		  </c:choose>
-        
-        
-        
-        
-        
       </div>
     
       
@@ -100,13 +80,13 @@
 	    <div class="pagination">
 	        <ul>
 	          <c:if test="${prev}">
-	          	<li><a href="${pageContext.request.contextPath}/userMyPage/myPostListOk.my?page=${startPage - 1}" class="prev">&lt;</a></li>
+	          	<li><a href="${pageContext.request.contextPath}/userMyPage/myReviewListOk.my?page=${startPage - 1}" class="prev">&lt;</a></li>
 	          </c:if>
 	          <c:set var="realStartPage" value="${startPage < 0 ? 0 : startPage}" />
 	          <c:forEach var="i" begin="${realStartPage}" end="${endPage}">
 	          	<c:choose>
 	          		<c:when test="${!(i == page) }">
-	          			<li><a href="${pageContext.request.contextPath}/userMyPage/myPostListOk.my?page=${i}">
+	          			<li><a href="${pageContext.request.contextPath}/userMyPage/myReviewListOk.my?page=${i}">
 	          				<c:out value="${i}" />
 	          			</a></li>
 	          		</c:when>
@@ -118,7 +98,7 @@
 	          	</c:choose>
 	          </c:forEach>
 	          <c:if test="${next}">
-	          	<li><a href="${pageContext.request.contextPath}/userMyPage/myPostListOk.my?page=${endPage + 1}" class="next">&gt;</a></li>
+	          	<li><a href="${pageContext.request.contextPath}/userMyPage/myReviewListOk.my?page=${endPage + 1}" class="next">&gt;</a></li>
 	          </c:if>
 	        </ul>
 	     </div>
