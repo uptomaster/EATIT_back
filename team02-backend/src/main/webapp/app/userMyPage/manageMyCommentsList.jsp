@@ -35,7 +35,7 @@
         <li><a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseListOk.my">재료 구매 내역</a></li>
         <li><a href="${pageContext.request.contextPath}/userMyPage/myPostListOk.my">내 글 관리</a></li>
         <li  class="managemycomments_main"><a href="${pageContext.request.contextPath}/userMyPage/myCommentsListOk.my">내 댓글 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/manageMyReviewsList.jsp">내 리뷰 관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/userMyPage/myReviewListOk.my">내 리뷰 관리</a></li>
       </ul>
     </div>
     <!-- 1100px 영역 -->
@@ -94,8 +94,8 @@
 		      </c:forEach>
 		    </c:otherwise>
 		  </c:choose>
-		  
-        
+		
+		
       </div>
       <!-- 페이지네이션 (하단 페이지 넘기기) -->
 	    <div class="pagination">

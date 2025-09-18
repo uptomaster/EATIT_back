@@ -10,6 +10,7 @@ import com.bapseguen.app.dto.view.CommentListDTO;
 import com.bapseguen.app.dto.view.MyPageDTO;
 import com.bapseguen.app.dto.view.MyPurchaseDTO;
 import com.bapseguen.app.dto.view.PostDetailDTO;
+import com.bapseguen.app.dto.view.ReviewWriteDTO;
 import com.bapseguen.config.MyBatisConfig;
 
 public class UserMyPageDAO {
@@ -93,6 +94,7 @@ public class UserMyPageDAO {
     public int getMyPostCount(int memberNumber) {
         return sqlSession.selectOne("myPage.getMyPostCount", memberNumber);
     }
+    
     // 내가 작성한 댓글 조회
     public List<CommentListDTO> myCommentSelect(Map<String, Object> paramMap) {
         return sqlSession.selectList("myComment.myCommentSelect", paramMap);
@@ -100,6 +102,15 @@ public class UserMyPageDAO {
     // 내가 작성한 댓글 수 조회
     public int myCommentCount(int memberNumber) {
         return sqlSession.selectOne("myComment.myCommentCount", memberNumber);
+    }
+    
+    // 내가 작성한 리뷰 조회
+    public List<ReviewWriteDTO> myReviewSelect(Map<String, Object> paramMap) {
+        return sqlSession.selectList("myReview.myReviewSelect", paramMap);
+    }
+    //내가 작성한 리뷰 수 조회
+    public int myReviewCount(int memberNumber) {
+        return sqlSession.selectOne("myReview.myReviewCount", memberNumber);
     }
     
 }
