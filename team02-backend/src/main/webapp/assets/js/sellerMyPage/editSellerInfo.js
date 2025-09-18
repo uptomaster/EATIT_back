@@ -38,13 +38,13 @@ document.addEventListener('DOMContentLoaded', () => {
   if (currentPasswordInput) {
     const checkCurrentPassword = () => {
       const entered = currentPasswordInput.value.trim();
+			console.log(entered)
       if (entered === "") {
         currentPasswordError.textContent = "";
         newPasswordInput.readOnly = true;
         confirmPasswordInput.readOnly = true;
         return;
       }
-			console.log(entered)
       fetch(`/sellerMyPage/checkPwOk.se?currentPassword=${encodeURIComponent(entered)}`)
         .then(res => res.json())
         .then(data => {
@@ -65,9 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     currentPasswordInput.addEventListener("keydown", e => {
-      if (e.key === "Enter") {
+			 if (e.key === "Enter") {
         e.preventDefault();
         checkCurrentPassword();
+     		console.log(currentPasswordInput.value);
       }
     });
     currentPasswordInput.addEventListener("input", checkCurrentPassword);
@@ -76,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- 새 비밀번호 유효성 검사 ---
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,16}$/;
     if (newPasswordInput && newPasswordError) {
+			console.log('newPasswordInput'+newPasswordInput.value)
       newPasswordInput.addEventListener("input", () => {
         if (!passwordRegex.test(newPasswordInput.value)) {
           newPasswordError.textContent = "8~16자 영문/숫자/특수문자 포함";
@@ -89,6 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 새 비밀번호 확인 ---
     if (confirmPasswordInput) {
+			console.log('confirmPasswordInput'+confirmPasswordInput.value)
       const checkPasswordMatch = () => {
         if (confirmPasswordInput.value !== newPasswordInput.value) {
           confirmPasswordError.textContent = "비밀번호가 일치하지 않습니다.";
@@ -106,6 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 전화번호 숫자만 허용 ---
     if (phoneInput) {
+			console.log('phoneInput'+phoneInput.value)
       phoneInput.addEventListener("input", () => {
         phoneInput.value = phoneInput.value.replace(/\D/g, '');
         if (phoneError){ phoneError.textContent = ""; alert("전화번호는 숫자만만 입력해주세요");}
@@ -141,6 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
       checkCodeBtn.addEventListener("click", e => {
         e.preventDefault();
         const code = codeInput.value.trim();
+				console.log(code);
         if (!code) return;
         fetch(`/userMyPage/userMyPageSmsSend.my?mode=check&phoneCode=${encodeURIComponent(code)}`)
           .then(res => res.text())
@@ -161,6 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
 	const validateTime = (el, TimeError) => {
 	  const timevalue = (el?.value || "").trim();
+		console.log(timevalue);
 	  if (!timevalue) { if (TimeError) TimeError.textContent = ""; return true; }
 	  if (!timeRegex.test(timevalue)) {
 	    if (TimeError) { TimeError.textContent = "형식은 00:00 (24시간) 입니다."; TimeError.style.color = "red"; }

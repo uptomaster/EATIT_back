@@ -67,3 +67,40 @@ var marker = new kakao.maps.Marker({
 
 // 마커가 지도 위에 표시되도록 설정합니다
 marker.setMap(map);
+
+
+const storeImageChangeBtns = document.querySelectorAll('.store_info_edit_btns');
+
+// 1) 필요한 엘리먼트 캐싱 (기존 id/클래스명 절대 변경 X)
+const changeBtns = document.querySelectorAll('.store_info_edit_btns'); // 업로드 트리거 버튼(들)
+const form       = document.getElementById('store_image_form');       // 숨김 업로드 폼
+const fileInput  = document.getElementById('store_image_file');       // 파일 input
+const img        = document.getElementById('store_main_img');         // 현재 노출 중인 가게 이미지
+const preview    = document.getElementById('store_preview_img');      // 미리보기 이미지(초기 display:none)
+
+
+
+/*// 2) 버튼 클릭 → 파일 선택창 열기
+changeBtns.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();           // a/button 기본 동작 차단
+    fileInput.click();            // 숨김 input 클릭 트리거
+  });
+});*/
+
+// 3) 파일 선택 시: 간단 유효성 검사 → 미리보기 → 즉시 업로드
+fileInput.addEventListener('change', () => {
+  const file = fileInput.files && fileInput.files[0];
+  if (!file) return;
+
+
+  // (B) 화면 즉시 반영(미리보기) - 기존 이미지는 지우지 않고 보존
+  const url = URL.createObjectURL(file);
+  preview.src = url;
+  preview.style.display = 'block';
+
+  // (C) 서버 전송: 반드시 .se 서블릿 경로(폼 action)로 제출 (MVC2 규칙)
+  //  - 컨트롤러에서: 기존 이미지 DB/파일 삭제 → 새 이미지 저장/재등록 → storeInfo.se로 리다이렉트
+  form.submit();
+});
+

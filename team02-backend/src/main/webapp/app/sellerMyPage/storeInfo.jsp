@@ -50,18 +50,23 @@
 
         <div class="store_info_store_info">
           <!-- 가게 이미지 -->
-          <img src="${pageContext.request.contextPath}/assets/img/store.jpg" alt="가게 이미지 추가하기">
-          <%-- <img src="${pageContext.request.contextPath}/upload/${storeImage.storeImageSystemName}" alt="가게 이미지 추가하기"> --%>
+          <%-- <img src="${pageContext.request.contextPath}/assets/img/store.jpg" alt="가게 이미지 추가하기"> --%>
+          <img src="${pageContext.request.contextPath}/upload/${images.storeImageSystemName}" alt="가게 이미지 추가하기"> 
           <div class="store_info_store_info_detail">
-            <p class="store_info_store_name">가게명</p>
-            <p class="store_info_store_address">가게 주소</p>
-            <p class="store_info_store_open_time">영업시간 00:00~00:00</p>
+            <p class="store_info_store_name">${storeInfo.storeName }</p>
+            <p class="store_info_store_address"><c:out value="${storeInfo.storeAddress} ${ storeInfo.storeAddressDetail}"/></p>
+            <p class="store_info_store_open_time">영업시간  ${storeInfo.storeOpenTime } ~ ${storeInfo.storeCloseTime }</p>
           </div>
           <!-- 가게정보, 이미지 수정 버튼 -->
           <div class="store_info_edit_btns">
-            <input type="file" id="edit_store_img" accept="image/*">
+            <!-- <input type="file" id="edit_store_img" accept="image/*"> -->
+            <a href="${pageContext.request.contextPath}/sellerMyPage/storeImage.se?businessNumber=${storeInfo.businessNumber}">
+              <div id="edit_store_info_btn">상세</div>
+            </a>
+            <!-- <button type="button" id="edit_store_info_btn"
+            onclick="location.href='/sellerMyPage/storeImage.se'">가게 사진</button> -->
             <button type="button" id="edit_store_info_btn"
-            onclick="location.href='${pageContext.request.contextPath}/sellerMyPage/editSellerInfo.se'">수정</button>
+            onclick="location.href='/sellerMyPage/editSellerInfo.se'">수정</button>
           </div>
         </div>
 
@@ -69,7 +74,7 @@
         <div class="store_info_food">
           <!-- 메뉴/재료/리뷰 탭바 -->
           <ul class="buy_food_menu_choice">
-            <li><a class="link_menu" href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se">메뉴</a></li>
+            <li><a class="link_menu" href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se" style = "color : #444;">메뉴</a></li>
             <li><a class="link_ingredient" href="${pageContext.request.contextPath}/sellerMyPage/storeIngre.se">재료</a></li>
             <li><a class="link_review" href="${pageContext.request.contextPath}/sellerMyPage/storeReview.se">리뷰 보기</a></li>
           </ul>
@@ -129,40 +134,39 @@
               </c:otherwise>
             </c:choose>
           </div> <!--  //메뉴 출력 끝 -->
-
-          <!-- 페이지네이션 자리 -->
-          <div class="seller_store_info_pagination">
-            <ul class="seller_store_info_pagination_ul">
-              <c:if test="${prev}">
-                <li>
-                  <a href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?page=${startPage - 1}" class="prev">&lt;</a>
-                </li>
-              </c:if>
-              <c:set var="realStartPage" value="${startPage < 0 ? 0 : startPage}" />
-              <c:forEach var="i" begin="${realStartPage}" end="${endPage}">
-                <c:choose>
-                  <c:when test="${!(i == page) }">
-                    <li>
-                      <a class="pagination_item" href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?page=${i}">
-                        <c:out value="${i}" />
-                      </a>
-                    </li>
-                  </c:when>
-                  <c:otherwise>
-                    <li>
-                      <a href="#" class="active"><c:out value="${i}" /></a>
-                    </li>
-                  </c:otherwise>
-                </c:choose>
-              </c:forEach>
-              <c:if test="${next}">
-                <li>
-                  <a href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?page=${endPage + 1}" class="next">&gt;</a>
-                </li>
-              </c:if>
-            </ul>
-          </div> <!-- 페이지네이션 끝 -->
-        </div>
+ 				</div>
+          <!-- 페이지네이션 자리 (요청하신 블록: 변경 없이 그대로 삽입) -->
+		      <div class="pagination">
+		        <ul class="pagination_ul">
+		          <c:if test="${prev}">
+		            <li><a
+		              href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?page=${startPage - 1}"
+		              class="prev">&lt;</a></li>
+		          </c:if>
+		          <c:set var="realStartPage" value="${startPage < 0 ? 0 : startPage}" />
+		          <c:forEach var="i" begin="${realStartPage}" end="${endPage}">
+		          	<c:choose>
+		          		<c:when test="${!(i == page) }">
+		          			<li><a href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?page=${i}">
+		          				<c:out value="${i}" />
+		          			</a></li>
+		          		</c:when>
+		          		<c:otherwise>
+		          			<li><a href="#" class="active">
+		          				<c:out value="${i}" />
+		          			</a></li>
+		          		</c:otherwise>
+		          	</c:choose>
+		          </c:forEach>
+		          <c:if test="${next}">
+		            <li><a
+		              href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?page=${endPage + 1}"
+		              class="next">&gt;</a>
+		          </c:if>
+		        </ul>
+		      </div>
+		      <!-- 페이지네이션 끝 -->
+       
       </div> <!--  //왼쪽 -->
 
       <!-- 오른쪽 부분 -->
@@ -181,12 +185,12 @@
               <li>가게 전화전호</li>
               <li>개업일</li>
             </ul>
-            <ul class="store_info_content">
-              <li>내가게</li>
-              <li>000-00-00000</li>
-              <li>서울시 강남구</li>
-              <li>02-000-0000</li>
-              <li>2025년 08월 00일</li>
+            <ul class="store_info_content" id="store_detail_info">
+              <li>${storeInfo.storeName }</li>
+              <li>${storeInfo.businessNumber }</li>
+              <li><c:out value="${storeInfo.storeAddress } ${storeInfo.storeAddressDetail }"/></li>
+              <li>${storeInfo.storeTel }</li>
+              <li>${storeInfo.storeOpenDate }</li>
             </ul>
           </div>
         </div> <!--  //가게 상세 정보  -->
@@ -223,7 +227,7 @@
         </div> <!-- //원산지  -->
 
         <!-- 재료 메뉴 영역 => 지도 영역 -->
-        <div class="store_info_ingredient" id="map">
+        <div id="map">
         
         </div>
 

@@ -161,7 +161,7 @@ public class SellerMyPageDAO {
         return sqlSession.selectOne("storeManage.detaileIngredient", itemNumber);
     }
     //재료 판매 수정
-    public int editIngredient(ItemListDTO dto) {
+    public int editIngredient(ItemInsertDTO dto) {
     	System.out.println("[판페DAO] 재료판매수정 - editIngredient 메소드 실행");
     	System.out.println("itemDTO : "+ dto);
     	

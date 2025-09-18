@@ -34,28 +34,27 @@
 	
 	<!-- 가게 사진 -->
 	<!-- 파일 추가 -->
-	<insert id="storeInsert" parameterType="ItemImageDTO">
-		INSERT INTO TBL_ITEM_IMAGE(
-			STORE_IMAGE_SYSTEM_NAME ,
-			SOTRE_IMAGE_ORIGINAL_NAME,
-			STORE_NUMBER )
-		VALUES (#{itemImageSystemNumber}, #{itemImageOriginNumber},#{itemNumber})	
+	<insert id="storeInsert" parameterType="StoreImageDTO">
+		<selectKey keyProperty="storeImageNumber" resultType="int" order="BEFORE">
+		SELECT SEQ_STORE_IMAGE_NUMBER.NEXTVAL FROM dual
+		</selectKey>
+		INSERT INTO TBL_STORE_IMAGE
+		(STORE_IMAGE_NUMBER, STORE_IMAGE_SYSTEM_NAME, 
+		STORE_IMAGE_ORIGINAL_NAME, BUSINESS_NUMBER)
+		VALUES(#{storeImageNumber}, #{storeImageSystemName}, #{storeImageOriginalName}, #{businessNumber})
 	</insert>
 	
 	<!-- 파일 조회 -->
-	<select id="storeSelect" parameterType="int" resultType="ItemImageDTO">
-		SELECT 
-			STORE_IMAGE_SYSTEM_NAME ,
-			STORE_IMAGE_ORIGINAL_NAME,
-			STORE_NUMBER
-		FROM TBL_ITEM_IMAGE
-		WHERE ITEM_NUMBER = #{itemNumber}
+	<select id="storeSelect" parameterType="String" resultType="StoreImageDTO">
+		SELECT STORE_IMAGE_NUMBER, STORE_IMAGE_SYSTEM_NAME, STORE_IMAGE_ORIGINAL_NAME, BUSINESS_NUMBER
+		FROM TBL_STORE_IMAGE
+		WHERE BUSINESS_NUMBER = #{businessNumber}
 	</select>
 	
 	<!-- 파일 삭제 -->
-	<delete id="storeDelete" parameterType="int">
+	<delete id="storeDelete" parameterType="String">
 		DELETE FROM TBL_STORE_IMAGE
-		WHERE STORE_NUMBER = #{storeNumberdd}
+		WHERE BUSINESS_NUMBER=#{businessNumber}
 	</delete>
 
 </mapper>

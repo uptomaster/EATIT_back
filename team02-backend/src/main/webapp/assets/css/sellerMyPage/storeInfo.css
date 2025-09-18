@@ -99,6 +99,7 @@ main {
 }
 
 /* 가게 이미지 */
+.store_preview_img,
 .store_info_store_info>img {
   width: 530px;
   height: 300px;
@@ -130,7 +131,7 @@ input[type='file']::file-selector-button,
 
 /*  */
 .store_info_store_info_detail {
-  width: 250px;
+  width: 400px;
   height: 100px;
   /* border: 1px solid hotpink; */
   margin-left: 30px;
@@ -170,14 +171,8 @@ input[type='file']::file-selector-button,
   font-size: 20px;
 }
 /* 현재 위치 강조 (메뉴) */
-.link_menu {
-  color: #444;
-  display: block;
-  text-decoration: none;
-  font-size: 20px;
-  font-weight: bold;
-}
 /* 탭바 글씨  */
+.link_menu,
 .link_ingredient,
 .link_review {
   display: block;
@@ -203,7 +198,7 @@ input[type='file']::file-selector-button,
 /* 메뉴영역 큰 묶음 */
 .store_info_food {
   width: 530px;
-  height: 630px;
+	height: 830px;
   background-color: white;
   border-radius: 10px;
   /* border:1px solid black; */
@@ -251,7 +246,7 @@ input[type='file']::file-selector-button,
 /* 구매 메뉴 */
 .store_info_food_menu_list {
   width: 450px;
-  height: 150px;
+  height: 140px;
   /* border: 1px solid red; */
   display: flex;
   margin: 10px auto;
@@ -399,6 +394,9 @@ input[type='file']::file-selector-button,
   height: 80px;
   margin-left: 30px;
 }
+.store_info_ingredient_menu_info >h3 {
+	margin : 5px 0px;
+}
 
 .store_info_ingredient_stock_choice {
   width: 260px;
@@ -513,6 +511,9 @@ input[type='file']::file-selector-button,
 .store_info_content>li:first-child {
   font-weight: bold;
 }
+#store_detail_info{
+	width : 400px;
+}
 
 /* 원산지 수정 버튼 */
 #edit_store_origin_btn {
@@ -525,19 +526,32 @@ input[type='file']::file-selector-button,
   margin: 0px 15px;
 }
 
-/* 페이지네이션 */
-.seller_myposts_pagination{
-  display: flex;
-  justify-self: center;
-  position: relative;
-	margin-top : 15px;
+
+/* ============ 지도 api ==========  */
+#map {
+	width: 530px;
+  height: 850px;
+  background-color: white;
+  border-radius: 10px;
+  /* border:1px solid black; */
+  margin: 10px auto;
 }
-.seller_myposts_pagination_ul{
+
+/* ============ 페이지네이션 ==========  */
+/* 페이지네이션 위치 잡기 */
+.pagination {
   display: flex;
-	list-style: none;
-  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
-.seller_myposts_pagination_ul > li{
+/* 페이지네이션 ul 마크 제거 */
+.pagination > ul {
+  display: flex;
+  list-style: none;
+  gap: 10px;
+}
+/* 페이지네이션 요소 */
+.pagination a {
   width: 32px;
   height: 32px;
   background-color: white;
@@ -550,13 +564,15 @@ input[type='file']::file-selector-button,
   border-radius: 6px;
   color: black;
 }
-.pagination_item{
-  text-decoration: none;
-  color: black;
+/* 페이지네이션 hover */
+.pagination a:hover {
+  background-color: #ffd580;
+  color: #4a3000;
 }
-.pagination_item:hover{
-  text-decoration: none;
-  color: #FF873C;
+/* 현제 페이지의 페이지네이션 강조 */
+.pagination .active {
+  background-color: #ffb84d;
+  color: white;
+  cursor: default;
+  border-color: #ffae42;
 }
-
-/* ============ 지도 api ==========  */

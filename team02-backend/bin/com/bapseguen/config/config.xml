@@ -63,6 +63,7 @@
 		<typeAlias type="com.bapseguen.app.dto.view.ItemInsertDTO" alias="ItemInsertDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.view.AdminPostDTO" alias="AdminPostDTO"></typeAlias>
 		<typeAlias type="com.bapseguen.app.dto.view.InquiryCommentDTO" alias="InquiryCommentDTO"></typeAlias>
+		<typeAlias type="com.bapseguen.app.dto.StoreImageDTO" alias="StoreImageDTO"></typeAlias>
 	</typeAliases>
 
 	<environments default="oracle">
