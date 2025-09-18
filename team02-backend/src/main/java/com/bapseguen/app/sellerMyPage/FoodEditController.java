@@ -35,12 +35,13 @@ public class FoodEditController implements Execute{
 		ItemInsertDTO ItemInsertDTO = new ItemInsertDTO();   
 	
 		ItemInsertDTO = sellerDAO.detailItem(itemNumber); //itemInsertDTO
-		System.out.println(ItemInsertDTO);
-		System.out.println(ItemInsertDTO.getItemContent());
 		ItemInsertDTO.setItemContent(ItemInsertDTO.getItemContent().trim());
+		
+		// 음식 설명 공백 없애기
 		System.out.println(ItemInsertDTO.getItemContent());
 		System.out.println(ItemInsertDTO);
-        request.setAttribute("item", ItemInsertDTO); 
+        
+		request.setAttribute("item", ItemInsertDTO); 
         request.setAttribute("itemImage", ItemImageDAO.selectone(itemNumber)); //ItemImageDTO
         
 

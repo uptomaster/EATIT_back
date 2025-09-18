@@ -230,7 +230,7 @@
             <div class="seller_info_menu">상세 주소 / 우편번호</div>
             <div>
               <div class="seller_gray_box">
-              	<p><c:out value="${sellerInfo.storeAddressDetail}+'  /  '+${sellerInfo.storeZipCode}" /></p>
+              	<p><c:out value="${sellerInfo.storeAddressDetail} / ${sellerInfo.storeZipCode}" /></p>
                 <%-- <input name="storeAddressDetail" class="seller_input_info" type="text"
                        value="<c:out value='${sellerInfo.storeAddressDetail}+"  /  "+${sellerInfo.storeZipCode}'/>"> --%>
               </div>

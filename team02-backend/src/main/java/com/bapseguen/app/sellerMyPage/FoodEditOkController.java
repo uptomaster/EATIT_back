@@ -81,7 +81,6 @@ public class FoodEditOkController implements Execute {
     	itemInsertDTO.setItemSellState(sellState.trim());
         sellerDAO.editFood(itemInsertDTO); // 음식 정보 등록 + 등록한 아이템 번호 가져오기
 
-
     	// 6) 파일 처리 (있을 때만)
     	File uploaded = multipartRequest.getFile("itemImage");
     	if (uploaded != null) {

@@ -95,6 +95,15 @@ public class SellerMyPageFrontController extends HttpServlet {
 			result = new SellerStoreReviewController().execute(request, response);
 			break;
 			
+		case "/sellerMyPage/storeImage.se":
+			System.out.println("[판페f] 사업장관리 페이지 이동 요청");
+		    request.getRequestDispatcher("/app/sellerMyPage/addStoreImage.jsp").forward(request, response);
+			break;
+		case "/sellerMyPage/storeImageOk.se":
+			System.out.println("[판페f] 사업장관리 페이지 이동 요청");
+			result = new SellerStoreImageOkController().execute(request, response);
+			break;
+			
 
 		/********************************************************************/
 		// Food
@@ -223,7 +232,7 @@ public class SellerMyPageFrontController extends HttpServlet {
 	    // 탈퇴 동의/비번 확인 페이지 진입
 		case "/sellerMyPage/withdrawalAgreement.se":
 			System.out.println("[판페f] 변경할 전화번호 인증번호 전송 요청");
-		    request.getRequestDispatcher("/app/userMyPage/withdrawalAgreement.jsp").forward(request, response);
+		    request.getRequestDispatcher("/app/sellerMyPage/withdrawalAgreement.jsp").forward(request, response);
 		    break;
 
 	    // 실제 탈퇴 처리

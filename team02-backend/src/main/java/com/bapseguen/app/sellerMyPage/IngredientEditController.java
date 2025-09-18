@@ -32,12 +32,18 @@ public class IngredientEditController implements Execute{
 		Result result = new Result();
 		SellerMyPageDAO sellerDAO = new SellerMyPageDAO();   
 		ItemImageDAO ItemImageDAO = new ItemImageDAO();   
+		ItemInsertDTO ItemInsertDTO = new ItemInsertDTO();   
 	
+		ItemInsertDTO = sellerDAO.detailItem(itemNumber); //itemInsertDTO
+//		ItemInsertDTO.setItemContent(ItemInsertDTO.getItemContent().trim());
 		
-        request.setAttribute("item", sellerDAO.detailItem(itemNumber));
-        request.setAttribute("itemImage", ItemImageDAO.select(itemNumber));
-        
-
+		// 음식 설명 공백 없애기
+		System.out.println(ItemInsertDTO.getItemContent());
+		System.out.println(ItemInsertDTO);
+	    
+		request.setAttribute("item", ItemInsertDTO); 
+	    request.setAttribute("itemImage", ItemImageDAO.selectone(itemNumber)); //ItemImageDTO
+		       
         
         result.setPath("/app/sellerMyPage/ingredientSalesEdit.jsp");
         result.setRedirect(false);
