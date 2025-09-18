@@ -219,12 +219,16 @@ svg {
 	height: 1em;
 	fill: rgb(255, 87, 87);
 }
+.photo-upload{
+	display : flex;
+}
 
 .image-upload-wrap {
 	border: 1px solid rgb(240, 240, 240);
 	background-color: white;
 	padding: 13px;
 	position: relative;
+	display: flex;
 }
 
 .upload-text {
@@ -268,8 +272,8 @@ input [type='file'] {
 .file-list > li {
 	display:flex;
 	position : relative;
-	width : 145px;
-	height : 100px;
+	/*width : 145px;*/
+	/*height : 100px;*/
 	margin-right : 10px;
 	
 }

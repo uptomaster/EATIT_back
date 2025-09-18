@@ -139,7 +139,7 @@
 		where item_number =	#{itemNumber}
 	</select>
 	<!-- 재료 판매 수정 -->
-	<update id="editIngredient" parameterType="ItemDTO">
+	<update id="editIngredient" parameterType="ItemInsertDTO">
 		UPDATE TBL_ITEM SET
 		ITEM_NAME= #{itemName}, ITEM_PRICE = #{itemPrice}, ITEM_CONTENT	= #{itemContent},
 		ITEM_QUANTITY = #{itemQuantity}, ITEM_UPDATED_TIME = SYSDATE
@@ -182,8 +182,7 @@
 	</select>
 
 	<!-- 움삭 메뉴 중복 확인 -->
-	<select id="alreadyfood" parameterType="ItemDTO"
-		resultType="int">
+	<select id="alreadyfood" parameterType="ItemDTO" resultType="int">
 		select count(item_number) from tbl_item
 		where item_name =	#{itemName} 
 		and item_type = 'FOOD' 
