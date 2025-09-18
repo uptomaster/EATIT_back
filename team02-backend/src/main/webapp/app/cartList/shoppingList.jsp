@@ -1,28 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>밥세권 - 장바구니</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/cartList/shoppingList.css">
-
 <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
 <script>
   const contextPath = "${pageContext.request.contextPath}";
 </script>
-
-<title>밥세권 - 장바구니</title>
+<script defer src="${pageContext.request.contextPath}/assets/js/cartList/shoppingList.js"></script>
 </head>
 
-<body>
+<body data-context="${pageContext.request.contextPath}">
   <!-- 헤더 -->
   <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
 
@@ -34,12 +30,15 @@
       <div class="shopping_content">
         <!-- 왼쪽: 장바구니 목록 -->
         <div class="shopping_cart_area">
-
           <!-- 전체선택 + 선택삭제 + 전체삭제 -->
           <div class="shopping_select_all">
-            <input type="checkbox" id="selectAll"> 전체선택
-            <button type="button" id="deleteSelected" class="shopping_select_delete">선택삭제</button>
-            <button type="button" id="clearAll" class="shopping_select_delete">전체삭제</button>
+            <div>
+              <input type="checkbox" id="selectAll"> 전체선택
+            </div>
+            <div class="shopping_btn_group">
+              <button type="button" id="deleteSelected" class="shopping_select_delete">선택삭제</button>
+              <button type="button" id="clearAll" class="shopping_select_delete">전체삭제</button>
+            </div>
           </div>
 
           <!-- 선택삭제용 숨은 form -->
@@ -57,41 +56,60 @@
                 </p>
               </c:when>
               <c:otherwise>
-                <c:set var="sampleImgs" value="/assets/img/food1.jpg,/assets/img/food2.jpg,/assets/img/food3.jpg,/assets/img/food4.jpg,/assets/img/food5.jpg,/assets/img/food6.jpg,/assets/img/food7.jpg,/assets/img/food8.jpg,/assets/img/food9.jpg,/assets/img/food10.jpg,/assets/img/food11.jpg,/assets/img/food12.jpg" />
-                <c:set var="sampleArr" value="${fn:split(sampleImgs, ',')}" />
-
                 <c:forEach var="item" items="${items}">
-                  <c:set var="sampleImg" value="${sampleArr[item.itemNumber % fn:length(sampleArr)]}" />
-                  <c:url value="${sampleImg}" var="dummyUrl" />
-
-                  <div class="shopping_cart_item" data-item-id="${item.itemNumber}">
+                  <div class="shopping_cart_item" data-item-id="${item.cartItemNumber}">
                     <!-- 선택 체크박스 -->
                     <input type="checkbox" class="shopping_item_check" name="cartItemNumber" value="${item.cartItemNumber}">
 
                     <!-- 이미지 -->
                     <c:choose>
-                      <c:when test="${empty item.imagePath}">
-                        <img src="${dummyUrl}" alt="${item.itemName}">
+                      <c:when test="${not empty item.imagePath}">
+                        <img src="${pageContext.request.contextPath}/upload/${item.imagePath}" alt="${item.itemName}">
                       </c:when>
                       <c:otherwise>
-                        <c:url value="/upload/items/${item.imagePath}" var="itemImg" />
-                        <img src="${itemImg}" alt="${item.itemName}">
+                        <img src="${pageContext.request.contextPath}/assets/img/food1.jpg" alt="기본 이미지">
                       </c:otherwise>
                     </c:choose>
 
                     <!-- 상품 정보 -->
                     <div class="shopping_item_info">
-                      <a href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${item.itemNumber}" class="shopping_item_name">${item.itemName}</a>
-                      <div class="shopping_item_price">
+                      <div class="shopping_item_name">
+                        <a href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${item.itemNumber}">
+                          ${item.itemName}
+                        </a>
+                        <!-- ✅ 소비기한 뱃지 -->
+                        <c:if test="${not empty item.itemExpireDate}">
+                          <c:set var="today" value="<%=new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(new java.util.Date())%>" />
+                          <fmt:parseDate var="expireDate" value="${item.itemExpireDate}" pattern="yyyy-MM-dd"/>
+                          <fmt:parseDate var="todayDate" value="${today}" pattern="yyyy-MM-dd"/>
+                          <c:set var="diffDays" value="${(expireDate.time - todayDate.time) / (1000*60*60*24)}"/>
+                          <c:choose>
+                            <c:when test="${diffDays le 3}">
+                              <span class="badge_small urgent">⏰ 마감임박</span>
+                            </c:when>
+                            <c:when test="${diffDays le 7}">
+                              <span class="badge_small sale">💸 할인추천</span>
+                            </c:when>
+                            <c:otherwise>
+                              <span class="badge_small fresh">🥬 신선</span>
+                            </c:otherwise>
+                          </c:choose>
+                        </c:if>
+                      </div>
+                      <div class="shopping_item_price" data-price="${item.cartItemPrice}">
                         <fmt:formatNumber value="${item.cartItemPrice}" type="number" /> 원
                       </div>
                     </div>
 
                     <!-- 수량 조절 -->
                     <div class="shopping_item_cnt">
-                      <button type="button" class="cnt_btn minus" data-item="${item.itemNumber}" data-qty="${item.cartItemQuantity - 1}">-</button>
+                      <button type="button" class="cnt_btn minus"
+                              data-cart-item="${item.cartItemNumber}"
+                              data-qty="${item.cartItemQuantity - 1}">-</button>
                       <span class="qty">${item.cartItemQuantity}</span>
-                      <button type="button" class="cnt_btn plus" data-item="${item.itemNumber}" data-qty="${item.cartItemQuantity + 1}">+</button>
+                      <button type="button" class="cnt_btn plus"
+                              data-cart-item="${item.cartItemNumber}"
+                              data-qty="${item.cartItemQuantity + 1}">+</button>
                     </div>
 
                     <!-- 단건 삭제 -->
@@ -113,9 +131,29 @@
             <!-- 결제금액 -->
             <div class="shopping_payment_summary">
               <div class="shopping_payment_title">결제금액</div>
+              <c:if test="${not empty items}">
+                <div class="shopping_payment_preview_single">
+                  <c:choose>
+                    <c:when test="${not empty items[0].imagePath}">
+                      <img src="${pageContext.request.contextPath}/upload/${items[0].imagePath}" alt="${items[0].itemName}">
+                    </c:when>
+                    <c:otherwise>
+                      <img src="${pageContext.request.contextPath}/assets/img/food1.jpg" alt="기본 이미지">
+                    </c:otherwise>
+                  </c:choose>
+                  <div class="shopping_preview_text">
+                    ${items[0].itemName}
+                    <c:if test="${fn:length(items) > 1}"> 외 ${fn:length(items)-1}건</c:if>
+                  </div>
+                </div>
+              </c:if>
+
               <div class="shopping_price_row">
-                <span>선택 상품 금액</span> 
-                <span id="selectedAmount">0 원</span>
+                <span>선택 상품 금액</span>
+                <!-- ✅ 서버에서 미리 합산해서 totalAmount 전달 -->
+                <span id="selectedAmount">
+                  <fmt:formatNumber value="${totalAmount}" type="number"/> 원
+                </span>
               </div>
             </div>
 
@@ -124,14 +162,58 @@
               결제하기
             </button>
           </form>
+
+          <!-- 추천 상품 -->
+          <c:if test="${not empty recommendedItems}">
+            <div class="shopping_recommend">
+              <h4>이 가게의 다른 메뉴 🍽️</h4>
+              <div class="recommend_list">
+                <c:forEach var="rec" items="${recommendedItems}">
+                  <div class="recommend_card">
+                    <a href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${rec.itemNumber}">
+                      <c:choose>
+                        <c:when test="${not empty rec.itemImageSystemName}">
+                          <img src="${pageContext.request.contextPath}/upload/${rec.itemImageSystemName}" alt="${rec.itemName}">
+                        </c:when>
+                        <c:otherwise>
+                          <img src="${pageContext.request.contextPath}/assets/img/food1.jpg" alt="기본 이미지">
+                        </c:otherwise>
+                      </c:choose>
+                      <div class="rec_name">
+                        ${rec.itemName}
+                        <!-- ✅ 추천상품에도 뱃지 -->
+                        <c:if test="${not empty rec.itemExpireDate}">
+                          <c:set var="today" value="<%=new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(new java.util.Date())%>" />
+                          <fmt:parseDate var="expireDate" value="${rec.itemExpireDate}" pattern="yyyy-MM-dd"/>
+                          <fmt:parseDate var="todayDate" value="${today}" pattern="yyyy-MM-dd"/>
+                          <c:set var="diffDays" value="${(expireDate.time - todayDate.time) / (1000*60*60*24)}"/>
+                          <c:choose>
+                            <c:when test="${diffDays le 3}">
+                              <span class="badge_small urgent">⏰</span>
+                            </c:when>
+                            <c:when test="${diffDays le 7}">
+                              <span class="badge_small sale">💸</span>
+                            </c:when>
+                            <c:otherwise>
+                              <span class="badge_small fresh">🥬</span>
+                            </c:otherwise>
+                          </c:choose>
+                        </c:if>
+                      </div>
+                      <div class="rec_price">
+                        <fmt:formatNumber value="${rec.itemPrice}" type="number"/> 원
+                      </div>
+                    </a>
+                  </div>
+                </c:forEach>
+              </div>
+            </div>
+          </c:if>
         </div>
       </div>
     </div>
   </main>
 
   <footer id="footer"></footer>
-
-  <!-- 장바구니 JS -->
-  <script src="${pageContext.request.contextPath}/assets/js/cartList/shoppingList.js"></script>
 </body>
 </html>

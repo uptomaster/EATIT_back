@@ -1,5 +1,8 @@
 package com.bapseguen.app.dto.view;
 
+/**
+ * 
+ */
 public class SellerInfoDTO {
 	// member
 	private int memberNumber;
@@ -20,6 +23,8 @@ public class SellerInfoDTO {
 	private String storeAddress;
 	private String storeAddressDetail;
 	private String storeZipCode;
+	private float storeLatitude;
+	private float storeLongitude;
 	
 	public int getMemberNumber() {
 		return memberNumber;
@@ -117,6 +122,19 @@ public class SellerInfoDTO {
 	public void setStoreZipCode(String storeZipCode) {
 		this.storeZipCode = storeZipCode;
 	}
+	
+	public float getStoreLatitude() {
+		return storeLatitude;
+	}
+	public void setStoreLatitude(float storeLatitude) {
+		this.storeLatitude = storeLatitude;
+	}
+	public float getStoreLongitude() {
+		return storeLongitude;
+	}
+	public void setStoreLongitude(float storeLongitude) {
+		this.storeLongitude = storeLongitude;
+	}
 	@Override
 	public String toString() {
 		return "SellerInfoDTO [memberNumber=" + memberNumber + ", memberId=" + memberId + ", memberPassword="
@@ -125,6 +143,7 @@ public class SellerInfoDTO {
 				+ ", businessNumber=" + businessNumber + ", storeName=" + storeName + ", storeOpenDate=" + storeOpenDate
 				+ ", storeOpenTime=" + storeOpenTime + ", storeCloseTime=" + storeCloseTime + ", storeTel=" + storeTel
 				+ ", storeAddress=" + storeAddress + ", storeAddressDetail=" + storeAddressDetail + ", storeZipCode="
-				+ storeZipCode + "]";
+				+ storeZipCode + ", storeLatitude=" + storeLatitude + ", storeLongitude=" + storeLongitude + "]";
 	}
+	
 }

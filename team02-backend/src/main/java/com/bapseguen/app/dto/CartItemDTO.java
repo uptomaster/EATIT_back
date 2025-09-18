@@ -10,9 +10,20 @@ public class CartItemDTO {
 
 	// 이미지 파일명 (조인해서 가져올 값)
 	private String imagePath;
-	
+
 	// 상품명 필드 추가
-    private String itemName;
+	private String itemName;
+
+	// 소비기한 필드 추가
+	private String itemExpireDate;
+
+	public String getItemExpireDate() {
+		return itemExpireDate;
+	}
+
+	public void setItemExpireDate(String itemExpireDate) {
+		this.itemExpireDate = itemExpireDate;
+	}
 
 	public String getItemName() {
 		return itemName;
@@ -78,7 +89,4 @@ public class CartItemDTO {
 				+ ", imagePath=" + imagePath + ", itemName=" + itemName + "]";
 	}
 
-	
-
-	
 }

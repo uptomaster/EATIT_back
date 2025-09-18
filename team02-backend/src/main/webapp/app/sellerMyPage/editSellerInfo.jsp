@@ -92,35 +92,38 @@
             <div>
               <div class="seller_gray_box">
                 <input id="current_password" class="seller_input_info" type="password"
-                       placeholder="[입력가능] 현재 비밀번호를 입력후 Enter">
+                       placeholder="[입력가능] 현재 비밀번호를 입력후 Enter" name="currentPassword">
               </div>
               <p id="current_password_error" class="seller_notice_input_wrong_info"></p>
             </div>
           </div>
-
+          
+	  			<!-- 새 비밀번호 입력 -->
           <div class="seller_info_able_modify_area">
             <div class="seller_info_menu">새 비밀번호*</div>
             <div>
               <div class="seller_gray_box">
                 <input id="new_password" class="seller_input_info" type="password"
-                       placeholder="현재 비밀번호 확인 후 입력 가능">
+                       placeholder="현재 비밀번호 확인 후 입력 가능" name="newPassword"
+                       value="${param.newPassword != null && param.newPassword != 'null' ? param.newPassword : ''}">
               </div>
+              <!-- 비밀번호 불일치시 안내글 공간  -->
               <p id="new_password_error" class="seller_notice_input_wrong_info"></p>
             </div>
           </div>
-
+	 				
+	 				<!-- 새 비밀번호 확인 -->
           <div class="seller_info_able_modify_area">
             <div class="seller_info_menu">새 비밀번호 확인*</div>
             <div>
               <div class="seller_gray_box">
                 <input id="confirm_password" class="seller_input_info" type="password"
-                       placeholder="현재 비밀번호 확인 후 입력 가능">
+                       placeholder="현재 비밀번호 확인 후 입력 가능" name="confirmPassword">
               </div>
               <p id="confirm_password_error" class="seller_notice_input_wrong_info"></p>
             </div>
             <!-- 서버로 보낼 실제 필드: 컨트롤러에서는 memberPassword 파라미터로 받음 -->
             <input type="hidden" name="memberPassword" id="memberPasswordHidden" value="">
-            <button type="button" id="password_save_btn" class="seller_info_save_pw_buzz">저장</button>
           </div>
 
           <!-- 이름 -->
@@ -145,8 +148,9 @@
             <div class="seller_info_menu">새 전화번호*</div>
             <div>
               <div class="seller_gray_box">
-                <input id="new_phone" class="seller_input_info" type="text" placeholder="[입력가능] 숫자만"
-                       value="">
+                <input id="new_phone" class="seller_input_info" type="text" placeholder="[입력가능] 숫자만" 
+                			 name="newPhone"
+                       value="${param.newPhone != null && param.newPhone != 'null' ? param.newPhone : ''}">
               </div>
               <p id="phone_error" class="seller_notice_input_wrong_info" style="color:red;"></p>
             </div>
@@ -157,20 +161,31 @@
             <div class="seller_info_menu">인증번호*</div>
             <div>
               <div class="seller_gray_box">
-                <input id="code_input" class="seller_input_info" type="text" placeholder="[입력가능] 인증번호 입력">
+                <input id="code_input" name="phoneCode" class="seller_input_info" type="text" placeholder="[입력가능] 인증번호 입력">
               </div>
               <p id="code_error" class="seller_notice_input_wrong_info" style="color:red;"></p>
             </div>
             <!-- 인증 성공 시 서버로 보낼 실제 필드 -->
             <input type="hidden" name="sellerPhoneNumber" id="verifiedPhoneHidden" value="${sellerInfo.sellerPhoneNumber}">
-            <button type="button" id="check_code_btn" class="seller_info_check_code_buzz">인증번호 확인</button>
-          </div>
+						<!-- 인증번호 요청 버튼 -->
+						<button type="button"
+							        formaction="${pageContext.request.contextPath}/sellerMyPage/sellerMyPageSmsSend.se" value="check"
+							        id="check_code_btn" class="info_check_code_buzz">인증번호 확인 
+		        </button>
+         </div>
 
           <!-- 생년월일 (표시만) -->
           <div class="seller_info_unable_modify_area">
             <div class="seller_info_menu">생년월일</div>
             <div class="seller_gray_box">
-              <p><c:out value="${sellerInfo.sellerBirthdate}" /></p>
+              <p>
+				        <c:choose>
+				          <c:when test="${not empty sellerInfo.sellerBirthdate}">
+				            ${sellerInfo.sellerBirthdate}
+				          </c:when>
+				          <c:otherwise>-</c:otherwise>
+				        </c:choose>
+				      </p>
             </div>
           </div>
 
@@ -187,8 +202,9 @@
             <div class="seller_info_menu">상호명</div>
             <div>
               <div class="seller_gray_box">
-                <input id="store_name" name="storeName" class="seller_input_info" type="text"
-                       value="<c:out value='${sellerInfo.storeName}'/>" placeholder="[입력가능] 상호명">
+              	<p><c:out value="${sellerInfo.storeName}" /></p>
+                <%-- <input id="store_name" name="storeName" class="seller_input_info" type="text"
+                       value="<c:out value='${sellerInfo.storeName}'/>"> --%>
               </div>
               <p id="store_name_error" class="seller_notice_input_wrong_info"></p>
             </div>
@@ -200,8 +216,9 @@
             <div class="seller_info_menu">업체 주소</div>
             <div>
               <div class="seller_gray_box">
-                <input id="store_address" name="storeAddress" class="seller_input_info" type="text"
-                       value="<c:out value='${sellerInfo.storeAddress}'/>" placeholder="[입력가능] 업체 주소">
+              	<p><c:out value="${sellerInfo.storeAddress}" /></p>
+                <%-- <input id="store_address" name="storeAddress" class="seller_input_info" type="text"
+                       value="<c:out value='${sellerInfo.storeAddress}'/>"> --%>
               </div>
               <p id="store_address_error" class="seller_notice_input_wrong_info"></p>
             </div>
@@ -213,13 +230,14 @@
             <div class="seller_info_menu">상세 주소 / 우편번호</div>
             <div>
               <div class="seller_gray_box">
-                <input name="storeAddressDetail" class="seller_input_info" type="text"
-                       value="<c:out value='${sellerInfo.storeAddressDetail}'/>" placeholder="[입력가능] 상세 주소">
+              	<p><c:out value="${sellerInfo.storeAddressDetail}+'  /  '+${sellerInfo.storeZipCode}" /></p>
+                <%-- <input name="storeAddressDetail" class="seller_input_info" type="text"
+                       value="<c:out value='${sellerInfo.storeAddressDetail}+"  /  "+${sellerInfo.storeZipCode}'/>"> --%>
               </div>
-              <div class="seller_gray_box" >
+              <%-- <div class="seller_gray_box" >
                 <input name="storeZipCode" class="seller_input_info" type="text"
                        value="<c:out value='${sellerInfo.storeZipCode}'/>" placeholder="[입력가능] 우편번호">
-              </div>
+              </div> --%>
             </div>
           </div>
 
@@ -228,8 +246,9 @@
             <div class="seller_info_menu">업체 전화번호</div>
             <div>
               <div class="seller_gray_box">
-                <input id="store_phone" name="storeTel" class="seller_input_info" type="text"
-                       value="<c:out value='${sellerInfo.storeTel}'/>" placeholder="[입력가능] 숫자만 입력">
+              	<p><c:out value="${sellerInfo.storeTel}" /></p>
+                <%-- <input id="store_phone" name="storeTel" class="seller_input_info" type="text"
+                       value="<c:out value='${sellerInfo.storeTel}'/>" placeholder="[입력가능] 숫자만 입력"> --%>
               </div>
               <p id="store_phone_error" class="seller_notice_input_wrong_info"></p>
             </div>
@@ -246,18 +265,24 @@
 
           <!-- 영업 시간 -->
           <div class="seller_info_able_modify_area">
-            <div class="seller_info_menu">영업 시간</div>
+            <div class="seller_info_menu">영업 시작 시간</div>
             <div>
               <div class="seller_gray_box">
-                <input name="storeOpenTime" class="seller_input_info" type="text"
+                <input name="storeOpenTime" id="store_open_time" class="seller_input_info" type="text"
                        value="<c:out value='${sellerInfo.storeOpenTime}'/>" placeholder="오픈(HH:mm)">
               </div>
-              <div class="seller_gray_box">
-                <input name="storeCloseTime" class="seller_input_info" type="text"
-                       value="<c:out value='${sellerInfo.storeCloseTime}'/>" placeholder="마감(HH:mm)">
-              </div>
+              <p id="store_open_time_error" class="seller_notice_input_wrong_info"></p>
             </div>
           </div>
+         <div class="seller_info_able_modify_area">
+         <div class="seller_info_menu">영업 시작 시간</div>
+          <div class="seller_gray_box">
+            <input name="storeCloseTime" id="store_close_time" class="seller_input_info" type="text"
+                   value="<c:out value='${sellerInfo.storeCloseTime}'/>" placeholder="마감(HH:mm)">
+           </div>
+           <p id="store_close_time_error" class="seller_notice_input_wrong_info"></p>
+          </div>
+         </div>
 
            <!-- 광고 정보 수신 동의 (UI만; 서버 반영은 추후 확장) -->
         <!--  <div class="seller_info_able_modify_area">
@@ -269,18 +294,15 @@
             <button type="button" class="seller_info_save_buzz">저장</button>
           </div>
         </div> -->
+			</c:if>
+       <!-- 전체 저장 버튼 -->
+			  <div class="bottom_btn_container">
+			  	  <div class="agreement_buzz">
+				    <a href="${pageContext.request.contextPath}/sellerMyPage/withdrawalAgreement.se">회원탈퇴</a>
+				  </div>
+				  <button type="button" class="total_info_save_buzz" data-member-number="${member.memberNumber}">저장</button>
+			  </div>
 
-        <!-- 전체 저장 (실제 폼 submit) -->
-        <button type="submit" class="seller_total_info_save_buzz"
-        			data-member-number="${member.memberNumber}"
-        			data-store-businessnumber="${member.businessNumber}"
-        	>저장</button>
-
-        <!-- 회원탈퇴 -->
-        <div class="seller_agreement_buzz">
-          <a href="${pageContext.request.contextPath}/app/sellerMyPage/sellerwithdrawalAgreement.html">회원탈퇴</a>
-        </div>
-      </c:if>
     </form>
   </main>
 

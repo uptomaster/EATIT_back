@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
@@ -20,8 +21,18 @@ public class EditSellerInfoOkController implements Execute{
 		
 		Result result = new Result();
         SellerMyPageDAO sellerDAO = new SellerMyPageDAO();
-
         SellerInfoDTO dto = new SellerInfoDTO();
+        int updateCount = 0;
+
+		HttpSession session = request.getSession();
+		int memberNumber = (int) session.getAttribute("memberNumber");
+		String newPassword = request.getParameter("newPassword");
+		String newPhone = request.getParameter("newPhone");
+		
+		System.out.println("memberNumber: " + memberNumber);
+		System.out.println("newPassword: " + newPassword);
+		System.out.println("newPhone: " + newPhone);
+        
         dto.setMemberNumber(Integer.parseInt(request.getParameter("memberNumber")));
         dto.setMemberPassword(request.getParameter("memberPassword"));
         dto.setSellerName(request.getParameter("sellerName"));

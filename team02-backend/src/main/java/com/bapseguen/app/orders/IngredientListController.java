@@ -29,7 +29,7 @@ public class IngredientListController implements Execute {
         String pageParam = request.getParameter("page");
 
         int page = 1;
-        int limit = 10;
+        int limit = 8;
         if (pageParam != null) {
             try {
                 page = Integer.parseInt(pageParam);

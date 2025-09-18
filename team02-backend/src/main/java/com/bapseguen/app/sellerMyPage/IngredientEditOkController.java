@@ -21,7 +21,7 @@ public class IngredientEditOkController implements Execute{
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-System.out.println("=== IngredientEditOkController 접근 성공 ===");
+		System.out.println("=== IngredientEditOkController 접근 성공 ===");
 		
 		request.setCharacterEncoding("UTF-8");
 		

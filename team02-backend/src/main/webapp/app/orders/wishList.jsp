@@ -1,163 +1,77 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="./../../assets/css/header.css">
-  <link rel="stylesheet" href="./../../assets/css/footer.css">
-  <link rel="stylesheet" href="./../../assets/css/buy/wishList.css">
-  <script defer src="./../../assets/js/header.js"></script>
-  <script>
-    let headerPath = '../../header.jsp';
-    let footerPath = '../../footer.jsp';
-  </script>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/buy/wishList.css">
+  <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/buy/wishList.js"></script>
+  <title>밥세권 - 찜 목록</title>
   <!-- 파비콘 -->
-  <link rel="shortcut icon" href="./../../assets/img/favicon.ico" type="image/x-icon">
-  <script defer src="./../../assets/js/header.js"></script>
-  <script defer src="./../../assets/js/buy/wishList.js"></script>
-  <title>밥세권</title>
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
-  <header id="header"></header>
+  <!-- 헤더 -->
+  <jsp:include page="${pageContext.request.contextPath}/header.jsp">
+      <jsp:param name="active" value="wishlist" />
+  </jsp:include>
 
-  <!-- 구매>음식점구매 가게 목록 리스트  -->
+  <!-- 구매>찜한 가게 목록 -->
   <main id="buy">
-    <!-- 중앙정렬 1100px 영역 -->
     <div class="wrap">
-      <!-- 컨텐츠 전체영역 -->
       <div class="buy_store_list">
-        <h2>📌나의 찜 모음</h2>
+        <h2>📌 나의 찜 모음</h2>
 
-        <!-- 음식점 정보 영역 -->
+        <!-- 가게 리스트 -->
         <div class="buy_area">
-          <article class="buy_food_article">
-            <a href="./../buy/storeDetail.html">
-              <div class="wish_img_wrapper">
-                <img src="./../../assets/img/ddeokbokki.jpg" alt="떡볶이">
-                <img src="./../../assets/img/heart_active.png" alt="찜" class="heart_icon" >
-              </div>
-              <div class="buy_store_info">
-                <p class="wish_store_name">신승떡볶이</p>
-                <p class="wish_open_time">영업시간 10:00~22:00</p>
-              </div>
-            </a>
-          </article>
-
-          <article class="buy_food_article">
-            <a href="./../buy/storeDetail.html">
-              <div class="wish_img_wrapper">
-                <img src="./../../assets/img/dongas.jpg" alt="돈까스">
-                <img src="./../../assets/img/heart_active.png" alt="찜" class="heart_icon" >
-              </div>
-              <div class="buy_store_info">
-                <p class="wish_store_name">돈까스마을</p>
-                <p class="wish_open_time">영업시간 11:00~21:30</p>
-              </div>
-            </a>
-          </article>
-
-          <article class="buy_food_article">
-            <a href="./../buy/storeDetail.html">
-              <div class="wish_img_wrapper">
-                <img src="./../../assets/img/gimbab.jpg" alt="김밥">
-                <img src="./../../assets/img/heart_active.png" alt="찜" class="heart_icon" >
-              </div>  
-              <div class="buy_store_info">
-                <p class="wish_store_name">참김밥</p>
-                <p class="wish_open_time">영업시간 09:00~20:00</p>
-              </div>
-            </a>
-          </article>
-
-          <article class="buy_food_article">
-            <a href="./../buy/storeDetail.html">
-              <div class="wish_img_wrapper">
-                <img src="./../../assets/img/jjajang.jpg" alt="짜장면">
-                <img src="./../../assets/img/heart_active.png" alt="찜" class="heart_icon" >
-              </div>
-              <div class="buy_store_info">
-                <p class="wish_store_name">홍콩반점</p>
-                <p class="wish_open_time">영업시간 11:00~22:00</p>
-              </div>
-            </a>
-          </article>
-
-          <article class="buy_food_article">
-            <a href="./../buy/storeDetail.html">
-              <div class="wish_img_wrapper">
-                <img src="./../../assets/img/chicken.jpg" alt="치킨">
-                <img src="./../../assets/img/heart_active.png" alt="찜" class="heart_icon" >
-              </div>
-              <div class="buy_store_info">
-                <p class="wish_store_name">옛날치킨</p>
-                <p class="wish_open_time">영업시간 12:00~00:00</p>
-              </div>
-            </a>
-          </article>
-
-          <article class="buy_food_article">
-            <a href="./../buy/storeDetail.html">
-              <div class="wish_img_wrapper">
-                <img src="./../../assets/img/bibim.jpg" alt="비빔밥">
-                <img src="./../../assets/img/heart_active.png" alt="찜" class="heart_icon" >
-              </div>
-              <div class="buy_store_info">
-                <p class="wish_store_name">한촌설렁탕</p>
-                <p class="wish_open_time">영업시간 10:00~21:00</p>
-              </div>
-            </a>
-          </article>
-
-          <article class="buy_food_article">
-            <a href="./../buy/storeDetail.html">
-              <div class="wish_img_wrapper">
-                <img src="./../../assets/img/salad.jpg" alt="샐러드">
-                <img src="./../../assets/img/heart_active.png" alt="찜" class="heart_icon" >
-              </div>
-              <div class="buy_store_info">
-                <p class="wish_store_name">그릭데이</p>
-                <p class="wish_open_time">영업시간 11:00~20:00</p>
-              </div>
-            </a>
-          </article>
-
-          <article class="buy_food_article">
-            <a href="./../buy/storeDetail.html">
-              <div class="wish_img_wrapper">
-                <img src="./../../assets/img/gimchiJjigae.jpg" alt="김치찌개">
-                <img src="./../../assets/img/heart_active.png" alt="찜" class="heart_icon" >
-              </div>
-              <div class="buy_store_info">
-                <p class="wish_store_name">한식대첩</p>
-                <p class="wish_open_time">영업시간 10:30~22:00</p>
-              </div>
-            </a>
-          </article>
-
-          <article class="buy_food_article">
-            <a href="./../buy/storeDetail.html">
-              <div class="wish_img_wrapper">
-                <img src="./../../assets/img/gimchiJjigae.jpg" alt="김치찌개">
-                <img src="./../../assets/img/heart_active.png" alt="찜" class="heart_icon" >
-              </div>
-              <div class="buy_store_info">
-                <p class="wish_store_name">한식대첩</p>>
-                <p class="wish_open_time">영업시간 10:30~22:00</p>
-              </div>
-            </a>
-          </article>
+          <c:choose>
+            <c:when test="${not empty favoriteStoreList}">
+              <c:forEach var="store" items="${favoriteStoreList}">
+                <article class="buy_food_article">
+                  <a href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${store.itemNumber}">
+                    <div class="wish_img_wrapper">
+                      <c:choose>
+                        <c:when test="${not empty store.storeImageSystemName}">
+                          <img src="${pageContext.request.contextPath}/upload/${store.storeImageSystemName}" alt="${store.storeName}">
+                        </c:when>
+                        <c:otherwise>
+                          <img src="${pageContext.request.contextPath}/assets/img/food1.jpg" alt="기본 이미지">
+                        </c:otherwise>
+                      </c:choose>
+                      <!-- 찜 아이콘 -->
+                      <img src="${pageContext.request.contextPath}/assets/img/heart_active.png" alt="찜" class="heart_icon">
+                    </div>
+                    <div class="buy_store_info">
+                      <p class="wish_store_name">${store.storeName}</p>
+                      <p class="wish_open_time">영업시간 ${store.openTime}~${store.closeTime}</p>
+                    </div>
+                  </a>
+                </article>
+              </c:forEach>
+            </c:when>
+            <c:otherwise>
+              <p class="no-favorites">찜한 가게가 없습니다.</p>
+            </c:otherwise>
+          </c:choose>
         </div>
+
         <!-- 페이지네이션 -->
         <div class="buy_pagenation" id="pagination">
-
+          <c:forEach var="i" begin="1" end="${maxPage}">
+            <a href="${pageContext.request.contextPath}/wishlist/list.or?page=${i}" class="${i == page ? 'active' : ''}">${i}</a>
+          </c:forEach>
         </div>
       </div>
+    </div>
   </main>
 
-  <footer id="footer"></footer>
+  <!-- 푸터 -->
+  <jsp:include page="${pageContext.request.contextPath}/footer.jsp"></jsp:include>
 </body>
-
-</html>F
+</html>

@@ -25,7 +25,7 @@ public class EditSellerInfoController implements Execute {
 		Integer memberNumber = (Integer) request.getSession().getAttribute("memberNumber");
 
 		if (memberNumber == null) {
-			result.setPath("/member/login.me"); // 로그인 안된 경우 로그인 페이지로
+			result.setPath("/login/login.lo"); // 로그인 안된 경우 로그인 페이지로
 			result.setRedirect(true);
 			return result;
 		}
