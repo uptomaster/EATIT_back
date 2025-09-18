@@ -30,7 +30,7 @@
 			<h2>
 				<c:choose>
 					<c:when test="${itemType eq 'INGREDIENT'}">재료 목록</c:when>
-					<c:otherwise>음식 목록</c:otherwise>
+					<c:otherwise>음식 목록 🥢</c:otherwise>
 				</c:choose>
 			</h2>
 

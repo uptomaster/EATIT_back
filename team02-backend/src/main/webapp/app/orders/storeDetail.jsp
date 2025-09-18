@@ -56,7 +56,7 @@
 						</button>
 					</div>
 					<div class="buy_store_info_detail">
-						<p class="buy_store_name">상호명 : ${item.storeName}</p>
+						<p class="buy_store_name">${item.storeName}</p>
 						<p class="buy_store_address">주소 : ${item.storeAddress}</p>
 						<p class="buy_store_tel">전화번호 : ${item.storeTel}</p>
 						<!-- 리뷰탭 이동 -->
