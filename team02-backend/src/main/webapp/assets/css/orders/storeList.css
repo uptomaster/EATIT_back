@@ -1,223 +1,294 @@
 @charset "UTF-8";
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 body {
-  background: linear-gradient(135deg, #fff1e6 0%, #ffe8cc 100%);
-  font-family: "Noto Sans KR", sans-serif;
-  color: #333;
+	font-family: "Pretendard", "Noto Sans KR", sans-serif;
+	background: #f2f1ed;
+	color: #333;
 }
 
-/* 전체 영역 */
+a {
+	text-decoration: none !important;
+	color: inherit;
+}
+
+/* 메인 영역 */
 #buy {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  padding: 60px 20px;
+	display: flex;
+	justify-content: center;
+	padding: 60px 20px;
+	min-height: 100vh;
+	background: #f2f1ed;
 }
 
-/* 메인 콘텐츠 박스 */
+/* 중앙 래퍼 */
+.wrap {
+	width: 1100px;
+	margin: 0 auto;
+}
+
+/* 중앙 컨테이너 */
 .buy_store_list {
-  width: 1200px;
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 40px 30px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-  border: 1px solid #f0f0f0;
+	position: relative;
+	background: linear-gradient(135deg, #ffffff 0%, #fff8f3 40%, #ffe1cc 100%);
+	border-radius: 24px;
+	padding: 50px;
+	box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+	border: 1px solid #e2ddd6;
+	overflow: hidden;
+}
+/* subtle 패턴 오버레이 */
+.buy_store_list::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background-image: radial-gradient(circle at 20% 20%, rgba(255, 156, 110, 0.08)
+		2px, transparent 2px),
+		radial-gradient(circle at 70% 60%, rgba(255, 107, 74, 0.06) 3px,
+		transparent 3px);
+	background-size: 60px 60px;
+	pointer-events: none;
 }
 
 /* 제목 */
 .buy_store_list h2 {
-  text-align: center;
-  font-weight: 800;
-  font-size: 30px;
-  color: #222;
-  margin-bottom: 30px;
-  position: relative;
+	text-align: center;
+	font-weight: 900;
+	font-size: 32px;
+	margin-bottom: 40px;
+	background: linear-gradient(90deg, #ff6b4a, #ffb84d);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	letter-spacing: -0.5px;
+	position: relative;
 }
+
 .buy_store_list h2::after {
-  content: "";
-  display: block;
-  width: 70px;
-  height: 4px;
-  background: linear-gradient(90deg, #ff8a65, #ff7043);
-  margin: 12px auto 0;
-  border-radius: 2px;
+	content: "";
+	display: block;
+	width: 120px;
+	height: 5px;
+	margin: 14px auto 0;
+	border-radius: 3px;
+	background: linear-gradient(90deg, #ff6b4a, #ffb84d);
+	box-shadow: 0 2px 6px rgba(255, 107, 74, 0.3);
 }
 
 /* 검색창 */
-.buy_store_list form {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 30px;
-}
-
 #buy_search {
-  width: 100%;
-  max-width: 600px;
-  height: 48px;
-  border-radius: 25px;
-  padding: 0 18px;
-  border: 1.5px solid #ddd;
-  font-size: 15px;
-  transition: all .3s ease;
-  background-color: #fff;
+	display: block;
+	width: 650px;
+	height: 56px;
+	margin: 0 auto 50px;
+	border-radius: 35px;
+	border: 2px solid #ff6b4a;
+	padding: 0 20px 0 55px;
+	font-size: 16px;
+	background: #fff;
+	box-shadow: 0 8px 18px rgba(255, 107, 74, 0.25);
+	transition: all .3s ease;
+	background-image: url('/assets/img/search-icon.png');
+	background-repeat: no-repeat;
+	background-size: 24px;
+	background-position: 18px center;
 }
+
 #buy_search:focus {
-  outline: none;
-  border-color: #ff8a65;
-  box-shadow: 0 0 10px rgba(255,138,101,0.4);
+	outline: none;
+	border-color: #ff4e2a;
+	box-shadow: 0 0 20px rgba(255, 107, 74, 0.5);
 }
 
-/* 정렬 버튼 */
-.buy_array {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 25px;
-  gap: 12px;
-}
-.buy_array li {
-  list-style: none;
-}
-.buy_array li a {
-  padding: 7px 15px;
-  border-radius: 20px;
-  background: #fafafa;
-  border: 1px solid #eee;
-  color: #666;
-  text-decoration: none;
-  font-size: 14px;
-  transition: all .2s ease;
-}
-.buy_array li a:hover {
-  background: #ff8a65;
-  color: #fff;
-}
-
-/* 카드 리스트 */
+/* 카드 리스트 (4개씩) */
 .buy_area {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 28px;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 32px;
+	justify-items: center;
 }
 
 /* 카드 */
 .buy_food_article {
-  background: #fff;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-  transition: transform .25s ease, box-shadow .25s ease;
-  position: relative;
+	width: 100%;
+	max-width: 260px;
+	height: 360px;
+	background: #fff;
+	border-radius: 20px;
+	overflow: hidden;
+	border: 1px solid #eee;
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+	transition: all .35s ease;
+	position: relative;
+	display: flex;
+	flex-direction: column;
 }
+
 .buy_food_article:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.18);
-}
-.buy_food_article a {
-  text-decoration: none;
-  color: inherit;
-  display: block;
+	transform: translateY(-10px) scale(1.02);
+	box-shadow: 0 16px 32px rgba(255, 107, 74, 0.35);
+	border-color: transparent;
+	background-image: linear-gradient(#fff, #fff),
+		linear-gradient(135deg, #ff9c6e, #ff6b4a);
+	background-origin: border-box;
+	background-clip: content-box, border-box;
 }
 
 /* 카드 이미지 */
 .buy_food_article img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  display: block;
-  transition: transform .4s ease;
+	width: 100%;
+	height: 190px;
+	object-fit: cover;
+	transition: transform .35s ease, filter .35s ease;
 }
+
 .buy_food_article:hover img {
-  transform: scale(1.05);
+	transform: scale(1.08);
+	filter: brightness(1.1) saturate(1.15);
+}
+/* 이미지 오버레이 */
+.buy_food_article::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 190px;
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0.18), transparent
+		70%);
+	pointer-events: none;
 }
 
-/* 카드 내용 */
+/* 뱃지 */
+.badge {
+	position: absolute;
+	top: 14px;
+	left: 14px;
+	padding: 6px 14px;
+	font-size: 13px;
+	font-weight: bold;
+	border-radius: 20px;
+	color: #fff;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.badge.urgent::before {
+	content: "⏰";
+}
+
+.badge.sale::before {
+	content: "💸";
+}
+
+.badge.fresh::before {
+	content: "🥬";
+}
+
+.badge.urgent {
+	background: linear-gradient(135deg, #ff4e50, #d32f2f);
+}
+
+.badge.sale {
+	background: linear-gradient(135deg, #ffb74d, #ff9800);
+}
+
+.badge.fresh {
+	background: linear-gradient(135deg, #43a047, #81c784);
+}
+
+/* 카드 정보 */
 .buy_store_info {
-  padding: 16px 18px;
-}
-.buy_store_info p {
-  margin: 5px 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.buy_store_name {
-  font-size: 14px;
-  font-weight: 700;
-  color: #444;
-}
-.buy_menu_name {
-  font-size: 16px;
-  font-weight: 500;
-  color: #222;
-}
-.buy_price {
-  font-size: 18px;
-  font-weight: bold;
-  color: #ff5722;
-  margin-top: 8px;
+	padding: 18px;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	flex-grow: 1;
 }
 
-/* 배지 */
-.buy_food_article::before {
-  content: "HOT";
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  background: linear-gradient(90deg, #ff7043, #ff5722);
-  color: #fff;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 4px 8px;
-  border-radius: 12px;
-  letter-spacing: 0.5px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+.buy_store_name {
+	font-size: 13px;
+	font-weight: 500;
+	color: #999;
+}
+
+.buy_menu_name {
+	font-size: 17px;
+	font-weight: 700;
+	color: #222;
+}
+
+.buy_item_content {
+	font-size: 13px;
+	color: #555;
+	line-height: 1.5;
+	margin: 6px 0;
+	min-height: 36px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+.buy_price {
+	margin-top: auto;
+	font-size: 19px;
+	font-weight: 800;
+	color: #ff4e2a;
 }
 
 /* 페이지네이션 */
 .buy_pagenation {
-  margin: 50px auto 0;
-  text-align: center;
-}
-.buy_pagenation ul {
-  display: inline-flex;
-  gap: 10px;
-  list-style: none;
-}
-.buy_pagenation_box {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: #fafafa;
-  border: 1px solid #eee;
-  line-height: 36px;
-  transition: all .2s ease;
-}
-.buy_pagenation_box a {
-  display: block;
-  width: 100%;
-  height: 100%;
-  text-decoration: none;
-  color: #444;
-  font-size: 14px;
-}
-.buy_pagenation_box:hover {
-  background: #ff8a65;
-}
-.buy_pagenation_box:hover a {
-  color: #fff;
-}
-.buy_pagenation_box.active,
-.buy_pagenation_box.active a {
-  background: #ff5722;
-  border-color: #ff5722;
-  color: #fff;
-  font-weight: bold;
+	display: flex;
+	justify-content: center;
+	margin: 65px 0 20px;
 }
 
+.buy_pagenation ul {
+	display: flex;
+	gap: 12px;
+	list-style: none;
+}
+
+.buy_pagenation_box {
+	width: 44px;
+	height: 44px;
+	border-radius: 12px;
+	background: #fffdf9;
+	border: 1.5px solid #ddd;
+	color: #555;
+	font-size: 15px;
+	font-weight: 600;
+	text-align: center;
+	line-height: 42px;
+	cursor: pointer;
+	transition: all .25s ease;
+}
+
+.buy_pagenation_box a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	color: inherit;
+}
+
+.buy_pagenation_box:hover {
+	background: #ffe1d8;
+	border-color: #ff9c6e;
+	color: #ff4e2a;
+}
+
+.buy_pagenation_box.active {
+	background: linear-gradient(135deg, #ff9c6e, #ff6b4a);
+	border-color: #ff6b4a;
+	color: #fff;
+	font-weight: 700;
+	box-shadow: 0 4px 12px rgba(255, 107, 74, 0.3);
+}

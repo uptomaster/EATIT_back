@@ -57,11 +57,11 @@
 	<!-- 장바구니 아이템 목록 (상세: itemName, imagePath 포함) -->
 	<!-- 장바구니 화면에서 상품 이름과 이미지까지 함께 보여줄 때 사용 -->
 	<select id="selectCartItems" parameterType="int"
-		resultType="CartItemDTO">
+		resultType="com.bapseguen.app.dto.CartItemDTO">
 		SELECT
 		ci.CART_ITEM_NUMBER AS cartItemNumber,
-		ci.CART_NUMBER
-		AS cartNumber,
+		ci.CART_NUMBER AS
+		cartNumber,
 		ci.ITEM_NUMBER AS itemNumber,
 		ci.CART_ITEM_QUANTITY AS
 		cartItemQuantity,
@@ -72,12 +72,14 @@
 		FROM TBL_ITEM_IMAGE ii
 		WHERE
 		ii.ITEM_NUMBER = ci.ITEM_NUMBER
-		FETCH FIRST 1 ROWS ONLY) AS imagePath
+		FETCH FIRST 1 ROWS ONLY) AS imagePath,
+		TO_CHAR(i.ITEM_EXPIRE_DATE, 'YYYY-MM-DD') AS itemExpireDate   <!-- ✅ 추가 -->
 		FROM TBL_CART_ITEM ci
 		JOIN TBL_ITEM i ON ci.ITEM_NUMBER = i.ITEM_NUMBER
 		WHERE ci.CART_NUMBER = #{cartNumber}
 		ORDER BY ci.CART_ITEM_NUMBER ASC
 	</select>
+
 
 	<!-- 회원의 OPEN 상태 장바구니 삭제 -->
 	<!-- 회원 탈퇴 시 또는 장바구니 자체를 비울 때 사용 -->
@@ -184,29 +186,28 @@
 		ci.ITEM_NUMBER AS itemNumber,
 		ci.CART_ITEM_QUANTITY AS
 		cartItemQuantity,
-		/* 담을 당시 가격 우선, 없으면 현재 상품가 */
-		NVL(ci.CART_ITEM_PRICE,
-		i.ITEM_PRICE) AS cartItemPrice,
+		NVL(ci.CART_ITEM_PRICE, i.ITEM_PRICE) AS
+		cartItemPrice,
 		i.ITEM_NAME AS itemName,
-		/* 이미지: 해당 상품의
-		첫 이미지 system name을 사용해 DTO.imagePath로 매핑 */
-		(
-		SELECT
+		(SELECT
 		ii.ITEM_IMAGE_SYSTEM_NAME
 		FROM TBL_ITEM_IMAGE ii
 		WHERE ii.ITEM_NUMBER =
 		i.ITEM_NUMBER
-		AND ROWNUM = 1
-		) AS imagePath
+		AND ROWNUM = 1) AS imagePath,
+		TO_CHAR(i.ITEM_EXPIRE_DATE,
+		'YYYY-MM-DD') AS itemExpireDate
 		FROM TBL_CART c
-		JOIN
-		TBL_CART_ITEM ci ON ci.CART_NUMBER = c.CART_NUMBER
-		JOIN TBL_ITEM i ON
-		i.ITEM_NUMBER = ci.ITEM_NUMBER
+		JOIN TBL_CART_ITEM ci ON
+		ci.CART_NUMBER = c.CART_NUMBER
+		JOIN TBL_ITEM i ON i.ITEM_NUMBER =
+		ci.ITEM_NUMBER
 		WHERE c.MEMBER_NUMBER = #{memberNumber}
-		AND c.CART_ORDER_STATUS = 'OPEN'
+		AND
+		c.CART_ORDER_STATUS = 'OPEN'
 		ORDER BY ci.CART_ITEM_NUMBER
 	</select>
+
 
 
 	<!-- 결제 성공 시 현재 OPEN 카트 마감 -->
@@ -253,28 +254,25 @@
 		SELECT i.ITEM_NUMBER,
 		i.ITEM_NAME,
 		i.ITEM_PRICE,
-		(SELECT
-		ii.ITEM_IMAGE_SYSTEM_NAME
+		TO_CHAR(i.ITEM_EXPIRE_DATE, 'YYYY-MM-DD') AS itemExpireDate,
+		(SELECT ii.ITEM_IMAGE_SYSTEM_NAME
 		FROM TBL_ITEM_IMAGE ii
-		WHERE ii.ITEM_NUMBER =
-		i.ITEM_NUMBER
+		WHERE ii.ITEM_NUMBER = i.ITEM_NUMBER
 		FETCH FIRST 1 ROWS ONLY) AS itemImageSystemName
-		FROM
-		TBL_ITEM i
+		FROM TBL_ITEM i
 		WHERE i.BUSINESS_NUMBER = #{businessNumber}
-		AND i.ITEM_NUMBER
-		NOT IN
-		(SELECT ci.ITEM_NUMBER
+		AND i.ITEM_NUMBER NOT IN (
+		SELECT ci.ITEM_NUMBER
 		FROM TBL_CART_ITEM ci
-		JOIN TBL_CART c ON
-		ci.CART_NUMBER = c.CART_NUMBER
+		JOIN TBL_CART c ON ci.CART_NUMBER = c.CART_NUMBER
 		WHERE c.MEMBER_NUMBER = #{memberNumber}
-		AND c.CART_ORDER_STATUS = 'OPEN')
+		AND c.CART_ORDER_STATUS = 'OPEN'
+		)
 		AND i.ITEM_SELL_STATE = 'Y'
-		ORDER BY
-		DBMS_RANDOM.VALUE
+		ORDER BY DBMS_RANDOM.VALUE
 		FETCH FIRST 4 ROWS ONLY
 	</select>
+
 
 	<!-- ITEM_NUMBER → BUSINESS_NUMBER -->
 	<select id="findBusinessNumberByItem" parameterType="int"
@@ -298,7 +296,8 @@
 		resultType="int">
 		SELECT CART_ITEM_QUANTITY
 		FROM TBL_CART_ITEM
-		WHERE CART_NUMBER = #{cartNumber}
+		WHERE
+		CART_NUMBER = #{cartNumber}
 		AND ITEM_NUMBER = #{itemNumber}
 	</select>
 
