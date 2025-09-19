@@ -53,13 +53,16 @@
           <div class="seller_write_review_price">금액</div>
           <div class="seller_write_review_date">구매 일자</div>
         </div>
-        <div class="seller_write_review_comments_list">
-          <div class="seller_write_review_restaurant_name"><c:out value="${order.storeName}"/></div>
-          <div class="seller_write_review_meal_name"><c:out value="${order.itemName}"/></div>
-          <div class="seller_write_review_quantity"><c:out value="${order.orderItemQuantity}"/></div>
-          <div class="seller_write_review_price"><c:out value="${order.ordersTotalAmount}"/>원</div>
-          <div class="seller_write_review_date"><c:out value="${order.ordersDate}"/></div>
-        </div>
+        <c:forEach var="order" items="${infoList}">
+	        <div class="seller_write_review_comments_list">
+	          <div class="seller_write_review_restaurant_name"><c:out value="${order.storeName}"/></div>
+	          <div class="seller_write_review_meal_name"><c:out value="${order.itemName}"/></div>
+	          <div class="seller_write_review_quantity"><c:out value="${order.orderItemQuantity}"/></div>
+	          <div class="seller_write_review_price"><c:out value="${order.ordersTotalAmount}"/>원</div>
+	          <div class="seller_write_review_date"><c:out value="${order.ordersDate}"/></div>
+	        </div>
+        </c:forEach>
+        
         <form id="seller_write_review_form" action="${pageContext.request.contextPath}/sellerMyPage/sellerwriteReviewOk.se" method="post">
           <input type="hidden" value="${order.ordersNumber }" name="ordersNumber">
           <input type="hidden" value="${order.ordersDate }" name="ordersDate">
@@ -82,7 +85,7 @@
             <img class="seller_write_review_counting_Star" src="${pageContext.request.contextPath}/assets/img/gray_shake_it_ya.png" alt="별점">
           </button>
           <button class="seller_write_review_counting_Star_button">
-            <img class="seller_write_review_counting_Star" src="${pageContext.request.contextPath}      /assets/img/gray_shake_it_ya.png" alt="별점">
+            <img class="seller_write_review_counting_Star" src="${pageContext.request.contextPath}/assets/img/gray_shake_it_ya.png" alt="별점">
           </button>
         </div>
           <!-- <div class="seller_write_review_form_group">

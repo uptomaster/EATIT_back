@@ -50,11 +50,23 @@
 
         <div class="store_info_store_info">
           <!-- 가게 이미지 -->
-          <%-- <img src="${pageContext.request.contextPath}/assets/img/store.jpg" alt="가게 이미지 추가하기"> --%>
-          <img src="${pageContext.request.contextPath}/upload/${images.storeImageSystemName}" alt="가게 이미지 추가하기"> 
+	          <%-- <img src="${pageContext.request.contextPath}/assets/img/store.jpg" alt="가게 이미지 추가하기"> --%>
+	          <%-- <img src="${pageContext.request.contextPath}/upload/${images.storeImageSystemName}" alt="가게 이미지 추가하기"> --%> 
+						<c:choose>
+							<c:when test="${not empty item.storeImageSystemName}">
+								<img
+									src="${pageContext.request.contextPath}/upload/${item.storeImageSystemName}"
+									alt="${item.storeName}">
+							</c:when>
+							<c:otherwise>
+								<img
+									src="${pageContext.request.contextPath}/assets/img/food1.jpg"
+									alt="기본 이미지">
+							</c:otherwise>
+						</c:choose>          
           <div class="store_info_store_info_detail">
             <p class="store_info_store_name">${storeInfo.storeName }</p>
-            <p class="store_info_store_address"><c:out value="${storeInfo.storeAddress} ${ storeInfo.storeAddressDetail}"/></p>
+            <p class="store_info_store_address" id="roadAddr"><c:out value="${storeInfo.storeAddress} ${ storeInfo.storeAddressDetail}"/></p>
             <p class="store_info_store_open_time">영업시간  ${storeInfo.storeOpenTime } ~ ${storeInfo.storeCloseTime }</p>
           </div>
           <!-- 가게정보, 이미지 수정 버튼 -->
