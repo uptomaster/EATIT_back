@@ -6,13 +6,10 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.bapseguen.app.dto.CommentDTO;
-import com.bapseguen.app.dto.OrdersDTO;
-import com.bapseguen.app.dto.PostDTO;
-import com.bapseguen.app.dto.ReviewDTO;
-import com.bapseguen.app.dto.StoreFavoriteDTO;
+import com.bapseguen.app.dto.view.CommentListDTO;
 import com.bapseguen.app.dto.view.MyPageDTO;
 import com.bapseguen.app.dto.view.MyPurchaseDTO;
+import com.bapseguen.app.dto.view.PostDetailDTO;
 import com.bapseguen.app.dto.view.ReviewWriteDTO;
 import com.bapseguen.config.MyBatisConfig;
 
@@ -63,11 +60,6 @@ public class UserMyPageDAO {
 	    map.put("memberPhone", memberPhone);
 	    return updatePhone(map); 
 	}
-	
-	//회원탈퇴
-	public int delete(int memberNumber) {
-        return sqlSession.delete("myPage.withDrawDelete", memberNumber);
-    }
 
 	// 음식 구매 내역
     public List<MyPurchaseDTO> selectMyFoodOrders(Map<String, Integer> pageMap) {
@@ -88,4 +80,43 @@ public class UserMyPageDAO {
         return sqlSession.selectOne("myOrder.myOrderIngreCount", pageMap);
     }
     
+    //내가 쓴 게시글 조회
+    public List<PostDetailDTO> myPostSelect(Map<String, Integer> pageMap) {
+        return sqlSession.selectList("myPage.myPostSelect", pageMap);
+    }
+    
+    //내가 쓴 게시글 전체 수
+    public int getMyPostCount(int memberNumber) {
+        return sqlSession.selectOne("myPage.getMyPostCount", memberNumber);
+    }
+    
+    // 내가 작성한 댓글 조회
+    public List<CommentListDTO> myCommentSelect(Map<String, Object> paramMap) {
+        return sqlSession.selectList("myComment.myCommentSelect", paramMap);
+    }
+    // 내가 작성한 댓글 수 조회
+    public int myCommentCount(int memberNumber) {
+        return sqlSession.selectOne("myComment.myCommentCount", memberNumber);
+    }
+    
+    // 내가 작성한 리뷰 조회
+    public List<ReviewWriteDTO> myReviewSelect(Map<String, Object> paramMap) {
+        return sqlSession.selectList("myReview.myReviewSelect", paramMap);
+    }
+    //내가 작성한 리뷰 수 조회
+    public int myReviewCount(int memberNumber) {
+        return sqlSession.selectOne("myReview.myReviewCount", memberNumber);
+    }
+
+	//회원탈퇴
+//	public int delete(int memberNumber) {
+//        return sqlSession.delete("myPage.withDrawDelete", memberNumber);
+//    }
+	//작성한 게시글,리뷰,댓글 삭제 후 회원 삭제
+    public void withdrawMember(int memberNumber) {
+    	sqlSession.delete("myPage.deleteUserComments", memberNumber);
+        sqlSession.delete("myPage.deleteUserReviews", memberNumber);
+        sqlSession.delete("myPage.deleteUserPosts", memberNumber);
+        sqlSession.delete("myPage.withDrawDelete", memberNumber);
+    }
 }

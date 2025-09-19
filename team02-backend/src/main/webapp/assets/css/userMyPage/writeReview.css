@@ -1,15 +1,16 @@
 @charset "UTF-8";
 
-header{
-  width : 1920px;
-  height : 150px;
-}
 main{
   background-color: #FFF5E4;
   width: 1920px;
   height: 1500px;
   display: flex;
   flex-direction: row;
+}
+/* 사이드 네비 액티브시  */
+.active{
+  background-color: #ff873c8c;
+  border-radius: 10px;
 }
 .writereview_page{
   background-color: #FBE3B9;
