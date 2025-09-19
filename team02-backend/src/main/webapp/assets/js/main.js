@@ -102,75 +102,93 @@ function sample4_execDaumPostcode() {
   }).open();
 }
 
-// '저장' 버튼 클릭 시 주소 변환 및 가게 목록 가져오기
-saveLocation.addEventListener("click", () => {
-  const roadAddress = document.getElementById('sample4_roadAddress').value;
-  const detailAddress = document.getElementById('sample4_detailAddress').value;
-  const fullAddress = roadAddress.trim() + " " + detailAddress.trim();
+function searchAddress() {
+   let address = document.getElementById("addressInput").value;
+   if(!address) {
+     alert("주소를 입력해주세요.");
+     return;
+   }
 
-  if (!fullAddress.trim()) {
-    alert("주소를 입력해주세요.");
-    return;
-  }
+   // 카카오 주소 검색 서비스
+   var ps = new kakao.maps.services.Geocoder();
 
-  // 1. 주소 변환 API 호출
-  $.ajax({
-    url: `${document.body.dataset.contextPath}/convertAddressAndSave`,
-    type: 'GET',
-    data: { fullAddress: fullAddress },
-    success: function(response) {
-      if (response === "success") {
-        alert("위치 정보가 저장되었습니다. 주변 가게를 불러옵니다.");
-        locationModal.style.display = "none"; // 모달 닫기
-        // 2. 주소 변환 성공 시, 정렬된 가게 목록을 가져오는 API 호출
-        fetchAndRenderStores();
-      } else {
-        alert("주소 변환에 실패했습니다. 다시 시도해주세요.");
-      }
-    },
-    error: function(xhr, status, error) {
-      console.error("AJAX Error: ", status, error);
-      alert("서버 통신 중 오류가 발생했습니다.");
-    }
-  });
-});
+   ps.addressSearch(address, function(result, status) {
+     if (status === kakao.maps.services.Status.OK) {
+       let lat = result[0].y;
+       let lng = result[0].x;
 
-// 정렬된 가게 목록을 가져와 HTML에 렌더링하는 함수
-function fetchAndRenderStores() {
-    $.ajax({
-        url: `${document.body.dataset.contextPath}/getSortedStores`,
-        type: 'GET',
-        success: function(stores) {
-            const foodBuyContainer = $('.main_food_buy');
-            foodBuyContainer.empty(); // 기존 목록 삭제
+       // 결과 출력
+       document.getElementById("addressResult").innerHTML = 
+         `위도: ${lat}, 경도: ${lng} <br> 주소: ${result[0].address.address_name}`;
 
-            if (stores && stores.length > 0) {
-                stores.forEach(store => {
-                    const distanceKm = store.distance ? store.distance.toFixed(2) : "거리 미확인";
-                    const article = `
-                        <article class="main_food_buy_article visible">
-                            <a href="${document.body.dataset.contextPath}/orders/storeDetail.or?itemNumber=${store.itemNumber}">
-                                <img src="${document.body.dataset.contextPath}/assets/img/${store.itemImageSystemName}" alt="${store.storeName} 이미지">
-                                <div class="main_store_info">
-                                    <div class="main_store_name">${store.storeName}</div>
-                                    <div class="main_menu_name">거리: ${distanceKm}km</div>
-                                    <div class="main_open_time">영업시간 : ${store.storeOpenTime} ~ ${store.storeCloseTime}</div>
-                                    <div class="main_price">${store.itemPrice}원</div>
-                                </div>
-                            </a>
-                        </article>
-                    `;
-                    foodBuyContainer.append(article);
-                });
-            } else {
-                foodBuyContainer.append('<p style="color: #888">주변에 가게가 없습니다.</p>');
-            }
-        },
-        error: function() {
-            foodBuyContainer.append('<p style="color: #888">가게 목록을 불러오지 못했습니다.</p>');
-        }
-    });
-}
+       // 서버에 위도/경도 전송 (예: AJAX)
+       sendCoordinatesToServer(lat, lng);
+
+     } else {
+       alert("주소 검색 결과가 없습니다.");
+     }
+   });
+ }
+
+ function sendCoordinatesToServer(lat, lng) {
+   // AJAX로 서버에 좌표 전달 (예: jQuery 사용)
+   fetch('${pageContext.request.contextPath}/location/searchNearby', {
+     method: 'POST',
+     headers: {'Content-Type': 'application/json'},
+     body: JSON.stringify({ latitude: lat, longitude: lng })
+   })
+   .then(response => response.json())
+   .then(data => {
+     console.log("서버에서 받은 근처 가게 목록:", data);
+     // 여기서 가게 리스트 UI 갱신
+   })
+   .catch(err => {
+     console.error("서버와 통신 중 에러 발생:", err);
+   });
+ }
+
+ const saveBtn = document.querySelector('.save_location');
+
+ saveBtn.addEventListener('click', () => {
+   // 예: 입력된 주소 정보 가져오기
+   const postcode = document.getElementById('sample4_postcode').value;
+   const roadAddress = document.getElementById('sample4_roadAddress').value;
+   const jibunAddress = document.getElementById('sample4_jibunAddress').value;
+   const extraAddress = document.getElementById('sample4_extraAddress').value;
+
+   if (!postcode || !roadAddress) {
+     alert('주소를 정확히 입력해주세요.');
+     return;
+   }
+
+   const addressData = {
+     postcode,
+     roadAddress,
+     jibunAddress,
+     extraAddress
+   };
+
+   // 서버에 주소 데이터 전송 예시 (fetch 사용)
+   fetch('main.sa', {  // 실제 주소로 변경 필요
+     method: 'POST',
+     headers: {'Content-Type': 'application/json'},
+     body: JSON.stringify(addressData)
+   })
+   .then(res => {
+     if (!res.ok) throw new Error('저장 실패');
+     return res.json();
+   })
+   .then(data => {
+     alert('주소가 저장되었습니다.');
+     // 모달 닫기 등 추가 동작
+     locationModal.style.display = 'none';
+   })
+   .catch(err => {
+     console.error(err);
+     alert('주소 저장 중 오류가 발생했습니다.');
+   });
+ });
+
 
 // 무한 루프 처리 (복제 슬라이드에서 실제 슬라이드로 순간 이동)
 function handleLoop() {

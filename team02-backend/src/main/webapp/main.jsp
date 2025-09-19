@@ -19,6 +19,7 @@
 	type="image/x-icon">
 
 <!-- 헤더 js -->
+<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=d8196a9ba4f57089acc357bda4989eed&libraries=services"></script>
 <script defer src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 <script defer
 	src="${pageContext.request.contextPath}/assets/js/gradeModal.js"></script>
@@ -100,7 +101,7 @@
 										<a
 											href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${store.itemNumber}">
 											<img
-											src="${pageContext.request.contextPath}/assets/img/${store.itemImageSystemName}"
+											src="${pageContext.request.contextPath}/upload/${store.itemImageSystemName}"
 											alt="${store.storeName} 이미지">
 											<div class="main_store_info">
 												<div class="main_store_name">
@@ -157,7 +158,7 @@
 										<a
 											href="${pageContext.request.contextPath}/orders/ingredientDetail.or">
 											<img
-											src="${pageContext.request.contextPath}/assets/img/${ingredient.itemImageSystemName}"
+											src="${pageContext.request.contextPath}/upload/${ingredient.itemImageSystemName}"
 											alt="${ingredient.storeName} 이미지">
 										</a>
 									</article>

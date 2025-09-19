@@ -12,6 +12,10 @@ public class StoreDTO {
 	private String storeZipCode;
 	private String storeOpenTime;
 	private String storeCloseTime;
+	private double latitude;
+	private double longitude;
+	private double distance;
+	
 	public String getBusinessNumber() {
 		return businessNumber;
 	}
@@ -72,14 +76,33 @@ public class StoreDTO {
 	public void setStoreCloseTime(String storeCloseTime) {
 		this.storeCloseTime = storeCloseTime;
 	}
+	public double getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+	public double getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+	public double getDistance() {
+		return distance;
+	}
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}
+	
 	@Override
 	public String toString() {
 		return "StoreDTO [businessNumber=" + businessNumber + ", memberNumber=" + memberNumber + ", storeName="
 				+ storeName + ", storeOpenDate=" + storeOpenDate + ", storeTel=" + storeTel + ", storeAddress="
 				+ storeAddress + ", storeAddressDetail=" + storeAddressDetail + ", storeZipCode=" + storeZipCode
-				+ ", storeOpenTime=" + storeOpenTime + ", storeCloseTime=" + storeCloseTime + "]";
+				+ ", storeOpenTime=" + storeOpenTime + ", storeCloseTime=" + storeCloseTime + ", latitude=" + latitude
+				+ ", longitude=" + longitude + ", distance=" + distance + "]";
 	}
 
-	
 	
 }

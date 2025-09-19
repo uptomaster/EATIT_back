@@ -16,8 +16,16 @@
 	</welcome-file-list>
 
 
-
-
+<!-- location -->
+	<servlet>
+		<servlet-name>SaveAddress</servlet-name>
+		<servlet-class>com.bapseguen.app.main.SaveAddress</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SaveAddress</servlet-name>
+		<url-pattern>*.sa</url-pattern>
+	</servlet-mapping>
+	
 	<!-- Comment -->
 	<servlet>
 		<servlet-name>PostReport</servlet-name>
