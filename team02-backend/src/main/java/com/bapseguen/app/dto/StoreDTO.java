@@ -105,4 +105,8 @@ public class StoreDTO {
 	}
 
 	
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> main
