@@ -105,34 +105,61 @@
 						        <%-- 요청대로 상세는 ?postNumber=${memberNumber} 를 부착 --%>
 						        <c:set var="readUrl" value="${ctx}${readEndpoint}?postNumber=${comment.postNumber}" />
 
-								</div>
-								<!-- 게시글 제목 -->
-								<div class="seller_mycomments_sort">
 									 <a href="${listUrl}">${typeLabel}</a>
 								</div>
 								<!-- 게시글 제목 -->
 								<div class="seller_mycomments_title">
 									<a href="${readUrl}"> <c:out value="${comment.postTitle}"/> </a>
 								</div>
+								<!-- 게시글 작성자 -->
 								<div class="seller_mycomments_id">
 									<c:out value="${comment.memberId}"/>
 								</div>
 								<!-- 댓글 내용 -->
-								<div class="seller_mycomments_comments_info"><c:out value="${comment.commentContent}"/></div>
+								<div class="seller_mycomments_comments_info">
+									<c:out value="${comment.commentContent}"/>
+								</div>
 								<!-- 작성일자 -->
-								<div class="seller_mycomments_date"><c:out value="${comment.commentedDate}"/></div>
+								<div class="seller_mycomments_date">
+									<c:out value="${comment.commentedDate}"/>
+								</div>
 							</div>
 							</c:forEach>
 						</c:when>
 					</c:choose>
 			</div>
-			<div class="seller_mycomments_pagination">
-				<a href="#" class="seller_mycomments_page_active">1</a>
-				<a href="#"	class="seller_mycomments_page">2</a> 
-				<a href="#"	class="seller_mycomments_page">3</a> 
-				<a href="#"	class="seller_mycomments_page">4</a> 
-				<a href="#" class="seller_mycomments_page">5</a>
-			</div>
+			<!-- 페이지네이션 자리 (요청하신 블록: 변경 없이 그대로 삽입) -->
+      <div class="pagination">
+        <ul class="pagination_ul">
+          <c:if test="${prev}">
+            <li><a
+              href="${pageContext.request.contextPath}/sellerMyPage/myComments.se?page=${startPage - 1}"
+              class="prev">&lt;</a></li>
+          </c:if>
+          <c:set var="realStartPage"
+            value="${startPage < 0 ? 0 : startPage}" />
+          <c:forEach var="i" begin="${realStartPage}" end="${endPage}">
+            <c:choose>
+              <c:when test="${!(i == page) }">
+                <li><a class="pagination_item"
+                  href="${pageContext.request.contextPath}/sellerMyPage/myComments.se?page=${i}">
+                    <c:out value="${i}" />
+                </a></li>
+              </c:when>
+              <c:otherwise>
+                <li><a href="#" class="active"> <c:out value="${i}" />
+                </a></li>
+              </c:otherwise>
+            </c:choose>
+          </c:forEach>
+          <c:if test="${next}">
+            <li><a
+              href="${pageContext.request.contextPath}/sellerMyPage/myComments.se?page=${endPage + 1}"
+              class="next">&gt;</a>
+          </c:if>
+        </ul>
+      </div>
+      <!-- 페이지네이션 끝 -->
 		</div>
 	</main>
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />

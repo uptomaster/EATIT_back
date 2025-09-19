@@ -1,7 +1,7 @@
 package com.bapseguen.app.sellerMyPage;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -49,9 +49,9 @@ public class sellerwriteReviewContorller implements Execute{
 	    int ordersNumber = Integer.parseInt(ordersNumberstr);
 	    System.out.println("[controller] orderNum : "+ordersNumber );
 	    
-	    infodto = dao.selectOneOrder(ordersNumber);
+	    List<ReviewWriteDTO> infoList = dao.selectOrderList(ordersNumber);
 	    System.out.println();
-	    request.setAttribute("order", infodto);
+	    request.setAttribute("infoList", infoList);
 	    request.setAttribute("ordersNumber", ordersNumber);
 	    request.setAttribute("businessNumber", businessNumber);
 	    request.setAttribute("memberNumber", memberNumber);

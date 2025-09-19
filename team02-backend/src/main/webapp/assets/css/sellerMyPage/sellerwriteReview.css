@@ -1,24 +1,40 @@
 @charset "UTF-8";
+
+/* =========================
+   초기화
+   ========================= */
 * {
   margin: 0;
   padding: 0;
   /* box-sizing: border-box; */
 }
+
 main{
-  background-color: #FFF5E4;
-  width: 1920px;
-  height: 1500px;
+  /* background-color: #FFF5E4; */ /* 기존 */
+  background-color: #fff5e4;
+  /* width: 1920px; height: 1500px; */ /* 고정폭/높이는 제거 권장 */
   display: flex;
   flex-direction: row;
 }
-.seller_write_review_page{
-  background-color: #FBE3B9;
-  width: 1100px;
-  margin-left: 410px;
-}
-/*  */
 
-/* 좌측 메뉴 바 */
+/* =========================
+   페이지 컨테이너 (카드형)
+   ========================= */
+.seller_write_review_page{
+  /* background-color: #FBE3B9; */     /* 기존 */
+  width: 1100px;
+  padding: 30px 40px;                  /* 추가 */
+  background-color: #fcfaf8;           /* 추가: 카드 배경 */
+  box-shadow: 0 0 12px rgba(168, 6, 6, 0.438); /* 추가 */
+  border-radius: 10px;                  /* 추가 */
+  margin: 30px 10px 30px 410px;         /* 좌측 메뉴 고려 */
+  display: flex;                        /* 추가 */
+  flex-direction: column;               /* 추가 */
+}
+
+/* =========================
+   좌측 메뉴 바 (원형 유지)
+   ========================= */
 .seller_write_review_menu {
   position: fixed;
   padding: 0;
@@ -29,7 +45,6 @@ main{
   background-color: #a6998080;
   border-radius: 10px;
 }
-
 .seller_write_review_menu_title {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -57,103 +72,113 @@ main{
   padding: 15px 0;
   width: 190px;
 }
-
 .seller_write_review_menu_list>li>a {
   text-decoration: none;
   color: white;
 }
-
-
 .seller_write_review_menu_list>li:hover {
   width: 190px;
   background-color: #ff873c8c;
   border-radius: 10px;
 }
 
-
-/* 좌측 메뉴바 끝 */
-
+/* =========================
+   상단 타이틀
+   ========================= */
 .seller_write_review_list{
-  margin: 100px 0 45px 70px;
-  font-size: 30px;
+  /* margin: 100px 0 45px 70px; */  /* 기존 */
+  margin: 40px 0 20px 0;            /* 카드 안쪽으로 조정 */
+  font-size: 26px;                   /* 기존: 30px */
+  font-weight: 600;
+  color: #444;
 }
+
+/* =========================
+   구매내역 헤더/행 (목록 스타일)
+   ========================= */
+/* 헤더 */
 .seller_write_review_top{
-  margin-left: 50px;
-  background-color: #a69980;
-  width: 1000px;
-  height: 50px;
-  font-size: 20px;
-  align-items: center;
+  /* margin-left: 50px; background-color: #a69980; width: 1000px; height: 50px; font-size: 20px; border: 1px solid black; */ /* 기존 */
+  background-color: #ffe8b4;          /* 연한 주황 헤더 */
+  font-weight: 600;
+  color: #444;
   display: flex;
-  border: 1px solid black;
+  align-items: center;
+  padding: 14px 20px;                 /* 내부 여백 */
+  border-radius: 6px 6px 0 0;         /* 위쪽 라운딩 */
+  border: 1px solid #e3e3e3;             /* 얇은 경계 */
+  user-select: none;
 }
+
+/* 행 */
 .seller_write_review_comments_list{
-  margin-left: 50px;
-  background-color: white;
-  width: 1000px;
-  height: 100px;
+  /* margin-left: 50px; background-color: white; width: 1000px; height: 100px; border: 1px solid black; */ /* 기존 */
+  background-color: #ffffff;
+  min-height: 50px;                   /* 가변 높이 */
   font-size: 16px;
   align-items: center;
   display: flex;
-  border: 1px solid black;  
+  border: 1px solid #e3e3e3;
+  border-top: none;                   /* 헤더와 접합 */
+  color: #444;
+  padding: 14px 18px;                 /* 내부 여백 */
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
-.seller_write_review_restaurant_name{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  width: 225px;
+
+.seller_write_review_comments_list:last-child{
+  border-radius: 0 0 6px 6px;         /* 마지막 행 라운딩 */
 }
-.seller_write_review_meal_name{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  width: 225px;
-}
-.seller_write_review_product_img{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  width: 225px;
-}
-.seller_write_review_meal_img{
-  width: 75px;
-  height: 75px;
-}
-.seller_write_review_quantity{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  width: 100px;
-}
-.seller_write_review_price{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  width: 150px;
-}
+
+/* =========================
+   컬럼 (폭/정렬)
+   ========================= */
+.seller_write_review_restaurant_name,
+.seller_write_review_meal_name,
+.seller_write_review_product_img,
+.seller_write_review_quantity,
+.seller_write_review_price,
 .seller_write_review_date{
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
-  width: 150px;
+  min-height: 50px;                   /* 기존 height: 50px */
+  padding: 0 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
+
+/* 기존 px 폭 유지 */
+.seller_write_review_restaurant_name { width: 225px; }
+.seller_write_review_meal_name       { width: 225px; }
+.seller_write_review_product_img     { width: 225px; }
+.seller_write_review_quantity        { width: 100px; }
+.seller_write_review_price           { width: 150px; }
+.seller_write_review_date            { width: 150px; }
+
+.seller_write_review_meal_img{
+  width: 75px;
+  height: 75px;
+  border-radius: 6px;                 /* 미세 라운딩 */
+  object-fit: cover;
+}
+
+/* =========================
+   별점 영역 (유지)
+   ========================= */
 .seller_write_review_set_rank{
-  margin-left: 50px;
+  /* margin-left: 50px; margin-top: 20px; border: 1px solid black; width: 250px; height: 40px; font-size: 20px; background-color: white; */ /* 기존 */
   margin-top: 20px;
   display: flex;
   align-items: center;
-  border: 1px solid black;
-  width: 250px;
-  height: 40px;
-  font-size: 20px;
-  background-color: white;
   justify-content: center;
+  gap: 10px;                          /* 버튼 간격 */
+  border: 1px solid #eee;
+  background-color: #fff;
+  width: 290px;
+  height: 44px;
+  font-size: 18px;
+  border-radius: 8px;
 }
 .seller_write_review_counting_Star{
   width: 25px;
@@ -165,69 +190,25 @@ main{
   border: none;
 }
 
-/* 별점 컴포넌트 */
-.review_rating {
-  display: inline-flex;
-  flex-direction: row-reverse; /* 5→1 순서 라벨 클릭 시 왼쪽부터 채워지도록 */
-  gap: 8px;
-  font-size: 2rem;
-  user-select: none;
-}
+/* 접근성 좋은 별점 컴포넌트 (유지) */
+.review_rating { display: inline-flex; flex-direction: row-reverse; gap: 8px; font-size: 2rem; user-select: none; }
 .review_star_input { position: absolute; left: -9999px; }
-.review_star {
-  cursor: pointer;
-  color: #ccc; /* 회색 별 */
-  transition: transform .12s ease, color .12s ease;
-}
+.review_star { cursor: pointer; color: #ccc; transition: transform .12s ease, color .12s ease; }
 .review_star:focus { outline: 2px solid #ffb84d; outline-offset: 4px; }
-
-/* 호버 시: 자신 및 왼쪽의 모든 별이 노란색이 되도록 다음 형제 선택자 활용 */
-.review_star:hover,
-.review_star:hover ~ .review_star {
-  color: #ffc107; /* 노란색 */
-  transform: scale(1.04);
-}
-
-/* 선택(라디오 체크) 시: 체크된 인풋의 이전 라벨들(시각상 왼쪽)까지 노란색 */
+.review_star:hover, .review_star:hover ~ .review_star { color: #ffc107; transform: scale(1.04); }
 .review_star_input:checked + .review_star,
-.review_star_input:checked + .review_star ~ .review_star {
-  color: #ffc107;
-}
-
-/* 도움말 텍스트 */
+.review_star_input:checked + .review_star ~ .review_star { color: #ffc107; }
 .review_rating_help { margin-top: 6px; color: #666; font-size: .95rem; }
-.seller_write_review_write_form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
 
-.seller_write_review_form_group {
-  display: flex;
-  flex-direction: column;
-}
+/* =========================
+   작성 폼 공통
+   - textarea와 버튼 사이 간격 10px
+   - textarea 좌우 10px 여백
+   ========================= */
+.seller_write_review_write_form { display: flex; flex-direction: column; gap: 20px; }
+.seller_write_review_form_group { display: flex; flex-direction: column; }
 
-#tagSelect {
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: 1.5px solid #ffb84d;
-  font-weight: bold;
-  color: #ffb84d;
-  cursor: pointer;
-  outline: none;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-}
-
-#tagSelect:focus {
-  border-color: #ffb84d;
-}
-
-label {
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: #555;
-}
+label { font-weight: 600; margin-bottom: 8px; color: #555; }
 
 input[type="text"],
 textarea,
@@ -238,6 +219,12 @@ select {
   font-size: 1rem;
   transition: border-color 0.3s;
   resize: vertical;
+}
+
+/* textarea 좌우 간격 + 버튼과의 간격 */
+textarea {
+  margin: 0 10px 10px 10px;  /* 좌우 10px, 아래(버튼 위) 10px */
+  min-height: 120px;
 }
 
 input[type="text"]:focus,
@@ -260,18 +247,14 @@ input[type="file"] {
   transition: border-color 0.3s ease;
   background-color: #fff5d1;
 }
-
-input[type="file"]:focus {
-  border-color: #ffb84d;
-  background-color: #fff0b8;
-  outline: none;
-}
+input[type="file"]:focus { border-color: #ffb84d; background-color: #fff0b8; outline: none; }
 
 /* 버튼 그룹 */
 .seller_write_review_button_group {
   display: flex;
   justify-content: flex-end;
-  gap: 15px;
+  gap: 10px;                 /* textarea와 버튼 사이 간격 요구 반영(최소 10px) */
+  margin: 0 10px;            /* 버튼 그룹 좌우도 textarea와 일관되게 10px */
 }
 
 .seller_write_review_submit_btn {
@@ -285,6 +268,7 @@ input[type="file"]:focus {
   cursor: pointer;
   transition: background-color 0.3s;
 }
+.seller_write_review_submit_btn:hover { background-color: #45a049; }
 
 .seller_write_review_cancel_btn {
   background-color: #df3131;
@@ -297,11 +281,13 @@ input[type="file"]:focus {
   cursor: pointer;
   transition: background-color 0.3s;
 }
+.seller_write_review_cancel_btn:hover { background-color: #c91e1e; }
 
-.seller_write_review_submit_btn:hover {
-  background-color: #45a049;
-}
-
-.seller_write_review_cancel_btn:hover {
-  background-color: #c91e1e;
+/* =========================
+   반응형 (옵션)
+   ========================= */
+@media (max-width: 1200px){
+  .seller_write_review_page { width: 100%; margin-left: 0; padding: 24px 30px; }
+  .seller_write_review_top,
+  .seller_write_review_comments_list { width: calc(100% - 100px); margin-left: 50px; }
 }

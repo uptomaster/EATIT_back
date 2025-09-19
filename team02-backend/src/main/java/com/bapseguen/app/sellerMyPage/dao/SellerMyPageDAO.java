@@ -379,5 +379,11 @@ public class SellerMyPageDAO {
     	System.out.println(dto);
     	return dto;
     }
+    public List<ReviewWriteDTO> selectOrderList(int ordersNumber) {
+    	System.out.println("[sellerDAO] selectOneOrder");
+    	List<ReviewWriteDTO> buylist = sqlSession.selectList("myReview.selectOneOrder", ordersNumber);
+    	System.out.println(buylist);
+    	return buylist;
+    }
     
 }
