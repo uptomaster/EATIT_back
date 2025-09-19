@@ -1,0 +1,16 @@
+package com.bapseguen.app.main;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.bapseguen.app.Execute;
+import com.bapseguen.app.Result;
+
+public class MainController  implements Execute {
+
+
+
+}

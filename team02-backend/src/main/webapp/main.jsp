@@ -97,7 +97,8 @@
 							<c:otherwise>
 								<c:forEach var="store" items="${storeList}">
 									<article class="main_food_buy_article">
-										<a href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${store.itemNumber}">
+										<a
+											href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${store.itemNumber}">
 											<img
 											src="${pageContext.request.contextPath}/assets/img/${store.itemImageSystemName}"
 											alt="${store.storeName} 이미지">
@@ -220,13 +221,15 @@
 						d="M320 32C327 32 333.7 35.1 338.3 40.5L474.3 200.5C480.4 207.6 481.7 217.6 477.8 226.1C473.9 234.6 465.4 240 456 240L431.1 240L506.3 328.5C512.4 335.6 513.7 345.6 509.8 354.1C505.9 362.6 497.4 368 488 368L449.5 368L538.3 472.5C544.4 479.6 545.7 489.6 541.8 498.1C537.9 506.6 529.4 512 520 512L352 512L352 576C352 593.7 337.7 608 320 608C302.3 608 288 593.7 288 576L288 512L120 512C110.6 512 102.1 506.6 98.2 498.1C94.3 489.6 95.6 479.6 101.7 472.5L190.5 368L152 368C142.6 368 134.1 362.6 130.2 354.1C126.3 345.6 127.6 335.6 133.7 328.5L208.9 240L184 240C174.6 240 166.1 234.6 162.2 226.1C158.3 217.6 159.6 207.6 165.7 200.5L301.7 40.5C306.3 35.1 313 32 320 32z" />
         </svg>
 			</button>
-			<a href="#" class="icon_btn" title="위치"> <svg
-					xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+			<button type="button" id="location_btn" class="icon_btn" title="위치"
+				aria-controls="locationModal" aria-haspopup="dialog">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
           <!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
           <path fill="#202020"
 						d="M128 252.6C128 148.4 214 64 320 64C426 64 512 148.4 512 252.6C512 371.9 391.8 514.9 341.6 569.4C329.8 582.2 310.1 582.2 298.3 569.4C248.1 514.9 127.9 371.9 127.9 252.6zM320 320C355.3 320 384 291.3 384 256C384 220.7 355.3 192 320 192C284.7 192 256 220.7 256 256C256 291.3 284.7 320 320 320z" />
         </svg>
-			</a> <a href="${pageContext.request.contextPath}/orders/wishList.or"
+			</button>
+			<a href="${pageContext.request.contextPath}/orders/wishList.or"
 				class="icon_btn" title="찜"> <svg
 					xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
           <!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
@@ -245,6 +248,35 @@
 	</main>
 	<!-------------------- 푸터 ------------------------>
 	<jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
+
+	<div class="location_modal" role="dialog" aria-modal="true">
+		<div class="location_modal_overlay" data-close="true"></div>
+		<div class="location_modal_body">
+			<h2 class="my_location">나의 위치</h2>
+			<div class="location_input">
+				<div>
+					<input class="location_info_input" type="text"
+						id="sample4_postcode" placeholder="우편번호"> <input
+						class="find_location" type="button"
+						onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+				</div>
+				<input class="location_info_input" type="text"
+					id="sample4_roadAddress" placeholder="도로명주소"> <input
+					class="location_info_input" type="text" id="sample4_jibunAddress"
+					placeholder="지번주소"> <span id="guide"
+					style="color: #999; display: none;"></span> <input
+					class="location_info_input" type="text" id="sample4_detailAddress"
+					placeholder="상세주소"> <input class="location_info_input"
+					type="text" id="sample4_extraAddress" placeholder="참고항목">
+
+				<script
+					src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+				<button class="location_modal_close" type="button">×</button>
+				<button class="save_location">저장</button>
+			</div>
+		</div>
+	</div>
+
 	<!-- Tree Grade Modal -->
 	<div id="treeGradeModal" class="grade-modal hidden" role="dialog"
 		aria-modal="true" aria-labelledby="treeGradeTitle">
