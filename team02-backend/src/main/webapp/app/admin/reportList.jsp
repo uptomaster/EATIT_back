@@ -85,7 +85,7 @@
 							<c:forEach var="r" items="${reportList}">
 								<li class="admin_list_value">
 									<p class="admin_list_row col-num">${r.postReportNumber}</p>
-									<p class="admin_list_row col-title" title="${r.postTitle}">
+									<a href="#"><p class="admin_list_row col-title" title="${r.postTitle}"></a>
 										<c:choose>
 											<c:when test="${fn:length(r.postTitle) > 4}">
 												${fn:substring(r.postTitle, 0, 4)}...

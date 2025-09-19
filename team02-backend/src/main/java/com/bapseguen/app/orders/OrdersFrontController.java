@@ -131,10 +131,10 @@ public class OrdersFrontController extends HttpServlet {
 			break;
 
 		default:
-			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+			// 알 수 없는 경로로 입력했을 때 404 페이지로 포워드하기
+			request.getRequestDispatcher("/errors/404.jsp").forward(request, response);
 			return;
 		}
-
 		if (result != null) {
 			if (result.isRedirect())
 				response.sendRedirect(result.getPath());
