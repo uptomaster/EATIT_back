@@ -22,8 +22,16 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 // 주소-좌표 변환 객체를 생성합니다
 var geocoder = new kakao.maps.services.Geocoder();
 
+// 2. 변환할 주소(예: 도로명주소)를 변수에 저장합니다.
+let roadAddrA = document.getElementById('roadAddr');
+let roadAddrDB = document.getElementById('roadAddr').innerText;
+var roadAddr = '카카오 API 주소 예시'; // 변환할 도로명 주소를 입력하세요.
+console.log("roadAddrDBA  "+roadAddrA.value);
+console.log("roadAddrDBA  "+roadAddrA);
+console.log("roadAddrDB  "+roadAddrDB.value);
+console.log("roadAddrDB  "+roadAddrDB);
 // 주소로 좌표를 검색합니다
-geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
+geocoder.addressSearch(roadAddrDB, function(result, status) {
 
     // 정상적으로 검색이 완료됐으면 
      if (status === kakao.maps.services.Status.OK) {
@@ -57,50 +65,5 @@ function setZoomable(zoomable) {
     map.setZoomable(zoomable);    
 }
 
-// 마커가 표시될 위치입니다 
-var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
-
-// 마커를 생성합니다
-var marker = new kakao.maps.Marker({
-    position: markerPosition
-});
-
 // 마커가 지도 위에 표시되도록 설정합니다
 marker.setMap(map);
-
-
-const storeImageChangeBtns = document.querySelectorAll('.store_info_edit_btns');
-
-// 1) 필요한 엘리먼트 캐싱 (기존 id/클래스명 절대 변경 X)
-const changeBtns = document.querySelectorAll('.store_info_edit_btns'); // 업로드 트리거 버튼(들)
-const form       = document.getElementById('store_image_form');       // 숨김 업로드 폼
-const fileInput  = document.getElementById('store_image_file');       // 파일 input
-const img        = document.getElementById('store_main_img');         // 현재 노출 중인 가게 이미지
-const preview    = document.getElementById('store_preview_img');      // 미리보기 이미지(초기 display:none)
-
-
-
-/*// 2) 버튼 클릭 → 파일 선택창 열기
-changeBtns.forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    e.preventDefault();           // a/button 기본 동작 차단
-    fileInput.click();            // 숨김 input 클릭 트리거
-  });
-});*/
-
-// 3) 파일 선택 시: 간단 유효성 검사 → 미리보기 → 즉시 업로드
-fileInput.addEventListener('change', () => {
-  const file = fileInput.files && fileInput.files[0];
-  if (!file) return;
-
-
-  // (B) 화면 즉시 반영(미리보기) - 기존 이미지는 지우지 않고 보존
-  const url = URL.createObjectURL(file);
-  preview.src = url;
-  preview.style.display = 'block';
-
-  // (C) 서버 전송: 반드시 .se 서블릿 경로(폼 action)로 제출 (MVC2 규칙)
-  //  - 컨트롤러에서: 기존 이미지 DB/파일 삭제 → 새 이미지 저장/재등록 → storeInfo.se로 리다이렉트
-  form.submit();
-});
-

@@ -1,23 +1,40 @@
 @charset "UTF-8";
+
+/* =========================
+   초기화
+   ========================= */
 * {
   margin: 0;
   padding: 0;
   /* box-sizing: border-box; */
 }
-main{
-  background-color: #FFF5E4;
-  width: 1920px;
-  height: 1500px;
+
+main {
+  /* background-color: #FFF5E4; */ /* 기존 */
+  background-color: #fff5e4;
+  /* width: 1920px; height: 1500px; */ /* 고정폭/높이 영향 ↓ */
   display: flex;
   flex-direction: row;
 }
-/* 1100px 영역 */
-.seller_ingredient_purchase_page{
-  background-color: #FBE3B9;
+
+/* =========================
+   페이지 컨테이너 (카드형)
+   ========================= */
+.seller_ingredient_purchase_page {
+  /* background-color: #FBE3B9; */ /* 기존 */
   width: 1100px;
-  margin-left: 410px;
+  padding: 30px 40px;
+  background-color: #fcfaf8;
+  box-shadow: 0 0 12px rgba(168, 6, 6, 0.438);
+  border-radius: 10px;
+  margin: 30px 10px 30px 410px; /* 좌측 메뉴 고려 */
+  display: flex;
+  flex-direction: column;
 }
-/* 좌측 메뉴 바 */
+
+/* =========================
+   좌측 메뉴 바
+   ========================= */
 .seller_ingredient_purchase_menu {
   position: fixed;
   padding: 0;
@@ -28,7 +45,6 @@ main{
   background-color: #a6998080;
   border-radius: 10px;
 }
-
 .seller_ingredient_purchase_menu_title {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -42,13 +58,12 @@ main{
 }
 .seller_ingredient_purchase_menu_list_current {
   background-color: #FF873C;
-  /* width: 190px; */
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.seller_ingredient_purchase_menu_list>li {
+.seller_ingredient_purchase_menu_list > li {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,197 +71,200 @@ main{
   padding: 15px 0;
   width: 190px;
 }
-
-.seller_ingredient_purchase_menu_list>li>a {
+.seller_ingredient_purchase_menu_list > li > a {
   text-decoration: none;
   color: white;
 }
-
-
-.seller_ingredient_purchase_menu_list>li:hover {
+.seller_ingredient_purchase_menu_list > li:hover {
   width: 190px;
   background-color: #ff873c8c;
   border-radius: 10px;
 }
-/* 좌측 메뉴바 끝 */
 
-.seller_ingredient_purchase_list{
-  margin: 100px 0 45px 70px;
-  font-size: 30px;
+/* =========================
+   타이틀
+   ========================= */
+.seller_ingredient_purchase_list {
+  margin: 40px 0 20px 0;     /* 기존: 100px 0 45px 70px */
+  font-size: 26px;           /* 기존: 30px */
+  font-weight: 600;
+  color: #444;
 }
-.seller_ingredient_purchaselist_top{
-  display: flex; 
-  margin-left: 40px;
-}
-.seller_ingredient_purchaselist_date{
-  width: 155px;
-  height: 50px;
-  background-color: #A69980;
-  font-size: 20px;
-  border: 1px solid black;
+
+/* =========================
+   목록 헤더 (한 줄)
+   ========================= */
+.seller_ingredient_purchaselist_top {
   display: flex;
   align-items: center;
-  justify-content: center;
+  background-color: #ffefcc; /* 기존 각 셀 #A69980 → 통일 */
+  color: #444;
+  font-weight: 600;
+  padding: 14px 20px;
+  border: 1px solid #eee;
+  border-radius: 6px 6px 0 0;
+  user-select: none;
+  margin-left: 0;            /* 기존: 40px */
 }
-.seller_ingredient_purchaselist_img{
-  width: 110px;
-  height: 50px;
-  background-color: #A69980;
-  font-size: 20px;
-  border: 1px solid black;
+
+/* 헤더의 각 컬럼 폭 (기존 px 폭을 유지) */
+.seller_ingredient_purchaselist_date         { width: 155px; width: 13%; text-align: center; }
+.seller_ingredient_purchaselist_img          { width: 110px; text-align: center; }
+.seller_ingredient_purchaselist_restaurant_name { width: 225px; width: 30%; text-align: center; }
+.seller_ingredient_purchaselist_menu_info    { width: 225px; width: 30%; text-align: center; }
+.seller_ingredient_purchaselist_how_many     { width: 55px; width: 8%; text-align: center; }
+.seller_ingredient_purchaselist_price        { width: 155px; width: 13%; text-align: center; }
+.seller_ingredient_purchaselist_review       { width: 80px; width: 8%;  text-align: center; }
+
+/* =========================
+   목록 행 (한 줄)
+   ========================= */
+.seller_ingredient_purchase_page_list {
   display: flex;
   align-items: center;
-  justify-content: center;
+  color: #444;
+  background-color: #ffffff;
+  padding: 14px 18px;
+  border: 1px solid #eee;
+  border-top: none;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  margin-left: 0;            /* 기존: 40px */
 }
-.seller_ingredient_purchaselist_restaurant_name{
-  width: 225px;
-  height: 50px;
-  background-color: #A69980;
-  font-size: 20px;
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.seller_ingredient_purchase_page_list:hover {
+  background-color: #fff0e0;       /* 연한 주황 hover */
+  box-shadow: inset 0 0 0 1px #ffe0c2;
 }
-.seller_ingredient_purchaselist_menu_info{
-  width: 225px;
-  height: 50px;
-  background-color: #A69980;
-  font-size: 20px;
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.seller_ingredient_purchase_page_list:last-child {
+  border-radius: 0 0 6px 6px;
 }
-.seller_ingredient_purchaselist_how_many{
-  width: 55px;
-  height: 50px;
-  background-color: #A69980;
-  font-size: 20px;
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+/* 각 행의 컬럼 (기존 px 폭 유지) */
+.seller_ingredient_purchase_date_list {
+	width: 155px;
+	width: 13%;
+	min-height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
-.seller_ingredient_purchaselist_price{
-  width: 155px;
-  height: 50px;
-  background-color: #A69980;
-  font-size: 20px;
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+.seller_ingredient_purchase_img_list {
+	width: 110px;
+	min-height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
-.seller_ingredient_purchaselist_review{
-  width: 80px;
-  height: 50px;
-  background-color: #A69980;
-  font-size: 20px;
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+.seller_ingredient_purchase_restaurant_name_list {
+	width: 225px;
+	width: 30%;
+	min-height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	padding: 0 6px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
-.seller_ingredient_purchase_page_list{
-  display: flex;
-  margin-left: 40px;
+
+.seller_ingredient_purchase_menu_info_list {
+	width: 225px;
+	width: 30%;
+	min-height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
+	padding: 0 6px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
-.seller_ingredient_purchase_date_list{
-  width: 155px;
-  height: 85px;
-  font-size: 14px;
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
+
+.seller_ingredient_purchase_how_many_list {
+	width: 55px;
+	width: 8%;
+	min-height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
 }
-.seller_ingredient_purchase_img_list{
-  width: 110px;
-  height: 85px;
-  font-size: 14px;
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
+
+.seller_ingredient_purchase_price_list {
+	width: 155px;
+	width: 13%;
+	min-height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 14px;
 }
-.seller_ingredient_purchase_img{
+
+.seller_ingredient_purchase_review_list {
+	width: 80px;
+	width: 8%;
+	min-height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* 이미지 */
+.seller_ingredient_purchase_img {
   width: 70px;
   height: 70px;
+  object-fit: cover;
+  border-radius: 6px;
 }
-.seller_ingredient_purchase_restaurant_name_list{
-  width: 225px;
-  height: 85px;
-  font-size: 14px;
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-}
-.seller_ingredient_purchase_menu_info_list{
-  width: 225px;
-  height: 85px;
-  font-size: 14px;
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-}
-.seller_ingredient_purchase_how_many_list{
-  width: 55px;
-  height: 85px;
-  font-size: 14px;
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-}
-.seller_ingredient_purchase_price_list{
-  width: 155px;
-  height: 85px;
-  font-size: 14px;
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-}
-.seller_ingredient_purchase_review_list{
-  width: 80px;
-  height: 85px;
-  font-size: 14px;
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white;
-}
-.seller_ingredient_purchase_review_meal{
-  border: 1px solid black;
+
+/* 리뷰 버튼 */
+.seller_ingredient_purchase_review_meal {
+  border: 1px solid #A69980;       /* 기존: black */
   border-radius: 6px;
   font-size: 14px;
   width: 60px;
   height: 32px;
-  font-weight: bold;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  color: black;
+  color: #333;                     /* 기존: black */
+  background-color: #fff;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease;
 }
-/* 페이지네이션 */
-.seller_ingredient_purchase_pagination{
+.seller_ingredient_purchase_review_meal:hover {
+  background-color: #ffd580;
+  border-color: #ffae42;
+  color: #fff;
+}
+
+/* =========================
+   페이지네이션
+   ========================= */
+/* 페이지네이션 위치 잡기 */
+.pagination {
   display: flex;
-  justify-self: center;
-  position: relative;
-  top: 1000px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
 }
-.seller_ingredient_purchase_pagination > a{
+/* 페이지네이션 ul 마크 제거 */
+.pagination > ul {
+  display: flex;
+  list-style: none;
+  gap: 10px;
+}
+/* 페이지네이션 요소 */
+.pagination a {
   width: 32px;
   height: 32px;
   background-color: white;
@@ -259,6 +277,42 @@ main{
   border-radius: 6px;
   color: black;
 }
-.seller_ingredient_purchase_pagination > a:hover{
-  background-color: #FF873C;
+/* 페이지네이션 hover */
+.pagination a:hover {
+  background-color: #ffd580;
+  color: #4a3000;
+}
+/* 현제 페이지의 페이지네이션 강조 */
+.pagination .active {
+  background-color: #ffb84d;
+  color: white;
+  cursor: default;
+  border-color: #ffae42;
+}
+
+/* =========================
+   반응형 (옵션)
+   ========================= */
+@media (max-width: 1200px) {
+  .seller_ingredient_purchase_page {
+    width: 100%;
+    margin-left: 0;
+    padding: 24px 30px;
+  }
+
+  .seller_ingredient_purchaselist_top,
+  .seller_ingredient_purchase_page_list {
+    width: calc(100% - 100px);
+    margin-left: 50px;
+  }
+
+  /* 핵심 정보 확보: 식당명/상품정보 우선, 나머지 자동 */
+  .seller_ingredient_purchase_restaurant_name_list,
+  .seller_ingredient_purchase_menu_info_list { width: 30%; }
+
+  .seller_ingredient_purchase_date_list  { width: 13%; flex: 0 0 12%; }
+  .seller_ingredient_purchase_img_list   { width: auto; flex: 0 0 10%; }
+  .seller_ingredient_purchase_how_many_list { width: 8; flex: 0 0 8%; }
+  .seller_ingredient_purchase_price_list { width: 13%; flex: 0 0 12%; }
+  .seller_ingredient_purchase_review_list{ width: 8%; flex: 0 0 8%; }
 }

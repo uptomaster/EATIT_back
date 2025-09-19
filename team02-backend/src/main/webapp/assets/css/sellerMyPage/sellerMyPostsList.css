@@ -1,24 +1,42 @@
 @charset "UTF-8";
+
+/* =========================
+   공통 초기화
+   ========================= */
 * {
   margin: 0;
   padding: 0;
-  /* box-sizing: border-box; */
+  /* box-sizing: border-box;  // 필요 시 해제 */
 }
+
+/* =========================
+   레이아웃: 배경 & 영역
+   - 기존 구조 유지, 시각 톤만 개선
+   ========================= */
 main{
-  background-color: #FFF5E4;
-  width: 1920px;
-  height: 1500px;
+  /* background-color: #FFF5E4; */ /* 기존값 */
+  background-color: #fff5e4;      /* 동일 계열 소문자 표기 */
+  /* width: 1920px; */            /* 고정폭 제거 권장 */
+  /* height: 1500px; */           /* 고정높이 제거 권장 */
   display: flex;
   flex-direction: row;
 }
-/* 1100px 영역 */
+
+/* 1100px 영역 (페이지 래퍼) */
 .seller_myposts_page{
-  background-color: #FBE3B9;
-  width: 1100px;
-  margin-left: 410px;
+    width: 1100px;
+    padding: 30px 40px;
+    background-color: #fcfaf8;
+    box-shadow: 0 0 12px rgba(168, 6, 6, 0.438);
+    border-radius: 10px;
+    margin: 30px 10px 30px 410px;
+    display: flex;
+    flex-direction: column;
 }
 
-/* 좌측 메뉴 바 */
+/* =========================
+   좌측 메뉴 바
+   ========================= */
 .seller_myposts_menu {
   position: fixed;
   padding: 0;
@@ -43,7 +61,6 @@ main{
 }
 .seller_myposts_menu_list_current {
   background-color: #FF873C;
-  /* width: 190px; */
   border-radius: 10px;
   display: flex;
   justify-content: center;
@@ -63,110 +80,169 @@ main{
   color: white;
 }
 
-
 .seller_myposts_menu_list>li:hover {
   width: 190px;
   background-color: #ff873c8c;
   border-radius: 10px;
 }
-/* 좌측 메뉴바 끝 */
 
-/* 내글관리 목록 */
-
+/* =========================
+   내 글 목록 타이틀
+   ========================= */
 .seller_myposts_list{
-  margin: 100px 0 45px 70px;
+  margin: 50px 0 45px 70px;
   font-size: 30px;
 }
 .seller_myposts_list >div{
 	justify-items: center;
 }
-.seller_myposts_top{
-  margin-left: 50px;
-  background-color: #a69980;
-  width: 850px;
-  height: 50px;
-  font-size: 20px;
-  align-items: center;
+
+/* =========================
+   ▶▶ 목록 뒷 배경 1000px 컨테이너 (MyReview와 동일 톤)
+   - 흰 박스 + 그림자 + 둥근 모서리 + 내부 패딩
+   ========================= */
+.seller_myposts_container {
+  width: 1000px;                 /* 요청: 1000px 영역 */
+  /* margin-left: 50px; */       /* 기존 좌측 정렬 사용 시 */
+  margin: 100px 0 50px 50px;     /* 좌측 메뉴 옆 정렬 */
+  background-color: #ffffff;     /* 흰색 카드 */
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
   display: flex;
-  border: 1px solid black;
+  flex-direction: column;
+  padding: 20px 30px;
 }
+
+/* =========================
+   목록 헤더 (MyReview 톤)
+   ========================= */
+.seller_myposts_top{
+  /* margin-left: 50px; */     /* 컨테이너 내부 패딩으로 대체 */
+  background-color: #ffefcc;     /* 연한 주황 헤더 */
+  /* width: 850px; height: 50px; */ /* 유연하게 */
+  min-height: 50px;
+  font-size: 18px;               /* 가독성 */
+  font-weight: 600;
+  color: #444;
+  display: flex;
+  align-items: center;
+  border: 1px solid #eee;
+  border-radius: 6px 6px 0 0;
+  padding: 14px 20px;
+  user-select: none;
+}
+
+/* =========================
+   목록 행
+   ========================= */
 .seller_myposts_comments_list{
-  margin-left: 50px;
-  background-color: white;
-  width: 850px;
-  height: 50px;
+  background-color: #ffffff;
+  /* width: 850px; height: 50px; */ /* 유연 */
+  min-height: 50px;
   font-size: 16px;
   align-items: center;
   display: flex;
-  border: 1px solid black;  
+  border: 1px solid #eee;
+  border-top: none;
+  color: #444;
+  padding: 14px 18px;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: default;
 }
-.seller_myposts_index{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  width: 150px;
+.seller_myposts_comments_list:first-of-type {
+  border-top: none; /* 헤더와 자연스럽게 접합 */
 }
-.seller_myposts_sort{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  width: 150px;
+.seller_myposts_comments_list:last-of-type {
+  border-radius: 0 0 6px 6px;
 }
-.seller_myposts_tag{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  width: 150px;
+.seller_myposts_comments_list:hover{
+  background-color: #fff0e0;     /* 연한 주황 hover */
+  box-shadow: inset 0 0 0 1px #ffe0c2;
 }
-.seller_myposts_title{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  width: 300px;
-}
-.seller_myposts_date{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  width: 150px;
-}
-.seller_myposts_comments_count{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  width: 100px;
-}
+
+/* =========================
+   컬럼 (폭/정렬)
+   ========================= */
+.seller_myposts_index,
+.seller_myposts_sort,
+.seller_myposts_tag,
+.seller_myposts_title,
+.seller_myposts_date,
+.seller_myposts_comments_count,
 .seller_myposts_like_count{
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
-  width: 100px;
+  min-height: 50px;
 }
+
+/* 개별 폭 (기존 유지) */
+
+.seller_myposts_sort{    
+	width: 140px;   /* 기존 150px */
+	width : 19%;
+}
+.seller_myposts_title{  
+	width: 320px;   /* 기존 300px → 약간 확장 */
+  justify-content: flex-start;
+	width : 47%;
+}
+.seller_myposts_date{   
+	width: 140px;   /* 기존 150px */
+	width : 14%;
+}
+.seller_myposts_comments_count{ 
+	width: 80px;  /* 기존 100px */
+	width : 8%;
+}
+.seller_myposts_like_count{    
+	width: 80px;  /* 기존 100px */
+	width : 8%;
+}
+
+/* 텍스트가 길 때 말줄임 */
+.seller_myposts_title,
+.seller_myposts_sort,
+.seller_myposts_tag{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 제목 링크 상태 */
+.seller_myposts_sort>a:visited,
+.seller_myposts_sort>a,
 .seller_myposts_title>a:visited,
 .seller_myposts_title>a{
   text-decoration: none;
-  color: black;
+  color: #5a5a5a;       /* 기존 black → 리스트 톤 통일 */
+  transition: color .18s ease, text-decoration-color .18s ease;
 }
-/* 페이지네이션 */
-.seller_myposts_pagination{
+.seller_myposts_sort>a:hover,
+.seller_myposts_title>a:hover{
+  color: #ff873c;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* =========================
+   페이지네이션 (MyReview/프로모 보드 톤)
+   ========================= */
+/* 페이지네이션 위치 잡기 */
+.pagination {
   display: flex;
-  justify-self: center;
-  position: relative;
-	margin-top : 15px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
 }
-.seller_myposts_pagination_ul{
+/* 페이지네이션 ul 마크 제거 */
+.pagination > ul {
   display: flex;
-	list-style: none;
-  flex-direction: row;
+  list-style: none;
+  gap: 10px;
 }
-.seller_myposts_pagination_ul > li{
+/* 페이지네이션 요소 */
+.pagination a {
   width: 32px;
   height: 32px;
   background-color: white;
@@ -179,11 +255,39 @@ main{
   border-radius: 6px;
   color: black;
 }
-.pagination_item{
-  text-decoration: none;
-  color: black;
+/* 페이지네이션 hover */
+.pagination a:hover {
+  background-color: #ffd580;
+  color: #4a3000;
 }
-.pagination_item:hover{
-  text-decoration: none;
-  color: #FF873C;
+/* 현제 페이지의 페이지네이션 강조 */
+.pagination .active {
+  background-color: #ffb84d;
+  color: white;
+  cursor: default;
+  border-color: #ffae42;
+}
+/* =========================
+   반응형 (선택)
+   - 폭이 좁을 때 제목 영역을 확보
+   ========================= */
+/* 반응형: 화면이 좁아질 때 목록 폭 조정 */
+@media (max-width: 1200px) {
+  .seller_myposts_page { 
+    width: 100%; 
+    margin-left: 0; 
+  }
+
+  .seller_myposts_top,
+  .seller_myposts_comments_list { 
+    width: calc(100% - 100px); 
+    margin-left: 50px; 
+  }
+
+  /* 각 컬럼 비율 재조정 */
+  .seller_myposts_sort { width: 19%; }
+  .seller_myposts_title { width: 47%; }
+  .seller_myposts_date { width: 14%; }
+  .seller_myposts_comments_count { width: 8%; }
+  .seller_myposts_like_count { width: 8%; }
 }

@@ -1,23 +1,41 @@
 @charset "UTF-8";
+
+/* =========================
+   초기화
+   ========================= */
 * {
   margin: 0;
   padding: 0;
   /* box-sizing: border-box; */
 }
-main{
-  background-color: #FFF5E4;
-  width: 1920px;
-  height: 1500px;
+
+main {
+  /* background-color: #FFF5E4; */ /* 기존 */
+  background-color: #fff5e4;
+  /* width: 1920px; */
+  /* height: 1500px; */
   display: flex;
   flex-direction: row;
 }
-/* 1100px 영역 */
-.seller_mycomments_page{
-  background-color: #FBE3B9;
+
+/* =========================
+   페이지 컨테이너
+   ========================= */
+.seller_mycomments_page {
+  /* background-color: #FBE3B9; */
   width: 1100px;
-  margin-left: 410px;
+  padding: 30px 40px;
+  background-color: #fcfaf8;
+  box-shadow: 0 0 12px rgba(168, 6, 6, 0.438);
+  border-radius: 10px;
+  margin: 30px 10px 30px 410px;
+  display: flex;
+  flex-direction: column;
 }
-/* 좌측 메뉴 바 */
+
+/* =========================
+   좌측 메뉴 바
+   ========================= */
 .seller_mycomments_menu {
   position: fixed;
   padding: 0;
@@ -40,14 +58,15 @@ main{
   justify-content: center;
   align-items: center;
 }
+
 .seller_mycomments_menu_list_current {
   background-color: #FF873C;
-  /* width: 190px; */
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .seller_mycomments_menu_list>li {
   display: flex;
   justify-content: center;
@@ -62,95 +81,126 @@ main{
   color: white;
 }
 
-
 .seller_mycomments_menu_list>li:hover {
   width: 190px;
   background-color: #ff873c8c;
   border-radius: 10px;
 }
-/* 좌측 메뉴바 끝 */
-/* 내 댓글 목록 */
-.seller_mycomments_list{
-  margin: 100px 0 45px 70px;
-  font-size: 30px;
+
+/* =========================
+   내 댓글 목록 타이틀
+   ========================= */
+.seller_mycomments_list {
+  margin:  50px 0 45px 70px;
+  font-size: 26px;
+  font-weight: 600;
+  color: #444;
 }
-.seller_mycomments_top{
-  margin-left: 50px;
-  background-color: #a69980;
-  width: 1000px;
-  height: 50px;
-  font-size: 20px;
-  align-items: center;
+
+/* =========================
+   목록 헤더
+   ========================= */
+.seller_mycomments_top {
+  /* margin-left: 50px; */
+  background-color: #ffefcc;
+  font-weight: 600;
+  color: #444;
   display: flex;
-  border: 1px solid black;
+  align-items: center;
+  padding: 14px 20px;
+  border-radius: 6px 6px 0 0;
+  border: 1px solid #eee;
+  user-select: none;
 }
-.seller_mycomments_comments_list{
-  margin-left: 50px;
-  background-color: white;
-  width: 1000px;
-  height: 50px;
+
+/* =========================
+   목록 행
+   ========================= */
+.seller_mycomments_comments_list {
+  /* margin-left: 50px; */
+  background-color: #ffffff;
+  min-height: 50px;
   font-size: 16px;
   align-items: center;
   display: flex;
-  border: 1px solid black;  
+  border: 1px solid #eee;
+  border-top: none;
+  color: #444;
+  padding: 14px 18px;
+  transition: background-color 0.2s ease;
 }
-.seller_mycomments_sort{
+.seller_mycomments_comments_list:last-child {
+  border-radius: 0 0 6px 6px;
+}
+.seller_mycomments_comments_list:hover {
+  background-color: #fff0e0; /* 연한 주황 hover */
+}
+
+/* =========================
+   컬럼 공통
+   ========================= */
+.seller_mycomments_id,
+.seller_mycomments_sort,
+.seller_mycomments_tag,
+.seller_mycomments_title,
+.seller_mycomments_comments_info,
+.seller_mycomments_date,
+.seller_mycomments_like_count {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
-  width: 150px;
+  min-height: 40px;
+  padding: 0 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-.seller_mycomments_tag{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  width: 150px;
-}
-.seller_mycomments_title{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  width: 225px;
-}
-.seller_mycomments_comments_info{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  width: 225px;
-}
-.seller_mycomments_date{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  width: 150px;
-}
-.seller_mycomments_like_count{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  width: 100px;
-}
+
+/* 기존 width 유지 (필요 시 조정 가능) */
+.seller_mycomments_id        { width: 120px; }   /* 신설: 댓글 ID(번호/식별자) */
+.seller_mycomments_sort      { width: 150px; }
+.seller_mycomments_tag       { width: 150px; }
+.seller_mycomments_title     { width: 225px; }
+.seller_mycomments_comments_info { width: 225px; }
+.seller_mycomments_date      { width: 150px; }
+.seller_mycomments_like_count{ width: 100px; }
+
+/* =========================
+   링크 스타일
+   ========================= */
 .seller_mycomments_sort>a,
 .seller_mycomments_sort>a:visited,
 .seller_mycomments_title>a,
-.seller_mycomments_title>a:visited{
+.seller_mycomments_title>a:visited {
   text-decoration: none;
-  color: black;
+  color: #5a5a5a;
+  transition: color .18s ease, text-decoration-color .18s ease;
 }
-/* 페이지네이션 */
-.seller_mycomments_pagination{
+.seller_mycomments_sort>a:hover,
+.seller_mycomments_title>a:hover {
+  color: #ff873c;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* =========================
+   페이지네이션
+   ========================= */
+/* 페이지네이션 위치 잡기 */
+.pagination {
   display: flex;
-  justify-self: center;
-  position: relative;
-  top: 1000px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
 }
-.seller_mycomments_pagination > a{
+/* 페이지네이션 ul 마크 제거 */
+.pagination > ul {
+  display: flex;
+  list-style: none;
+  gap: 10px;
+}
+/* 페이지네이션 요소 */
+.pagination a {
   width: 32px;
   height: 32px;
   background-color: white;
@@ -163,6 +213,41 @@ main{
   border-radius: 6px;
   color: black;
 }
-.seller_mycomments_pagination > a:hover{
-  background-color: #FF873C;
+/* 페이지네이션 hover */
+.pagination a:hover {
+  background-color: #ffd580;
+  color: #4a3000;
 }
+/* 현제 페이지의 페이지네이션 강조 */
+.pagination .active {
+  background-color: #ffb84d;
+  color: white;
+  cursor: default;
+  border-color: #ffae42;
+}
+
+/* =========================
+   반응형
+   ========================= */
+@media (max-width: 1200px) {
+  .seller_mycomments_page { 
+    width: 100%; 
+    margin-left: 0; 
+  }
+  .seller_mycomments_top,
+  .seller_mycomments_comments_list { 
+    width: calc(100% - 100px); 
+    margin-left: 50px; 
+  }
+
+  /* 핵심 컬럼 가독성 우선: 제목/내용 확보, 나머지는 자동 비율 */
+  .seller_mycomments_title { width: 32%; }
+  .seller_mycomments_comments_info { width: 26%; }
+
+  /* 신설: id 반응형 폭 */
+  .seller_mycomments_id { width: auto; flex: 0 0 10%; }
+
+  .seller_mycomments_sort,
+  .seller_mycomments_tag,
+  .seller_mycomments_date,
+  .seller_mycomments_like_count { width: auto; flex: 1; }
