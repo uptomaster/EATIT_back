@@ -24,7 +24,7 @@
 	</update>
 	
 	<!-- 정보 조회 -->
-	<select id="myPageSelect" resultType="MyPageDTO" parameterType="int">
+	<select id="myPageSelect" resultType="MyPageDTO" parameterType="map">
 	  SELECT
 	    M.MEMBER_NUMBER,
 	    M.MEMBER_ID,
@@ -35,6 +35,36 @@
 	  FROM TBL_MEMBER M
 	  JOIN TBL_GENERAL_MEMBER G ON M.MEMBER_NUMBER = G.MEMBER_NUMBER
 	  WHERE M.MEMBER_NUMBER = #{memberNumber}
+	</select>
+	
+	<!-- 내 게시글 조회 -->
+	<select id="myPostSelect" resultType="PostDetailDTO" parameterType="map">
+	  <![CDATA[
+	    SELECT * FROM (
+	      SELECT ROWNUM AS RNUM, SUBQUERY.*
+	      FROM (
+	        SELECT p.POST_NUMBER, p.POST_TYPE, p.POST_TITLE,
+	               p.POST_CREATED_DATE AS postCreatedDate,
+	               p.POST_VIEW_COUNT AS postViewCount,
+	               p.POST_LIKE_COUNT AS postLikeCount,
+	               p.POST_DELETE_STATE AS deleteState,
+	               (SELECT COUNT(c.COMMENT_NUMBER) FROM TBL_COMMENT c WHERE c.POST_NUMBER = p.POST_NUMBER) AS commentCount
+	        FROM TBL_POST p
+	        WHERE p.MEMBER_NUMBER = #{memberNumber}
+	          AND p.POST_DELETE_STATE = 'N'
+	        ORDER BY p.POST_CREATED_DATE DESC
+	      ) SUBQUERY
+	    )
+	    WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+	  ]]>
+	</select>
+	
+	<!-- 내 게시글 전체 수 -->
+	<select id="getMyPostCount" parameterType="int" resultType="int" >
+	    SELECT COUNT(*)
+	    FROM TBL_POST
+	    WHERE MEMBER_NUMBER = #{memberNumber}
+	      AND POST_DELETE_STATE = 'N'
 	</select>
 	
 	<!-- <select id="myCommentSelectList"
@@ -60,10 +90,26 @@
         AND NVL(C.COMMENT_DELETE_STATE,0) = 0
       ORDER BY C.COMMENTED_DATE DESC
     </select> -->
-    
-    
+
+    <!-- 작성자가 쓴 댓글 삭제 -->
+    <delete id="deleteUserComments" parameterType="int">
+	    DELETE FROM TBL_COMMENT
+	    WHERE MEMBER_NUMBER = #{memberNumber}
+	</delete>
+	<!-- 작성자가 쓴 리뷰 삭제 -->
+	<delete id="deleteUserReviews" parameterType="int">
+	    DELETE FROM TBL_REVIEW
+	    WHERE MEMBER_NUMBER = #{memberNumber}
+	</delete>
+	<!-- 작성자가 쓴 게시글 삭제  -->
+	<delete id="deleteUserPosts" parameterType="int">
+	    DELETE FROM TBL_POST
+	    WHERE MEMBER_NUMBER = #{memberNumber}
+	</delete>
+	<!-- 회원탈퇴 -->
 	<delete id="withDrawDelete" parameterType="int">
     DELETE FROM TBL_MEMBER
      WHERE MEMBER_NUMBER = #{memberNumber}
     </delete>
+    
 </mapper>
