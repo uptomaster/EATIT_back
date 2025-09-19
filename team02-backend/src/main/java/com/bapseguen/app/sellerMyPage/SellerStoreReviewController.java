@@ -57,28 +57,19 @@ public class SellerStoreReviewController implements Execute{
 //	            return streamItemImage(request, response);
 //	        }
 
-			Map<String, Object> foodpageMap = new HashMap<>();
-			foodpageMap.put("startRow", startRow);
-			foodpageMap.put("endRow", endRow);
-			foodpageMap.put("businessNumber", (String) session.getAttribute("businessNumber"));
-			
-			Map<String, Object> ingrepageMap = new HashMap<>();
-			ingrepageMap.put("startRow", startRow);
-			ingrepageMap.put("endRow", endRow);
-			ingrepageMap.put("businessNumber",(String) session.getAttribute("businessNumber"));
+			Map<String, Object> reviewmap = new HashMap<>();
+			reviewmap.put("startRow", startRow);
+			reviewmap.put("endRow", endRow);
+			reviewmap.put("businessNumber",(String) session.getAttribute("businessNumber"));
 
 	        // 가게 정보 조회
 //	        SellerInfoDTO storeInfo = sellerDAO.takeSellerInfoDTO(businessNumber);
 //	        request.setAttribute("storeInfo", storeInfo);
 	        
-	         //음식 판매 목록 조회
-	        List<ItemWithImgDTO> foodList = sellerDAO.foodList(foodpageMap);
+	         //가게의 리뷰 목록 조회
+	        List<ItemWithImgDTO> foodList = sellerDAO.foodList(reviewmap);
 	        System.out.println("foodList : "+foodList);
 			request.setAttribute("foodList", foodList); // null 오류 수정
-			// 음식 판매 목록 조회
-			List<ItemWithImgDTO> ingreList = sellerDAO.ingredientList(ingrepageMap);
-			System.out.println("ingreList : "+ingreList);
-			request.setAttribute("ingreList", ingreList); // null 오류 수정
 
 	        //
 	        // request에 데이터 저장

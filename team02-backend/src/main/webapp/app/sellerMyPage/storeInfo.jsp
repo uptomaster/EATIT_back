@@ -17,7 +17,14 @@
   <script defer src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/sellerMyPage/storeInfo.js"></script>
-
+	
+	<!-- 지도 api -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=API키삽입자리"></script>
+	
+	<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=API키삽입자리&libraries=services,clusterer,drawing"></script>
+	
+	
   <script>
     let headerPath = './../../header.jsp';
     let footerPath = './../../footer.jsp';
@@ -66,19 +73,24 @@
 						</c:choose>          
           <div class="store_info_store_info_detail">
             <p class="store_info_store_name">${storeInfo.storeName }</p>
-            <p class="store_info_store_address" id="roadAddr"><c:out value="${storeInfo.storeAddress} ${ storeInfo.storeAddressDetail}"/></p>
+            <p class="store_info_store_address"><c:out value="${storeInfo.storeAddress} ${ storeInfo.storeAddressDetail}"/></p>
             <p class="store_info_store_open_time">영업시간  ${storeInfo.storeOpenTime } ~ ${storeInfo.storeCloseTime }</p>
+          	<input type="hidden" id="storeName" value="${storeInfo.storeName }"/>
+          	<input type="hidden" id="roadAddr" value="${storeInfo.storeAddress }"/>
+          	<!-- 위도 경도 추가 예정 -->
+          	<input type="hidden" id="roadAddr" value="${storeInfo.storeAddress }"/>
+          	<input type="hidden" id="roadAddr" value="${storeInfo.storeAddress }"/>
           </div>
           <!-- 가게정보, 이미지 수정 버튼 -->
           <div class="store_info_edit_btns">
             <!-- <input type="file" id="edit_store_img" accept="image/*"> -->
             <a href="${pageContext.request.contextPath}/sellerMyPage/storeImage.se?businessNumber=${storeInfo.businessNumber}">
-              <div id="edit_store_info_btn">상세</div>
+              가게 이미지
             </a>
             <!-- <button type="button" id="edit_store_info_btn"
             onclick="location.href='/sellerMyPage/storeImage.se'">가게 사진</button> -->
             <button type="button" id="edit_store_info_btn"
-            onclick="location.href='/sellerMyPage/editSellerInfo.se'">수정</button>
+            onclick="location.href='/sellerMyPage/editSellerInfo.se'">가게정보수정</button>
           </div>
         </div>
 
@@ -248,14 +260,10 @@
     </div> <!-- 1100px 영역 끝 -->
   </main>
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
-		<!-- 지도 api -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=937ab213367d17ef8276763fe2a063fb"></script>
-	<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=937ab213367d17ef8276763fe2a063fb&libraries=services,clusterer,drawing"></script>
-	
+
 </body>
 <script>
   window.foodItemNumber = "${food.itemNumber}";
-  console.log(itemNumber);
+  console.log(food.itemNumber);
 </script>
 </html>

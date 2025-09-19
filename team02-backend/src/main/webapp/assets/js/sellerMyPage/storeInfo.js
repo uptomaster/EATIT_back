@@ -1,4 +1,5 @@
 
+/* ========== 버튼 이동 경로 지정 ========== */
 let edit_store_info_btn = document.getElementById('edit_store_info_btn');
 edit_store_info_btn.addEventListener('click', () => {
   //가게 상세 정보 수정 -> 개인정보 수정창으로
@@ -9,61 +10,59 @@ let originBtn = document.getElementById('edit_store_origin_btn');
 originBtn.addEventListener('click', () =>{
   location.replace('/sellerMyPage/originList.se');
 });  
+/* ========== // 버튼 이동 경로 지정 끝 ========== */
+
 
 /* ========== 지도 api ========== */
+// 1. 지도 준비물 만들기
+// 일단 지도객체 를 만든다. 초기 위치는 이후에 바꿀 예정이므로 신경쓰지 않아도 됨
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = { 
+    mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
-    };
+    };  
 
-// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+// 2. 지도 (객체) 를 생성합니다    
 var map = new kakao.maps.Map(mapContainer, mapOption); 
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new kakao.maps.services.Geocoder();
 
-// 2. 변환할 주소(예: 도로명주소)를 변수에 저장합니다.
-let roadAddrA = document.getElementById('roadAddr');
-let roadAddrDB = document.getElementById('roadAddr').innerText;
-var roadAddr = '카카오 API 주소 예시'; // 변환할 도로명 주소를 입력하세요.
-console.log("roadAddrDBA  "+roadAddrA.value);
-console.log("roadAddrDBA  "+roadAddrA);
-console.log("roadAddrDB  "+roadAddrDB.value);
-console.log("roadAddrDB  "+roadAddrDB);
-// 주소로 좌표를 검색합니다
-geocoder.addressSearch(roadAddrDB, function(result, status) {
+// 3. 사용할 정보를 받아와 js 파일에 저장하기
+// jsp 파일에서 가게 도로명 주소 받아오기
+let addr = document.getElementById('roadAddr');
+console.log("addr.value :  "+addr.value);
+// jsp 파일에서 가게명 받아오기
+var storeName = document.getElementById('storeName').value;
+console.log('storeName : '+storeName);
+
+// 4. 주소-좌표 변환 하기 & 지도 표시 
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();addr
+// 주소로 좌표를 검색합니다 - api 가이드에 주어진 메소드 참고
+geocoder.addressSearch(addr.value, function(result, status) {
 
     // 정상적으로 검색이 완료됐으면 
      if (status === kakao.maps.services.Status.OK) {
-
+				
+				// 주소를 좌표로 변환 받아서 coords에 저장함
         var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);		
+				
+				// 5. 마커표시
         // 결과값으로 받은 위치를 마커로 표시합니다
         var marker = new kakao.maps.Marker({
             map: map,
             position: coords
         });
-
+				console.log(coords);
+				
         // 인포윈도우로 장소에 대한 설명을 표시합니다
         var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+storeName+'</div>'
         });
+				// 실제 마커표시
         infowindow.open(map, marker);
 
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
     } 
 });    
-// 버튼 클릭에 따라 지도 이동 기능을 막거나 풀고 싶은 경우에는 map.setDraggable 함수를 사용합니다
-function setDraggable(draggable) {
-    // 마우스 드래그로 지도 이동 가능여부를 설정합니다
-    map.setDraggable(draggable);    
-}
-// 버튼 클릭에 따라 지도 확대, 축소 기능을 막거나 풀고 싶은 경우에는 map.setZoomable 함수를 사용합니다
-function setZoomable(zoomable) {
-    // 마우스 휠로 지도 확대,축소 가능여부를 설정합니다
-    map.setZoomable(zoomable);    
-}
-
-// 마커가 지도 위에 표시되도록 설정합니다
-marker.setMap(map);
+/* ========== // 지도 api 끝========== */
