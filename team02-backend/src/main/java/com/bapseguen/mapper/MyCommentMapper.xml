@@ -20,7 +20,7 @@
 			WHERE C.COMMENT_DELETE_STATE = 'N'
 			AND C.MEMBER_NUMBER = #{memberNumber}
 	   ) SUBQUERY
-	 )
+	 ) WHERE RNUM BETWEEN #{startRow} AND #{endRow}
 	]]>
 	</select>
 

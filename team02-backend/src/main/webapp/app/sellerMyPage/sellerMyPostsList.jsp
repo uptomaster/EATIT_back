@@ -35,7 +35,7 @@
 				<li><a href="${pageContext.request.contextPath}/sellerMyPage/editSellerInfo.se">내 정보 수정</a></li>
 				<li><a href="${pageContext.request.contextPath}/sellerMyPage/sellerfoodPurchaseList.se">음식 구매 내역</a></li>
         <li><a href="${pageContext.request.contextPath}/sellerMyPage/selleringredientPurchaseList.se">재료 구매 내역</a></li>
-				<li class="store_info_menu_list_current"><a href="/sellerMyPage/myPosts.se">내	글 관리</a></li>
+				<li class="seller_myposts_menu_list_current"><a href="/sellerMyPage/myPosts.se">내	글 관리</a></li>
 				<li><a href="${pageContext.request.contextPath}/sellerMyPage/myComments.se">내 댓글 관리</a></li>
 				<li><a href="${pageContext.request.contextPath}/sellerMyPage/myReviews.se">내 리뷰 관리</a></li>
 				<li><a href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se">사업장관리</a></li>
@@ -140,37 +140,38 @@
 </div>
 
 
-			<!-- 페이지네이션 들어가는 자리 -->
-			<div class="seller_myposts_pagination">
-				<ul class="seller_myposts_pagination_ul">
-					<c:if test="${prev}">
-						<li><a
-							href="${pageContext.request.contextPath}/sellerMyPage/myPosts.se?page=${startPage - 1}"
-							class="prev">&lt;</a></li>
-					</c:if>
-					<c:set var="realStartPage" value="${startPage < 0 ? 0 : startPage}" />
-					<c:forEach var="i" begin="${realStartPage}" end="${endPage}">
-						<c:choose>
-							<c:when test="${!(i == page) }">
-								<li><a class="pagination_item"
-									href="${pageContext.request.contextPath}/sellerMyPage/myPosts.se?page=${i}">
-										<c:out value="${i}" />
-								</a></li>
-							</c:when>
-							<c:otherwise>
-								<li><a href="#" class="active"> <c:out value="${i}" />
-								</a></li>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-					<c:if test="${next}">
-						<li><a
-							href="${pageContext.request.contextPath}/sellerMyPage/myPosts.se?page=${endPage + 1}"
-							class="next">&gt;</a>
-					</c:if>
-				</ul>
-			</div>
-			<!-- 페이지네이션 끝 -->
+			 <!-- 페이지네이션 자리 (요청하신 블록: 변경 없이 그대로 삽입) -->
+      <div class="pagination">
+        <ul class="pagination_ul">
+          <c:if test="${prev}">
+            <li><a
+              href="${pageContext.request.contextPath}/sellerMyPage/myPosts.se?page=${startPage - 1}"
+              class="prev">&lt;</a></li>
+          </c:if>
+          <c:set var="realStartPage"
+            value="${startPage < 0 ? 0 : startPage}" />
+          <c:forEach var="i" begin="${realStartPage}" end="${endPage}">
+            <c:choose>
+              <c:when test="${!(i == page) }">
+                <li><a class="pagination_item"
+                  href="${pageContext.request.contextPath}/sellerMyPage/myPosts.se?page=${i}">
+                    <c:out value="${i}" />
+                </a></li>
+              </c:when>
+              <c:otherwise>
+                <li><a href="#" class="active"> <c:out value="${i}" />
+                </a></li>
+              </c:otherwise>
+            </c:choose>
+          </c:forEach>
+          <c:if test="${next}">
+            <li><a
+              href="${pageContext.request.contextPath}/sellerMyPage/myPosts.se?page=${endPage + 1}"
+              class="next">&gt;</a>
+          </c:if>
+        </ul>
+      </div>
+      <!-- 페이지네이션 끝 -->
 		</div>
 	</main>
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />

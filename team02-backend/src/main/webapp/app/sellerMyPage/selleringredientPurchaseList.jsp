@@ -48,7 +48,6 @@
       <div>
         <div class="seller_ingredient_purchaselist_top">
           <div class="seller_ingredient_purchaselist_date">구매날짜</div>
-          <div class="seller_ingredient_purchaselist_img">이미지</div>
           <div class="seller_ingredient_purchaselist_restaurant_name">가게명</div>
           <div class="seller_ingredient_purchaselist_menu_info">상품정보</div>
           <div class="seller_ingredient_purchaselist_how_many">수량</div>
@@ -56,40 +55,67 @@
           <div class="seller_ingredient_purchaselist_review">리뷰</div>
         </div>
         <c:choose>
-      	<c:when test ="${not empty foodbuyList}">
-        <c:forEach var="buy" items="${foodbuyList}">
-        <div class="seller_ingredient_purchase_page_list">
-          <div class="seller_ingredient_purchase_date_list"><c:out value="${buy.ordersDate}"/></div>
-          <div class="seller_ingredient_purchase_img_list">
-          <img class="seller_ingredient_purchase_img"
-              src="./../../assets/img/carrot.jpg" alt=""></div>
-          <div class="seller_ingredient_purchase_restaurant_name_list"><c:out value="${buy.storeName}"/></div>
-          <div class="seller_ingredient_purchase_menu_info_list"><c:out value="${buy.itemName }"/></div>
-          <div class="seller_ingredient_purchase_how_many_list"><c:out value="${buy.orderItemQuantity }"/></div>
-          <div class="seller_ingredient_purchase_price_list"><c:out value="${buy.orderItemUnitPrice }"/>원</div>
-          <div class="seller_ingredient_purchase_review_list"><a href="${pageContext.request.contextPath}/sellerMyPage/sellerwriteReview.se"
-              class="seller_ingredient_purchase_review_meal">리뷰</a></div>
-        </div>
-      </c:forEach>
-      </c:when>
-      <c:otherwise>
-	      <div class="seller_ingredient_purchase_page_list">
-	       <div colspan="7" align="center">작성한 게시글이 없습니다.</div>
-       </div>
-      </c:otherwise>
+	      	<c:when test ="${not empty foodbuylist}">
+		        <c:forEach var="buy" items="${foodbuylist}">
+		        <div class="seller_ingredient_purchase_page_list">
+		        	<input type="hidden" name="ordersNumber" value="${buy.ordersNumber}">
+		          <div class="seller_ingredient_purchase_date_list"><c:out value="${buy.ordersDate}"/></div>
+		          <div class="seller_ingredient_purchase_restaurant_name_list"><c:out value="${buy.storeName}"/></div>
+		          <div class="seller_ingredient_purchase_menu_info_list"><c:out value="${buy.itemName }"/></div>
+		          <div class="seller_ingredient_purchase_how_many_list"><c:out value="${buy.orderItemQuantity }"/></div>
+		          <div class="seller_ingredient_purchase_price_list"><c:out value="${buy.orderItemUnitPrice }"/>원</div>
+		          <div class="seller_ingredient_purchase_review_list">
+		          <a href="${pageContext.request.contextPath}/sellerMyPage/sellerwriteReview.se?ordersNumber=${buy.ordersNumber}"
+		              class="seller_ingredient_purchase_review_meal">리뷰</a></div>
+		        </div>
+		      	</c:forEach>
+	      </c:when>
+	      <c:otherwise>
+		      <div class="seller_ingredient_purchase_page_list">
+		       <div colspan="7" align="center">재료 구매 내역이 없습니다.</div>
+	       </div>
+	      </c:otherwise>
       </c:choose>
       </div>
       
-      <div class="seller_ingredient_purchase_pagination">
-        <a href="#" class="seller_ingredient_purchase_page_active">1</a>
-        <a href="#" class="seller_ingredient_purchase_page">2</a>
-        <a href="#" class="seller_ingredient_purchase_page">3</a>
-        <a href="#" class="seller_ingredient_purchase_page">4</a>
-        <a href="#" class="seller_ingredient_purchase_page">5</a>
+      <!-- 페이지네이션 자리 (요청하신 블록: 변경 없이 그대로 삽입) -->
+      <div class="pagination">
+        <ul class="pagination_ul">
+          <c:if test="${prev}">
+            <li><a
+              href="${pageContext.request.contextPath}/sellerMyPage/selleringredientPurchaseList.se?page=${startPage - 1}"
+              class="prev">&lt;</a></li>
+          </c:if>
+          <c:set var="realStartPage"
+            value="${startPage < 0 ? 0 : startPage}" />
+          <c:forEach var="i" begin="${realStartPage}" end="${endPage}">
+            <c:choose>
+              <c:when test="${!(i == page) }">
+                <li><a class="pagination_item"
+                  href="${pageContext.request.contextPath}/sellerMyPage/selleringredientPurchaseList.se?page=${i}">
+                    <c:out value="${i}" />
+                </a></li>
+              </c:when>
+              <c:otherwise>
+                <li><a href="#" class="active"> <c:out value="${i}" />
+                </a></li>
+              </c:otherwise>
+            </c:choose>
+          </c:forEach>
+          <c:if test="${next}">
+            <li><a
+              href="${pageContext.request.contextPath}/sellerMyPage/selleringredientPurchaseList.se?page=${endPage + 1}"
+              class="next">&gt;</a>
+          </c:if>
+        </ul>
       </div>
+      <!-- 페이지네이션 끝 -->
     </div>
   </main>
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
+	<script>
+		window.ordersNumber = "${food.ordersNumber}";
+		console.log(ordersNumber);
+	</script>
 </body>
-
 </html>
