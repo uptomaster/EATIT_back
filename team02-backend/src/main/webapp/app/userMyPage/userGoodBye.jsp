@@ -31,14 +31,13 @@
           <h2>그동안 이용해 주셔서 감사합니다.</h2>
         </div>
         <div class="findId_fail_to_container">
-          <div><a href="${pageContext.request.contextPath}/main.jsp" class="findId_fail_to_findId">홈페이지</a></div>
+          <div><a href="${pageContext.request.contextPath}/main.jsp" class="findId_fail_to_findId">메인으로 이동</a></div>
           <div><a href="${pageContext.request.contextPath}/app/join/selectUserType.jsp" class="findId_fail_to_join">회원가입</a></div>
         </div>
       </div>
-    </div>
-    </div> <!--//.container-->
+    </div><!--//.container-->
   </main>
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </body>
 
-</html>`
+</html>
