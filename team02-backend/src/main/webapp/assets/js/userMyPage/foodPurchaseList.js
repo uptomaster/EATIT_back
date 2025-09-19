@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 	const pagination = document.getElementById("pagination"); 
 	
+	/*페이지네이션*/
 	function updatePagination() {
 	    pagination.innerHTML = "";
 	    const totalPages = Math.ceil(filteredRows.length / rowsPerPage);

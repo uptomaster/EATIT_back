@@ -35,7 +35,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 document.addEventListener("DOMContentLoaded", function () {
-  // 이미 작성된 코드들이 있을 경우, 아래 코드만 추가하면 됩니다
 
   const cancelBtn = document.querySelector(".writereview_cancel_btn");
 

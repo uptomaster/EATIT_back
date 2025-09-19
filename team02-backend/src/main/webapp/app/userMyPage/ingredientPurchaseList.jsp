@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -87,7 +87,7 @@
 					      <c:out value="${myorder.orderItemUnitPrice}" />
 					    </div>
 					    <div class="ingredientpurchase_review_list">
-					      <a href="${pageContext.request.contextPath}/userMyPage/writeReview.jsp?orderItemNumber=${myorder.orderItemNumber}" class="ingredientpurchase_review_meal">리뷰</a>
+					      <a href="${pageContext.request.contextPath}/userMyPage/writeReviewOk.my?ordersNumber=${myorder.ordersNumber}" class="ingredientpurchase_review_meal">리뷰</a>
 					    </div>
 					  </div>
 				  </c:forEach>

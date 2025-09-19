@@ -42,42 +42,27 @@
           <div class="writereview_price">금액</div>
           <div class="writereview_date">구매 일자</div>
         </div>
-        <div class="writereview_comments_list">
-          <div class="writereview_restaurant_name">기수베이커리</div>
-          <div class="writereview_product_img"><img class="writereview_meal_img" src="" alt=""></div>
-          <div class="writereview_meal_name">식빵</div>
-          <div class="writereview_quantity">1</div>
-          <div class="writereview_price">5000원</div>
-          <div class="writereview_date">2025-08-02</div>
-        </div>
         
-        
+        <!-- 음식/재료 둘다 확인 -->
         <c:forEach var="myorder" items="${foodbuylist}">
-	      <div class="foodpurchase_page_list">
-	        <div class="food_purchase_date_list">
-	          <c:out value="${myorder.ordersDate}"/>
-	        </div>
-	        <div class="food_purchase_restaurant_name_list">
+	      <div class="writereview_comments_list">
+	        <div class="writereview_restaurant_name">
 	          <c:out value="${myorder.storeName}" />
 	        </div>
-	        <div class="food_purchase_menu_info_list">
+	        <div class="writereview_meal_name">
 	          <c:out value="${myorder.itemName}" />
 	        </div>
-	        <div class="food_purchase_how_many_list">
+	        <div class="writereview_quantity">
 	          <c:out value="${myorder.orderItemQuantity}" />
 	        </div>
-	        <div class="food_purchase_price_list">
+	        <div class="writereview_price">
 	          <c:out value="${myorder.orderItemUnitPrice}" />
 	        </div>
-	        <div class="food_purchase_review_list">
-	          <a href="${pageContext.request.contextPath}/userMyPage/writeReview.jsp?orderItemNumber=${myorder.orderItemNumber}" class="food_purchase_review_meal">리뷰</a>
+	        <div class="writereview_date">
+	          <c:out value="${myorder.ordersDate}"/>
 	        </div>
 	      </div>
 	    </c:forEach>
-        
-        
-        
-        
         
         
         <div class="writereview_set_rank">
@@ -108,6 +93,8 @@
             <button type="submit" class="writereview_submit_btn">작성 완료</button>
           </div>
         </form>
+   
+        
       </div>
     </div>
   </main>
