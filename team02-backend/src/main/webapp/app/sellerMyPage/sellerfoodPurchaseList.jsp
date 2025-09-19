@@ -53,7 +53,6 @@
           <div class="sellerfoodPurchase_list_price">금액</div>
           <div class="sellerfoodPurchase_list_review">리뷰</div>
         </div>
-        <form id="goReview" method="post" action="${pageContext.request.contextPath}/sellerMyPage/sellerwriteReview.se" style="display:inline">
         <c:choose>
 					<c:when test="${not empty foodbuylist}">
 						<c:forEach var="food" items="${foodbuylist}">
@@ -66,23 +65,48 @@
 		          <div class="sellerfoodPurchase_price_list"><c:out value="${food.ordersTotalAmount }"/>원</div>
 		          <div class="sellerfoodPurchase_review_list">
 		         	<%--  <button type="submit" class="purchase_review_btn"  data-orders="${food.ordersNumber}">리뷰 작성</button> --%>
-		        	 <a href="${pageContext.request.contextPath}/sellerMyPage/sellerwriteReview.se?ordersNumber=${food.ordersNumber}">
-                 <div class="purchase_review_btn">수정</div>
+		        	 <a href="${pageContext.request.contextPath}/sellerMyPage/sellerwriteReview.se?ordersNumber=${food.ordersNumber}"
+		        	 class ="sellerfoodPurchase_review_meal">
+                 리뷰
                </a>
 		        	</div>	
 	        	</div>
 					</c:forEach>	
 				</c:when>
 			</c:choose>
-			</form>
       </div>
-      <div class="sellerfoodPurchase_pagination">
-        <a href="#" class="sellerfoodPurchase_page_active">1</a>
-        <a href="#" class="sellerfoodPurchase_page">2</a>
-        <a href="#" class="sellerfoodPurchase_page">3</a>
-        <a href="#" class="sellerfoodPurchase_page">4</a>
-        <a href="#" class="sellerfoodPurchase_page">5</a>
+      <!-- 페이지네이션 자리 (요청하신 블록: 변경 없이 그대로 삽입) -->
+      <div class="pagination">
+        <ul class="pagination_ul">
+          <c:if test="${prev}">
+            <li><a
+              href="${pageContext.request.contextPath}/sellerMyPage/sellerfoodPurchaseList.se?page=${startPage - 1}"
+              class="prev">&lt;</a></li>
+          </c:if>
+          <c:set var="realStartPage"
+            value="${startPage < 0 ? 0 : startPage}" />
+          <c:forEach var="i" begin="${realStartPage}" end="${endPage}">
+            <c:choose>
+              <c:when test="${!(i == page) }">
+                <li><a class="pagination_item"
+                  href="${pageContext.request.contextPath}/sellerMyPage/sellerfoodPurchaseList.se?page=${i}">
+                    <c:out value="${i}" />
+                </a></li>
+              </c:when>
+              <c:otherwise>
+                <li><a href="#" class="active"> <c:out value="${i}" />
+                </a></li>
+              </c:otherwise>
+            </c:choose>
+          </c:forEach>
+          <c:if test="${next}">
+            <li><a
+              href="${pageContext.request.contextPath}/sellerMyPage/sellerfoodPurchaseList.se?page=${endPage + 1}"
+              class="next">&gt;</a>
+          </c:if>
+        </ul>
       </div>
+      <!-- 페이지네이션 끝 -->
     </div>
   </main>
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
