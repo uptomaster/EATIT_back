@@ -1,162 +1,123 @@
 @charset "UTF-8";
 
-* {
-  margin: 0;
-  padding: 0;
-  /* box-sizing: border-box; */
-}
+/* ===== 고정폭(1920) + 좌측정렬 ===== */
+* { margin:0; padding:0; box-sizing:border-box; }
 
+/* 헤더/푸터가 width:1920 좌측정렬이므로, main도 동일 축 */
 main {
-  height: 830px;
   width: 1920px;
+  height: 830px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #fff5e4;
-
+  background:
+    radial-gradient(80% 80% at 50% 0%, rgba(255,233,210,.55) 0%, rgba(255,245,228,0) 60%),
+    #fff5e4;
 }
 
-/* 1100px 영역 */
-.container {
+/* 1100px 영역 (그대로) */
+.container{
   width: 1100px;
-  height: 100%;
-  background-color: #fbe3b9;
+  height: calc(100% - 40px); 
+  margin: 40px 0;
+
+  background: #fbe3b9;                
+  border-radius: 24px;
+  box-shadow: 0 22px 60px rgba(0,0,0,.12);
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 6px;                   
 }
 
-/* 컨텐츠 영역  */
-.content_container {
-  width: 600px;
-  height: 500px;
-  background-color: #fff5e4;
-  margin: 115px 0px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  border-radius: 5px;
+/* 카드(폼) 박스 */
+.content_container{
+  width:720px;
+  height:500px;
+  background:#fffdf7;
+  margin:115px 0;
+  border-radius:18px;
+  box-shadow:0 18px 60px rgba(0,0,0,.12);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  padding:48px 56px 28px;
 }
 
-/* ************************************** */
-/* 아이디 찾기 제목 */
-.findId_title_container {
-  font-size: 24px;
+/* 제목 */
+.findId_title_container{ text-align:center; margin-bottom:12px; }
+.findId_title{ font-size:28px; font-weight:900; letter-spacing:-.3px; color:#3b2f20; }
+.findId_subtitle{ margin-top:6px; font-size:14px; color:#7a6b58; }
+
+/* ===== 폼 그리드: [라벨 | 인풋 | 버튼] ===== */
+.id-form{ width:100%; max-width:600px; margin:8px auto 0; }
+.form-grid{
+  display:grid;
+  grid-template-columns:110px 1fr 110px;
+  grid-auto-rows:48px;
+  column-gap:12px;
+  row-gap:14px;
+  align-items:center;
+}
+.lbl{
+  text-align:right;
+  padding-right:8px;
+  font-size:16px;
+  font-weight:700;
+  color:#6b5c48;
+  line-height:48px;
+}
+.form-grid input{
+  height:44px;
+  padding:0 14px;
+  background:#fff;
+  border:1px solid rgba(0,0,0,.12);
+  border-radius:12px;
+  outline:none;
+  transition:border-color .15s, box-shadow .15s, background .15s;
+}
+.form-grid input::placeholder{ color:#a9a29a; }
+.form-grid input:focus{
+  border-color:#f29a5a;
+  box-shadow:0 0 0 4px rgba(242,154,90,.18);
 }
 
-.findId_title {
-  font-weight: bold;
+/* 버튼 */
+.btn{
+  height:44px;
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,.05);
+  font-weight:900;
+  letter-spacing:-.2px;
+  cursor:pointer; color:#fff;
+  transition:filter .15s, transform .12s;
+}
+.btn:hover{ filter:brightness(1.04); }
+.btn:active{ transform:translateY(1px); }
+.btn.primary{
+  width:180px;
+  background:linear-gradient(180deg,#f59c63,#f39251);
+  box-shadow:0 10px 22px rgba(243,146,81,.28), inset 0 2px 6px rgba(255,255,255,.25);
+}
+.btn.ghost{
+  background:linear-gradient(180deg,#f79c63,#f18649);
+  box-shadow:0 10px 22px rgba(243,146,81,.24);
 }
 
-/* 아이디 찾기 입력 폼 ******************/
-.findIdAuth_input_form {
-  width: 380px;
-  height: 110px;
-  flex-direction: row;
-}
-#wow{
-  width: 380px;
-  display: flex;
-  height: 110px;
-  flex-direction: row;
-  gap: 10px;
-}
-/* button:hover */
-.findIdAuth_btn_container>div>button:hover,
-button:hover{
-  background-color: #FF7722;
-}
-/* 아이디 찾기 입력칸 제목 */
-.findIdAuth_type_container>div {
-  width: 80px;
-  height: 40px;
-  /* border: 0.3px solid black; */
-  align-content: center;
-  font-size: 16px;
-}
+/* 이름행 버튼 비움 */
+.spacer{}
 
-/* 아이디 찾기 입력칸 */
-.findIdAuth_input_container>div>input {
-  width: 200px;
-  height: 25px;
-  margin: 7px 0px;
-}
-.findIdAuth_input_warning{
-  font-size: 14px;
-  color: red;
-}
-.findIdAuth_input_warning_box{
-	height : 20px;
-}
-/* 아이디 찾기 오른쪽 버튼들 */
-.findIdAuth_btn_container>div {
-  width: 70px;
-  height: 39px;
-  display: block;
-}
+/* 제출 버튼 중앙 */
+.submit-row{ display:flex; justify-content:center; margin-top:18px; }
 
-.findIdAuth_btn_container>div>button {
-  width: 70px;
-  height: 30px;
-  background-color: #ff924e;
-  color: white;
-  border-radius: 5px;
-  margin: 15px 0px;
+/* 하단 링크 */
+.findId_to_container{
+  margin-top:8px;
+  display:flex; justify-content:center; align-items:center; gap:18px;
 }
-
-/*하단의 아이디 찾기 버튼 *************************/
-.findId_btn:hover {
-  background-color: #FF7722;
+.findId_to_container a{
+  font-size:14px; color:#2b261f; text-decoration:none; padding:6px 8px; border-radius:8px;
+  transition:color .15s, background .15s;
 }
-.findId_btn_container{
-	  justify-content: center;
-	  width : 100px;
-	  margin : 30px auto 0;
-}
-
-.findId_btn {
-  width: 115px;
-  height: 35px;
-  background-color: #ff924e;
-  color: white;
-  border-radius: 5px;
-  font-size: 16px;
-  margin-top : 10px;
-}
-
-/* 아이디 찾기 완료 시 뜨는 버튼 */
-.findId_clear_btns>a>div:hover {
-  background-color: #FF7722;
-}
-
-.findId_clear_btns>a>div {
-  width: 115px;
-  height: 35px;
-  background-color: #ff924e;
-  color: white;
-  border-radius: 5px;
-  font-size: 16px;
-  margin: 10px;
-  text-align: center;
-  line-height: 35px;
-}
-.findId_clear_btns>a{
-  text-decoration: none;
-  color: white;
-}
-
-/* 아이디 찾기 다른 곳으로 이동 */
-.findId_to_container {
-  /* height: 50px; */
-  display: flex;
-  align-items: center;
-  /* text-decoration: none; */
-  gap: 15px;
-}
-
-.findId_to_container>div>a{
-  font-size: 14px;
-  text-decoration: none;
-  color: black;
-}
+.findId_to_container a:hover{ color:#f07e2e; background:rgba(240,126,46,.08); }

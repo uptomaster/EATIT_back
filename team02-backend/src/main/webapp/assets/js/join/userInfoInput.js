@@ -83,13 +83,33 @@ passwordInput.addEventListener("blur", function () {
   
   // ===== SMS 발송 (임시 인증번호 생성) =====
   const phoneRegex = /^01[016789]-?\d{3,4}-?\d{4}$/;
-  
-  sendSMSBtn.addEventListener("click", function () {
+  (function () {
+    const p = new URLSearchParams(location.search);
+    if (p.get('dupPhone') === '1') alert('이미 가입된 휴대폰번호입니다. 로그인 또는 아이디/비밀번호 찾기를 이용해주세요.');
+  })();
+  sendSMSBtn.addEventListener("click", async function () {
     const phoneNumber = phoneNumberInput.value.trim();
     if (!phoneRegex.test(phoneNumber)) {
       alert("핸드폰 번호를 입력해주세요.");
       return;
     }
+	try {
+	  const r = await fetch(`${base}/join/checkPhone.jo?phone=${encodeURIComponent(phoneNumber)}`,
+	    { headers: { "Accept": "application/json" } });
+	  const j = await r.json();
+	  if (!j.available) {
+	    const phoneMsg = document.getElementById("warning_message_chk_phone");
+	    if (phoneMsg) {
+	      phoneMsg.textContent = "이미 가입된 휴대폰번호입니다. 로그인 또는 아이디/비밀번호 찾기를 이용해주세요.";
+	      phoneMsg.style.color = "red";
+	    }
+	    return; // ★ 여기서 중단(문자발송 안 함)
+	  }
+	} catch (e) {
+	  alert("휴대폰 중복 확인 중 오류가 발생했습니다.");
+	  return;
+	}
+
 	fetch(`${base}/join/sendSMS.jo?memberPhoneNumber=${encodeURIComponent(phoneNumber)}`, {
 				method: "GET",
 				headers: {
@@ -159,6 +179,9 @@ passwordInput.addEventListener("blur", function () {
   phoneNumberInput.addEventListener("input", function () {
     verificationCodeInput.dataset.verified = "false";
     verificationStatus.textContent = "";
+	const phoneMsg = document.getElementById("warning_message_chk_phone") /* 일반 */
+	               || document.getElementById("warning_message_phone");   /* 판매자 */
+	if (phoneMsg) phoneMsg.textContent = "";
   });
   // ===== 제출 전 체크 =====
   form.addEventListener("submit", function (e) {

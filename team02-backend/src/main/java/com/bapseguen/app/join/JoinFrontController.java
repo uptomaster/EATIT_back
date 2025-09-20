@@ -14,27 +14,31 @@ import com.bapseguen.app.Result;
  */
 public class JoinFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public JoinFrontController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public JoinFrontController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doProcess(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doProcess(request, response);
 	}
@@ -97,7 +101,13 @@ public class JoinFrontController extends HttpServlet {
 	        System.out.println("문자인증 완료 처리");
 	        result = new VerifyCodeController().execute(request, response);
 	        break;
+	    
+		case "/join/checkPhone.jo":
+		    System.out.println("휴대폰 중복 체크 요청");
+		    result = new CheckPhoneController().execute(request, response);
+		    break;
 	    }
+	    
         if (result != null && result.getPath() != null) {
             if (result.isRedirect()) {
                 response.sendRedirect(result.getPath());

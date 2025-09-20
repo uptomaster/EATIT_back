@@ -53,12 +53,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!modal || !bodyEl || !tpl) return;
 
     titleEl.textContent = title;
-    bodyEl.innerHTML = tpl.innerHTML;
+
+    //template 주입: cloneNode(true) 사용
+    bodyEl.replaceChildren(tpl.content.cloneNode(true));
+
     openModal(modal);
   });
 
   modal?.addEventListener("click", (e) => {
-    if (e.target.matches("[data-close]")) closeModal(modal);
+    if (e.target.matches("[data-close]") || e.target.classList.contains("modal__backdrop")) {
+      closeModal(modal);
+    }
   });
 
   document.addEventListener("keydown", (e) => {
@@ -73,5 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function closeModal(m) {
     m.hidden = true;
     document.documentElement.style.overflow = "";
+    bodyEl.replaceChildren(); // 내용 비워서 메모리 누수 방지(선택)
   }
 });
