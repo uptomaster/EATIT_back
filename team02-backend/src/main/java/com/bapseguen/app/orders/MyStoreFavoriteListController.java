@@ -43,12 +43,12 @@ public class MyStoreFavoriteListController implements Execute {
         MyStoreFavoriteDAO favDAO = new MyStoreFavoriteDAO();
         List<StoreFavoriteDTO> favList = favDAO.selectAll(memberNumber, startRow, endRow);
 
-        // 전체 개수 조회해서 maxPage 계산 (DAO에 count 메서드 필요)
+        // 전체 개수 조회해서 maxPage 계산
         int totalCount = favDAO.countByMember(memberNumber);
         int maxPage = (int) Math.ceil((double) totalCount / rowCount);
 
-        // JSP에 전달
-        request.setAttribute("favList", favList);
+        // ✅ JSP에 전달 (이름 통일)
+        request.setAttribute("favorites", favList);
         request.setAttribute("page", page);
         request.setAttribute("maxPage", maxPage);
 

@@ -9,19 +9,11 @@
 <head>
 <meta charset="UTF-8">
 <title>밥세권 - 가게 상세</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/css/header.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/css/footer.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/css/orders/storeDetail.css">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
-	crossorigin="anonymous"></script>
-<script defer
-	src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-<script defer
-	src="${pageContext.request.contextPath}/assets/js/orders/storeDetail.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/orders/storeDetail.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous"></script>
+<script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
 </head>
 <body>
 
@@ -40,26 +32,21 @@
 					<div class="store_image_wrapper">
 						<c:choose>
 							<c:when test="${not empty item.storeImageSystemName}">
-								<img
-									src="${pageContext.request.contextPath}/upload/${item.storeImageSystemName}"
-									alt="${item.storeName}">
+								<img src="${pageContext.request.contextPath}/upload/${item.storeImageSystemName}"
+								     alt="${item.storeName}">
 							</c:when>
 							<c:otherwise>
-								<img
-									src="${pageContext.request.contextPath}/assets/img/food1.jpg"
-									alt="기본 이미지">
+								<img src="${pageContext.request.contextPath}/assets/img/food1.jpg"
+								     alt="기본 이미지">
 							</c:otherwise>
 						</c:choose>
 
-						<!-- 찜 버튼 -->
-						<form
-							action="${pageContext.request.contextPath}/orders/favoriteToggle.or"
-							method="get" style="display: inline;">
-							<input type="hidden" name="storeNumber"
-								value="${item.businessNumber}">
+						<!-- ✅ 찜 버튼 (storeNumber만 전달) -->
+						<form action="${pageContext.request.contextPath}/orders/favoriteToggle.or" 
+						      method="post" style="display:inline;">
+							<input type="hidden" name="storeNumber" value="${item.businessNumber}" />
 							<button type="submit" class="favorite-btn">
-								<i
-									class="${isFavorited ? 'fa-solid' : 'fa-regular'} fa-heart heart-icon"></i>
+								<i class="${isFavorited ? 'fa-solid' : 'fa-regular'} fa-heart heart-icon"></i>
 								<c:choose>
 									<c:when test="${isFavorited}">찜 해제</c:when>
 									<c:otherwise>찜하기</c:otherwise>
@@ -74,9 +61,9 @@
 						<p class="buy_store_tel">전화번호 : ${item.storeTel}</p>
 						<!-- 리뷰탭 이동 -->
 						<div class="review-tab-link">
-							<a
-								href="${pageContext.request.contextPath}/orders/storeReview.or?businessNumber=${item.businessNumber}">
-								리뷰 보기 → </a>
+							<a href="${pageContext.request.contextPath}/orders/storeReview.or?businessNumber=${item.businessNumber}">
+								리뷰 보기 →
+							</a>
 						</div>
 					</div>
 				</div>
@@ -99,14 +86,12 @@
 										<div class="food_img_wrapper">
 											<c:choose>
 												<c:when test="${not empty p.itemImageSystemName}">
-													<img
-														src="${pageContext.request.contextPath}/upload/${p.itemImageSystemName}"
-														alt="${p.itemName}">
+													<img src="${pageContext.request.contextPath}/upload/${p.itemImageSystemName}"
+													     alt="${p.itemName}">
 												</c:when>
 												<c:otherwise>
-													<img
-														src="${pageContext.request.contextPath}/assets/img/food2.jpg"
-														alt="기본 이미지">
+													<img src="${pageContext.request.contextPath}/assets/img/food2.jpg"
+													     alt="기본 이미지">
 												</c:otherwise>
 											</c:choose>
 
@@ -114,12 +99,9 @@
 											<c:if test="${not empty p.itemExpireDate}">
 												<c:set var="today"
 													value="<%=new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(new java.util.Date())%>" />
-												<fmt:parseDate var="expireDate" value="${p.itemExpireDate}"
-													pattern="yyyy-MM-dd" />
-												<fmt:parseDate var="todayDate" value="${today}"
-													pattern="yyyy-MM-dd" />
-												<c:set var="diffDays"
-													value="${(expireDate.time - todayDate.time) / (1000*60*60*24)}" />
+												<fmt:parseDate var="expireDate" value="${p.itemExpireDate}" pattern="yyyy-MM-dd" />
+												<fmt:parseDate var="todayDate" value="${today}" pattern="yyyy-MM-dd" />
+												<c:set var="diffDays" value="${(expireDate.time - todayDate.time) / (1000*60*60*24)}" />
 												<c:choose>
 													<c:when test="${diffDays le 3}">
 														<span class="badge urgent">마감임박</span>
@@ -141,19 +123,16 @@
 												<a href="#" class="minus">-</a>
 												<p class="count">1</p>
 												<a href="#" class="plus">+</a>
-												<form
-													action="${pageContext.request.contextPath}/cartList/addItemOk.cl"
-													method="post" style="display: inline;">
-													<input type="hidden" name="itemNumber"
-														value="${p.itemNumber}"> <input type="hidden"
-														name="quantity" value="1" class="cartQuantity">
+												<form action="${pageContext.request.contextPath}/cartList/addItemOk.cl"
+												      method="post" style="display: inline;">
+													<input type="hidden" name="itemNumber" value="${p.itemNumber}">
+													<input type="hidden" name="quantity" value="1" class="cartQuantity">
 													<button type="submit" class="buy_add_cart_btn">장바구니</button>
 												</form>
 											</div>
 											<div class="price_menu">
 												가격 :
-												<fmt:formatNumber value="${p.itemPrice}" type="number" />
-												원
+												<fmt:formatNumber value="${p.itemPrice}" type="number" /> 원
 											</div>
 										</div>
 									</div>
@@ -168,9 +147,8 @@
 					<!-- 페이지네이션 -->
 					<div class="pagination">
 						<c:forEach var="i" begin="1" end="${maxPage}">
-							<a
-								href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${item.itemNumber}&page=${i}&tab=${param.tab}"
-								class="${i == page ? 'active' : ''}">${i}</a>
+							<a href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${item.itemNumber}&page=${i}&tab=${param.tab}"
+							   class="${i == page ? 'active' : ''}">${i}</a>
 						</c:forEach>
 					</div>
 				</div>
@@ -179,8 +157,7 @@
 			<!-- 오른쪽 -->
 			<div class="buy_map_area">
 				<div class="buy_back_store_list">
-					<a href="${pageContext.request.contextPath}/orders/storeList.or">목록으로
-						돌아가기</a>
+					<a href="${pageContext.request.contextPath}/orders/storeList.or">목록으로 돌아가기</a>
 				</div>
 				<div class="buy_origin">
 					<ul class="buy_origin_menu">
@@ -194,34 +171,17 @@
 						</ul>
 					</div>
 				</div>
-				<div id="map">
-				</div>
 			</div>
 		</div>
 	</main>
 
-	<!-- 찜 완료/해제 메시지 (query param 기반, 1회성) -->
-	<c:if test="${not empty requestScope.favMessage}">
+	<!-- 찜 완료/해제 메시지 -->
+	<c:if test="${not empty sessionScope.favMessage}">
 		<script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const toast = document.createElement("div");
-            toast.textContent = "${requestScope.favMessage}";
-            toast.style.position = "fixed";
-            toast.style.bottom = "20px";
-            toast.style.left = "50%";
-            toast.style.transform = "translateX(-50%)";
-            toast.style.background = "rgba(0,0,0,0.8)";
-            toast.style.color = "#fff";
-            toast.style.padding = "10px 20px";
-            toast.style.borderRadius = "20px";
-            toast.style.zIndex = "9999";
-            document.body.appendChild(toast);
-
-            setTimeout(() => toast.remove(), 1500);
-        });
-    </script>
+			alert("${sessionScope.favMessage}");
+		</script>
+		<c:remove var="favMessage" scope="session"/>
 	</c:if>
-
 
 	<!-- 푸터 -->
 	<jsp:include page="${pageContext.request.contextPath}/footer.jsp"></jsp:include>

@@ -62,6 +62,11 @@ public class StoreDetailController implements Execute {
             isFavorited = favDAO.isFavorited(memberNumber, item.getBusinessNumber());
         }
 
+        System.out.println("itemNumber = " + item.getItemNumber());
+        System.out.println("businessNumber = " + item.getBusinessNumber());
+        System.out.println("storeName = " + item.getStoreName());
+
+        
         // JSP로 데이터 전달
         request.setAttribute("item", item);
         request.setAttribute("images", images);
@@ -73,5 +78,7 @@ public class StoreDetailController implements Execute {
         result.setPath("/app/orders/storeDetail.jsp");
         result.setRedirect(false);
         return result;
+        
+        
     }
 }
