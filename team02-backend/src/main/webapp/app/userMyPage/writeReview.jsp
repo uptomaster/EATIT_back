@@ -42,76 +42,64 @@
           <div class="writereview_price">금액</div>
           <div class="writereview_date">구매 일자</div>
         </div>
-        <div class="writereview_comments_list">
-          <div class="writereview_restaurant_name">기수베이커리</div>
-          <div class="writereview_product_img"><img class="writereview_meal_img" src="" alt=""></div>
-          <div class="writereview_meal_name">식빵</div>
-          <div class="writereview_quantity">1</div>
-          <div class="writereview_price">5000원</div>
-          <div class="writereview_date">2025-08-02</div>
-        </div>
         
+        <!-- 음식/재료 둘다 확인 -->
+        <c:forEach var="myReview" items="${buylist}">
+		    <div class="writereview_comments_list">
+		        <div class="writereview_restaurant_name">
+		            <c:out value="${myReview.storeName}" />
+		        </div>
+		        <div class="writereview_meal_name">
+		            <c:out value="${myReview.itemName}" />
+		        </div>
+		        <div class="writereview_quantity">
+		            <c:out value="${myReview.orderItemQuantity}" />
+		        </div>
+		        <div class="writereview_price">
+		            <c:out value="${myReview.orderItemUnitPrice}" />
+		        </div>
+		        <div class="writereview_date">
+		            <c:out value="${myReview.ordersDate}"/>
+		        </div>
+		    </div>
+		</c:forEach>
         
-        <c:forEach var="myorder" items="${foodbuylist}">
-	      <div class="foodpurchase_page_list">
-	        <div class="food_purchase_date_list">
-	          <c:out value="${myorder.ordersDate}"/>
-	        </div>
-	        <div class="food_purchase_restaurant_name_list">
-	          <c:out value="${myorder.storeName}" />
-	        </div>
-	        <div class="food_purchase_menu_info_list">
-	          <c:out value="${myorder.itemName}" />
-	        </div>
-	        <div class="food_purchase_how_many_list">
-	          <c:out value="${myorder.orderItemQuantity}" />
-	        </div>
-	        <div class="food_purchase_price_list">
-	          <c:out value="${myorder.orderItemUnitPrice}" />
-	        </div>
-	        <div class="food_purchase_review_list">
-	          <a href="${pageContext.request.contextPath}/userMyPage/writeReview.jsp?orderItemNumber=${myorder.orderItemNumber}" class="food_purchase_review_meal">리뷰</a>
-	        </div>
-	      </div>
-	    </c:forEach>
+        <form action="${pageContext.request.contextPath}/userMyPage/writeReviewOk.my" method="post">		   
+		    <input type="hidden" name="ordersNumber" value="${ordersNumber}">
+		    <input type="hidden" name="businessNumber" value="${buylist[0].businessNumber}"> <!-- 첫 번째 아이템 기준 -->
+		    <input type="hidden" id="reviewRating" name="reviewRating" value="">
+		   
+		    <!-- 별점 -->
+		    <div class="writereview_set_rank">
+		        <div>별점주기</div>
+		        <c:forEach var="i" begin="1" end="5">
+		            <button type="button" class="writereview_counting_Star_button">
+		                <img class="writereview_counting_Star" 
+		                     src="${pageContext.request.contextPath}/assets/img/gray_shake_it_ya.png" 
+		                     alt="별점">
+		            </button>
+		        </c:forEach>
+		    </div>
+		
+		    <div class="writereview_form_group">
+		        <label for="content">내용</label>
+		        <textarea id="content" name="reviewContent" rows="10" placeholder="내용을 입력하세요" required></textarea>
+		    </div>
+		
+		    <div class="writereview_button_group">
+		        <button type="reset" class="writereview_cancel_btn">작성 취소</button>
+		        <button type="submit" class="writereview_submit_btn">작성 완료</button>
+		    </div>
+		</form>
+
+   
         
-        
-        
-        
-        
-        
-        <div class="writereview_set_rank">
-          <div>별점주기</div>
-          <button class="writereview_counting_Star_button">
-            <img class="writereview_counting_Star" src="${pageContext.request.contextPath}/assets/img/gray_shake_it_ya.png" alt="별점">
-          </button>
-          <button class="writereview_counting_Star_button">
-            <img class="writereview_counting_Star" src="${pageContext.request.contextPath}/assets/img/gray_shake_it_ya.png" alt="별점">
-          </button>
-          <button class="writereview_counting_Star_button">
-            <img class="writereview_counting_Star" src="${pageContext.request.contextPath}/assets/img/gray_shake_it_ya.png" alt="별점">
-          </button>
-          <button class="writereview_counting_Star_button">
-            <img class="writereview_counting_Star" src="${pageContext.request.contextPath}/assets/img/gray_shake_it_ya.png" alt="별점">
-          </button>
-          <button class="writereview_counting_Star_button">
-            <img class="writereview_counting_Star" src="${pageContext.request.contextPath}/assets/img/gray_shake_it_ya.png" alt="별점">
-          </button>
-        </div>
-        <form action="">
-          <div class="writereview_form_group">
-            <label for="content">내용</label>
-            <textarea id="content" name="content" rows="10" placeholder="내용을 입력하세요" required></textarea>
-          </div>
-          <div class="writereview_button_group">
-            <button type="reset" class="writereview_cancel_btn">작성 취소</button>
-            <button type="submit" class="writereview_submit_btn">작성 완료</button>
-          </div>
-        </form>
       </div>
     </div>
   </main>
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </body>
-
+<script>
+    const contextPath = "${pageContext.request.contextPath}";
+</script>
 </html>

@@ -119,4 +119,30 @@ public class UserMyPageDAO {
         sqlSession.delete("myPage.deleteUserPosts", memberNumber);
         sqlSession.delete("myPage.withDrawDelete", memberNumber);
     }
+    
+    // 리뷰 작성용 주문 아이템 전체 조회 (페이징 없음)
+    public List<MyPurchaseDTO> selectOrderItems(int memberNumber, int ordersNumber) {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("memberNumber", memberNumber);
+        paramMap.put("ordersNumber", ordersNumber);
+
+        return sqlSession.selectList("myReview.myOrderSelectAll", paramMap);
+    }
+
+    //리뷰작성
+    public int insertReview(ReviewWriteDTO review) {
+        SqlSession sqlSession = MyBatisConfig.getSqlSessionFactory().openSession(true);
+        try {
+            return sqlSession.insert("myReview.myReviewInsert", review);
+        } finally {
+            sqlSession.close();
+        }
+    }
+    // 리뷰 작성 전 주문에 대한 리뷰 존재 여부 확인
+    public int hasReview(int ordersNumber, int memberNumber) {
+        return sqlSession.selectOne("myReview.hasReview", Map.of(
+            "ordersNumber", ordersNumber,
+            "memberNumber", memberNumber
+        ));
+    }
 }
