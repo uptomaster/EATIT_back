@@ -24,6 +24,7 @@
     <c:remove var="flashLoginMsg" scope="session"/>
   </c:if>
   <main>
+   <div class="login_stage">
     <div class="login_container"> <!-- 1100px 영역 -->
       <div class="login_content_container"> <!-- 컨텐츠 영역 -->
 

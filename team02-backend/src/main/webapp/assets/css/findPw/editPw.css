@@ -1,130 +1,147 @@
 @charset "UTF-8";
 
-* {
-  margin: 0;
-  padding: 0;
-  /* box-sizing: border-box; */
+/* ================== GLOBAL / LAYOUT ================== */
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* 고정폭 레이아웃(헤더/푸터 1920px 기준) */
+main{
+  width:1920px;height:830px;
+  display:flex;justify-content:center;align-items:center;
+  background:
+    radial-gradient(80% 80% at 50% 0%, rgba(255,233,210,.55) 0%, rgba(255,245,228,0) 60%),
+    #fff5e4;
 }
 
-main {
-  height: 830px;
-  width: 1920px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff5e4;
+/* ================== THEME VARS ================== */
+:root{
+  /* 인풋 가로 폭만 여기서 조절하면 됨 */
+  --input-w: 360px;     /* ← 필요시 340px/320px 등으로 변경 */
+  --label-w: 140px;
+  --gap: 16px;
 
-}
-/* 1100px 영역 */
-.findPw_edit_container {
-  width: 1100px;
-  height: 100%;
-  background-color: #fbe3b9;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-/* 컨텐츠 영역 */
-.findPw_edit_content_container {
-  width: 600px;
-  height: 500px;
-  background-color: #fff5e4;
-  margin: 115px 0px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
+  --panel:#fbe3b9;
+  --card:#fffdf7;
+  --text-900:#2b261f;
+  --text-700:#6b5c48;
+
+  --shadow-panel:0 22px 60px rgba(0,0,0,.12);
+  --shadow-card:0 18px 60px rgba(0,0,0,.12);
 }
 
-/* 구역나누기 끝 */
-
-/* 비밀번호 찾기 편집 제목 */
-/* 비밀번호 찾기 제목 */
-.findPw_edit_title_container {
-  font-size: 24px;
+/* ================== OUTER PANEL (1100px 영역) ================== */
+.findPw_edit_container{
+  width:1100px;
+  height:calc(100% - 40px);
+  margin:40px 0;
+  background:var(--panel);
+  border-radius:24px;
+  box-shadow:var(--shadow-panel);
+  display:flex;flex-direction:column;align-items:center;
+  padding-top:6px;
 }
 
-.findPw_edit_title {
-  font-weight: bold;
+/* ================== CARD ================== */
+.findPw_edit_content_container{
+  width:720px;height:500px;margin:115px 0;
+  background:var(--card);
+  border-radius:18px;
+  box-shadow:var(--shadow-card);
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+  padding:48px 56px 28px;
 }
 
-/* 비밀번호 수정 입력 폼 *******/
-.findPw_edit_input_container>div {
-  margin: 15px;
-  font-size: 14px;
-  text-align: right;
-  display: flex;
-  justify-content: center;
+/* ================== TITLES ================== */
+.findPw_edit_titles{ text-align:center; margin-bottom:10px; }
+.findPw_edit_title{
+  font-size:24px;font-weight:900;letter-spacing:-.2px;color:#3b2f20;
+}
+.findPw_edit_subtitle{
+  margin-top:6px;font-size:14px;color:#7a6b58;
 }
 
-.findPw_edit_input_container>div>label {
-  margin-right: 10px;
+/* ================== FORM ================== */
+/* 폼 폭 = 라벨 + 인풋 + 간격 */
+.findPw_edit_form{
+  width: calc(var(--label-w) + var(--input-w) + var(--gap));
+  margin: 0 auto;
 }
 
-.findPw_edit_input_container>div>input {
-  width: 200px;
-  height: 30px;
-  border: 0.3px solid black;
-  border-radius: 5px;
+/* 2열 그리드: [라벨 | 인풋] */
+.form-grid{
+  display:grid;
+  grid-template-columns: var(--label-w) var(--input-w);
+  grid-auto-rows: minmax(44px, auto);
+  column-gap: var(--gap);
+  row-gap: 8px;
+  align-items:center;
 }
 
-/* 경고 메시지 */
-.findPw_edit_warning_message {
-  color: red;
+/* 라벨 */
+.lbl{
+  text-align:right;
+  padding-right:8px;
+  font-size:14px;
+  font-weight:700;
+  color:var(--text-700);
+  line-height:44px;
 }
 
-/* 수정하기 버튼 */
-.findPw_edit_btn {
-  width: 115px;
-  height: 35px;
-  background-color: #ff924e;
-  color: white;
-  border-radius: 5px;
-  border: 0.5px solid #000;
-  font-size: 16px;
-  margin: 10px;
+/* 인풋 */
+.form-grid input{
+  width:100%;
+  height:44px;
+  padding:0 14px;
+  background:#fff;
+  border:1px solid rgba(0,0,0,.12);
+  border-radius:12px;
+  outline:none;
+  transition:border-color .15s, box-shadow .15s, background .15s;
+}
+.form-grid input:focus{
+  border-color:#f29a5a;
+  box-shadow:0 0 0 4px rgba(242,154,90,.18);
 }
 
-/* 메인으로, 로그인 버튼 */
-.findId_clear_btns{
-  display: flex;
+/* 인풋 아래 메시지 (각 인풋 바로 아래 줄에 위치) */
+.field-msg{
+  grid-column: 2 / 3;
+  font-size:13px;
+  line-height:1.35;
+  margin-top:2px;
+  min-height:18px;
+  color:#d6336c;         /* 기본 에러 색 */
 }
-.findId_clear_btns>a>div:hover {
-  background-color: #FF7722;
+.field-msg.success{ color:#2e7d32; }
+.field-msg.error{   color:#d6336c; }
+
+/* ================== BUTTONS ================== */
+.submit-row{
+  display:flex;justify-content:center;margin-top:26px;
+}
+.btn{
+  height:44px;
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,.05);
+  font-weight:900;letter-spacing:-.2px;cursor:pointer;color:#fff;
+  transition:filter .15s, transform .12s;
+}
+.btn:hover{ filter:brightness(1.04); }
+.btn:active{ transform:translateY(1px); }
+.btn.primary{
+  min-width:180px;
+  background:linear-gradient(180deg,#f59c63,#f39251);
+  box-shadow:0 10px 22px rgba(243,146,81,.28), inset 0 2px 6px rgba(255,255,255,.25);
 }
 
-.findId_clear_btns>a>div {
-  width: 115px;
-  height: 35px;
-  background-color: #ff924e;
-  color: white;
-  border-radius: 5px;
-  border: 0.5px solid #000;
-  font-size: 16px;
-  margin: 10px;
-  text-align: center;
-  line-height: 35px;
+/* ================== FOOT LINKS ================== */
+.findPw_edit_to_container{
+  margin-top:28px;
+  display:flex;gap:18px;justify-content:center;
 }
-.findId_clear_btns>a{
-  text-decoration: none;
-  color: white;
+.findPw_edit_to_container a{
+  font-size:14px;color:var(--text-900);text-decoration:none;
+  padding:6px 8px;border-radius:8px;transition:color .15s, background .15s;
 }
-
-/* 비밀번호찾기, 비밀번호 찾기, 회원가입 */
-.findPw_edit_to_container {
-  /* height: 50px; */
-  display: flex;
-  align-items: center;
-  /* text-decoration: none; */
-  gap: 15px;
-}
-
-.findPw_edit_to_container>div>a:hover {
-  color: #FF7722;
-}
-
-.findPw_edit_to_container>div>a {
-  font-size: 14px;
-  text-decoration: none;
-  color: black;
+.findPw_edit_to_container a:hover{
+  color:#f07e2e;background:rgba(240,126,46,.08);
 }

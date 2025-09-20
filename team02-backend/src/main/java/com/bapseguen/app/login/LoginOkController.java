@@ -72,7 +72,7 @@ public class LoginOkController implements Execute {
 
         result.setRedirect(true);
         System.out.println("회원유형 : " + memberType);
-        result.setPath(ctx + "/main.jsp");
+        result.setPath(ctx + "/main.ma");
         return result;
     }
 }

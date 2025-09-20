@@ -1,114 +1,177 @@
 @charset "UTF-8";
 
-* {
-  margin: 0;
-  padding: 0;
-  /* box-sizing: border-box; */
-}
+/* ===== 고정 레이아웃은 그대로 ===== */
+* { margin: 0; padding: 0; }
 
+/* 배경 + 중앙 정렬 (폭/높이 그대로) */
 main {
-  height: 830px;
   width: 1920px;
+  height: 830px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #fff5e4;
-
+  background:
+    radial-gradient(80% 80% at 50% 0%, rgba(255,233,210,.55) 0%, rgba(255,245,228,0) 60%),
+    #fff5e4;
 }
-/* 1100px 영역 */
+
+/* 1100px 영역 (그대로) */
 .login_container {
   width: 1100px;
   height: 100%;
-  background-color: #fbe3b9;
+  background: #fbe3b9;
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-radius: 24px;
+  box-shadow: 0 22px 60px rgba(0,0,0,.12);
+  padding-top: 6px;
 }
-/* 컨텐츠 영역 */
+
+/* 600x500 카드 (그대로) : 내부 정렬만 개선 */
 .login_content_container {
   width: 600px;
   height: 500px;
-  background-color: #fff5e4;
-  margin: 115px 0px;
+  margin: 115px 0;
+  background: #fffdf7;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
-  border-radius: 10px;
-  /* border: 1px solid blue; */
+  /* space-evenly 대신 gap 으로 일정 간격 배치 */
+  justify-content: center;
+  gap: 28px;
+  border-radius: 18px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.10);
+  border: 1px solid rgba(0,0,0,.04);
+  padding: 24px 28px;
 }
 
-/* 구역나누기 끝 */
-
-/* 로그인 제목 */
-.login_title_container {
-  font-size: 24px;
-}
+/* ===== 제목 ===== */
+.login_title_container { font-size: 24px; }
 
 .login_title {
   font-size: 24px;
-  font-weight: bold;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  color: #3b2f20;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
-.login_subtitle{
+
+.login_subtitle {
+  color: #807566;
+  font-size: 14px;
   text-align: center;
 }
 
-/* 로그인 입력 폼 */
-.login_input_container>div {
-  margin: 15px;
-  font-size: 14px;
+/* ===== 폼 정렬: 라벨/인풋 2열 그리드 ===== */
+.login_input_container {
+  /* 폼 자체를 카드 중앙에서 고정 폭으로 */
+  width: 520px;              /* 카드 폭 600 안에서 보기 좋은 폭 */
+  margin: 0 auto;
+  display: grid;
+  row-gap: 14px;
+}
+
+/* 한 줄(라벨 + 인풋) */
+.login_input_container .login_input_id_contanier,
+.login_input_container .login_input_pw_contaner {
+  display: grid;
+  grid-template-columns: 110px 1fr;  /* 라벨 110, 인풋 나머지 */
+  column-gap: 16px;
+  align-items: center;
+}
+
+/* 라벨: 오른쪽 정렬(한글 콜론 기준 예쁘게 붙도록) */
+.login_input_container label {
+  margin: 0;                /* 기존 margin-right 제거 */
   text-align: right;
+  color: #6b5c48;
+  font-weight: 700;
+  font-size: 14px;
 }
-/* 로그인 입력 항목명 */
-.login_input_container>div>label {
-  margin-right: 10px;
+
+/* 인풋: 가로는 100%로 줄에 맞추기(원래 200px 대신 그리드 기준) */
+.login_input_container input {
+  width: 100%;
+  height: 42px;             /* 살짝 여유 */
+  padding: 0 12px;
+  border: 1px solid rgba(0,0,0,.18);
+  border-radius: 10px;
+  background: #fff;
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
 }
-/* 로그인 입력창 */
-.login_input_container>div>input {
-  width: 200px;
-  height: 30px;
-  border: 0.3px solid black;
-  border-radius: 5px;
+
+.login_input_container input::placeholder { color: #b0a79e; }
+.login_input_container input:focus {
+  border-color: #f29a5a;
+  box-shadow: 0 0 0 4px rgba(242,154,90,.18);
+  background: #fffefc;
 }
 
 /* 경고메시지 */
 #login_warning_message {
   display: none;
-  margin-top: 3px;
+  margin-top: 4px;
   font-size: 12px;
   text-align: center;
-  color: red; 
+  color: #e03131;
 }
 
-/* 로그인 버튼 */
+/* ===== 로그인 버튼: 가운데 정렬 ===== */
 #login_btn {
   width: 145px;
   height: 35px;
-  background-color: #ff924e;
-  color: white;
-  border-radius: 5px;
-  border: 0.5px solid #000;
+  /* 좌측으로 밀던 margin 제거, 중앙 배치 */
+  margin: 10px auto 0;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,.06);
+  background: linear-gradient(180deg,#f59c63,#f39251);
+  color: #fff;
   font-size: 16px;
-  margin: 10px 0 0 80px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(243,146,81,.28), inset 0 2px 6px rgba(255,255,255,.26);
+  transition: filter .15s ease, transform .12s ease;
 }
+#login_btn:hover { filter: brightness(1.05); }
+#login_btn:active { transform: translateY(1px); }
 
-/* 비밀번호찾기, 로그인, 회원가입 */
+/* ===== 하단 링크: 가운데 정렬 ===== */
 .login_to_container {
-  /* height: 50px; */
   display: flex;
+  justify-content: center;
   align-items: center;
-  /* text-decoration: none; */
-  gap: 15px;
+  gap: 22px;
 }
 
-.login_to_container>div>a:hover {
-  color: #FF7722;
-}
-
-.login_to_container>div>a {
+.login_to_container > div > a {
   font-size: 14px;
+  color: #2b261f;
   text-decoration: none;
-  color: black;
+  padding: 6px 8px;
+  border-radius: 8px;
+  transition: color .15s ease, background .15s ease;
+}
+.login_to_container > div > a:hover {
+  color: #FF7722;
+  background: rgba(255,119,34,.08);
+}
+/* 인풋 가로 길이 줄이기 (라벨/인풋 2열 그리드에서 2번째 칼럼 폭 제한) */
+.login_input_container{
+  width: 480px;                 /* 폼 전체 폭도 살짝 줄임 (기존 520px → 480px) */
+  margin: 0 auto;
+}
+
+/* 라벨 110px + 인풋 2번째 칼럼 폭을 260~340px로 제한 */
+.login_input_container .login_input_id_contanier,
+.login_input_container .login_input_pw_contaner{
+  grid-template-columns: 110px minmax(260px, 260px);
+}
+
+/* 인풋은 칼럼 너비에 맞춰 100% */
+.login_input_container input{
+  width: 100%;
 }
