@@ -1,158 +1,135 @@
 @charset "UTF-8";
 
-* {
-  margin: 0;
-  padding: 0;
-  /* box-sizing: border-box; */
+/* ===== 고정폭(1920) + 좌측정렬: 헤더/푸터와 동일 축 ===== */
+* { margin:0; padding:0; box-sizing:border-box; }
+
+main{
+  width:1920px;
+  height:830px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:
+    radial-gradient(80% 80% at 50% 0%, rgba(255,233,210,.55) 0%, rgba(255,245,228,0) 60%),
+    #fff5e4;
 }
 
-main {
-  height: 830px;
-  width: 1920px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff5e4;
-
-}
-/* 1100px 영역 */
-.findPw_container {
-  width: 1100px;
-  height: 100%;
-  background-color: #fbe3b9;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-/* 컨텐츠 영역 */
-.findPw_content_container {
-  width: 600px;
-  height: 500px;
-  background-color: #fff5e4;
-  margin: 115px 0px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
+/* ===== 1100px 패널: 로그인/아이디찾기와 동일 스타일 ===== */
+.findPw_container{
+  width:1100px;
+  height:calc(100% - 40px);
+  margin:40px 0;
+  background:#fbe3b9;
+  border-radius:24px;
+  box-shadow:0 22px 60px rgba(0,0,0,.12);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding-top:6px;
 }
 
-/* 구역나누기 끝 */
-
-/* 비밀번호 찾기 실패 제목 */
-/* 비밀번호 찾기 제목 */
-.findPw_title_container {
-  font-size: 24px;
-  justify-content: center;
+/* ===== 카드(폼 박스): 동일 톤 & 그림자 ===== */
+.findPw_content_container{
+  width:720px;
+  min-height:500px;
+  background:#fffdf7;
+  margin:115px 0;
+  border-radius:18px;
+  box-shadow:0 18px 60px rgba(0,0,0,.12);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  padding:48px 56px 28px;
 }
 
-.findPw_title {
-  font-weight: bold;
+/* ===== 제목 ===== */
+.findPw_title_container{ text-align:center; margin-bottom:12px; }
+.findPw_title{ font-size:28px; font-weight:900; letter-spacing:-.3px; color:#3b2f20; }
+.findPw_subtitle{ margin-top:6px; font-size:14px; color:#7a6b58; }
+
+/* ===== 폼: [라벨 | 인풋 | 버튼] 3열 그리드 ===== */
+.pw-form{ width:100%; max-width:600px; margin:12px auto 0; }
+.form-grid{
+  display:grid;
+  grid-template-columns:110px 1fr 110px; /* 라벨 / 인풋 / 버튼 */
+  grid-auto-rows:48px;
+  column-gap:12px;
+  row-gap:14px;
+  align-items:center;
 }
 
-/* 비밀번호 찾기 입력 폼 */
-.findPw_input_container>div {
-  margin: 15px;
-  font-size: 14px;
-  text-align: right;
+/* 라벨 */
+.lbl{
+  text-align:right;
+  padding-right:8px;
+  font-size:16px;
+  font-weight:700;
+  color:#6b5c48;
+  line-height:48px;
 }
 
-.findPw_input_container>div>label {
-  margin-right: 10px;
+/* 인풋 */
+.form-grid input{
+  height:44px;
+  padding:0 14px;
+  background:#fff;
+  border:1px solid rgba(0,0,0,.12);
+  border-radius:12px;
+  outline:none;
+  transition:border-color .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.form-grid input::placeholder{ color:#a9a29a; }
+.form-grid input:focus{
+  border-color:#f29a5a;
+  box-shadow:0 0 0 4px rgba(242,154,90,.18);
 }
 
-.findPw_input_container>div>input {
-  width: 200px;
-  height: 30px;
-  border: 0.3px solid black;
-  border-radius: 5px;
+/* 버튼 */
+.btn{
+  height:44px;
+  border-radius:12px;
+  border:1px solid rgba(0,0,0,.05);
+  font-weight:900;
+  letter-spacing:-.2px;
+  cursor:pointer;
+  color:#fff;
+  transition:filter .15s ease, transform .12s ease;
+}
+.btn:hover{ filter:brightness(1.04); }
+.btn:active{ transform:translateY(1px); }
+.btn.ghost{
+  background:linear-gradient(180deg,#f79c63,#f18649);
+  box-shadow:0 10px 22px rgba(243,146,81,.24);
 }
 
-/* 임시 비밀번호 발송 버튼 */
-.findPw_btn {
-  width: 145px;
-  height: 35px;
-  background-color: #ff924e;
-  color: white;
-  border-radius: 5px;
-  border: 0.5px solid #000;
-  font-size: 16px;
-  margin-right: 60px;
-  
+/* 아이디 줄은 버튼이 없으니 비움 */
+.spacer{}
+
+/* 경고 메시지: 같은 축에 고정 */
+.warning_space{
+  display:grid;
+  grid-template-columns:110px 1fr 110px;
+  align-items:center;
+  column-gap:12px;
+  row-gap:4px;
+  margin-top:6px;
+}
+.warning_space .warning_empty{ height:1px; }
+.warning_message{
+  color:#e03131;
+  font-size:13px;
 }
 
-/* 비밀번호찾기, 비밀번호 찾기, 회원가입 */
-.findPw_to_container {
-  /* height: 50px; */
-  display: flex;
-  align-items: center;
-  /* text-decoration: none; */
-  gap: 15px;
+/* 하단 이동 링크: 통일 */
+.findPw_to_container{
+  margin-top:16px;
+  display:flex; justify-content:center; align-items:center; gap:18px;
 }
-
-.findPw_to_container>div>a:hover {
-  color: #FF7722;
+.findPw_to_container a{
+  font-size:14px; color:#2b261f; text-decoration:none; padding:6px 8px; border-radius:8px;
+  transition:color .15s ease, background .15s ease;
 }
-
-.findPw_to_container>div>a {
-  font-size: 14px;
-  text-decoration: none;
-  color: black;
-}
-
-/* 각 입력 줄을 라벨-인풋-버튼 가로 정렬 */
-.findPw_input_container > div {
-  display: grid;
-  grid-template-columns: 80px 260px 110px; /* 라벨폭 / 인풋폭 / 버튼폭 */
-  align-items: center;
-  justify-content: end;   /* 오른쪽 정렬 느낌 유지 */
-  gap: 10px;
-  margin: 15px;
-  font-size: 14px;
-  text-align: right;
-}
-
-
-/* 라벨은 오른쪽 정렬 */
-.findPw_input_container > div > label {
-  margin-right: 0;        /* gap 사용 */
-  justify-self: end;
-}
-
-/* 인풋은 너비 260px, 높이 34px 그대로 */
-.findPw_input_container > div > input {
-  width: 260px;
-  height: 34px;
-  border: 0.3px solid #000;
-  border-radius: 5px;
-  padding: 0 10px;
-  box-sizing: border-box;
-}
-
-/* 버튼은 동일 폭으로 고정(아이디 줄은 빈 칸으로 남아 정렬 유지) */
-.findPw_input_container > div > button,
-.findPwAuth_req_auth,
-.findPwAuth_chk_auth {
-  width: 110px;           /* ← 중요: 세 줄 정렬의 기준 */
-  height: 34px;
-  padding: 0 12px;
-  border: 0.5px solid #000;
-  border-radius: 5px;
-  background: #ff924e;    /* 네가 지정한 색 유지 */
-  cursor: pointer;
-}
-
-/* 경고 메시지도 같은 축에 맞추고 싶다면 (선택) */
-.warning_space {
-  display: grid;
-  grid-template-columns: 80px 260px 110px;
-  align-items: center;
-  justify-content: end;
-  gap: 10px;
-  margin: 5px 15px 0;
-}
-.warning_space .warning_empty   { /* 라벨 칸 */
-  height: 1px;
-}
-.warning_space .warning_message { /* 인풋 칸 */
-  text-align: left;
+.findPw_to_container a:hover{
+  color:#f07e2e; background:rgba(240,126,46,.08);
 }

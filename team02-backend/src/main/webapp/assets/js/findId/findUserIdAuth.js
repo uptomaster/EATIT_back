@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const form     = document.querySelector(".findIdAuth_input_form");
+  const form     = document.querySelector(".id-form");
   if (!form) return;
 
   const base     = form.dataset.contextPath || "";
@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const nameInput = document.getElementById("findIdAuth_input_name");
   const phoneInput = document.getElementById("findIdAuth_input_phone");
   const codeInput  = document.getElementById("findIdAuth_input_auth");
-  const reqBtn     = document.querySelector(".findIdAuth_req_auth"); // 인증요청
-  const chkBtn     = document.querySelector(".findIdAuth_chk_auth"); // 인증확인
+  const reqBtn     = document.getElementById("btn_req_auth");
+  const chkBtn     = document.getElementById("btn_chk_auth");
   const warnEl     = document.querySelector(".findIdAuth_input_warning");
 
   // 상태
@@ -117,6 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function setWarn(msg, color) {
     if (!warnEl) return;
     warnEl.textContent = msg;
-    if (color) warnEl.style.color = color;
+	warnEl.style.color = color || "#d00";
+	warnEl.style.display = "block";
   }
 });

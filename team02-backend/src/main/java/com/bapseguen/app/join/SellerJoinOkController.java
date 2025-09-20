@@ -38,7 +38,14 @@ public class SellerJoinOkController implements Execute {
         storeDTO.setStoreAddress(request.getParameter("seller_input_store_address"));
         storeDTO.setStoreAddressDetail(request.getParameter("seller_input_store_address_detail"));
         storeDTO.setStoreZipCode(request.getParameter("seller_input_store_zip"));
-
+        
+        JoinDAO joinDAO = new JoinDAO();
+        if (joinDAO.existsPhone(request.getParameter("seller_input_phone"))) {
+            Result result = new Result();
+            result.setRedirect(true);
+            result.setPath(request.getContextPath() + "/join/sellerJoin.jo?dupPhone=1");
+            return result;
+        }
         new JoinDAO().joinSeller(memberDTO, sellerDTO, storeDTO);
 
         Result result = new Result();
