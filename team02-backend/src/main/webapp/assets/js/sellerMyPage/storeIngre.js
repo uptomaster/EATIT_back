@@ -16,7 +16,7 @@ originBtn.addEventListener('click', () =>{
 /* ========== 지도 api ========== */
 // 1. 지도 준비물 만들기
 // 일단 지도객체 를 만든다. 초기 위치는 이후에 바꿀 예정이므로 신경쓰지 않아도 됨
-var mapContainer = document.getElementById('storeInfo_map'), // 지도를 표시할 div 
+var mapContainer = document.getElementById('storeIngre_map'), // 지도를 표시할 div 
     mapOption = {
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨

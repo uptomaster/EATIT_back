@@ -12,7 +12,10 @@ import javax.servlet.http.HttpSession;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
+import com.bapseguen.app.dto.StoreImageDTO;
 import com.bapseguen.app.dto.view.ItemWithImgDTO;
+import com.bapseguen.app.dto.view.SellerInfoDTO;
+import com.bapseguen.app.img.dao.StoreImageDAO;
 import com.bapseguen.app.sellerMyPage.dao.SellerMyPageDAO;
 
 public class SellerStoreIngreController implements Execute{
@@ -21,16 +24,15 @@ public class SellerStoreIngreController implements Execute{
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-			System.out.println("==== SellerStoreInfoController 실행 ====");
+			System.out.println("==== SellerStoreIngreController 실행 ====");
 	        
 	        // DAO 객체 생성
 	        SellerMyPageDAO sellerDAO = new SellerMyPageDAO();
+	        StoreImageDAO imageDAO = new StoreImageDAO();
 	        
 	        // 로그인된 사업자 번호를 세션에서 가져오기
 	        HttpSession session = request.getSession(); // 기존 세션만 사용
 	        String businessNumber = (String) session.getAttribute("businessNumber");
-//	        int businessNumberInt = Integer.valueOf(businessNumber);
-//	        System.out.println("사업자 번호 "+businessNumberInt+ businessNumber.typeof());
 	        Integer memberNumber = (Integer) session.getAttribute("memberNumber");
 	        System.out.println("[사업장관리] 사업자번호: "+businessNumber);
 	        System.out.println("[사업장관리] 세션: "+session);
@@ -48,15 +50,25 @@ public class SellerStoreIngreController implements Execute{
 			int rowCount = 4; // 한 페이지당 게시글 수
 			int pageCount = 5; // 페이지 버튼 수
 
-			// 페이징 처리
-			int startRow = (page - 1) * rowCount + 1;
-			int endRow = startRow + rowCount - 1;
+			// request에 데이터 저장
+			int foodListCount = sellerDAO.foodCount(businessNumber);
+			int ingreListCount = sellerDAO.ingredientCount(businessNumber);
 			
-//			String action = request.getParameter("action");
-//	        if ("itemImage".equals(action)) {
-//	            return streamItemImage(request, response);
-//	        }
+	        request.setAttribute("foodListCount", foodListCount);
+	        request.setAttribute("ingreListCount", ingreListCount);
+			
+			int realEndPage = (int) Math.ceil(foodListCount / (double) rowCount); // 실제 마지막 페이지(전체 게시글 기준으로 계산)
+			int endPage = (int) (Math.ceil(page / (double) pageCount) * pageCount); // 현재 페이지 그룹에서의 마지막 페이지
+			int startPage = endPage - (pageCount - 1); // 현재 페이지 그룹에서의 첫 페이지
 
+			// endPage가 실제 존재하는 마지막 페이지보다 크면 조정
+			endPage = Math.min(endPage, realEndPage);
+			
+			// 페이징 처리
+			int startRow = (page - 1) * rowCount + 1; // 시작행(1, 11, 21, ..)
+			int endRow = startRow + rowCount - 1; // 끝 행(10, 20, 30, ..)
+
+			
 			Map<String, Object> foodpageMap = new HashMap<>();
 			foodpageMap.put("startRow", startRow);
 			foodpageMap.put("endRow", endRow);
@@ -67,10 +79,17 @@ public class SellerStoreIngreController implements Execute{
 			ingrepageMap.put("endRow", endRow);
 			ingrepageMap.put("businessNumber",(String) session.getAttribute("businessNumber"));
 
-	        // 가게 정보 조회
-//	        SellerInfoDTO storeInfo = sellerDAO.takeSellerInfoDTO(businessNumber);
-//	        request.setAttribute("storeInfo", storeInfo);
+			
+			// 가게 정보 조회
+	        SellerInfoDTO storeInfo = sellerDAO.selectSellerInfo(memberNumber);
+	        System.out.println("storeInfo : "+storeInfo);
+	        request.setAttribute("storeInfo", storeInfo);
 	        
+	        //가게 이미지 조회
+	        StoreImageDTO images = imageDAO.selectone(businessNumber);
+			System.out.println("images : "+images);
+			request.setAttribute("images", images); // null 오류 수정			
+			
 	         //음식 판매 목록 조회
 	        List<ItemWithImgDTO> foodList = sellerDAO.foodList(foodpageMap);
 	        System.out.println("foodList : "+foodList);
@@ -80,14 +99,22 @@ public class SellerStoreIngreController implements Execute{
 			System.out.println("ingreList : "+ingreList);
 			request.setAttribute("ingreList", ingreList); // null 오류 수정
 
-	        //
-	        // request에 데이터 저장
-			int foodListCount = sellerDAO.foodCount(businessNumber);
-			int ingreListCount = sellerDAO.ingredientCount(businessNumber);
+			// prev, next 버튼 활성화 여부 확인
+			boolean prev = startPage > 1;
+			boolean next = endPage < realEndPage;
+
+			request.setAttribute("page", page);
+			request.setAttribute("startPage", startPage);
+			request.setAttribute("endPage", endPage);
+			request.setAttribute("prev", prev);
+			request.setAttribute("next", next);
+
+			System.out.println("====페이징정보 확인====");
+			System.out.println("pageMap : " + ingrepageMap);
+			System.out.println("ingreList : " + ingreList);
+			System.out.println("startPage : " + startPage + ", endPage : " + endPage + ", prev : " + prev + ", next : " + next);
+			System.out.println("====================");
 			
-	        request.setAttribute("foodListCount", foodListCount);
-	        request.setAttribute("ingreListCount", ingreListCount);
-	        
 	        // 결과 설정
 	        Result result = new Result();
 	        result.setPath("/app/sellerMyPage/storeIngre.jsp");
