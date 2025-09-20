@@ -248,7 +248,7 @@ public class CommunityDAO {
 
 	// 추천 추가 + 카운트 증가
 	public void insertLikeAndUpdateCount(int postNumber, int memberNumber) {
-		try (SqlSession session = sqlSessionFactory.openSession(true)) { // auto-commit
+		try (SqlSession session = sqlSessionFactory.openSession(true)) { 
 			Map<String, Object> param = Map.of("postNumber", postNumber, "memberNumber", memberNumber);
 			session.update("post.insertLikeAndUpdateCount", param);
 		}

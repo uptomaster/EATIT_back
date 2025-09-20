@@ -117,7 +117,7 @@ public class CommunityFrontController extends HttpServlet {
 			result = new PostLikeController().execute(request, response);
 			break;	
 		case "/community/postViewCount.co":
-			System.out.println("게시글 추천 요청");
+			System.out.println("게시글 조회수 요청");
 			result = new PostViewCountController().execute(request, response);
 			break;			
 			

@@ -112,4 +112,6 @@
      WHERE MEMBER_NUMBER = #{memberNumber}
     </delete>
     
+   
+    
 </mapper>

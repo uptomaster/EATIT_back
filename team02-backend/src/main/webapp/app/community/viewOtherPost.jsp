@@ -28,7 +28,6 @@
 
 <body>
   <!-- 헤더 -->
-<!--   <header id="header"></header> -->
   <jsp:include page="/header.jsp" />
 
   <aside class="side"></aside>
@@ -99,9 +98,12 @@
 			    </c:choose>
 			  </div>
 			  <!-- 첨부파일 출력 -->
-			  <c:forEach var="img" items="${postImages}">
-			    <img src="${pageContext.request.contextPath}/upload/${img.postImageSystemName}" alt="${img.postImageOriginalName}" />
-			  </c:forEach>
+			  <div class="post_images">
+			      <c:forEach var="img" items="${postImages}">
+			        <img src="${pageContext.request.contextPath}/upload/${img.postImageSystemName}"
+			             alt="${img.postImageOriginalName}" />
+			      </c:forEach>
+			   </div>	
 				
 				
 				
@@ -202,7 +204,6 @@
 
   <!-- 푸터 -->
   <jsp:include page="/footer.jsp" />
-<!--   <footer id="footer"></footer> -->
   
 </body>
 <script>

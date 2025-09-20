@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,6 +37,7 @@
       <div>
         <div class="managemyreviews_top">
           <div class="managemyreviews_restaurant_name">가게명</div>
+          <div class="managemyreviews_restaurant_name">리뷰내용</div>
           <div class="managemyreviews_meal_name">음식/재료 명</div>
           <div class="managemyreviews_quantity">수량</div>
           <div class="managemyreviews_price">금액</div>
@@ -54,6 +54,9 @@
 		          <div class="managemyreviews_restaurant_name">
 					<c:out value="${review.storeName}" />
 		          </div>
+		          <div class="managemyreviews_restaurant_name">
+					<c:out value="${review.reviewContent}" />
+		          </div>
 		          <div class="managemyreviews_meal_name">
 					<c:out value="${review.itemName}" />
 		          </div>
@@ -64,7 +67,7 @@
 		          	<c:out value="${review.orderItemUnitPrice}" />
 		          </div>
 		          <div class="managemyreviews_date">
-		          	<fmt:formatDate value="${review.reviewCreateDate}" pattern="yyyy-MM-dd"/>
+		          	<c:out value="${review.reviewCreateDate}" />
 		          </div>
 		          <div class="managemyreviews_grade">
 		          	<c:out value="${review.reviewRating}" />
@@ -74,6 +77,7 @@
 		    </c:otherwise>
 		  </c:choose>
       </div>
+      
     
       
       <!-- 페이지네이션 (하단 페이지 넘기기) -->

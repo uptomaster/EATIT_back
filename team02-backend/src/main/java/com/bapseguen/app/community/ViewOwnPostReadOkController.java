@@ -1,16 +1,20 @@
 package com.bapseguen.app.community;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.bapseguen.app.Execute;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.community.dao.CommunityDAO;
+import com.bapseguen.app.dto.AdminImageDTO;
 import com.bapseguen.app.dto.NoticeDTO;
+import com.bapseguen.app.img.dao.PostImageDAO;
 
 public class ViewOwnPostReadOkController implements Execute{
 
@@ -20,52 +24,50 @@ public class ViewOwnPostReadOkController implements Execute{
 		System.out.println("====ViewOwnPostReadOkController 실행====");
 		
 		Result result = new Result();
-		
-		//postNumber가 빈 문자열이거나 null인경우
-		String postNumberStr = request.getParameter("postNumber");
-		if(postNumberStr == null || postNumberStr.trim().isEmpty()){
-			System.out.println("postNumber 값이 없습니다");
-			
-			result.setPath("/app/community/communityMainUser.jsp"); //게시글 목록 페이지로 리다이렉트
-			result.setRedirect(true);
-			return result;
-		}
-		int postNumber = Integer.parseInt(postNumberStr);
-		
-		CommunityDAO communityDAO = new CommunityDAO();
-	
-		//DB에서 게시글 가져오기
-		NoticeDTO noticeDTO = communityDAO.selectNotice(postNumber);
-		request.setAttribute("notice", noticeDTO);  
-		
-		//게시글이 존재하지 않을 경우 처리
-		if(noticeDTO == null) {
-			System.out.println("존재하지 않는 게시글입니다. " + postNumber);
-			result.setPath("/app/community/communityMainUser.jsp");
-			result.setRedirect(true);
-			return result;
-		}
-		
-		//로그인한 사용자 번호 가져오기
-		Integer loginMemberNumber = (Integer) request.getSession().getAttribute("memberNumber");
-		System.out.println("로그인 한 멤버 번호 : " + loginMemberNumber);
-		
-		//현재 게시글의 작성자 번호 가져오기
-		int postWriterNumber = noticeDTO.getAdminNumber();
-		System.out.println("현재 게시글 작성자 번호 : " + postWriterNumber);
-		
-		//로그인한 사용자가 작성자가 아닐 때만 조회수 증가
-		if(!Objects.equals(loginMemberNumber, postWriterNumber)) {
-			communityDAO.updateReadCount(postNumber);
-		}
-		
-		result.setPath("/app/community/viewOwnPost.jsp");
-		result.setRedirect(false);		
-		
-		return result;
-		
-		
-		
-	}
+        HttpSession session = request.getSession();
 
+        // postNumber 파라미터 체크
+        String postNumberStr = request.getParameter("postNumber");
+        if (postNumberStr == null || postNumberStr.trim().isEmpty()) {
+            System.out.println("postNumber 값이 없습니다");
+            result.setPath("/app/community/communityMainUser.jsp");
+            result.setRedirect(true);
+            return result;
+        }
+
+        int postNumber = Integer.parseInt(postNumberStr);
+
+        //  게시글 조회
+        CommunityDAO communityDAO = new CommunityDAO();
+        NoticeDTO noticeDTO = communityDAO.selectNotice(postNumber);
+        if (noticeDTO == null) {
+            System.out.println("존재하지 않는 게시글입니다. postNumber=" + postNumber);
+            result.setPath("/app/community/communityMainUser.jsp");
+            result.setRedirect(true);
+            return result;
+        }
+        request.setAttribute("notice", noticeDTO);
+
+        //  관리자 이미지 조회
+        PostImageDAO postImageDAO = new PostImageDAO();
+        List<AdminImageDTO> noticeImages = postImageDAO.noticeimgselect(postNumber);
+        request.setAttribute("noticeImages", noticeImages);
+
+        //  로그인 사용자 체크 (회원 / 관리자 모두 고려)
+        Integer loginMemberNumber = (Integer) session.getAttribute("memberNumber");
+        Integer loginAdminNumber = (Integer) session.getAttribute("adminNumber");
+
+        // 조회수 증가 (로그인 여부 상관없이, 단 작성자는 제외)
+        if ((loginMemberNumber == null || !loginMemberNumber.equals(noticeDTO.getAdminNumber()))
+            && (loginAdminNumber == null || !loginAdminNumber.equals(noticeDTO.getAdminNumber()))) {
+            communityDAO.updateReadCount(postNumber);
+        }
+
+        // JSP 경로
+        result.setPath("/app/community/viewOwnPost.jsp");
+        result.setRedirect(false);
+        return result;
+    }
+		
+		
 }
