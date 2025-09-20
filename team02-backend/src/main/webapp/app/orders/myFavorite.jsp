@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -27,7 +28,7 @@
 	<!-- 본문 -->
 	<main id="myFavorite" class="wrap">
 		<section class="favorite_store_list">
-			<h2>내 찜한 가게</h2>
+			<h2>📌 내 찜한 가게</h2>
 
 			<div class="favorite_area">
 				<c:choose>
@@ -50,13 +51,39 @@
 									</c:choose>
 								</div>
 
-
 								<!-- 가게 정보 -->
 								<div class="favorite_store_info">
 									<p class="favorite_store_name">${fav.businessName}</p>
-									<p class="favorite_rating">
-										⭐ ${fav.avgRating} / 5 <span class="review-count">(${fav.reviewCount}건)</span>
-									</p>
+
+									<!-- 별점 5개 + 평균 점수 -->
+									<!-- ⭐ 별점 아이콘 -->
+									<div class="favorite_rating">
+										<c:set var="fullStars"
+											value="${fav.avgRating - (fav.avgRating % 1)}" />
+										<c:set var="halfStar" value="${fav.avgRating % 1 >= 0.5}" />
+										<c:set var="emptyStars"
+											value="${5 - fullStars - (halfStar ? 1 : 0)}" />
+
+										<!-- 꽉 찬 별 -->
+										<c:forEach var="i" begin="1" end="${fullStars}">
+											<i class="fa-solid fa-star"></i>
+										</c:forEach>
+
+										<!-- 반 별 -->
+										<c:if test="${halfStar}">
+											<i class="fa-solid fa-star-half-stroke"></i>
+										</c:if>
+
+										<!-- 빈 별 -->
+										<c:forEach var="i" begin="1" end="${emptyStars}">
+											<i class="fa-regular fa-star"></i>
+										</c:forEach>
+
+										<span class="rating-text">(${fav.avgRating} / 5)<br> 총
+											${fav.reviewCount}건의 리뷰</span>
+									</div>
+
+
 									<p class="favorite_open_time">⏰ ${fav.openTime} ~
 										${fav.closeTime}</p>
 									<p class="favorite_menu_count">📋 메뉴 수 : ${fav.menuCount}</p>
@@ -83,7 +110,7 @@
 				</c:choose>
 			</div>
 
-			<!-- ✅ 페이지네이션 -->
+			<!-- 페이지네이션 -->
 			<div class="favorite_pagination">
 				<c:forEach var="i" begin="1" end="${maxPage}">
 					<a

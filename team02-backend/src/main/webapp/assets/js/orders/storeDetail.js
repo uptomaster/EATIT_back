@@ -1,51 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
   /** =========================
-   * ❤️ 찜 버튼 토글 + 서버 연동
-   * ========================= */
-  const heartBtn = document.getElementById("heartBtn");
-  const toast = document.createElement("div");
-  toast.id = "favoriteToast";
-  toast.className = "favorite-toast";
-  document.body.appendChild(toast);
-
-  function showToast(message) {
-    toast.textContent = message;
-    toast.classList.add("show");
-    setTimeout(() => {
-      toast.classList.remove("show");
-    }, 1200);
-  }
-
-  if (heartBtn) {
-    heartBtn.addEventListener("click", e => {
-      e.preventDefault();
-      const icon = heartBtn.querySelector(".heart-icon");
-      const isLiked = heartBtn.dataset.favorite === "true";
-      const storeNumber = heartBtn.dataset.store; // storeNumber를 data-store 속성에 담아둔다
-
-      if (isLiked) {
-        // 해제
-        heartBtn.dataset.favorite = "false";
-        icon.classList.remove("fa-solid");
-        icon.classList.add("fa-regular");
-        showToast("찜 해제되었습니다.");
-      } else {
-        // 추가
-        heartBtn.dataset.favorite = "true";
-        icon.classList.remove("fa-regular");
-        icon.classList.add("fa-solid");
-        showToast("찜 완료되었습니다.");
-      }
-
-      // 토스트가 뜬 후 서버 요청 → 찜목록 이동
-      setTimeout(() => {
-        location.href =
-          `${contextPath}/orders/storeFavoriteToggle.or?storeNumber=${storeNumber}`;
-      }, 1300);
-    });
-  }
-
-  /** =========================
    * 🛒 수량 조절 + 재고 검증
    * ========================= */
   document.querySelectorAll(".buy_food_menu_list").forEach(menu => {
@@ -82,8 +36,21 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /** =========================
-   * 🛒 장바구니 버튼 클릭
+   * 🛒 장바구니 버튼 클릭 시 토스트
    * ========================= */
+  const toast = document.createElement("div");
+  toast.id = "cartToast";
+  toast.className = "favorite-toast";
+  document.body.appendChild(toast);
+
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add("show");
+    setTimeout(() => {
+      toast.classList.remove("show");
+    }, 1200);
+  }
+
   document.querySelectorAll(".buy_add_cart_btn").forEach(btn => {
     btn.addEventListener("click", () => {
       showToast("장바구니에 담았습니다.");
@@ -164,7 +131,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /** =========================
-   * 📜 사고보상 정책 토글
+   * 📜 사고보상 정책 토글 (아코디언)
    * ========================= */
   const headers = document.querySelectorAll(".buy_policy_toggle_header");
   headers.forEach(header => {
@@ -173,7 +140,19 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!content) return;
 
       const isVisible = window.getComputedStyle(content).display === "block";
-      content.style.display = isVisible ? "none" : "block";
+
+      // 아코디언: 다른 항목 닫기
+      headers.forEach(h => {
+        const otherContent = h.nextElementSibling;
+        if (otherContent) otherContent.style.display = "none";
+        h.classList.remove("active");
+      });
+
+      // 현재 클릭한 항목 토글
+      if (!isVisible) {
+        content.style.display = "block";
+        header.classList.add("active");
+      }
     });
   });
 });
