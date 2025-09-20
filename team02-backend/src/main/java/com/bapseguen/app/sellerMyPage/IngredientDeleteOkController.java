@@ -43,9 +43,9 @@ public class IngredientDeleteOkController implements Execute{
        ItemImageDAO.delete(itemNumber);
 
        // 3. 게시글 삭제
-       sellerDAO.deleteFood(itemNumber);
+       sellerDAO.deleteIngredient(itemNumber);
 
-        result.setPath(request.getContextPath() + "/sellerMyPage/storeInfo.se");
+        result.setPath(request.getContextPath() + "/sellerMyPage/storeIngre.se");
         result.setRedirect(true);
 	 
        return result;

@@ -139,7 +139,7 @@
           <div class="seller_info_unable_modify_area">
             <div class="seller_info_menu">현재 전화번호*</div>
             <div class="seller_gray_box">
-              <p><c:out value="${sellerInfo.sellerPhoneNumber}" /></p>
+              <p id="phone"><c:out value="${sellerInfo.sellerPhoneNumber}" /></p>
             </div>
           </div>
 

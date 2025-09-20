@@ -1,8 +1,6 @@
 package com.bapseguen.app.dto.view;
 
-/**
- * 
- */
+
 public class SellerInfoDTO {
 	// member
 	private int memberNumber;
@@ -23,9 +21,12 @@ public class SellerInfoDTO {
 	private String storeAddress;
 	private String storeAddressDetail;
 	private String storeZipCode;
-	private float storeLatitude;
-	private float storeLongitude;
-	
+	private double storeLatitude;
+	private double storeLongitude;
+	//storeimage
+	private int storeImageNumber;
+	private String storeImageSystemName;
+	private String storeImageOriginalName;
 	public int getMemberNumber() {
 		return memberNumber;
 	}
@@ -123,17 +124,35 @@ public class SellerInfoDTO {
 		this.storeZipCode = storeZipCode;
 	}
 	
-	public float getStoreLatitude() {
+	public double getStoreLatitude() {
 		return storeLatitude;
 	}
-	public void setStoreLatitude(float storeLatitude) {
-		this.storeLatitude = storeLatitude;
+	public void setStoreLatitude(double storeLatitude2) {
+		this.storeLatitude = storeLatitude2;
 	}
-	public float getStoreLongitude() {
+	public double getStoreLongitude() {
 		return storeLongitude;
 	}
-	public void setStoreLongitude(float storeLongitude) {
-		this.storeLongitude = storeLongitude;
+	public void setStoreLongitude(double storeLongitude2) {
+		this.storeLongitude = storeLongitude2;
+	}
+	public int getStoreImageNumber() {
+		return storeImageNumber;
+	}
+	public void setStoreImageNumber(int storeImageNumber) {
+		this.storeImageNumber = storeImageNumber;
+	}
+	public String getStoreImageSystemName() {
+		return storeImageSystemName;
+	}
+	public void setStoreImageSystemName(String storeImageSystemName) {
+		this.storeImageSystemName = storeImageSystemName;
+	}
+	public String getStoreImageOriginalName() {
+		return storeImageOriginalName;
+	}
+	public void setStoreImageOriginalName(String storeImageOriginalName) {
+		this.storeImageOriginalName = storeImageOriginalName;
 	}
 	@Override
 	public String toString() {
@@ -143,7 +162,10 @@ public class SellerInfoDTO {
 				+ ", businessNumber=" + businessNumber + ", storeName=" + storeName + ", storeOpenDate=" + storeOpenDate
 				+ ", storeOpenTime=" + storeOpenTime + ", storeCloseTime=" + storeCloseTime + ", storeTel=" + storeTel
 				+ ", storeAddress=" + storeAddress + ", storeAddressDetail=" + storeAddressDetail + ", storeZipCode="
-				+ storeZipCode + ", storeLatitude=" + storeLatitude + ", storeLongitude=" + storeLongitude + "]";
+				+ storeZipCode + ", storeLatitude=" + storeLatitude + ", storeLongitude=" + storeLongitude
+				+ ", storeImageNumber=" + storeImageNumber + ", storeImageSystemName=" + storeImageSystemName
+				+ ", storeImageOriginalName=" + storeImageOriginalName + "]";
 	}
+	
 	
 }

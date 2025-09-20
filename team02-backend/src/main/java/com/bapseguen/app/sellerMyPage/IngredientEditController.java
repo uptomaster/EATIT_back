@@ -35,7 +35,7 @@ public class IngredientEditController implements Execute{
 		ItemInsertDTO ItemInsertDTO = new ItemInsertDTO();   
 	
 		ItemInsertDTO = sellerDAO.detailItem(itemNumber); //itemInsertDTO
-//		ItemInsertDTO.setItemContent(ItemInsertDTO.getItemContent().trim());
+		ItemInsertDTO.setItemContent(ItemInsertDTO.getItemContent().trim());
 		
 		// 음식 설명 공백 없애기
 		System.out.println(ItemInsertDTO.getItemContent());

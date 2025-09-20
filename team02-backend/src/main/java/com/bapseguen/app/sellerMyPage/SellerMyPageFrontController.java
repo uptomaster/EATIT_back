@@ -69,8 +69,8 @@ public class SellerMyPageFrontController extends HttpServlet {
 		// 마이페이지 접근 전 비밀번호 확인 페이지 요청
 		case "/sellerMyPage/chkPw.se":
 			System.out.println("[판페f] 비밀번호 확인 페이지 요청");
-//			request.getRequestDispatcher("/app/userMyPage/generalCheckPw.jsp").forward(request, response);
-			result = new CheckSellerPwController().execute(request, response);
+			request.getRequestDispatcher("/app/sellerMyPage/sellerCheckPw.jsp").forward(request, response);
+//			result = new CheckSellerPwController().execute(request, response);
 			break;
 		case "/sellerMyPage/chkPwOk.se":
 			System.out.println("[판페f] 비밀번호 확인완료 요청");
