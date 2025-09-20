@@ -314,7 +314,11 @@
 	
 	<!-- 작성자 조회 -->
 	<select id="getAuthorNumber" parameterType="int" resultType="int">
-	    SELECT MEMBER_NUMBER
+	    SELECT 
+	        CASE 
+	            WHEN MEMBER_NUMBER IS NOT NULL THEN MEMBER_NUMBER
+	            ELSE ADMIN_NUMBER
+	        END AS AUTHOR_NUMBER
 	    FROM TBL_POST
 	    WHERE POST_NUMBER = #{postNumber}
 	</select>

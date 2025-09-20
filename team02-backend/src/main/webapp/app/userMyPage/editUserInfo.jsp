@@ -44,7 +44,6 @@
     </div>
 
 	<!-- 내 정보 수정 입력 폼 -->
-	<%-- <form class="edit_user_info" action="${pageContext.request.contextPath}/UserMyPage/updateMember.my" method="post"> --%>
 	<form class="edit_user_info" method="post">
 	  <input type="hidden" name="mode" id="mode_input" value="">
 	  <h2 class="my_info">내 정보 수정</h2>
@@ -92,7 +91,6 @@
 	      <div class="gray_box">
 	        <input id="confirm_password" name="confirmPassword" class="input_info" type="password" placeholder="변경할 비밀번호를 다시입력해주세요">
 	      </div>
-	      <%-- <c:if test="${param.updated == '1'}"> --%>
 	      <p id="confirm_password_error" class="notice_input_wrong_info"></p>
 	    </div>
 	  </div>

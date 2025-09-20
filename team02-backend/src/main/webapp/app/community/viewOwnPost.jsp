@@ -14,12 +14,11 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/community/viewOwnPost.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css" />
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/modal.css" />
+  <%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/modal.css" /> --%>
   <script defer src="${pageContext.request.contextPath}/assets/js/community/reportPostModal.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/community/viewOwnPost.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/community/darkmode.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/community/treeGradeModal.js"></script>
-  <script defer src="${pageContext.request.contextPath}/assets/js/community/EditDeletePost.js"></script>
   <script>
     let headerPath = '../../header.jsp';
     let footerPath = '../../footer.jsp';
@@ -29,7 +28,6 @@
 
 <body>
   <!-- 헤더 -->
-  <!-- <header id="header"></header> -->
   <jsp:include page="/header.jsp" />
 
   <aside class="side"></aside>
@@ -86,9 +84,9 @@
 	            <p><c:out value="${notice.noticeContent}" /></p>
 	          </div>
 			  <!-- 첨부파일 출력 -->
-<%-- 			  <c:forEach var="img" items="${postImages}">
-			    <img src="${pageContext.request.contextPath}/upload/${img.postImageSystemName}" alt="${img.postImageOriginalName}" />
-			  </c:forEach> --%>
+			  <c:forEach var="img" items="${noticeImages}">
+			      <img src="${pageContext.request.contextPath}/upload/${img.adminImageSystemName}" alt="${img.adminImageOriginalName}" />
+			  </c:forEach>
 				
 				
 				
@@ -113,20 +111,12 @@
 	          <button class="recommend" id="recommendBtn" title="게시글 추천하기">
 	            <img src="${pageContext.request.contextPath}/assets/img/like.jpg" alt="추천 버튼" />
 	          </button>
-	          <span class="recommend_count" id="recommendCount">추천 0</span>
+	          <span class="recommend_count" id="recommendCount">추천 <c:out value="${notice.postLikeCount}" /></span>
 	          <button type="button" class="report" id="openReportModal" title="신고하기">신고</button>
 	        </div>
 	      </div> <!-- .post -->
 	    </article>
 
-        <!-- 댓글 작성 폼 -->
-        <%-- <form class="comment_form" action="#" method="post">
-          <img class="comment_profile" src="${pageContext.request.contextPath}/assets/img/나무.png" alt="나무" />
-          <span class="comment_author">namhyuk</span>
-          <input type="text" name="comment" placeholder="댓글을 입력하세요" required />
-          <button type="submit">등록</button>
-        </form>
-      </section> --%>
       <button id="darkModeToggle" title="다크 모드 토글">🌓</button>
     </div>
   </main>
@@ -165,13 +155,14 @@
 
   <!-- 푸터 -->
   <jsp:include page="/footer.jsp" />
-<!--   <footer id="footer"></footer> -->
   
   <aside class="side"></aside>
   
 </body>
 <script>
-		window.boardNumber = "${board.boardNumber}";
-		window.memberNumber = "${sessionScope.memberNumber}";
+    window.ctx = "${pageContext.request.contextPath}";
+    window.postNumber = ${notice.postNumber};
+    window.memberNumber = ${sessionScope.memberNumber != null ? sessionScope.memberNumber : null};
+    window.adminNumber = ${empty sessionScope.adminNumber ? 0 : sessionScope.adminNumber};
 </script>
 </html>
