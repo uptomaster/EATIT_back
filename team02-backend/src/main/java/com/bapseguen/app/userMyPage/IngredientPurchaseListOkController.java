@@ -45,7 +45,7 @@ public class IngredientPurchaseListOkController implements Execute{
 		
 		//  목록 조회
 		List<MyPurchaseDTO> ingrebuylist = userMyPageDAO.selectMyIngreOrders(pageMap);
-		request.setAttribute("foodbuylist", ingrebuylist);
+		request.setAttribute("ingrebuylist", ingrebuylist);
 
 		// 페이징 정보 설정
 		// BoardMapper.xml의 getTotal을 이용하여 전체 게시글 개수 조회
