@@ -87,7 +87,7 @@
           <!-- 메뉴/재료/리뷰 탭바 -->
           <ul class="buy_food_menu_choice">
             <li><a class="link_menu" href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se">메뉴</a></li>
-            <li><a class="link_ingredient" href="${pageContext.request.contextPath}/sellerMyPage/storeIngre.se">재료</a></li>
+            <li><a class="link_ingredient" href="${pageContext.request.contextPath}/sellerMyPage/storeIngre.se" style = "color : #444;">재료</a></li>
             <li><a class="link_review" href="${pageContext.request.contextPath}/sellerMyPage/storeReview.se">리뷰 보기</a></li>
           </ul>
           <ul class="store_food_list">
