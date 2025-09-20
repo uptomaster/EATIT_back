@@ -18,7 +18,7 @@
   <script defer src="${pageContext.request.contextPath}/assets/js/footer.js"></script>   
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/sellerMyPage/todaySaleList.js"></script>
-
+	
 <script>
     let headerPath = './../../header.jsp';
     let footerPath = './../../footer.jsp';
@@ -55,9 +55,15 @@
 	
 	    <!-- 요약 카드 -->
  	    <div class="sales_summary">
-	      <div class="sales_card"><div class="title">오늘 매출</div>   <div class="value"><c:out value="${summary.todayAmount}"/> 원</div></div>
-	      <div class="sales_card"><div class="title">이번 달 매출</div><div class="value"><c:out value="${summary.monthAmount}"/> 원</div></div>
-	      <div class="sales_card"><div class="title">누적 매출</div>   <div class="value"><c:out value="${summary.totalAmount}"/> 원</div></div>
+	      <div class="sales_card"><div class="title">오늘 매출</div>   
+	      	<div class="value"><c:out value="${summary.todayAmount}"/> 원</div>
+	      </div>
+	      <div class="sales_card"><div class="title">이번 달 매출</div>
+	      	<div class="value"><c:out value="${summary.monthAmount}"/> 원</div>
+	      </div>
+	      <div class="sales_card"><div class="title">누적 매출</div>   
+	      	<div class="value"><c:out value="${summary.totalAmount}"/> 원</div>
+	      </div>
 	    </div> 
 	
 	    <!-- 검색(오늘은 날짜 고정이라 키워드만) -->

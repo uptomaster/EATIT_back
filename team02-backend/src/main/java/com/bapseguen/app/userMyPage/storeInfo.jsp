@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,11 +16,13 @@
   <script defer src="${pageContext.request.contextPath}/assets/js/main.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-  <script defer src="${pageContext.request.contextPath}/assets/js/sellerMyPage/storeIngre.js"></script>
+  <script defer src="${pageContext.request.contextPath}/assets/js/sellerMyPage/storeInfo.js"></script>
+	
 	<!-- 지도 api -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=  "></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9178bc8dec422463dfbd0aa1eb30b47d"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9178bc8dec422463dfbd0aa1eb30b47d&libraries=services"></script>
 	<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=  &libraries=services,clusterer,drawing"></script>
+	
 	
   <script>
     let headerPath = './../../header.jsp';
@@ -30,10 +31,8 @@
 </head>
 
 <body>
-	<!-- ✅ header 시작 -->
-	<jsp:include page="${pageContext.request.contextPath}/header.jsp" />
-	<!-- ✅ header 끝 -->
-
+  <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
+  
   <main>
     <!-- 좌측 사이드 메뉴 -->
     <div class="store_info_menu">
@@ -57,10 +56,20 @@
 
         <div class="store_info_store_info">
           <!-- 가게 이미지 -->
-					<img src="${pageContext.request.contextPath}/upload/${storeInfo.storeImageSystemName}" 
-			     alt="${item.storeName}"
-			     onerror="this.src='${pageContext.request.contextPath}/assets/img/store.jpg'">
-						
+	          <%-- <img src="${pageContext.request.contextPath}/assets/img/store.jpg" alt="가게 이미지 추가하기"> --%>
+	          <%-- <img src="${pageContext.request.contextPath}/upload/${images.storeImageSystemName}" alt="가게 이미지 추가하기"> --%> 
+						<c:choose>
+							<c:when test="${not empty item.storeImageSystemName}">
+								<img
+									src="${pageContext.request.contextPath}/upload/${item.storeImageSystemName}"
+									alt="${item.storeName}">
+							</c:when>
+							<c:otherwise>
+								<img
+									src="${pageContext.request.contextPath}/assets/img/food1.jpg"
+									alt="기본 이미지">
+							</c:otherwise>
+						</c:choose>          
           <div class="store_info_store_info_detail">
             <p class="store_info_store_name">${storeInfo.storeName }</p>
             <p class="store_info_store_address"><c:out value="${storeInfo.storeAddress} ${ storeInfo.storeAddressDetail}"/></p>
@@ -88,37 +97,25 @@
         <div class="store_info_food">
           <!-- 메뉴/재료/리뷰 탭바 -->
           <ul class="buy_food_menu_choice">
-            <li><a class="link_menu" href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se">메뉴</a></li>
-            <li><a class="link_ingredient" href="${pageContext.request.contextPath}/sellerMyPage/storeIngre.se" style = "color : #444;">재료</a></li>
+            <li><a class="link_menu" href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se" style = "color : #444;">메뉴</a></li>
+            <li><a class="link_ingredient" href="${pageContext.request.contextPath}/sellerMyPage/storeIngre.se">재료</a></li>
             <li><a class="link_review" href="${pageContext.request.contextPath}/sellerMyPage/storeReview.se">리뷰 보기</a></li>
           </ul>
           <ul class="store_food_list">
-            <li class="store_food_list_count">총 개수 :<c:out value="${ingreListCount}"/>개</li>
+            <li class="store_food_list_count">총 개수 :<c:out value="${foodListCount}"/>개</li>
             <li class="store_food_list_add">
-              <a href="${pageContext.request.contextPath}/sellerMyPage/addIngre.se">새 메뉴 등록</a>
+              <a href="${pageContext.request.contextPath}/sellerMyPage/addFood.se">새 메뉴 등록</a>
             </li>
           </ul>
           <div class="store_info_food_menu">
             <c:choose>
-              <c:when test="${not empty ingreList}">
-                <c:forEach var="ingre" items="${ingreList}" varStatus="status">
-                  <form action="${pageContext.request.contextPath}/sellerMyPage/editIngre.se" method="post" class="editFoodForm">
+              <c:when test="${not empty foodList}">
+                <c:forEach var="food" items="${foodList}">
+                  <form action="${pageContext.request.contextPath}/sellerMyPage/editFood.se" method="post" class="editFoodForm">
                     <div class="store_info_ingredient_menu_list">
                       <!-- 음식 사진 출력 -->
                       <div class="img-box">
-                      <%-- <c:choose>
-											  <c:when test="${not empty ingre.itemImageSystemName}">
-											    <img src="${pageContext.request.contextPath}/upload/${ingre.getItemImageSystemName()}" 
-											         alt="가게 이미지"
-											         onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/img/ingredeient2.jpg';">
-											  </c:when>
-											  <c:otherwise>
-											    <img src="${pageContext.request.contextPath}/assets/img/ingredient1.jpg" alt="기본 가게 이미지">
-											  </c:otherwise>
-											</c:choose> --%>
-                      	<img src="${pageContext.request.contextPath}/upload/${ingre.itemImageSystemName}" 
-										     alt="${ingre.itemName}"
-										     onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/img/ingredient${status.index % 10}.jpg'">
+                        <img src="${pageContext.request.contextPath}/upload/${food.getItemImageSystemName()}" alt="${food.itemName }" />
                       </div>
                       <!-- 사진 옆 정보부분 -->
                       <div class="store_info_ingredient_menu_info_stock">
@@ -126,7 +123,7 @@
                         <div class="store_info_btns">
                           <!-- 수량 -->
                           <div class="store_info_ingredient_stock">
-                            <c:out value="${ingre.itemQuantity}" /> 개 남음
+                            <c:out value="${food.itemQuantity}" /> 개 남음
                           </div>
                           <%--  
                           <button href="${pageContext.request.contextPath}/sellerMyPage/detailFood.se
@@ -134,20 +131,20 @@
                           data-food-itemNumbe="${food.itemNumber}">
                           상세보기</button> --%>
                           <!-- 수정 버튼 -->
-                          <a href="${pageContext.request.contextPath}/sellerMyPage/editIngre.se?itemNumber=${ingre.itemNumber}">
+                          <a href="${pageContext.request.contextPath}/sellerMyPage/editFood.se?itemNumber=${food.itemNumber}">
                             <div class="store_info_ingredient_edit_btn">수정</div>
                           </a>
                           <!-- 상세 버튼 -->
                           <!-- 2번 방식 a태그 안에 서블릿 경로 넣기 -->
-                          <a href="${pageContext.request.contextPath}/sellerMyPage/detailIngreOk.se?itemNumber=${ingre.itemNumber}">
+                          <a href="${pageContext.request.contextPath}/sellerMyPage/detailFoodOk.se?itemNumber=${food.itemNumber}">
                             <div class="store_info_ingredient_edit_btn">상세</div>
                           </a>
                         </div>
                         <!-- 하단부 : 이름, 소비기한, 가격 -->
                         <div class="store_info_ingredient_menu_info">
-                          <h3><c:out value="${ingre.itemName}" /></h3>
-                          <p>소비기한: <c:out value="${ingre.itemExpireDate}" /></p>
-                          <h3><c:out value="${ingre.itemPrice}" />원</h3>
+                          <h3><c:out value="${food.itemName}" /></h3>
+                          <p>소비기한: <c:out value="${food.itemExpireDate}" /></p>
+                          <h3><c:out value="${food.itemPrice}" />원</h3>
                         </div>
                       </div>
                     </div>
@@ -160,8 +157,8 @@
               </c:otherwise>
             </c:choose>
           </div> <!--  //메뉴 출력 끝 -->
-
-           <!-- 페이지네이션 자리 -->
+ 				</div>
+          <!-- 페이지네이션 자리 (요청하신 블록: 변경 없이 그대로 삽입) -->
 		      <div class="pagination">
 		        <ul class="pagination_ul">
 		          <c:if test="${prev}">
@@ -192,7 +189,7 @@
 		        </ul>
 		      </div>
 		      <!-- 페이지네이션 끝 -->
-        </div>
+       
       </div> <!--  //왼쪽 -->
 
       <!-- 오른쪽 부분 -->
@@ -211,7 +208,7 @@
               <li>가게 전화전호</li>
               <li>개업일</li>
             </ul>
-            <ul class="store_info_content">
+            <ul class="store_info_content" id="store_detail_info">
               <li>${storeInfo.storeName }</li>
               <li>${storeInfo.businessNumber }</li>
               <li><c:out value="${storeInfo.storeAddress } ${storeInfo.storeAddressDetail }"/></li>
@@ -253,7 +250,7 @@
         </div> <!-- //원산지  -->
 
         <!-- 지도 영역 -->
-        <div id="storeIngre_map">
+        <div id="storeInfo_map">
         
         </div>
 
@@ -261,15 +258,10 @@
 
     </div> <!-- 1100px 영역 끝 -->
   </main>
+  <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 
-	<!-- ✅ footer 시작 -->
-	<jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
-	<!-- ✅ footer 끝 -->
-
-	<script>
-		window.foodItemNumber = "${food.itemNumber}";
-		let itemNumber = "${sessionScope.itemNumber}";
-		console.log(itemNumber);
-	</script>
 </body>
+<script>
+  window.foodItemNumber = "${food.itemNumber}";
+</script>
 </html>

@@ -93,6 +93,12 @@ public class SellerStoreInfoController implements Execute{
 	        System.out.println("storeInfo : "+storeInfo);
 	        request.setAttribute("storeInfo", storeInfo);
 	        
+	        //가게 이미지 조회
+	        StoreImageDTO images = imageDAO.selectone(businessNumber);
+			System.out.println("images : "+images);
+			request.setAttribute("images", images); // null 오류 수정
+			
+			
 	         //음식 판매 목록 조회
 	        List<ItemWithImgDTO> foodList = sellerDAO.foodList(foodpageMap);
 	        System.out.println("foodList : "+foodList);
@@ -101,14 +107,12 @@ public class SellerStoreInfoController implements Execute{
 			List<ItemWithImgDTO> ingreList = sellerDAO.ingredientList(ingrepageMap);
 			System.out.println("ingreList : "+ingreList);
 			request.setAttribute("ingreList", ingreList); // null 오류 수정
-			
+			//원산지 목록 조회
 			List<OriginDTO> originList = sellerDAO.selectOriginListByBusiness(businessNumber);
 			System.out.println("originList : "+originList);
 			request.setAttribute("originList", originList); // null 오류 수정
 			
-			StoreImageDTO images = imageDAO.selectone(businessNumber);
-			System.out.println("images : "+images);
-			request.setAttribute("images", images); // null 오류 수정
+			
 
 	        
 			// prev, next 버튼 활성화 여부 확인

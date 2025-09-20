@@ -1,6 +1,8 @@
 package com.bapseguen.app.sellerMyPage;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -42,11 +44,37 @@ public class EditSellerInfoOkController implements Execute{
         dto.setStoreAddress(request.getParameter("storeAddress"));
         dto.setStoreAddressDetail(request.getParameter("storeAddressDetail"));
         dto.setStoreZipCode(request.getParameter("storeZipCode"));
+        dto.setStoreOpenDate(request.getParameter("storeOpenDate"));
         dto.setStoreOpenTime(request.getParameter("storeOpenTime"));
         dto.setStoreCloseTime(request.getParameter("storeCloseTime"));
+        double storeLongitude = Double.parseDouble(request.getParameter("storeLongitude"));
+        dto.setStoreLongitude(storeLongitude);
+        double storeLatitude = Double.parseDouble(request.getParameter("storeLatitude"));
+        dto.setStoreLatitude(storeLatitude);
 
         sellerDAO.updateSellerInfo(dto);
+        
+		// 파라미터 Map 생성
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("memberNumber", memberNumber);
 
+		if (newPassword != null && !newPassword.isEmpty() && !"null".equals(newPassword)) {
+		    paramMap.put("memberPassword", newPassword);
+		    updateCount += sellerDAO.updatePassword(paramMap);
+		     ;
+		}
+
+		if (newPhone != null && !newPhone.isEmpty() && !"null".equals(newPhone)) {
+		    paramMap.put("memberPhoneNumber", newPhone);
+		    updateCount += sellerDAO.updatePhone(paramMap);
+		}
+		
+		
+
+		// JSON 응답
+		response.setContentType("application/json; charset=UTF-8");
+		String jsonResult = updateCount > 0 ? "{\"status\":\"success\"}" : "{\"status\":\"fail\"}";
+		response.getWriter().write(jsonResult);
         result.setPath("/sellerMyPage/editSellerInfo.se");
         result.setRedirect(true);
         return result;

@@ -23,15 +23,20 @@ main {
 }
 
 /* 1100px 영역 */
-.sale_history_page {
-  background-color: #FBE3B9;
+.today_sell_page {
   width: 1100px;
-  margin-left: 410px;
-  min-height : 1000px;
+  padding: 30px 40px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(168, 6, 6, 0.15);
+  margin: 30px 10px 30px 410px; /* 좌측 메뉴 고려 */
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
 }
 
 /* 좌측 메뉴 바 */
-.sale_history_menu {
+.today_sell_menu {
   position: fixed;
   padding: 0;
   margin: 100px 20px 0 200px;
@@ -42,7 +47,7 @@ main {
   border-radius: 10px;
 }
 
-.sale_history_menu_title {
+.today_sell_menu_title {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   background-color: #FF873C;
@@ -54,7 +59,7 @@ main {
   align-items: center;
 }
 /* 메뉴바 현재 위치 표시 */
-.sale_history_menu_list_current {
+.today_sell_menu_list_current {
   background-color: #FF873C;
   /* width: 190px; */
   border-radius: 10px;
@@ -62,7 +67,7 @@ main {
   justify-content: center;
   align-items: center;
 }
-.sale_history_menu_list>li {
+.today_sell_menu_list>li {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,13 +76,13 @@ main {
   width: 190px;
 }
 
-.sale_history_menu_list>li>a {
+.today_sell_menu_list>li>a {
   text-decoration: none;
   color: white;
 }
 
 
-.sale_history_menu_list>li:hover {
+.today_sell_menu_list>li:hover {
   width: 190px;
   background-color: #ff873c8c;
   border-radius: 10px;
@@ -85,8 +90,8 @@ main {
 /* 좌측 메뉴바 끝 */
 
 /* 페이지 제목 */
-.sale_history_title {
-  margin: 100px 0 45px 70px;
+.today_sell_title {
+  margin: 50px 0 45px 50px;
   font-size: 30px;
 }
 
