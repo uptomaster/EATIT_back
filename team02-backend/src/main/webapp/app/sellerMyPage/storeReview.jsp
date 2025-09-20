@@ -16,8 +16,14 @@
   <script defer src="${pageContext.request.contextPath}/assets/js/main.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-  <script defer src="${pageContext.request.contextPath}/assets/js/sellerMyPage/storeInfo.js"></script>
-
+  <script defer src="${pageContext.request.contextPath}/assets/js/sellerMyPage/storeReview.js"></script>
+	
+	<!-- 지도 api -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=  "></script>
+	<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=  &libraries=services,clusterer,drawing"></script>
+	
+	
   <script>
     let headerPath = './../../header.jsp';
     let footerPath = './../../footer.jsp';
@@ -52,22 +58,20 @@
           <!-- 가게 이미지 -->
 	          <%-- <img src="${pageContext.request.contextPath}/assets/img/store.jpg" alt="가게 이미지 추가하기"> --%>
 	          <%-- <img src="${pageContext.request.contextPath}/upload/${images.storeImageSystemName}" alt="가게 이미지 추가하기"> --%> 
-						<c:choose>
-							<c:when test="${not empty item.storeImageSystemName}">
-								<img
-									src="${pageContext.request.contextPath}/upload/${item.storeImageSystemName}"
-									alt="${item.storeName}">
-							</c:when>
-							<c:otherwise>
-								<img
-									src="${pageContext.request.contextPath}/assets/img/food1.jpg"
-									alt="기본 이미지">
-							</c:otherwise>
-						</c:choose>          
+						<img src="${pageContext.request.contextPath}/upload/${storeInfo.storeImageSystemName}" 
+			     alt="${item.storeName}"
+			     onerror="this.src='${pageContext.request.contextPath}/assets/img/store.jpg'">
+						
           <div class="store_info_store_info_detail">
-            <p class="store_info_store_name"><c:out value="상호명 :  ${storeInfo.storeName }"/></p>
-            <p class="store_info_store_address" id="roadAddr"><c:out value="주소 : ${storeInfo.storeAddress} ${ storeInfo.storeAddressDetail}"/></p>
+            <p class="store_info_store_name">${storeInfo.storeName }</p>
+            <p class="store_info_store_address"><c:out value="${storeInfo.storeAddress} ${ storeInfo.storeAddressDetail}"/></p>
             <p class="store_info_store_open_time">영업시간  ${storeInfo.storeOpenTime } ~ ${storeInfo.storeCloseTime }</p>
+          	<!-- 지도 api에서 사용할 가게 주소, 이름  -->
+          	<input type="hidden" id="storeName" value="${storeInfo.storeName }"/>
+          	<input type="hidden" id="roadAddr" value="${storeInfo.storeAddress }"/>
+          	<!-- 위도 경도 추가 예정 -->
+          	<input type="hidden" id="storeLatitude" value="${storeInfo.storeLatitude }"/>
+          	<input type="hidden" id="storeLongitude" value="${storeInfo.storeLongitude }"/>
           </div>
           <!-- 가게정보, 이미지 수정 버튼 -->
           <div class="store_info_edit_btns">
@@ -119,7 +123,7 @@
                     </c:otherwise>
                 </c:choose>
           </div> <!--  //메뉴 출력 끝 -->
-          <!-- 페이지네이션 자리 (요청하신 블록: 변경 없이 그대로 삽입) -->
+           <!-- 페이지네이션 자리 -->
 		      <div class="pagination">
 		        <ul class="pagination_ul">
 		          <c:if test="${prev}">
@@ -209,8 +213,8 @@
           </div>
         </div> <!-- //원산지  -->
 
-        <!-- 재료 메뉴 영역 => 지도 영역 -->
-        <div id="map">
+        <!-- 지도 영역 -->
+        <div id="storeReview_map">
         
         </div>
 
@@ -219,14 +223,9 @@
     </div> <!-- 1100px 영역 끝 -->
   </main>
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
-		<!-- 지도 api -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=937ab213367d17ef8276763fe2a063fb"></script>
-	<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=937ab213367d17ef8276763fe2a063fb&libraries=services,clusterer,drawing"></script>
 	
 </body>
 <script>
   window.foodItemNumber = "${food.itemNumber}";
-  console.log(itemNumber);
 </script>
 </html>

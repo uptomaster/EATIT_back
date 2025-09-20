@@ -194,6 +194,8 @@
 						</ul>
 					</div>
 				</div>
+				<div id="map">
+				</div>
 			</div>
 		</div>
 	</main>
