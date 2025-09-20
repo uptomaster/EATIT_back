@@ -18,7 +18,12 @@ public class JoinDAO {
     public boolean checkId(String memberId) {
         return (Integer) sqlSession.selectOne("member.checkId", memberId) < 1;
     }
-
+    
+    public boolean existsPhone(String phone) {
+        Integer exists = sqlSession.selectOne("member.existsPhone", phone);
+        return exists != null && exists == 1;
+    }
+    
     //일반 회원가입
     public int joinGeneral(MemberDTO member, GeneralMemberDTO general) {
         sqlSession.insert("member.joinMember", member); 

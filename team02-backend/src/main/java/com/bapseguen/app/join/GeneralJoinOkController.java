@@ -30,8 +30,13 @@ public class GeneralJoinOkController implements Execute {
         generalDTO.setGeneralPhoneNumber(request.getParameter("user_input_phone"));
 
         JoinDAO joinDAO = new JoinDAO();
+        if (joinDAO.existsPhone(request.getParameter("user_input_phone"))) {
+            Result result = new Result();
+            result.setRedirect(true);
+            result.setPath(request.getContextPath() + "/join/generalJoin.jo?dupPhone=1");
+            return result;
+        }
         joinDAO.joinGeneral(memberDTO, generalDTO);
-
         Result result = new Result();
         result.setRedirect(true);
         result.setPath(request.getContextPath() + "/join/successJoin.jo");
