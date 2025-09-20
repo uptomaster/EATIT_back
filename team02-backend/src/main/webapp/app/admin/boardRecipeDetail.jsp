@@ -75,19 +75,15 @@
 
 					<!-- 버튼 영역 -->
 					<div class="admin_detail_buttons">
-						<!-- 목록으로 -->
-						<a
-							href="${pageContext.request.contextPath}/admin/boardRecipe/list.ad"
-							id="admin_listbtn">목록으로</a>
-
-						<!-- 삭제 버튼 -->
-						<form
-							action="${pageContext.request.contextPath}/admin/boardRecipe/deleteOk.ad"
-							method="post" onsubmit="return confirmDelete();">
-							<input type="hidden" name="postNumber"
-								value="${recipeDetail.postNumber}">
+						<!-- 삭제 -->
+						<form action="${pageContext.request.contextPath}/admin/boardRecipe/deleteOk.ad"
+						      method="post" onsubmit="return confirmDelete();">
+							<input type="hidden" name="postNumber" value="${recipeDetail.postNumber}">
 							<button id="admin_deletebtn" type="submit">삭 제</button>
 						</form>
+
+						<!-- 목록 -->
+						<a href="${pageContext.request.contextPath}/admin/boardRecipe/list.ad" id="admin_listbtn">목 록</a>
 					</div>
 
 				</div>

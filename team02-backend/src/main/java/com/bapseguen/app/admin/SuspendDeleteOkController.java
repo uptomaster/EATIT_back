@@ -15,9 +15,11 @@ public class SuspendDeleteOkController implements Execute {
         System.out.println("→ [ADMIN] SuspendDeleteOkController 실행");
 
         int memberNumber = Integer.parseInt(request.getParameter("memberNumber"));
+        String suspendStartDate = request.getParameter("suspendStartDate"); 
+        // JSP hidden input에서 같이 넘겨줌
 
         AdminDAO adminDAO = new AdminDAO();
-        adminDAO.deleteSuspend(memberNumber);
+        adminDAO.deleteSuspend(memberNumber, suspendStartDate);
 
         Result result = new Result();
         result.setPath(request.getContextPath() + "/admin/suspend/list.ad");

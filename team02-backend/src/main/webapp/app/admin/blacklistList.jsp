@@ -20,9 +20,8 @@
 		<!-- 좌측 사이드바 -->
 		<aside class="sidebar">
 			<a href="${pageContext.request.contextPath}/admin/dashboard.ad">
-				<img
-				src="${pageContext.request.contextPath}/assets/img/admin_logo.png"
-				alt="admin_logo" class="admin_logo">
+				<img src="${pageContext.request.contextPath}/assets/img/admin_logo.png"
+				     alt="admin_logo" class="admin_logo">
 			</a>
 			<ul class="sidebar_ul">
 				<li class="sidebar_list"><a
@@ -30,8 +29,7 @@
 				<li class="sidebar_list"><a
 					href="${pageContext.request.contextPath}/admin/member/list.ad">회원관리</a></li>
 				<li class="sidebar_list"><a
-					href="${pageContext.request.contextPath}/admin/postTrade/list.ad">게시글
-						관리</a></li>
+					href="${pageContext.request.contextPath}/admin/postTrade/list.ad">게시글 관리</a></li>
 				<li class="sidebar_list active" id="sidebar_list_warning"><a
 					href="${pageContext.request.contextPath}/admin/report/list.ad">신고관리</a></li>
 				<li class="sidebar_list"><a
@@ -55,40 +53,49 @@
 							href="${pageContext.request.contextPath}/admin/report/list.ad">신고목록</a></li>
 						<li class="admin_list_menu"><a
 							href="${pageContext.request.contextPath}/admin/suspend/list.ad">정지회원목록</a></li>
-						<li class="admin_list_menu" id="admin_list_menu_blacklist"><a
+						<li class="admin_list_menu active" id="admin_list_menu_blacklist"><a
 							href="${pageContext.request.contextPath}/admin/blacklist/list.ad">블랙리스트</a></li>
 					</ul>
 				</div>
 
-				<!-- 컬럼 헤더 -->
+				<!-- 리스트 박스 -->
 				<div class="admin_list_whitebox">
-					<ul class="admin_list_name">
-						<li class="admin_list_row col-num">번호</li>
-						<li class="admin_list_row col-user">회원번호</li>
-						<li class="admin_list_row col-name">이름</li>
-						<li class="admin_list_row col-type">회원유형</li>
-						<li class="admin_list_row col-date">블랙등록일</li>
-					</ul>
+					<!-- 컬럼 헤더 -->
+					<div class="admin_list_row header">
+						<div class="col-num">번호</div>
+						<div class="col-usernum">회원번호</div>
+						<div class="col-username">이름</div>
+						<div class="col-usertype">회원유형</div>
+						<div class="col-date">블랙등록일</div>
+						<div class="col-action">관리</div>
+					</div>
 
-					<!-- 실제 블랙리스트 목록 -->
-					<ul class="admin_list_valuebox">
-						<c:choose>
-							<c:when test="${not empty blacklist}">
-								<c:forEach var="b" items="${blacklist}">
-									<li class="admin_list_value">
-										<p class="admin_list_row col-num">${b.blacklistNumber}</p>
-										<p class="admin_list_row col-user">${b.memberNumber}</p>
-										<p class="admin_list_row col-name">${b.memberName}</p>
-										<p class="admin_list_row col-type">${b.memberType}</p>
-										<p class="admin_list_row col-date">${b.blacklistStartDate}</p>
-									</li>
-								</c:forEach>
-							</c:when>
-							<c:otherwise>
-								<li class="admin_list_value empty">블랙리스트 회원이 없습니다.</li>
-							</c:otherwise>
-						</c:choose>
-					</ul>
+					<!-- 데이터 행 -->
+					<c:choose>
+						<c:when test="${not empty blacklist}">
+							<c:forEach var="b" items="${blacklist}" varStatus="status">
+								<div class="admin_list_row">
+									<div class="col-num">${status.index + 1}</div>
+									<div class="col-usernum">${b.memberNumber}</div>
+									<div class="col-username">${b.memberName}</div>
+									<div class="col-usertype">${b.memberType}</div>
+									<div class="col-date">${b.blacklistStartDate}</div>
+									<div class="col-action">
+										<form action="${pageContext.request.contextPath}/admin/blacklist/deleteOk.ad"
+										      method="post" onsubmit="return confirm('블랙리스트에서 해제하시겠습니까?');">
+											<input type="hidden" name="blacklistNumber" value="${b.blacklistNumber}">
+											<button type="submit" class="btn_unblacklist">해제</button>
+										</form>
+									</div>
+								</div>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<div class="admin_list_row empty">
+								블랙리스트 회원이 없습니다.
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 
 				<!-- 페이지네이션 + 검색 -->
@@ -119,16 +126,15 @@
 					</ul>
 
 					<!-- 검색 -->
-					<form
-						action="${pageContext.request.contextPath}/admin/blacklist/list.ad"
-						method="get">
+					<form action="${pageContext.request.contextPath}/admin/blacklist/list.ad"
+					      method="get">
 						<div class="admin_search">
 							<select class="admin_notice_category" name="searchType">
 								<option value="id" ${searchType=='id'?'selected':''}>아이디</option>
 								<option value="name" ${searchType=='name'?'selected':''}>이름</option>
 								<option value="type" ${searchType=='type'?'selected':''}>유형</option>
-							</select> <input type="text" id="search_word" name="searchWord"
-								value="${searchWord}">
+							</select>
+							<input type="text" id="search_word" name="searchWord" value="${searchWord}">
 							<button class="search_btn" type="submit">
 								<i class="fas fa-search"></i>
 							</button>

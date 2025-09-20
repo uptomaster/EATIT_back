@@ -46,15 +46,22 @@ public class AdminMemberListController implements Execute {
         String searchWord = request.getParameter("searchWord");
         String memberType = request.getParameter("memberType"); // GENERAL / SELLER
 
-        // AdminMapper.xml 에서 searchWord, memberType 만 처리하므로
-        // searchType == "name"이면 그냥 searchWord에 이름 넣어서 전달
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("startRow", startRow);
         paramMap.put("endRow", endRow);
-        paramMap.put("memberType", memberType);
 
-        if (searchWord != null && !searchWord.isBlank()) {
-            paramMap.put("searchWord", searchWord);
+        if (searchType != null) {
+            paramMap.put("searchType", searchType);
+
+            if ("id".equals(searchType) || "name".equals(searchType)) {
+                if (searchWord != null && !searchWord.isBlank()) {
+                    paramMap.put("searchWord", searchWord.trim());
+                }
+            } else if ("type".equals(searchType)) {
+                if (memberType != null && !memberType.isBlank()) {
+                    paramMap.put("memberType", memberType.trim());
+                }
+            }
         }
 
         // -------------------------------

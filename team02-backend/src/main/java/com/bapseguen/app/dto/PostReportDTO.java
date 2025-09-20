@@ -14,6 +14,28 @@ public class PostReportDTO {
 	private String reportedName; // 피신고자 이름
 	private String reportedType; // 피신고자 타입(GENERAL/SELLER)
 
+	/* 이남혁 추가 내용(관리자 측에서 신고목록에서 이미 조치했는지 확인하기 위해 추가함)*/
+	// 정지 여부 (0=아님, 1=정지됨)
+	private int isSuspended;
+
+	// 블랙리스트 여부 (0=아님, 1=블랙리스트됨)
+	private int isBlacklisted;
+
+	public int getIsSuspended() {
+	    return isSuspended;
+	}
+	public void setIsSuspended(int isSuspended) {
+	    this.isSuspended = isSuspended;
+	}
+
+	public int getIsBlacklisted() {
+	    return isBlacklisted;
+	}
+	public void setIsBlacklisted(int isBlacklisted) {
+	    this.isBlacklisted = isBlacklisted;
+	}
+	/* 여기 윗줄까지 추가내용 */
+	
 	public PostReportDTO() {
 	}
 

@@ -42,14 +42,13 @@ a {
 
 .sidebar_ul {
 	width: 100%;
-	padding: 0;
 }
 
 .sidebar_list {
 	padding: 14px 0;
 	text-align: center;
 	font-size: 20px;
-	transition: all 0.2s ease-in-out;
+	transition: 0.2s;
 }
 
 .sidebar_list a {
@@ -57,7 +56,8 @@ a {
 	display: block;
 }
 
-.sidebar_list:hover, .sidebar_list.active {
+.sidebar_list:hover,
+.sidebar_list.active {
 	background-color: #1e223f;
 	scale: 1.05;
 }
@@ -71,7 +71,7 @@ a {
 	border-radius: 20px;
 	padding: 6px 16px;
 	cursor: pointer;
-	transition: all 0.2s ease-in-out;
+	transition: 0.2s;
 	font-size: 14px;
 }
 
@@ -90,6 +90,8 @@ a {
 .admin_pagetitle {
 	font-weight: 900;
 	margin-bottom: 20px;
+	font-size: 22px;
+	color: #333;
 }
 
 /* ===== 탭 메뉴 ===== */
@@ -104,6 +106,8 @@ a {
 	width: 700px;
 	height: 40px;
 	background-color: #505FA9;
+	border-radius: 6px;
+	overflow: hidden;
 }
 
 .admin_list_menu {
@@ -123,11 +127,11 @@ a {
 
 .admin_list_menu:hover {
 	background-color: #1e223f;
-	scale: 1.05;
 }
 
 .admin_list_menu.active {
 	background-color: #1e223f;
+	font-weight: bold;
 }
 
 /* ===== 리스트 박스 ===== */
@@ -139,41 +143,42 @@ a {
 	overflow-x: auto;
 }
 
-.admin_list_name, .admin_list_value {
+/* 컬럼 헤더 + 데이터 행 */
+.admin_list_row {
 	display: flex;
 	width: 100%;
 	text-align: center;
+	font-size: 14px;
 }
 
-.admin_list_name {
+.admin_list_row.header {
 	font-weight: bold;
 	background-color: #99A6E8;
+	color: #fff;
 	height: 45px;
+	align-items: center;
 }
 
-.admin_list_value {
-	display: flex;
+.admin_list_row:not(.header) {
 	align-items: center;
 	height: 45px;
 	border-bottom: 1px solid #ddd;
 	transition: background-color 0.2s;
 }
 
-.admin_list_value:hover {
+.admin_list_row:not(.header):hover {
 	background-color: #f8f9fa;
 }
 
-.admin_list_value.empty {
+.admin_list_row.empty {
 	justify-content: center;
 	padding: 20px 0;
 	color: #888;
+	height: auto;
 }
 
-/* 열 비율 & ... 처리 */
-.col-num {
-	flex: 0 0 45px;
-}
-
+/* 열 비율 */
+.col-num { flex: 0 0 45px; }
 .col-title {
 	flex: 1;
 	padding-left: 8px;
@@ -182,51 +187,27 @@ a {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
-
-.col-reason {
-	flex: 0 0 80px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
-.col-post {
-	flex: 0 0 65px;
-}
-
-.col-user {
-	flex: 0 0 140px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
-.col-reporter {
-	flex: 0 0 90px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
-.col-date {
-	flex: 0 0 100px;
-}
-
+.col-reason { flex: 0 0 80px; }
+.col-post { flex: 0 0 65px; }
+.col-user { flex: 0 0 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.col-reporter { flex: 0 0 90px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.col-date { flex: 0 0 100px; }
 .col-action {
-	flex: 0 0 110px;   /* 관리 영역 폭 살짝 늘림 */
+	flex: 0 0 120px;
 	display: flex;
 	justify-content: center;
 	gap: 4px;
 }
 
-
-.btn_suspend, .btn_blacklist {
-	padding: 4px 8px;      /* 버튼 크기 키움 */
+/* 버튼 */
+.btn_suspend,
+.btn_blacklist {
+	padding: 4px 8px;
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;
 	color: #fff;
-	font-size: 12px;       /* 글자 크기 키움 */
+	font-size: 12px;
 	font-weight: 500;
 	transition: background-color 0.2s;
 	white-space: nowrap;
@@ -245,14 +226,8 @@ a {
 	color: white;
 	font-weight: bold;
 }
-
-.tag_reason.BADWORDS {
-	background-color: #e74c3c;
-}
-
-.tag_reason.ADV {
-	background-color: #f39c12;
-}
+.tag_reason.BADWORDS { background-color: #e74c3c; }
+.tag_reason.ADV { background-color: #f39c12; }
 
 /* ===== 페이지네이션 ===== */
 .admin_pagenation_search {
@@ -265,11 +240,6 @@ a {
 .admin_pagenation {
 	display: flex;
 	gap: 6px;
-	padding-left: 0;
-}
-
-.admin_pagenation li {
-	list-style: none;
 }
 
 .admin_pagenation li a {
@@ -278,11 +248,11 @@ a {
 	background-color: #f1f1f1;
 	border-radius: 4px;
 	color: #333;
-	text-decoration: none;
 	transition: 0.2s;
 }
 
-.admin_pagenation li a:hover, .admin_pagenation li a.active {
+.admin_pagenation li a:hover,
+.admin_pagenation li a.active {
 	background-color: #505FA9;
 	color: #fff;
 }

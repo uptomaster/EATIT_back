@@ -5,7 +5,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>정지회원목록</title>
+<title>정지목록</title>
 <script defer
 	src="${pageContext.request.contextPath}/assets/js/admin/suspendedMemberList.js"></script>
 <link rel="stylesheet"
@@ -29,8 +29,7 @@
 				<li class="sidebar_list"><a
 					href="${pageContext.request.contextPath}/admin/member/list.ad">회원관리</a></li>
 				<li class="sidebar_list"><a
-					href="${pageContext.request.contextPath}/admin/postTrade/list.ad">게시글
-						관리</a></li>
+					href="${pageContext.request.contextPath}/admin/notice/list.ad">게시글 관리</a></li>
 				<li class="sidebar_list active" id="sidebar_list_warning"><a
 					href="${pageContext.request.contextPath}/admin/report/list.ad">신고관리</a></li>
 				<li class="sidebar_list"><a
@@ -53,7 +52,7 @@
 						<li class="admin_list_menu"><a
 							href="${pageContext.request.contextPath}/admin/report/list.ad">신고목록</a></li>
 						<li class="admin_list_menu active" id="admin_list_menu_suspend"><a
-							href="${pageContext.request.contextPath}/admin/suspend/list.ad">정지회원목록</a></li>
+							href="${pageContext.request.contextPath}/admin/suspend/list.ad">정지목록</a></li>
 						<li class="admin_list_menu"><a
 							href="${pageContext.request.contextPath}/admin/blacklist/list.ad">블랙리스트</a></li>
 					</ul>
@@ -69,6 +68,7 @@
 						<li class="admin_list_row col-start">정지 시작일</li>
 						<li class="admin_list_row col-end">정지 종료일</li>
 						<li class="admin_list_row col-count">누적 신고 수</li>
+						<li class="admin_list_row col-action">관리</li>
 					</ul>
 
 					<!-- 실제 정지회원 목록 -->
@@ -84,6 +84,15 @@
 										<p class="admin_list_row col-start">${s.suspendStartDate}</p>
 										<p class="admin_list_row col-end">${s.suspendEndDate}</p>
 										<p class="admin_list_row col-count">${s.suspendReportCount}</p>
+										<div class="admin_list_row col-action">
+											<form action="${pageContext.request.contextPath}/admin/suspend/deleteOk.ad"
+											      method="post"
+											      onsubmit="return confirm('정지를 해제하시겠습니까?');">
+												<input type="hidden" name="memberNumber" value="${s.memberNumber}">
+												<input type="hidden" name="suspendStartDate" value="${s.suspendStartDate}">
+												<button type="submit" class="btn_unsuspend">해제</button>
+											</form>
+										</div>
 									</li>
 								</c:forEach>
 							</c:when>
@@ -122,16 +131,14 @@
 					</ul>
 
 					<!-- 검색 (오른쪽) -->
-					<form
-						action="${pageContext.request.contextPath}/admin/suspend/list.ad"
-						method="get">
+					<form action="${pageContext.request.contextPath}/admin/suspend/list.ad" method="get">
 						<div class="admin_search">
 							<select class="admin_notice_category" name="searchType">
 								<option value="id">아이디</option>
 								<option value="name">이름</option>
 								<option value="type">유형</option>
-							</select> <input type="text" id="search_word" name="searchWord"
-								value="${searchWord}">
+							</select>
+							<input type="text" id="search_word" name="searchWord" value="${searchWord}">
 							<button class="search_btn" type="submit">
 								<i class="fas fa-search"></i>
 							</button>

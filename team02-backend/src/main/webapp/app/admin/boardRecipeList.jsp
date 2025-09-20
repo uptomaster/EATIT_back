@@ -44,7 +44,7 @@
 
     <!-- 메인컨텐츠 -->
     <div class="admin_inner">
-      <h1 class="admin_pagetitle">게시글 관리</h1>
+      <h1 class="admin_pagetitle">게시글 관리 - 레시피</h1>
       <div class="admin_listwrapper">
 
         <!-- 탭 메뉴 -->
@@ -67,44 +67,47 @@
 
         <!-- 게시글 목록 -->
         <div class="admin_list_whitebox">
-          <ul class="admin_list_name">
-            <li class="admin_list_row col-num">번호</li>
-            <li class="admin_list_row col-title">제목</li>
-            <li class="admin_list_row col-user">작성자</li>
-            <li class="admin_list_row col-date">등록일</li>
-            <li class="admin_list_row col-views">조회</li>
-            <li class="admin_list_row col-likes">추천</li>
-            <li class="admin_list_row col-manage">관리</li>
-          </ul>
+          <!-- 컬럼 헤더 -->
+          <div class="admin_list_row header">
+            <div class="col-num">번호</div>
+            <div class="col-title">제목</div>
+            <div class="col-user">작성자</div>
+            <div class="col-date">등록일</div>
+            <div class="col-views">조회</div>
+            <div class="col-likes">추천</div>
+            <div class="col-manage">관리</div>
+          </div>
 
-          <ul class="admin_list_valuebox">
-            <c:choose>
-              <c:when test="${not empty recipeList}">
-                <c:forEach var="post" items="${recipeList}">
-                  <li class="admin_list_value">
-                    <p class="admin_list_row col-num">${post.postNumber}</p>
-                    <p class="admin_list_row col-title">
-                      <a href="${pageContext.request.contextPath}/admin/boardRecipe/detail.ad?postNumber=${post.postNumber}"
-                         class="admin_list_userid_link">${post.postTitle}</a>
-                    </p>
-                    <p class="admin_list_row col-user">${post.memberId}</p>
-                    <p class="admin_list_row col-date">${post.postCreatedDate}</p>
-                    <p class="admin_list_row col-views">${post.postViewCount}</p>
-                    <p class="admin_list_row col-likes">${post.postLikeCount}</p>
-                    <p class="admin_list_row col-manage">
-                      <form action="${pageContext.request.contextPath}/admin/boardRecipe/deleteOk.ad" method="post">
-                        <input type="hidden" name="postNumber" value="${post.postNumber}">
-                        <button type="submit" class="delete_btn">삭제</button>
-                      </form>
-                    </p>
-                  </li>
-                </c:forEach>
-              </c:when>
-              <c:otherwise>
-                <li class="admin_list_value empty">등록된 레시피 글이 없습니다.</li>
-              </c:otherwise>
-            </c:choose>
-          </ul>
+          <!-- 데이터 행 -->
+          <c:choose>
+            <c:when test="${not empty recipeList}">
+              <c:forEach var="post" items="${recipeList}">
+                <div class="admin_list_row">
+                  <div class="col-num">${post.postNumber}</div>
+                  <div class="col-title">
+                    <a href="${pageContext.request.contextPath}/admin/boardRecipe/detail.ad?postNumber=${post.postNumber}"
+                       class="admin_list_userid_link">${post.postTitle}</a>
+                  </div>
+                  <div class="col-user">${post.memberId}</div>
+                  <div class="col-date">${post.postCreatedDate}</div>
+                  <div class="col-views">${post.postViewCount}</div>
+                  <div class="col-likes">${post.postLikeCount}</div>
+                  <div class="col-manage">
+                    <form action="${pageContext.request.contextPath}/admin/boardRecipe/deleteOk.ad"
+                          method="post">
+                      <input type="hidden" name="postNumber" value="${post.postNumber}">
+                      <button type="submit" class="delete_btn">삭제</button>
+                    </form>
+                  </div>
+                </div>
+              </c:forEach>
+            </c:when>
+            <c:otherwise>
+              <div class="admin_list_row empty">
+                등록된 레시피 글이 없습니다.
+              </div>
+            </c:otherwise>
+          </c:choose>
         </div>
 
         <!-- 페이지네이션 + 검색창 -->
