@@ -15,6 +15,12 @@ public class StoreDTO {
 	private double latitude;
 	private double longitude;
 	private double distance;
+	private int itemNumber;
+	private String itemName;
+	private int itemPrice;
+	private int itemImageNumber;
+	private String itemImageSystemName;
+	private String itemImageOriginalName;
 	
 	public String getBusinessNumber() {
 		return businessNumber;
@@ -94,19 +100,56 @@ public class StoreDTO {
 	public void setDistance(double distance) {
 		this.distance = distance;
 	}
-	
+	public int getItemNumber() {
+		return itemNumber;
+	}
+	public void setItemNumber(int itemNumber) {
+		this.itemNumber = itemNumber;
+	}
+	public String getItemName() {
+		return itemName;
+	}
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+	public int getItemPrice() {
+		return itemPrice;
+	}
+	public void setItemPrice(int itemPrice) {
+		this.itemPrice = itemPrice;
+	}
+	public int getItemImageNumber() {
+		return itemImageNumber;
+	}
+	public void setItemImageNumber(int itemImageNumber) {
+		this.itemImageNumber = itemImageNumber;
+	}
+	public String getItemImageSystemName() {
+		return itemImageSystemName;
+	}
+	public void setItemImageSystemName(String itemImageSystemName) {
+		this.itemImageSystemName = itemImageSystemName;
+	}
+	public String getItemImageOriginalName() {
+		return itemImageOriginalName;
+	}
+	public void setItemImageOriginalName(String itemImageOriginalName) {
+		this.itemImageOriginalName = itemImageOriginalName;
+	}
 	@Override
 	public String toString() {
 		return "StoreDTO [businessNumber=" + businessNumber + ", memberNumber=" + memberNumber + ", storeName="
 				+ storeName + ", storeOpenDate=" + storeOpenDate + ", storeTel=" + storeTel + ", storeAddress="
 				+ storeAddress + ", storeAddressDetail=" + storeAddressDetail + ", storeZipCode=" + storeZipCode
 				+ ", storeOpenTime=" + storeOpenTime + ", storeCloseTime=" + storeCloseTime + ", latitude=" + latitude
-				+ ", longitude=" + longitude + ", distance=" + distance + "]";
+				+ ", longitude=" + longitude + ", distance=" + distance + ", itemNumber=" + itemNumber + ", itemName="
+				+ itemName + ", itemPrice=" + itemPrice + ", itemImageNumber=" + itemImageNumber
+				+ ", itemImageSystemName=" + itemImageSystemName + ", itemImageOriginalName=" + itemImageOriginalName
+				+ "]";
 	}
+	
+	
 
 	
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> main
+

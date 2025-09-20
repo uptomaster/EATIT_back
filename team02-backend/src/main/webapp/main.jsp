@@ -19,7 +19,8 @@
 	type="image/x-icon">
 
 <!-- 헤더 js -->
-<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=d8196a9ba4f57089acc357bda4989eed&libraries=services"></script>
+<script
+	src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_JAVASCRIPT_KEY&libraries=services"></script>
 <script defer src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 <script defer
 	src="${pageContext.request.contextPath}/assets/js/gradeModal.js"></script>
@@ -27,6 +28,9 @@
 	src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
 <script defer
 	src="${pageContext.request.contextPath}/assets/js/header.js"></script>
+<script>
+	const contextPath = '${pageContext.request.contextPath}';
+</script>
 
 <script>
 	let headerPath = './../../header.jsp';
@@ -108,7 +112,7 @@
 													<c:out value="${store.storeName}" />
 												</div>
 												<div class="main_menu_name">
-													<c:out value="${store.storeName}" />
+													<c:out value="${store.itemName}" />
 												</div>
 												<div class="main_open_time">
 													영업시간 :
@@ -119,10 +123,16 @@
 												<div class="main_price">
 													<c:out value="${store.itemPrice}원" />
 												</div>
+												<div class="main_distance">
+													거리:
+													<c:out value="${store.distance}" />
+													km
+												</div>
 											</div>
 										</a>
 									</article>
 								</c:forEach>
+
 							</c:otherwise>
 						</c:choose>
 					</div>

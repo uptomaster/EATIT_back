@@ -102,92 +102,77 @@ function sample4_execDaumPostcode() {
   }).open();
 }
 
-function searchAddress() {
-   let address = document.getElementById("addressInput").value;
-   if(!address) {
-     alert("주소를 입력해주세요.");
-     return;
-   }
 
-   // 카카오 주소 검색 서비스
-   var ps = new kakao.maps.services.Geocoder();
+// 주소 입력 → 거리순 가게 목록 요청
+function sendAddress() {
+    const roadAddress = document.getElementById("sample4_roadAddress").value;
 
-   ps.addressSearch(address, function(result, status) {
-     if (status === kakao.maps.services.Status.OK) {
-       let lat = result[0].y;
-       let lng = result[0].x;
+    if (!roadAddress) {
+        alert("주소를 입력해주세요.");
+        return;
+    }
 
-       // 결과 출력
-       document.getElementById("addressResult").innerHTML = 
-         `위도: ${lat}, 경도: ${lng} <br> 주소: ${result[0].address.address_name}`;
+    // 주소만 서버로 전송 (서버에서 위경도 계산 후 거리 계산)
+    fetch(`${window.location.origin}/storeDistanceListByAddress`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ address: roadAddress })
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log("거리순 가게 목록:", data);
+        renderStoreList(data); // 거리순 가게 렌더링
+        document.querySelector(".location_modal").style.display = "none"; // 모달 닫기
+    })
+    .catch(err => console.error("가게 목록 로드 실패:", err));
+}
 
-       // 서버에 위도/경도 전송 (예: AJAX)
-       sendCoordinatesToServer(lat, lng);
+// 저장 버튼 클릭 이벤트
+document.querySelector(".save_location").addEventListener("click", e => {
+    e.preventDefault();
 
-     } else {
-       alert("주소 검색 결과가 없습니다.");
-     }
-   });
- }
+    const roadAddress = document.getElementById("sample4_roadAddress").value;
 
- function sendCoordinatesToServer(lat, lng) {
-   // AJAX로 서버에 좌표 전달 (예: jQuery 사용)
-   fetch('${pageContext.request.contextPath}/location/searchNearby', {
-     method: 'POST',
-     headers: {'Content-Type': 'application/json'},
-     body: JSON.stringify({ latitude: lat, longitude: lng })
-   })
-   .then(response => response.json())
-   .then(data => {
-     console.log("서버에서 받은 근처 가게 목록:", data);
-     // 여기서 가게 리스트 UI 갱신
-   })
-   .catch(err => {
-     console.error("서버와 통신 중 에러 발생:", err);
-   });
- }
+    if (!roadAddress) {
+        alert("주소를 입력해주세요.");
+        return;
+    }
 
- const saveBtn = document.querySelector('.save_location');
+    // MainListController에 주소 전달
+    const url = `${window.location.origin}/main.ma?address=${encodeURIComponent(roadAddress)}`;
+    window.location.href = url; // 페이지 새로고침하며 서버에 주소 전달
+});
 
- saveBtn.addEventListener('click', () => {
-   // 예: 입력된 주소 정보 가져오기
-   const postcode = document.getElementById('sample4_postcode').value;
-   const roadAddress = document.getElementById('sample4_roadAddress').value;
-   const jibunAddress = document.getElementById('sample4_jibunAddress').value;
-   const extraAddress = document.getElementById('sample4_extraAddress').value;
 
-   if (!postcode || !roadAddress) {
-     alert('주소를 정확히 입력해주세요.');
-     return;
-   }
+// 가게 목록 렌더링
+function renderStoreList(storeList) {
+    const container = document.querySelector(".main_food_buy");
+    if (!storeList || storeList.length === 0) {
+        container.innerHTML = '<p style="color: #888">표시할 상품이 없습니다.</p>';
+        return;
+    }
 
-   const addressData = {
-     postcode,
-     roadAddress,
-     jibunAddress,
-     extraAddress
-   };
+    let html = '';
+    storeList.forEach(store => {
+        html += `
+        <article class="main_food_buy_article store_item">
+            <a href="${window.location.origin}/orders/storeDetail.or?itemNumber=${store.itemNumber}">
+                <img src="${window.location.origin}/upload/${store.itemImageSystemName}" alt="${store.storeName} 이미지">
+                <div class="main_store_info">
+                    <div class="main_store_name">${store.storeName}</div>
+                    <div class="main_menu_name">${store.itemName}</div>
+                    <div class="main_open_time">영업시간: ${store.storeOpenTime} ~ ${store.storeCloseTime}</div>
+                    <div class="main_price">${store.itemPrice}원</div>
+                    <div class="main_distance">거리: ${store.distance.toFixed(2)} km</div>
+                </div>
+            </a>
+        </article>`;
+    });
 
-   // 서버에 주소 데이터 전송 예시 (fetch 사용)
-   fetch('main.sa', {  // 실제 주소로 변경 필요
-     method: 'POST',
-     headers: {'Content-Type': 'application/json'},
-     body: JSON.stringify(addressData)
-   })
-   .then(res => {
-     if (!res.ok) throw new Error('저장 실패');
-     return res.json();
-   })
-   .then(data => {
-     alert('주소가 저장되었습니다.');
-     // 모달 닫기 등 추가 동작
-     locationModal.style.display = 'none';
-   })
-   .catch(err => {
-     console.error(err);
-     alert('주소 저장 중 오류가 발생했습니다.');
-   });
- });
+    container.innerHTML = html;
+}
+
+
 
 
 // 무한 루프 처리 (복제 슬라이드에서 실제 슬라이드로 순간 이동)

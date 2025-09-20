@@ -119,13 +119,13 @@ h3 {
 
 .main_food_box {
 	display: flex;
-	height: 340px;
+	height: 360px;
 	align-items: center;
 	justify-content: center;
 }
 
 .main_food_buy {
-	height: 340px;
+	height: 360px;
 	display: flex;
 	justify-content: left;
 	align-items: center;
@@ -136,7 +136,7 @@ h3 {
 
 .main_food_buy_article {
 	width: 245px;
-	height: 340px;
+	height: 360px;
 	margin: 3px;
 	background-color: white;
 	border-radius: 8px;

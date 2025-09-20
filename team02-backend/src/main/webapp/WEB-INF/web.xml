@@ -23,7 +23,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>SaveAddress</servlet-name>
-		<url-pattern>*.sa</url-pattern>
+		<url-pattern>/SaveAddress</url-pattern>
 	</servlet-mapping>
 	
 	<!-- Comment -->

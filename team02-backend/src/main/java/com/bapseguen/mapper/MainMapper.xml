@@ -49,6 +49,25 @@
 	    ]]>
 	</select>
 
+    <select id="getAllStores" resultType="MainStoreListDTO">
+    SELECT
+        S.STORE_NAME AS storeName,
+        S.STORE_OPEN_TIME AS storeOpenTime,
+        S.STORE_CLOSE_TIME AS storeCloseTime,
+        I.ITEM_NAME AS itemName,
+        I.ITEM_PRICE AS itemPrice,
+        II.ITEM_IMAGE_NUMBER AS itemImageNumber,
+        II.ITEM_IMAGE_SYSTEM_NAME AS itemImageSystemName,
+        II.ITEM_IMAGE_ORIGINAL_NAME AS itemImageOriginalName,
+        I.ITEM_NUMBER AS itemNumber,
+        S.STORE_LATITUDE AS latitude,
+        S.STORE_LONGITUDE AS longitude
+    FROM TBL_STORE S
+    JOIN TBL_ITEM I ON S.BUSINESS_NUMBER = I.BUSINESS_NUMBER
+    JOIN TBL_ITEM_IMAGE II ON I.ITEM_NUMBER = II.ITEM_NUMBER
+    WHERE I.ITEM_SELL_STATE = 'Y' AND I.ITEM_TYPE = 'FOOD'
+    </select>
+    
 	<!-- 재료 목록 조회 -->
 	<select id="ingredientList" resultType="ItemWithImgDTO">
     <![CDATA[
