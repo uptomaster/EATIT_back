@@ -15,7 +15,8 @@
 	href="${pageContext.request.contextPath}/assets/css/footer.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/orders/storeDetail.css">
-<script src="https://kit.fontawesome.com/your-fontawesome-kit.js"
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
 	crossorigin="anonymous"></script>
 <script defer
 	src="${pageContext.request.contextPath}/assets/js/header.js"></script>
@@ -49,12 +50,24 @@
 									alt="기본 이미지">
 							</c:otherwise>
 						</c:choose>
+
 						<!-- 찜 버튼 -->
-						<button type="button" class="favorite-btn" data-favorite="false"
-							title="가게 찜하기">
-							<i class="fa-regular fa-heart heart-icon"></i>
-						</button>
+						<form
+							action="${pageContext.request.contextPath}/orders/favoriteToggle.or"
+							method="get" style="display: inline;">
+							<input type="hidden" name="storeNumber"
+								value="${item.businessNumber}">
+							<button type="submit" class="favorite-btn">
+								<i
+									class="${isFavorited ? 'fa-solid' : 'fa-regular'} fa-heart heart-icon"></i>
+								<c:choose>
+									<c:when test="${isFavorited}">찜 해제</c:when>
+									<c:otherwise>찜하기</c:otherwise>
+								</c:choose>
+							</button>
+						</form>
 					</div>
+
 					<div class="buy_store_info_detail">
 						<p class="buy_store_name">${item.storeName}</p>
 						<p class="buy_store_address">주소 : ${item.storeAddress}</p>
@@ -72,11 +85,9 @@
 				<div class="buy_food">
 					<ul class="buy_food_menu_choice">
 						<li><a class="${param.tab eq 'FOOD' ? 'active' : ''}"
-							href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${item.itemNumber}&tab=FOOD">음식</a>
-						</li>
+							href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${item.itemNumber}&tab=FOOD">음식</a></li>
 						<li><a class="${param.tab eq 'INGREDIENT' ? 'active' : ''}"
-							href="${pageContext.request.contextPath}/orders/ingredientDetail.or?itemNumber=${item.itemNumber}&tab=INGREDIENT">재료</a>
-						</li>
+							href="${pageContext.request.contextPath}/orders/ingredientDetail.or?itemNumber=${item.itemNumber}&tab=INGREDIENT">재료</a></li>
 					</ul>
 
 					<!-- 상품 목록 -->
@@ -99,7 +110,7 @@
 												</c:otherwise>
 											</c:choose>
 
-											<!-- ✅ 소비기한 뱃지 -->
+											<!-- 소비기한 뱃지 -->
 											<c:if test="${not empty p.itemExpireDate}">
 												<c:set var="today"
 													value="<%=new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(new java.util.Date())%>" />
@@ -120,7 +131,6 @@
 														<span class="badge fresh">신선</span>
 													</c:otherwise>
 												</c:choose>
-
 											</c:if>
 										</div>
 
@@ -188,27 +198,30 @@
 		</div>
 	</main>
 
-	<!-- 찜 버튼 스크립트 -->
-	<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const favBtn = document.querySelector(".favorite-btn");
-        const favIcon = favBtn.querySelector(".heart-icon");
+	<!-- 찜 완료/해제 메시지 (query param 기반, 1회성) -->
+	<c:if test="${not empty requestScope.favMessage}">
+		<script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const toast = document.createElement("div");
+            toast.textContent = "${requestScope.favMessage}";
+            toast.style.position = "fixed";
+            toast.style.bottom = "20px";
+            toast.style.left = "50%";
+            toast.style.transform = "translateX(-50%)";
+            toast.style.background = "rgba(0,0,0,0.8)";
+            toast.style.color = "#fff";
+            toast.style.padding = "10px 20px";
+            toast.style.borderRadius = "20px";
+            toast.style.zIndex = "9999";
+            document.body.appendChild(toast);
 
-        favBtn.addEventListener("click", () => {
-            const isFav = favBtn.dataset.favorite === "true";
-            favBtn.dataset.favorite = isFav ? "false" : "true";
-
-            if (isFav) {
-                favIcon.classList.remove("fa-solid");
-                favIcon.classList.add("fa-regular");
-                alert("찜 해제되었습니다.");
-            } else {
-                favIcon.classList.remove("fa-regular");
-                favIcon.classList.add("fa-solid");
-                alert("찜 목록에 추가되었습니다.");
-            }
+            setTimeout(() => toast.remove(), 1500);
         });
-    });
     </script>
+	</c:if>
+
+
+	<!-- 푸터 -->
+	<jsp:include page="${pageContext.request.contextPath}/footer.jsp"></jsp:include>
 </body>
 </html>

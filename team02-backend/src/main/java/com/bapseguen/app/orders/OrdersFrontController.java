@@ -59,6 +59,15 @@ public class OrdersFrontController extends HttpServlet {
 			result = new StoreReviewController().execute(request, response);
 			break;
 
+		// 찜 토글
+		case "/orders/favoriteToggle.or":
+			if (!isGet(request)) {
+				response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+				return;
+			}
+			result = new StoreFavoriteToggleController().execute(request, response);
+			break;
+
 		// ---- Orders ----
 		case "/orders/createOk.or":
 			if (!isPost(request)) {
@@ -90,6 +99,14 @@ public class OrdersFrontController extends HttpServlet {
 				return;
 			}
 			result = new OrderCancelOkController().execute(request, response);
+			break;
+
+		case "/orders/myFavorite.or":
+			if (!isGet(request)) {
+				response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+				return;
+			}
+			result = new MyStoreFavoriteListController().execute(request, response);
 			break;
 
 		// ---- Payment (Toss) ----
