@@ -91,7 +91,7 @@
                                             <p class="buy_store_name">${item.businessName}</p>
                                             <p class="buy_menu_name">${item.itemName}</p>
                                             <p class="buy_item_content">
-                                                <c:out value="${item.itemContent}" default="설명 없음" />
+                                                <c:out value="${item.itemContent}" default="" />
                                             </p>
                                             <p class="buy_price">
                                                 <fmt:formatNumber value="${item.itemPrice}" type="number" /> 원

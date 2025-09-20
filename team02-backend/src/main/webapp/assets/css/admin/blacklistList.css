@@ -5,6 +5,7 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	font-family: "Noto Sans KR", sans-serif;
 }
 
 ul {
@@ -20,7 +21,7 @@ a {
 .admin_innerwrapper {
 	width: 1100px;
 	min-height: 950px;
-	background-color: #f4f5fa;
+	background: #f4f5fa;
 	margin: auto;
 	display: flex;
 	gap: 20px;
@@ -31,13 +32,14 @@ a {
 	margin-bottom: 20px;
 }
 
+/* ===== 사이드바 ===== */
 .sidebar {
 	min-width: 220px;
 	background: #505FA9;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding-top: 20px;
+	padding: 20px 0;
 }
 
 .sidebar_ul {
@@ -52,17 +54,16 @@ a {
 }
 
 .sidebar_list a {
-	color: white;
+	color: #fff;
 	display: block;
-	width: 100%;
-	height: 100%;
 }
 
 .sidebar_list:hover, .sidebar_list.active {
-	background-color: #1e223f;
+	background: #1e223f;
 	scale: 1.05;
 }
 
+/* 로그아웃 버튼 */
 #admin_logoutbtn {
 	margin-top: auto;
 	margin-bottom: 20px;
@@ -82,7 +83,7 @@ a {
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* ===== 메인 컨텐츠 ===== */
+/* ===== 메인 ===== */
 .admin_inner {
 	flex: 1;
 	margin: 20px 0;
@@ -103,119 +104,109 @@ a {
 /* ===== 탭 메뉴 ===== */
 .admin_list_title {
 	display: flex;
-	width: 700px;
-	height: 40px;
-	margin: auto auto 20px auto;
+	justify-content: center;
+	margin-bottom: 20px;
 }
 
 .admin_list {
 	display: flex;
-	width: 100%;
+	width: 700px;
 	height: 40px;
 	background: #505FA9;
-	border-radius: 6px 6px 0 0;
+	border-radius: 6px;
+	overflow: hidden;
 }
 
 .admin_list_menu {
 	flex: 1;
 	text-align: center;
 	line-height: 40px;
-	font-size: 18px;
+	font-size: 16px;
 	color: #fff;
 	transition: 0.2s;
 }
 
 .admin_list_menu a {
 	display: block;
-	width: 100%;
-	height: 100%;
-	color: #fff;
+	color: inherit;
 }
 
-.admin_list_menu:hover {
-	background: #1e223f;
-}
-
-.admin_list_menu#admin_list_menu_blacklist, .admin_list_menu.active {
+.admin_list_menu.active {
 	background: #1e223f;
 	font-weight: bold;
 }
 
-/* ===== 리스트 ===== */
+/* ===== 리스트 박스 ===== */
 .admin_list_whitebox {
 	background: #fff;
-	border: 1px solid #ddd;
+	min-height: 500px;
 	border-radius: 6px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+	border: 1px solid #ddd;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+	overflow-x: auto;
 }
 
-.admin_list_name, .admin_list_value {
+/* 공통 행 */
+.admin_list_row {
 	display: flex;
 	width: 100%;
 	text-align: center;
-	font-size: 15px;
+	font-size: 14px;
 }
 
-.admin_list_name {
-	background: #99A6E8;
+.admin_list_row.header {
 	font-weight: bold;
-	height: 55px; /* 높이 업 */
-}
-
-.admin_list_row {
-	flex: 1;
-	display: flex;
+	background: #99A6E8;
+	color: #333;
+	height: 45px;
 	align-items: center;
-	justify-content: center;
-	padding: 0 6px;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	height: 55px;
 }
 
-.admin_list_value {
+.admin_list_row:not(.header) {
+	align-items: center;
+	height: 45px;
 	border-bottom: 1px solid #eee;
 	transition: background 0.2s;
 }
 
-.admin_list_value:hover {
+.admin_list_row:not(.header):hover {
 	background: #f9f9f9;
 }
 
-.admin_list_value.empty {
+.admin_list_row.empty {
 	justify-content: center;
-	padding: 20px;
+	padding: 20px 0;
 	color: #777;
+	height: auto;
 }
 
-/* ===== 컬럼 비율 (블랙리스트 목록) ===== */
+/* ===== 컬럼 비율 ===== */
 .col-num {
 	flex: 0 0 80px;
 }
 
 .col-usernum {
-	flex: 1;
+	flex: 0 0 120px;
 }
 
 .col-username {
-	flex: 1.5;
-}
-
-.col-usertype {
 	flex: 1;
 }
 
+.col-usertype {
+	flex: 0 0 120px;
+}
+
 .col-date {
-	flex: 1.5;
+	flex: 0 0 180px;
 }
 
 /* ===== 페이지네이션 + 검색 ===== */
 .admin_pagenation_search {
 	display: flex;
-	justify-content: space-between; /* 왼쪽 페이지네이션 / 오른쪽 검색 */
+	justify-content: space-between;
 	align-items: center;
-	margin-top: 15px;
+	margin-top: 20px;
 }
 
 .admin_pagenation {
@@ -226,10 +217,10 @@ a {
 .admin_pagenation a {
 	display: block;
 	padding: 6px 12px;
-	border-radius: 6px;
+	border-radius: 4px;
+	background: #f1f1f1;
 	color: #333;
-	font-size: 14px;
-	pont-weight:bold;
+	transition: 0.2s;
 }
 
 .admin_pagenation a.active {
@@ -252,19 +243,47 @@ a {
 	height: 30px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
-	padding: 0 8px;
+	padding: 0 6px;
 }
 
 .search_btn {
+	width: 30px;
+	height: 30px;
 	background: #505FA9;
 	border: none;
 	color: #fff;
-	padding: 6px 12px;
-	border-radius: 6px;
+	border-radius: 4px;
 	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	transition: 0.2s;
 }
 
 .search_btn:hover {
 	background: #1e223f;
+}
+
+/* 관리 컬럼 */
+.col-action {
+	flex: 0 0 100px;
+	display: flex;
+	justify-content: center;
+}
+
+/* 해제 버튼 */
+.btn_unblacklist {
+	background: #27ae60;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	padding: 4px 10px;
+	font-size: 13px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: 0.2s;
+}
+
+.btn_unblacklist:hover {
+	background: #1e8449;
 }

@@ -460,41 +460,44 @@
 		SELECT ROWNUM RN, A.*
 		FROM (
 		SELECT
-		r.POST_REPORT_NUMBER AS
-		postReportNumber,
+		r.POST_REPORT_NUMBER AS postReportNumber,
 		r.POST_NUMBER AS postNumber,
-		p.POST_TITLE AS
-		postTitle,
+		p.POST_TITLE AS postTitle,
 		r.POST_REPORT_REASON AS postReportReason,
 		TO_CHAR(r.POST_REPORT_DATE,'YYYY-MM-DD') AS postReportDate,
 		r.POST_REPORT_COUNT AS postReportCount,
-		r.MEMBER_NUMBER AS
-		memberNumber,
+		r.MEMBER_NUMBER AS memberNumber,
 		reporter.MEMBER_ID AS reporterId,
-		m.MEMBER_NUMBER AS
-		reportedNumber,
+		m.MEMBER_NUMBER AS reportedNumber,
 		NVL(g.GENERAL_NAME, s.SELLER_NAME) AS reportedName,
-		m.MEMBER_TYPE AS reportedType
+		m.MEMBER_TYPE AS reportedType,
+		m.MEMBER_ID AS reportedId,
+		CASE WHEN sus.MEMBER_NUMBER IS NOT NULL THEN 1 ELSE 0 END AS isSuspended,
+		CASE WHEN bl.MEMBER_NUMBER IS NOT NULL THEN 1 ELSE 0 END AS
+		isBlacklisted
 		FROM TBL_POST_REPORT r
-		JOIN TBL_POST p ON
-		r.POST_NUMBER = p.POST_NUMBER
-		JOIN TBL_MEMBER reporter ON
-		r.MEMBER_NUMBER = reporter.MEMBER_NUMBER
-		JOIN TBL_MEMBER m ON
-		p.MEMBER_NUMBER = m.MEMBER_NUMBER
-		LEFT JOIN TBL_GENERAL_MEMBER g ON
-		m.MEMBER_NUMBER = g.MEMBER_NUMBER
-		LEFT JOIN TBL_SELLER_MEMBER s ON
-		m.MEMBER_NUMBER = s.MEMBER_NUMBER
+		JOIN TBL_POST p ON r.POST_NUMBER = p.POST_NUMBER
+		JOIN TBL_MEMBER reporter ON r.MEMBER_NUMBER = reporter.MEMBER_NUMBER
+		JOIN TBL_MEMBER m ON p.MEMBER_NUMBER = m.MEMBER_NUMBER
+		LEFT JOIN TBL_GENERAL_MEMBER g ON m.MEMBER_NUMBER = g.MEMBER_NUMBER
+		LEFT JOIN TBL_SELLER_MEMBER s ON m.MEMBER_NUMBER = s.MEMBER_NUMBER
+		LEFT JOIN TBL_MEMBER_SUSPEND sus ON m.MEMBER_NUMBER = sus.MEMBER_NUMBER
+		LEFT JOIN TBL_MEMBER_BLACKLIST bl ON m.MEMBER_NUMBER =
+		bl.MEMBER_NUMBER
 		<where>
 			<if
 				test="searchType != null and searchWord != null and searchType == 'reported'">
-				AND NVL(g.GENERAL_NAME, s.SELLER_NAME) LIKE '%' ||
-				#{searchWord} || '%'
+				AND (NVL(g.GENERAL_NAME, s.SELLER_NAME) LIKE '%' || #{searchWord} ||
+				'%'
+				OR m.MEMBER_ID LIKE '%' || #{searchWord} || '%')
 			</if>
 			<if
 				test="searchType != null and searchWord != null and searchType == 'reporter'">
 				AND reporter.MEMBER_ID LIKE '%' || #{searchWord} || '%'
+			</if>
+			<if
+				test="searchType != null and searchWord != null and searchType == 'reason'">
+				AND r.POST_REPORT_REASON LIKE '%' || #{searchWord} || '%'
 			</if>
 		</where>
 		ORDER BY r.POST_REPORT_NUMBER DESC
@@ -505,42 +508,43 @@
 	</select>
 
 
-
-	<select id="selectReportList" parameterType="map"
+	<select id="selectReportList"
 		resultType="com.bapseguen.app.dto.PostReportDTO">
 		SELECT
-		r.POST_REPORT_NUMBER AS postReportNumber,
-		r.POST_NUMBER AS postNumber,
-		p.POST_TITLE AS postTitle,
-		r.POST_REPORT_REASON AS postReportReason,
-		TO_CHAR(r.POST_REPORT_DATE,'YYYY-MM-DD') AS postReportDate,
-		r.POST_REPORT_COUNT AS postReportCount,
+		r.POST_REPORT_NUMBER,
+		r.POST_NUMBER,
+		r.POST_REPORT_REASON,
+		r.POST_REPORT_DATE,
 		r.MEMBER_NUMBER AS
-		memberNumber,
+		reporterNumber,
 		reporter.MEMBER_ID AS reporterId,
-		m.MEMBER_NUMBER AS
+		p.POST_TITLE AS
+		postTitle,
+		p.POST_TYPE AS postType,
+		reported.MEMBER_NUMBER AS
 		reportedNumber,
-		NVL(g.GENERAL_NAME, s.SELLER_NAME) AS reportedName,
-		m.MEMBER_TYPE AS reportedType
+		reported.MEMBER_ID AS reportedId,
+		reported.MEMBER_TYPE
+		AS reportedType,
+		CASE WHEN s.MEMBER_NUMBER IS NOT NULL THEN 1 ELSE 0
+		END AS isSuspended,
+		CASE WHEN b.MEMBER_NUMBER IS NOT NULL THEN 1 ELSE 0
+		END AS
+		isBlacklisted
 		FROM TBL_POST_REPORT r
-		JOIN TBL_POST p ON
-		r.POST_NUMBER = p.POST_NUMBER
 		JOIN TBL_MEMBER reporter ON
 		r.MEMBER_NUMBER = reporter.MEMBER_NUMBER
-		LEFT JOIN TBL_MEMBER m ON
-		p.MEMBER_NUMBER = m.MEMBER_NUMBER
-		LEFT JOIN TBL_GENERAL_MEMBER g ON
-		m.MEMBER_NUMBER = g.MEMBER_NUMBER
-		LEFT JOIN TBL_SELLER_MEMBER s ON
-		m.MEMBER_NUMBER = s.MEMBER_NUMBER
-		WHERE p.POST_TYPE IN
-		('FREE','PROMOTION','RECIPE','INQUIRY')
-		ORDER BY r.POST_REPORT_NUMBER
-		DESC
+		JOIN TBL_POST p ON
+		r.POST_NUMBER = p.POST_NUMBER
+		JOIN TBL_MEMBER reported ON
+		p.MEMBER_NUMBER = reported.MEMBER_NUMBER
+		LEFT JOIN TBL_MEMBER_SUSPEND s
+		ON reported.MEMBER_NUMBER = s.MEMBER_NUMBER
+		LEFT JOIN
+		TBL_MEMBER_BLACKLIST b ON reported.MEMBER_NUMBER =
+		b.MEMBER_NUMBER
+		ORDER BY r.POST_REPORT_NUMBER DESC
 	</select>
-
-
-
 
 
 	<!-- 신고 개수 (검색/페이징용) -->
@@ -635,7 +639,6 @@
 		</where>
 	</select>
 
-
 	<!-- 블랙리스트 목록 (검색 + 페이징) -->
 	<select id="selectBlacklistList" parameterType="map"
 		resultType="com.bapseguen.app.dto.MemberBlacklistDTO">
@@ -647,8 +650,9 @@
 		b.BLACKLIST_NUMBER AS
 		blacklistNumber,
 		b.MEMBER_NUMBER AS memberNumber,
-		NVL(g.GENERAL_NAME,
-		sm.SELLER_NAME) AS memberName,
+		m.MEMBER_ID AS
+		memberId,
+		NVL(g.GENERAL_NAME, sm.SELLER_NAME) AS memberName,
 		m.MEMBER_TYPE AS memberType,
 		TO_CHAR(b.BLACKLIST_START_DATE,'YYYY-MM-DD') AS blacklistStartDate
 		FROM TBL_MEMBER_BLACKLIST b
@@ -681,6 +685,7 @@
 		WHERE
 		RN &gt;= #{startRow}
 	</select>
+
 
 	<!-- 블랙리스트 전체 수 (검색/페이징용) -->
 	<select id="countBlacklistList" parameterType="map"
@@ -768,19 +773,23 @@
 	</delete>
 
 	<!-- 정지 회원 해제 -->
-	<delete id="deleteSuspend" parameterType="int">
+	<delete id="deleteSuspend" parameterType="map">
 		DELETE FROM
 		TBL_MEMBER_SUSPEND
 		WHERE MEMBER_NUMBER = #{memberNumber}
+		AND
+		TRUNC(SUSPEND_START_DATE) = TO_DATE(#{suspendStartDate},
+		'YYYY-MM-DD')
 	</delete>
 
 
-
 	<!-- ===================== 회원 관리 ===================== -->
+	<!-- 회원 목록 -->
 	<select id="selectMemberList" parameterType="map"
 		resultType="map">
 		SELECT * FROM (
-		SELECT ROWNUM AS rowNumber, A.* FROM (
+		SELECT ROWNUM AS rowNumber, A.*
+		FROM (
 		SELECT
 		m.MEMBER_NUMBER AS memberNumber,
 		m.MEMBER_TYPE AS memberType,
@@ -792,36 +801,42 @@
 		ELSE m.MEMBER_ID
 		END AS
 		memberName,
-		COALESCE(g.GENERAL_WARNING_COUNT,
-		s.SELLER_WARNING_COUNT,0)
-		AS warningCount,
-		COALESCE(g.GENERAL_TREE_GRADE, s.SELLER_TREE_GRADE,'')
-		AS treeGrade,
+		COALESCE(g.GENERAL_WARNING_COUNT, s.SELLER_WARNING_COUNT,
+		0) AS warningCount,
+		COALESCE(g.GENERAL_TREE_GRADE, s.SELLER_TREE_GRADE,
+		'') AS treeGrade,
 		COALESCE(g.GENERAL_PAYMENT_AMOUNT,
 		s.SELLER_PAYMENT_AMOUNT, 0) AS
 		paymentAmount
 		FROM TBL_MEMBER m
 		LEFT JOIN
-		TBL_GENERAL_MEMBER g ON
-		g.MEMBER_NUMBER = m.MEMBER_NUMBER
+		TBL_GENERAL_MEMBER g ON g.MEMBER_NUMBER = m.MEMBER_NUMBER
 		LEFT JOIN
-		TBL_SELLER_MEMBER s ON
-		s.MEMBER_NUMBER = m.MEMBER_NUMBER
+		TBL_SELLER_MEMBER s ON s.MEMBER_NUMBER = m.MEMBER_NUMBER
 		<where>
-			<if test="memberType != null and memberType != ''">
-				m.MEMBER_TYPE = #{memberType}
-			</if>
-			<if test="searchWord != null and searchWord != ''">
-				<if test="memberType != null and memberType != ''">AND</if>
-				(
-				m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
-				OR (CASE m.MEMBER_TYPE
-				WHEN 'GENERAL' THEN g.GENERAL_NAME
-				WHEN 'SELLER' THEN s.SELLER_NAME
-				ELSE m.MEMBER_ID
-				END) LIKE '%' || #{searchWord} || '%'
-				)
-			</if>
+			<choose>
+				<!-- 아이디 검색 -->
+				<when
+					test="searchType == 'id' and searchWord != null and searchWord != ''">
+					m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
+				</when>
+				<!-- 이름 검색 -->
+				<when
+					test="searchType == 'name' and searchWord != null and searchWord != ''">
+					(CASE m.MEMBER_TYPE
+					WHEN 'GENERAL' THEN g.GENERAL_NAME
+					WHEN
+					'SELLER' THEN s.SELLER_NAME
+					ELSE m.MEMBER_ID
+					END) LIKE '%' ||
+					#{searchWord} || '%'
+				</when>
+				<!-- 유형 검색 -->
+				<when
+					test="searchType == 'type' and memberType != null and memberType != ''">
+					m.MEMBER_TYPE = #{memberType}
+				</when>
+			</choose>
 		</where>
 		ORDER BY m.MEMBER_NUMBER DESC
 		) A
@@ -831,6 +846,7 @@
 		rowNumber &gt;= #{startRow}
 	</select>
 
+	<!-- 회원 수 (검색 조건 반영) -->
 	<select id="countMembers" parameterType="map" resultType="int">
 		SELECT COUNT(*)
 		FROM TBL_MEMBER m
@@ -839,22 +855,32 @@
 		LEFT JOIN TBL_SELLER_MEMBER s ON
 		s.MEMBER_NUMBER = m.MEMBER_NUMBER
 		<where>
-			<if test="memberType != null and memberType != ''">
-				m.MEMBER_TYPE = #{memberType}
-			</if>
-			<if test="searchWord != null and searchWord != ''">
-				<if test="memberType != null and memberType != ''">AND</if>
-				(
-				m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
-				OR (CASE m.MEMBER_TYPE
-				WHEN 'GENERAL' THEN g.GENERAL_NAME
-				WHEN 'SELLER' THEN s.SELLER_NAME
-				ELSE m.MEMBER_ID
-				END) LIKE '%' || #{searchWord} || '%'
-				)
-			</if>
+			<choose>
+				<!-- 아이디 검색 -->
+				<when
+					test="searchType == 'id' and searchWord != null and searchWord != ''">
+					m.MEMBER_ID LIKE '%' || #{searchWord} || '%'
+				</when>
+				<!-- 이름 검색 -->
+				<when
+					test="searchType == 'name' and searchWord != null and searchWord != ''">
+					(CASE m.MEMBER_TYPE
+					WHEN 'GENERAL' THEN g.GENERAL_NAME
+					WHEN
+					'SELLER' THEN s.SELLER_NAME
+					ELSE m.MEMBER_ID
+					END) LIKE '%' ||
+					#{searchWord} || '%'
+				</when>
+				<!-- 유형 검색 -->
+				<when
+					test="searchType == 'type' and memberType != null and memberType != ''">
+					m.MEMBER_TYPE = #{memberType}
+				</when>
+			</choose>
 		</where>
 	</select>
+
 
 	<select id="selectMemberDetail" parameterType="int"
 		resultType="map">
@@ -921,6 +947,78 @@
 		TBL_MEMBER
 	</select>
 
+	<!-- 일반회원 수 -->
+	<select id="countGeneralMembers" resultType="int">
+		SELECT COUNT(*) FROM
+		TBL_MEMBER WHERE MEMBER_TYPE = 'GENERAL'
+	</select>
+
+	<!-- 판매자 수 -->
+	<select id="countSellerMembers" resultType="int">
+		SELECT COUNT(*) FROM
+		TBL_MEMBER WHERE MEMBER_TYPE = 'SELLER'
+	</select>
+
+
+	<!-- 월별 회원 가입 수 -->
+	<select id="countMonthlyMembers" resultType="map">
+		SELECT
+		TO_CHAR(NVL(g.GENERAL_JOIN_DATE, s.SELLER_JOIN_DATE), 'YYYY-MM') AS
+		month,
+		COUNT(*) AS count
+		FROM TBL_MEMBER m
+		LEFT JOIN TBL_GENERAL_MEMBER g
+		ON g.MEMBER_NUMBER = m.MEMBER_NUMBER
+		LEFT JOIN TBL_SELLER_MEMBER s ON
+		s.MEMBER_NUMBER = m.MEMBER_NUMBER
+		GROUP BY
+		TO_CHAR(NVL(g.GENERAL_JOIN_DATE, s.SELLER_JOIN_DATE), 'YYYY-MM')
+		ORDER
+		BY month
+	</select>
+
+	<!-- 월별 주문/매출 -->
+	<select id="countMonthlyOrders" resultType="map">
+		SELECT
+		TO_CHAR(ORDERS_DATE, 'YYYY-MM') AS month,
+		COUNT(*) AS orderCount,
+		SUM(ORDERS_TOTAL_AMOUNT) AS totalSales
+		FROM TBL_ORDERS
+		GROUP BY
+		TO_CHAR(ORDERS_DATE, 'YYYY-MM')
+		ORDER BY month
+	</select>
+
+	<!-- 카테고리별 매출 -->
+	<select id="countCategorySales" resultType="map">
+		SELECT i.ITEM_TYPE AS
+		category,
+		SUM(oi.ORDER_ITEM_UNIT_PRICE * oi.ORDER_ITEM_QUANTITY) AS
+		sales
+		FROM TBL_ORDER_ITEM oi
+		JOIN TBL_ITEM i ON i.ITEM_NUMBER =
+		oi.ITEM_NUMBER
+		GROUP BY i.ITEM_TYPE
+	</select>
+
+	<!-- ===================== 대시보드 - 카테고리별 매출 ===================== -->
+	<select id="countSalesByCategory" resultType="map">
+		SELECT CASE
+		i.ITEM_TYPE
+		WHEN 'FOOD' THEN '완제품'
+		WHEN 'INGREDIENT' THEN '재료'
+		END AS
+		category,
+		SUM(oI.ORDER_ITEM_UNIT_PRICE * oI.ORDER_ITEM_QUANTITY) AS
+		totalSales
+		FROM TBL_ORDER_ITEM oI
+		JOIN TBL_ITEM i ON i.ITEM_NUMBER =
+		oI.ITEM_NUMBER
+		JOIN TBL_ORDERS o ON o.ORDERS_NUMBER = oI.ORDERS_NUMBER
+		GROUP BY i.ITEM_TYPE
+		ORDER BY totalSales DESC
+	</select>
+
 	<select id="countUnansweredInquiries" resultType="int">
 		SELECT COUNT(*)
 		FROM TBL_INQUIRY i
@@ -977,7 +1075,6 @@
 		WHERE MEMBER_NUMBER = #{memberNumber}
 	</update>
 
-	<!-- ================= 자유게시판 ================= -->
 	<!-- ================= 자유게시판 ================= -->
 	<!-- 자유게시판 목록 -->
 	<select id="selectBoardFreeList" parameterType="map"
@@ -1322,5 +1419,61 @@
 		ORDER BY
 		c.COMMENTED_DATE ASC
 	</select>
+
+	<!-- ===================== 대시보드 - 최근 가입자 ===================== -->
+	<select id="selectRecentMembers" resultType="map">
+		SELECT *
+		FROM (
+		SELECT
+		m.MEMBER_NUMBER AS memberNumber,
+		m.MEMBER_ID AS memberId,
+		m.MEMBER_TYPE AS memberType,
+		CASE
+		WHEN m.MEMBER_TYPE = 'GENERAL' THEN
+		TO_CHAR(g.GENERAL_JOIN_DATE,
+		'YYYY-MM-DD')
+		WHEN m.MEMBER_TYPE = 'SELLER'
+		THEN TO_CHAR(s.SELLER_JOIN_DATE,
+		'YYYY-MM-DD')
+		END AS joinDate
+		FROM
+		TBL_MEMBER m
+		LEFT JOIN TBL_GENERAL_MEMBER g ON g.MEMBER_NUMBER =
+		m.MEMBER_NUMBER
+		LEFT JOIN TBL_SELLER_MEMBER s ON s.MEMBER_NUMBER =
+		m.MEMBER_NUMBER
+		ORDER BY
+		CASE
+		WHEN m.MEMBER_TYPE = 'GENERAL' THEN
+		g.GENERAL_JOIN_DATE
+		WHEN m.MEMBER_TYPE = 'SELLER' THEN
+		s.SELLER_JOIN_DATE
+		END DESC
+		)
+		WHERE ROWNUM &lt;= 3
+	</select>
+
+
+
+	<!-- ===================== 대시보드 - 최근 주문 ===================== -->
+	<select id="selectRecentOrders" resultType="map">
+		SELECT *
+		FROM (
+		SELECT
+		o.ORDERS_NUMBER AS ordersNumber,
+		m.MEMBER_ID AS memberId,
+		o.ORDERS_TOTAL_AMOUNT AS totalAmount,
+		TO_CHAR(o.ORDERS_DATE,
+		'YYYY-MM-DD') AS orderDate
+		FROM TBL_ORDERS o
+		JOIN TBL_MEMBER m ON
+		m.MEMBER_NUMBER = o.ORDERS_MEMBER_NUMBER
+		ORDER BY o.ORDERS_DATE DESC
+		)
+		WHERE ROWNUM &lt;= 3
+	</select>
+
+
+
 
 </mapper>

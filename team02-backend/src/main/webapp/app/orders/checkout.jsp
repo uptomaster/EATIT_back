@@ -38,7 +38,7 @@
   window.addEventListener("load", async () => {
     const cpath = "<%= cpath %>";
     // 서버에서 내려준 키가 없으면 문서용 테스트 키로 폴백 (허용 도메인 불필요)
-    const DOCS_GCK = "";
+    const DOCS_GCK = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
     const clientKey = "<%= serverClientKey == null ? "" : serverClientKey %>" || DOCS_GCK;
 
     const orderId = "<%= orderId == null ? "" : orderId %>";

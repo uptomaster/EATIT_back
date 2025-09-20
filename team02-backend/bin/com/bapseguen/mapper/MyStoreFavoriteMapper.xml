@@ -1,26 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="myStoreFavorite">
-	<!-- 내 가게 찜 목록 조회 -->
-	<select id="MyFavSelectAll" resultType="StoreFavoriteDTO" parameterType="map">
-	<![CDATA[
-	  SELECT * FROM (
-	    SELECT ROWNUM AS RNUM, SUBQUERY.*
-	    FROM (SELECT F.FAVORITE_NUMBER,F.MEMBER_NUMBER,F.BUSINESS_NUMBER,B.BUSINESS_NAME,B.BUSINESS_CATEGORY,B.BUSINESS_IMAGE
-	      FROM TBL_STORE_FAVORITE F JOIN TBL_BUSINESS B 
-	      ON F.BUSINESS_NUMBER = B.BUSINESS_NUMBER
-	      WHERE F.MEMBER_NUMBER = #{memberNumber}
-	      ORDER BY F.FAVORITE_NUMBER DESC
-	    ) SUBQUERY
-	  )WHERE RNUM BETWEEN #{startRow} AND #{endRow}
-	]]>
-	</select>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-	<!-- 찜해제  -->
-	<delete id="MyFavDelete" parameterType="StoreFavoriteDTO">
-	  DELETE FROM TBL_STORE_FAVORITE
-	  WHERE MEMBER_NUMBER = #{memberNumber}
-	    AND BUSINESS_NUMBER = #{businessNumber}
-	</delete>
+<mapper namespace="myStoreFavorite">
+
+  <!-- 찜 목록 조회 -->
+  <select id="MyFavSelectAll" resultType="com.bapseguen.app.dto.StoreFavoriteDTO" parameterType="map">
+  <![CDATA[
+    SELECT * FROM (
+      SELECT ROWNUM AS RNUM, SUBQUERY.*
+      FROM (
+        SELECT 
+          F.FAVORITE_NUMBER,
+          F.MEMBER_NUMBER,
+          F.BUSINESS_NUMBER,
+          S.STORE_NAME        AS storeName,
+          S.STORE_ADDRESS     AS storeAddress,
+          S.STORE_OPEN_TIME   AS openTime,
+          S.STORE_CLOSE_TIME  AS closeTime,
+          (SELECT SI.STORE_IMAGE_SYSTEM_NAME
+             FROM TBL_STORE_IMAGE SI
+            WHERE SI.BUSINESS_NUMBER = F.BUSINESS_NUMBER
+              AND ROWNUM = 1) AS storeImageSystemName
+        FROM TBL_STORE_FAVORITE F
+        JOIN TBL_STORE S ON F.BUSINESS_NUMBER = S.BUSINESS_NUMBER
+        WHERE F.MEMBER_NUMBER = #{memberNumber}
+        ORDER BY F.FAVORITE_NUMBER DESC
+      ) SUBQUERY
+    )
+    WHERE RNUM BETWEEN #{startRow} AND #{endRow}
+  ]]>
+  </select>
+
+  <!-- 찜 여부 확인 -->
+  <select id="exists" parameterType="map" resultType="int">
+    SELECT COUNT(*)
+    FROM TBL_STORE_FAVORITE
+    WHERE MEMBER_NUMBER = #{memberNumber}
+      AND BUSINESS_NUMBER = #{businessNumber}
+  </select>
+
+  <!-- 📌 회원별 찜 개수 -->
+  <select id="countByMember" parameterType="int" resultType="int">
+    SELECT COUNT(*)
+    FROM TBL_STORE_FAVORITE
+    WHERE MEMBER_NUMBER = #{memberNumber}
+  </select>
+
+  <!-- 찜 추가 -->
+  <insert id="MyFavInsert" parameterType="com.bapseguen.app.dto.StoreFavoriteDTO">
+    INSERT INTO TBL_STORE_FAVORITE (
+      FAVORITE_NUMBER, MEMBER_NUMBER, BUSINESS_NUMBER
+    ) VALUES (
+      SEQ_STORE_FAVORITE_NUMBER.NEXTVAL, #{memberNumber}, #{businessNumber}
+    )
+  </insert>
+
+  <!-- 찜 해제 -->
+  <delete id="MyFavDelete" parameterType="com.bapseguen.app.dto.StoreFavoriteDTO">
+    DELETE FROM TBL_STORE_FAVORITE
+    WHERE MEMBER_NUMBER = #{memberNumber}
+      AND BUSINESS_NUMBER = #{businessNumber}
+  </delete>
 
 </mapper>

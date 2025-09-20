@@ -33,9 +33,31 @@ a {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding-top: 20px;
-	justify-content: flex-start;
-	position: relative;
+	padding: 20px 0;
+}
+
+.sidebar_ul {
+	list-style: none;
+	padding: 0;
+	width: 100%;
+}
+
+.sidebar_list {
+	padding: 14px 0;
+	text-align: center;
+	font-size: 20px;
+	transition: all 0.2s ease-in-out;
+}
+
+.sidebar_list a {
+	color: white;
+	text-decoration: none;
+	display: block;
+}
+
+.sidebar_list:hover, .sidebar_list.active {
+	background-color: #1e223f;
+	scale: 1.05;
 }
 
 /* 로그아웃 버튼 */
@@ -62,25 +84,6 @@ a {
 .admin_logo {
 	margin-bottom: 20px;
 	width: 100px;
-}
-
-.sidebar_list {
-	width: 100%;
-	padding: 14px 0;
-	margin: 8px 0;
-	color: white;
-	text-align: center;
-	font-size: 20px;
-	transition: 0.2s;
-}
-
-.sidebar_list:hover {
-	background-color: #1e223f;
-}
-
-.sidebar_list.active {
-	background-color: #1e223f;
-	font-weight: bold;
 }
 
 /* ===== 메인 ===== */
