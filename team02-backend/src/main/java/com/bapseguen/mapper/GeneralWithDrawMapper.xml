@@ -7,5 +7,8 @@
 	  DELETE FROM TBL_MEMBER
 	  WHERE MEMBER_NUMBER = #{memberNumber}
 	</delete>
+	
+	<!-- ======= 판매자 회원 탈퇴 ====== -->
+
 
 </mapper>

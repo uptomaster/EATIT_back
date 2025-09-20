@@ -16,10 +16,11 @@ public class EditSellerInfoController implements Execute {
 	@Override
 	public Result execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+    	System.out.println("====EditSellerInfoController 실행====");
 
 		Result result = new Result();
 		SellerMyPageDAO sellerDAO = new SellerMyPageDAO();
-		SellerInfoDTO sellerDTO = new SellerInfoDTO();
 
 		// 로그인된 사용자 번호 가져오기 (세션)
 		Integer memberNumber = (Integer) request.getSession().getAttribute("memberNumber");

@@ -436,36 +436,47 @@ input[type='file']::file-selector-button,
   margin-bottom: 10px;
 }
 
-/* buy 페이지네이션 */
-.store_info_pagenation {
-  width: 290px;
-  height: 32px;
-  margin: 30px auto;
-}
-
-.store_info_pagenation ul {
-  width: 290px;
-  height: 32px;
+/* =========================
+   페이지네이션 (MyReview/프로모 보드 톤)
+   ========================= */
+/* 페이지네이션 위치 잡기 */
+.pagination {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
 }
-
-.store_info_pagenation_box {
+/* 페이지네이션 ul 마크 제거 */
+.pagination > ul {
+  display: flex;
+  list-style: none;
+  gap: 10px;
+}
+/* 페이지네이션 요소 */
+.pagination a {
   width: 32px;
   height: 32px;
-  background-color: rgb(226, 226, 226);
-  border-radius: 4px;
-  /* border: 1px solid blue; */
-  text-align: center;
-  line-height: 32px;
-  font-size: 16px;
-  display: inline-block;
-  margin: auto;
-}
-
-.store_info_pagenation_box a {
+  background-color: white;
+  display: flex;
+  margin: 0 8px 0 0;
+  justify-content: center;
+  align-items: center;
   text-decoration: none;
+  border: 1px solid #A69980;
+  border-radius: 6px;
   color: black;
-  display: block;
+}
+/* 페이지네이션 hover */
+.pagination a:hover {
+  background-color: #ffd580;
+  color: #4a3000;
+}
+/* 현제 페이지의 페이지네이션 강조 */
+.pagination .active {
+  background-color: #ffb84d;
+  color: white;
+  cursor: default;
+  border-color: #ffae42;
 }
 
 /* 지도 API 및 원산지 표기 영역 전체 */
