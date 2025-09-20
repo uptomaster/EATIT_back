@@ -88,7 +88,7 @@
 		          <c:out value="${myorder.orderItemUnitPrice}" />
 		        </div>
 		        <div class="food_purchase_review_list">
-		          <a href="${pageContext.request.contextPath}/userMyPage/writeReviewOk.my?ordersNumber=${myorder.ordersNumber}" class="food_purchase_review_meal">리뷰</a>
+		          <a href="${pageContext.request.contextPath}/userMyPage/writeReview.my?ordersNumber=${myorder.ordersNumber}" class="food_purchase_review_meal review_button" data-orders-number="${myorder.ordersNumber}" data-member-number="${memberNumber}">리뷰</a>
 		        </div>
 		      </div>
 		    </c:forEach>

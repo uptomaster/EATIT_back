@@ -206,6 +206,22 @@ li {
   transition: transform 0.2s ease, filter 0.2s ease;
 }
 
+/* 게시글 내용 이미지 비율 유지 */
+.post_images {
+  width: 100%;         
+  max-width: 1000px;  
+  margin: 0 auto 20px; 
+  text-align: center; 
+}
+
+.post_images img {
+  max-width: 100%;     
+  height: auto;       
+  display: inline-block;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
 /* 추천 버튼 */
 .recommend {
   background-color: transparent;

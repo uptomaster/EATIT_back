@@ -35,7 +35,6 @@
 <body>
   <!-- 헤더 자리 -->
   <jsp:include page="/header.jsp" />
-  <!-- <header id="header"></header> -->
 
   <main>
     <!-- 왼쪽 사이드바 -->

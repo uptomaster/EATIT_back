@@ -1,11 +1,14 @@
-
 document.addEventListener("DOMContentLoaded", function () {
   const starButtons = document.querySelectorAll(".writereview_counting_Star_button");
   const starImages = document.querySelectorAll(".writereview_counting_Star");
+  const submitBtn = document.querySelector(".writereview_submit_btn");
+  const cancelBtn = document.querySelector(".writereview_cancel_btn");
+  const contentInput = document.getElementById("content");
+
   let currentRating = 0;
 
-  const yellowStarSrc = "./../../assets/img/counting_star.png"; // 노란별
-  const grayStarSrc = "./../../assets/img/gray_shake_it_ya.png";     // 회색별
+  const yellowStarSrc = contextPath +"/assets/img/counting_Star.png";   // 노란별
+  const grayStarSrc = contextPath +"/assets/img/gray_shake_it_ya.png"; // 회색별
 
   // 별 클릭 이벤트
   starButtons.forEach((button, index) => {
@@ -20,26 +23,35 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // 작성 완료 버튼 클릭 시 유효성 검사
-  const submitBtn = document.querySelector(".writereview_submit_btn");
+  // 작성 완료 클릭 시
   submitBtn.addEventListener("click", function (e) {
-    const title = document.getElementById("title").value.trim();
-    const content = document.getElementById("content").value.trim();
+      e.preventDefault();
 
-    if (title === "" || content === "") {
-      e.preventDefault(); // 제출 막기
-      alert("글을 작성해주세요.");
-    } else {
-      alert("작성되었습니다.");
-    }
+      if(currentRating === 0) {
+          alert("별점을 선택해주세요.");
+          return;
+      }
+
+      if(!contentInput.value.trim()) {
+          alert("내용을 입력해주세요.");
+          return;
+      }
+
+      // 폼을 컨트롤러로 제출
+      const form = document.querySelector("form");
+      // 숨겨진 input으로 별점 추가
+      let ratingInput = document.createElement("input");
+      ratingInput.type = "hidden";
+      ratingInput.name = "reviewRating";
+      ratingInput.value = currentRating;
+      form.appendChild(ratingInput);
+
+      form.submit(); // WriteReviewOkController로 제출
   });
-});
-document.addEventListener("DOMContentLoaded", function () {
 
-  const cancelBtn = document.querySelector(".writereview_cancel_btn");
-
+  // 작성 취소 클릭 시 이전 페이지로 이동
   cancelBtn.addEventListener("click", function (e) {
-    e.preventDefault(); // 기본 리셋 동작 방지
-    history.back();     // 이전 페이지로 이동
+      e.preventDefault();
+      history.back();
   });
 });

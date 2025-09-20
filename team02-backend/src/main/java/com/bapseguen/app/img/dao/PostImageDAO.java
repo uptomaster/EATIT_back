@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.bapseguen.app.dto.AdminImageDTO;
 import com.bapseguen.app.dto.PostImageDTO;
 import com.bapseguen.config.MyBatisConfig;
 
@@ -45,8 +46,19 @@ public class PostImageDAO {
 	    }
 	    return images;
 	}
-	
 
+	// 공지사항---파일 조회 메소드
+	public List<AdminImageDTO> noticeimgselect(int postNumber) {
+	    List<AdminImageDTO> images = new ArrayList<>();
+	    try {
+	        images = sqlSession.selectList("postImage.noticeimgselect", postNumber);
+	        System.out.println("조회된 파일 리스트 : " + images);
+	    } catch (Exception e) {
+	        System.out.println("첨부파일 조회 실패 : " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	    return images;
+	}
 	
 	
 	// 파일 삭제 메소드
