@@ -385,5 +385,42 @@ public class SellerMyPageDAO {
     	System.out.println(buylist);
     	return buylist;
     }
+
+	public int updatePassword(Map<String, Object> paramMap) {
+    	System.out.println("[sellerDAO] updatePassword");
+	    return sqlSession.update("seller.updatePassword", paramMap);
+	}
+
+	public int updatePhone(Map<String, Object> paramMap) {
+    	System.out.println("[sellerDAO] updatePhone");
+	    return sqlSession.update("seller.updatePassword", paramMap);
+	}
+	// 비밀번호 업데이트
+	public int updatePassword(int memberNumber, String memberPassword) {
+    	System.out.println("[sellerDAO] updatePassword");
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("memberNumber", memberNumber);
+	    map.put("memberPassword", memberPassword);
+	    return updatePassword(map); 
+	}
+
+	// 전화번호 업데이트
+	public int updatePhone(int memberNumber, String memberPhone) {
+    	System.out.println("[sellerDAO] updatePhone");
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("memberNumber", memberNumber);
+	    map.put("memberPhone", memberPhone);
+	    return updatePhone(map); 
+	}
+
+	public boolean checkPassword(Integer memberNumber, String inputPw) {
+		 Map<String, Object> params = new HashMap<>();
+		    params.put("memberNumber", memberNumber);
+		    params.put("inputPw", inputPw);
+
+		    // MyBatis Mapper: myPage.checkPassword → SELECT COUNT(1) ...
+		    int count = sqlSession.selectOne("seller.checkPassword", params);
+		    return count == 1;
+	}
     
 }

@@ -19,10 +19,9 @@
   <script defer src="${pageContext.request.contextPath}/assets/js/sellerMyPage/storeInfo.js"></script>
 	
 	<!-- 지도 api -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=API키삽입자리"></script>
-	
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=  "></script>
 	<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=API키삽입자리&libraries=services,clusterer,drawing"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=  &libraries=services,clusterer,drawing"></script>
 	
 	
   <script>
@@ -57,29 +56,20 @@
 
         <div class="store_info_store_info">
           <!-- 가게 이미지 -->
-	          <%-- <img src="${pageContext.request.contextPath}/assets/img/store.jpg" alt="가게 이미지 추가하기"> --%>
-	          <%-- <img src="${pageContext.request.contextPath}/upload/${images.storeImageSystemName}" alt="가게 이미지 추가하기"> --%> 
-						<c:choose>
-							<c:when test="${not empty item.storeImageSystemName}">
-								<img
-									src="${pageContext.request.contextPath}/upload/${item.storeImageSystemName}"
-									alt="${item.storeName}">
-							</c:when>
-							<c:otherwise>
-								<img
-									src="${pageContext.request.contextPath}/assets/img/food1.jpg"
-									alt="기본 이미지">
-							</c:otherwise>
-						</c:choose>          
+					<img src="${pageContext.request.contextPath}/upload/${storeInfo.storeImageSystemName}" 
+			     alt="${item.storeName}"
+			     onerror="this.src='${pageContext.request.contextPath}/assets/img/store.jpg'">
+						
           <div class="store_info_store_info_detail">
             <p class="store_info_store_name">${storeInfo.storeName }</p>
             <p class="store_info_store_address"><c:out value="${storeInfo.storeAddress} ${ storeInfo.storeAddressDetail}"/></p>
             <p class="store_info_store_open_time">영업시간  ${storeInfo.storeOpenTime } ~ ${storeInfo.storeCloseTime }</p>
+            <!-- 지도 api에서 사용할 가게 주소, 이름  -->
           	<input type="hidden" id="storeName" value="${storeInfo.storeName }"/>
           	<input type="hidden" id="roadAddr" value="${storeInfo.storeAddress }"/>
           	<!-- 위도 경도 추가 예정 -->
-          	<input type="hidden" id="roadAddr" value="${storeInfo.storeAddress }"/>
-          	<input type="hidden" id="roadAddr" value="${storeInfo.storeAddress }"/>
+          	<input type="hidden" id="storeLatitude" value="${storeInfo.storeLatitude }"/>
+          	<input type="hidden" id="storeLongitude" value="${storeInfo.storeLongitude }"/>
           </div>
           <!-- 가게정보, 이미지 수정 버튼 -->
           <div class="store_info_edit_btns">
@@ -111,12 +101,14 @@
           <div class="store_info_food_menu">
             <c:choose>
               <c:when test="${not empty foodList}">
-                <c:forEach var="food" items="${foodList}">
+                <c:forEach var="food" items="${foodList}" varStatus="status">
                   <form action="${pageContext.request.contextPath}/sellerMyPage/editFood.se" method="post" class="editFoodForm">
                     <div class="store_info_ingredient_menu_list">
                       <!-- 음식 사진 출력 -->
                       <div class="img-box">
-                        <img src="${pageContext.request.contextPath}/upload/${food.getItemImageSystemName()}" alt="${food.itemName }" />
+												<img src="${pageContext.request.contextPath}/upload/${food.getItemImageSystemName()}" 
+										     alt="${food.itemName}"
+										     onerror="this.src='${pageContext.request.contextPath}/assets/img/food${status.index % 14}.jpg'">
                       </div>
                       <!-- 사진 옆 정보부분 -->
                       <div class="store_info_ingredient_menu_info_stock">
@@ -159,7 +151,7 @@
             </c:choose>
           </div> <!--  //메뉴 출력 끝 -->
  				</div>
-          <!-- 페이지네이션 자리 (요청하신 블록: 변경 없이 그대로 삽입) -->
+          <!-- 페이지네이션 자리 -->
 		      <div class="pagination">
 		        <ul class="pagination_ul">
 		          <c:if test="${prev}">
@@ -264,6 +256,5 @@
 </body>
 <script>
   window.foodItemNumber = "${food.itemNumber}";
-  console.log(food.itemNumber);
 </script>
 </html>
