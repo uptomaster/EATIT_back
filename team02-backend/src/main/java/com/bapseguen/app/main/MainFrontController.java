@@ -1,6 +1,8 @@
 package com.bapseguen.app.main;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,10 +14,12 @@ import com.bapseguen.app.community.CommunityFrontController;
 import com.bapseguen.app.community.FaqController;
 import com.bapseguen.app.community.FreeBoardReadOkController;
 import com.bapseguen.app.community.RecipeListOkController;
+import com.bapseguen.app.dto.view.MainStoreListDTO;
 import com.bapseguen.app.orders.IngredientDetailController;
 import com.bapseguen.app.orders.IngredientListController;
 import com.bapseguen.app.orders.StoreDetailController;
 import com.bapseguen.app.orders.StoreListController;
+import com.google.gson.Gson;
 
 /**
  * Servlet implementation class MainFrontController
@@ -67,7 +71,12 @@ public class MainFrontController extends HttpServlet {
 			System.out.println("메인 각 리스트 페이지 처리 요청");
 			result = new MainListController().execute(request, response);
 			break;
-
+		
+		 case "/storeDistanceList":
+	            System.out.println("[FrontController] 거리순 가게 목록 요청 처리 시작");
+	            new StoreDistanceController().doPost(request, response);
+	            System.out.println("[FrontController] 거리순 가게 목록 요청 처리 완료");
+	            return;
 		/*
 		 * // 가게 상세 페이지 (storeDetail.jsp forward, 음식/재료 탭 포함) case
 		 * "/orders/storeDetail.or": System.out.println("가게 상세 페이지 이동 요청"); result = new

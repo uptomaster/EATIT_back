@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="store">
+
+    <select id="getAllStores" resultType="StoreDTO">
+        <![CDATA[
+        SELECT
+            S.BUSINESS_NUMBER AS businessNumber,
+            S.MEMBER_NUMBER AS memberNumber,
+            S.STORE_NAME AS storeName,
+            S.STORE_OPEN_DATE AS storeOpenDate,
+            S.STORE_TEL AS storeTel,
+            S.STORE_ADDRESS AS storeAddress,
+            S.STORE_ADDRESS_DETAIL AS storeAddressDetail,
+            S.STORE_ZIP_CODE AS storeZipCode,
+            S.STORE_OPEN_TIME AS storeOpenTime,
+            S.STORE_CLOSE_TIME AS storeCloseTime,
+            S.STORE_LATITUDE AS latitude,
+            S.STORE_LONGITUDE AS longitude,
+            I.ITEM_NUMBER AS itemNumber,
+            I.ITEM_NAME AS itemName,
+            I.ITEM_PRICE AS itemPrice,
+            II.ITEM_IMAGE_NUMBER AS itemImageNumber,
+            II.ITEM_IMAGE_SYSTEM_NAME AS itemImageSystemName,
+            II.ITEM_IMAGE_ORIGINAL_NAME AS itemImageOriginalName
+        FROM TBL_STORE S
+        JOIN TBL_ITEM I ON S.BUSINESS_NUMBER = I.BUSINESS_NUMBER
+        JOIN TBL_ITEM_IMAGE II ON I.ITEM_NUMBER = II.ITEM_NUMBER
+        WHERE I.ITEM_SELL_STATE = 'Y'
+          AND I.ITEM_TYPE = 'FOOD'
+          AND ROWNUM <= 8
+        ORDER BY I.ITEM_NUMBER DESC
+        ]]>
+    </select>
+
+    <!-- ✅ 거리순으로 정렬하는 쿼리 -->
+    <select id="getStoresByDistance" parameterType="map" resultType="StoreDTO">
+        <![CDATA[
+        SELECT
+            S.BUSINESS_NUMBER AS businessNumber,
+            S.MEMBER_NUMBER AS memberNumber,
+            S.STORE_NAME AS storeName,
+            S.STORE_OPEN_DATE AS storeOpenDate,
+            S.STORE_TEL AS storeTel,
+            S.STORE_ADDRESS AS storeAddress,
+            S.STORE_ADDRESS_DETAIL AS storeAddressDetail,
+            S.STORE_ZIP_CODE AS storeZipCode,
+            S.STORE_OPEN_TIME AS storeOpenTime,
+            S.STORE_CLOSE_TIME AS storeCloseTime,
+            S.STORE_LATITUDE AS latitude,
+            S.STORE_LONGITUDE AS longitude,
+            I.ITEM_NUMBER AS itemNumber,
+            I.ITEM_NAME AS itemName,
+            I.ITEM_PRICE AS itemPrice,
+            II.ITEM_IMAGE_NUMBER AS itemImageNumber,
+            II.ITEM_IMAGE_SYSTEM_NAME AS itemImageSystemName,
+            II.ITEM_IMAGE_ORIGINAL_NAME AS itemImageOriginalName,
+            (6371 * acos(
+                cos((#{lat} * (3.141592653589793 / 180)))
+                * cos((S.STORE_LATITUDE * (3.141592653589793 / 180)))
+                * cos((S.STORE_LONGITUDE * (3.141592653589793 / 180)) - (#{lng} * (3.141592653589793 / 180)))
+                + sin((#{lat} * (3.141592653589793 / 180)))
+                * sin((S.STORE_LATITUDE * (3.141592653589793 / 180)))
+            )) AS distance
+        FROM TBL_STORE S
+        JOIN TBL_ITEM I ON S.BUSINESS_NUMBER = I.BUSINESS_NUMBER
+        JOIN TBL_ITEM_IMAGE II ON I.ITEM_NUMBER = II.ITEM_NUMBER
+        WHERE I.ITEM_SELL_STATE = 'Y'
+          AND I.ITEM_TYPE = 'FOOD'
+        ORDER BY distance ASC
+        ]]>
+    </select>
+
+</mapper>

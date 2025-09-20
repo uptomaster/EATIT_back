@@ -11,7 +11,9 @@ public class MainStoreListDTO {
 	private String itemImageSystemName;
 	private String itemImageOriginalName;
 	private int itemNumber;
-	
+	private double latitude;   // 위도
+	private double longitude;  // 경도
+	private double distance;
 	public String getStoreName() {
 		return storeName;
 	}
@@ -66,13 +68,32 @@ public class MainStoreListDTO {
 	public void setItemNumber(int itemNumber) {
 		this.itemNumber = itemNumber;
 	}
+	public double getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+	public double getLongitude() {
+		return longitude;
+	}
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+	public double getDistance() {
+		return distance;
+	}
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}
 	
 	@Override
 	public String toString() {
 		return "MainStoreListDTO [storeName=" + storeName + ", storeOpenTime=" + storeOpenTime + ", storeCloseTime="
 				+ storeCloseTime + ", itemName=" + itemName + ", itemPrice=" + itemPrice + ", itemImageNumber="
 				+ itemImageNumber + ", itemImageSystemName=" + itemImageSystemName + ", itemImageOriginalName="
-				+ itemImageOriginalName + ", itemNumber=" + itemNumber + "]";
+				+ itemImageOriginalName + ", itemNumber=" + itemNumber + ", latitude=" + latitude + ", longitude="
+				+ longitude + ", distance=" + distance + "]";
 	}
-
+	
 }
