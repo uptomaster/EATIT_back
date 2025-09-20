@@ -1,5 +1,6 @@
 package com.bapseguen.app.admin.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -204,9 +205,13 @@ public class AdminDAO {
 		sqlSession.commit();
 	}
 
-	public void deleteSuspend(int memberNumber) {
-		sqlSession.delete("admin.deleteSuspend", memberNumber);
-		sqlSession.commit();
+	public void deleteSuspend(int memberNumber, String suspendStartDate) {
+	    try (SqlSession sqlSession = MyBatisConfig.getSqlSessionFactory().openSession(true)) {
+	        Map<String, Object> params = new HashMap<>();
+	        params.put("memberNumber", memberNumber);
+	        params.put("suspendStartDate", suspendStartDate);
+	        sqlSession.delete("admin.deleteSuspend", params);
+	    }
 	}
 
 	/* ===================== 대시보드 통계 ===================== */
@@ -216,6 +221,14 @@ public class AdminDAO {
 
 	public int memberListCount() {
 		return sqlSession.selectOne("admin.memberListCount", new java.util.HashMap<>());
+	}
+
+	public int countGeneralMembers() {
+		return sqlSession.selectOne("admin.countGeneralMembers");
+	}
+
+	public int countSellerMembers() {
+		return sqlSession.selectOne("admin.countSellerMembers");
 	}
 
 	public int countUnansweredInquiries() {
@@ -230,6 +243,30 @@ public class AdminDAO {
 		return sqlSession.selectList("admin.countMonthlyMembers");
 	}
 
+	// 최근 가입자 3명
+	public List<Map<String, Object>> selectRecentMembers() {
+		return sqlSession.selectList("admin.selectRecentMembers");
+	}
+
+	// 최근 주문 3건
+	public List<Map<String, Object>> selectRecentOrders() {
+		return sqlSession.selectList("admin.selectRecentOrders");
+	}
+
+	public List<Map<String, Object>> countMonthlyOrders() {
+		return sqlSession.selectList("admin.countMonthlyOrders");
+	}
+
+	public List<Map<String, Object>> countCategorySales() {
+		return sqlSession.selectList("admin.countCategorySales");
+	}
+
+	// 카테고리별 매출 집계
+	public List<Map<String, Object>> countSalesByCategory() {
+	    return sqlSession.selectList("admin.countSalesByCategory");
+	}
+
+	
 	/* ===================== 회원 ===================== */
 	public Map<String, Object> selectMemberDetail(int memberNumber) {
 		return sqlSession.selectOne("admin.selectMemberDetail", memberNumber);

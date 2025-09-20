@@ -73,15 +73,17 @@
 						</p>
 					</div>
 
-					<!-- 삭제 버튼 -->
-					<div class="admin_detail_delete">
-						<form
-							action="${pageContext.request.contextPath}/admin/boardFree/deleteOk.ad"
-							method="post">
-							<input type="hidden" name="postNumber"
-								value="${freeDetail.postNumber}">
+					<!-- 버튼 영역 -->
+					<div class="admin_detail_buttons">
+						<!-- 삭제 -->
+						<form action="${pageContext.request.contextPath}/admin/boardFree/deleteOk.ad"
+						      method="post" onsubmit="return confirm('정말 삭제하시겠습니까?');">
+							<input type="hidden" name="postNumber" value="${freeDetail.postNumber}">
 							<button id="admin_deletebtn" type="submit">삭 제</button>
 						</form>
+
+						<!-- 목록 -->
+						<a href="${pageContext.request.contextPath}/admin/boardFree/list.ad" id="admin_listbtn">목 록</a>
 					</div>
 
 				</div>

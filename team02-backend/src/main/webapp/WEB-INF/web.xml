@@ -179,5 +179,7 @@
 		<servlet-name>UserMyPage</servlet-name>
 		<url-pattern>*.my</url-pattern>
 	</servlet-mapping>
+	
+	
 
 </web-app>
