@@ -131,10 +131,6 @@ a {
 	color: inherit;
 }
 
-.admin_list_menu:hover {
-	background: #1e223f;
-}
-
 .admin_list_menu.active {
 	background: #1e223f;
 	font-weight: bold;
@@ -161,7 +157,7 @@ a {
 .admin_list_row.header {
 	font-weight: bold;
 	background: #99A6E8;
-	color: #fff;
+	color: #333;
 	height: 45px;
 	align-items: center;
 }

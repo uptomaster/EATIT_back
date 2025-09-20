@@ -460,41 +460,44 @@
 		SELECT ROWNUM RN, A.*
 		FROM (
 		SELECT
-		r.POST_REPORT_NUMBER AS
-		postReportNumber,
+		r.POST_REPORT_NUMBER AS postReportNumber,
 		r.POST_NUMBER AS postNumber,
-		p.POST_TITLE AS
-		postTitle,
+		p.POST_TITLE AS postTitle,
 		r.POST_REPORT_REASON AS postReportReason,
 		TO_CHAR(r.POST_REPORT_DATE,'YYYY-MM-DD') AS postReportDate,
 		r.POST_REPORT_COUNT AS postReportCount,
-		r.MEMBER_NUMBER AS
-		memberNumber,
+		r.MEMBER_NUMBER AS memberNumber,
 		reporter.MEMBER_ID AS reporterId,
-		m.MEMBER_NUMBER AS
-		reportedNumber,
+		m.MEMBER_NUMBER AS reportedNumber,
 		NVL(g.GENERAL_NAME, s.SELLER_NAME) AS reportedName,
-		m.MEMBER_TYPE AS reportedType
+		m.MEMBER_TYPE AS reportedType,
+		m.MEMBER_ID AS reportedId,
+		CASE WHEN sus.MEMBER_NUMBER IS NOT NULL THEN 1 ELSE 0 END AS isSuspended,
+		CASE WHEN bl.MEMBER_NUMBER IS NOT NULL THEN 1 ELSE 0 END AS
+		isBlacklisted
 		FROM TBL_POST_REPORT r
-		JOIN TBL_POST p ON
-		r.POST_NUMBER = p.POST_NUMBER
-		JOIN TBL_MEMBER reporter ON
-		r.MEMBER_NUMBER = reporter.MEMBER_NUMBER
-		JOIN TBL_MEMBER m ON
-		p.MEMBER_NUMBER = m.MEMBER_NUMBER
-		LEFT JOIN TBL_GENERAL_MEMBER g ON
-		m.MEMBER_NUMBER = g.MEMBER_NUMBER
-		LEFT JOIN TBL_SELLER_MEMBER s ON
-		m.MEMBER_NUMBER = s.MEMBER_NUMBER
+		JOIN TBL_POST p ON r.POST_NUMBER = p.POST_NUMBER
+		JOIN TBL_MEMBER reporter ON r.MEMBER_NUMBER = reporter.MEMBER_NUMBER
+		JOIN TBL_MEMBER m ON p.MEMBER_NUMBER = m.MEMBER_NUMBER
+		LEFT JOIN TBL_GENERAL_MEMBER g ON m.MEMBER_NUMBER = g.MEMBER_NUMBER
+		LEFT JOIN TBL_SELLER_MEMBER s ON m.MEMBER_NUMBER = s.MEMBER_NUMBER
+		LEFT JOIN TBL_MEMBER_SUSPEND sus ON m.MEMBER_NUMBER = sus.MEMBER_NUMBER
+		LEFT JOIN TBL_MEMBER_BLACKLIST bl ON m.MEMBER_NUMBER =
+		bl.MEMBER_NUMBER
 		<where>
 			<if
 				test="searchType != null and searchWord != null and searchType == 'reported'">
-				AND NVL(g.GENERAL_NAME, s.SELLER_NAME) LIKE '%' ||
-				#{searchWord} || '%'
+				AND (NVL(g.GENERAL_NAME, s.SELLER_NAME) LIKE '%' || #{searchWord} ||
+				'%'
+				OR m.MEMBER_ID LIKE '%' || #{searchWord} || '%')
 			</if>
 			<if
 				test="searchType != null and searchWord != null and searchType == 'reporter'">
 				AND reporter.MEMBER_ID LIKE '%' || #{searchWord} || '%'
+			</if>
+			<if
+				test="searchType != null and searchWord != null and searchType == 'reason'">
+				AND r.POST_REPORT_REASON LIKE '%' || #{searchWord} || '%'
 			</if>
 		</where>
 		ORDER BY r.POST_REPORT_NUMBER DESC
@@ -504,40 +507,44 @@
 		WHERE RN &gt;= #{startRow}
 	</select>
 
-	<!-- 신고목록 조회 -->
+
 	<select id="selectReportList"
-		resultType="com.bapseguen.app.dto.ReportDTO">
+		resultType="com.bapseguen.app.dto.PostReportDTO">
 		SELECT
 		r.POST_REPORT_NUMBER,
 		r.POST_NUMBER,
 		r.POST_REPORT_REASON,
 		r.POST_REPORT_DATE,
-		r.MEMBER_NUMBER AS reporterNumber,
+		r.MEMBER_NUMBER AS
+		reporterNumber,
 		reporter.MEMBER_ID AS reporterId,
-		p.POST_TITLE AS postTitle,
-		reported.MEMBER_NUMBER AS reportedNumber,
-		reported.MEMBER_ID AS reportedName,
-		reported.MEMBER_TYPE AS reportedType,
-		CASE WHEN s.MEMBER_NUMBER IS NOT NULL THEN 1 ELSE 0 END AS isSuspended,
-		CASE WHEN b.MEMBER_NUMBER IS NOT NULL THEN 1 ELSE 0 END AS
+		p.POST_TITLE AS
+		postTitle,
+		p.POST_TYPE AS postType,
+		reported.MEMBER_NUMBER AS
+		reportedNumber,
+		reported.MEMBER_ID AS reportedId,
+		reported.MEMBER_TYPE
+		AS reportedType,
+		CASE WHEN s.MEMBER_NUMBER IS NOT NULL THEN 1 ELSE 0
+		END AS isSuspended,
+		CASE WHEN b.MEMBER_NUMBER IS NOT NULL THEN 1 ELSE 0
+		END AS
 		isBlacklisted
 		FROM TBL_POST_REPORT r
-		JOIN TBL_MEMBER reporter
-		ON r.MEMBER_NUMBER = reporter.MEMBER_NUMBER
-		JOIN TBL_POST p
-		ON r.POST_NUMBER = p.POST_NUMBER
-		JOIN TBL_MEMBER reported
-		ON p.MEMBER_NUMBER = reported.MEMBER_NUMBER
+		JOIN TBL_MEMBER reporter ON
+		r.MEMBER_NUMBER = reporter.MEMBER_NUMBER
+		JOIN TBL_POST p ON
+		r.POST_NUMBER = p.POST_NUMBER
+		JOIN TBL_MEMBER reported ON
+		p.MEMBER_NUMBER = reported.MEMBER_NUMBER
 		LEFT JOIN TBL_MEMBER_SUSPEND s
 		ON reported.MEMBER_NUMBER = s.MEMBER_NUMBER
-		LEFT JOIN TBL_MEMBER_BLACKLIST b
-		ON reported.MEMBER_NUMBER = b.MEMBER_NUMBER
+		LEFT JOIN
+		TBL_MEMBER_BLACKLIST b ON reported.MEMBER_NUMBER =
+		b.MEMBER_NUMBER
 		ORDER BY r.POST_REPORT_NUMBER DESC
 	</select>
-
-
-
-
 
 
 	<!-- 신고 개수 (검색/페이징용) -->
@@ -632,7 +639,6 @@
 		</where>
 	</select>
 
-
 	<!-- 블랙리스트 목록 (검색 + 페이징) -->
 	<select id="selectBlacklistList" parameterType="map"
 		resultType="com.bapseguen.app.dto.MemberBlacklistDTO">
@@ -644,8 +650,9 @@
 		b.BLACKLIST_NUMBER AS
 		blacklistNumber,
 		b.MEMBER_NUMBER AS memberNumber,
-		NVL(g.GENERAL_NAME,
-		sm.SELLER_NAME) AS memberName,
+		m.MEMBER_ID AS
+		memberId,
+		NVL(g.GENERAL_NAME, sm.SELLER_NAME) AS memberName,
 		m.MEMBER_TYPE AS memberType,
 		TO_CHAR(b.BLACKLIST_START_DATE,'YYYY-MM-DD') AS blacklistStartDate
 		FROM TBL_MEMBER_BLACKLIST b
@@ -678,6 +685,7 @@
 		WHERE
 		RN &gt;= #{startRow}
 	</select>
+
 
 	<!-- 블랙리스트 전체 수 (검색/페이징용) -->
 	<select id="countBlacklistList" parameterType="map"

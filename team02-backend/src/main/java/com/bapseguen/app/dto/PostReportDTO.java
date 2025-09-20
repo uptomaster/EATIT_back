@@ -7,35 +7,54 @@ public class PostReportDTO {
 	private String postReportDate; // 신고 일자
 	private int postReportCount; // 신고 횟수
 	private int memberNumber; // 신고자 회원 번호
-	
+
 	private String postTitle; // 신고된 게시글 제목
 	private String reporterId; // 신고자 ID
 	private int reportedNumber; // 피신고자 회원 번호
 	private String reportedName; // 피신고자 이름
 	private String reportedType; // 피신고자 타입(GENERAL/SELLER)
 
-	/* 이남혁 추가 내용(관리자 측에서 신고목록에서 이미 조치했는지 확인하기 위해 추가함)*/
+	/* 이남혁 추가 내용(관리자 측에서 신고목록에서 이미 조치했는지 확인하기 위해 추가함) */
+	private String reportedId; // 피신고자 아이디 추가
 	// 정지 여부 (0=아님, 1=정지됨)
 	private int isSuspended;
-
 	// 블랙리스트 여부 (0=아님, 1=블랙리스트됨)
 	private int isBlacklisted;
+	// 게시판 타입(FREE, PROMOTION, RECIPE)
+	private String postType;
+
+	public String getPostType() {
+		return postType;
+	}
+
+	public void setPostType(String postType) {
+		this.postType = postType;
+	}
 
 	public int getIsSuspended() {
-	    return isSuspended;
+		return isSuspended;
 	}
+
 	public void setIsSuspended(int isSuspended) {
-	    this.isSuspended = isSuspended;
+		this.isSuspended = isSuspended;
 	}
 
 	public int getIsBlacklisted() {
-	    return isBlacklisted;
+		return isBlacklisted;
 	}
+
 	public void setIsBlacklisted(int isBlacklisted) {
-	    this.isBlacklisted = isBlacklisted;
+		this.isBlacklisted = isBlacklisted;
 	}
-	/* 여기 윗줄까지 추가내용 */
-	
+
+	public String getReportedId() {
+		return reportedId;
+	}
+
+	public void setReportedId(String reportedId) {
+		this.reportedId = reportedId;
+	}
+
 	public PostReportDTO() {
 	}
 
@@ -134,6 +153,7 @@ public class PostReportDTO {
 				+ ", postReportDate='" + postReportDate + '\'' + ", postReportCount=" + postReportCount
 				+ ", memberNumber=" + memberNumber + ", reporterId='" + reporterId + '\'' + ", reportedNumber="
 				+ reportedNumber + ", reportedName='" + reportedName + '\'' + ", reportedType='" + reportedType + '\''
-				+ '}';
+				+ ", reportedId='" + reportedId + '\'' + ", isSuspended=" + isSuspended + ", isBlacklisted="
+				+ isBlacklisted + '}';
 	}
 }
