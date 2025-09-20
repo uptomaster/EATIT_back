@@ -22,6 +22,7 @@ main {
   background-color: #fbe3b9;
   margin: 0px 410px;
   display: flex;
+  min-height : 1000px;
 }
 
 
@@ -115,7 +116,7 @@ main {
   display: flex;
   float: right;
   flex-direction: column;
-  width: 70px;
+  width: 100px;
   gap: 6px;
 }
 
@@ -125,7 +126,7 @@ input[type='file']::file-selector-button,
   border: none;
   background-color: #FF873C;
   color: white;
-  width: 65px;
+  width: 100px;
   padding: 3px;
 }
 
@@ -170,8 +171,7 @@ input[type='file']::file-selector-button,
   /* display: inline-block; */
   font-size: 20px;
 }
-/* 현재 위치 강조 (메뉴) */
-/* 탭바 글씨  */
+/* 현재 위치 강조 (메뉴) 탭바 글씨 */
 .link_menu,
 .link_ingredient,
 .link_review {

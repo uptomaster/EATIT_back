@@ -30,6 +30,7 @@ main{
   margin: 30px 10px 30px 410px;         /* 좌측 메뉴 고려 */
   display: flex;                        /* 추가 */
   flex-direction: column;               /* 추가 */
+  min-height : 1000px;
 }
 
 /* =========================
