@@ -25,20 +25,7 @@ a {
 	gap: 20px;
 }
 
-/* ===== 사이드바 (공지/자유 등 공통 스타일 그대로) ===== */
-/* 사이드바 */
-/* .sidebar {
-  min-width: 220px;
-  background: #505FA9;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
-  justify-content: flex-start;
-  position: relative;
-} */
-
-/* 로그아웃 버튼 */
+/* ===== 사이드바 ===== */
 #admin_logoutbtn {
 	background-color: #e74c3c;
 	color: #fff;
@@ -48,15 +35,13 @@ a {
 	padding: 8px 20px;
 	cursor: pointer;
 	transition: all 0.2s ease-in-out;
-	/* 사이드바 맨 아래 중앙 */
-	margin-top: auto; /* 남는 공간을 밀어내려서 하단으로 */
+	margin-top: auto;
 	margin-bottom: 20px;
 }
-
 #admin_logoutbtn:hover {
 	background-color: #c0392b;
 	transform: translateY(-2px);
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
 .admin_logo {
@@ -168,9 +153,11 @@ a {
 	border: 1px solid #eee;
 }
 
-/* 삭제 버튼 */
-.admin_detail_delete {
-	text-align: right;
+/* ===== 버튼 영역 (삭제 + 목록) ===== */
+.admin_detail_buttons {
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
 	margin-top: 20px;
 }
 
@@ -186,9 +173,26 @@ a {
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 	transition: all 0.2s ease-in-out;
 }
-
 #admin_deletebtn:hover {
 	background: #d32f2f;
 	transform: translateY(-2px);
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+#admin_listbtn {
+	display: inline-block;
+	background: #505FA9;
+	color: #fff;
+	font-weight: bold;
+	border-radius: 6px;
+	padding: 8px 16px;
+	text-align: center;
+	transition: 0.2s;
+	font-size: 14px;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+#admin_listbtn:hover {
+	background: #3b467d;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0,0,0,0.25);
 }

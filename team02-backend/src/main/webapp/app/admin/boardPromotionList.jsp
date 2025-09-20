@@ -20,100 +20,88 @@
 		<!-- 좌측 사이드바 -->
 		<aside class="sidebar">
 			<a href="${pageContext.request.contextPath}/admin/dashboard.ad">
-				<img
-				src="${pageContext.request.contextPath}/assets/img/admin_logo.png"
-				alt="admin_logo" class="admin_logo">
+				<img src="${pageContext.request.contextPath}/assets/img/admin_logo.png"
+				     alt="admin_logo" class="admin_logo">
 			</a>
 			<ul class="sidebar_ul">
 				<li class="sidebar_list" id="sidebar_list_dashboard"><a
-					href="${pageContext.request.contextPath}/admin/dashboard.ad">대시보드</a>
-				</li>
+					href="${pageContext.request.contextPath}/admin/dashboard.ad">대시보드</a></li>
 				<li class="sidebar_list" id="sidebar_list_member"><a
-					href="${pageContext.request.contextPath}/admin/member/list.ad">회원관리</a>
-				</li>
+					href="${pageContext.request.contextPath}/admin/member/list.ad">회원관리</a></li>
 				<li class="sidebar_list active" id="sidebar_list_community"><a
-					href="${pageContext.request.contextPath}/admin/notice/list.ad">게시글
-						관리</a></li>
+					href="${pageContext.request.contextPath}/admin/notice/list.ad">게시글 관리</a></li>
 				<li class="sidebar_list" id="sidebar_list_warning"><a
-					href="${pageContext.request.contextPath}/admin/report/list.ad">신고관리</a>
-				</li>
+					href="${pageContext.request.contextPath}/admin/report/list.ad">신고관리</a></li>
 				<li class="sidebar_list" id="sidebar_list_customerservice"><a
-					href="${pageContext.request.contextPath}/admin/faq/list.ad">고객센터</a>
-				</li>
+					href="${pageContext.request.contextPath}/admin/faq/list.ad">고객센터</a></li>
 			</ul>
-			<form action="${pageContext.request.contextPath}/admin/logoutOk.ad"
-				method="post">
+			<form action="${pageContext.request.contextPath}/admin/logoutOk.ad" method="post">
 				<button id="admin_logoutbtn">로그아웃</button>
 			</form>
 		</aside>
 
 		<!-- 메인컨텐츠 -->
 		<div class="admin_inner">
-			<h1 class="admin_pagetitle">게시글 관리</h1>
+			<h1 class="admin_pagetitle">게시글 관리 - 홍보게시판</h1>
 			<div class="admin_listwrapper">
 
 				<!-- 탭 메뉴 -->
 				<div class="admin_list_title">
 					<ul class="admin_list">
 						<li class="admin_list_menu"><a
-							href="${pageContext.request.contextPath}/admin/notice/list.ad">공지사항</a>
-						</li>
+							href="${pageContext.request.contextPath}/admin/notice/list.ad">공지사항</a></li>
 						<li class="admin_list_menu"><a
-							href="${pageContext.request.contextPath}/admin/boardFree/list.ad">자유게시판</a>
-						</li>
+							href="${pageContext.request.contextPath}/admin/boardFree/list.ad">자유게시판</a></li>
 						<li class="admin_list_menu active"><a
-							href="${pageContext.request.contextPath}/admin/boardPromotion/list.ad">홍보게시판</a>
-						</li>
+							href="${pageContext.request.contextPath}/admin/boardPromotion/list.ad">홍보게시판</a></li>
 						<li class="admin_list_menu"><a
-							href="${pageContext.request.contextPath}/admin/boardRecipe/list.ad">레시피</a>
-						</li>
+							href="${pageContext.request.contextPath}/admin/boardRecipe/list.ad">레시피</a></li>
 					</ul>
 				</div>
 
 				<!-- 게시글 목록 -->
 				<div class="admin_list_whitebox">
-					<ul class="admin_list_name">
-						<li class="admin_list_row col-num">번호</li>
-						<li class="admin_list_row col-title">제목</li>
-						<li class="admin_list_row col-user">작성자</li>
-						<li class="admin_list_row col-date">등록일</li>
-						<li class="admin_list_row col-views">조회</li>
-						<li class="admin_list_row col-likes">추천</li>
-						<li class="admin_list_row col-manage">관리</li>
-					</ul>
+					<!-- 컬럼 헤더 -->
+					<div class="admin_list_row header">
+						<div class="col-num">번호</div>
+						<div class="col-title">제목</div>
+						<div class="col-user">작성자</div>
+						<div class="col-date">등록일</div>
+						<div class="col-views">조회</div>
+						<div class="col-likes">추천</div>
+						<div class="col-manage">관리</div>
+					</div>
 
-					<ul class="admin_list_valuebox">
-						<c:choose>
-							<c:when test="${not empty promotionList}">
-								<c:forEach var="post" items="${promotionList}">
-									<li class="admin_list_value">
-										<p class="admin_list_row col-num">${post.postNumber}</p>
-										<p class="admin_list_row col-title">
-											<a
-												href="${pageContext.request.contextPath}/admin/boardPromotion/detail.ad?postNumber=${post.postNumber}"
-												class="admin_list_userid_link">${post.postTitle}</a>
-										</p>
-										<p class="admin_list_row col-user">${post.memberId}</p>
-										<p class="admin_list_row col-date">${post.postCreatedDate}</p>
-										<p class="admin_list_row col-views">${post.postViewCount}</p>
-										<p class="admin_list_row col-likes">${post.postLikeCount}</p>
-										<p class="admin_list_row col-manage">
-										<form
-											action="${pageContext.request.contextPath}/admin/boardPromotion/deleteOk.ad"
-											method="post">
-											<input type="hidden" name="postNumber"
-												value="${post.postNumber}">
+					<!-- 데이터 행 -->
+					<c:choose>
+						<c:when test="${not empty promotionList}">
+							<c:forEach var="post" items="${promotionList}">
+								<div class="admin_list_row">
+									<div class="col-num">${post.postNumber}</div>
+									<div class="col-title">
+										<a href="${pageContext.request.contextPath}/admin/boardPromotion/detail.ad?postNumber=${post.postNumber}"
+										   class="admin_list_userid_link">${post.postTitle}</a>
+									</div>
+									<div class="col-user">${post.memberId}</div>
+									<div class="col-date">${post.postCreatedDate}</div>
+									<div class="col-views">${post.postViewCount}</div>
+									<div class="col-likes">${post.postLikeCount}</div>
+									<div class="col-manage">
+										<form action="${pageContext.request.contextPath}/admin/boardPromotion/deleteOk.ad"
+										      method="post">
+											<input type="hidden" name="postNumber" value="${post.postNumber}">
 											<button type="submit" class="delete_btn">삭제</button>
 										</form>
-										</p>
-									</li>
-								</c:forEach>
-							</c:when>
-							<c:otherwise>
-								<li class="admin_list_value empty">등록된 홍보게시판 글이 없습니다.</li>
-							</c:otherwise>
-						</c:choose>
-					</ul>
+									</div>
+								</div>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<div class="admin_list_row empty">
+								등록된 홍보게시판 글이 없습니다.
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 
 				<!-- 페이지네이션 + 검색창 -->
@@ -145,15 +133,13 @@
 
 					<!-- 검색 -->
 					<div class="admin_search_wrapper">
-						<form
-							action="${pageContext.request.contextPath}/admin/boardPromotion/list.ad"
-							method="get" class="admin_search">
+						<form action="${pageContext.request.contextPath}/admin/boardPromotion/list.ad"
+						      method="get" class="admin_search">
 							<select class="admin_notice_category" name="searchType">
 								<option value="title" ${searchType == 'title' ? 'selected' : ''}>제목</option>
-								<option value="memberId"
-									${searchType == 'memberId' ? 'selected' : ''}>아이디</option>
-							</select> <input type="text" id="searchWord" name="searchWord"
-								value="${searchWord}">
+								<option value="memberId" ${searchType == 'memberId' ? 'selected' : ''}>아이디</option>
+							</select>
+							<input type="text" id="searchWord" name="searchWord" value="${searchWord}">
 							<button class="search_btn" type="submit">
 								<i class="fas fa-search"></i>
 							</button>

@@ -24,68 +24,12 @@ a {
 	gap: 20px;
 }
 
-/* 로그아웃 버튼 */
-#admin_logoutbtn {
-  background-color: #e74c3c;
-  color: #fff;
-  font-weight: bold;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 20px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  margin: 20px auto;
-  display: block;
-}
-
-#admin_logoutbtn:hover {
-  background-color: #c0392b;
-  transform: translateY(-2px);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
-
-/* ===== 사이드바 (공통) ===== */
-/* 사이드바 */
-/* .sidebar {
-  min-width: 220px;
-  background: #505FA9;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
-  justify-content: flex-start;
-  position: relative;
-} */
-
-/* 로그아웃 버튼 */
-#admin_logoutbtn {
-  background-color: #e74c3c;
-  color: #fff;
-  font-weight: bold;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 20px;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-
-  /* 사이드바 맨 아래 중앙 */
-  margin-top: auto;   /* 남는 공간을 밀어내려서 하단으로 */
-  margin-bottom: 20px;
-}
-#admin_logoutbtn:hover {
-  background-color: #c0392b;
-  transform: translateY(-2px);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
-
-
-
+/* ===== 사이드바 ===== */
 .admin_logo {
 	margin-bottom: 20px;
 	width: 100px;
 }
 
-/* ===== 사이드바 ===== */
 .sidebar {
 	min-width: 220px;
 	background: #505FA9;
@@ -96,9 +40,8 @@ a {
 }
 
 .sidebar_ul {
-	list-style: none;
-	padding: 0;
 	width: 100%;
+	padding: 0;
 }
 
 .sidebar_list {
@@ -110,13 +53,31 @@ a {
 
 .sidebar_list a {
 	color: white;
-	text-decoration: none;
 	display: block;
 }
 
 .sidebar_list:hover, .sidebar_list.active {
 	background-color: #1e223f;
 	scale: 1.05;
+}
+
+/* 로그아웃 버튼 */
+#admin_logoutbtn {
+	background-color: #e74c3c;
+	color: #fff;
+	font-weight: bold;
+	border: none;
+	border-radius: 20px;
+	padding: 6px 16px;
+	cursor: pointer;
+	transition: all 0.2s ease-in-out;
+	font-size: 14px;
+}
+
+#admin_logoutbtn:hover {
+	background-color: #c0392b;
+	transform: translateY(-2px);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 /* ===== 메인 ===== */
@@ -132,7 +93,7 @@ a {
 	color: #333;
 }
 
-/* ===== 상단 3칸 ===== */
+/* ===== 상단 통계 박스 ===== */
 .dashboard_topWrapper {
 	display: flex;
 	gap: 20px;
@@ -143,12 +104,12 @@ a {
 	flex: 1;
 	background: white;
 	border-radius: 10px;
-	padding: 20px;
+	padding: 18px 12px;
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
+	justify-content: center;
 	transition: transform 0.2s ease;
 }
 
@@ -156,22 +117,31 @@ a {
 	transform: translateY(-4px);
 }
 
-.dashboard_topbox_key {
-	font-size: 16px;
-	color: #666;
+.dashboard_topbox_icon {
+	font-size: 36px;
 	margin-bottom: 8px;
-}
-
-.dashboard_topbox_value {
-	font-size: 28px;
-	font-weight: bold;
 	color: #505FA9;
 }
 
-/* ===== 하단 2칸 ===== */
+.dashboard_topbox_key {
+	font-size: 15px;
+	color: #505FA9;
+	font-weight: 600;
+	margin-bottom: 6px;
+	text-align: center;
+}
+
+.dashboard_topbox_value {
+	font-size: 22px;
+	font-weight: bold;
+	color: #333;
+}
+
+/* ===== 하단 박스 ===== */
 .dashboard_bottomWrapper {
 	display: flex;
 	gap: 20px;
+	margin-top: 20px;
 }
 
 .dashboard_bottombox {
@@ -202,8 +172,31 @@ a {
 	background: #f9f9f9;
 }
 
-.dashboard_icon {
-	font-size: 28px;
-	color: #505FA9;
-	margin-bottom: 10px;
+/* ===== 차트 영역 ===== */
+.dashboard_chartsWrapper {
+	display: flex;
+	flex-direction: row; /* 좌우 배치 */
+	justify-content: space-between;
+	gap: 20px;
+	margin-top: 20px;
+}
+
+.dashboard_chartbox {
+	flex: 1;
+	min-width: 0; /* 줄바꿈 방지 */
+	background: white;
+	border-radius: 10px;
+	padding: 20px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+/* 캔버스 크기 조정 */
+.dashboard_chartbox canvas {
+	width: 100% !important;
+	max-width: 320px; /* 기존보다 조금 더 작게 */
+	height: 220px !important;
 }

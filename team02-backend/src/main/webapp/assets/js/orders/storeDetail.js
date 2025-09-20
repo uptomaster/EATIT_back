@@ -1,72 +1,64 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const plusBtn = document.querySelector(".plus");
-  const minusBtn = document.querySelector(".minus");
-  const countEl = document.querySelector(".count");
-  const stockEl = document.querySelector(".buy_food_stock");
-
-  if (!plusBtn || !minusBtn || !countEl || !stockEl) return;
-
-  // "재고 : 10개" 같은 문자열에서 숫자만 추출
-  const stock = parseInt(stockEl.textContent.replace(/[^0-9]/g, ""), 10);
-
-  plusBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    let count = parseInt(countEl.textContent, 10);
-    if (count < stock) {
-      countEl.textContent = count + 1;
-    } else {
-      alert("재고 수량을 초과할 수 없습니다.");
-    }
-  });
-
-  minusBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    let count = parseInt(countEl.textContent, 10);
-    if (count > 1) {
-      countEl.textContent = count - 1;
-    }
-  });
-});
-
-
-document.addEventListener("DOMContentLoaded", () => {
-  /** 찜 버튼 토글 **/
+  /** =========================
+   * ❤️ 찜 버튼 토글 + 서버 연동
+   * ========================= */
   const heartBtn = document.getElementById("heartBtn");
-  let isLiked = false;
+  const toast = document.createElement("div");
+  toast.id = "favoriteToast";
+  toast.className = "favorite-toast";
+  document.body.appendChild(toast);
 
-  // 메시지 표시용 div
-  const heartMessage = document.createElement("div");
-  heartMessage.className = "heart-message";
-  document.body.appendChild(heartMessage);
-
-  function showHeartMessage(message) {
-    heartMessage.textContent = message;
-    heartMessage.classList.add("show");
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add("show");
     setTimeout(() => {
-      heartMessage.classList.remove("show");
-    }, 1500);
+      toast.classList.remove("show");
+    }, 1200);
   }
 
   if (heartBtn) {
-    heartBtn.addEventListener("click", () => {
-      isLiked = !isLiked;
-      heartBtn.src = isLiked
-        ? `${pageContext.request.contextPath}/assets/img/heart_active.png`
-        : `${pageContext.request.contextPath}/assets/img/heart_inactive.png`;
+    heartBtn.addEventListener("click", e => {
+      e.preventDefault();
+      const icon = heartBtn.querySelector(".heart-icon");
+      const isLiked = heartBtn.dataset.favorite === "true";
+      const storeNumber = heartBtn.dataset.store; // storeNumber를 data-store 속성에 담아둔다
 
-      showHeartMessage(isLiked ? "찜 완료" : "찜 해제");
+      if (isLiked) {
+        // 해제
+        heartBtn.dataset.favorite = "false";
+        icon.classList.remove("fa-solid");
+        icon.classList.add("fa-regular");
+        showToast("찜 해제되었습니다.");
+      } else {
+        // 추가
+        heartBtn.dataset.favorite = "true";
+        icon.classList.remove("fa-regular");
+        icon.classList.add("fa-solid");
+        showToast("찜 완료되었습니다.");
+      }
+
+      // 토스트가 뜬 후 서버 요청 → 찜목록 이동
+      setTimeout(() => {
+        location.href =
+          `${contextPath}/orders/storeFavoriteToggle.or?storeNumber=${storeNumber}`;
+      }, 1300);
     });
   }
 
-  /** 수량 조절 **/
+  /** =========================
+   * 🛒 수량 조절 + 재고 검증
+   * ========================= */
   document.querySelectorAll(".buy_food_menu_list").forEach(menu => {
     const minus = menu.querySelector(".minus");
     const plus = menu.querySelector(".plus");
     const countEl = menu.querySelector(".count");
-    const hiddenInput = menu.querySelector("input[name='quantity']"); // form에 있는 hidden input
+    const hiddenInput = menu.querySelector("input[name='quantity']");
+    const stockEl = menu.querySelector(".buy_food_stock");
 
     let count = parseInt(countEl.textContent) || 1;
+    const stock = parseInt(stockEl.textContent.replace(/[^0-9]/g, ""), 10);
 
+    // ➖ 감소
     minus.addEventListener("click", e => {
       e.preventDefault();
       if (count > 1) {
@@ -76,23 +68,31 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
+    // ➕ 증가 (재고 초과 시 차단)
     plus.addEventListener("click", e => {
       e.preventDefault();
-      count++;
-      countEl.textContent = count;
-      if (hiddenInput) hiddenInput.value = count;
+      if (count < stock) {
+        count++;
+        countEl.textContent = count;
+        if (hiddenInput) hiddenInput.value = count;
+      } else {
+        alert("재고 수량보다 많이 담을 수 없습니다.");
+      }
     });
   });
 
-  /** 장바구니 버튼 **/
+  /** =========================
+   * 🛒 장바구니 버튼 클릭
+   * ========================= */
   document.querySelectorAll(".buy_add_cart_btn").forEach(btn => {
-    btn.addEventListener("click", e => {
-      // form submit이므로 preventDefault 제거 → 정상적으로 post됨
-      alert("장바구니에 담았습니다.");
+    btn.addEventListener("click", () => {
+      showToast("장바구니에 담았습니다.");
     });
   });
 
-  /** 가게정보 / 원산지 전환 **/
+  /** =========================
+   * ℹ️ 가게정보 / 원산지 전환
+   * ========================= */
   const storeInfoBtn = document.getElementById("storeInfoBtn");
   const originInfoBtn = document.getElementById("originInfoBtn");
   const storeInfo = document.querySelector(".buy_origin_store_info");
@@ -103,7 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       storeInfo.style.display = "block";
       originInfo.style.display = "none";
-
       storeInfoBtn.style.color = "black";
       originInfoBtn.style.color = "#333";
     });
@@ -112,13 +111,14 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       storeInfo.style.display = "none";
       originInfo.style.display = "block";
-
       originInfoBtn.style.color = "black";
       storeInfoBtn.style.color = "#333";
     });
   }
 
-  /** 페이지네이션 **/
+  /** =========================
+   * 📄 페이지네이션
+   * ========================= */
   const rowsPerPage = 2;
   let currentPage = 1;
 
@@ -146,8 +146,8 @@ document.addEventListener("DOMContentLoaded", () => {
         pageLink.href = "#";
         pageLink.textContent = i;
         pageLink.className = "page" + (i === currentPage ? " active" : "");
-        pageLink.style.color = "#333";          // 링크 색상
-        pageLink.style.textDecoration = "none"; // 밑줄 제거
+        pageLink.style.color = "#333";
+        pageLink.style.textDecoration = "none";
 
         pageLink.addEventListener("click", e => {
           e.preventDefault();
@@ -163,7 +163,9 @@ document.addEventListener("DOMContentLoaded", () => {
     displayList(currentPage);
   }
 
-  /** 사고보상 정책 토글 **/
+  /** =========================
+   * 📜 사고보상 정책 토글
+   * ========================= */
   const headers = document.querySelectorAll(".buy_policy_toggle_header");
   headers.forEach(header => {
     header.addEventListener("click", () => {

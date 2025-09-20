@@ -59,6 +59,15 @@ public class OrdersFrontController extends HttpServlet {
 			result = new StoreReviewController().execute(request, response);
 			break;
 
+		// 찜 토글
+		case "/orders/favoriteToggle.or":
+			if (!isGet(request)) {
+				response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+				return;
+			}
+			result = new StoreFavoriteToggleController().execute(request, response);
+			break;
+
 		// ---- Orders ----
 		case "/orders/createOk.or":
 			if (!isPost(request)) {
@@ -90,6 +99,14 @@ public class OrdersFrontController extends HttpServlet {
 				return;
 			}
 			result = new OrderCancelOkController().execute(request, response);
+			break;
+
+		case "/orders/myFavorite.or":
+			if (!isGet(request)) {
+				response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+				return;
+			}
+			result = new MyStoreFavoriteListController().execute(request, response);
 			break;
 
 		// ---- Payment (Toss) ----
@@ -131,10 +148,10 @@ public class OrdersFrontController extends HttpServlet {
 			break;
 
 		default:
-			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+			// 알 수 없는 경로로 입력했을 때 404 페이지로 포워드하기
+			request.getRequestDispatcher("/errors/404.jsp").forward(request, response);
 			return;
 		}
-
 		if (result != null) {
 			if (result.isRedirect())
 				response.sendRedirect(result.getPath());
