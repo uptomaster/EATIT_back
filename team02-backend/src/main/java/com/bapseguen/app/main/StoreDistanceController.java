@@ -1,7 +1,6 @@
 package com.bapseguen.app.main;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -15,7 +14,6 @@ import com.bapseguen.app.main.dao.StoreDAO;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import java.io.BufferedReader;
 
 @WebServlet("/storeDistanceListByAddress")
 public class StoreDistanceController extends HttpServlet {

@@ -20,7 +20,7 @@
 
 <!-- 헤더 js -->
 <script
-	src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_JAVASCRIPT_KEY&libraries=services"></script>
+	src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=999dfba85c1eb71dd621862762a10488&libraries=services"></script>
 <script defer src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 <script defer
 	src="${pageContext.request.contextPath}/assets/js/gradeModal.js"></script>
@@ -125,8 +125,16 @@
 												</div>
 												<div class="main_distance">
 													거리:
-													<c:out value="${store.distance}" />
-													km
+													<c:choose>
+														<c:when test="${store.distance >= 1}">
+															<fmt:formatNumber value="${store.distance}"
+																pattern="#.##" /> km
+        												</c:when>
+														<c:otherwise>
+															<fmt:formatNumber value="${store.distance * 1000}"
+																pattern="#" /> m
+        												</c:otherwise>
+													</c:choose>
 												</div>
 											</div>
 										</a>
@@ -170,6 +178,30 @@
 											<img
 											src="${pageContext.request.contextPath}/upload/${ingredient.itemImageSystemName}"
 											alt="${ingredient.storeName} 이미지">
+											<div class="main_ingredient_store_info">
+												<div class="main_ingredient_store_name">
+													<c:out value="${ingredient.storeName}" />
+												</div>
+												<div class="main_ingredient_name">
+													<c:out value="${ingredient.itemName}" />
+												</div>
+												<div class="main_ingredient_price">
+													<c:out value="${ingredient.itemPrice}원" />
+												</div>
+												<div class="main_ingredient_distance">
+													거리:
+													<c:choose>
+														<c:when test="${store.distance >= 1}">
+															<fmt:formatNumber value="${ingredient.distance}"
+																pattern="#.##" /> km
+        												</c:when>
+														<c:otherwise>
+															<fmt:formatNumber value="${ingredient.distance * 1000}"
+																pattern="#" /> m
+        												</c:otherwise>
+													</c:choose>
+												</div>
+											</div>
 										</a>
 									</article>
 								</c:forEach>
@@ -178,11 +210,11 @@
 					</div>
 				</div>
 
+
 				<div class="main_recipe">
 					<h3>레시피 공유📃</h3>
 					<a
-						href="${pageContext.request.contextPath}/community/recipeListOk.co">더보기
-						></a>
+						href="${pageContext.request.contextPath}/community/recipeListOk.co">더보기></a>
 					<div class="main_recipe_commu">
 						<div class="main_recipe_header" role="rowgroup">
 							<div class="main_recipe_col_tag" role="columnheader">태그</div>
@@ -191,35 +223,39 @@
 							<div class="main_recipe_col_views" role="columnheader">조회</div>
 						</div>
 
-						<div class="main_recipe_list" role="rowgroup">
-							<c:choose>
-								<c:when test="${empty storeList}">
-									<p style="color: #888">게시글이 없습니다.</p>
-								</c:when>
-								<c:otherwise>
-									<c:forEach var="recipe" items="${recipeList}">
-										<div class="main_recipe_col_tag" role="columnheader">
+						<c:choose>
+							<c:when test="${empty recipeList}">
+								<div class="main_recipe_list">
+									<p style="color: #888; margin: 0;">게시글이 없습니다.</p>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="recipe" items="${recipeList}">
+									<div class="main_recipe_list" role="rowgroup">
+										<div class="main_recipe_col_tag">
 											<c:out value="${recipe.postNumber}" />
 										</div>
-										<div class="main_recipe_col_title" role="columnheader">
+										<div class="main_recipe_col_title">
 											<a
-												href="${pageContext.request.contextPath}/community/recipeBoardReadOk.co?postNumber=${recipe.postNumber}"><c:out
-													value="${recipe.postTitle}" /> </a>
+												href="${pageContext.request.contextPath}/community/recipeBoardReadOk.co?postNumber=${recipe.postNumber}">
+												<c:out value="${recipe.postTitle}" />
+											</a>
 										</div>
-										<div class="main_recipe_col_date" role="columnheader">
+										<div class="main_recipe_col_date">
 											<fmt:formatDate value="${recipe.postCreatedDate}"
 												pattern="yyyy-MM-dd" />
 										</div>
-										<div class="main_recipe_col_views" role="columnheader">
+										<div class="main_recipe_col_views">
 											<c:out value="${recipe.postViewCount}" />
 										</div>
-									</c:forEach>
-								</c:otherwise>
-							</c:choose>
-						</div>
+									</div>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>
+		</div>
 		</div>
 
 		<!-- 고정 아이콘 영역 -->

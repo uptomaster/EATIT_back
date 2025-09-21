@@ -27,12 +27,13 @@ public class MainListController {
 
         String userAddress = request.getParameter("address");
         if (userAddress == null || userAddress.isEmpty()) {
-            userAddress = "서울 중구 세종대로 110"; // 기본값
+            userAddress = "서울 강남구 테헤란로 146"; // 기본값
         }
 
         double[] userLatLng = GeoUtil.getLatLngFromAddress(userAddress);
         System.out.println("사용자 주소: " + userAddress + ", 좌표: " + userLatLng[0] + ", " + userLatLng[1]);
 
+        // 가게 리스트
         List<MainStoreListDTO> storeList = new StoreDAO().getAllStores();
         for (MainStoreListDTO store : storeList) {
             double dist = GeoUtil.distance(userLatLng[0], userLatLng[1],
@@ -43,12 +44,21 @@ public class MainListController {
         storeList.sort(Comparator.comparingDouble(MainStoreListDTO::getDistance));
         request.setAttribute("storeList", storeList);
 
+        // 재료 리스트
+        List<ItemWithImgDTO> ingredientList = new StoreDAO().getAllIngredientsWithStore();
+        for (ItemWithImgDTO ingredient : ingredientList) {
+            double dist = GeoUtil.distance(userLatLng[0], userLatLng[1],
+            		ingredient.getLatitude(), ingredient.getLongitude());
+            ingredient.setDistance(dist);
+        }
+
+        ingredientList.sort(Comparator.comparingDouble(ItemWithImgDTO::getDistance));
+        request.setAttribute("ingredientList", ingredientList);
 
         // -------------------------------
         // 4. 기타 데이터
         // -------------------------------
-        List<ItemWithImgDTO> ingredientList = mainDAO.selectMainIngredientList();
-        request.setAttribute("ingredientList", ingredientList);
+        
 
         List<PostDetailDTO> recipeList = mainDAO.selectMainRecipeList();
         request.setAttribute("recipeList", recipeList);
