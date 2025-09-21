@@ -319,6 +319,11 @@ public class CommunityDAO {
 		return list;
 	}
 
+	// 고객센터 문의 목록 검색	
+	public List<InquiryDetailDTO> inquirySearch(String q) {
+	    return sqlSession.selectList("inquiry.searchInquiries", q);
+	}
+	
 	// 문의 본문 저장
 		public void insertInquiryContent(Map<String, Object> params) {
 			sqlSession.insert("inquiry.insertInquiryContent", params);

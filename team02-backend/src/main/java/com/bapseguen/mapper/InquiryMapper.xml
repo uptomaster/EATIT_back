@@ -48,7 +48,8 @@
 		#{memberNumber},
 		#{postTitle},
 		0,0,0,
-		'N', SYSDATE, 'INQUIRY'
+		'N',
+		SYSDATE, 'INQUIRY'
 		)
 		<selectKey keyProperty="postNumber" resultType="int"
 			order="AFTER">
@@ -57,8 +58,10 @@
 	</insert>
 
 	<insert id="insertInquiryContent" parameterType="map">
-		INSERT INTO TBL_INQUIRY (POST_NUMBER, INQUIRY_CONTENT, INQUIRY_STATUS)
-		VALUES (#{postNumber}, #{inquiryContent}, #{inquiryStatus})
+		INSERT INTO
+		TBL_INQUIRY (POST_NUMBER, INQUIRY_CONTENT, INQUIRY_STATUS)
+		VALUES
+		(#{postNumber}, #{inquiryContent}, #{inquiryStatus})
 	</insert>
 
 	<!-- 고객센터 문의글 상세(1건조회) -->
@@ -92,19 +95,49 @@
 	<!-- 문의 게시글 삭제 쿼리 / 게시글 내용제외 -->
 	<delete id="postDelete" parameterType="int">
 		DELETE FROM TBL_POST
-		WHERE POST_NUMBER = #{postNumber}
+		WHERE
+		POST_NUMBER = #{postNumber}
 	</delete>
 	<!-- 문의 게시글 삭제 쿼리 / 이미지 -->
 	<delete id="inquiryImageDelete" parameterType="int">
-		DELETE FROM TBL_POST_IMAGE
+		DELETE FROM
+		TBL_POST_IMAGE
 		WHERE POST_NUMBER = #{postNumber}
 	</delete>
 
 	<!-- 게시글 삭제시 포스트타입 조회 -->
 	<select id="getPostType" parameterType="int" resultType="string">
-		SELECT POST_TYPE
+		SELECT
+		POST_TYPE
 		FROM TBL_POST
 		WHERE POST_NUMBER = #{postNumber}
+	</select>
+
+	<!-- 게시글 검색 -->
+	<select id="searchInquiries" parameterType="string"
+		resultType="InquiryDetailDTO">
+		<![CDATA[
+    		SELECT *
+    		FROM (
+        	SELECT ROWNUM AS RNUM, SUBQUERY.*
+        	FROM (
+            SELECT 
+            M.MEMBER_NUMBER,
+            M.MEMBER_ID,
+            P.POST_NUMBER,
+            P.POST_TITLE,
+            P.POST_CREATED_DATE,
+            P.POST_VIEW_COUNT,
+            I.INQUIRY_STATUS
+            FROM TBL_MEMBER M 
+            JOIN TBL_POST P ON M.MEMBER_NUMBER = P.MEMBER_NUMBER
+            JOIN TBL_INQUIRY I ON P.POST_NUMBER = I.POST_NUMBER
+            WHERE LOWER(P.POST_TITLE) LIKE '%' || LOWER(#{query}) || '%'
+            OR LOWER(M.MEMBER_ID) LIKE '%' || LOWER(#{query}) || '%'
+            ORDER BY P.POST_CREATED_DATE DESC
+  		    ) SUBQUERY
+    		)
+			]]>
 	</select>
 
 </mapper>

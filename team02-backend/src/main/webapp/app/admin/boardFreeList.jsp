@@ -82,10 +82,7 @@
 										<a href="${pageContext.request.contextPath}/admin/boardFree/detail.ad?postNumber=${post.postNumber}"
 										   class="admin_list_userid_link">${post.postTitle}</a>
 									</div>
-									<div class="col-user">
-										<img class="grade_icon"
-										     src="${pageContext.request.contextPath}/assets/img/관리자.png"
-										     alt=""> ${post.memberId}
+									<div class="col-user">${post.memberId}
 									</div>
 									<div class="col-date">${post.postCreatedDate}</div>
 									<div class="col-views">${post.postViewCount}</div>

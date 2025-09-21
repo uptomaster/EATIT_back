@@ -1,76 +1,67 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const rowsPerPage = 10;                        
-
+  const rowsPerPage = 10;
   const listBody = document.getElementById("inquiry_list_body");
-  console.log(listBody);
-  const rows = listBody.querySelectorAll(".list_row_flex_row");
-  console.log(rows);
-  const pagination = document.getElementById("pagination");
+  let currentPage = 1;
+  let filteredRows = [];
+
+  // ---------------- 특정 페이지 게시글 표시 ----------------
+  function displayList(rows) {
+    listBody.innerHTML = "";
+    rows.forEach(row => listBody.appendChild(row));
+  }
+
+  // ---------------- tree icon mouseover 초기 처리 ----------------
+  const treeIcons = document.querySelectorAll(".tree_icon");
+  treeIcons.forEach(icon => {
+    icon.addEventListener("mouseover", () => icon.classList.add("hover"));
+    icon.addEventListener("mouseout", () => icon.classList.remove("hover"));
+  });
+
+  // ---------------- 초기 페이지 표시 ----------------
+  filteredRows = Array.from(listBody.querySelectorAll(".list_row_flex_row"));
+  displayList(filteredRows.slice(0, rowsPerPage));
+
+  // ---------------- 검색 기능 ----------------
   const searchInput = document.querySelector(".search_text");
   const searchBtn = document.querySelector(".search_btn");
 
- let filteredRows = [...rows];
+  function renderList(data) {
+    if (!data || data.length === 0) {
+      listBody.innerHTML = `<div class="no-results">검색 결과가 없습니다.</div>`;
+      return;
+    }
 
-  // ---------------- 특정 페이지 게시글 표시 ----------------
-	function displayList(page) {
-    listBody.innerHTML = "";
-    const start = (page - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-
-    filteredRows.slice(start, end).forEach(row => {
-      // 태그 표시
-      const tagCell = row.querySelector(".col_tag");
-      if (tagCell) {
-        const tagText = tagCell.textContent.toLowerCase();
-        let tagClass = "etc";
-        if (tagText.includes("문의")) tagClass = "inquiry";
-        else if (tagText.includes("신고")) tagClass = "report";
-        tagCell.className = "col_tag tag " + tagClass;
-      }
-
-      // 답변 상태 표시
-      const statusCell = row.querySelector(".col_status .status");
-      if (statusCell) {
-        const statusText = statusCell.textContent.toLowerCase();
-        let statusClass = "";
-        if (statusText.includes("접수")) statusClass = "received";
-        else if (statusText.includes("답변완료")) statusClass = "completed";
-        statusCell.className = "status " + statusClass;
-      }
-
-      listBody.appendChild(row);
-    });
-    updatePagination();
+    // 검색 결과를 기존 div 구조와 일치하도록 출력
+    listBody.innerHTML = data.map(item => `
+      <div class="list_row_flex_row" role="row">
+        <div class="col_title" role="cell">
+          <a href="${window.location.origin}/community/inquiryReadOk.co?postNumber=${item.postNumber}">
+            ${item.postTitle}
+          </a>
+        </div>
+        <div class="col_author" role="cell">
+          <img src="${window.location.origin}/assets/img/새싹.png" alt="관리자" class="tree_icon" />
+          ${item.memberId}
+        </div>
+        <div class="col_date" role="cell">
+          ${item.postCreatedDate}
+        </div>
+        <div class="col_status" role="cell">
+          <div class="status received">
+            ${item.inquiryStatus || 'YET'}
+          </div>
+        </div>
+      </div>
+    `).join("");
   }
 
-/*  // ---------------- 페이지 번호 ----------------
-  function updatePagination() {
-    pagination.innerHTML = "";
-    const totalPages = Math.max(1, Math.ceil(filteredRows.length / rowsPerPage));
-
-    for (let i = 1; i <= totalPages; i++) {
-      const pageLink = document.createElement("a");
-      pageLink.href = "#";
-      pageLink.textContent = i;
-      pageLink.className = "page" + (i === currentPage ? " active" : "");
-      pageLink.addEventListener("click", e => {
-        e.preventDefault();
-        currentPage = i;
-        displayList(currentPage);
-      });
-      pagination.appendChild(pageLink);
-    }
-  }*/
-
-  // ---------------- 검색 기능 ----------------
   function searchList() {
-    const query = searchInput.value.trim().toLowerCase();
-/*    filteredRows = rows.filter(row => row.textContent.toLowerCase().includes(query));*/
-	const allRows = Array.from(rows);
-	console.log(allRows);
-	filteredRows = allRows.filter(row => row.textContent.toLowerCase().includes(query));
-    currentPage = 1;
-    displayList(currentPage);
+    const query = searchInput.value.trim();
+
+    fetch(`${window.location.origin}/community/inquirySearchOk.co?q=${encodeURIComponent(query)}`)
+      .then(res => res.json())
+      .then(renderList)
+      .catch(err => console.error("검색 실패:", err));
   }
 
   searchBtn.addEventListener("click", searchList);
@@ -80,6 +71,4 @@ document.addEventListener("DOMContentLoaded", () => {
       searchList();
     }
   });
-
-  displayList(currentPage);
 });
