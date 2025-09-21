@@ -23,14 +23,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // 추천 버튼 클릭
 	recommendBtn?.addEventListener('click', async () => {
 		const memberNumber = window.memberNumber;
-		
+
 		if (!postNumber || memberNumber === null) {
 		    alert('로그인 후 이용해주세요.');
 		    window.location.href = `${window.ctx}/login/login.lo`;
 		    return;
 		}
 
-	    try {
+		try {
 			const res = await fetch(`${window.ctx}/community/postlike.co?postNumber=${postNumber}`, {
 			    method: 'POST',
 			    headers: { 'Accept': 'application/json' }
@@ -41,9 +41,16 @@ document.addEventListener("DOMContentLoaded", () => {
 	        if (!data.success) {
 	            alert(data.message || '추천 실패');
 	        } else {
+	            // 하단 추천 수
 	            counterRecommend.textContent = `추천 ${data.likeCount}`;
 	            counterRecommend.classList.add('bump');
 	            setTimeout(() => counterRecommend.classList.remove('bump'), 300);
+
+	            // 상단 추천 수 (날짜 옆)
+	            const topRecommend = document.querySelector('.post_like_area span:last-child');
+	            if (topRecommend) {
+	                topRecommend.textContent = data.likeCount;
+	            }
 	        }
 	    } catch (err) {
 	        console.error(err);

@@ -115,7 +115,7 @@
 	                  data-board-number="${post.postNumber}"
 	                  data-member-number="${sessionScope.memberNumber}">수정</button>
 	
-	                <button type="button" class="delete-btn delete"
+	                <button type="button" class="delete-btn-post delete"
 	                  data-board-number="${post.postNumber}"
 	                  data-member-number="${sessionScope.memberNumber}">삭제</button>
 	              </c:if>
@@ -130,8 +130,13 @@
 	          </button>
 	          <span class="recommend_count" id="recommendCount">추천 <c:out value="${post.postLikeCount}" /></span>
 	          <button type="button" class="report" id="openReportModal" title="신고하기">신고</button>
+	          <c:if test="${not empty sessionScope.memberNumber and sessionScope.memberNumber eq post.getMemberNumber()}">
+			   	<div></div>
+			  </c:if>
 	        </div>
 	      </div> <!-- .post -->
+
+	      
 	    </article>
 	
 	    <!-- 댓글 영역 -->
