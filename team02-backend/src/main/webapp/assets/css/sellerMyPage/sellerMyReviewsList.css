@@ -84,27 +84,34 @@ main{
 }
 /* 목록 제목 라인 */
 .seller_myreviews_top{
-  margin-left: 50px;
-  background-color: #f7d3ad;
-  width: 1000px;
+  /* margin-left: 50px; */     /* 컨테이너 내부 패딩으로 대체 */
+  background-color: #ffefcc;     /* 연한 주황 헤더 */
+  /* width: 850px; height: 50px; */ /* 유연하게 */
   height: 50px;
-  font-size: 20px;
-  align-items: center;
+  font-size: 18px;               /* 가독성 */
+  font-weight: 600;
+  color: #444;
   display: flex;
-  border: 1px solid black;
-  padding: 6px 10px;
+  align-items: center;
+  border: 1px solid #eee;
+  border-radius: 6px 6px 0 0;
+  padding: 14px 20px;
+  user-select: none;
 }
 /* 각 목록 내용 */
 .seller_myreviews_comments_list{
-  margin-left: 50px;
-  background-color: white;
-  width: 1000px;
-  height: 50px;
+   background-color: #ffffff;
+  /* width: 850px; height: 50px; */ /* 유연 */
+  min-height: 50px;
   font-size: 16px;
   align-items: center;
   display: flex;
-  border: 1px solid black;  
-  padding: 6px 10px;
+  border: 1px solid #eee;
+  border-top: none;
+  color: #444;
+  padding: 14px 18px;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: default;
 }
 /* 각 요소 */
 .seller_myreviews_restaurant_name{
@@ -126,7 +133,7 @@ main{
   justify-content: center;
   align-items: center;
   height: 50px;
-  width: 350px;
+  width: 410px;
 }
 .seller_myreviews_quantity{
   display: flex;

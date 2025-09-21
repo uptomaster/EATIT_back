@@ -361,12 +361,16 @@ public class SellerMyPageDAO {
     /** 요약 카드(오늘/이번달/누적) 금액 */
     public Map<String, Object> saleSummary(String businessNumber) {
         // Mapper: storeManage.saleSummary
-        return sqlSession.selectMap("storeManage.saleSummary", businessNumber);
+        return sqlSession.selectOne("storeManage.saleSummary", businessNumber);
     }
     // === 리뷰 작성 =====
  // 리뷰 저장
-    public void insertReview(ReviewWriteDTO dto) {
-        sqlSession.insert("myReview.myReviewInsert", dto); // selectKey로 reviewNumber 세팅됨
+    public int insertReview(ReviewWriteDTO dto) {
+    	try {
+    		return sqlSession.insert("myReview.myReviewInsert", dto); // selectKey로 reviewNumber 세팅됨
+	    } finally {
+	       sqlSession.close();
+	    }
     }
 
     // 이미 리뷰 존재 여부
@@ -417,7 +421,7 @@ public class SellerMyPageDAO {
 	public boolean checkPassword(Integer memberNumber, String inputPw) {
 		 Map<String, Object> params = new HashMap<>();
 		    params.put("memberNumber", memberNumber);
-		    params.put("inputPw", inputPw);
+		    params.put("memberPassword", inputPw);
 
 		    // MyBatis Mapper: myPage.checkPassword → SELECT COUNT(1) ...
 		    int count = sqlSession.selectOne("seller.checkPassword", params);

@@ -1,0 +1,228 @@
+@charset "UTF-8";
+
+/* =========================
+   초기화
+   ========================= */
+* {
+  margin: 0;
+  padding: 0;
+  /* box-sizing: border-box; */
+}
+
+main{
+  /* background-color: #FFF5E4; */ /* 기존 */
+  background-color: #fff5e4;
+  /* width: 1920px; height: 1500px; */ /* 고정폭/높이는 제거 권장 */
+  display: flex;
+  flex-direction: row;
+}
+
+/* =========================
+   페이지 컨테이너 (카드형)
+   ========================= */
+.seller_write_review_page{
+  /* background-color: #FBE3B9; */     /* 기존 */
+  width: 1100px;
+  padding: 30px 40px;                  /* 추가 */
+  background-color: #fcfaf8;           /* 추가: 카드 배경 */
+  box-shadow: 0 0 12px rgba(168, 6, 6, 0.438); /* 추가 */
+  border-radius: 10px;                  /* 추가 */
+  margin: 30px 10px 30px 410px;         /* 좌측 메뉴 고려 */
+  display: flex;                        /* 추가 */
+  flex-direction: column;               /* 추가 */
+  min-height : 1000px;
+}
+
+/* =========================
+   좌측 메뉴 바 (원형 유지)
+   ========================= */
+.seller_write_review_menu {
+  position: fixed;
+  padding: 0;
+  margin: 100px 20px 0 200px;
+  width: 190px;
+  height: 585px;
+  font-size: 20px;
+  background-color: #a6998080;
+  border-radius: 10px;
+}
+.seller_write_review_menu_title {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #FF873C;
+  width: 190px;
+  height: 110px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.seller_write_review_menu_list_current {
+  background-color: #FF873C;
+  /* width: 190px; */
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.seller_write_review_menu_list>li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 15px 0;
+  width: 190px;
+}
+.seller_write_review_menu_list>li>a {
+  text-decoration: none;
+  color: white;
+}
+.seller_write_review_menu_list>li:hover {
+  width: 190px;
+  background-color: #ff873c8c;
+  border-radius: 10px;
+}
+/* =========================================================
+   [추가] 가게 이미지 수정 전용 UI 보강 (기존 규칙은 건드리지 않음)
+   ========================================================= */
+
+/* 카드 컨테이너: 1100px 카드형 레이아웃 유지 */
+.store-image-card{
+  /* 기존 레이아웃이 있다면 유지하고, 없으면 적용 */
+  max-width: 1100px;
+  margin: 30px auto;
+  background: #fcfaf8;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.06);
+  padding: 28px 28px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* 상단 타이틀 + 보조설명 */
+.store-image-header{
+  display:flex; align-items:baseline; justify-content:space-between;
+  gap:16px; border-bottom:1px dashed #ffd7b8; padding-bottom:12px;
+}
+.store-image-title{
+  font-size: 22px; font-weight: 700; color:#444;
+}
+.store-image-sub{
+  font-size: 13px; color:#888;
+}
+
+/* 업로드 영역: 드래그앤드롭 + 클릭 */
+.store-image-dropzone{
+  position: relative;
+  border: 2px dashed #ffb884;
+  background: #fff5e4;
+  border-radius: 14px;
+  min-height: 220px;
+  padding: 18px;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 18px;
+  align-items: stretch;
+}
+@media (max-width: 980px){
+  .store-image-dropzone{ grid-template-columns: 1fr; }
+}
+
+/* 좌측: 미리보기 프레임 */
+.store-image-preview{
+  position: relative;
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+  display: grid; place-items: center;
+  border: 1px solid #ffe0c7;
+}
+.store-image-preview .placeholder{
+  font-size: 14px; color:#999; text-align:center; padding:18px;
+}
+.store-image-preview img{
+  width: 100%; height: 100%;
+  object-fit: cover; /* 사진을 꽉 채우되 비율 유지 */
+  display: none; /* 파일 선택 전엔 숨김 */
+}
+
+/* 우측: 가이드 + 버튼 스택 */
+.store-image-side{
+  display:flex; flex-direction:column; gap:12px;
+}
+.store-image-help{
+  background: #fff; border:1px solid #ffe0c7; border-radius:10px;
+  padding:14px; font-size:13px; color:#666; line-height:1.5;
+}
+.store-image-help b{ color:#ff7f2a; }
+
+/* 숨겨진 파일 인풋은 접근성 유지 */
+#storeImageInput{
+  position:absolute; inset:0; opacity:0; cursor:pointer;
+}
+
+/* 버튼 라인 */
+.store-image-actions{
+  display:flex; gap:10px; flex-wrap:wrap;
+}
+.btn{
+  appearance:none; border:none; cursor:pointer; font-weight:700;
+  padding:12px 16px; border-radius:12px; font-size:14px;
+  transition: transform .02s ease, box-shadow .2s ease, background .2s ease;
+}
+.btn:active{ transform: translateY(1px); }
+
+/* 주요 버튼 */
+.btn-primary{
+  background:#FF873C; color:#fff;
+  box-shadow: 0 6px 16px rgba(255,135,60,.3);
+}
+.btn-primary:hover{ background:#ff7722; }
+
+/* 보조 버튼 */
+.btn-ghost{
+  background:#fff; color:#ff7722; border:1.5px solid #ffb884;
+}
+.btn-ghost:hover{ background:#fff4e8; }
+
+/* 삭제 버튼(위험) */
+.btn-danger{
+  background:#fff1f1; color:#d14646; border:1.5px solid #ffb3b3;
+}
+.btn-danger:hover{ background:#ffe6e6; }
+
+/* 진행바 */
+.progress-wrap{
+  display:flex; align-items:center; gap:10px;
+}
+.progress{
+  height: 8px; width: 100%; background:#ffe9d7; border-radius: 999px;
+  overflow: hidden;
+}
+.progress > span{
+  display:block; height:100%; width:0%;
+  background: linear-gradient(90deg,#ff9c54,#ff7f2a);
+  transition: width .25s ease;
+}
+
+/* 하단 안내 */
+.store-image-footer{
+  font-size:12px; color:#888; text-align:right;
+}
+
+/* 접근성: 포커스 링 */
+.store-image-dropzone:focus-within{
+  outline: 3px solid rgba(255,135,60,.25);
+  outline-offset: 2px;
+}
+
+/* (옵션) 업로드 썸네일 라인업 */
+.thumb-list{
+  display:flex; gap:10px; overflow:auto; padding:4px;
+}
+.thumb{
+  width:72px; height:72px; border-radius:10px; border:1px solid #ffd7b8;
+  overflow:hidden; background:#fff; flex:0 0 auto;
+}
+.thumb img{ width:100%; height:100%; object-fit:cover; }

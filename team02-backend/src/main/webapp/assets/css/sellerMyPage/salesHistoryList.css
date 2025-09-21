@@ -196,7 +196,7 @@ main {
 
 /* 공통 컬럼 베이스 */
 .col { padding: 0 10px; box-sizing: border-box; overflow: hidden; text-overflow: ellipsis; }
-.col_order   { flex: 0 0 150px; text-align: center; }
+.col_order   { flex: 0 0 100px; text-align: center; }
 .col_date    { flex: 0 0 120px; text-align: center; }
 .col_title   { flex: 1 1 auto;  text-align: left;  }
 .col_type    { flex: 0 0 110px; text-align: center; }

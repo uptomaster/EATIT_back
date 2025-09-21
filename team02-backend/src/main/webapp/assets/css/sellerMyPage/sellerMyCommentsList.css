@@ -112,6 +112,7 @@ main {
   border-radius: 6px 6px 0 0;
   border: 1px solid #eee;
   user-select: none;
+  height: 50px; 
 }
 
 /* =========================

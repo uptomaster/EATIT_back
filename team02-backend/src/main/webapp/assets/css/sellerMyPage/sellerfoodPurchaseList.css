@@ -92,7 +92,7 @@ main {
   border-radius: 6px 6px 0 0;
   border: 1px solid #eee;
   user-select: none;
-  /* height: 50px;  기존 고정 높이는 제거 */
+  height: 50px;  
   font-size: 18px;
 }
 

@@ -444,7 +444,7 @@ input[type='file']::file-selector-button,
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 75px;
 }
 /* 페이지네이션 ul 마크 제거 */
 .pagination > ul {
@@ -536,6 +536,7 @@ input[type='file']::file-selector-button,
   padding: 3px;
   margin: 0px 15px;
 }
+
 /* 가게 이미지 수정 버튼 */
 /* 기존 스타일은 그대로 두고, a 태그 버튼 전용 스타일 추가 */
 a.edit_store_info_btn {
@@ -567,3 +568,20 @@ a.edit_store_info_btn:hover {
   margin: 10px auto;
 }
 
+/* 리뷰 카드 */
+.buy_review_area {
+  background:#fffefc; border-radius:14px; box-shadow:0 3px 10px rgba(0,0,0,0.06);
+  padding:18px 20px; margin:20px 0;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.buy_review_area:hover { transform:translateY(-3px); box-shadow:0 6px 14px rgba(0,0,0,0.1); }
+
+.buy_review_detail_top { display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+.buy_review_id { font-weight:700; color:#333; font-size:15px; }
+.buy_review_star i { color:#FFD700; font-size:15px; margin-right:2px; }
+.buy_review_date { font-size:13px; color:#999; margin-left:auto; }
+.buy_review_item { font-size:14px; font-weight:600; color:#ff6b4a; margin-bottom:6px; }
+.buy_review_content {
+  font-size:15px; line-height:1.7; color:#444;
+  background:#fff; padding:12px 14px; border-radius:10px; border:1px solid #f3e9e1;
+}

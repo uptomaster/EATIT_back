@@ -28,7 +28,8 @@ public class TotalSaleHistoryOkController implements Execute {
 
         SellerMyPageDAO sellerMyPageDAO = new SellerMyPageDAO();
         String businessNumber = sellerMyPageDAO.getBusinessNumber(memberNumber);
-
+        System.out.println("businessNumber : "+ businessNumber);
+        
         // 2) 페이징 파라미터
         int page = 1;
         int rowCount = 10;   // 페이지 당 행 수
@@ -50,21 +51,27 @@ public class TotalSaleHistoryOkController implements Execute {
 
         // 5) 페이지네이션 계산 (기존 구조 유지)
         int realEndPage = (int) Math.ceil(total / (double) rowCount);
-        int startPage = ((page - 1) / pageCount) * pageCount;
-        int endPageForView = Math.min(startPage + pageCount, realEndPage);
-        boolean prev = startPage > 0;
-        boolean next = endPageForView < realEndPage;
+        int endPage = (int) (Math.ceil(page / (double) pageCount) * pageCount);
+        int startPage = endPage - (pageCount - 1);
+
+        // endPage 보정
+        endPage = Math.min(endPage, realEndPage);
+
+        // prev / next 버튼 여부
+        boolean prev = startPage > 1;
+        boolean next = endPage < realEndPage;
 
         // 6) 요약 카드(오늘/이번달/누적) — ‘PAID’ 기준 합계
         Map<String, Object> summary = sellerMyPageDAO.saleSummary(businessNumber);
-
+        System.out.println("summary : "+summary);
+        
         // 7) JSP에 전달
         request.setAttribute("saleList", saleList);
         request.setAttribute("summary", summary);
 
         request.setAttribute("page", page);
         request.setAttribute("startPage", startPage);
-        request.setAttribute("endPage", endPageForView);
+        request.setAttribute("endPage", endPage);
         request.setAttribute("prev", prev);
         request.setAttribute("next", next);
         request.setAttribute("totalCount", total);

@@ -31,6 +31,7 @@ public class SellerWithdrawOkController implements Execute{
 
 	         String password = request.getParameter("password");
 	         String agree    = request.getParameter("agree");
+	         System.out.println("password : "+password+"  agree : "+agree);
 
 	         // 1) 라디오 동의 체크
 	         if (agree == null || !"yes".equals(agree)) {

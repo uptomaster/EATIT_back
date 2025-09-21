@@ -1,70 +1,52 @@
+document.addEventListener("DOMContentLoaded", function () {
+  const starButtons = document.querySelectorAll(".writereview_counting_Star_button");
+  const starImages = document.querySelectorAll(".writereview_counting_Star");
+  const submitBtn = document.querySelector(".seller_write_review_submit_btn");
+  const cancelBtn = document.querySelector(".seller_write_review_cancel_btn");
+  const contentInput = document.getElementById("content");
+	
+  let currentRating = 0;
 
-document.addEventListener("DOMContentLoaded", function() {
-	const starButtons = document.querySelectorAll(".seller_write_review_counting_Star_button");
-	const starImages = document.querySelectorAll(".seller_write_review_counting_Star");
-	const ratingInput = document.getElementById("seller_write_review_rating_value");
-	const form = document.getElementById("seller_write_review_form");
-	let currentRating = 0;
+  const yellowStarSrc = "./../assets/img/counting_Star.png";   // 노란별
+  const grayStarSrc = "./../assets/img/gray_shake_it_ya.png"; // 회색별
 
-	const yellowStarSrc = "${pageContext.request.contextPath}/assets/img/counting_star.png"; // 노란별
-	const grayStarSrc = "${pageContext.request.contextPath}/assets/img/gray_shake_it_ya.png";     // 회색별
+  // 별 클릭 이벤트
+  starButtons.forEach((button, index) => {
+    button.addEventListener("click", function (e) {
+      e.preventDefault(); // 버튼 클릭 시 폼 제출 방지
+      currentRating = index + 1;
 
-	starButtons.forEach((button, index) => {
-	    button.addEventListener("click", function (e) {
-	      e.preventDefault();
-
-	      currentRating = index + 1; // 몇 번째 별인지 기록
-
-	      // index보다 작은 별은 노란색, 나머지는 회색
-	      starImages.forEach((img, i) => {
-	        if (i <= index) {
-	          img.src = yellowStarSrc;
-	        } else {
-	          img.src = grayStarSrc;
-	        }
-	      });
-
-	      // 서버 전송용 hidden input 반영
-	      if (ratingInput) {
-	        ratingInput.value = currentRating;
-	      }
-	    });
-	  });
-
-	// 제출 전 최소 검증(1점 이상)
-  form.addEventListener("submit", function (e) {
-    if (!ratingInput.value || Number(ratingInput.value) < 1) {
-      e.preventDefault();
-      alert("별점을 1점 이상 선택해주세요.");
-    }
+			const hidden = document.getElementById("reviewRating");
+			if (hidden) hidden.value = currentRating;
+			console.log("currentRating : "+currentRating);
+			
+      // 별 이미지 업데이트
+      starImages.forEach((img, i) => {
+        img.src = i < currentRating ? yellowStarSrc : grayStarSrc;
+      });
+    });
   });
-		
-	if (content.length < 5) {
-		e.preventDefault();
-		alert('리뷰 내용을 5자 이상 입력해주세요.');
-		return;
-	}
 
-	// 작성 완료 버튼 클릭 시 유효성 검사
-	const submitBtn = document.querySelector(".seller_write_review_submit_btn");
-	submitBtn.addEventListener("click", function(e) {
-		const title = document.getElementById("title").value.trim();
-		const content = document.getElementById("content").value.trim();
+  // 작성 완료 클릭 시
+  submitBtn.addEventListener("click", function (e) {
+      e.preventDefault();
 
-		if (title === "" || content === "") {
-			e.preventDefault(); // 제출 막기
-			alert("글을 작성해주세요.");
-		} else {
-			alert("작성되었습니다.");
-		}
-	});
+      if(currentRating === 0) {
+          alert("별점을 선택해주세요.");
+          return;
+      }
 
-	// 이미 작성된 코드들이 있을 경우, 아래 코드만 추가하면 됩니다
+      if(!contentInput.value.trim()) {
+          alert("내용을 입력해주세요.");
+          return;
+      }
 
-	const cancelBtn = document.querySelector(".seller_write_review_cancel_btn");
+      document.querySelector("form").submit();
+  });
 
-	cancelBtn.addEventListener("click", function(e) {
-		e.preventDefault(); // 기본 리셋 동작 방지
-		history.back();     // 이전 페이지로 이동
-	});
+  // 작성 취소 클릭 시 이전 페이지로 이동
+  cancelBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      history.back();
+  });
 });

@@ -48,19 +48,17 @@ public class SellerStoreReviewController implements Execute{
 	            return r;
 	        }
 			// -------------------- 페이징 --------------------
-			int page = 1;
-			int limit = 5; // 한 페이지당 리뷰 개수
-			try {
-				page = Integer.parseInt(request.getParameter("page"));
-			} catch (NumberFormatException ignore) {
-			}
+	        int page = 1;
+	        int limit = 5; // 한 페이지당 리뷰 개수
+	        try {
+	            page = Integer.parseInt(request.getParameter("page"));
+	        } catch (NumberFormatException ignore) {}
 
-			int offset = (page - 1) * limit;
+	        int offset = (page - 1) * limit;
 
-			// 전체 리뷰 개수
-			int totalCount = reviewDAO.countReviewsByBusiness(businessNumber);
-			int maxPage = (int) Math.ceil((double) totalCount / limit);
-
+	        // 전체 리뷰 개수
+	        int totalCount = reviewDAO.countReviewsByBusiness(businessNumber);
+	        int maxPage = (int) Math.ceil((double) totalCount / limit);
 			// -------------------- DAO 호출 --------------------
 			// 가게 정보 조회
 	        SellerInfoDTO storeInfo = sellerDAO.selectSellerInfo(memberNumber);
@@ -70,30 +68,34 @@ public class SellerStoreReviewController implements Execute{
 	        //가게 이미지 조회
 	        StoreImageDTO images = imageDAO.selectone(businessNumber);
 			System.out.println("images : "+images);
-			request.setAttribute("images", images); // null 오류 수정		
 			
+			request.setAttribute("images", images); // null 오류 수정		
 			List<ReviewWithUserDTO> reviews = reviewDAO.selectReviewsByBusiness(businessNumber);
 
-			int start = Math.min(offset, reviews.size());
-			int end = Math.min(offset + limit, reviews.size());
-			List<ReviewWithUserDTO> pageList = reviews.subList(start, end);
+	        int start = Math.min(offset, reviews.size());
+	        int end = Math.min(offset + limit, reviews.size());
+	        List<ReviewWithUserDTO> pageList = reviews.subList(start, end);
 
 			// -------------------- 바인딩 --------------------
 			double avgRating = reviewDAO.selectAvgRatingByBusiness(businessNumber);
 			request.setAttribute("avgRating", avgRating);
 
-			request.setAttribute("businessNumber", businessNumber);
-			request.setAttribute("reviews", pageList);
-			request.setAttribute("page", page);
-			request.setAttribute("maxPage", maxPage);
-			request.setAttribute("totalCount", totalCount);
+	        // -------------------- 바인딩 --------------------
+	        request.setAttribute("avgRating", avgRating);
+	        request.setAttribute("businessNumber", businessNumber);
+	        request.setAttribute("reviews", pageList);
+	        request.setAttribute("page", page);
+	        request.setAttribute("maxPage", maxPage);
+	        request.setAttribute("totalCount", totalCount);
 
-			// 가게 정보 (리뷰 DTO에 storeName, storeTel, storeAddress 포함됨)
-			if (!reviews.isEmpty()) {
-				request.setAttribute("storeName", reviews.get(0).getStoreName());
-				request.setAttribute("storeTel", reviews.get(0).getStoreTel());
-				request.setAttribute("storeAddress", reviews.get(0).getStoreAddress());
-			}
+	        if (storeInfo != null) {
+	            request.setAttribute("storeName", storeInfo.getStoreName());
+	            request.setAttribute("storeTel", storeInfo.getStoreTel());
+	            request.setAttribute("storeAddress", storeInfo.getStoreAddress());
+	            request.setAttribute("storeImageSystemName", storeInfo.getStoreImageSystemName());
+	            request.setAttribute("storeImageOriginalName", storeInfo.getStoreImageOriginalName());
+	        }
+	        
 			System.out.println("====페이징정보 확인====");
 			System.out.println("storeInfo : " + storeInfo);
 			System.out.println("storeimages : " + images);
@@ -104,7 +106,7 @@ public class SellerStoreReviewController implements Execute{
 	        // 결과 설정
 	        Result result = new Result();
 	        result.setPath("/app/sellerMyPage/storeReview.jsp");
-//	        result.setRedirect(false);
+	        result.setRedirect(false);
 	        
 	        return result;
 	}

@@ -17,13 +17,6 @@
   <script defer src="${pageContext.request.contextPath}/assets/js/footer.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/sellerMyPage/storeInfo.js"></script>
-	
-	<!-- 지도 api -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=  "></script>
-	<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=  &libraries=services,clusterer,drawing"></script>
-	
-	
   <script>
     let headerPath = './../../header.jsp';
     let footerPath = './../../footer.jsp';
@@ -56,8 +49,8 @@
 
         <div class="store_info_store_info">
           <!-- 가게 이미지 -->
-					<img src="${pageContext.request.contextPath}/upload/${storeInfo.storeImageSystemName}" 
-			     alt="${item.storeName}"
+					<img src="${pageContext.request.contextPath}/upload/${images.storeImageSystemName}" 
+			     alt="${storeInfo.storeName }"
 			     onerror="this.src='${pageContext.request.contextPath}/assets/img/store.jpg'">
 						
           <div class="store_info_store_info_detail">
@@ -78,10 +71,8 @@
             class="edit_store_info_btn">
               가게 이미지 
             </a>
-            <!-- <button type="button" id="edit_store_info_btn"
-            onclick="location.href='/sellerMyPage/storeImage.se'">가게 사진</button> -->
-            <button type="button" id="edit_store_info_btn" class="edit_store_info_btn"
-            onclick="location.href='/sellerMyPage/editSellerInfo.se'">가게정보수정</button>
+            <!-- <button type="button" id="edit_store_info_btn" class="edit_store_info_btn"
+            onclick="location.href='/sellerMyPage/editSellerInfo.se'">가게정보수정</button> -->
           </div>
         </div>
 
@@ -216,7 +207,7 @@
         <div class="store_info_detail_container">
           <div class="store_info_detail_title">
             원산지
-            <button type="button" id="edit_store_origin_btn">원산지 수정</button>
+           <!--  <button type="button" id="edit_store_origin_btn">원산지 수정</button> -->
           </div>
           <div class="store_info_detail_list">
             <ul class="store_info_content">
@@ -244,7 +235,7 @@
         </div> <!-- //원산지  -->
 
         <!-- 재료 메뉴 영역 => 지도 영역 -->
-        <div id="map">
+        <div id="storeInfo_map">
         
         </div>
 
@@ -254,8 +245,10 @@
   </main>
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 
+
+<!-- 카카오맵 API (JavaScript 키 사용) -->
+<script type="text/javascript" 
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services&autoload=false"></script>
+
 </body>
-<script>
-  window.foodItemNumber = "${food.itemNumber}";
-</script>
 </html>
