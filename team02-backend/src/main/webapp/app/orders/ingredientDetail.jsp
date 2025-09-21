@@ -23,6 +23,16 @@
 <script defer
 	src="${pageContext.request.contextPath}/assets/js/orders/storeDetail.js"></script>
 
+<style>
+  /* 지도 스타일 */
+  .buy_store_map {
+      width: 100%;
+      height: 350px;
+      border-radius: 12px;
+      margin-top: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+</style>
 </head>
 <body>
 
@@ -69,7 +79,6 @@
 								</span>
 							</button>
 						</form>
-
 					</div>
 
 					<div class="buy_store_info_detail">
@@ -222,10 +231,8 @@
 					</div>
 				</div>
 
-				<!-- 지도 API 자리 -->
-				<div class="buy_store_map" id="storeMap">
-					<p>지도 영역 (API 연동 예정)</p>
-				</div>
+				<!-- 지도 -->
+				<div class="buy_store_map" id="storeMap"></div>
 			</div>
 
 		</div>
@@ -238,6 +245,65 @@
 		</script>
 		<c:remove var="favMessage" scope="session" />
 	</c:if>
+
+	<!-- 카카오맵 API -->
+	<script type="text/javascript" 
+	        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bf6f4e87fecd0777e522785f7b9ace2d&libraries=services"></script>
+	<script>
+	document.addEventListener("DOMContentLoaded", () => {
+	  var map = new kakao.maps.Map(document.getElementById('storeMap'), {
+	      center: new kakao.maps.LatLng(37.5665, 126.9780),
+	      level: 3
+	  });
+
+	  var geocoder = new kakao.maps.services.Geocoder();
+	  var address = "${fn:replace(item.storeAddress, '서울시', '서울특별시')}";
+
+	  geocoder.addressSearch(address, function(result, status) {
+	      if (status === kakao.maps.services.Status.OK) {
+	          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+	          // ✅ 브랜드 컬러 라벨과 함께 마커 표시
+	          var imageSrc = "${pageContext.request.contextPath}/assets/img/pinmarker.png"; 
+	          var imageSize = new kakao.maps.Size(40, 40); 
+	          var imageOption = {offset: new kakao.maps.Point(20, 40)};
+	          var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+
+	          var marker = new kakao.maps.Marker({
+	              position: coords,
+	              image: markerImage,
+	              map: map
+	          });
+
+	          map.setCenter(coords);
+
+	          // ✅ 상호명 라벨 (밥세권 브랜드 레드 컬러 적용)
+	          var overlayContent = `
+	            <div style="
+	                background:#e63946;
+	                color:#fff;
+	                padding:3px 8px;
+	                border-radius:6px;
+	                font-size:12px;
+	                white-space:nowrap;
+	                box-shadow:0 1px 4px rgba(0,0,0,0.3);">
+	              ${item.storeName}
+	            </div>
+	          `;
+
+	          var overlay = new kakao.maps.CustomOverlay({
+	              content: overlayContent,
+	              position: coords,
+	              yAnchor: 2.2
+	          });
+
+	          overlay.setMap(map);
+	      } else {
+	          console.error("주소 변환 실패:", status, address);
+	      }
+	  });
+	});
+	</script>
 
 	<!-- 푸터 -->
 	<jsp:include page="${pageContext.request.contextPath}/footer.jsp"></jsp:include>
