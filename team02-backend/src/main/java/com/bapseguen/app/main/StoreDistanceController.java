@@ -1,7 +1,6 @@
 package com.bapseguen.app.main;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -10,12 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bapseguen.app.dto.view.ItemWithImgDTO;
 import com.bapseguen.app.dto.view.MainStoreListDTO;
 import com.bapseguen.app.main.dao.StoreDAO;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import java.io.BufferedReader;
 
 @WebServlet("/storeDistanceListByAddress")
 public class StoreDistanceController extends HttpServlet {
@@ -46,5 +45,23 @@ public class StoreDistanceController extends HttpServlet {
         // JSON 반환
         String json = new Gson().toJson(stores);
         response.getWriter().write(json);
+    		
+    		// DB에서 모든 가게 가져오기
+    		List<ItemWithImgDTO> ingredients = new StoreDAO().getAllIngredientsWithStore();
+    		
+    		// 거리 계산
+    		for (ItemWithImgDTO ingredient : ingredients) {
+    			double dist = GeoUtil.distance(userLatLng[0], userLatLng[1],
+    					ingredient.getLatitude(), ingredient.getLongitude());
+    			ingredient.setDistance(dist);
+    		}
+    		
+    		// 거리순 정렬
+    		ingredients.sort(Comparator.comparingDouble(ItemWithImgDTO::getDistance));
+    		
+    		// JSON 반환
+    		String json1 = new Gson().toJson(ingredients);
+    		response.getWriter().write(json1);
+    	}
     }
-}
+
