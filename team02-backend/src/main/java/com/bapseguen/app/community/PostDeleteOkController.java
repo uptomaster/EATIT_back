@@ -20,9 +20,10 @@ public class PostDeleteOkController implements Execute{
 	public Result execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println("====PostDeleteOkController 실행====");
+		
 		int postNumber = Integer.parseInt(request.getParameter("postNumber"));
 
-		CommunityDAO communityDAO = new CommunityDAO();
+        CommunityDAO communityDAO = new CommunityDAO();
         PostImageDAO postImageDAO = new PostImageDAO();
         Result result = new Result();
 
@@ -37,28 +38,31 @@ public class PostDeleteOkController implements Execute{
             }
         }
 
-        // 2. 이미지 DB 삭제
-        //postImageDAO.delete(postNumber);
-
-        // 3. 게시글 삭제
-        communityDAO.delete(postNumber);
-        
+        // 2. 게시글 삭제
         String postType = communityDAO.getPostType(postNumber);
         
-        if(postType == null) {
-            result.setPath("/community/freeBoardListOk.co");
-            result.setRedirect(true);
-            return result;
+        // postType이 null일 경우 처리
+        if (postType == null) {
+            // "FREE"로 기본값 설정
+            postType = "FREE";  // 기본값 설정. 필요시 다른 기본값을 설정할 수 있음.
         }
 
-         if ("FREE".equals(postType)) {
-            result.setPath("/community/freeBoardListOk.co");
-        } else if ("PROMOTION".equals(postType)) {
-            result.setPath("/community/promoBoardListOk.co");
-        } else if ("RECIPE".equals(postType)) {
-            result.setPath("/community/recipeBoardListOk.co");
-        } else {
-            throw new IllegalArgumentException("Unknown postType: " + postType);
+        // 게시글 삭제
+        communityDAO.delete(postNumber);
+
+        // postType에 따라 리다이렉트 경로 설정
+        switch (postType.toUpperCase()) {
+            case "FREE":
+                result.setPath("/community/freeBoardListOk.co");
+                break;
+            case "PROMOTION":
+                result.setPath("/community/promoBoardListOk.co");
+                break;
+            case "RECIPE":
+                result.setPath("/community/recipeBoardListOk.co");
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown postType: " + postType);
         }
 
         result.setRedirect(true);
