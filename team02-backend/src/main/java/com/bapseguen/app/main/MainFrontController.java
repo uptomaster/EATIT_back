@@ -77,6 +77,7 @@ public class MainFrontController extends HttpServlet {
 	            new StoreDistanceController().doPost(request, response);
 	            System.out.println("[FrontController] 거리순 가게 목록 요청 처리 완료");
 	            return;
+		
 		/*
 		 * // 가게 상세 페이지 (storeDetail.jsp forward, 음식/재료 탭 포함) case
 		 * "/orders/storeDetail.or": System.out.println("가게 상세 페이지 이동 요청"); result = new

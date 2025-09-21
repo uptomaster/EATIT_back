@@ -172,6 +172,34 @@ function renderStoreList(storeList) {
     container.innerHTML = html;
 }
 
+// 재료 목록 렌더링
+function renderIngredientList(ingredientList) {
+    const container = document.querySelector(".main_ingredient_store");
+    if (!ingredientList || ingredientList.length === 0) {
+        container.innerHTML = '<p style="color: #888">표시할 상품이 없습니다.</p>';
+        return;
+    }
+
+    let html = '';
+    ingredientList.forEach(ingredient => {
+        html += `
+        <article class="main_ingredient_img ingredient_item">
+            <a href="${window.location.origin}/orders/ingredientDetail.or?itemNumber=${ingredient.itemNumber}">
+                <img src="${window.location.origin}/upload/${ingredient.itemImageSystemName}" alt="${ingredient.storeName} 이미지">
+                <div class="main_ingredient_info">
+                    <div class="main_ingredient_store_name">${ingredient.storeName}</div>
+                    <div class="main_ingredient_name">${ingredient.itemName}</div>
+                    <div class="main_ingredient_price">${ingredient.itemPrice}원</div>
+                    <div class="main_ingredient_distance">
+                        거리: ${store.distance.toFixed(2)}
+                    </div>
+                </div>
+            </a>
+        </article>`;
+    });
+
+    container.innerHTML = html;
+}
 
 
 

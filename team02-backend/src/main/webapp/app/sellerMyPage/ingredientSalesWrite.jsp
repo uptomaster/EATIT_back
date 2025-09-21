@@ -98,7 +98,7 @@
 
 				<div class="ingredientsaleswrite_box">
 					<label for="ingredientsaleswrite_explain">음식 설명</label>
-					<textarea name="itemContext" id="ingredientsaleswrite_explain"
+					<textarea name="itemContent" id="ingredientsaleswrite_explain"
 						maxlength="100" placeholder="100자 이내로 입력해주세요" required></textarea>
 					<!-- <span id="ingredientsaleswrite_char_count">0/100</span> -->
 				</div>

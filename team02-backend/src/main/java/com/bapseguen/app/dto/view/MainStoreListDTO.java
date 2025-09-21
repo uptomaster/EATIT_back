@@ -14,6 +14,7 @@ public class MainStoreListDTO {
 	private double latitude;   // 위도
 	private double longitude;  // 경도
 	private double distance;
+	
 	public String getStoreName() {
 		return storeName;
 	}
