@@ -2,7 +2,10 @@ package com.bapseguen.app.main;
 
 import java.io.IOException;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,6 +26,7 @@ public class StoreDistanceController extends HttpServlet {
 
         response.setContentType("application/json;charset=UTF-8");
 
+        // 요청 JSON 파싱
         JsonObject jsonRequest = JsonParser.parseReader(request.getReader()).getAsJsonObject();
         String address = jsonRequest.get("address").getAsString();
 
@@ -42,26 +46,24 @@ public class StoreDistanceController extends HttpServlet {
         // 거리순 정렬
         stores.sort(Comparator.comparingDouble(MainStoreListDTO::getDistance));
 
-        // JSON 반환
-        String json = new Gson().toJson(stores);
-        response.getWriter().write(json);
-    		
-    		// DB에서 모든 가게 가져오기
-    		List<ItemWithImgDTO> ingredients = new StoreDAO().getAllIngredientsWithStore();
-    		
-    		// 거리 계산
-    		for (ItemWithImgDTO ingredient : ingredients) {
-    			double dist = GeoUtil.distance(userLatLng[0], userLatLng[1],
-    					ingredient.getLatitude(), ingredient.getLongitude());
-    			ingredient.setDistance(dist);
-    		}
-    		
-    		// 거리순 정렬
-    		ingredients.sort(Comparator.comparingDouble(ItemWithImgDTO::getDistance));
-    		
-    		// JSON 반환
-    		String json1 = new Gson().toJson(ingredients);
-    		response.getWriter().write(json1);
-    	}
-    }
+        // DB에서 재료 가져오기
+        List<ItemWithImgDTO> ingredients = new StoreDAO().getAllIngredientsWithStore();
 
+        // 거리 계산
+        for (ItemWithImgDTO ingredient : ingredients) {
+            double dist = GeoUtil.distance(userLatLng[0], userLatLng[1],
+                                           ingredient.getLatitude(), ingredient.getLongitude());
+            ingredient.setDistance(dist);
+        }
+
+        // 거리순 정렬
+        ingredients.sort(Comparator.comparingDouble(ItemWithImgDTO::getDistance));
+
+        // JS에서 쓰기 좋게 JSON 통합
+        JsonObject jsonResponse = new JsonObject();
+        jsonResponse.add("stores", new Gson().toJsonTree(stores));
+        jsonResponse.add("ingredients", new Gson().toJsonTree(ingredients));
+
+        response.getWriter().write(jsonResponse.toString());
+    }
+}
