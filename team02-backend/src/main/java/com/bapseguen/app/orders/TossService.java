@@ -8,8 +8,8 @@ import java.util.Base64;
 
 public class TossService {
     // 문서용 테스트 키
-    public static final String DOCS_CLIENT_KEY = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm"; 
-    public static final String DOCS_SECRET_KEY = "test_gsk_docs_OaPz8L5KdmQXkzRz3y47BMw6"; 
+    public static final String DOCS_CLIENT_KEY = "여기에 넣으세요"; 
+    public static final String DOCS_SECRET_KEY = "여기에 넣으세요"; 
 
     /**
      * 결제 승인(Confirm)
