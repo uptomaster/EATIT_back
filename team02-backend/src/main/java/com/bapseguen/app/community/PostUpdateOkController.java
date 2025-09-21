@@ -26,118 +26,121 @@ public class PostUpdateOkController implements Execute {
     public Result execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         System.out.println("====PostUpdateOkController 실행====");
-        CommunityDAO communityDAO = new CommunityDAO();
-        PostDetailDTO postDetailDTO = new PostDetailDTO();
-        PostImageDAO postImageDAO = new PostImageDAO();
+        
         Result result = new Result();
+        CommunityDAO communityDAO = new CommunityDAO();
+        PostImageDAO postImageDAO = new PostImageDAO();
+        PostDetailDTO postDetailDTO = new PostDetailDTO();
 
         final String UPLOAD_PATH = request.getSession().getServletContext().getRealPath("/") + "upload/";
         final int FILE_SIZE = 1024 * 1024 * 5; // 5MB
 
-        // MultipartParser 실행
         MultipartParser parser = new MultipartParser(request, FILE_SIZE);
         parser.setEncoding("utf-8");
-        System.out.println("MultipartParser 초기화 완료");
 
         int postNumber = 0;
         boolean isFileUpload = false;
 
-        Part part;
-        while ((part = parser.readNextPart()) != null) {
+        try {
+            Part part;
+            while ((part = parser.readNextPart()) != null) {
 
-            if (part.isParam()) {
-                ParamPart paramPart = (ParamPart) part;
-                String paramName = paramPart.getName();
-                String paramValue = paramPart.getStringValue();
-                System.out.println("파라미터: " + paramName + " = " + paramValue);
+                if (part.isParam()) {
+                    ParamPart paramPart = (ParamPart) part;
+                    String name = paramPart.getName();
+                    String value = paramPart.getStringValue();
+                    System.out.println("파라미터: " + name + " = " + value);
 
-                // 게시글 번호 DTO에 세팅
-                if ("postNumber".equals(paramName)) {
-                    postNumber = Integer.parseInt(paramValue);
-                    postDetailDTO.setPostNumber(postNumber);
-                } 
-                // 게시판 타입
-                else if ("postType".equals(paramName)) {
-                    postDetailDTO.setPostType(paramValue);
-                } 
-                // 게시글 제목
-                else if ("postTitle".equals(paramName)) {
-                    postDetailDTO.setPostTitle(paramValue);
-                }
-                // 게시글 내용
-                else if ("freeContent".equals(paramName)) {
-                    postDetailDTO.setFreeContent(paramValue);
-                } else if ("promoContent".equals(paramName)) {
-                    postDetailDTO.setPromoContent(paramValue);
-                } else if ("recipeContent".equals(paramName)) {
-                    postDetailDTO.setRecipeContent(paramValue);
-                }
-
-            } else if (part.isFile() && !isFileUpload) {
-                FilePart filePart = (FilePart) part;
-                filePart.setRenamePolicy(new DefaultFileRenamePolicy());
-                String fileOriginalName = filePart.getFileName();
-
-                // 기존 파일 삭제
-                if (postNumber != 0) {
-                    List<PostImageDTO> existingFiles = postImageDAO.select(postNumber);
-                    for (PostImageDTO file : existingFiles) {
-                        File oldFile = new File(UPLOAD_PATH, file.getPostImageSystemName());
-                        if (oldFile.exists()) {
-                            System.out.println("기존 파일 삭제: " + oldFile.getAbsolutePath());
-                            oldFile.delete();
-                        }
+                    switch (name) {
+                        case "postNumber":
+                            postNumber = Integer.parseInt(value);
+                            postDetailDTO.setPostNumber(postNumber);
+                            break;
+                        case "postType":
+                            postDetailDTO.setPostType(value);
+                            break;
+                        case "postTitle":
+                            postDetailDTO.setPostTitle(value);
+                            break;
+                        case "freeContent":
+                            postDetailDTO.setFreeContent(value);
+                            break;
+                        case "promoContent":
+                            postDetailDTO.setPromoContent(value);
+                            break;
+                        case "recipeContent":
+                            postDetailDTO.setRecipeContent(value);
+                            break;
                     }
-                    postImageDAO.delete(postNumber);
-                    System.out.println("기존 파일 DB 삭제 완료");
-                }
 
-                // 새 파일 업로드
-                if (fileOriginalName != null) {
-                    String newFileName = System.currentTimeMillis() + "_" + fileOriginalName;
-                    File newFile = new File(UPLOAD_PATH, newFileName);
-                    filePart.writeTo(newFile);
+                } else if (part.isFile() && !isFileUpload) {
+                    FilePart filePart = (FilePart) part;
+                    filePart.setRenamePolicy(new DefaultFileRenamePolicy());
+                    String originalFileName = filePart.getFileName();
 
-                    // DB 저장
-                    PostImageDTO postImageDTO = new PostImageDTO();
-                    postImageDTO.setPostImageSystemName(newFileName);
-                    postImageDTO.setPostImageOriginalName(fileOriginalName);
-                    postImageDTO.setPostImageNumber(postNumber);
-                    postImageDAO.insert(postImageDTO);
-                    System.out.println("새로운 파일 DB 저장 완료: " + postImageDTO);
+                    // 기존 파일 삭제
+                    if (postNumber != 0) {
+                        List<PostImageDTO> existingFiles = postImageDAO.select(postNumber);
+                        for (PostImageDTO file : existingFiles) {
+                            File oldFile = new File(UPLOAD_PATH, file.getPostImageSystemName());
+                            if (oldFile.exists()) {
+                                oldFile.delete();
+                                System.out.println("기존 파일 삭제: " + oldFile.getAbsolutePath());
+                            }
+                        }
+                        postImageDAO.delete(postNumber);
+                        System.out.println("기존 파일 DB 삭제 완료");
+                    }
 
-                    isFileUpload = true;
-                } else {
-                    System.out.println("업로드된 파일이 없습니다 (파일 선택하지 않음)");
+                    if (originalFileName != null) {
+                        String newFileName = System.currentTimeMillis() + "_" + originalFileName;
+                        File newFile = new File(UPLOAD_PATH, newFileName);
+                        filePart.writeTo(newFile);
+
+                        PostImageDTO postImageDTO = new PostImageDTO();
+                        postImageDTO.setPostImageNumber(postNumber);
+                        postImageDTO.setPostImageOriginalName(originalFileName);
+                        postImageDTO.setPostImageSystemName(newFileName);
+                        postImageDAO.insert(postImageDTO);
+
+                        System.out.println("새 파일 업로드 완료: " + newFileName);
+                        isFileUpload = true;
+                    }
                 }
             }
+
+            // 게시글 DTO에 세션 멤버번호 세팅 (필요하면)
+            postDetailDTO.setMemberNumber((Integer) request.getSession().getAttribute("memberNumber"));
+
+            // 게시글 업데이트
+            communityDAO.update(postDetailDTO);
+            System.out.println("게시글 수정 완료");
+
+            // 리다이렉트
+            String path;
+            switch (postDetailDTO.getPostType()) {
+	            case "FREE":
+	                path = request.getContextPath() + "/community/freeBoardReadOk.co?postNumber=" + postDetailDTO.getPostNumber();
+	                break;
+	            case "PROMOTION":
+	                path = request.getContextPath() + "/community/promoBoardReadOk.co?postNumber=" + postDetailDTO.getPostNumber();
+	                break;
+	            case "RECIPE":
+	                path = request.getContextPath() + "/community/recipeBoardReadOk.co?postNumber=" + postDetailDTO.getPostNumber();
+	                break;
+	            default:
+	                path = request.getContextPath() + "/community/communityMainOk.co";
+	        }
+            result.setPath(path);
+            result.setRedirect(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMsg", "게시글 수정 중 오류 발생: " + e.getMessage());
+            result.setPath("/app/error/error.jsp");
+            result.setRedirect(false);
         }
 
-        // 게시글 작성자 번호 세팅
-        postDetailDTO.setMemberNumber((Integer) request.getSession().getAttribute("memberNumber"));
-
-        // 게시글 업데이트 실행
-        communityDAO.update(postDetailDTO);
-        System.out.println("게시글 수정 완료");
-
-        // 게시판 타입에 따라 분기
-        String postType = postDetailDTO.getPostType();
-        switch (postType) {
-            case "FREE":
-                result.setPath("/community/freeBoardListOk.co");
-                break;
-            case "PROMOTION":
-                result.setPath("/community/promoBoardListOk.co");
-                break;
-            case "RECIPE":
-                result.setPath("/community/recipeListOk.co");
-                break;
-            default:
-                result.setPath("/community/communityMainOk.co");
-                break;
-        }
-
-        result.setRedirect(true);
         return result;
     }
 }

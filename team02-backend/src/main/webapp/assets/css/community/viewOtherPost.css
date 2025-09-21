@@ -78,10 +78,17 @@ li {
 .post {
   border-bottom: 1px solid #ddd;
   margin-bottom: 20px;
-  background-color: #88601b;
+  /* background-color: #88601b; */
   padding: 10px;
   border-radius: 20px;
   box-shadow: 0 0 8px rgba(168, 6, 6, 0.438);
+}
+
+.post {
+  background-color: #fff5d1;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
 }
 
 .tag {
@@ -142,14 +149,10 @@ li {
   background-color: #FFF5E4;
   padding: 20px;
   border-radius: 10px;
+  box-shadow: 3px 3px 12px rgb(0 0 0 / 0.07);
 }
 
-.post {
-  background-color: #fff5d1;
-  padding: 20px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-}
+
 
 .post_title {
   margin: 10px 0;
@@ -263,7 +266,7 @@ li {
 }
 
 .edit {
-  background-color: #fff5d1;
+  background-color: #ffe5a0;
 }
 
 .delete {
