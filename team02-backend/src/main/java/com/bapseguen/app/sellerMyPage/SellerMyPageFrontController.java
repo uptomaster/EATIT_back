@@ -52,7 +52,8 @@ public class SellerMyPageFrontController extends HttpServlet {
 
    protected void doProcess(HttpServletRequest request, HttpServletResponse response)
          throws ServletException, IOException {
-
+	   request.setCharacterEncoding("UTF-8");
+	response.setCharacterEncoding("UTF-8");
       String target = request.getRequestURI().substring(request.getContextPath().length());
       System.out.println("SellerMyPageFrontController 현재 경로 : " + target);
       Result result = new Result();
@@ -72,7 +73,7 @@ public class SellerMyPageFrontController extends HttpServlet {
          result = new Result();
          result.setPath("/app/sellerMyPage/sellerCheckPw.jsp");
          result.setRedirect(false);
-//         result = new CheckSellerPwController().execute(request, response);
+//		 request.getRequestDispatcher("/app/sellerMyPage/sellerCheckPw.jsp").forward(request, response);
          break;
 
       case "/sellerMyPage/chkPwOk.se":
@@ -244,14 +245,14 @@ public class SellerMyPageFrontController extends HttpServlet {
       case "/sellerMyPage/withdrawalAgreement.se":
          System.out.println("[판페f] 변경할 전화번호 인증번호 전송 요청");
          result = new Result();
-         result.setPath("/app/sellerMyPage/withdrawalAgreement.jsp");
+         result.setPath("/app/sellerMyPage/sellerwithdrawalAgreement.jsp");
          result.setRedirect(false);
          break;
 
       // 실제 탈퇴 처리
       case "/sellerMyPage/withdrawOk.se":
          System.out.println("[판페f] 변경할 전화번호 인증번호 전송 요청");
-         result = new WithdrawOkController().execute(request, response);
+         result = new SellerWithdrawOkController().execute(request, response);
          break;
 
       /********************************************************************/

@@ -43,36 +43,49 @@
     </div>
 
     <!-- 회원탈퇴동의 창 -->
-    <div class="seller_withdrawalagreement">
+     <form class="seller_withdrawalagreement" action="${pageContext.request.contextPath}/sellerMyPage/withdrawOk.se" method="post">
       <div class="seller_withdrawalagreement_agreement_page">
         <h2>회원탈퇴동의</h2>
         <div class="seller_withdrawalagreement_two_box">
+        
+        <!-- 비밀번호 입력 부분 -->
           <div class="seller_withdrawalagreement_box_set">
             <div class="seller_withdrawalagreement_password_now">비밀번호</div>
             <div class="seller_withdrawalagreement_gray_box">
               <input id="seller_passwordInput" class="seller_withdrawalagreement_input_info" type="text"
-                placeholder="현재 비밀번호 입력">
-              <p id="seller_passwordError" class="notice_input_wrong_info"></p>
+                placeholder="현재 비밀번호 입력" required>
+	            <c:if test="${not empty pwError}">
+		            <p class="notice_input_wrong_info">${pwError}</p>
+		          </c:if>
             </div>
           </div>
+          
+          <!-- 동의 입력 란 -->
           <div class="seller_withdrawalagreement_box_set">
             <div class="seller_withdrawalagreement_password_now">탈퇴 동의</div>
             <div class="seller_withdrawalagreement_gray_box">
-              <div>
                 회원탈퇴에 동의하십니까?
-                <input type="radio" name="agree" value="yes">
-              </div>
-              <p id="seller_radioError" class="notice_input_wrong_info"></p>
+             	<label class="agree_label">
+	           		 <input type="radio" name="agree" value="yes"> 예, 동의합니다
+		          </label>
+		          <c:if test="${not empty agreeError}">
+		            <p class="notice_input_wrong_info">${agreeError}</p>
+		          </c:if>
             </div>
           </div>
+          
           <!-- 회원탈퇴 버튼 -->
           <div class="seller_withdrawalagreement_buzz_set">
-            <button id="seller_withdrawBtn" class="seller_withdrawalagreement_agreement_buzz">회원탈퇴</button>
-            <div class="seller_withdrawalagreement_cancle_buzz"><a href="./../sellerMyPage/editSellerInfo.html">취소</a>
+            <button type="submit" id="seller_withdrawBtn" class="seller_withdrawalagreement_agreement_buzz">회원탈퇴</button>
+            <div class="seller_withdrawalagreement_cancle_buzz">
+           		<a href="${pageContext.request.contextPath}/sellerMyPage/editSellerInfo.se">취소</a>
             </div>
           </div>
+          
         </div>
+        
       </div>
+     </form>
   </main>
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </body>

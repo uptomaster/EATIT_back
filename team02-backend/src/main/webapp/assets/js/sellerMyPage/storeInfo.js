@@ -37,7 +37,7 @@ var storeLatitude = document.getElementById('storeLatitude').value;
 console.log('storeLatitude : '+storeLatitude);
 var storeLongitude = document.getElementById('storeLongitude').value;
 console.log('storeLongitude : '+storeLongitude);
-
+/*
 // 좌표로 바로 지우 띄우기
 // --------------------------------------------
 // 주소를 좌표로 변환 받아서 coords에 저장함
@@ -46,6 +46,7 @@ console.log("coords :  "+coords);
 
 // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 map.setCenter(coords);		
+
 
 // 5. 마커표시
 // 결과값으로 받은 위치를 마커로 표시합니다
@@ -61,9 +62,10 @@ var infowindow = new kakao.maps.InfoWindow({
 });
 // 실제 마커표시
 infowindow.open(map, marker);
+*/
 
 // --------------------------------------------
-/*
+
 // 4. 주소-좌표 변환 하기 & 지도 표시 
 // 주소-좌표 변환 객체를 생성합니다
 
@@ -97,5 +99,5 @@ geocoder.addressSearch(addr, function(result, status) {
         infowindow.open(map, marker);
 
     } 
-});    */
+});    
 /* ========== // 지도 api 끝========== */

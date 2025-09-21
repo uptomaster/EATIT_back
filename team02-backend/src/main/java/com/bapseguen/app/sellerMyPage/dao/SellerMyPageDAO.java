@@ -433,5 +433,21 @@ public class SellerMyPageDAO {
 		System.out.println("[sellerDAO] updateStoreTime / dto : "+storeDTO);
 		sqlSession.update("seller.updateStoreTime", storeDTO);
 	}
+
+	public void withdraw(Integer memberNumber, String businessNumber) {
+		System.out.println("[sellerDAO] withdraw \n"
+				+ "memberNumber : "+memberNumber+ " businessNumber"+businessNumber);
+
+		sqlSession.delete("seller.deleteUserComments", memberNumber);
+        sqlSession.delete("seller.deleteUserReviews", memberNumber);
+        sqlSession.delete("seller.deleteUserPosts", memberNumber);
+        sqlSession.delete("seller.deleteStoreOrigins", businessNumber);
+        
+        sqlSession.delete("seller.deleteStoreItems", businessNumber);
+        sqlSession.delete("seller.deleteStore", memberNumber);
+        sqlSession.delete("seller.deleteSeller", memberNumber);
+        sqlSession.delete("seller.deleteMember", memberNumber);
+		
+	}
     
 }

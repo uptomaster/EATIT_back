@@ -102,6 +102,57 @@
 	   WHERE BUSINESS_NUMBER      = #{businessNumber}
 	</update>
 
+	<!-- =========== 회원 탈퇴 ========== -->	
+<!--  1댓글 삭제 (작성자 기준) -->
+<delete id="deleteUserComments" parameterType="int">
+    DELETE FROM TBL_COMMENT
+    WHERE MEMBER_NUMBER = #{memberNumber}
+</delete>
+
+<!--  2리뷰 삭제 (작성자 기준) -->
+<delete id="deleteUserReviews" parameterType="int">
+    DELETE FROM TBL_REVIEW
+    WHERE MEMBER_NUMBER = #{memberNumber}
+</delete>
+
+<!--  3게시글 삭제 (작성자 기준) -->
+<delete id="deleteUserPosts" parameterType="int">
+    DELETE FROM TBL_POST
+    WHERE MEMBER_NUMBER = #{memberNumber}
+</delete>
+
+<!--  4원산지 삭제 (가게 기준) -->
+<delete id="deleteStoreOrigins" parameterType="string">
+    DELETE FROM TBL_ORIGIN
+    WHERE BUSINESS_NUMBER = #{businessNumber}
+</delete>
+
+<!--  5메뉴 삭제 (사업자 기준) -->
+<delete id="deleteStoreItems" parameterType="string">
+    DELETE FROM TBL_ITEM
+    WHERE BUSINESS_NUMBER = #{businessNumber}
+</delete>
+
+<!--  6가게 삭제 (판매자 번호 기준) -->
+<delete id="deleteStore" parameterType="int">
+    DELETE FROM TBL_STORE
+    WHERE MEMBER_NUMBER = #{memberNumber}
+</delete>
+
+<!--  7판매자 삭제 -->
+<delete id="deleteSeller" parameterType="int">
+    DELETE FROM TBL_SELLER_MEMBER
+    WHERE MEMBER_NUMBER = #{memberNumber}
+</delete>
+
+<!--  8회원 삭제 (최종적으로 계정 삭제) -->
+<delete id="deleteMember" parameterType="int">
+    DELETE FROM TBL_MEMBER
+    WHERE MEMBER_NUMBER = #{memberNumber}
+</delete>
+
+    
+    
 	<!-- =========== 리뷰 작성 ========== -->	
   <!-- 리뷰 저장 -->
   <insert id="insertReview" parameterType="ReviewDTO">
