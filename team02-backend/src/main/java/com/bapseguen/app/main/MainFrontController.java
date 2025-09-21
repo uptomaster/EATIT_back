@@ -75,7 +75,6 @@ public class MainFrontController extends HttpServlet {
 		 case "/storeDistanceList":
 	            System.out.println("[FrontController] 거리순 가게 목록 요청 처리 시작");
 	            new StoreDistanceController().doPost(request, response);
-	            new StoreDistanceController().doPost(request, response);
 	            System.out.println("[FrontController] 거리순 가게 목록 요청 처리 완료");
 	            return;
 		

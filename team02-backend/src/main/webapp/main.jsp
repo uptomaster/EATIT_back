@@ -20,7 +20,7 @@
 
 <!-- 헤더 js -->
 <script
-	src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=999dfba85c1eb71dd621862762a10488&libraries=services"></script>
+	src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=529293aec66dc1125f9cbd10a960a73f&libraries=services"></script>
 <script defer src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 <script defer
 	src="${pageContext.request.contextPath}/assets/js/gradeModal.js"></script>
@@ -174,11 +174,11 @@
 								<c:forEach var="ingredient" items="${ingredientList}">
 									<article class="main_ingredient_img">
 										<a
-											href="${pageContext.request.contextPath}/orders/ingredientDetail.or">
+											href="${pageContext.request.contextPath}/orders/ingredientDetail.or?itemNumber=${ingredient.itemNumber}">
 											<img
 											src="${pageContext.request.contextPath}/upload/${ingredient.itemImageSystemName}"
 											alt="${ingredient.storeName} 이미지">
-											<div class="main_ingredient_store_info">
+											<div class="main_ingredient_info">
 												<div class="main_ingredient_store_name">
 													<c:out value="${ingredient.storeName}" />
 												</div>
@@ -191,7 +191,7 @@
 												<div class="main_ingredient_distance">
 													거리:
 													<c:choose>
-														<c:when test="${store.distance >= 1}">
+														<c:when test="${ingredient.distance >= 1}">
 															<fmt:formatNumber value="${ingredient.distance}"
 																pattern="#.##" /> km
         												</c:when>

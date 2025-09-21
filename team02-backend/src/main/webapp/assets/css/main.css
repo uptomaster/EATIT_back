@@ -246,14 +246,14 @@ h3 {
 /* 재료사진 및 정보 들어가는 영역 */
 .main_ingredient_store {
 	width: 500px;
-	height: 300px;
+	height: 440px;
 	/* border: 1px solid red; */
 	margin: 0 0 0 50px;
 }
 
 .main_ingredient_img {
 	width: 230px;
-	height: 140px;
+	height: 230px;
 	display: inline-block;
 	margin: 5px;
 	overflow: hidden;
@@ -263,7 +263,7 @@ h3 {
 .main_ingredient_img a {
 	margin: auto;
 	width: 230px;
-	height: 140px;
+	height: 230px;
 	display: block;
 	border-radius: 8px;
 	object-fit: cover;
@@ -273,7 +273,6 @@ h3 {
 .main_ingredient_img a img {
 	width: 230px;
 	height: 140px;
-	border-radius: 8px;
 	display: block;
 	object-fit: cover;
 	transition: transform 0.3s ease;
@@ -283,16 +282,13 @@ h3 {
 	transform: scale(1.05);
 }
 
-.main_ingredient_storeinfo {
-	width: 230px;
-	height: 140px;
-	border-radius: 8px;
-}
-.main_ingredient_store_info {
-    width: 245px;
-    height: 86px; /* 360 - 274 */
+.main_ingredient_info {
+    height: 74px;
     padding: 5px 10px;
     box-sizing: border-box;
+    background-color: white;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 .main_ingredient_store_name {
@@ -309,8 +305,8 @@ h3 {
 .main_ingredient_price {
     font-size: 16px;
     font-weight: bold;
+    float: right;
     color: #FF924E;
-    margin-bottom: 2px;
 }
 
 .main_ingredient_distance {
