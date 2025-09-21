@@ -74,28 +74,81 @@ a:hover {
 	filter: brightness(1.08);
 }
 
-/* 찜 버튼 */
+/* ---------------- 찜 버튼 (업그레이드 ver.) ---------------- */
 .favorite-btn {
 	position: absolute;
 	top: 18px;
 	right: 18px;
-	background: rgba(255, 255, 255, 0.95);
-	border: none;
-	border-radius: 50%;
-	padding: 12px;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	border-radius: 40px; /* pill 모양 */
+	padding: 8px 14px;
 	cursor: pointer;
-	transition: all .25s ease;
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+	transition: all .3s ease;
+	font-weight: 600;
+	font-size: 14px;
+	overflow: hidden;
 }
 
+/* 공통 아이콘 */
 .favorite-btn i {
 	font-size: 22px;
-	color: #FF4E2A;
+	transition: transform .3s ease, color .3s ease, text-shadow .3s ease;
 }
 
-.favorite-btn:hover {
-	transform: scale(1.2);
+/* ---------------- 상태별 스타일 ---------------- */
+/* 비활성 (찜 전) */
+.favorite-btn.not-favorited {
 	background: #fff;
+	border: 1px solid #ffd9c9;
+	color: #555;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.favorite-btn.not-favorited i {
+	color: #bbb;
+}
+
+/* 활성 (찜 완료) */
+.favorite-btn.favorited {
+	background: #ffe6e9;
+	border: 1px solid #ffb0b8;
+	color: #ff2e48;
+	box-shadow: 0 4px 12px rgba(255, 50, 70, 0.15);
+}
+
+.favorite-btn.favorited i {
+	color: #ff2e48;
+	text-shadow: 0 0 6px rgba(255, 60, 80, 0.4);
+}
+
+/* ---------------- hover 효과 ---------------- */
+.favorite-btn:hover {
+	transform: scale(1.07);
+}
+
+.favorite-btn:hover i {
+	text-shadow: 0 0 12px rgba(255, 60, 80, 0.7);
+}
+
+.favorite-btn:active i {
+	transform: scale(1.25);
+}
+
+/* 텍스트 기본 숨김 */
+.favorite-btn span {
+	opacity: 0;
+	max-width: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	transition: all .3s ease;
+}
+
+/* hover 시 텍스트 나타남 */
+.favorite-btn:hover span {
+	opacity: 1;
+	max-width: 100px;
 }
 
 .buy_store_info_detail {
@@ -110,13 +163,12 @@ a:hover {
 	-webkit-text-fill-color: transparent;
 }
 
-.buy_store_address, .buy_store_tel, .buy_store_open_time {
+.buy_store_address, .buy_store_tel {
 	font-size: 15px;
 	color: #555;
 	margin-top: 6px;
 }
 
-/* 리뷰 탭 이동 */
 .review-tab-link {
 	margin-top: 14px;
 }
@@ -181,13 +233,19 @@ a:hover {
 .food_img_wrapper {
 	position: relative;
 }
-
+/* ✅ 카드형 상품 이미지 */
 .food_img_wrapper img {
-	width: 140px;
-	height: 140px;
-	border-radius: 14px;
+	width: 160px;
+	height: 160px;
+	border-radius: 6px;
 	object-fit: cover;
-	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.food_img_wrapper img:hover {
+	transform: scale(1.05);
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
 .buy_each_container {
@@ -366,35 +424,101 @@ a:hover {
 	display: none;
 }
 
+/* ---------------- 사고보상 정책 ---------------- */
+.buy_policy {
+	background: #fff;
+	border-radius: 16px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+	padding: 20px;
+	margin-top: 24px;
+}
+
+.buy_policy_title {
+	font-size: 18px;
+	font-weight: 800;
+	margin-bottom: 12px;
+	color: #ff6b4a;
+}
+
+.buy_policy_toggle_header {
+	padding: 12px 14px;
+	background: #fff7f3;
+	border-radius: 8px;
+	margin-top: 8px;
+	cursor: pointer;
+	font-weight: 600;
+	transition: background .25s ease, color .25s ease;
+}
+
+.buy_policy_toggle_header:hover {
+	background: #ffece3;
+	color: #ff6b4a;
+}
+
+.buy_policy_toggle_header.active {
+	background: #ff6b4a;
+	color: #fff;
+}
+
+.buy_policy_toggle_content {
+	display: none;
+	padding: 10px;
+	font-size: 14px;
+	color: #555;
+	line-height: 1.5;
+}
+
+/* ---------------- 지도 영역 ---------------- */
+.buy_store_map {
+	width: 100%;
+	height: 260px;
+	margin-top: 20px;
+	border-radius: 12px;
+	background: #f9f9f9;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #777;
+	font-size: 14px;
+}
+
 /* ---------------- 공통 뱃지 ---------------- */
 .badge {
-  position:absolute; 
-  top:10px; left:10px;
-  padding:6px 14px;
-  font-size:13px; 
-  font-weight:700;
-  border-radius:18px; 
-  color:#fff;
-  box-shadow:0 3px 8px rgba(0,0,0,0.15);
-  display:flex; 
-  align-items:center; 
-  gap:6px;           /* 아이콘과 텍스트 사이 간격 */
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	padding: 6px 14px;
+	font-size: 13px;
+	font-weight: 700;
+	border-radius: 18px;
+	color: #fff;
+	box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+	display: flex;
+	align-items: center;
+	gap: 6px;
 }
 
-/* 마감임박 - 강렬한 레드 + ⏰ */
 .badge.urgent {
-  background:linear-gradient(135deg,#ff4e50,#d32f2f);
+	background: linear-gradient(135deg, #ff4e50, #d32f2f);
 }
-.badge.urgent::before { content:"⏰"; }
 
-/* 할인추천 - 따뜻한 오렌지 + 💸 */
+.badge.urgent::before {
+	content: "⏰";
+}
+
 .badge.sale {
-  background:linear-gradient(135deg,#ffb74d,#ff9800);
+	background: linear-gradient(135deg, #ffb74d, #ff9800);
 }
-.badge.sale::before { content:"💸"; }
 
-/* 신선 - 청량한 그린 + 🥬 */
-.badge.fresh {
-  background:linear-gradient(135deg,#43a047,#81c784);
+.badge.sale::before {
+	content: "💸";
 }
-.badge.fresh::before { content:"🥬"; }
+
+.badge.fresh {
+	background: linear-gradient(135deg, #43a047, #81c784);
+}
+
+.badge.fresh::before {
+	content: "🥬";
+}

@@ -26,14 +26,31 @@ public class MyStoreFavoriteDAO {
         Integer result = sqlSession.selectOne("myStoreFavorite.exists", dto);
         return result != null && result > 0;
     }
-    
-    /** 내 찜 목록 조회 (페이징 적용) */
+
+    /** 내 찜 목록 조회 (페이징 적용 + 메뉴 개수 + 이미지 보강) */
     public List<StoreFavoriteDTO> selectAll(int memberNumber, int startRow, int endRow) {
         Map<String, Object> params = new HashMap<>();
         params.put("memberNumber", memberNumber);
         params.put("startRow", startRow);
         params.put("endRow", endRow);
-        return sqlSession.selectList("myStoreFavorite.MyFavSelectAll", params);
+
+        List<StoreFavoriteDTO> list = sqlSession.selectList("myStoreFavorite.MyFavSelectAll", params);
+
+        // 각 가게별로 menuCount & 이미지 보강
+        for (StoreFavoriteDTO dto : list) {
+            // 메뉴 개수
+            Integer menuCount = sqlSession.selectOne("myStoreFavorite.getMenuCount", dto.getBusinessNumber());
+            dto.setMenuCount(menuCount != null ? menuCount : 0);
+
+            // 대표 이미지 (DTO 매핑)
+            StoreFavoriteDTO imageDto = sqlSession.selectOne("myStoreFavorite.getStoreImage", dto.getBusinessNumber());
+            if (imageDto != null) {
+                dto.setStoreImageSystemName(imageDto.getStoreImageSystemName());
+                dto.setStoreImageOriginalName(imageDto.getStoreImageOriginalName());
+            }
+        }
+
+        return list;
     }
 
     /** 찜 추가 */

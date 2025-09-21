@@ -66,12 +66,12 @@ public class ItemDAO {
     }
 
     /** 목록 검색 */
-    public List<ItemWithImgDTO> searchItems(Map<String,Object> params) {
+    public List<ItemWithImgDTO> searchItems(Map<String, Object> params) {
         return sqlSession.selectList("item.searchItems", params);
     }
 
     /** 검색 개수 세기 */
-    public int countSearchItems(Map<String,Object> params) {
+    public int countSearchItems(Map<String, Object> params) {
         return sqlSession.selectOne("item.countSearchItems", params);
     }
 
@@ -94,5 +94,8 @@ public class ItemDAO {
         return sqlSession.selectOne("item.countItemsByBusinessNumber", businessNumber);
     }
 
-
+    /** 특정 가게의 대표 상품(첫 상품) 조회 */
+    public ItemWithImgDTO selectFirstItemByStore(String businessNumber) {
+        return sqlSession.selectOne("item.selectFirstItemByStore", businessNumber);
+    }
 }

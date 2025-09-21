@@ -7,15 +7,16 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 public class TossService {
-    // 문서용(v2 Standard 가이드) 테스트 시크릿 키 (docs 키를 쓸 때만 사용)
-    public static final String DOCS_SECRET_KEY = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
+    // 문서용 테스트 키
+    public static final String DOCS_CLIENT_KEY = "여기에 넣으세요"; 
+    public static final String DOCS_SECRET_KEY = "여기에 넣으세요"; 
 
     /**
      * 결제 승인(Confirm)
-     * @param paymentKey successUrl 쿼리 파라미터로 받은 값
-     * @param orderId    successUrl 쿼리 파라미터로 받은 값
-     * @param amount     successUrl 쿼리 파라미터로 받은 값(서버 재계산과 동일해야 안전)
-     * @param secretKey  Basic 인증에 사용할 시크릿 키("...sk..." 혹은 DOCS_SECRET_KEY)
+     * @param paymentKey Toss가 successUrl로 전달한 결제키
+     * @param orderId    주문번호
+     * @param amount     결제금액
+     * @param secretKey  Basic 인증에 사용할 시크릿 키
      * @return true면 승인 성공
      */
     public boolean confirm(String paymentKey, String orderId, int amount, String secretKey) {
@@ -24,36 +25,30 @@ public class TossService {
             URL url = new URL("https://api.tosspayments.com/v1/payments/confirm");
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
-            conn.setConnectTimeout(10000);
-            conn.setReadTimeout(15000);
             conn.setDoOutput(true);
-            conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 
-            // ★ Authorization: Basic base64("{secretKey}:")
-            String basic = "Basic " + Base64.getEncoder()
-                    .encodeToString((secretKey + ":").getBytes(StandardCharsets.UTF_8));
-            conn.setRequestProperty("Authorization", basic);
+            String auth = Base64.getEncoder()
+                                .encodeToString((secretKey + ":").getBytes(StandardCharsets.UTF_8));
+            conn.setRequestProperty("Authorization", "Basic " + auth);
+            conn.setRequestProperty("Content-Type", "application/json");
 
-            String json = "{\"paymentKey\":\"" + escape(paymentKey) + "\","
-                        + "\"orderId\":\""   + escape(orderId)    + "\","
-                        + "\"amount\":"      + amount             + "}";
+            String body = String.format(
+                "{\"paymentKey\":\"%s\",\"orderId\":\"%s\",\"amount\":%d}",
+                paymentKey, orderId, amount
+            );
 
             try (OutputStream os = conn.getOutputStream()) {
-                os.write(json.getBytes(StandardCharsets.UTF_8));
+                os.write(body.getBytes(StandardCharsets.UTF_8));
             }
 
-            int code = conn.getResponseCode();
-            if (code == HttpURLConnection.HTTP_OK) {
-                // 승인 성공
-                return true;
+            int responseCode = conn.getResponseCode();
+            if (responseCode == 200) {
+                return true; // 승인 성공
             } else {
-                // 실패 본문 로그로 확인
                 try (InputStream es = conn.getErrorStream()) {
                     if (es != null) {
-                        String err = new String(es.readAllBytes(), StandardCharsets.UTF_8);
-                        System.err.println("[TossConfirm] FAIL " + code + " body=" + err);
-                    } else {
-                        System.err.println("[TossConfirm] FAIL " + code + " (no error body)");
+                        String errorMsg = new String(es.readAllBytes(), StandardCharsets.UTF_8);
+                        System.err.println("Toss confirm 실패: " + errorMsg);
                     }
                 }
                 return false;
@@ -64,10 +59,5 @@ public class TossService {
         } finally {
             if (conn != null) conn.disconnect();
         }
-    }
-
-    private static String escape(String s) {
-        if (s == null) return "";
-        return s.replace("\\", "\\\\").replace("\"", "\\\"");
     }
 }

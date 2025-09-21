@@ -8,8 +8,10 @@
     <title>밥세권 - 가게 리뷰</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/orders/storeDetail.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/orders/reviewList.css">
     <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
+    <!-- ⭐ Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 </head>
 <body>
 
@@ -27,7 +29,7 @@
             <div class="buy_store_info">
                 <c:choose>
                     <c:when test="${not empty reviews and not empty reviews[0].storeImageSystemName}">
-                        <img src="${pageContext.request.contextPath}/upload/store/${reviews[0].storeImageSystemName}" 
+                        <img src="${pageContext.request.contextPath}/upload/${reviews[0].storeImageSystemName}" 
                              alt="${reviews[0].storeImageOriginalName}">
                     </c:when>
                     <c:otherwise>
@@ -37,19 +39,22 @@
 
                 <div class="buy_store_info_detail">
                     <h2 class="buy_store_name">${storeName}</h2>
-                    <p class="buy_store_address">주소 : ${storeAddress}</p>
-                    <p class="buy_store_tel">전화번호 : ${storeTel}</p>
-                    <p class="buy_store_bn">사업자번호 : ${businessNumber}</p>
+                    <p class="buy_store_address"><i class="fas fa-map-marker-alt"></i> ${storeAddress}</p>
+                    <p class="buy_store_tel"><i class="fas fa-phone"></i> ${storeTel}</p>
+                    <p class="buy_store_bn"><i class="fas fa-store"></i> ${businessNumber}</p>
 
-                    <!-- 평균 별점 & 리뷰 개수 -->
+                    <!-- ⭐ 평균 별점 & 리뷰 개수 -->
                     <c:if test="${totalCount > 0}">
                         <p class="buy_store_avg_rating">
                             <span class="stars">
                                 <c:forEach begin="1" end="5" var="i">
                                     <c:choose>
-                                        <c:when test="${i <= avgRating}">⭐</c:when>
-                                        <c:when test="${i - avgRating < 1 && i > avgRating}">⭐</c:when>
-                                        <c:otherwise>☆</c:otherwise>
+                                        <c:when test="${i <= avgRating}">
+                                            <i class="fas fa-star"></i>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <i class="far fa-star"></i>
+                                        </c:otherwise>
                                     </c:choose>
                                 </c:forEach>
                             </span>
@@ -65,8 +70,8 @@
             <!-- 메뉴/재료/리뷰 탭 -->
             <div class="buy_food">
                 <ul class="buy_food_menu_choice">
-                    <li><a href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=1&tab=FOOD">음식</a></li>
-                    <li><a href="${pageContext.request.contextPath}/orders/ingredientDetail.or?itemNumber=1&tab=INGREDIENT">재료</a></li>
+                    <li><a href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${param.itemNumber}&tab=FOOD">음식</a></li>
+                    <li><a href="${pageContext.request.contextPath}/orders/ingredientDetail.or?itemNumber=${param.itemNumber}&tab=INGREDIENT">재료</a></li>
                     <li><a class="active" href="#">리뷰</a></li>
                 </ul>
 
@@ -84,8 +89,12 @@
                                         <span class="buy_review_star">
                                             <c:forEach begin="1" end="5" var="i">
                                                 <c:choose>
-                                                    <c:when test="${i <= r.reviewRating}">⭐</c:when>
-                                                    <c:otherwise>☆</c:otherwise>
+                                                    <c:when test="${i <= r.reviewRating}">
+                                                        <i class="fas fa-star"></i>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <i class="far fa-star"></i>
+                                                    </c:otherwise>
                                                 </c:choose>
                                             </c:forEach>
                                         </span>
