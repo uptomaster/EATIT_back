@@ -166,14 +166,14 @@
 		        <ul class="pagination_ul">
 		          <c:if test="${prev}">
 		            <li><a
-		              href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?page=${startPage - 1}"
+		              href="${pageContext.request.contextPath}/sellerMyPage/storeIngre.se?page=${startPage - 1}"
 		              class="prev">&lt;</a></li>
 		          </c:if>
 		          <c:set var="realStartPage" value="${startPage < 0 ? 0 : startPage}" />
 		          <c:forEach var="i" begin="${realStartPage}" end="${endPage}">
 		          	<c:choose>
 		          		<c:when test="${!(i == page) }">
-		          			<li><a href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?page=${i}">
+		          			<li><a href="${pageContext.request.contextPath}/sellerMyPage/storeIngre.se?page=${i}">
 		          				<c:out value="${i}" />
 		          			</a></li>
 		          		</c:when>
@@ -186,7 +186,7 @@
 		          </c:forEach>
 		          <c:if test="${next}">
 		            <li><a
-		              href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se?page=${endPage + 1}"
+		              href="${pageContext.request.contextPath}/sellerMyPage/storeIngre.se?page=${endPage + 1}"
 		              class="next">&gt;</a>
 		          </c:if>
 		        </ul>

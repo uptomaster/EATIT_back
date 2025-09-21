@@ -101,9 +101,9 @@
 						        </c:choose>
 						
 						        <%-- 컨텍스트 프리픽스 + 엔드포인트 --%>
-						        <c:set var="listUrl" value="${ctx}/${listEndpoint}" />
+						        <c:set var="listUrl" value="${ctx}${listEndpoint}" />
 						        <%-- 요청대로 상세는 ?postNumber=${memberNumber} 를 부착 --%>
-						        <c:set var="readUrl" value="${ctx}/${readEndpoint}?postNumber=${comment.postNumber}" />
+						        <c:set var="readUrl" value="${ctx}${readEndpoint}?postNumber=${comment.postNumber}" />
 
 									 <a href="${listUrl}">${typeLabel}</a>
 								</div>

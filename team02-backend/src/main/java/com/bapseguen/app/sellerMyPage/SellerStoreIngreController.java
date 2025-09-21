@@ -51,13 +51,11 @@ public class SellerStoreIngreController implements Execute{
 			int pageCount = 5; // 페이지 버튼 수
 
 			// request에 데이터 저장
-			int foodListCount = sellerDAO.foodCount(businessNumber);
 			int ingreListCount = sellerDAO.ingredientCount(businessNumber);
 			
-	        request.setAttribute("foodListCount", foodListCount);
 	        request.setAttribute("ingreListCount", ingreListCount);
 			
-			int realEndPage = (int) Math.ceil(foodListCount / (double) rowCount); // 실제 마지막 페이지(전체 게시글 기준으로 계산)
+			int realEndPage = (int) Math.ceil(ingreListCount / (double) rowCount); // 실제 마지막 페이지(전체 게시글 기준으로 계산)
 			int endPage = (int) (Math.ceil(page / (double) pageCount) * pageCount); // 현재 페이지 그룹에서의 마지막 페이지
 			int startPage = endPage - (pageCount - 1); // 현재 페이지 그룹에서의 첫 페이지
 
@@ -68,11 +66,6 @@ public class SellerStoreIngreController implements Execute{
 			int startRow = (page - 1) * rowCount + 1; // 시작행(1, 11, 21, ..)
 			int endRow = startRow + rowCount - 1; // 끝 행(10, 20, 30, ..)
 
-			
-			Map<String, Object> foodpageMap = new HashMap<>();
-			foodpageMap.put("startRow", startRow);
-			foodpageMap.put("endRow", endRow);
-			foodpageMap.put("businessNumber", (String) session.getAttribute("businessNumber"));
 			
 			Map<String, Object> ingrepageMap = new HashMap<>();
 			ingrepageMap.put("startRow", startRow);
@@ -90,10 +83,6 @@ public class SellerStoreIngreController implements Execute{
 			System.out.println("images : "+images);
 			request.setAttribute("images", images); // null 오류 수정			
 			
-	         //음식 판매 목록 조회
-	        List<ItemWithImgDTO> foodList = sellerDAO.foodList(foodpageMap);
-	        System.out.println("foodList : "+foodList);
-			request.setAttribute("foodList", foodList); // null 오류 수정
 			// 음식 판매 목록 조회
 			List<ItemWithImgDTO> ingreList = sellerDAO.ingredientList(ingrepageMap);
 			System.out.println("ingreList : "+ingreList);

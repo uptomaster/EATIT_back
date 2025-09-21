@@ -17,57 +17,63 @@ import com.bapseguen.app.main.dao.StoreDAO;
 
 public class MainListController {
 
-    public Result execute(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	public Result execute(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
 
-        System.out.println("==== MainListController 실행 ====");
+	    System.out.println("==== MainListController 실행 ====");
 
-        MainDAO mainDAO = new MainDAO();
-        Result result = new Result();
+	    MainDAO mainDAO = new MainDAO();
+	    Result result = new Result();
 
-        String userAddress = request.getParameter("address");
-        if (userAddress == null || userAddress.isEmpty()) {
-            userAddress = "서울 강남구 테헤란로 146"; // 기본값
-        }
+	    // 1️⃣ GET 파라미터로 주소 받기
+	    String userAddress = request.getParameter("address");
 
-        double[] userLatLng = GeoUtil.getLatLngFromAddress(userAddress);
-        System.out.println("사용자 주소: " + userAddress + ", 좌표: " + userLatLng[0] + ", " + userLatLng[1]);
+	    // 2️⃣ 세션에 저장
+	    if(userAddress != null && !userAddress.isEmpty()) {
+	        request.getSession().setAttribute("userAddress", userAddress);
+	    }
 
-        // 가게 리스트
-        List<MainStoreListDTO> storeList = new StoreDAO().getAllStores();
-        for (MainStoreListDTO store : storeList) {
-            double dist = GeoUtil.distance(userLatLng[0], userLatLng[1],
-                                           store.getLatitude(), store.getLongitude());
-            store.setDistance(dist);
-        }
+	    // 3️⃣ 세션에서 주소 가져오기 (로고 클릭으로 돌아왔을 때도 적용됨)
+	    String sessionAddress = (String) request.getSession().getAttribute("userAddress");
+	    if(sessionAddress != null && !sessionAddress.isEmpty()) {
+	        userAddress = sessionAddress;
+	    } else {
+	        // 세션에도 없으면 기본값
+	        userAddress = "서울 강남구 테헤란로 146";
+	    }
 
-        storeList.sort(Comparator.comparingDouble(MainStoreListDTO::getDistance));
-        request.setAttribute("storeList", storeList);
+	    double[] userLatLng = GeoUtil.getLatLngFromAddress(userAddress);
+	    System.out.println("사용자 주소: " + userAddress + ", 좌표: " + userLatLng[0] + ", " + userLatLng[1]);
 
-        // 재료 리스트
-        List<ItemWithImgDTO> ingredientList = new StoreDAO().getAllIngredientsWithStore();
-        for (ItemWithImgDTO ingredient : ingredientList) {
-            double dist = GeoUtil.distance(userLatLng[0], userLatLng[1],
-            		ingredient.getLatitude(), ingredient.getLongitude());
-            ingredient.setDistance(dist);
-        }
+	    // 가게 리스트
+	    List<MainStoreListDTO> storeList = new StoreDAO().getAllStores();
+	    for (MainStoreListDTO store : storeList) {
+	        double dist = GeoUtil.distance(userLatLng[0], userLatLng[1],
+	                                       store.getLatitude(), store.getLongitude());
+	        store.setDistance(dist);
+	    }
+	    storeList.sort(Comparator.comparingDouble(MainStoreListDTO::getDistance));
+	    request.setAttribute("storeList", storeList);
 
-        ingredientList.sort(Comparator.comparingDouble(ItemWithImgDTO::getDistance));
-        request.setAttribute("ingredientList", ingredientList);
+	    // 재료 리스트
+	    List<ItemWithImgDTO> ingredientList = new StoreDAO().getAllIngredientsWithStore();
+	    for (ItemWithImgDTO ingredient : ingredientList) {
+	        double dist = GeoUtil.distance(userLatLng[0], userLatLng[1],
+	        		ingredient.getLatitude(), ingredient.getLongitude());
+	        ingredient.setDistance(dist);
+	    }
+	    ingredientList.sort(Comparator.comparingDouble(ItemWithImgDTO::getDistance));
+	    request.setAttribute("ingredientList", ingredientList);
 
-        // -------------------------------
-        // 4. 기타 데이터
-        // -------------------------------
-        
+	    // 기타 데이터
+	    List<PostDetailDTO> recipeList = mainDAO.selectMainRecipeList();
+	    request.setAttribute("recipeList", recipeList);
 
-        List<PostDetailDTO> recipeList = mainDAO.selectMainRecipeList();
-        request.setAttribute("recipeList", recipeList);
+	    List<AdminImageDTO> bannerList = mainDAO.selectAdminImageDTO();
+	    request.setAttribute("bannerList", bannerList);
 
-        List<AdminImageDTO> bannerList = mainDAO.selectAdminImageDTO();
-        request.setAttribute("bannerList", bannerList);
-
-        result.setPath("/main.jsp");
-        result.setRedirect(false);
-        return result;
-    }
+	    result.setPath("/main.jsp");
+	    result.setRedirect(false);
+	    return result;
+	}
 }

@@ -203,6 +203,8 @@ function renderIngredientList(ingredientList) {
 
 
 
+
+
 // 무한 루프 처리 (복제 슬라이드에서 실제 슬라이드로 순간 이동)
 function handleLoop() {
   if (currentIdx === totalSlides - 1) {
