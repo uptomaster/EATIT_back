@@ -233,15 +233,12 @@
 	    VALUES (#{postNumber}, #{recipeContent})
 	</insert>
 	
-
-	
 	<!--조회수 쿼리  -->
 	<update id="postUpdateReadCount" parameterType="int">
 		UPDATE TBL_POST
 		SET POST_VIEW_COUNT=POST_VIEW_COUNT+1
 		WHERE POST_NUMBER=#{postNumber}
 	</update>
-	
 	<!-- 현재 조회수 쿼리 -->
 	<select id="getViewCount" parameterType="int" resultType="int">
 	    SELECT POST_VIEW_COUNT
@@ -254,16 +251,29 @@
 	    DELETE FROM TBL_FREE_BOARD
 	    WHERE POST_NUMBER = #{postNumber}
 	</delete>
-	<!-- 자유게시판 게시글 삭제 쿼리 / 게시글 내용제외-->
+	<!-- 홍보게시판 게시글 삭제 쿼리 / 글 내용-->	
+	<delete id="promoBoardDelete" parameterType="int">
+	    DELETE FROM TBL_PROMO_BOARD
+	    WHERE POST_NUMBER = #{postNumber}
+	</delete>
+	<!-- 레시피게시판 게시글 삭제 쿼리 / 글 내용-->	
+	<delete id="recipeBoardDelete" parameterType="int">
+	    DELETE FROM TBL_RECIPE_BOARD
+	    WHERE POST_NUMBER = #{postNumber}
+	</delete>
+	
+	
+	<!--  게시글 삭제 쿼리 / 게시글 내용제외-->
 	<delete id="postDelete" parameterType="int">
 	    DELETE FROM TBL_POST
 	    WHERE POST_NUMBER = #{postNumber}
 	</delete>
-	<!-- 자유게시판 게시글 삭제 쿼리 / 이미지-->
-	<delete id="freeBoardImageDelete" parameterType="int">
+	<!-- 게시판 게시글 삭제 쿼리 / 이미지-->
+	<delete id="postImageDelete" parameterType="int">
 	    DELETE FROM TBL_POST_IMAGE
 	    WHERE POST_NUMBER = #{postNumber}
 	</delete>
+	
 	
 	<!-- 게시글 삭제시 포스트타입 조회 -->
 	<select id="getPostType" parameterType="int" resultType="string">
