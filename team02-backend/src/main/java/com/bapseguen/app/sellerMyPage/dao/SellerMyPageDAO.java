@@ -11,6 +11,7 @@ import com.bapseguen.app.dto.ItemImageDTO;
 import com.bapseguen.app.dto.ItemListDTO;
 import com.bapseguen.app.dto.OriginDTO;
 import com.bapseguen.app.dto.ReviewDTO;
+import com.bapseguen.app.dto.StoreDTO;
 import com.bapseguen.app.dto.view.CommentListDTO;
 import com.bapseguen.app.dto.view.ItemInsertDTO;
 import com.bapseguen.app.dto.view.ItemWithImgDTO;
@@ -387,12 +388,12 @@ public class SellerMyPageDAO {
     }
 
 	public int updatePassword(Map<String, Object> paramMap) {
-    	System.out.println("[sellerDAO] updatePassword");
+    	System.out.println("[sellerDAO] updatePassword / map"+paramMap);
 	    return sqlSession.update("seller.updatePassword", paramMap);
 	}
 
 	public int updatePhone(Map<String, Object> paramMap) {
-    	System.out.println("[sellerDAO] updatePhone");
+    	System.out.println("[sellerDAO] updatePhone / dto :"+paramMap);
 	    return sqlSession.update("seller.updatePassword", paramMap);
 	}
 	// 비밀번호 업데이트
@@ -421,6 +422,16 @@ public class SellerMyPageDAO {
 		    // MyBatis Mapper: myPage.checkPassword → SELECT COUNT(1) ...
 		    int count = sqlSession.selectOne("seller.checkPassword", params);
 		    return count == 1;
+	}
+
+	public void updateStoreaddress(StoreDTO storeDTO) {
+		System.out.println("[sellerDAO] updateStoreaddress / dto : "+storeDTO);
+		sqlSession.update("seller.updateStoreaddress", storeDTO);
+	}
+
+	public void updateStoreTime(StoreDTO storeDTO) {
+		System.out.println("[sellerDAO] updateStoreTime / dto : "+storeDTO);
+		sqlSession.update("seller.updateStoreTime", storeDTO);
 	}
     
 }
