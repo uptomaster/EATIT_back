@@ -30,7 +30,7 @@
     <!-- 본문 -->
     <main id="myFavorite" class="wrap">
         <section class="favorite_store_list">
-            <h2>📌 내 찜한 가게</h2>
+            <h2>내 찜한 가게</h2>
 
             <div class="favorite_area">
                 <c:choose>
@@ -38,7 +38,7 @@
                         <c:forEach var="fav" items="${favorites}">
                             <article class="favorite_article">
 
-                                <!-- ✅ 가게 클릭 시 가게 상세(storeDetail.jsp)로 이동 -->
+                                <!-- 가게 클릭 시 가게 상세(storeDetail.jsp)로 이동 -->
                                 <a href="${pageContext.request.contextPath}/orders/storeDetail.or?storeNumber=${fav.businessNumber}" 
                                    class="favorite_link">
 
