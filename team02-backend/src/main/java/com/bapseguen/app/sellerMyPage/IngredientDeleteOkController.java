@@ -29,15 +29,17 @@ public class IngredientDeleteOkController implements Execute{
 		ItemImageDAO ItemImageDAO = new ItemImageDAO();   
 
        // 1. 파일 삭제 (있는 경우만)
-       String uploadPath = request.getSession().getServletContext().getRealPath("/") + "upload/";
-       List<ItemImageDTO> images = ItemImageDAO.select(itemNumber);
-       for (ItemImageDTO image : images) {
-           File file = new File(uploadPath, image.getItemImageSystemName());
-           if (file.exists()) {
-               file.delete();
-               System.out.println("파일 삭제: " + file.getName());
-           }
-       }
+		if(request.getParameter("imageItemSystemNumber") != null) {
+	       String uploadPath = request.getSession().getServletContext().getRealPath("/") + "upload/";
+	       List<ItemImageDTO> images = ItemImageDAO.select(itemNumber);
+	       for (ItemImageDTO image : images) {
+	           File file = new File(uploadPath, image.getItemImageSystemName());
+	           if (file.exists()) {
+	               file.delete();
+	               System.out.println("파일 삭제: " + file.getName());
+	           }
+	       }
+		}
 
        // 2. 이미지 DB 삭제
        ItemImageDAO.delete(itemNumber);

@@ -19,6 +19,7 @@
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
   <script defer src="${pageContext.request.contextPath}/assets/js/sellerMyPage/editSellerInfo.js"></script>
 
+	
   <script>
   let headerPath = './../../header.jsp';
   let footerPath = './../../footer.jsp';
@@ -44,10 +45,12 @@
     </div>
 
     <!-- 내 정보 수정 (1100px 영역) -->
-    <form class="seller_edit_user_info"
-          action="${pageContext.request.contextPath}/sellerMyPage/editSellerInfoOk.se"
+    <form class="seller_edit_user_info edit_user_info"
           method="post"
-          enctype="multipart/form-data">
+          data-current-phone="${storeInfo.phoneNumber}" 
+          data-current-password="${storeInfo.memberPassword}" 
+      		data-context-path="${pageContext.request.contextPath}">
+<%--           action="${pageContext.request.contextPath}/sellerMyPage/editSellerInfoOk.se" --%>
 
       <!-- 바인딩된 데이터 없을 때 가드 -->
       <c:if test="${empty sellerInfo}">
@@ -60,23 +63,13 @@
         <!-- 숨은 값들: 서버에서 식별용 -->
         <input type="hidden" name="memberNumber" value="${sellerInfo.memberNumber}">
         <input type="hidden" name="businessNumber" value="${sellerInfo.businessNumber}">
+        <input type="hidden" id="seller_password" name="password" value="${sellerInfo.memberPassword}">
+        <input type="hidden" id="seller_phone" name="phone" value="${sellerInfo.sellerPhoneNumber}">
 
         <!-- 페이지 제목 -->
         <h2 class="seller_my_info">내 정보 수정</h2>
 
         <div class="seller_info_area">
-           <!-- 프로필 사진 -->
-        <!--  <div class="seller_info_modify_area">
-            <div class="seller_info_menu">프로필 사진</div>
-            <label class="seller_insert_profile" id="add_ficture" for="profileImage">
-              <input type="file" id="profileImage" name="profileImage" accept="image/*">
-              <img id="preview" src="#" alt="미리보기"
-                   style="display:contents;width:65px;height:65px;border-radius:100px;object-fit:cover;">
-            </label>◀사진등록
-            <p>*개인정보가 포함된 이미지 등록은 자제하여주시길 바랍니다.</p>
-            <button type="button" class="seller_info_save_buzz">저장</button>
-          </div> -->
-
           <!-- 아이디 (수정 불가) -->
           <div class="seller_info_unable_modify_area">
             <div class="seller_info_menu">아이디</div>
@@ -203,8 +196,6 @@
             <div>
               <div class="seller_gray_box">
               	<p><c:out value="${sellerInfo.storeName}" /></p>
-                <%-- <input id="store_name" name="storeName" class="seller_input_info" type="text"
-                       value="<c:out value='${sellerInfo.storeName}'/>"> --%>
               </div>
               <p id="store_name_error" class="seller_notice_input_wrong_info"></p>
             </div>
@@ -231,6 +222,8 @@
             <div>
               <div class="seller_gray_box">
               	<p><c:out value="${sellerInfo.storeAddressDetail} / ${sellerInfo.storeZipCode}" /></p>
+                <input type="hidden" id="storeLatitude" value="${storeInfo.storeLatitude }"/>
+          			<input type="hidden" id="storeLongitude" value="${storeInfo.storeLongitude }"/>
                 <%-- <input name="storeAddressDetail" class="seller_input_info" type="text"
                        value="<c:out value='${sellerInfo.storeAddressDetail}+"  /  "+${sellerInfo.storeZipCode}'/>"> --%>
               </div>
@@ -298,7 +291,7 @@
        <!-- 전체 저장 버튼 -->
 			  <div class="bottom_btn_container">
 			  	  <div class="agreement_buzz">
-				    <a href="${pageContext.request.contextPath}/sellerMyPage/withdrawalAgreement.se">회원탈퇴</a>
+				    <a href="${pageContext.request.contextPath}/sellerMyPage/withdrawalAgreement.se" class="seller_agreement_buzz">회원탈퇴</a>
 				  </div>
 				  <button type="button" class="total_info_save_buzz" data-member-number="${member.memberNumber}">저장</button>
 			  </div>
