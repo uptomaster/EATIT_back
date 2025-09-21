@@ -21,17 +21,6 @@
 <body>
   <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
   <main>
-    <div class="withdrawalagreement_my_page_list">
-      <div class="withdrawalagreement_my_page">마이 페이지</div>
-      <ul class="withdrawalagreement_side_bar">
-        <li><a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.my">내 정보 수정</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListOk.my">음식 구매 내역</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseListOk.my">재료 구매 내역</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/myPostListOk.my">내 글 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/myCommentsListOk.my">내 댓글 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/myReviewListOk.my">내 리뷰 관리</a></li>
-      </ul>
-    </div>
     <form class="withdrawalagreement" action="${pageContext.request.contextPath}/userMyPage/withdrawOk.my" method="post">
       <div class="withdrawalagreement_agreement_page">
         <h2>회원탈퇴동의</h2>

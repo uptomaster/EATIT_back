@@ -1,20 +1,40 @@
 @charset "UTF-8";
 
-main{
-  background-color: #FFF5E4;
+/* ===== 기본 스타일 ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* ===== 메인 컨테이너 ===== */
+main {
   width: 1920px;
   height: 800px;
   display: flex;
-  flex-direction: row;  
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(80% 80% at 50% 0%, rgba(255,233,210, .55) 0%, rgba(255,245,228,0) 60%),
+              #fff5e4;
+  overflow: hidden; 
 }
-.withdrawalagreement{
+
+/* ===== 실패 컨테이너 ===== */
+.withdrawalagreement {
   background-color: #FBE3B9;
+  width: 600px; 
   width: 1100px;
-  margin-left: 410px;
+  
   display: flex;
   justify-content: center;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-.withdrawalagreement_my_page_list{
+
+/* ===== 마이 페이지 메뉴 ===== */
+.withdrawalagreement_my_page_list {
   position: fixed;
   padding: 0;
   margin: 100px 20px 0 200px;
@@ -24,8 +44,8 @@ main{
   background-color: #a6998080;
   border-radius: 10px;
 }
-.withdrawalagreement_my_page{
-  padding: 0;
+
+.withdrawalagreement_my_page {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   background-color: #FF873C;
@@ -36,58 +56,56 @@ main{
   justify-content: center;
   align-items: center;
 }
-.withdrawalagreement_side_bar > li{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  list-style: none;
-  width: 190px;
-}
-.withdrawalagreement_side_bar > li > a{
-  width: 190px;
-  padding: 15px 0;
-  text-decoration: none;
-  color: white;
-  display: flex;
-  justify-content: center;
-}
-.withdrawalagreement_side_bar > li:hover{
-  width: 100%;
-  background-color: #ff873c8c;
-  border-radius: 10px;
 
-}
-.withdrawalagreement_agreement_page{
-  background-color: white;
+
+/* ===== 탈퇴 동의 영역 ===== */
+.withdrawalagreement_agreement_page {
+  background-color: #fffdf7;
   width: 900px;
   height: 550px;
-  margin-top: 100px;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
-h2{
+
+h2 {
   font-size: 30px;
   margin: 25px 0 45px 70px;
+  font-weight: bold;
+  color: #3b2f20;
 }
-.withdrawalagreement_two_box{
+
+.withdrawalagreement_two_box {
   margin-top: 80px;
 }
+
 .withdrawalagreement_input_info {
   border-radius: 10px;
   margin-left: 57px;
   width: 500px;
-  height:50px;           
+  height: 50px;
   font-size: 16px;
   text-align: center;
   border: none;
-  box-sizing: border-box;  
-  padding: 0 10px;         
+  box-sizing: border-box;
+  padding: 0 10px;
+  transition: all 0.3s ease;
 }
-.withdrawalagreement_box_set{
+
+.withdrawalagreement_input_info:focus {
+  outline: none;
+  border: 2px solid #FF873C;
+  box-shadow: 0 0 8px rgba(255, 135, 60, 0.6);
+}
+
+.withdrawalagreement_box_set {
   margin: 0 0 15px 46px;
   display: flex;
   height: 80px;
   font-weight: bold;
 }
-.withdrawalagreement_password_now{
+
+.withdrawalagreement_password_now {
   align-items: center;
   background-color: #FF873C;
   font-size: 18px;
@@ -97,7 +115,8 @@ h2{
   justify-content: center;
   border-radius: 10px;
 }
-.withdrawalagreement_gray_box{
+
+.withdrawalagreement_gray_box {
   background-color: gray;
   width: 650px;
   border-radius: 10px;
@@ -105,7 +124,8 @@ h2{
   align-content: center;
   justify-content: center;
 }
-.withdrawalagreement_white_box{
+
+.withdrawalagreement_white_box {
   background-color: white;
   width: 530px;
   height: 50px;
@@ -113,16 +133,15 @@ h2{
   justify-items: center;
   align-content: center;
 }
-.withdrawalagreement_buzz_set{
+
+/* ===== 버튼 영역 ===== */
+.withdrawalagreement_buzz_set {
   display: flex;
   justify-content: center;
   margin-top: 100px;
 }
 
-.withdrawalagreement_agreement_buzz:hover{
-  background-color: #FF7722;
-}
-.withdrawalagreement_agreement_buzz{
+.withdrawalagreement_agreement_buzz {
   background-color: #FF873C;
   width: 178px;
   height: 50px;
@@ -134,8 +153,16 @@ h2{
   margin: 20px 60px 0 0;
   border: none;
   color: white;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
-.withdrawalagreement_cancle_buzz{
+
+.withdrawalagreement_agreement_buzz:hover {
+  background-color: #FF7722;
+  transform: scale(1.05);
+}
+
+.withdrawalagreement_cancle_buzz {
   background-color: #FF873C;
   width: 178px;
   height: 50px;
@@ -146,7 +173,8 @@ h2{
   justify-self: right;
   margin: 20px 60px 0 0;
 }
-.withdrawalagreement_cancle_buzz > a{
+
+.withdrawalagreement_cancle_buzz > a {
   color: white;
   font-size: 14px;
   text-decoration: none;
@@ -156,51 +184,31 @@ h2{
   display: flex;
   justify-content: center;
 }
+
 /* 에러 메시지 */
 .notice_input_wrong_info {
-    color: #e53935;
-    font-size: 0.9rem;
-    margin-top: 4px;
-}
-
-/* 입력 박스 */
-.withdrawalagreement_input_info {
-    padding: 8px;
-    font-size: 1rem;
-    width: 250px;
-}
-
-/* 버튼 */
-.withdrawalagreement_agreement_buzz {
-    margin-top: 16px;
-    padding: 10px 20px;
-    background-color: #e53935;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.withdrawalagreement_agreement_buzz:hover {
-    background-color: #d32f2f;
+  color: #e53935;
+  font-size: 0.9rem;
+  margin-top: 4px;
 }
 
 /* 라벨 spacing */
 .agree_label {
-    margin-left: 8px;
+  margin-left: 8px;
 }
 
 /* 비밀번호 / 동의 박스 레이아웃 */
 .withdrawalagreement_box_set {
-    margin-bottom: 16px;
-}
-.withdrawalagreement_gray_box {
-    padding: 8px;
-    background-color: #f5f5f5;
-    border-radius: 4px;
-}
-.withdrawalagreement_password_now {
-    font-weight: bold;
-    margin-bottom: 4px;
+  margin-bottom: 16px;
 }
 
+.withdrawalagreement_gray_box {
+  padding: 8px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+.withdrawalagreement_password_now {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
