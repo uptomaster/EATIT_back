@@ -15,18 +15,19 @@
 	href="${pageContext.request.contextPath }/assets/css/footer.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/assets/css/join/sellerInfoInput.css">
-<script defer
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_JAVASCRIPT_API_KEY&libraries=services&autoload=false"></script>
 <script defer
 	src="${pageContext.request.contextPath }/assets/js/header.js"></script>
 <script defer
 	src="${pageContext.request.contextPath }/assets/js/join/sellerInfoInput.js"></script>
 <title>밥세권</title>
 <script>
-  const ctx = '${pageContext.request.contextPath}';
-  let headerPath = ctx + '/header.jsp';
-  let footerPath = ctx + '/footer.jsp';
-  </script>
+	const ctx = '${pageContext.request.contextPath}';
+	let headerPath = ctx + '/header.jsp';
+	let footerPath = ctx + '/footer.jsp';
+</script>
 </head>
 <body>
 	<jsp:include page="/header.jsp" />
@@ -197,7 +198,10 @@
 							name="seller_input_store_address_detail" placeholder="[필수]"
 							required />
 					</div>
-
+					<input type="hidden" id="seller_input_store_lat"
+						name="seller_input_store_lat"> 
+					<input type="hidden"
+						id="seller_input_store_lng" name="seller_input_store_lng">
 
 					<!-- 가게 전화번호 -->
 					<div class="seller_input_container_stroe_call">
