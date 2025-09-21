@@ -28,9 +28,9 @@
             <!-- 가게 정보 -->
             <div class="buy_store_info">
                 <c:choose>
-                    <c:when test="${not empty reviews and not empty reviews[0].storeImageSystemName}">
-                        <img src="${pageContext.request.contextPath}/upload/${reviews[0].storeImageSystemName}" 
-                             alt="${reviews[0].storeImageOriginalName}">
+                    <c:when test="${not empty storeImageSystemName}">
+                        <img src="${pageContext.request.contextPath}/upload/${storeImageSystemName}" 
+                             alt="${storeImageOriginalName}">
                     </c:when>
                     <c:otherwise>
                         <img src="${pageContext.request.contextPath}/assets/img/store_default.png" alt="기본 이미지">
