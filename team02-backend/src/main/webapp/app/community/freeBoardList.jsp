@@ -79,9 +79,9 @@
 		   					 		<c:out value="${post.getPostViewCount() }" />
 		   					 		
 		   					 	</div>
-		   					 	<div class="board-item col_likes">
-								    <c:out value="${post.getPostLikeCount()}" />
-								</div>
+								<div class="board-item col_likes">
+								    <span class="list_recommend_count" data-post-number="${post.postNumber}">${post.getPostLikeCount()}</span>
+								</div>	
 		   					 </div>
 	   					 </c:forEach>
 	   				</c:when>
@@ -150,7 +150,6 @@
   <!-- <footer id="footer"></footer> -->
 </body>
 <script>
-		console.log("조회수 스크립트 실행됨!");
 		console.log("postNumber:", postNumber);
 		console.log("viewCountEl:", viewCountEl);
 		window.memberNumber = "${sessionScope.memberNumber}";

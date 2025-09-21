@@ -50,18 +50,12 @@
 						<c:when test="${postType == 'FREE'}">
 		            자유게시글 수정
 		        		</c:when>
-						<%-- <c:when test="${postType == 'NOTICE'}">
-		            공지사항 작성
-		        </c:when> --%>
 						<c:when test="${postType == 'PROMOTION'}">
 		            프로모션 게시글 수정
 		       	 		</c:when>
 						<c:when test="${postType == 'RECIPE'}">
 		            레시피 게시글 수정
 		        		</c:when>
-						<c:otherwise>
-		            게시글 수정
-		        		</c:otherwise>
 					</c:choose>
 				</h1>
 			</div>
@@ -107,19 +101,22 @@
 			    </div>
 			
 			    <div class="button_group">
-			        <c:choose>
-					  <c:when test="${postType == 'FREE'}">
-					    <c:url var="listUrl" value="/community/freeBoardListOk.co" />
-					  </c:when>
-					  <c:when test="${postType == 'PROMOTION'}">
-					    <c:url var="listUrl" value="/community/promoBoardListOk.co" />
-					  </c:when>
-					  <c:when test="${postType == 'RECIPE'}">
-					    <c:url var="listUrl" value="/community/recipeListOk.co" />
-					  </c:when>
-					  <c:otherwise>
-					    <c:url var="listUrl" value="/community/communityMainOk.co" />
-					  </c:otherwise>
+					<c:choose>
+					    <c:when test="${postType == 'FREE'}">
+					        <c:url var="listUrl" value="/community/freeBoardReadOk.co">
+					            <c:param name="postNumber" value="${post.postNumber}" />
+					        </c:url>
+					    </c:when>
+					    <c:when test="${postType == 'PROMOTION'}">
+					        <c:url var="listUrl" value="/community/promoBoardReadOk.co">
+					            <c:param name="postNumber" value="${post.postNumber}" />
+					        </c:url>
+					    </c:when>
+					    <c:when test="${postType == 'RECIPE'}">
+					        <c:url var="listUrl" value="/community/recipeBoardReadOk.co">
+					            <c:param name="postNumber" value="${post.postNumber}" />
+					        </c:url>
+					    </c:when>
 					</c:choose>
 
 					<a class="cancel_btn" href="${listUrl}">작성 취소</a>

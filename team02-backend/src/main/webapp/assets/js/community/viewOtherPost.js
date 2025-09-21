@@ -27,36 +27,40 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	}
 
-	//추천 버튼 클릭시
-	recommendBtn.addEventListener('click', async () => {
-		const postNumber = window.postNumber;
-		const memberNumber = window.memberNumber;
-		if (!postNumber || !memberNumber) return alert('로그인 후 이용해주세요.');
+	// 추천 버튼 클릭
+	recommendBtn?.addEventListener('click', async () => {
+	    if (!postNumber || window.memberNumber === null) {
+	        alert('로그인 후 이용해주세요.');
+	        window.location.href = `${window.ctx}/login/login.lo`;
+	        return;
+	    }
 
-		try {
-			const res = await fetch(`/community/postlike.co?postNumber=${postNumber}`, {
-				method: 'POST',
-				headers: { 'Accept': 'application/json' }
-			});
+	    try {
+	        const res = await fetch(`${window.ctx}/community/postlike.co?postNumber=${postNumber}`, {
+	            method: 'POST',
+	            headers: { 'Accept': 'application/json' }
+	        });
+	        const data = await res.json();
 
-			if (!res.ok) throw new Error('서버 요청 실패');
+	        if (data.success) {
+	            // 하단 추천수
+	            counterRecommend.textContent = `추천 ${data.likeCount}`;
+	            counterRecommend.classList.add('bump');
+	            setTimeout(() => counterRecommend.classList.remove('bump'), 300);
 
-			const data = await res.json();
-			if (!data || typeof data.success === 'undefined') throw new Error('잘못된 서버 응답');
+	            // 상단 추천수
+	            const topLikeSpan = document.querySelector('.post_like_area span:last-child');
+	            if (topLikeSpan) {
+	                topLikeSpan.textContent = data.likeCount;
+	            }
 
-			if (!data.success) {
-				alert(data.message || '추천 실패');
-			} else {
-				likesSpan && (likesSpan.textContent = `추천 ${data.likeCount}`);
-				counterRecommend && (counterRecommend.textContent = `추천 ${data.likeCount}`);
-				counterRecommend?.classList.add('bump');
-				setTimeout(() => counterRecommend?.classList.remove('bump'), 300);
-				alert('추천이 완료되었습니다!');
-			}
-		} catch (err) {
-			console.error(err);
-			alert('추천 처리에 실패했습니다. (예외 발생)');
-		}
+	        } else {
+	            alert(data.message || '추천 실패');
+	        }
+	    } catch (err) {
+	        console.error(err);
+	        alert('추천 처리에 실패했습니다.');
+	    }
 	});
 
 
@@ -72,28 +76,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 	//  게시글 삭제 버튼 클릭시
-	document.body.addEventListener("click", async (e) => {
-		const deleteBtn = e.target.closest(".delete-btn");
-		if (!deleteBtn) return;
+    document.body.addEventListener("click", async (e) => {
+        const deleteBtnPost = e.target.closest(".delete-btn-post");
+        if (!deleteBtnPost) return;
 
-		const postNumber = window.postNumber; // 전역 변수로 postNumber를 받아옴
-		if (!postNumber) return alert("postNumber가 없습니다");
-		if (!confirm("정말 삭제하시겠습니까?")) return;
+        const postNumber = deleteBtnPost.dataset.boardNumber;
+        const postType = deleteBtnPost.dataset.postType; // 게시판 타입
+        if (!postNumber) return alert("게시글 번호가 없습니다.");
 
-		try {
-			const res = await fetch(`/community/postDeleteOk.co?postNumber=${encodeURIComponent(postNumber)}`, {
-				method: "GET"
-			});
+        if (!confirm("정말 삭제하시겠습니까?")) return;
+		
+		// 클릭 이벤트 전파 차단
+	   e.stopPropagation();
+	   e.preventDefault();
+	   
+	   deleteBtnPost.disabled = true; // 삭제 버튼 비활성화
+	
+        try {
+            const res = await fetch(`${window.ctx}/community/postDeleteOk.co?postNumber=${encodeURIComponent(postNumber)}`, {
+                method: "GET"
+            });
 
-			if (!res.ok) throw new Error("삭제 요청 실패");
+            if (!res.ok) throw new Error("삭제 요청 실패");
 
-			// 서버에서 리다이렉트 처리되므로 JS에서 경로 변경 안 함
-			alert("게시글이 삭제되었습니다.");
-		} catch (err) {
-			console.error("게시글 삭제 실패 :", err);
-			alert("게시글 삭제에 실패했습니다.");
-		}
-	});
+            // 삭제 후 게시판별 목록 이동
+            let redirectUrl = "";
+            switch ((postType || "").toUpperCase()) {
+                case "FREE":
+                    redirectUrl = `${window.ctx}/community/freeBoardListOk.co`;
+                    break;
+                case "PROMOTION":
+                    redirectUrl = `${window.ctx}/community/promoBoardListOk.co`;
+                    break;
+                case "RECIPE":
+                    redirectUrl = `${window.ctx}/community/recipeBoardListOk.co`;
+                    break;
+                default:
+                    redirectUrl = `${window.ctx}/community/communityMainOk.co`;
+            }
+
+            alert("게시글이 삭제되었습니다.");
+            window.location.href = redirectUrl;
+
+        } catch (err) {
+            console.error("게시글 삭제 실패:", err);
+            alert("게시글 삭제에 실패했습니다.");
+		} finally {
+	        deleteBtnPost.disabled = false; // 삭제 버튼 다시 활성화
+	    }
+    });
 
 });
 

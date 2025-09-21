@@ -78,8 +78,8 @@
 		   					 	<div class="board-item col_views">
 		   					 		<c:out value="${post.getPostViewCount() }" />
 		   					 	</div>
-		   					 	<div class="board-item col_likes">
-								    <c:out value="${post.getPostLikeCount()}" />
+								<div class="board-item col_likes">
+								    <span class="list_recommend_count" data-post-number="${post.postNumber}">${post.getPostLikeCount()}</span>
 								</div>
 		   					 </div>
 	   					 </c:forEach>

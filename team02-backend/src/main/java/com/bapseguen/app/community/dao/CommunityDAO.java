@@ -111,32 +111,50 @@ public class CommunityDAO {
 		}
 	}
 
-	// 게시글 삭제
+	// 게시글 삭제(자유,홍보,레시피)
 	public void delete(int postNumber) {
 		SqlSession session = null;
-		try {
-			session = MyBatisConfig.getSqlSessionFactory().openSession(false); // 트랜잭션 수동 처리
+	    try {
+	        session = MyBatisConfig.getSqlSessionFactory().openSession(false); // 트랜잭션 수동 처리
 
-			// 삭제 순서 중요
-			session.delete("post.freeBoardImageDelete", postNumber);
-			session.delete("post.freeBoardDelete", postNumber);
-			session.delete("post.postDelete", postNumber);
+	        // 1. 게시글의 postType 조회
+	        String postType = session.selectOne("post.getPostType", postNumber);
 
-			session.commit();
-			System.out.println("게시글 전체 삭제 성공");
-		} catch (Exception e) {
-			if (session != null)
-				session.rollback();
-			e.printStackTrace();
-		} finally {
-			if (session != null)
-				session.close();
-		}
+	        // 2. 삭제 순서 중요 - 각 postType에 맞는 삭제 처리
+	        if (postType != null) {
+	            // 2-1. 이미지 삭제 - postType에 맞는 이미지 삭제 처리
+	        	session.delete("post.postImageDelete", postNumber);
+
+	            // 2-2. 게시글에 해당하는 내용 삭제 (각각의 postType에 맞는 삭제 쿼리)
+	            if ("FREE".equals(postType)) {
+	                session.delete("post.freeBoardDelete", postNumber);
+	            } else if ("PROMOTION".equals(postType)) {
+	                session.delete("post.promoBoardDelete", postNumber);
+	            } else if ("RECIPE".equals(postType)) {
+	                session.delete("post.recipeBoardDelete", postNumber);
+	            }
+
+	            // 2-3. 게시글 삭제
+	            session.delete("post.postDelete", postNumber);
+	        }
+
+	        session.commit(); // 트랜잭션 커밋
+	        System.out.println("게시글 전체 삭제 성공");
+	    } catch (Exception e) {
+	        if (session != null) session.rollback(); // 에러 발생 시 롤백
+	        e.printStackTrace();
+	    } finally {
+	        if (session != null) session.close(); // 세션 종료
+	    }
 	}
 
-	// 게시글 삭제시 포스트 타입조회
+	// 게시글 타입 조회
 	public String getPostType(int postNumber) {
-		return sqlSession.selectOne("post.getPostType", postNumber);
+	    String postType = sqlSession.selectOne("post.getPostType", postNumber);
+	    if (postType == null) {
+	        throw new IllegalArgumentException("게시글 타입을 찾을 수 없습니다.");
+	    }
+	    return postType;
 	}
 
 	// 게시글 수정
