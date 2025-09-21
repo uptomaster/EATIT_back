@@ -70,9 +70,12 @@ public class SellerMyPageFrontController extends HttpServlet {
 		// 마이페이지 접근 전 비밀번호 확인 페이지 요청
 		case "/sellerMyPage/chkPw.se":
 			System.out.println("[판페f] 비밀번호 확인 페이지 요청");
-			request.getRequestDispatcher("/app/sellerMyPage/sellerCheckPw.jsp").forward(request, response);
+			result = new Result();
+			result.setPath("/app/sellerMyPage/sellerCheckPw.jsp");
+			result.setRedirect(false);
 //			result = new CheckSellerPwController().execute(request, response);
 			break;
+
 		case "/sellerMyPage/chkPwOk.se":
 			System.out.println("[판페f] 비밀번호 확인완료 요청");
 			result = new CheckSellerPwOkController().execute(request, response);
@@ -85,26 +88,28 @@ public class SellerMyPageFrontController extends HttpServlet {
 			System.out.println("[판페f] 사업장관리 페이지 이동 요청");
 			result = new SellerStoreInfoController().execute(request, response);
 			break;
-			// 이 페이지에서 음식 메뉴 목록, 재료 메뉴 목록 출력함
+		// 이 페이지에서 음식 메뉴 목록, 재료 메뉴 목록 출력함
 		case "/sellerMyPage/storeIngre.se":
 			System.out.println("[판페f] 사업장관리 페이지 이동 요청");
 			result = new SellerStoreIngreController().execute(request, response);
 			break;
-			// 이 페이지에서 음식 메뉴 목록, 재료 메뉴 목록 출력함
+		// 이 페이지에서 음식 메뉴 목록, 재료 메뉴 목록 출력함
 		case "/sellerMyPage/storeReview.se":
 			System.out.println("[판페f] 사업장관리 페이지 이동 요청");
 			result = new SellerStoreReviewController().execute(request, response);
 			break;
-			
+
 		case "/sellerMyPage/storeImage.se":
 			System.out.println("[판페f] 사업장관리 페이지 이동 요청");
-		    request.getRequestDispatcher("/app/sellerMyPage/addStoreImage.jsp").forward(request, response);
+			result = new Result();
+			result.setPath("/app/sellerMyPage/addStoreImage.jsp");
+			result.setRedirect(false);
 			break;
+
 		case "/sellerMyPage/storeImageOk.se":
 			System.out.println("[판페f] 사업장관리 페이지 이동 요청");
 			result = new SellerStoreImageOkController().execute(request, response);
 			break;
-			
 
 		/********************************************************************/
 		// Food
@@ -128,17 +133,17 @@ public class SellerMyPageFrontController extends HttpServlet {
 			System.out.println("[판페f]음식 수정 페이지 요청");
 			result = new FoodEditOkController().execute(request, response);
 			break;
-        case "/sellerMyPage/deleteFoodOk.se":      
-        	System.out.println("[판페f]음식 삭제 요청");
-        	result = new FoodDeleteOkController().execute(request, response); 
-        	break;
+		case "/sellerMyPage/deleteFoodOk.se":
+			System.out.println("[판페f]음식 삭제 요청");
+			result = new FoodDeleteOkController().execute(request, response);
+			break;
 
-    	/********************************************************************/
-	     // Ingredient
+		/********************************************************************/
+		// Ingredient
 		case "/sellerMyPage/addIngre.se":
 			System.out.println("[판페f]재료 추가 페이지 요청");
 			result = new IngredientAddController().execute(request, response);
-			 // 컨트롤러 사라짐..?
+			// 컨트롤러 사라짐..?
 			break;
 		case "/sellerMyPage/addIngreOk.se":
 			System.out.println("[판페f]재료 추가 완료 요청");
@@ -147,22 +152,22 @@ public class SellerMyPageFrontController extends HttpServlet {
 		case "/sellerMyPage/detailIngreOk.se":
 			System.out.println("[판페f]재료 상세 페이지 완료 요청");
 			result = new IngredientDetailOkController().execute(request, response);
-			
+
 			break;
 		case "/sellerMyPage/editIngre.se":
 			System.out.println("[판페f]재료 수정 페이지 요청");
 			result = new IngredientEditController().execute(request, response);
-			
+
 			break;
 		case "/sellerMyPage/editIngreOk.se":
 			System.out.println("[판페f]재료 수정 페이지 완료 요청");
 			result = new IngredientEditOkController().execute(request, response);
-			
+
 			break;
-        case "/sellerMyPage/deleteIngreOk.se":    
-        	System.out.println("[판페f] 재료 삭제 요청");
-        	 result = new IngredientDeleteOkController().execute(request, response);
-        	 break;
+		case "/sellerMyPage/deleteIngreOk.se":
+			System.out.println("[판페f] 재료 삭제 요청");
+			result = new IngredientDeleteOkController().execute(request, response);
+			break;
 		case "/sellerMyPage/IngrelistOk.se":
 			result = new FoodListOkController().execute(request, response);
 			break;
@@ -200,14 +205,14 @@ public class SellerMyPageFrontController extends HttpServlet {
 		/********************************************************************/
 		case "/sellerMyPage/todaySaleList.se":
 			System.out.println("[판페f] 오늘 판매내역 페이지 요청");
-		    result = new TodaySaleHistoryOkController().execute(request, response);
-		    break;
+			result = new TodaySaleHistoryOkController().execute(request, response);
+			break;
 
 		case "/sellerMyPage/totalSale.se":
 			System.out.println("[판페f] 총 판매내역 페이지 요청");
-		    result = new TotalSaleHistoryOkController().execute(request, response); 
-		    break;
-			
+			result = new TotalSaleHistoryOkController().execute(request, response);
+			break;
+
 		/********************************************************************/
 		case "/sellerMyPage/editSellerInfo.se":
 			System.out.println("[판페f] 판매자 내정보수정 요청");
@@ -217,61 +222,63 @@ public class SellerMyPageFrontController extends HttpServlet {
 			System.out.println("[판페f] 판매자 내정보수정 완료 요청");
 			result = new EditSellerInfoOkController().execute(request, response);
 			break;
-			
-		//비밀번호 일치 확인
+
+		// 비밀번호 일치 확인
 		case "/sellerMyPage/checkPwOk.se":
-		    //System.out.println("내 정보 수정 비밀번호 비교 ");
-		    new CheckPwOkController().execute(request, response);
-		    return;
-			
+			// System.out.println("내 정보 수정 비밀번호 비교 ");
+			result = new CheckPwOkController().execute(request, response);
+			break;
+
 		// 휴대폰 인증번호 전송 요청
 		case "/sellerMyPage/sellerMyPageSmsSend.se":
-		    System.out.println("[판페f] 변경할 전화번호 인증번호 전송 요청");
-		    result=new UserMypageSMSController().execute(request, response);
-		    break;	
-		    
-		// 휴대폰 인증번호 
+			System.out.println("[판페f] 변경할 전화번호 인증번호 전송 요청");
+			result = new UserMypageSMSController().execute(request, response);
+			break;
+
+		// 휴대폰 인증번호
 		case "/sellerMyPage/phoneCode.se":
 			System.out.println("[판페f] 변경할 전화번호 인증번호 전송 요청");
-		    result = new PhoneCodeController().execute(request, response);
-		    break;
-		    
-	    // 탈퇴 동의/비번 확인 페이지 진입
+			result = new PhoneCodeController().execute(request, response);
+			break;
+
+		// 탈퇴 동의/비번 확인 페이지 진입
 		case "/sellerMyPage/withdrawalAgreement.se":
 			System.out.println("[판페f] 변경할 전화번호 인증번호 전송 요청");
-		    request.getRequestDispatcher("/app/sellerMyPage/withdrawalAgreement.jsp").forward(request, response);
-		    break;
+			result = new Result();
+			result.setPath("/app/sellerMyPage/withdrawalAgreement.jsp");
+			result.setRedirect(false);
+			break;
 
-	    // 실제 탈퇴 처리
+		// 실제 탈퇴 처리
 		case "/sellerMyPage/withdrawOk.se":
 			System.out.println("[판페f] 변경할 전화번호 인증번호 전송 요청");
-		    result = new WithdrawOkController().execute(request, response);
-		    break;
+			result = new WithdrawOkController().execute(request, response);
+			break;
 
 		/********************************************************************/
-			// 원산지 목록 페이지
+		// 원산지 목록 페이지
 		case "/sellerMyPage/originList.se":
 			System.out.println("[판페f] 원산지 목록 출력 요청");
-		    result = new OriginListOkController().execute(request, response);
-		    break;
+			result = new OriginListOkController().execute(request, response);
+			break;
 
 		// 추가
 		case "/sellerMyPage/originAddOk.se":
 			System.out.println("[판페f] 원산지 추가 요청");
-		    result = new OriginAddOkController().execute(request, response);
-		    break;
+			result = new OriginAddOkController().execute(request, response);
+			break;
 
 		// 단건 조회(수정 모달)
 		case "/sellerMyPage/originDetail.se":
 			System.out.println("[판페f] 원산지 삭제 요청");
-		    result = new OriginDetailController().execute(request, response);
-		    break;
+			result = new OriginDetailController().execute(request, response);
+			break;
 
 		// 수정 저장
 		case "/sellerMyPage/originEditOk.se":
 			System.out.println("[판페f] 원산지 수정 완료 요청");
-		    result = new OriginEditOkController().execute(request, response);
-		    break;
+			result = new OriginEditOkController().execute(request, response);
+			break;
 		/********************************************************************/
 		}
 
@@ -284,7 +291,6 @@ public class SellerMyPageFrontController extends HttpServlet {
 				request.getRequestDispatcher(result.getPath()).forward(request, response);
 			}
 		} // result 가
-		
-		
+
 	}
 }
