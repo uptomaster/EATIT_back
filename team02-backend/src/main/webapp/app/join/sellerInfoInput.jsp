@@ -15,6 +15,7 @@
 	href="${pageContext.request.contextPath }/assets/css/footer.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/assets/css/join/sellerInfoInput.css">
+	
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_JAVASCRIPT_API_KEY&libraries=services&autoload=false"></script>
 <script defer
