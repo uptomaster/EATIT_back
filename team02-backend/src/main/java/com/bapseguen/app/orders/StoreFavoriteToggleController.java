@@ -19,6 +19,7 @@ public class StoreFavoriteToggleController implements Execute {
 
         Result result = new Result();
 
+        // 로그인 안 된 경우 → 로그인 페이지로
         if (memberNumber == null) {
             result.setPath(request.getContextPath() + "/login/login.lo");
             result.setRedirect(true);
@@ -26,15 +27,19 @@ public class StoreFavoriteToggleController implements Execute {
         }
 
         String storeNumber = request.getParameter("storeNumber");
-        String itemNumber = request.getParameter("itemNumber"); // ✅ 상세 유지용
+
+        if (storeNumber == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return null;
+        }
 
         MyStoreFavoriteDAO dao = new MyStoreFavoriteDAO();
         StoreFavoriteDTO dto = new StoreFavoriteDTO();
         dto.setMemberNumber(memberNumber);
         dto.setBusinessNumber(storeNumber);
 
+        // 토글 처리
         boolean exists = dao.exists(dto);
-
         String msg;
         if (exists) {
             dao.delete(dto);
@@ -44,11 +49,11 @@ public class StoreFavoriteToggleController implements Execute {
             msg = "찜 완료되었습니다.";
         }
 
-        // 상세페이지 그대로 forward
-        request.setAttribute("favMessage", msg);
-        result.setPath("/orders/storeDetail.or?itemNumber=" + itemNumber);
-        result.setRedirect(false);
+        session.setAttribute("favMessage", msg);
+
+        // 상품 상세로 갈 필요 없이, 찜 목록 페이지로 리다이렉트
+        result.setPath(request.getContextPath() + "/orders/myFavorite.or");
+        result.setRedirect(true);
         return result;
     }
 }
-

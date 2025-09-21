@@ -61,7 +61,7 @@ public class OrdersFrontController extends HttpServlet {
 
 		// 찜 토글
 		case "/orders/favoriteToggle.or":
-			if (!isGet(request)) {
+			if (!isPost(request)) {
 				response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 				return;
 			}

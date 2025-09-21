@@ -77,7 +77,7 @@
                         <a href="${pageContext.request.contextPath}/orders/storeDetail.or?itemNumber=${item.itemNumber}">
                           ${item.itemName}
                         </a>
-                        <!-- ✅ 소비기한 뱃지 -->
+                        <!-- 소비기한 뱃지 -->
                         <c:if test="${not empty item.itemExpireDate}">
                           <c:set var="today" value="<%=new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(new java.util.Date())%>" />
                           <fmt:parseDate var="expireDate" value="${item.itemExpireDate}" pattern="yyyy-MM-dd"/>
@@ -150,7 +150,7 @@
 
               <div class="shopping_price_row">
                 <span>선택 상품 금액</span>
-                <!-- ✅ 서버에서 미리 합산해서 totalAmount 전달 -->
+                <!-- 서버에서 미리 합산해서 totalAmount 전달 -->
                 <span id="selectedAmount">
                   <fmt:formatNumber value="${totalAmount}" type="number"/> 원
                 </span>
@@ -181,7 +181,7 @@
                       </c:choose>
                       <div class="rec_name">
                         ${rec.itemName}
-                        <!-- ✅ 추천상품에도 뱃지 -->
+                        <!-- 추천상품에도 뱃지 -->
                         <c:if test="${not empty rec.itemExpireDate}">
                           <c:set var="today" value="<%=new java.text.SimpleDateFormat(\"yyyy-MM-dd\").format(new java.util.Date())%>" />
                           <fmt:parseDate var="expireDate" value="${rec.itemExpireDate}" pattern="yyyy-MM-dd"/>

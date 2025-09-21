@@ -28,7 +28,7 @@ public class MyStoreFavoriteListController implements Execute {
             return result;
         }
 
-        // ✅ 페이징 처리
+        // 페이징 처리
         int page = 1;
         int rowCount = 10; // 한 페이지에 10개 출력
         if (request.getParameter("page") != null) {
@@ -43,12 +43,12 @@ public class MyStoreFavoriteListController implements Execute {
         MyStoreFavoriteDAO favDAO = new MyStoreFavoriteDAO();
         List<StoreFavoriteDTO> favList = favDAO.selectAll(memberNumber, startRow, endRow);
 
-        // 전체 개수 조회해서 maxPage 계산 (DAO에 count 메서드 필요)
+        // 전체 개수 조회해서 maxPage 계산
         int totalCount = favDAO.countByMember(memberNumber);
         int maxPage = (int) Math.ceil((double) totalCount / rowCount);
 
-        // JSP에 전달
-        request.setAttribute("favList", favList);
+        // JSP에 전달 (이름 통일)
+        request.setAttribute("favorites", favList);
         request.setAttribute("page", page);
         request.setAttribute("maxPage", maxPage);
 

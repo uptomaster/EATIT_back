@@ -316,6 +316,20 @@
 		AND ITEM_SELL_STATE = 'Y'
 	</select>
 
+	<!-- 특정 가게의 대표 상품(첫 상품) 조회 -->
+	<select id="selectFirstItemByStore" parameterType="string"
+		resultType="com.bapseguen.app.dto.view.ItemWithImgDTO">
+		SELECT *
+		FROM (
+		SELECT i.*, s.store_name, s.store_address, s.store_tel
+		FROM tbl_item i
+		JOIN tbl_store s ON i.business_number = s.business_number
+		WHERE i.business_number = #{businessNumber}
+		ORDER BY i.item_number ASC
+		)
+		WHERE ROWNUM = 1
+	</select>
+
 
 
 
