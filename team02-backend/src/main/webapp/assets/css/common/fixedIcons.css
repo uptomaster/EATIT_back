@@ -1,0 +1,79 @@
+@charset "UTF-8";
+
+/* 오른쪽 중앙 고정 아이콘 */
+.icon_fixed_nav {
+  position: fixed;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  z-index: 2000;
+}
+
+.icon_btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.icon_btn:hover {
+  background: #FF6B4A;
+  border-color: #FF6B4A;
+}
+
+.icon_btn svg {
+  width: 24px;
+  height: 24px;
+  fill: #202020;
+}
+.icon_btn:hover svg {
+  fill: #fff;
+}
+
+/* 위치 모달 */
+.location_modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+}
+.location_modal.open { display: flex; }
+.location_modal_body {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  min-width: 300px;
+}
+
+/* Tree Grade 모달 */
+.grade-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+}
+.grade-modal:not(.hidden) { display: flex; }
+.grade-modal__panel {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  min-width: 300px;
+}
