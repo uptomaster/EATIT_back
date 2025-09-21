@@ -21,8 +21,8 @@
 <body>
   <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
 
-  <!-- 결제완료 성공 페이지 -->
-  <div id="payment_success">
+  <!-- 결제 성공 페이지 -->
+  <div id="payment_page" class="success">
     <div class="wrap">
       <div class="box">
         <div class="check">
@@ -31,12 +31,13 @@
             <path fill="#ffffff" d="M530.8 134.1C545.1 144.5 548.3 164.5 537.9 178.8L281.9 530.8C276.4 538.4 267.9 543.1 258.5 543.9C249.1 544.7 240 541.2 233.4 534.6L105.4 406.6C92.9 394.1 92.9 373.8 105.4 361.3C117.9 348.8 138.2 348.8 150.7 361.3L252.2 462.8L486.2 141.1C496.6 126.8 516.6 123.6 530.9 134z"/>
           </svg>
         </div>
-        <h3>고객님의 주문이 완료되었습니다</h3>
+        <h3>고객님의 주문이 완료되었습니다 🎉</h3>
         
-        <!-- 주문목록으로 이동 -->
-        <a href="${pageContext.request.contextPath}/orders/list.or">
-          <div class="buylist_btn">주문목록으로 이동</div>
-        </a>
+        <!-- 버튼 영역 -->
+        <div class="btn_group">
+          <a href="${pageContext.request.contextPath}/orders/list.or" class="buylist_btn">주문목록으로 이동</a>
+          <a href="${pageContext.request.contextPath}/" class="buylist_btn secondary">메인으로 가기</a>
+        </div>
       </div>
     </div>
   </div>

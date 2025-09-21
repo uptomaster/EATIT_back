@@ -1,5 +1,6 @@
 package com.bapseguen.app.orders.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -115,5 +116,14 @@ public class OrdersDAO {
 		p.put("amount", amount);
 		return sqlSession.update("orders.updatePaidByOrderId", p);
 	}
+	
+	// OrdersDAO.java
+	public void updateOrderStatusByOrderId(String orderId, String ordersPaymentStatus) {
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("orderId", orderId);
+	    param.put("ordersPaymentStatus", ordersPaymentStatus);
+	    sqlSession.update("orders.updateOrderStatusByOrderId", param);
+	}
+
 
 }

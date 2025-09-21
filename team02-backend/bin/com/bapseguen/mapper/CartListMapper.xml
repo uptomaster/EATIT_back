@@ -213,13 +213,12 @@
 	<!-- 결제 성공 시 현재 OPEN 카트 마감 -->
 	<update id="closeCurrentCart" parameterType="int">
 		UPDATE TBL_CART
-		SET
-		CART_ORDER_STATUS = 'CLOSED',
-		CART_UPDATED_DATE = SYSDATE
-		WHERE
-		MEMBER_NUMBER = #{memberNumber}
+		SET CART_ORDER_STATUS = 'ORDERED'
+		WHERE MEMBER_NUMBER = #{memberNumber}
 		AND CART_ORDER_STATUS = 'OPEN'
 	</update>
+
+
 
 	<!-- 회원의 장바구니 총 금액 -->
 	<select id="sumAmountByMember" parameterType="int"
@@ -255,21 +254,27 @@
 		i.ITEM_NAME,
 		i.ITEM_PRICE,
 		TO_CHAR(i.ITEM_EXPIRE_DATE, 'YYYY-MM-DD') AS itemExpireDate,
-		(SELECT ii.ITEM_IMAGE_SYSTEM_NAME
+		(SELECT
+		ii.ITEM_IMAGE_SYSTEM_NAME
 		FROM TBL_ITEM_IMAGE ii
-		WHERE ii.ITEM_NUMBER = i.ITEM_NUMBER
+		WHERE ii.ITEM_NUMBER =
+		i.ITEM_NUMBER
 		FETCH FIRST 1 ROWS ONLY) AS itemImageSystemName
-		FROM TBL_ITEM i
+		FROM
+		TBL_ITEM i
 		WHERE i.BUSINESS_NUMBER = #{businessNumber}
-		AND i.ITEM_NUMBER NOT IN (
+		AND i.ITEM_NUMBER
+		NOT IN (
 		SELECT ci.ITEM_NUMBER
 		FROM TBL_CART_ITEM ci
-		JOIN TBL_CART c ON ci.CART_NUMBER = c.CART_NUMBER
+		JOIN TBL_CART c ON
+		ci.CART_NUMBER = c.CART_NUMBER
 		WHERE c.MEMBER_NUMBER = #{memberNumber}
 		AND c.CART_ORDER_STATUS = 'OPEN'
 		)
 		AND i.ITEM_SELL_STATE = 'Y'
-		ORDER BY DBMS_RANDOM.VALUE
+		ORDER BY
+		DBMS_RANDOM.VALUE
 		FETCH FIRST 4 ROWS ONLY
 	</select>
 

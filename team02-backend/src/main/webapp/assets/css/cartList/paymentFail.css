@@ -1,74 +1,106 @@
 @charset "UTF-8";
 
-*{
+/* 공통 영역 */
+body {
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
+  background: #f9fafb;
+  color: #333;
+  line-height: 1.6;
   margin: 0;
   padding: 0;
 }
-#payment_success{
-  width: 1920px;
-  height: 1080px;
-  background-color: #FFF5E4;
-}
-/* 결제완료 > 중앙정렬 영역*/
-.wrap{
-  border: 1ps solid red;
-  width: 1100px;
-  height: 1080px;
-  background-color:#FBE3B9;
-  margin: 0 auto;
+
+#payment_page {
   display: flex;
-}
-/* 결제완료 > 박스 */
-.box{
-  width: 450px;
-  height: 200px;
-  /* 중앙정렬 100%화면 기준 */
-  margin: auto;
-  background-color: white;
-  border-radius: 8px;
-  /* border: 1px solid red; */
-}
-.check{
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin: 0 auto;
-  margin-top: 40px;
-  background-color:  #FF924E;
-  display: flex;
-}
-.check svg{
-  width: 40px;
-  margin: 0 auto;
-  /* border: 1px solid red; */
-}
-/* 주문완료 메시지 */
-.box>h3{
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
   text-align: center;
-  margin-top: 10px;
-  /* border: 1px solid green; */
 }
-/* 주문목록이동 버튼 */
-.box>a{
-  width: 200px;
-  height: 40px;
-  display: block;
-  margin: 15px auto;
-  border-radius: 4px;
+
+.wrap {
+  max-width: 480px;
+  width: 90%;
+}
+
+.box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 40px 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  animation: fadeIn 0.6s ease;
+}
+
+.check {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success .check { background: #22c55e; }   /* 성공 초록색 */
+.success h3 { color: #16a34a; }
+
+.fail .check { background: #ef4444; }      /* 실패 빨간색 */
+.fail h3 { color: #dc2626; }
+
+h3 {
+  font-size: 1.4rem;
+  margin-bottom: 28px;
+  font-weight: 700;
+}
+
+/* 버튼 그룹 */
+.btn_group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.btn_group a {
   text-decoration: none;
 }
-.buylist_btn{
-  width: 200px;
-  height: 40px;
-  background-color: #FF924E ;
-  border-radius: 4px;
-  color: white;
-  font-weight: bold;
-  font-size: 16px;
+
+/* 기본 버튼 */
+.buylist_btn {
+  display: block;
   text-align: center;
-  line-height: 40px;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
-/* 주문목록이동 버튼 마우스 호버시 색상변경 */
-.buylist_btn:hover{
-  background-color: #ff7722;
+.buylist_btn:hover {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+/* 보조 버튼 */
+.buylist_btn.secondary {
+  background: #e5e7eb;
+  color: #374151;
+}
+.buylist_btn.secondary:hover {
+  background: #d1d5db;
+  color: #111827;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+/* 등장 애니메이션 */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 반응형 */
+@media (max-width: 480px) {
+  .box { padding: 30px 18px; }
+  h3 { font-size: 1.2rem; }
 }

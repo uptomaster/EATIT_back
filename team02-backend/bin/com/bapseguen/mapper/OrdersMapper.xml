@@ -207,4 +207,12 @@
 		WHERE ORDER_ID = #{orderId}
 	</update>
 
+	<!-- orderId로 상태 변경 -->
+	<update id="updateOrderStatusByOrderId" parameterType="map">
+		UPDATE TBL_ORDERS
+		SET ORDERS_PAYMENT_STATUS = #{ordersPaymentStatus}
+		WHERE ORDER_ID = #{orderId}
+	</update>
+
+
 </mapper>
