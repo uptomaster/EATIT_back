@@ -53,27 +53,27 @@
 
 		<div class="main_container">
 
-				<!-- 법적 안내 문구 -->
-				<section class="legal_notice">
-					<p>※ 고객센터 문의는 소비자기본법 및 식품위생법을 준수하여 처리됩니다.</p>
-				</section>
-	
-				<!-- FAQ / 문의목록 탭 -->
-				<nav class="community_category">
-					<ul>
-						<li><a
-							href="${pageContext.request.contextPath}/community/faqListOk.co"
-							class="tab_button">자주묻는질문</a></li>
-						<li><a
-							href="${pageContext.request.contextPath}/community/inquiryListOk.co"
-							class="tab_button active">문의목록</a></li>
-					</ul>
-				</nav>
+			<!-- 법적 안내 문구 -->
+			<section class="legal_notice">
+				<p>※ 고객센터 문의는 소비자기본법 및 식품위생법을 준수하여 처리됩니다.</p>
+			</section>
+
+			<!-- FAQ / 문의목록 탭 -->
+			<nav class="community_category">
+				<ul>
+					<li><a
+						href="${pageContext.request.contextPath}/community/faqListOk.co"
+						class="tab_button">자주묻는질문</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/community/inquiryListOk.co"
+						class="tab_button active">문의목록</a></li>
+				</ul>
+			</nav>
 
 			<!-- 문의목록 섹션 -->
-<!-- 			<section id="inquiries_section" class="community_list"
+			<!-- 			<section id="inquiries_section" class="community_list"
 				aria-label="문의 게시판 목록" style="display: none;"> -->
-				<section id="inquiries_section" class="community_list"
+			<section id="inquiries_section" class="community_list"
 				aria-label="문의 게시판 목록">
 				<div class="list_header_flex_row" role="rowgroup">
 					<div class="col_title" role="columnheader">제목</div>
@@ -83,7 +83,7 @@
 				</div>
 
 				<div id="inquiry_list_body" class="list_body" role="rowgroup">
-					<c:forEach var="inquiry" items="${inquiry}">					
+					<c:forEach var="inquiry" items="${inquiry}">
 						<div class="list_row_flex_row" role="row">
 							<div class="col_title" role="cell">
 								<a
@@ -106,7 +106,7 @@
 						</div>
 					</c:forEach>
 
-					 <%-- <div class="list_row_flex_row" role="row">
+					<%-- <div class="list_row_flex_row" role="row">
 						<div class="col_title" role="cell">
 							<a
 								href="${pageContext.request.contextPath}/community/viewOtherPost.jsp">판매자
@@ -183,8 +183,9 @@
 			<div class="controls_wrapper">
 				<div class="function_container">
 					<div class="search_box">
-						<input class="search_text" type="text" placeholder="검색어를 입력해 주세요" />
-						<button class="search_btn" type="button">
+						<input id="searchInput" class="search_text" type="text"
+							placeholder="검색어를 입력해 주세요" />
+						<button id="searchBtn" class="search_btn" type="button">
 							<i class="fas fa-search"></i>
 						</button>
 						<div class="write_form">
@@ -205,7 +206,7 @@
 	<jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 
 	<script>
-    let memberNumber = "${sessionScope.memberNumber}";
+		let memberNumber = "${sessionScope.memberNumber}";
 	</script>
 
 </body>

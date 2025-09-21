@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bapseguen.app.Result;
+import com.bapseguen.app.main.StoreDistanceController;
 
 /**
  * Servlet implementation class communityFrontController
@@ -153,7 +154,10 @@ public class CommunityFrontController extends HttpServlet {
 			System.out.println("게시글 삭제 완료 요청");
 			result = new InquiryDeleteOkController().execute(request, response);
 			break;	
-			
+		 case "/inquirySearch":
+	            System.out.println("게시글 검색 완료 요청");
+	            new InquirySearchController().doGet(request, response);
+	            return;	
 
 
 

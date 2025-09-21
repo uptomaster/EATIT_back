@@ -92,7 +92,16 @@ public class InquiryReadOkController implements Execute{
 			}
 			
 			// 해당 글 작성자가 아닐 경우 
-			if(loginMemberNumber == null || loginMemberNumber != postWriterNumber) {
+			if(loginMemberNumber == null) {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+			    out.println("<script>");
+			    out.println("alert('로그인 후 이용 가능합니다.');");
+			    out.println("location.href='/login/login.lo';");
+			    out.println("</script>");
+			    out.close();
+				return null;
+			}else if(loginMemberNumber != postWriterNumber) {
 			    response.setContentType("text/html; charset=UTF-8");
 			    PrintWriter out = response.getWriter();
 			    out.println("<script>");
@@ -102,6 +111,7 @@ public class InquiryReadOkController implements Execute{
 			    out.close();
 				return null;
 			}
+			
 			// 이미지 리스트 가져오기
 			List<PostImageDTO> postImages = postImageDAO.select(postNumber);
 			request.setAttribute("postImages", postImages);
