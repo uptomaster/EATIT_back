@@ -1,122 +1,113 @@
 @charset "UTF-8";
 
-/* header{
-  width : 1920px;
-  height : 150px;
-} */
-/* 전체영역 */
+/* 전체 영역 */
 main {
   background-color: #FFF5E4;
   width: 1920px;
   height: 1500px;
   display: flex;
   flex-direction: row;
-
 }
 
 /* 1100px 영역 */
 .edit_user_info {
-	display : flex;
-	flex-direction : column;
+  display: flex;
+  flex-direction: column;
   background-color: #FBE3B9;
   width: 1100px;
   margin-left: 410px;
-  /* justify-content: center; */
 }
 
-/* 좌측 사이드메뉴 시작 */
-/* 좌측 사이드메뉴 전체 */
+/* 좌측 사이드메뉴 */
 .my_page_list {
-  position : fixed;
-  padding: 0;
-  margin: 100px 20px 0 180px;
+  position: fixed;
+  top: 50%;
+  left: 7%;
   width: 190px;
-  height: 550px;
+  height: 400px;
   font-size: 20px;
-  background-color: #a6998080;
+  background-color: #f8f8f8;
   border-radius: 10px;
+  box-shadow: 0 0 12px rgba(168, 6, 6, 0.438);
+  transform: translateY(-50%);
+  z-index: 1000;
+  /* transition: transform 0.3s ease-in-out; */
+}
+
+
+/* 화면 크기가 2000px 이하일 때, 사이드 메뉴 고정되지 않도록 */
+@media (max-width: 2000px) {
+  .my_page_list {
+    position: static; /* 화면 크기가 2000px 이하일 때는 사이드 메뉴가 고정되지 않음 */
+    width: 190px;
+    margin: 20px 0 0 0; /* 필요에 따라 margin 조정 */
+  }
 }
 
 /* 사이드메뉴 제목 */
 .my_page {
-  padding: 0;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  background-color: #FF873C;
-  width: 190px;
-  height: 110px;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  color: #3b2f20;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 /* 사이드메뉴 하위메뉴들 */
-.side_bar>li {
+.side_bar > li {
   display: flex;
   justify-content: center;
   align-items: center;
   list-style: none;
-  width: 190px;
+  width: 100%;
+  padding:6px 0;
+  background-color: #eaeaea;
+  transition: background-color 0.3s, color 0.3s;
 }
 
+.side_bar > li:hover {
+  background-color: #FF873C;
+  color: white;
+}
 /* 사이드메뉴 현재위치 표시 */
-.my_page_list_main {
-  background-color: #ff873c8c;
-  border-radius: 10px;
+.active {
+  background-color: #ff873c;
+  color: white; 
+  font-weight: bold;
+}
+/* 활성화된 항목 스타일 */
+.side_bar > li.active {
+  background-color: #ff873c;  /* 배경색이 적용되도록 */
+  color: white;               /* 텍스트 색상 변경 */
+  font-weight: bold;          /* 강조된 텍스트 */
 }
 
 /* 사이드메뉴 연결 */
-.side_bar>li>a {
-  width: 190px;
-  padding: 15px 0;
+.side_bar > li > a {
+  color: inherit;
   text-decoration: none;
-  color: white;
-  display: flex;
-  justify-content: center;
-}
-
-.side_bar>li:hover {
+  display: block;
   width: 100%;
-  background-color: #ff873c8c;
-  border-radius: 10px;
+  text-align: center;
+  padding: 8px 0;
+  font-size: 16px;
 }
-/* 사이드메뉴 끝 */
 
-/* 정보수정 전체 */
+/* 정보 수정 전체 */
 .info_area {
   justify-items: center;
 }
-/* 정보수정 제목 */
+
+/* 정보 수정 제목 */
 .my_info {
-  margin: 25px 0 45px 70px;
+  margin: 50px 0 45px 50px;
   font-size: 30px;
-}
-/* 사진 정보 수정 */
-.info_modify_area {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  background-color: white;
-  width: 990px;
-  height: 83px;
-  border-radius: 10px;
-  align-items: center;
-  margin-bottom: 7px;
-}
-/* 정보수정의 수정불가능 항목 가로한줄 */
-.info_unable_modify_area {
-  display: flex;
-  flex-direction: row;
-  background-color: white;
-  width: 990px;
-  height: 83px;
-  border-radius: 10px;
-  align-items: center;
-  margin: 20px 0 0 50px;
+  color: #3b2f20;
 }
 
-/* 정보수정의 수정가능 항목 가로한줄 */
+.info_modify_area,
+.info_unable_modify_area,
 .info_able_modify_area {
   display: flex;
   flex-direction: row;
@@ -125,54 +116,84 @@ main {
   height: 83px;
   border-radius: 10px;
   align-items: center;
+  margin-bottom: 7px;
+  padding: 14px 16px;
+  gap: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 정보 수정 불가 항목 */
+.info_unable_modify_area {
   margin: 20px 0 0 50px;
 }
+
+/* 정보 수정 가능 항목 */
+.info_able_modify_area {
+  margin: 20px 0 0 50px;
+}
+
 /* 입력창 */
 .input_info {
-  background-color: rgba(128, 128, 128, 0);
-  width: 615px;
-  height: 50px;
-  padding: 0;
-  border-radius: 10px;
-  border: none;
-  text-align: center;
-  color: black;
+  flex: 1 1 auto;
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1.5px solid #ddd;
+  transition: border-color .2s, box-shadow .2s;
+  background: #fff;
+  color: #222;
+  text-align: left;
+  outline: none;
 }
-/* 프로필 사진 동그라미 */
-.insert_profile {
-  border-radius: 100px;
-  background-color: rgba(128, 128, 128, 0.575);
-  width: 65px;
-  height: 65px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+.input_info:focus {
+  outline: none;
+  border: 1px solid #FF873C;
+  box-shadow: 0 0 8px rgba(255, 135, 60, 0.6);
+}
+
+.input_info::placeholder {
+  color: #b3b3b3;
 }
 
 /* 각 항목 제목 */
 .info_menu {
   border-radius: 10px;
   width: 207px;
-  height: 83px;
-  background-color: #FF873C;
+  height: 55px;
+  background-color: #FFCF8F;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 14px;
-  color: white;
+  color: black;
 }
 
-/* input감싼 div */
+/* input 감싼 div */
 .gray_box {
   width: 615px;
   height: 50px;
-  background-color: rgba(128, 128, 128, 0.575);
+  background-color: white;
   border-radius: 10px;
   margin-left: 10px;
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
+
+.gray_box_un {
+  width: 615px;
+  height: 50px;
+  background-color: white;
+  border-radius: 10px;
+  margin-left: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: 1.5px solid #ddd;
+}
+
 /* 수정 버튼 */
 .info_save_buzz {
   width: 138px;
@@ -185,7 +206,7 @@ main {
   align-self: center;
 }
 
-.info_save_buzz>a {
+.info_save_buzz > a {
   display: flex;
   justify-content: center;
   height: 100%;
@@ -198,11 +219,12 @@ main {
 .info_save_buzz:hover {
   background-color: #FF7722;
 }
+
 /* 인증번호 전송 버튼 */
 .info_send_code_buzz {
   width: 138px;
   height: 50px;
-  background-color: #FF873C;
+  background-color: #FFC107;
   border-radius: 10px;
   border: none;
   color: white;
@@ -210,7 +232,7 @@ main {
   align-self: center;
 }
 
-.info_send_code_buzz>a {
+.info_send_code_buzz > a {
   display: flex;
   justify-content: center;
   height: 100%;
@@ -221,13 +243,17 @@ main {
 }
 
 .info_send_code_buzz:hover {
-  background-color: #FF7722;
+  background-color: #FFB300;
+  box-shadow: 0 3px 10px rgba(242, 154, 90, 0.8);
+  transform: scale(1.1);
+  color: #fff;
 }
+
 /* 인증번호 확인 버튼 */
 .info_check_code_buzz {
   width: 138px;
   height: 50px;
-  background-color: #FF873C;
+  background-color: #FFC107;
   border-radius: 10px;
   border: none;
   color: white;
@@ -235,7 +261,7 @@ main {
   align-self: center;
 }
 
-.info_check_code_buzz>a {
+.info_check_code_buzz > a {
   display: flex;
   justify-content: center;
   height: 100%;
@@ -246,28 +272,10 @@ main {
 }
 
 .info_check_code_buzz:hover {
-  background-color: #FF7722;
-}
-/* 비밀번호 저장 버튼 */
-.info_save_pw_buzz {
-  width: 138px;
-  height: 50px;
-  background-color: #FF873C;
-  border-radius: 10px;
-  border: none;
-  color: white;
-  margin: 0 10px;
-  align-self: center;
-}
-
-.info_save_pw_buzz>a {
-  display: flex;
-  justify-content: center;
-  height: 100%;
-  align-items: center;
-  text-decoration: none;
-  color: white;
-  cursor: pointer;
+  background-color: #FFB300;
+  box-shadow: 0 3px 10px rgba(242, 154, 90, 0.8);
+  transform: scale(1.1);
+  color: #fff;
 }
 
 .info_save_pw_buzz:hover {
@@ -277,7 +285,11 @@ main {
 /* 전체 정보 저장 버튼 */
 .total_info_save_buzz:hover {
   background-color: #FF7722;
+  box-shadow: 0 6px 15px rgba(242, 154, 90, 0.8);
+  transform: scale(1.1);
+  color: #fff;
 }
+
 .total_info_save_buzz {
   background-color: #FF873C;
   width: 178px;
@@ -293,18 +305,15 @@ main {
   justify-content: center;
   text-align: center;
 }
-/* 오류 메시지 출력 정보 */
+
+/* 오류 메시지 출력 */
 .notice_input_wrong_info {
   font-size: 10px;
   margin: 0 0 0 10px;
   position: absolute;
 }
 
-/* 회원탈퇴 버튼 */
-.agreement_buzz:hover {
-  background-color: #FF7722;
-}
-
+/* 회원 탈퇴 버튼 */
 .agreement_buzz {
   background-color: #FF873C;
   width: 178px;
@@ -314,7 +323,7 @@ main {
   margin: 20px 60px 0 0;
 }
 
-.agreement_buzz>a {
+.agreement_buzz > a {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -324,67 +333,15 @@ main {
   width: 178px;
   height: 50px;
 }
-.bottom_btn_container{
-	display : flex;
-	justify-content: space-between;
-	padding-left : 50px;
-}
 
-/* 광고 정보 수신동의 체크박스 */
-.advertisement_agreement {
-  margin: 0 80px;
-}
-
-.gray_box_adverisement {
-  width: 615px;
-  height: 50px;
-  background-color: white;
-  border-radius: 10px;
-  margin-left: 10px;
-  display: flex;
-  align-items: center;
-}
-/* 이미지 */
-#profileImage {
-  display: none;
-}
-
-#add_ficture {
-  cursor: pointer;
-}
-
-/* 페이지네이션 */
-.pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 50px;
-}
-
-.pagination > ul {
-  display: flex;
-  list-style: none;
-}
-
-.pagination a {
-  color: #333;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 10px;
-  margin: 0 5px;
-  border-radius: 5px;
-  border-color: #ffae42;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.pagination a:hover {
-  background-color:#ffd580;
+.agreement_buzz:hover {
+  background-color: #FF7722;
+  box-shadow: 0 6px 15px rgba(242, 154, 90, 0.8);
+  transform: scale(1.1);
   color: #fff;
 }
 
-.pagination .active {
-  background-color: #ffb84d;
-  color: white;
-  cursor: default;
-  border-color: #ffae42;
+
+#add_ficture {
+  cursor: pointer;
 }

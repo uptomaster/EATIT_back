@@ -34,7 +34,7 @@
 
       <!-- 마이페이지 사이드 메뉴 -->
       <ul class="side_bar">
-        <li class="my_page_list_main"><a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.my">내 정보 수정</a></li>
+        <li class="active"><a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.my">내 정보 수정</a></li>
   		<li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListOk.my">음식 구매 내역</a></li>
   		<li><a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseListOk.my">재료 구매 내역</a></li>
   		<li><a href="${pageContext.request.contextPath}/userMyPage/myPostListOk.my">내 글 관리</a></li>
@@ -51,7 +51,7 @@
 	  <!-- 아이디(수정 불가) -->
 	  <div class="info_unable_modify_area">
 	    <div class="info_menu">아이디</div>
-	    <div class="gray_box">
+	    <div class="gray_box_un">
 	      <p>${myPage.memberId}</p>
 	      <p>*아이디는 수정 불가능합니다.</p>
 	    </div>
@@ -98,7 +98,7 @@
 	  <!-- 이름 표시(수정 불가라면 그대로 p로 표시) -->
 	  <div class="info_able_modify_area">
 	    <div class="info_menu">이름*</div>
-	    <div class="gray_box">
+	    <div class="gray_box_un">
 	      <p>${myPage.generalName}</p>
 	    </div>
 	  </div>
@@ -106,7 +106,7 @@
 	  <!-- 기존 전화번호 표시 -->
 	  <div class="info_unable_modify_area">
 	    <div class="info_menu">전화번호*</div>
-	    <div class="gray_box">
+	    <div class="gray_box_un">
 	      <p>${myPage.generalPhoneNumber}</p>
 	    </div>
 	  </div>
@@ -146,7 +146,7 @@
 	  <!-- 생년월일 -->
 	  <div class="info_unable_modify_area">
 	    <div class="info_menu">생년월일</div>
-	    <div class="gray_box">
+	    <div class="gray_box_un">
 	      <p>
 	        <c:choose>
 	          <c:when test="${not empty myPage.generalBirthDate}">

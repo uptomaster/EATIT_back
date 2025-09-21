@@ -14,6 +14,7 @@
   
   <!-- css -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/userMyPage/manageMyPostsList.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/userMyPage/editUserInfo.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
   
@@ -28,18 +29,18 @@
 <body>
   <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
   <main>
-    <!-- 사이드 메뉴바 -->
-    <div class="managemyposts_my_page_list">
-      <!-- 사이드메뉴바 제목 -->
-      <div class="managemyposts_my_page">마이 페이지</div>
-      <!-- 사이드메뉴바 상세메뉴 -->
-      <ul class="managemyposts_side_bar">
+    <div class="my_page_list">
+      <!-- 마이페이지 제목 -->
+      <div class="my_page">마이 페이지</div>
+
+      <!-- 마이페이지 사이드 메뉴 -->
+      <ul class="side_bar">
         <li><a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.my">내 정보 수정</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListOk.my">음식 구매 내역</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseListOk.my">재료 구매 내역</a></li>
-        <li class="managemyposts_main"><a href="${pageContext.request.contextPath}/userMyPage/myPostListOk.my">내 글 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/myCommentsListOk.my">내 댓글 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/myReviewListOk.my">내 리뷰 관리</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListOk.my">음식 구매 내역</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseListOk.my">재료 구매 내역</a></li>
+  		<li class="active"><a href="${pageContext.request.contextPath}/userMyPage/myPostListOk.my">내 글 관리</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/myCommentsListOk.my">내 댓글 관리</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/myReviewListOk.my">내 리뷰 관리</a></li>
       </ul>
     </div>
     <!-- 1100px 영역 -->
