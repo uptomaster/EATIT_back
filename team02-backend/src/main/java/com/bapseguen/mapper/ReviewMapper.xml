@@ -62,19 +62,24 @@
 	</select>
 
 
-	<!-- 특정 가게 정보 조회 -->
+	<!-- 특정 가게 정보 + 대표 이미지 -->
 	<select id="selectStoreInfo" parameterType="string"
 		resultType="com.bapseguen.app.dto.StoreDTO">
 		SELECT
-		BUSINESS_NUMBER AS businessNumber,
-		STORE_NAME AS
-		storeName,
-		STORE_TEL AS storeTel,
-		STORE_ADDRESS AS storeAddress
-		FROM
-		TBL_STORE
-		WHERE BUSINESS_NUMBER = #{businessNumber}
+		s.BUSINESS_NUMBER AS businessNumber,
+		s.STORE_NAME AS storeName,
+		s.STORE_TEL AS storeTel,
+		s.STORE_ADDRESS AS storeAddress,
+		si.STORE_IMAGE_SYSTEM_NAME AS storeImageSystemName,
+		si.STORE_IMAGE_ORIGINAL_NAME AS storeImageOriginalName
+		FROM TBL_STORE s
+		LEFT JOIN TBL_STORE_IMAGE si
+		ON s.BUSINESS_NUMBER = si.BUSINESS_NUMBER
+		WHERE s.BUSINESS_NUMBER = #{businessNumber}
+		FETCH FIRST 1 ROWS ONLY
 	</select>
+
+
 
 	<!-- 특정 가게의 평균 별점 -->
 	<select id="selectAvgRatingByBusiness" parameterType="string"
