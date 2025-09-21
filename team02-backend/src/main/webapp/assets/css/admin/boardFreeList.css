@@ -161,9 +161,6 @@ a {
 	transition: 0.2s;
 }
 
-.admin_list_row:hover {
-	background: #f8f9ff;
-}
 
 .admin_list_row div {
 	display: flex;

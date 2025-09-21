@@ -79,6 +79,28 @@
       	ORDER BY I.ITEM_NUMBER DESC
     	]]>
 	</select>
+	
+	<select id="getAllIngredientsWithStore" resultType="ItemWithImgDTO">
+    SELECT
+        I.ITEM_NUMBER AS itemNumber,
+        I.ITEM_NAME AS itemName,
+        I.ITEM_PRICE AS itemPrice,
+        
+        S.STORE_NAME AS storeName,
+        S.STORE_LATITUDE AS latitude,
+        S.STORE_LONGITUDE AS longitude,
+
+        II.ITEM_IMAGE_NUMBER AS itemImageNumber,
+        II.ITEM_IMAGE_SYSTEM_NAME AS itemImageSystemName,
+        II.ITEM_IMAGE_ORIGINAL_NAME AS itemImageOriginalName
+
+    FROM TBL_ITEM I
+    JOIN TBL_STORE S ON I.BUSINESS_NUMBER = S.BUSINESS_NUMBER
+    LEFT JOIN TBL_ITEM_IMAGE II ON I.ITEM_NUMBER = II.ITEM_NUMBER
+    WHERE I.ITEM_SELL_STATE = 'Y'
+      AND I.ITEM_TYPE = 'INGREDIENT'
+    ORDER BY I.ITEM_NUMBER DESC
+</select>
 
 	<!-- 레시피게시판 목록 조희 -->
 	<select id="recipeList" resultType="PostDTO">
