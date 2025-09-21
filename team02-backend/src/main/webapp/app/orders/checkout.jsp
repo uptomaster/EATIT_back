@@ -6,7 +6,7 @@
   String customerName = (String) request.getAttribute("customerName");
   if (customerName == null || customerName.isBlank()) customerName = "고객";
 
-  // 문서용 테스트 키 (실서비스에서는 상점용 Client Key로 교체)
+  // 문서용 테스트 키
   String clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
 %>
 <!DOCTYPE html>

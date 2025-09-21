@@ -1,7 +1,6 @@
 package com.bapseguen.app.orders;
 
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
@@ -10,8 +9,8 @@ import com.bapseguen.app.Result;
 import com.bapseguen.app.cartList.dao.CartListDAO;
 import com.bapseguen.app.dto.CartDTO;
 import com.bapseguen.app.dto.CartItemDTO;
-import com.bapseguen.app.dto.OrdersDTO;
-import com.bapseguen.app.orders.dao.OrdersDAO;
+
+import java.util.List;
 
 public class PaymentReadyController implements Execute {
 
@@ -27,59 +26,39 @@ public class PaymentReadyController implements Execute {
             return r;
         }
 
+        // 장바구니 총 금액 재계산
         CartListDAO cartDao = new CartListDAO();
-        CartDTO cart = new CartDTO();
-        cart.setMemberNumber(memberNumber);
+        List<CartItemDTO> items = cartDao.selectCurrentCartItemsWithPrice(memberNumber);
 
-        Integer cartNumber = cartDao.selectOpenCartNumberByMember(cart);
-        if (cartNumber == null) {
+        int amount = 0;
+        if (items != null) {
+            for (CartItemDTO it : items) {
+                amount += it.getCartItemPrice() * it.getCartItemQuantity();
+            }
+        }
+
+        if (amount <= 0) {
             Result r = new Result();
             r.setRedirect(true);
             r.setPath(request.getContextPath() + "/cartList/view.cl");
             return r;
         }
 
-        List<CartItemDTO> items = cartDao.selectCartItemsByCartNo(cartNumber);
-        if (items == null || items.isEmpty()) {
-            Result r = new Result();
-            r.setRedirect(true);
-            r.setPath(request.getContextPath() + "/cartList/view.cl");
-            return r;
-        }
+        // 주문 ID (결제 API용, 아직 DB INSERT 안함)
+        String orderId = "ORD-" + memberNumber + "-" + System.currentTimeMillis();
 
-        // 총액 계산
-        long total = 0L;
-        for (CartItemDTO it : items) {
-            total += (long) it.getCartItemPrice() * it.getCartItemQuantity();
-        }
-        int amount = (int) Math.min(total, Integer.MAX_VALUE);
+        String customerName = (String) request.getSession().getAttribute("memberName");
+        if (customerName == null || customerName.isBlank()) customerName = "고객";
 
-        // orderId 생성
-        String orderId = ("ORD-" + memberNumber + "-" + System.currentTimeMillis())
-                .replaceAll("[^A-Za-z0-9-_]", "_");
-        if (orderId.length() < 6) orderId = orderId + "______";
-        if (orderId.length() > 64) orderId = orderId.substring(0, 64);
-
-        // 주문 INSERT (READY 상태)
-        OrdersDTO order = new OrdersDTO();
-        order.setOrdersMemberNumber(memberNumber);
-        order.setOrderId(orderId);
-        order.setOrdersPaymentStatus("READY");
-        order.setOrdersTotalAmount(amount);
-        order.setBusinessNumber(cartDao.selectCartBusinessNumberByCartNumber(cartNumber));
-
-        OrdersDAO odao = new OrdersDAO();
-        odao.insertOrder(order);
-        odao.close();
-
+        // 결제 위젯에 필요한 값 전달
+        request.setAttribute("tossClientKey", request.getServletContext().getInitParameter("TOSS_CLIENT_KEY"));
         request.setAttribute("orderId", orderId);
         request.setAttribute("amount", amount);
-        request.setAttribute("customerName",
-                (String) request.getSession().getAttribute("memberName"));
+        request.setAttribute("customerName", customerName);
 
         Result r = new Result();
-        r.setPath("/app/orders/checkout.jsp");
         r.setRedirect(false);
+        r.setPath("/app/orders/checkout.jsp");
         return r;
     }
 }

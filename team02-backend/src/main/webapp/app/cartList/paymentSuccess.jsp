@@ -5,18 +5,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
   <!-- CSS -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/cartList/paymentSuccess.css">
-  
+
   <!-- JS -->
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-  
+
   <!-- 파비콘 -->
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
-  <title>밥세권 - 결제 성공</title>
+  <title>밥세권 - 결제 완료</title>
 </head>
 <body>
   <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
@@ -27,21 +27,33 @@
       <div class="box">
         <div class="check">
           <!-- 체크 아이콘 -->
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-            <path fill="#ffffff" d="M530.8 134.1C545.1 144.5 548.3 164.5 537.9 178.8L281.9 530.8C276.4 538.4 267.9 543.1 258.5 543.9C249.1 544.7 240 541.2 233.4 534.6L105.4 406.6C92.9 394.1 92.9 373.8 105.4 361.3C117.9 348.8 138.2 348.8 150.7 361.3L252.2 462.8L486.2 141.1C496.6 126.8 516.6 123.6 530.9 134z"/>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+               width="90" height="90">
+            <circle cx="256" cy="256" r="240" fill="#4caf50" />
+            <polyline points="150,270 230,350 370,190"
+                      fill="none" stroke="#fff" stroke-width="40"
+                      stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <h3>고객님의 주문이 완료되었습니다 🎉</h3>
-        
+        <h3>결제가 완료되었습니다 🎉</h3>
+        <p>저희 <strong>밥세권</strong>을 이용해주셔서 감사합니다.<br>더 좋은 서비스로 보답하겠습니다.</p>
+
+        <!-- 주문정보 -->
+        <div class="order_info">
+          <p>주문번호: <strong>${orderId}</strong></p>
+          <p>총 결제금액: <strong>${amount}원</strong></p>
+        </div>
+
         <!-- 버튼 영역 -->
         <div class="btn_group">
-          <a href="${pageContext.request.contextPath}/orders/list.or" class="buylist_btn">주문목록으로 이동</a>
-          <a href="${pageContext.request.contextPath}/" class="buylist_btn secondary">메인으로 가기</a>
+          <a href="${pageContext.request.contextPath}/orders/storeList.or" class="buylist_btn">가게목록 보기</a>
+          <a href="${pageContext.request.contextPath}/cartList/view.cl" class="buylist_btn secondary">장바구니 보기</a>
+          <a href="${pageContext.request.contextPath}/" class="buylist_btn tertiary">메인으로 가기</a>
         </div>
       </div>
     </div>
   </div>
 
-  <footer id="footer"></footer>
+	<jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </body>
 </html>
