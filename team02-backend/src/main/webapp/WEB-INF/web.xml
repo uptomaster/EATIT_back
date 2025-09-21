@@ -15,7 +15,14 @@
 		<welcome-file>main.jsp</welcome-file>
 	</welcome-file-list>
 
-
+	<error-page>
+        <error-code>404</error-code>
+        <location>/app/errors/404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/app/errors/500.jsp</location>
+    </error-page>
 <!-- location -->
 	<servlet>
 		<servlet-name>SaveAddress</servlet-name>
