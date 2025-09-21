@@ -81,6 +81,7 @@
 	</select>
 	
 	<select id="getAllIngredientsWithStore" resultType="ItemWithImgDTO">
+	<![CDATA[
     SELECT
         I.ITEM_NUMBER AS itemNumber,
         I.ITEM_NAME AS itemName,
@@ -99,7 +100,9 @@
     LEFT JOIN TBL_ITEM_IMAGE II ON I.ITEM_NUMBER = II.ITEM_NUMBER
     WHERE I.ITEM_SELL_STATE = 'Y'
       AND I.ITEM_TYPE = 'INGREDIENT'
+      AND ROWNUM <= 4
     ORDER BY I.ITEM_NUMBER DESC
+    ]]>
 </select>
 
 	<!-- 레시피게시판 목록 조희 -->
@@ -122,7 +125,7 @@
         AND P.POST_DELETE_STATE = 'N'
         ORDER BY P.POST_CREATED_DATE DESC
     	) SUBQ
-    	WHERE ROWNUM <= 8
+    	WHERE ROWNUM <= 9
 		)
 		]]>
 
