@@ -37,11 +37,13 @@ public class UserMyPageDAO {
 	
 	// 비밀번호 업데이트
 	public int updatePassword(Map<String, Object> paramMap) {
+		System.out.println("[userDAO] updatePassword / map :"+paramMap);
 	    return sqlSession.update("myPage.updatePassword", paramMap);
 	}
 
 	// 전화번호 업데이트
 	public int updatePhone(Map<String, Object> paramMap) {
+		System.out.println("[userDAO] updatePhone / map :"+paramMap);
 	    return sqlSession.update("myPage.updatePhone", paramMap);
 	}
 	

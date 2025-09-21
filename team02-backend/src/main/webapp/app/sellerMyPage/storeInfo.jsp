@@ -74,12 +74,13 @@
           <!-- 가게정보, 이미지 수정 버튼 -->
           <div class="store_info_edit_btns">
             <!-- <input type="file" id="edit_store_img" accept="image/*"> -->
-            <a href="${pageContext.request.contextPath}/sellerMyPage/storeImage.se?businessNumber=${storeInfo.businessNumber}">
-              가게 이미지
+            <a href="${pageContext.request.contextPath}/sellerMyPage/storeImage.se?businessNumber=${storeInfo.businessNumber}"
+            class="edit_store_info_btn">
+              가게 이미지 
             </a>
             <!-- <button type="button" id="edit_store_info_btn"
             onclick="location.href='/sellerMyPage/storeImage.se'">가게 사진</button> -->
-            <button type="button" id="edit_store_info_btn"
+            <button type="button" id="edit_store_info_btn" class="edit_store_info_btn"
             onclick="location.href='/sellerMyPage/editSellerInfo.se'">가게정보수정</button>
           </div>
         </div>

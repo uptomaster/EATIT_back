@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import com.bapseguen.app.Result;
 import com.bapseguen.app.dto.MemberDTO;
 import com.bapseguen.app.login.dao.LoginDAO;
+import com.bapseguen.app.userMyPage.CheckPwOkController;
 import com.bapseguen.app.userMyPage.PhoneCodeController;
 import com.bapseguen.app.userMyPage.UserMypageSMSController;
 import com.bapseguen.app.userMyPage.WithdrawOkController;
@@ -216,7 +217,13 @@ public class SellerMyPageFrontController extends HttpServlet {
 			System.out.println("[판페f] 판매자 내정보수정 완료 요청");
 			result = new EditSellerInfoOkController().execute(request, response);
 			break;
-		
+			
+		//비밀번호 일치 확인
+		case "/sellerMyPage/checkPwOk.se":
+		    //System.out.println("내 정보 수정 비밀번호 비교 ");
+		    new CheckPwOkController().execute(request, response);
+		    return;
+			
 		// 휴대폰 인증번호 전송 요청
 		case "/sellerMyPage/sellerMyPageSmsSend.se":
 		    System.out.println("[판페f] 변경할 전화번호 인증번호 전송 요청");
