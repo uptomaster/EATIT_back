@@ -1,5 +1,6 @@
 package com.bapseguen.app.sellerMyPage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
 
@@ -48,20 +49,29 @@ public class IngredientAddOkController implements Execute {
 		
 		
 		//파일 업로드 환경 설정
-		final String UPLOAD_PATH = request.getSession().getServletContext().getRealPath("/") + "upload/";
 		final int FILE_SIZE = 1024 * 1024 * 5; //5MB
-		System.out.println("파일 업로드 경로 : " + UPLOAD_PATH);
 				
-		
-		//MultipartRequest를 이용한 데이터 파싱 왜? 
-		// multipartRequest 생성 : 요청을 파트단위로 순회하며 텍스트, 파일 을 분리
-		MultipartRequest multipartRequest = new MultipartRequest(request, UPLOAD_PATH, FILE_SIZE, "utf-8", new DefaultFileRenamePolicy());
-		//request : HTTP 요청객체
-		//UPLOAD_PATH : 파일을 저장할 경로 
-		//FILE_SIZE : 파일의 최대 크기
-		//"utf-8" : 파일명 인코딩 방식
-		//new DefaultFileRenamePolicy() : 파일명이 중복될 경우 자동으로 이름 변경해주는 정책
-		
+		// 업로드 경로
+		String uploadPath = request.getServletContext().getRealPath("/upload");
+		System.out.println("파일 업로드 경로 : " + uploadPath);
+
+		// 디렉터리 객체 생성
+
+		// 업로드 경로 (실제 서버 경로)
+
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs(); // 없으면 자동으로 디렉토리 생성
+        }
+
+        // MultipartRequest 객체 생성
+        MultipartRequest multipartRequest = new MultipartRequest(
+            request,
+            uploadPath,
+            1024 * 1024 * 50, // 50MB 제한
+            "UTF-8",
+            new DefaultFileRenamePolicy()
+        );		
 
 		// 게시글 정보 설정
 		itemInsertDTO.setBusinessNumber(businessNumber); // String
@@ -73,8 +83,11 @@ public class IngredientAddOkController implements Execute {
         int price = Integer.parseInt(multipartRequest.getParameter("itemPrice"));
 //        System.out.println(price+1); // 타입 확인용 출력문
         itemInsertDTO.setItemPrice(price); //int
-        
-        itemInsertDTO.setItemContent(multipartRequest.getParameter("itemContent")); //String
+        String content = multipartRequest.getParameter("itemContent");
+        if(content == null) {
+        	content = "";
+        }
+        itemInsertDTO.setItemContent(content); //String
         
 		int quantity = Integer.parseInt(multipartRequest.getParameter("itemQuantity")); //int
 //		System.out.println(quantity+1); // 타입 확인용 출력문
@@ -87,6 +100,7 @@ public class IngredientAddOkController implements Execute {
         String sellStateStr = multipartRequest.getParameter("itemSellState").trim(); // String 
         itemInsertDTO.setItemSellState(sellStateStr);
 //        System.out.println(sellStateStr);
+        System.out.println("ingrecontroller dto "+itemInsertDTO);
         
 		// 게시글 추가
         int itemNumber = sellerDAO.addIngredient(itemInsertDTO); // 음식 정보 등록 + 등록한 아이템 번호 가져오기
