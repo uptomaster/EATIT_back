@@ -38,6 +38,17 @@ public class SellerJoinOkController implements Execute {
         storeDTO.setStoreAddress(request.getParameter("seller_input_store_address"));
         storeDTO.setStoreAddressDetail(request.getParameter("seller_input_store_address_detail"));
         storeDTO.setStoreZipCode(request.getParameter("seller_input_store_zip"));
+        String latStr = request.getParameter("seller_input_store_lat");
+        String lngStr = request.getParameter("seller_input_store_lng");
+
+        if (latStr == null || lngStr == null || latStr.isBlank() || lngStr.isBlank()) {
+            Result result = new Result();
+            result.setRedirect(true);
+            result.setPath(request.getContextPath()+"/join/sellerJoin.jo?addr=1"); // “주소 좌표 확인” 안내
+            return result;
+        }
+        storeDTO.setLatitude(Double.parseDouble(latStr));
+        storeDTO.setLongitude(Double.parseDouble(lngStr));
         
         JoinDAO joinDAO = new JoinDAO();
         if (joinDAO.existsPhone(request.getParameter("seller_input_phone"))) {
