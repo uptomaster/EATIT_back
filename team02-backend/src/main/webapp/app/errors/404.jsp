@@ -28,7 +28,6 @@
 
     <div class="actions">
       <a class="btn btn-primary" href="<c:url value='/'/>">홈으로 가기</a>
-      <a class="btn" href="<c:url value='/cartList/view.cl'/>">장바구니 보기</a>
       <!-- 이전 페이지: 히스토리 없으면 홈으로 폴백 -->
       <a class="btn" href="javascript:(document.referrer?history.back():location.href='<c:url value='/'/>' )">이전 페이지</a>
     </div>
