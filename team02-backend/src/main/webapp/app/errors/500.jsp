@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isErrorPage="true" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <title>밥세권 | 페이지를 찾을 수 없습니다</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="<c:url value='/assets/css/errors/404.css'/>">
+  <link rel="stylesheet" href="<c:url value='/assets/css/errors/500.css'/>">
   <link rel="shortcut icon" href="<c:url value='/assets/img/favicon.ico'/>" type="image/x-icon">
 </head>
 <body>
@@ -21,7 +22,7 @@
 		 쿼리스트링 안전하게 인코딩.
 		 상대/절대/외부 링크 처리를 지원함.  -->
 
-    <h1>404</h1>
+    <h1>500</h1>
     <p class="desc">
       요청하신 페이지를 찾을 수 없어요.<br/>
     </p>
