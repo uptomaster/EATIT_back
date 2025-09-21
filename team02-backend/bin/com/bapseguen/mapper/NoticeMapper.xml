@@ -42,7 +42,7 @@
 	</update>
 
 	<!-- 공지사항 상세 조회 -->
-	<select id="noticeSelect" parameterType="int" resultType="com.bapseguen.app.dto.NoticeDTO">
+	<select id="noticeSelect" parameterType="int" resultType="NoticeDTO">
 	    SELECT 
 	        p.post_number      AS postNumber,
 	        p.post_title       AS postTitle,
@@ -56,6 +56,6 @@
 	    JOIN tbl_admin a ON p.admin_number = a.admin_number
 	    WHERE p.post_number = #{postNumber}
 	</select>
-
+	
 
 </mapper>
