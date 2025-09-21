@@ -1,113 +1,128 @@
 @charset "UTF-8";
 
-/* 전체 레이아웃 */
-body {
+/* 공통 */
+* {
   margin: 0;
   padding: 0;
-  font-family: "Pretendard", "Noto Sans KR", sans-serif;
-  background: #faf9f7;
-  color: #333;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-/* 메인 영역 */
-#payment_page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 160px); /* header + footer 영역 제외 */
-  padding: 40px 20px;
   box-sizing: border-box;
 }
 
-#payment_page .wrap {
-  width: 100%;
-  max-width: 480px;
+body {
+  font-family: "Pretendard", "Noto Sans KR", sans-serif;
+  background: #fafafa;
+  color: #333;
 }
 
+/* 전체 영역 */
+#payment_page.success {
+  padding: 80px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 컨텐츠 박스 */
 #payment_page .box {
   background: #fff;
-  border-radius: 18px;
+  border-radius: 20px;
   padding: 50px 40px;
+  max-width: 600px;
+  width: 100%;
   text-align: center;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  animation: fadeInUp 0.5s ease;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  animation: fadeInUp 0.6s ease;
 }
 
-/* 아이콘 */
+/* 체크 아이콘 */
 #payment_page .check {
-  margin-bottom: 24px;
+  margin-bottom: 25px;
 }
 #payment_page .check svg {
-  width: 90px;
-  height: 90px;
-  display: inline-block;
+  animation: scaleUp 0.5s ease forwards;
 }
 
-/* 타이틀 */
+/* 제목 */
 #payment_page h3 {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  margin-bottom: 12px;
-  color: #4b3a2f; /* 진한 브라운 */
+  color: #2e7d32;
+  margin-bottom: 15px;
 }
 
+/* 설명 */
 #payment_page p {
-  font-size: 0.95rem;
-  color: #666;
-  margin: 4px 0;
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+#payment_page p strong {
+  color: #111;
 }
 
 /* 주문 정보 */
 #payment_page .order_info {
-  background: #f9f6f2;
+  background: #f9f9f9;
+  border: 1px solid #eee;
   border-radius: 12px;
-  padding: 16px;
-  margin: 20px 0;
-  font-size: 0.95rem;
-  text-align: left;
-  line-height: 1.6;
-  border: 1px solid #e8e0d8;
+  padding: 20px;
+  margin: 25px 0;
+  font-size: 1rem;
+}
+#payment_page .order_info p {
+  margin: 8px 0;
+  font-weight: 500;
 }
 #payment_page .order_info strong {
-  color: #2c2c2c;
+  color: #4caf50;
 }
 
 /* 버튼 그룹 */
 #payment_page .btn_group {
-  margin-top: 25px;
   display: flex;
   justify-content: center;
   gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
 }
 
-#payment_page .btn_group a {
-  flex: 1;
-  padding: 13px 0;
-  border-radius: 8px;
+#payment_page .buylist_btn {
+  display: inline-block;
+  padding: 12px 24px;
   font-size: 0.95rem;
+  border-radius: 8px;
   font-weight: 600;
-  transition: all 0.25s ease;
-  background: #c6a86d; /* 통일된 골드톤 */
+  text-decoration: none;
+  transition: all 0.3s ease;
+  min-width: 120px;
+  text-align: center;
+
+  /* ✅ 통일된 색상 */
+  background: #4caf50;
   color: #fff;
 }
 
-#payment_page .btn_group a:hover {
-  background: #b08f56; /* hover 시 진한 골드 */
+#payment_page .buylist_btn:hover {
+  background: #388e3c;
 }
 
 /* 애니메이션 */
 @keyframes fadeInUp {
-  from {
+  0% {
     opacity: 0;
-    transform: translateY(25px);
+    transform: translateY(30px);
   }
-  to {
+  100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(0.7);
+  }
+  100% {
+    transform: scale(1);
   }
 }
