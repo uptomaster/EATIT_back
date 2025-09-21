@@ -64,9 +64,9 @@ GENERAL_TREE_GRADE, GENERAL_PAYMENT_AMOUNT)
 	<!-- 가게 -->
 	<insert id="joinStore" parameterType="StoreDTO">
   		INSERT INTO TBL_STORE
-  		(BUSINESS_NUMBER, MEMBER_NUMBER, STORE_NAME, STORE_OPEN_DATE, STORE_TEL, STORE_ADDRESS, STORE_ADDRESS_DETAIL, STORE_ZIP_CODE, STORE_OPEN_TIME, STORE_CLOSE_TIME)
+  		(BUSINESS_NUMBER, MEMBER_NUMBER, STORE_NAME, STORE_OPEN_DATE, STORE_TEL, STORE_ADDRESS, STORE_ADDRESS_DETAIL, STORE_ZIP_CODE, STORE_OPEN_TIME, STORE_CLOSE_TIME, STORE_LATITUDE, STORE_LONGITUDE)
   		VALUES (#{businessNumber}, #{memberNumber}, #{storeName}, TO_DATE(#{storeOpenDate}, 'YYYY-MM-DD'),
-   		#{storeTel}, #{storeAddress}, #{storeAddressDetail}, #{storeZipCode}, NULL, NULL)
+   		#{storeTel}, #{storeAddress}, #{storeAddressDetail}, #{storeZipCode}, NULL, NULL, #{latitude,jdbcType=DECIMAL}, #{longitude,jdbcType=DECIMAL})
 	</insert>
 	
 	<!-- 아이디찾기 -->	
