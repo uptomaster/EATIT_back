@@ -27,7 +27,16 @@
   		FROM TBL_MEMBER 
   		WHERE MEMBER_ID = #{value}
 	</select>
-
+	
+	<!-- 휴대폰번호 존재 여부 -->
+	<select id="existsPhone" parameterType="string" resultType="int">
+	  SELECT CASE WHEN
+	    EXISTS (SELECT 1 FROM TBL_GENERAL_MEMBER WHERE GENERAL_PHONE_NUMBER = REGEXP_REPLACE(#{value}, '[^0-9]', ''))
+	    OR EXISTS (SELECT 1 FROM TBL_SELLER_MEMBER  WHERE SELLER_PHONE_NUMBER  = REGEXP_REPLACE(#{value}, '[^0-9]', ''))
+	  THEN 1 ELSE 0 END
+	  FROM dual
+	</select>
+	
 	<!-- 공통 MEMBER -->
 	<insert id="joinMember" parameterType="MemberDTO">
   		<selectKey keyProperty="memberNumber" resultType="int" order="BEFORE">
@@ -42,14 +51,14 @@
   		INSERT INTO TBL_GENERAL_MEMBER
   		(MEMBER_NUMBER, GENERAL_REPORT_COUNT, GENERAL_WARNING_COUNT, GENERAL_BLACK_STATE, GENERAL_NAME, GENERAL_BIRTHDATE, GENERAL_PHONE_NUMBER, GENERAL_JOIN_DATE,
 GENERAL_TREE_GRADE, GENERAL_PAYMENT_AMOUNT)
-  		VALUES (#{memberNumber},0, 0, 'N', #{generalName}, TO_DATE(#{generalBirthdate}, 'YYYY-MM-DD'), #{generalPhoneNumber}, SYSDATE, '씨앗', 0)
+  		VALUES (#{memberNumber},0, 0, 'N', #{generalName}, TO_DATE(#{generalBirthdate}, 'YYYY-MM-DD'), REGEXP_REPLACE(#{generalPhoneNumber}, '[^0-9]', ''), SYSDATE, '씨앗', 0)
 	</insert>
 
 	<!-- 판매자회원 상세 -->
 	<insert id="joinSeller" parameterType="SellerMemberDTO">
   		INSERT INTO TBL_SELLER_MEMBER
   		(MEMBER_NUMBER, SELLER_REPORT_COUNT, SELLER_WARNING_COUNT, SELLER_BLACK_STATE, SELLER_NAME, SELLER_BIRTHDATE, SELLER_PHONE_NUMBER, SELLER_JOIN_DATE, SELLER_TREE_GRADE, SELLER_PAYMENT_AMOUNT)
-  		VALUES (#{memberNumber},0, 0, 'N', #{sellerName}, TO_DATE(#{sellerBirthdate}, 'YYYY-MM-DD'), #{sellerPhoneNumber}, SYSDATE, '씨앗', 0)
+  		VALUES (#{memberNumber},0, 0, 'N', #{sellerName}, TO_DATE(#{sellerBirthdate}, 'YYYY-MM-DD'), REGEXP_REPLACE(#{sellerPhoneNumber}, '[^0-9]', ''), SYSDATE, '씨앗', 0)
 	</insert>
 
 	<!-- 가게 -->
