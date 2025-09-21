@@ -20,17 +20,29 @@ public class StoreDetailController implements Execute {
         Result result = new Result();
         ItemDAO itemDAO = new ItemDAO();
 
+        // -------------------- 파라미터 --------------------
+        String businessNumber = request.getParameter("businessNumber"); // 찜 목록에서 넘어올 수 있음
         int itemNumber = -1;
         try {
             itemNumber = Integer.parseInt(request.getParameter("itemNumber"));
-        } catch (NumberFormatException e) {}
+        } catch (NumberFormatException ignore) {}
 
+        // itemNumber 없고 businessNumber만 있을 때 → 첫 상품 찾기
+        if (itemNumber <= 0 && businessNumber != null && !businessNumber.isBlank()) {
+            ItemWithImgDTO firstItem = itemDAO.selectFirstItemByStore(businessNumber);
+            if (firstItem != null) {
+                itemNumber = firstItem.getItemNumber();
+            }
+        }
+
+        // 여전히 itemNumber 못 찾았으면 목록으로 돌려보냄
         if (itemNumber <= 0) {
             result.setPath(request.getContextPath() + "/orders/storeList.or");
             result.setRedirect(true);
             return result;
         }
 
+        // -------------------- 상품/가게 조회 --------------------
         ItemWithImgDTO item = itemDAO.selectItemDetail(itemNumber);
         if (item == null) {
             result.setPath(request.getContextPath() + "/orders/storeList.or");
@@ -38,8 +50,15 @@ public class StoreDetailController implements Execute {
             return result;
         }
 
+        // businessNumber가 비어있다면 item에서 가져오기
+        if (businessNumber == null || businessNumber.isBlank()) {
+            businessNumber = item.getBusinessNumber();
+        }
+
+        // 상품 이미지
         List<ItemImageDTO> images = itemDAO.selectItemImages(itemNumber);
 
+        // -------------------- 페이징 --------------------
         int page = 1;
         int limit = 5;
         try {
@@ -49,25 +68,25 @@ public class StoreDetailController implements Execute {
 
         // 같은 가게 음식 목록
         List<ItemWithImgDTO> itemList =
-                itemDAO.list(item.getBusinessNumber(), "FOOD", offset, limit);
-        int totalCount = itemDAO.count(item.getBusinessNumber(), "FOOD");
+                itemDAO.list(businessNumber, "FOOD", offset, limit);
+        int totalCount = itemDAO.count(businessNumber, "FOOD");
         int maxPage = (int) Math.ceil((double) totalCount / limit);
 
-        // 로그인한 회원의 찜 여부 확인
+        // -------------------- 찜 여부 --------------------
         HttpSession session = request.getSession();
         Integer memberNumber = (Integer) session.getAttribute("memberNumber");
         boolean isFavorited = false;
         if (memberNumber != null) {
             MyStoreFavoriteDAO favDAO = new MyStoreFavoriteDAO();
-            isFavorited = favDAO.isFavorited(memberNumber, item.getBusinessNumber());
+            isFavorited = favDAO.isFavorited(memberNumber, businessNumber);
         }
 
+        // -------------------- 로그 --------------------
         System.out.println("itemNumber = " + item.getItemNumber());
-        System.out.println("businessNumber = " + item.getBusinessNumber());
+        System.out.println("businessNumber = " + businessNumber);
         System.out.println("storeName = " + item.getStoreName());
 
-        
-        // JSP로 데이터 전달
+        // -------------------- JSP 전달 --------------------
         request.setAttribute("item", item);
         request.setAttribute("images", images);
         request.setAttribute("itemList", itemList);
@@ -78,7 +97,5 @@ public class StoreDetailController implements Execute {
         result.setPath("/app/orders/storeDetail.jsp");
         result.setRedirect(false);
         return result;
-        
-        
     }
 }

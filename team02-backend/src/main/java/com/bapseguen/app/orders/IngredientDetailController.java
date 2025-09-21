@@ -53,7 +53,7 @@ public class IngredientDetailController implements Execute {
         int totalCount = itemDAO.count(item.getBusinessNumber(), "INGREDIENT");
         int maxPage = (int) Math.ceil((double) totalCount / limit);
 
-        // 로그인한 회원의 찜 여부 확인
+        // 찜 여부
         HttpSession session = request.getSession();
         Integer memberNumber = (Integer) session.getAttribute("memberNumber");
         boolean isFavorited = false;
@@ -66,7 +66,7 @@ public class IngredientDetailController implements Execute {
         System.out.println("businessNumber = " + item.getBusinessNumber());
         System.out.println("storeName = " + item.getStoreName());
 
-        // JSP로 데이터 전달
+        // JSP 전달
         request.setAttribute("item", item);
         request.setAttribute("images", images);
         request.setAttribute("ingredientList", ingredientList);
