@@ -22,6 +22,7 @@
 	src="${pageContext.request.contextPath }/assets/js/header.js"></script>
 <script defer
 	src="${pageContext.request.contextPath }/assets/js/join/sellerInfoInput.js"></script>
+	
 <title>밥세권</title>
 <script>
 	const ctx = '${pageContext.request.contextPath}';
