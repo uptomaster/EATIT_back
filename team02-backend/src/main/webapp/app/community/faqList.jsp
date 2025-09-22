@@ -24,7 +24,7 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/css/footer.css" />
 <script defer
-	src="${pageContext.request.contextPath}/assets/js/community/customerServiceList.js"></script>
+	src="${pageContext.request.contextPath}/assets/js/community/faqList.js"></script>
 <script defer
 	src="${pageContext.request.contextPath}/assets/js/community/mouseoverTreeIcon.js"></script>
 <!-- 파비콘 -->
@@ -148,8 +148,9 @@
 			<div class="controls_wrapper">
 				<div class="function_container">
 					<div class="search_box">
-						<input class="search_text" type="text" placeholder="검색어를 입력해 주세요" />
-						<button class="search_btn" type="button">
+						<input id="searchInput" class="search_text" type="text"
+							placeholder="검색어를 입력해 주세요" />
+						<button id="searchBtn" class="search_btn" type="button">
 							<i class="fas fa-search"></i>
 						</button>
 					</div>
