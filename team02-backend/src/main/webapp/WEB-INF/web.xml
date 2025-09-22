@@ -25,15 +25,24 @@
     <url-pattern>/community/inquirySearchOk.co</url-pattern>
 </servlet-mapping>
 
-<!-- wrror-page -->
-	<!-- <error-page>
+<servlet>
+    <servlet-name>FaqSearchController</servlet-name>
+    <servlet-class>com.bapseguen.app.community.InquirySearchController</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>InquirySearchController</servlet-name>
+    <url-pattern>/community/faqSearchOk.co</url-pattern>
+</servlet-mapping>
+
+<!-- error-page -->
+	<error-page>
         <error-code>404</error-code>
         <location>/app/errors/404.jsp</location>
     </error-page>
     <error-page>
         <error-code>500</error-code>
         <location>/app/errors/500.jsp</location>
-    </error-page> -->
+    </error-page>
     
     
 <!-- location -->
