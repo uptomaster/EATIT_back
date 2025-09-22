@@ -82,13 +82,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const postNumber = deleteBtnPost.dataset.boardNumber;
         const postType = deleteBtnPost.dataset.postType; // 게시판 타입
+		
+		//디버깅용
+		console.log("게시글 삭제 버튼 클릭됨, postType:", postType); 
+		
         if (!postNumber) return alert("게시글 번호가 없습니다.");
 
         if (!confirm("정말 삭제하시겠습니까?")) return;
-		
-		// 클릭 이벤트 전파 차단
-	   e.stopPropagation();
-	   e.preventDefault();
 	   
 	   deleteBtnPost.disabled = true; // 삭제 버튼 비활성화
 	
@@ -109,15 +109,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     redirectUrl = `${window.ctx}/community/promoBoardListOk.co`;
                     break;
                 case "RECIPE":
-                    redirectUrl = `${window.ctx}/community/recipeBoardListOk.co`;
+                    redirectUrl = `${window.ctx}/community/recipeListOk.co`;
                     break;
                 default:
                     redirectUrl = `${window.ctx}/community/communityMainOk.co`;
             }
 
             alert("게시글이 삭제되었습니다.");
+			// 삭제 후 리다이렉트
             window.location.href = redirectUrl;
-
+			
         } catch (err) {
             console.error("게시글 삭제 실패:", err);
             alert("게시글 삭제에 실패했습니다.");

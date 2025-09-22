@@ -1,31 +1,40 @@
 @charset "UTF-8";
 
+* {
+  margin: 0;
+  padding: 0;
+  /* box-sizing: border-box; */
+}
 main{
   background-color: #FFF5E4;
   width: 1920px;
-  height: 1500px;
+  height: 1000px;
   display: flex;
   flex-direction: row;
 }
-/* 사이드 네비 액티브시  */
-.active{
-  background-color: #ff873c8c;
-  border-radius: 10px;
-}
+
 .writereview_page{
   background-color: #FBE3B9;
   width: 1100px;
-  margin-left: 410px;
+  padding: 30px 40px;                  /* 추가 */
+  background-color: #fcfaf8;           /* 추가: 카드 배경 */
+  box-shadow: 0 0 12px rgba(168, 6, 6, 0.438); /* 추가 */
+  border-radius: 10px;                  /* 추가 */
+  margin: 30px 10px 30px 410px;         /* 좌측 메뉴 고려 */
+  display: flex;                        /* 추가 */
+  flex-direction: column;               /* 추가 */
+  min-height : 400px;
 }
 .writereview_my_page_list{
-  position: fixed;
-  padding: 0;
-  margin: 100px 20px 0 200px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #FF873C;
   width: 190px;
-  height: 550px;
-  font-size: 20px;
-  background-color: #a6998080;
-  border-radius: 10px;
+  height: 110px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .writereview_my_page{
   padding: 0;
@@ -64,18 +73,21 @@ main{
   border-radius: 10px;
 }
 .writereview_list{
-  margin: 100px 0 45px 70px;
-  font-size: 30px;
+  margin: 40px 0 20px 0;            /* 카드 안쪽으로 조정 */
+  font-size: 26px;                   /* 기존: 30px */
+  font-weight: 600;
+  color: #444;
 }
 .writereview_top{
-  margin-left: 50px;
-  background-color: #a69980;
-  width: 1000px;
-  height: 50px;
-  font-size: 20px;
-  align-items: center;
+  background-color: #ffe8b4;          /* 연한 주황 헤더 */
+  font-weight: 600;
+  color: #444;
   display: flex;
-  border: 1px solid black;
+  align-items: center;
+  padding: 14px 20px;                 /* 내부 여백 */
+  border-radius: 6px 6px 0 0;         /* 위쪽 라운딩 */
+  border: 1px solid #e3e3e3;             /* 얇은 경계 */
+  user-select: none;
 }
 .writereview_comments_list{
   margin-left: 50px;
@@ -87,50 +99,35 @@ main{
   display: flex;
   border: 1px solid black;  
 }
-.writereview_restaurant_name{
+.writereview_restaurant_name,
+.writereview_meal_name,
+.writereview_quantity,
+.writereview_price,
+.writereview_date{
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 50px;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.writereview_restaurant_name{
   width: 225px;
 }
 .writereview_meal_name{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
   width: 225px;
 }
-.writereview_product_img{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
-  width: 225px;
-}
-.writereview_meal_img{
-  width: 75px;
-  height: 75px;
-}
+
 .writereview_quantity{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
   width: 100px;
 }
 .writereview_price{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
   width: 150px;
 }
 .writereview_date{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
   width: 150px;
 }
 .writereview_set_rank{
@@ -138,7 +135,7 @@ main{
   margin-top: 20px;
   display: flex;
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid #eee;
   width: 250px;
   height: 40px;
   font-size: 20px;
@@ -198,6 +195,12 @@ select {
   resize: vertical;
 }
 
+/* textarea 좌우 간격 + 버튼과의 간격 */
+textarea {
+  margin: 0 10px 10px 10px;  /* 좌우 10px, 아래(버튼 위) 10px */
+  min-height: 120px;
+}
+
 input[type="text"]:focus,
 textarea:focus,
 select:focus {
@@ -206,30 +209,13 @@ select:focus {
   box-shadow: 0 0 8px #ffb84daa;
 }
 
-/* 이미지 업로드 */
-input[type="file"] {
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: 1.5px solid #ffb84d;
-  font-weight: bold;
-  color: #ffb84d;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-  background-color: #fff5d1;
-}
-
-input[type="file"]:focus {
-  border-color: #ffb84d;
-  background-color: #fff0b8;
-  outline: none;
-}
 
 /* 버튼 그룹 */
 .writereview_button_group {
   display: flex;
   justify-content: flex-end;
-  gap: 15px;
+  gap: 10px;                 
+  margin: 0 10px; 
 }
 
 .writereview_submit_btn {

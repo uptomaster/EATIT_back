@@ -30,19 +30,6 @@ public class FaqReadOkController implements Execute{
 			Integer memberNumber = (Integer)session.getAttribute("memberNumber");
 			String path = null;
 			
-			
-			//memberNumber 값이 null이거나 0일때
-//			if (memberNumber == null || memberNumber == 0) {
-//			    response.setContentType("text/html; charset=UTF-8");
-//			    PrintWriter out = response.getWriter();
-//			    out.println("<script>");
-//			    out.println("alert('로그인이 필요합니다.');");
-//			    out.println("location.href='/app/login/login.jsp';");
-//			    out.println("</script>");
-//			    out.close();
-//			    return null;
-//			}
-			
 			//postNumber가 빈 문자열이거나 null인경우
 			String postNumberStr = request.getParameter("postNumber");
 			if(postNumberStr == null || postNumberStr.trim().isEmpty()){
@@ -78,6 +65,16 @@ public class FaqReadOkController implements Execute{
 			Integer loginMemberNumber = (Integer) request.getSession().getAttribute("memberNumber");
 			System.out.println("로그인 한 멤버 번호 : " + loginMemberNumber);
 			
+			if(loginMemberNumber == null) {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+			    out.println("<script>");
+			    out.println("alert('로그인 후 이용 가능합니다.');");
+			    out.println("location.href='/login/login.lo';");
+			    out.println("</script>");
+			    out.close();
+				return null;
+			}
 			//현재 게시글의 작성자 번호 가져오기
 			//int postWriterNumber = postDTO.getMemberNumber();
 			//System.out.println("현재 게시글 작성자 번호 : " + postWriterNumber);
@@ -92,4 +89,4 @@ public class FaqReadOkController implements Execute{
 			return result;
 		}
 
-}
+	}

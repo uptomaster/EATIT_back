@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bapseguen.app.Result;
+import com.bapseguen.app.main.StoreDistanceController;
 
 /**
  * Servlet implementation class communityFrontController
@@ -64,7 +65,6 @@ public class CommunityFrontController extends HttpServlet {
 		case "/community/freeBoardListOk.co":
 			System.out.println("자유게시판 목록 페이지 처리 요청");
 			result = new FreeBoardListOkController().execute(request, response);
-			System.out.println(result);
 			break;	
 		case "/community/freeBoardReadOk.co":
 			System.out.println("자유게시판 상세 페이지 처리 요청");
@@ -154,27 +154,24 @@ public class CommunityFrontController extends HttpServlet {
 			System.out.println("게시글 삭제 완료 요청");
 			result = new InquiryDeleteOkController().execute(request, response);
 			break;	
-			
+		 case "/inquirySearch":
+	            System.out.println("게시글 검색 완료 요청");
+	            new InquirySearchController().doGet(request, response);
+	            return;	
 
 
 
 			
 		}
 
-		/*
-		 * RequestDispatcher dispatcher =
-		 * request.getRequestDispatcher(result.getPath());
-		 * 
-		 * if (dispatcher == null) { System.out.println("Dispatcher is null! Path = " +
-		 * result.getPath()); } else { dispatcher.forward(request, response); }
-		 */
-		
 		if (result != null && result.getPath() != null) {
-		    RequestDispatcher dispatcher = request.getRequestDispatcher(result.getPath());
-		    dispatcher.forward(request, response);
-		} else {
-		    System.out.println("Forward/Redirect 필요 없음. result: " + result);
+			if (result.isRedirect()) {
+				response.sendRedirect(result.getPath());
+			} else {
+				request.getRequestDispatcher(result.getPath()).forward(request, response);
+			}
 		}
+		
 	}
 
 }

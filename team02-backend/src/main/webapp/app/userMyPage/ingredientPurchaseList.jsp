@@ -12,6 +12,7 @@
   
   <!--css  -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/userMyPage/ingredientPurchaseList.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/userMyPage/editUserInfo.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
   
@@ -26,21 +27,18 @@
 <body>
   <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
   <main>
-    <!-- 사이드 메뉴바 영역 -->
-    <div class="ingredientpurchase_my_page_list">
-      <!-- 마이페이지 상단 제목 -->
-      <div class="ingredientpurchase_my_page">마이 페이지</div>
+    <div class="my_page_list">
+      <!-- 마이페이지 제목 -->
+      <div class="my_page">마이 페이지</div>
 
-      <!-- 마이페이지 사이드 메뉴 리스트 -->
-      <ul class="ingredientpurchase_side_bar">
+      <!-- 마이페이지 사이드 메뉴 -->
+      <ul class="side_bar">
         <li><a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.my">내 정보 수정</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListOk.my">음식 구매 내역</a></li>
-        <li class="ingredientpurchase_main">
-          <a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseListOk.my">재료 구매 내역</a>
-        </li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/myPostListOk.my">내 글 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/myCommentsListOk.my">내 댓글 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/myReviewListOk.my">내 리뷰 관리</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListOk.my">음식 구매 내역</a></li>
+  		<li class="active"><a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseListOk.my">재료 구매 내역</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/myPostListOk.my">내 글 관리</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/myCommentsListOk.my">내 댓글 관리</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/myReviewListOk.my">내 리뷰 관리</a></li>
       </ul>
     </div>
 
@@ -64,7 +62,7 @@
         <!-- 실제 구매 내역 -->
         <c:choose>
 	          <c:when test="${empty ingrebuylist}">
-			    <div class="ingredientpurchase_page_list">
+			    <div class="ingredientpurchase_my_page_list">
 			      구매한 상품이 없습니다.
 			    </div>
 			  </c:when>

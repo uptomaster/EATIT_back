@@ -1,101 +1,79 @@
-@charset "UTF-8";
+@charset "UTF-8"; 
+
+/* ===== 기본 스타일 ===== */
 * {
   margin: 0;
   padding: 0;
-  /* box-sizing: border-box; */
-}
-main {
-  background-color: #FFF5E4;
-  width: 1920px;
-  display: flex;
-  flex-direction: row;
+  box-sizing: border-box;
 }
 
+/* ===== 메인 컨테이너 ===== */
+main {
+  width: 1920px;
+  height: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(80% 80% at 50% 0%, rgba(255,233,210, .55) 0%, rgba(255,245,228,0) 60%),
+              #fff5e4;
+  overflow: hidden;
+}
+
+/* ===== 실패 컨테이너 ===== */
 .general_edit_user_info {
   background-color: #FBE3B9;
   width: 1100px;
-  margin-left: 410px;
-}
-
-/*  */
-.general_my_page_list {
-  position: fixed;
-  padding: 0;
-  margin: 60px 20px 0 200px;
-  width: 190px;
-  height: 585px;
-  font-size: 20px;
-  background-color: #a6998080;
-  border-radius: 10px;
-}
-
-.general_my_page {
-  padding: 0;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  background-color: #FF873C;
-  width: 190px;
-  height: 110px;
-  color: white;
+  height:60%;
   display: flex;
   justify-content: center;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
   align-items: center;
 }
 
-.general_side_bar>li {
+/* ===== 본인 확인 영역 ===== */
+.check_area {
+  background-color: #fffdf7;
+  width: 900px;
+  height: 350px;
+  border-radius: 15px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  list-style: none;
-  width: 190px;
-}
-
-.general_my_page_list_main {
-  background-color: #ff873c8c;
-  border-radius: 10px;
-}
-
-.general_side_bar>li>a {
-  width: 190px;
-  padding: 15px 0;
-  text-decoration: none;
-  color: white;
-  display: flex;
-  justify-content: center;
-}
-
-.general_side_bar>li:hover {
-  width: 100%;
-  background-color: #ff873c8c;
-  border-radius: 10px;
-}
-
-/* 사이드바 끝 */
-/* 컨텐츠 영역 */
-.general_chk_pw{
-  width: 1000px;
-  height: 300px;
-  justify-self: center;
 }
 
 /* 페이지 제목 */
 .general_my_info {
-  margin: 25px 0 45px 70px;
-  font-size: 30px;
-}
-/* 비밀번호 입력 칸 */
-.general_chk_pw_input{
+  font-size: 16px;
   display: flex;
-  flex-direction: row;
-  background-color: white;
-  width: 990px;
-  height: 83px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.usercheck{
+  font-size: 30px;
+  margin: 10px 0 20px 0;
+  font-weight: bold;
+  color: #3b2f20;
+  text-align: center;
+}
+
+/* ===== 비밀번호 입력 박스 ===== */
+.general_chk_pw_input {
+  display: flex;
+  flex-direction: column;  /* p 태그가 위쪽에 오도록 설정 */
+  width: 800px;
+  height: 300px;
   border-radius: 10px;
   align-items: center;
   margin-bottom: 7px;
 }
-  /* 입력 제목칸 (비밀번호) */
-.general_chk_pw_info{
+
+/* 비밀번호 입력 칸 */
+.general_chk_pw_info {
   background-color: rgba(128, 128, 128, 0); 
   width: 200px;
   height: 50px;
@@ -105,44 +83,48 @@ main {
   text-align: center;
   color: black;
   line-height: 50px;
-  font-weight: blod;
+  font-weight: bold;
 }
-
+.general_chk_pw_info:focus{
+  outline: none;
+  border: 1px solid #FF873C;
+  box-shadow: 0 0 8px rgba(255, 135, 60, 0.6);
+}
 /* 입력칸을 감싼 회색 박스 */
-.general_gray_box{
+.general_gray_box {
   width: 615px;
   height: 50px;
-  background-color: #d9d9d9;
+  background-color: white;
+  border: 1.5px solid #ddd;
   border-radius: 10px;
   margin-left: 10px;
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
-#general_chk_pw_info{
+
+#general_chk_pw_info {
   width: 610px;
+  font-size:16px;
+  font-weight:light;
 }
 
 /* 버튼 */
-#general_chk_pw_btn,
-.general_withdraw_buzz,
-.general_chk_pw_cancel_buzz{
-  width: 138px;
+#general_chk_pw_btn {
+  width: 160px;
   height: 50px;
-  background-color: #FF873C;
-  border-radius: 10px;
+  border-radius: 15px;
   border: none;
-  color: white;
   margin: 10px;
   align-self: center;
-}
-.withdraw_cancel_btns{
-  justify-self: center;
-  margin: 20px;
+  background-color: #FF7722;
+  box-shadow: 0 6px 15px rgba(242, 154, 90, 0.8);
+  color: #fff;
 }
 
 /* 경고메시지 */
-#general_chk_pw_warning{
+#general_chk_pw_warning {
   color: red;
   margin-top: 10px;
+  text-align:center;
 }

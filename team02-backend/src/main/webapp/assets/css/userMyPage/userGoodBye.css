@@ -1,69 +1,104 @@
-@charset "UTF-8";@charset "UTF-8";
+@charset "UTF-8";
 
+/* ===== 기본 스타일 ===== */
 * {
   margin: 0;
   padding: 0;
-  /* box-sizing: border-box; */
+  box-sizing: border-box;
 }
 
+
+/* ===== 메인 컨테이너 ===== */
 main {
-  height: 830px;
   width: 1920px;
+  height: 830px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #fff5e4;
-
+  background:
+    radial-gradient(80% 80% at 50% 0%, rgba(255,233,210,.55) 0%, rgba(255,245,228,0) 60%),
+    #fff5e4;
+  overflow: hidden;
 }
 
+/* ===== 실패 컨테이너 ===== */
 .findId_fail_container {
   width: 1100px;
-  height: 100%;
+  height:90%;
   background-color: #fbe3b9;
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+  border-radius: 12px;
+  padding: 20px;
 }
 
+/* ===== 컨텐츠 영역 ===== */
 .findId_fail_content_container {
-  width: 600px;
-  height: 500px;
-  background-color: #fff5e4;
-  margin: 115px 0px;
+  width: 600px; 
+  height: 450px; 
+  background: #fffdf7;
+  margin: 115px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-}
-/* 구역나누기 끝 */
-
-/* 아이디 찾기 실패 제목 */
-/* 아이디 찾기 제목 */
-.findId_fail_title_container {
-  font-size: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* 깊이 있는 그림자 */
+  border-radius: 18px;
+  padding: 30px;
+  text-align: center;
 }
 
+/* ===== 제목 ===== */
 .findId_fail_title {
+  font-size: 28px;
   font-weight: bold;
+  color: #3b2f20;
+  letter-spacing: -0.5px;
+  margin-bottom: 10px;
+  line-height: 1.2;
 }
 
-/* 아이디 찾기 실패 안내 메시지 */
+/* ===== 안내 메시지 ===== */
+.findId_fail_txt h2 {
+  font-size: 20px;
+  color: #3b2f20;
+  margin-top: 20px;
+  font-weight: 400;
+}
 
-/* 아이디찾기, 비밀번호 찾기, 회원가입 */
+/* ===== 하단 링크 버튼 스타일 ===== */
 .findId_fail_to_container {
-  /* height: 50px; */
   display: flex;
-  align-items: center;
-  /* text-decoration: none; */
-  gap: 15px;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 20px;
 }
 
-.findId_fail_to_container>div>a:hover {
-  color: #FF7722;
-}
-
-.findId_fail_to_container>div>a {
-  font-size: 14px;
+/* ===== 버튼 스타일 ===== */
+.findId_fail_to_container a {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
   text-decoration: none;
-  color: black;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #f59c63, #f39251);
+  display: inline-block;
+  transition: all 0.3s ease;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(243, 146, 81, 0.3), inset 0 2px 6px rgba(255, 255, 255, 0.26);
+}
+
+/* 버튼 호버 및 액티브 상태 */
+.findId_fail_to_container a:hover {
+  background-color: #FF7722; 
+  box-shadow: 0 6px 15px rgba(242, 154, 90, 0.8); 
+  transform: scale(1.1); 
+  color: #fff; 
+}
+
+.findId_fail_to_container a:active {
+  transform: translateY(1px);
 }

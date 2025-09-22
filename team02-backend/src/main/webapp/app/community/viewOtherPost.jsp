@@ -105,7 +105,9 @@
 			      </c:forEach>
 			   </div>	
 				
-				
+				<c:forEach var="recipe" items="${recipes}">
+				    <div>${recipe.title}</div> <!-- 제목 출력 -->
+				</c:forEach>
 				
 	          <!-- 수정/삭제 버튼 -->
 	          <div class="post_buttons">
@@ -117,7 +119,8 @@
 	
 	                <button type="button" class="delete-btn-post delete"
 	                  data-board-number="${post.postNumber}"
-	                  data-member-number="${sessionScope.memberNumber}">삭제</button>
+	                  data-member-number="${sessionScope.memberNumber}"
+	                  data-post-type="${post.postType}">삭제</button>
 	              </c:if>
 	            </div>
 	          </div>

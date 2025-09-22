@@ -21,51 +21,36 @@
 <body>
   <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
   <main>
-    <div class="withdrawalagreement_my_page_list">
-      <div class="withdrawalagreement_my_page">마이 페이지</div>
-      <ul class="withdrawalagreement_side_bar">
-        <li><a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.my">내 정보 수정</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListOk.my">음식 구매 내역</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseListOk.my">재료 구매 내역</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/myPostListOk.my">내 글 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/myCommentsListOk.my">내 댓글 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/myReviewListOk.my">내 리뷰 관리</a></li>
-      </ul>
-    </div>
     <form class="withdrawalagreement" action="${pageContext.request.contextPath}/userMyPage/withdrawOk.my" method="post">
       <div class="withdrawalagreement_agreement_page">
         <h2>회원탈퇴동의</h2>
 
         <div class="withdrawalagreement_two_box">
           
-          <!-- 비밀번호 입력 -->
+          <!-- 동의 체크박스  -->
+          <div class="withdraw_check">
+            <h3>탈퇴 진행 전 다음 내용을 꼭 확인해 주세요</h3>
+            <p class="customer_info">고객 정보 및 서비스 이용 기록은 개인 정보보호 처리 방침 기준에 따라 삭제됩니다</p>
+            <p class="customer_agree">회원 탈퇴 시 더 이상 밥세권 서비스 이용이 불가능합니다</p>
+            <label class="agree_label">
+              <input type="checkbox" name="agree" value="yes"> 안내 사항을 모두 확인하였으며, 이에 동의합니다
+            </label>
+            <c:if test="${not empty agreeError}">
+              <p class="notice_input_wrong_info">${agreeError}</p>
+            </c:if>
+          </div>
+
+	      <!-- 비밀번호 입력 -->
 	      <div class="withdrawalagreement_box_set">
 	        <div class="withdrawalagreement_password_now">비밀번호</div>
 	        <div class="withdrawalagreement_gray_box">
-	          <input id="passwordInput" name="password" class="withdrawalagreement_input_info" type="password" placeholder="현재 비밀번호 입력" required />
+	          <input id="passwordInput" name="password" class="withdrawalagreement_input_info" type="password" placeholder="비밀번호 입력" required />
 	          <c:if test="${not empty pwError}">
 	            <p class="notice_input_wrong_info">${pwError}</p>
 	          </c:if>
 	        </div>
 	      </div>
-          
-          <!-- 동의 라디오 -->
-	      <div class="withdrawalagreement_box_set">
-	        <div class="withdrawalagreement_password_now">탈퇴 동의</div>
-	        <div class="withdrawalagreement_gray_box">
-	          회원탈퇴에 동의하십니까?
-	          <label class="agree_label">
-	            <input type="radio" name="agree" value="yes"> 예, 동의합니다
-	          </label>
-	          <c:if test="${not empty agreeError}">
-	            <p class="notice_input_wrong_info">${agreeError}</p>
-	          </c:if>
-	        </div>
-	      </div>
-	      
-	      
-          
-
+	   
           <!-- 버튼 -->
           <div class="withdrawalagreement_buzz_set">
             <button type="submit" id="withdrawBtn" class="withdrawalagreement_agreement_buzz">회원탈퇴</button>
@@ -73,6 +58,7 @@
               <a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.my">취소</a>
             </div>
           </div>
+    
     
       	</div>
       </div>

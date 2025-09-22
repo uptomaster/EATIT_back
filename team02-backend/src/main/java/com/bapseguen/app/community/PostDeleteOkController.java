@@ -44,7 +44,7 @@ public class PostDeleteOkController implements Execute{
         // postType이 null일 경우 처리
         if (postType == null) {
             // "FREE"로 기본값 설정
-            postType = "FREE";  // 기본값 설정. 필요시 다른 기본값을 설정할 수 있음.
+            postType = "FREE";  
         }
 
         // 게시글 삭제
@@ -59,14 +59,19 @@ public class PostDeleteOkController implements Execute{
                 result.setPath("/community/promoBoardListOk.co");
                 break;
             case "RECIPE":
-                result.setPath("/community/recipeBoardListOk.co");
+                result.setPath("/community/recipeListOk.co");
                 break;
             default:
-                throw new IllegalArgumentException("Unknown postType: " + postType);
+                // 예상치 못한 값이 들어왔을 때, 디폴트 경로로 처리
+                result.setPath("/community/communityMainOk.co");  
+                System.out.println("잘못된 postType이 들어왔습니다. 기본 경로로 리다이렉트됩니다.");
+                break;
         }
 
+        // 리다이렉트 설정
         result.setRedirect(true);
-        System.out.println("확인용 Result path: " + result.getPath());
+
+        System.out.println("=============확인용 Result path: " + result.getPath());
         return result;
     }
 		

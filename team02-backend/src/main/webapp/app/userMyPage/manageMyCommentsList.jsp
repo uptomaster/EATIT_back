@@ -12,6 +12,7 @@
   <title>밥세권</title>
   
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/userMyPage/manageMyCommentsList.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/userMyPage/editUserInfo.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
   <script defer src="${pageContext.request.contextPath}/assets/js/userMyPage/manageMyCommentsList.js"></script>
@@ -24,18 +25,19 @@
 <body>
   <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
   <main>
-    <!-- 사이드 메뉴바 -->
-    <div class="managemycomments_my_page_list">
-      <!-- 사이드 메뉴바 제목 -->
-      <div class="managemycomments_my_page">마이 페이지</div>
-      <!-- 사이드 메뉴바 상세 메뉴 -->
-      <ul class="managemycomments_side_bar">
+    <!-- 마이페이지 전체 레이아웃 영역 -->
+    <div class="my_page_list">
+      <!-- 마이페이지 제목 -->
+      <div class="my_page">마이 페이지</div>
+
+      <!-- 마이페이지 사이드 메뉴 -->
+      <ul class="side_bar">
         <li><a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.my">내 정보 수정</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListOk.my">음식 구매 내역</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseListOk.my">재료 구매 내역</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/myPostListOk.my">내 글 관리</a></li>
-        <li  class="managemycomments_main"><a href="${pageContext.request.contextPath}/userMyPage/myCommentsListOk.my">내 댓글 관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/userMyPage/myReviewListOk.my">내 리뷰 관리</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListOk.my">음식 구매 내역</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseListOk.my">재료 구매 내역</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/myPostListOk.my">내 글 관리</a></li>
+  		<li class="active"><a href="${pageContext.request.contextPath}/userMyPage/myCommentsListOk.my">내 댓글 관리</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/myReviewListOk.my">내 리뷰 관리</a></li>
       </ul>
     </div>
     <!-- 1100px 영역 -->
