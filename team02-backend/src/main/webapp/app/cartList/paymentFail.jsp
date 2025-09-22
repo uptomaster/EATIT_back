@@ -42,7 +42,7 @@
         <!-- 버튼 영역 -->
         <div class="btn_group">
           <a href="${pageContext.request.contextPath}/cartList/view.cl" class="buylist_btn">장바구니로 이동</a>
-          <a href="${pageContext.request.contextPath}/" class="buylist_btn secondary">메인으로 가기</a>
+          <a href="${pageContext.request.contextPath}/main.ma" class="buylist_btn secondary">메인으로 가기</a>
         </div>
       </div>
     </div>

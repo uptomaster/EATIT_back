@@ -328,3 +328,27 @@ main {
 .tree-tooltip div:last-child {
   margin-bottom: 0;
 }
+.pagination_container {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 20px;
+}
+.pagination_number a {
+  padding: 6px 12px;
+  text-decoration: none;
+  color: white;
+  border-radius: 4px;
+}
+.pagination_number a.active {
+  background-color: #ff9c00;
+  color: white;
+  pointer-events: none;
+}
+.pagination_number a:hover:not(.active) {
+  background-color: #ffce6d;
+}
+.prev, .next {
+  font-weight: bold;
+}
+
