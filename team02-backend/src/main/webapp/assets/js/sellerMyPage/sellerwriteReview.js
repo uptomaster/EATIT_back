@@ -40,6 +40,9 @@ document.addEventListener("DOMContentLoaded", function () {
           alert("내용을 입력해주세요.");
           return;
       }
+			// 기존 hidden input 업데이트
+			 const hidden = document.getElementById("reviewRating");
+			 hidden.value = currentRating;
 
       document.querySelector("form").submit();
   });

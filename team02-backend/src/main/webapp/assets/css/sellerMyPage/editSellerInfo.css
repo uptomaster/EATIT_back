@@ -342,8 +342,15 @@ main{
 /* 오류 메시지 */
 .seller_notice_input_wrong_info{
   font-size: 10px;
-  margin: 0 0 0 10px;
+  margin: 10px 10px 50px 10px;
   position: absolute;
+}
+
+/* 탈퇴, 저장 버튼 컨테이너 */
+.bottom_btn_container{
+	 display: flex;
+   margin: 10px 10px 50px 10px;
+   justify-content: right;
 }
 
 /* 탈퇴 버튼 */

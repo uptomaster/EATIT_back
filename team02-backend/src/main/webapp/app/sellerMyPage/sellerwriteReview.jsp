@@ -53,7 +53,6 @@
           <div class="seller_write_review_price">금액</div>
           <div class="seller_write_review_date">구매 일자</div>
         </div>
-        
         <c:forEach var="order" items="${infoList}">
 	        <div class="seller_write_review_comments_list">
 	          <div class="seller_write_review_restaurant_name"><c:out value="${order.storeName}"/></div>
@@ -65,14 +64,13 @@
         </c:forEach>
         
         <form id="seller_write_review_form" action="${pageContext.request.contextPath}/sellerMyPage/sellerwriteReviewOk.se" method="post">
-          <input type="hidden" value="${infoList.ordersNumber }" name="ordersNumber">
-          <input type="hidden" value="${infoList.ordersDate }" name="ordersDate">
-          <input type="hidden" value="${infoList.memberNumber }" name="memberNumber">
-          <input type="hidden" value="${infoList.businessNumber }" name="businessNumber">
-          <input type="hidden" value="${infoList.itemType }" name="itemType">
+          <input type="hidden" value="${ordersNumber}" name="ordersNumber">
+          <input type="hidden" value="${memberNumber}" name="memberNumber">
+          <input type="hidden" value="${businessNumber}" name="businessNumber">
+          <input type="hidden" value="${itemType}" name="itemType">
           <input type="hidden" name="reviewRating" id="reviewRating" value="0">
-        
-        <!-- 별점 -->
+          
+          <!-- 별점 -->
 		    <div class="writereview_set_rank">
 		        <div>별점주기</div>
 		        <c:forEach var="i" begin="1" end="5">
@@ -83,13 +81,14 @@
 		            </button>
 		        </c:forEach>
 		    </div>
-
-
+		    
+		    
           <div class="seller_write_review_form_group">
             <label for="content">내용</label>
             <textarea id="content" name="reviewContent" rows="10" placeholder="맛, 양, 친절도, 재구매 의사 등을 자유롭게 작성해주세요." required></textarea>
           </div>
-
+          
+          
           <div class="seller_write_review_button_group">
             <button type="reset" class="seller_write_review_cancel_btn">작성 취소</button>
             <button type="submit" class="seller_write_review_submit_btn">작성 완료</button>

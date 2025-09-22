@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -163,7 +163,7 @@
 						<!-- 인증번호 요청 버튼 -->
 						<button type="button"
 							        formaction="${pageContext.request.contextPath}/sellerMyPage/sellerMyPageSmsSend.se" value="check"
-							        id="check_code_btn" class="info_check_code_buzz">인증번호 확인 
+							        id="check_code_btn" class="seller_info_send_code_buzz">인증번호 확인 
 		        </button>
          </div>
 
@@ -290,10 +290,8 @@
 			</c:if>
        <!-- 전체 저장 버튼 -->
 			  <div class="bottom_btn_container">
-			  	  <div class="agreement_buzz">
-				    <a href="${pageContext.request.contextPath}/sellerMyPage/withdrawalAgreement.se" class="seller_agreement_buzz">회원탈퇴</a>
-				  </div>
-				  <button type="button" class="total_info_save_buzz" data-member-number="${member.memberNumber}">저장</button>
+				  <a href="${pageContext.request.contextPath}/sellerMyPage/withdrawalAgreement.se" class="seller_agreement_buzz">회원탈퇴</a>
+				  <button type="button" class="total_info_save_buzz seller_agreement_buzz" data-member-number="${member.memberNumber}">저장</button>
 			  </div>
 
     </form>
