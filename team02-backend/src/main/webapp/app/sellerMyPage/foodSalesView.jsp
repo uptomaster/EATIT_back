@@ -50,7 +50,7 @@
           음식 상세보기
         </div>
         <!-- 음식 정보 등록 -->
-        <div class="foodsaleswrite_photo_container">
+        <div class="foodsaleswrite_box">
           <div class="foodsaleswrite_submit_table">
             <div id="food_edit_image_preview">
 							<div class="foodsaleswrite_box"> <label>음식 사진 </label> </div>
@@ -64,12 +64,14 @@
             </div>
           </div>
         </div>
+        
         <div class="foodsaleswrite_box">
           <label for="foodsaleswrite_menu">메뉴명</label>
           <!-- <input type="text" id="foodsaleswrite_munu"> -->
           <div id="foodsaleswrite_munu"><c:out value="${item.getItemName() }"/></div>
           <!-- <button type="button">등록</button> -->
         </div>
+        
         <div class="foodsaleswrite_box">
           <label >음식 설명</label>
           <div id="foodsaleswrite_explain"><c:out value="${item.getItemContent() }"/></div>
@@ -77,12 +79,14 @@
           <span id="foodsaleswrite_char_count">0/100</span>
           <!-- <button type="button">등록</button> -->
         </div>
+        
         <div class="foodsaleswrite_box">
           <label>소비기한</label>
           <div id="foodsaleswrite_expiry"><c:out value="${item.getItemExpireDate() }"/></div>
           <!-- <input type="text" id="foodsaleswrite_expiry" placeholder="YYYY-MM-DD-MIN -SS"> -->
           <!-- <button type="button">등록</button> -->
         </div>
+        
         <div class="foodsaleswrite_box">
           <div class="foodsaleswrite_quantitiy_container">
             <label class="foodsaleswrite_small_label">수량</label>

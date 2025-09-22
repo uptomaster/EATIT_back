@@ -58,6 +58,13 @@ main {
   justify-content: center;
   align-items: center;
 }
+.store_info_menu_list_current {
+  background-color: #FF873C;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .sellerfoodPurchase_main { background-color: #FF873C; border-radius: 10px; }
 .sellerfoodPurchase_side_bar>li { display: flex; justify-content: center; align-items: center; list-style: none; width: 190px; }
 .sellerfoodPurchase_side_bar>li>a { width: 190px; text-decoration: none; color: white; display: flex; justify-content: center; padding: 15px 0; }

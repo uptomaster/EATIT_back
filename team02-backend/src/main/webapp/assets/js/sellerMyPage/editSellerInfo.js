@@ -1,25 +1,42 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const memberNumber = document.getElementById("memberNumber");
+  const businessNumber = document.getElementById("businessNumber");
 
   const currentPasswordInput = document.getElementById("current_password");
   const currentPasswordError = document.getElementById("current_password_error");
+	
   const newPasswordInput = document.getElementById("new_password");
-  const newPhoneInput = document.getElementById("new_phone");
   const newPasswordError = document.getElementById("new_password_error");
+	
   const confirmPasswordInput = document.getElementById("confirm_password");
   const confirmPasswordError = document.getElementById("confirm_password_error");
+	
   const phoneInput = document.getElementById("new_phone");
   const phoneError = document.getElementById("phone_error");
+	
   const sendCodeBtn = document.getElementById("send_code_btn");
   const checkCodeBtn = document.getElementById("check_code_btn");
+	
   const codeInput = document.getElementById("code_input");
   const codeError = document.getElementById("code_error");
-  const totalSaveBtn = document.querySelector(".total_info_save_buzz");
+	
+  const open = document.getElementById("store_open_time");
+  const openError = document.getElementById("store_open_time_error");
+	
+  const close = document.getElementById("store_close_time");
+  const closeError = document.getElementById("store_close_time_error");
+	
+  const totalSaveBtn = document.getElementById("total_info_save_buzz");
   const editForm = document.querySelector(".edit_user_info");
 	
-	const defaultpw = document.getElementById("seller_password").value;
+	const defaultpw = document.getElementById("seller_password").value ;
 	const defaultphone = document.getElementById("seller_phone").value;
 	console.log("defaultpw   "+ defaultpw);
 	console.log("defaultphone" +defaultphone);
+	console.log(memberNumber);
+	console.log(memberNumber.value);
+	console.log(businessNumber);
+	console.log(businessNumber.value);
 
   // --- 초기 상태: 새 비밀번호 입력 불가 ---  
   if (newPasswordInput && confirmPasswordInput) {
@@ -148,57 +165,129 @@ document.addEventListener('DOMContentLoaded', () => {
           });
       });
     }
+		
+		const TIME_24H_OR_2400 = /^(?:([01]\d|2[0-3]):[0-5]\d|24:00)$/;
+
+		/**
+		 * 입력값 검증 함수
+		 * @param {HTMLInputElement} input - 시간 입력 input
+		 * @param {HTMLElement} errorEl - 에러 메시지 출력 요소
+		 */
+		function validateTime(input, errorEl) {
+		  const v = (input.value || "").trim();
+
+		  // 빈값은 여기서 메시지 출력하지 않음 (사용자 입력 중일 수 있으니)
+		  if (v === "") {
+		    errorEl.textContent = "";
+		    return;
+		  }
+
+		  // 허용 패턴 검사
+		  if (TIME_24H_OR_2400.test(v)) {
+		    errorEl.textContent = ""; // 정상
+		  } else {
+		    input.value = "";
+		    errorEl.textContent = "HH:MM(00:00~23:59) 또는 24:00 형식으로 입력해주세요";
+		  }
+		}
+
+		// blur 시점에 검증 (입력 후 포커스 이동 시)
+		open?.addEventListener("blur", () => validateTime(open, openError));
+		close?.addEventListener("blur", () => validateTime(close, closeError));
+
   
   
-  
-  
-  
-  
-  // --- 전체 저장 버튼 클릭 시 ---
-  if (totalSaveBtn) {
-    totalSaveBtn.addEventListener("click", e => {
-      e.preventDefault();
+	if (!editForm) {
+     alert("폼을 찾을 수 없습니다. (.edit_user_info 확인)");
+     return;	
+   }
+	 
+	 
+  /*// --- 전체 저장 버튼 클릭 시 ---
+	if (totalSaveBtn) {
+	  totalSaveBtn.addEventListener("click", (e) => {
+	    e.preventDefault(); // 버튼 기본 제출 방지 (MVC2에서 JS로 제어)
 
-      // "null" 값 처리
-      if (newPasswordInput.value === "null") newPasswordInput.value = "";
-      if (newPhoneInput.value === "null") newPhoneInput.value = "";
+	    // "null" 문자열 들어온 경우 빈값 처리
+	    if (newPasswordInput.value === "null") newPasswordInput.value = "";
+	    if (phoneInput.value === "null") phoneInput.value = "";
 
-      // FormData 생성 전에 readonly 해제 (전송 가능하게)
-      newPasswordInput.readOnly = false;
-      newPhoneInput.readOnly = false;
+	    // readonly 해제(전송 가능하게) — 기존 설계 유지
+	    newPasswordInput.readOnly = false;
+	    phoneInput.readOnly = false;
 
-      console.log("newPasswordInput:", newPasswordInput.value);
-      console.log("newPhoneInput:", newPhoneInput.value);
+	    // 비밀번호 일치 검증
+	    if (confirmPasswordInput && confirmPasswordInput.value !== newPasswordInput.value) {
+	      alert("비밀번호가 일치하지 않습니다.");
+	      return;
+	    }
 
-      const formData = new FormData(editForm);
+	    // 영업시간 형식 검증 (00:00~23:59, 24:00 허용)
+	    validateTime(open, openError);
+	    validateTime(close, closeError);
 
-      // 비밀번호 일치 체크
-      if (confirmPasswordInput && confirmPasswordInput.value !== newPasswordInput.value) {
-        alert("비밀번호가 일치하지 않습니다.");
-        return;
-      }
+	    // 하나라도 비면(검증 실패로 비움) 전송 중단 + 포커스
+	    if ((open && open.value.trim() === "") || (close && close.value.trim() === "")) {
+	      if (open && open.value.trim() === "") {
+	        alert("오픈 시간을 입력해주세요");
+	        open.focus();           // 기존 코드의 openTimeInput → open 으로 수정
+	      } else {
+	        alert("마감 시간을 입력해주세요");
+	        close.focus();
+	      }
+	      return;
+	    }
 
-      // 서버 전송
-	  fetch("/userMyPage/editUserInfoOk.my", {
-	    method: "POST",
-	    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-	    body: `newPassword=${encodeURIComponent(newPasswordInput.value)}&newPhone=${encodeURIComponent(newPhoneInput.value)}`
-	  })
-      .then(res => res.json())
-      .then(result => {
-        if (result.status === "success") {
-          alert("저장 완료되었습니다.");
-        } else {
-          alert("정보 수정에 실패했습니다.");
-        }
-      })
-      .catch(err => {
-        console.error(err);
-        alert("서버 오류가 발생했습니다.");
-      });
-    });
-  }
+	    // === 전송 방식 통일: URL-Encoded로 서버(.se) 서블릿에 전송 =	==
+	    // 폼에서 필요한 name들을 가진 input들이 존재한다는 전제
+	    // (폼 구성이 준비되어 있으면 FormData → URLSearchParams로 바꿔 붙입니다)
+	    if (!editForm) {
+	      alert("폼을 찾을 수 없습니다. (.edit_user_info 확인)");
+	      return;
+	    }
+	
+	    const fd = new FormData(editForm);
+			console.log(memberNumber);
+			console.log(memberNumber.value);
+			console.log(businessNumber);
+			console.log(businessNumber.value);
 
+	    // 서버에서 필요한 최소 파라미터 확실히 포함시키기(이름은 JSP name과 동일해야 함)
+	    // 예) name="newPassword", name="newPhone", name="storeOpenTime", name="storeCloseTime" 등
+	    fd.set("memberNumber", memberNumber.value || "");
+	    fd.set("businessNumber", businessNumber.value || "");
+	    fd.set("memberPassword", newPasswordInput.value || "");
+	    fd.set("memberPassword",    phoneInput.value || "");            // newPhoneInput → phoneInput으로 수정
+	    fd.set("storeOpenTime", open.value || "");
+	    fd.set("storeCloseTime", close.value || "");
+
+	    const body = new URLSearchParams(fd); // application/x-www-form-urlencoded
+
+	    fetch("/sellerMyPage/editSellerInfoOk.se", {
+	      method: "POST",
+	      headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+	      body: body.toString()
+	    })
+	    .then((res) => {
+	      // 컨트롤러에서 JSON 반환 시
+	      const ct = res.headers.get("content-type") || "";
+	      return ct.includes("application/json") ? res.json() : res.text();
+	    })
+	    .then((result) => {
+	      // JSON or TEXT 대응
+	      if (typeof result === "object" ? result.status === "success" : /success/i.test(result)) {
+	        alert("저장 완료되었습니다.");
+	        // 필요 시 location.reload();
+	      } else {
+	        alert("정보 수정에 실패했습니다.");
+	      }
+	    })
+	    .catch((err) => {
+	      console.error(err);
+	      alert("서버 오류가 발생했습니다.");
+	    });
+	  });
+	}*/
   
   
 });

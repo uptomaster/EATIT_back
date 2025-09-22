@@ -9,9 +9,9 @@ import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 public class SmsService {
-   private static final String API_KEY = "";
-   private static final String API_SECRET = "";
-   private static final String FROM_NUMBER = "";
+   private static final String API_KEY = "NCSFPXSJZQFES5EK";
+   private static final String API_SECRET = "FSNZYZ23TXVPPOJQONCXSNKW6YCH97E4";
+   private static final String FROM_NUMBER = "01098863561";
 
    public String sendVerificationSms(String to) throws CoolsmsException {
       Message coolsms = new Message(API_KEY, API_SECRET);

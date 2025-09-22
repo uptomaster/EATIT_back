@@ -51,8 +51,8 @@
           <!-- 가게 이미지 -->
 	          <%-- <img src="${pageContext.request.contextPath}/assets/img/store.jpg" alt="가게 이미지 추가하기"> --%>
 	          <%-- <img src="${pageContext.request.contextPath}/upload/${images.storeImageSystemName}" alt="가게 이미지 추가하기"> --%> 
-						<img src="${pageContext.request.contextPath}/upload/${storeInfo.storeImageSystemName}" 
-			     alt="${item.storeName}"
+						<img src="${pageContext.request.contextPath}/upload/${images.storeImageSystemName}" 
+			     alt="${storeInfo.storeName}"
 			     onerror="this.src='${pageContext.request.contextPath}/assets/img/store.jpg'">
 						
           <div class="store_info_store_info_detail">

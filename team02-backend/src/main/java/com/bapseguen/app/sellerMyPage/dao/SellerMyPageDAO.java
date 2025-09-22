@@ -398,7 +398,7 @@ public class SellerMyPageDAO {
 
 	public int updatePhone(Map<String, Object> paramMap) {
     	System.out.println("[sellerDAO] updatePhone / dto :"+paramMap);
-	    return sqlSession.update("seller.updatePassword", paramMap);
+	    return sqlSession.update("seller.updatePhone", paramMap);
 	}
 	// 비밀번호 업데이트
 	public int updatePassword(int memberNumber, String memberPassword) {
