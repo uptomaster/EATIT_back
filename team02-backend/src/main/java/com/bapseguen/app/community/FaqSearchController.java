@@ -14,12 +14,16 @@ import com.google.gson.Gson;
 
 public class FaqSearchController {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String query = req.getParameter("q");
-		CommunityDAO dao = new CommunityDAO();
+	    System.out.println("faq컨트롤러 실행");
+	    String query = req.getParameter("q");
+	    System.out.println("검색어: " + query);
+	    CommunityDAO dao = new CommunityDAO();
 
-		List<FaqDTO> results = dao.faqSearch(query);
+	    List<FaqDTO> results = dao.faqSearch(query);
+	    System.out.println("검색 결과 개수: " + (results != null ? results.size() : "null"));
 
-		resp.setContentType("application/json; charset=UTF-8");
-		new Gson().toJson(results, resp.getWriter()); // ✅ JSON으로 반환
+	    resp.setContentType("application/json; charset=UTF-8");
+	    new Gson().toJson(results, resp.getWriter());
 	}
+
 }
