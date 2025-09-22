@@ -195,7 +195,7 @@
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 <!-- 카카오맵 API (JavaScript 키 사용) -->
 <script type="text/javascript" 
-        src="//dapi.kakao.com/v2/maps/sdk.js?appkey= &libraries=services&autoload=false"></script>
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services&autoload=false"></script>
 
 	
 </body>

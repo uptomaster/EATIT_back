@@ -7,7 +7,7 @@
   if (customerName == null || customerName.isBlank()) customerName = "고객";
 
   // 문서용 테스트 키
-  String clientKey = "여기에 넣으세요";
+  String clientKey = "";
 
 %>
 <!DOCTYPE html>

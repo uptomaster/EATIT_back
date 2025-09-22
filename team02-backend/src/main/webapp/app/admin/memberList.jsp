@@ -151,7 +151,7 @@
 							<select class="admin_notice_category" name="searchType">
 								<option value="id" ${searchType == 'id'   ? 'selected' : ''}>아이디</option>
 								<option value="name" ${searchType == 'name' ? 'selected' : ''}>이름</option>
-								<option value="type" ${searchType == 'type' ? 'selected' : ''}>회원유형</option>
+								<%-- <option value="type" ${searchType == 'type' ? 'selected' : ''}>회원유형</option> --%>
 							</select> <input type="text" id="search_word" name="searchWord"
 								value="${searchWord}">
 							<button class="search_btn" type="submit">

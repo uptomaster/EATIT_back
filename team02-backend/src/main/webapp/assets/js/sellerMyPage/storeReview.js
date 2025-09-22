@@ -1,6 +1,6 @@
 
 /* ========== 버튼 이동 경로 지정 ========== */
-let edit_store_info_btn = document.getElementById('edit_store_info_btn');
+/*let edit_store_info_btn = document.getElementById('edit_store_info_btn');
 edit_store_info_btn.addEventListener('click', () => {
   //가게 상세 정보 수정 -> 개인정보 수정창으로
   location.replace('${pageContext.request.contextPath}/sellerMyPage/editSellerInfo.se');
@@ -9,7 +9,7 @@ edit_store_info_btn.addEventListener('click', () => {
 let originBtn = document.getElementById('edit_store_origin_btn');
 originBtn.addEventListener('click', () =>{
   location.replace('/sellerMyPage/originList.se');
-});  
+});  */
 /* ========== // 버튼 이동 경로 지정 끝 ========== */
 
 

@@ -248,7 +248,7 @@
 
 	<!-- 카카오맵 API -->
 	<script type="text/javascript" 
-	        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=여기에 넣으세요&libraries=services"></script>
+	        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services"></script>
 	<script>
 	document.addEventListener("DOMContentLoaded", () => {
 	  var map = new kakao.maps.Map(document.getElementById('storeMap'), {

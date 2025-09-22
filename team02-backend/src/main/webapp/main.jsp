@@ -20,7 +20,7 @@
 
 <!-- 헤더 js -->
 <script
-	src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_JAVASCRIPT_API_KEY&libraries=services"></script>
+	src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=bf6f4e87fecd0777e522785f7b9ace2d&libraries=services"></script>
 <script defer src="${pageContext.request.contextPath}/assets/js/main.js"></script>
 <script defer
 	src="${pageContext.request.contextPath}/assets/js/gradeModal.js"></script>

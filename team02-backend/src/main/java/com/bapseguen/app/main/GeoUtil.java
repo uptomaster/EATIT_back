@@ -11,7 +11,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public class GeoUtil {
-    private static final String KAKAO_API_KEY = "YOUR_REST_API_KEY";
+    private static final String KAKAO_API_KEY = "";
 
     // 주소 → [위도, 경도]
     public static double[] getLatLngFromAddress(String address) {

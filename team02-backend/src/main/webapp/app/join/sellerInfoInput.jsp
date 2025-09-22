@@ -17,7 +17,7 @@
 	href="${pageContext.request.contextPath }/assets/css/join/sellerInfoInput.css">
 	
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=YOUR_JAVASCRIPT_API_KEY&libraries=services&autoload=false"></script>
+<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=bf6f4e87fecd0777e522785f7b9ace2d&libraries=services&autoload=false"></script>
 <script defer
 	src="${pageContext.request.contextPath }/assets/js/header.js"></script>
 <script defer

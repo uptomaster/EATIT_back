@@ -57,7 +57,6 @@
           <b>TIP</b><br>
           1) 파일 선택 후 아래 진행바가 완료되면,<br>
           2) <b>저장</b> 버튼으로 서버에 반영합니다.<br>
-          3) 이미지가 마음에 들지 않으면 <b>초기화</b> 또는 <b>삭제</b>를 사용할 수 있어요.
         </div>
 
         <!-- 기존 input/file 이 있으면 삭제하지 말고 주석처리만 -->
@@ -69,8 +68,8 @@
 
         <div class="store-image-actions">
           <button type="button" class="btn btn-ghost" id="btnSelect">파일 선택</button>
-          <button type="button" class="btn btn-danger" id="btnClear">초기화</button>
-          <button type="button" class="btn btn-danger" id="btnDelete">서버에서 삭제</button>
+          <!-- <button type="button" class="btn btn-danger" id="btnClear">초기화</button>
+          <button type="button" class="btn btn-danger" id="btnDelete">서버에서 삭제</button> -->
         </div>
 
         <div class="progress-wrap" aria-hidden="true">
