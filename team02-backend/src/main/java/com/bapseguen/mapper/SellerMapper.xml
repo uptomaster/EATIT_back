@@ -79,7 +79,7 @@
 	<update id="updatePhone" parameterType="map">
     <![CDATA[
      UPDATE TBL_SELLER_MEMBER
-        SET SELLER_PHONE_NUMBER = #{memberPhoneNumber}
+        SET SELLER_PHONE_NUMBER = #{memberPhone}
       WHERE MEMBER_NUMBER       = #{memberNumber}
     ]]>
 	</update>
