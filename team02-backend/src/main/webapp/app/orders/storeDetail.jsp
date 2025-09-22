@@ -62,7 +62,7 @@
 							</c:otherwise>
 						</c:choose>
 
-						<!-- ✅ 찜 버튼 -->
+						<!-- 찜 버튼 -->
 						<form
 							action="${pageContext.request.contextPath}/orders/favoriteToggle.or"
 							method="post" style="display: inline;">
@@ -188,7 +188,7 @@
 					</div>
 				</div>
 
-				<!-- ✅ 사고보상 정책 -->
+				<!-- 사고보상 정책 -->
 				<div class="buy_policy">
 					<h3 class="buy_policy_title">사고보상 정책</h3>
 					<div class="buy_policy_toggle">
@@ -231,7 +231,7 @@
 					</div>
 				</div>
 
-				<!-- ✅ 지도 API -->
+				<!-- 지도 API -->
 				<div class="buy_store_map" id="storeMap"></div>
 			</div>
 		</div>
@@ -262,7 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (status === kakao.maps.services.Status.OK) {
           var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-          // ✅ 커스텀 마커 이미지 (고양이 3D 핀)
+          // 커스텀 마커 이미지 (고양이 3D 핀)
           var imageSrc = "${pageContext.request.contextPath}/assets/img/pinmarker.png"; 
           var imageSize = new kakao.maps.Size(40, 40); 
           var imageOption = {offset: new kakao.maps.Point(20, 40)};
@@ -276,7 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           map.setCenter(coords);
 
-          // ✅ 상호명 라벨 (CustomOverlay)
+          // 상호명 라벨 (CustomOverlay)
           var overlayContent = `
             <div style="
                 background:#ff6347;

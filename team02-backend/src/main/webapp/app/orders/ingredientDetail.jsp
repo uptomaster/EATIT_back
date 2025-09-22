@@ -263,7 +263,7 @@
 	      if (status === kakao.maps.services.Status.OK) {
 	          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-	          // ✅ 브랜드 컬러 라벨과 함께 마커 표시
+	          // 브랜드 컬러 라벨과 함께 마커 표시
 	          var imageSrc = "${pageContext.request.contextPath}/assets/img/pinmarker.png"; 
 	          var imageSize = new kakao.maps.Size(40, 40); 
 	          var imageOption = {offset: new kakao.maps.Point(20, 40)};
@@ -277,7 +277,7 @@
 
 	          map.setCenter(coords);
 
-	          // ✅ 상호명 라벨 (밥세권 브랜드 레드 컬러 적용)
+	          // 상호명 라벨 (밥세권 브랜드 레드 컬러 적용)
 	          var overlayContent = `
 	            <div style="
 	                background:#e63946;
