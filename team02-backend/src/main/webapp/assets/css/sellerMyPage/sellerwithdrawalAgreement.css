@@ -1,9 +1,5 @@
 @charset "UTF-8";
-* {
-  margin: 0;
-  padding: 0;
-  /* box-sizing: border-box; */
-}
+
 main{
   background-color: #FFF5E4;
   width: 1920px;
@@ -11,28 +7,25 @@ main{
   display: flex;
   flex-direction: row;  
 }
-/* 1100px 영역 */
-.seller_withdrawalagreement{ 
+.withdrawalagreement{
   background-color: #FBE3B9;
   width: 1100px;
   margin-left: 410px;
   display: flex;
   justify-content: center;
-  min-height : 1000px;
 }
-/* 좌측 메뉴 바 */
-.seller_withdraw_menu {
+.withdrawalagreement_my_page_list{
   position: fixed;
   padding: 0;
   margin: 100px 20px 0 200px;
   width: 190px;
-  height: 585px;
+  height: 550px;
   font-size: 20px;
   background-color: #a6998080;
   border-radius: 10px;
 }
-
-.seller_withdraw_menu_title {
+.withdrawalagreement_my_page{
+  padding: 0;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   background-color: #FF873C;
@@ -43,37 +36,28 @@ main{
   justify-content: center;
   align-items: center;
 }
-.seller_withdraw_menu_list_current {
-  background-color: #FF873C;
-  /* width: 190px; */
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.seller_withdraw_menu_list>li {
+.withdrawalagreement_side_bar > li{
   display: flex;
   justify-content: center;
   align-items: center;
   list-style: none;
-  padding: 15px 0;
   width: 190px;
 }
-
-.seller_withdraw_menu_list>li>a {
+.withdrawalagreement_side_bar > li > a{
+  width: 190px;
+  padding: 15px 0;
   text-decoration: none;
   color: white;
+  display: flex;
+  justify-content: center;
 }
-
-
-.seller_withdraw_menu_list>li:hover {
-  width: 190px;
+.withdrawalagreement_side_bar > li:hover{
+  width: 100%;
   background-color: #ff873c8c;
   border-radius: 10px;
-}
-/* 좌측 메뉴바 끝 */
 
-.seller_withdrawalagreement_agreement_page{
+}
+.withdrawalagreement_agreement_page{
   background-color: white;
   width: 900px;
   height: 550px;
@@ -83,25 +67,27 @@ h2{
   font-size: 30px;
   margin: 25px 0 45px 70px;
 }
-.seller_withdrawalagreement_two_box{
+.withdrawalagreement_two_box{
   margin-top: 80px;
 }
-.seller_withdrawalagreement_input_info{
+.withdrawalagreement_input_info {
   border-radius: 10px;
   margin-left: 57px;
   width: 500px;
-  height: 50px;
+  height:50px;           
   font-size: 16px;
   text-align: center;
   border: none;
+  box-sizing: border-box;  
+  padding: 0 10px;         
 }
-.seller_withdrawalagreement_box_set{
+.withdrawalagreement_box_set{
   margin: 0 0 15px 46px;
   display: flex;
   height: 80px;
   font-weight: bold;
 }
-.seller_withdrawalagreement_password_now{
+.withdrawalagreement_password_now{
   align-items: center;
   background-color: #FF873C;
   font-size: 18px;
@@ -111,7 +97,7 @@ h2{
   justify-content: center;
   border-radius: 10px;
 }
-.seller_withdrawalagreement_gray_box{
+.withdrawalagreement_gray_box{
   background-color: gray;
   width: 650px;
   border-radius: 10px;
@@ -119,7 +105,7 @@ h2{
   align-content: center;
   justify-content: center;
 }
-.seller_withdrawalagreement_white_box{
+.withdrawalagreement_white_box{
   background-color: white;
   width: 530px;
   height: 50px;
@@ -127,16 +113,16 @@ h2{
   justify-items: center;
   align-content: center;
 }
-.seller_withdrawalagreement_buzz_set{
+.withdrawalagreement_buzz_set{
   display: flex;
   justify-content: center;
   margin-top: 100px;
 }
 
-.seller_withdrawalagreement_agreement_buzz:hover{
+.withdrawalagreement_agreement_buzz:hover{
   background-color: #FF7722;
 }
-.seller_withdrawalagreement_agreement_buzz{
+.withdrawalagreement_agreement_buzz{
   background-color: #FF873C;
   width: 178px;
   height: 50px;
@@ -149,7 +135,7 @@ h2{
   border: none;
   color: white;
 }
-.seller_withdrawalagreement_cancle_buzz{
+.withdrawalagreement_cancle_buzz{
   background-color: #FF873C;
   width: 178px;
   height: 50px;
@@ -160,7 +146,7 @@ h2{
   justify-self: right;
   margin: 20px 60px 0 0;
 }
-.seller_withdrawalagreement_cancle_buzz > a{
+.withdrawalagreement_cancle_buzz > a{
   color: white;
   font-size: 14px;
   text-decoration: none;
@@ -169,5 +155,52 @@ h2{
   align-items: center;
   display: flex;
   justify-content: center;
+}
+/* 에러 메시지 */
+.notice_input_wrong_info {
+    color: #e53935;
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+/* 입력 박스 */
+.withdrawalagreement_input_info {
+    padding: 8px;
+    font-size: 1rem;
+    width: 250px;
+}
+
+/* 버튼 */
+.withdrawalagreement_agreement_buzz {
+    margin-top: 16px;
+    padding: 10px 20px;
+    background-color: #e53935;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.withdrawalagreement_agreement_buzz:hover {
+    background-color: #d32f2f;
+}
+
+/* 라벨 spacing */
+.agree_label {
+    margin-left: 8px;
+}
+
+/* 비밀번호 / 동의 박스 레이아웃 */
+.withdrawalagreement_box_set {
+    margin-bottom: 16px;
+}
+.withdrawalagreement_gray_box {
+    padding: 8px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+.withdrawalagreement_password_now {
+    font-weight: bold;
+    margin-bottom: 4px;
 }
 

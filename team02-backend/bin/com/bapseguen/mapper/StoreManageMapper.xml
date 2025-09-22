@@ -343,8 +343,7 @@
 	      WHERE i.business_number = #{businessNumber}
 	        AND TRUNC(o.orders_date) = TRUNC(SYSDATE)
 	        AND o.orders_payment_status = 'PAID'
-	    ),0) AS todayAmount,
-	
+	    ),0) AS "todayAmount",
 	    /* 이번달 */
 	    NVL((
 	      SELECT SUM(oi.order_item_quantity * i.item_price)
@@ -354,8 +353,7 @@
 	      WHERE i.business_number = #{businessNumber}
 	        AND TO_CHAR(o.orders_date,'YYYY-MM') = TO_CHAR(SYSDATE,'YYYY-MM')
 	        AND o.orders_payment_status = 'PAID'
-	    ),0) AS monthAmount,
-	
+	    ),0) AS "monthAmount",
 	    /* 누적 */
 	    NVL((
 	      SELECT SUM(oi.order_item_quantity * i.item_price)
@@ -364,7 +362,7 @@
 	      JOIN TBL_ITEM i ON oi.item_number = i.item_number
 	      WHERE i.business_number = #{businessNumber}
 	        AND o.orders_payment_status = 'PAID'
-	    ),0) AS totalAmount
+	    ),0) AS "totalAmount"
 	  FROM DUAL
 	  ]]>
 	</select>

@@ -96,16 +96,17 @@ main {
    목록 헤더 (한 줄)
    ========================= */
 .seller_ingredient_purchaselist_top {
-  display: flex;
-  align-items: center;
-  background-color: #ffefcc; /* 기존 각 셀 #A69980 → 통일 */
+  background-color: #ffefcc;     /* 연한 주황 헤더 */
   color: #444;
   font-weight: 600;
+  display: flex;
+  align-items: center;
   padding: 14px 20px;
-  border: 1px solid #eee;
   border-radius: 6px 6px 0 0;
+  border: 1px solid #eee;
   user-select: none;
-  margin-left: 0;            /* 기존: 40px */
+  height: 50px; 
+  font-size: 18px;
 }
 
 /* 헤더의 각 컬럼 폭 (기존 px 폭을 유지) */

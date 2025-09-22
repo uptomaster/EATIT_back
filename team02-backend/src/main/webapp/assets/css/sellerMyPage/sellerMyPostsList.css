@@ -121,7 +121,7 @@ main{
   /* margin-left: 50px; */     /* 컨테이너 내부 패딩으로 대체 */
   background-color: #ffefcc;     /* 연한 주황 헤더 */
   /* width: 850px; height: 50px; */ /* 유연하게 */
-  min-height: 50px;
+  height: 50px;
   font-size: 18px;               /* 가독성 */
   font-weight: 600;
   color: #444;

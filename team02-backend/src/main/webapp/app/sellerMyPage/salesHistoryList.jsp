@@ -49,15 +49,21 @@
       <h2 class="sale_history_title">판매 내역</h2>
 		 <div class="container">
 		    <div class="tabs">
-		      <a href="${pageContext.request.contextPath}/sellerMyPage/todaySale.se">오늘 판매</a>
+		      <a href="${pageContext.request.contextPath}/sellerMyPage/todaySaleList.se">오늘 판매</a>
 		      <%-- <a href="${pageContext.request.contextPath}/sellerMyPage/monthSale.se">이번달 판매</a> --%>
 		      <a href="${pageContext.request.contextPath}/sellerMyPage/totalSale.se" class="active">누적 판매</a>
 		    </div>
 		
 		    <div class="sales_summary">
-		      <div class="sales_card"><div class="title">오늘 매출</div>   <div class="value"><c:out value="${summary.todayAmount}"/> 원</div></div>
- 		      <div class="sales_card"><div class="title">이번 달 매출</div><div class="value"><c:out value="${summary.monthAmount}"/> 원</div></div> 
-		      <div class="sales_card"><div class="title">누적 매출</div>   <div class="value"><c:out value="${summary.totalAmount}"/> 원</div></div>
+		      <div class="sales_card"><div class="title">오늘 매출</div>  
+		      	 <div class="value"><c:out value="${summary.todayAmount}" default="0"/> 원</div>
+	      	</div>
+		      <div class="sales_card"><div class="title">이번 달 매출</div>
+ 		      	<div class="value"> <c:out value="${summary.monthAmount}" default="0"/> 원</div>
+     			</div> 
+		      <div class="sales_card"><div class="title">누적 매출</div>
+		      	<div class="value"><c:out value="${summary.totalAmount}" default="0"/> 원</div>
+		      	</div>
 		    </div>
 		
 <%-- 		 검색   
@@ -83,7 +89,7 @@
 				  <div class="col col_qty">수량</div>
 				  <div class="col col_amount">총액</div>
 				  <div class="col col_buyer">구매자ID</div>
-				  <div class="col col_phone">구매자전화번호</div>
+				  <!-- <div class="col col_phone">구매자전화번호</div> -->
 				  <div class="col col_rate">평점</div>
 		    </div>
 		
@@ -107,7 +113,7 @@
 				      <div class="col col_qty"><c:out value="${row.quantity}"/></div>
 				      <div class="col col_amount"><c:out value="${row.ordersTotalAmount}"/></div>
 				      <div class="col col_buyer"><c:out value="${row.memberId}"/></div>
-				      <div class="col col_phone"><c:out value="${row.memberPhoneNumber}"/></div>
+				      <%-- <div class="col col_phone"><c:out value="${row.memberPhoneNumber}"/></div> --%>
 				      <div class="col col_rate">
 				        <c:choose>
 				          <c:when test="${row.reviewRating != null}">★ <c:out value="${row.reviewRating}"/></c:when>

@@ -76,16 +76,18 @@
 					<div class="image-upload-wrap">
 					<label for="food_edit_photo">음식 사진</label>
 						<div class="image-upload-box">
-							<div class="upload-text">
+							<!-- <div class="upload-text">
 									이미지 업로드(<span class="cnt">0</span>/1)
-							</div>
+							</div> -->
 							<div class="upload-text">최대 1개까지 업로드 가능</div>
 							<div class="upload-text">파일 형식 : jpg, png</div>
 							<div class="upload-text">※ 이미지를 등록하면 즉시 반영됩니다.</div>
 						</div> <!--  //image-upload-box -->
 						<input type="file" id="food_edit_photo" name="itemImage" />
 					</div>
-					
+					<%-- 크게 보이는 메인 미리보기 --%>
+					<img id="image-preview" src="${pageContext.request.contextPath}/assets/img/store.jpg" alt="미리보기">
+					<ul class="file-list"><%-- (선택 파일 썸네일들 표기 영역: 선택 사항) --%></ul>
 				</div>
 				<!-- 메뉴명 -->
 				<div class="food_edit_box">
@@ -99,10 +101,10 @@
 					<textarea name="itemContent" id="food_edit_explain" maxlength="100"
 						placeholder="100자 이내로 입력해주세요" required>
            <c:out value="${item.getItemContent()}" /></textarea>
-					<span id="food_edit_char_count">0/100</span>
+					<!-- <span id="food_edit_char_count">0/100</span> -->
 				</div>
 				<!-- 소비기한 -->
-				<div class="food_edit_expiry_container">
+				<div class="food_edit_box">
 					<label for="food_edit_expiry">소비기한</label> <input required
 						name="itemExpireDate" type="date" id="food_edit_expiry"
 						value="<c:out value="${item.getItemExpireDate()}"/>"
@@ -111,22 +113,22 @@
 				<!-- 수량 & 가격 -->
 				<div class="food_edit_box">
 					<!-- 수량 -->
-					<div class="food_edit_quantitiy_container">
+					<div class="food_edit_box">
 						<label for="food_edit_quantity" class="food_edit_small_label">수량</label>
 						<input name="itemQuantity" type="number" id="food_edit_quantity" required
 							value="<c:out value="${item.getItemQuantity()}"/>" min="0"
-							placeholder="개수"> <span id="food_edit_food_count">개</span>
+							placeholder="개수"> <span class="food_edit_food_count">개</span>
 					</div>
 					<!-- 가격 -->
-					<div class="food_edit_price_container">
-						<label class="food_edit_small_label">가격</label>
+					<div class="food_edit_box">
+						<label class="food_edit_small_label" class="food_edit_small_label">가격</label>
 						<input name="itemPrice" type="number" id="food_edit_price" min="0" required
 							placeholder="원단위" value="<c:out value="${item.getItemPrice()}"/>">
-						<span>원</span>
+						<span class="food_edit_food_count">원</span>
 					</div>
 				</div>
 				<!-- 추가된 판매 상태 라디오 버튼 영역 -->
-				<div class="foodsaleswrite_box foodsaleswrite_sellstate_container">
+				<div class="food_edit_box foodsaleswrite_sellstate_container">
 					<label class="foodsaleswrite_small_label">판매상태</label>
 					<div class="foodsaleswrite_sellstate_options">
 					<label>
@@ -143,11 +145,11 @@
 
 				<!-- 삭제 저장 버튼 -->
 				<div class="food_edit_btn_container">
-					<button type="button" id="food_delete_btn"
+					<button class="food_delete_buzz" type="button" id="food_delete_btn"
                 onclick="location.href='${pageContext.request.contextPath}/sellerMyPage/deleteFoodOk.se?itemNumber=${item.itemNumber}'">
                 삭제</button>
-					<button type="submit" class="food_edit_btn">수정 완료</button>
-					<button type="button" class="cancle-btn" onclick="history.back();">취소</button>
+					<button class="food_edit_btn" type="submit">수정 완료</button>
+					<button class="food_cancel_buzz" type="button" class="cancle-btn" onclick="history.back();">취소</button>
 						
        </div>
 			</form>
@@ -157,9 +159,11 @@
 	</main>
 	<jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 	<script>
-			window.itemNumber = "${item.itemNumber}";
-			window.bussinessNumber =  "${sessionScope.bussinessNumber}";
-			window.memberNumber =  "${sessionScope.memberNumber}";
+		document.getElementById('food_edit_photo')?.addEventListener('change', (e)=>{
+	    const f=e.target.files?.[0]; if(!f) return;
+	    const img=document.getElementById('image-preview');
+	    img.src = URL.createObjectURL(f);  // 선택 즉시 확대 미리보기
+	  });
 	</script>
 </body>
 </html>

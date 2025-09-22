@@ -100,14 +100,14 @@ public class SellerMyPageFrontController extends HttpServlet {
          break;
 
       case "/sellerMyPage/storeImage.se":
-         System.out.println("[판페f] 사업장관리 페이지 이동 요청");
+         System.out.println("[판페f] 가게 이미지 페이지 이동 요청");
          result = new Result();
          result.setPath("/app/sellerMyPage/addStoreImage.jsp");
          result.setRedirect(false);
          break;
 
       case "/sellerMyPage/storeImageOk.se":
-         System.out.println("[판페f] 사업장관리 페이지 이동 요청");
+         System.out.println("[판페f] 가게 이미지 페이지 완료 요청");
          result = new SellerStoreImageOkController().execute(request, response);
          break;
 

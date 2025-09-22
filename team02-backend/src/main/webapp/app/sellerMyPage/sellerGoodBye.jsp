@@ -9,9 +9,8 @@
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/userMyPage/userGoodBye.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/sellerMyPage/sellerGoodBye.css">
   <script defer src="${pageContext.request.contextPath}/assets/js/header.js"></script>
-  <script defer src="${pageContext.request.contextPath}/assets/js/userMyPage/userGoodBye.js"></script>
   <title>밥세권</title>
   <script>
     let headerPath = '../../header.jsp';

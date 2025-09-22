@@ -44,6 +44,7 @@ public class sellerwriteReviewOkContorller implements Execute {
 		// 필요한 최소 파라미터만 받기
 		int ordersNumber = Integer.parseInt(request.getParameter("ordersNumber"));
 		System.out.println("ordersNumber " + ordersNumber);
+		
 		String businessNumber = request.getParameter("businessNumber");
 		System.out.println("businessNumber " + businessNumber);
 		
@@ -54,6 +55,7 @@ public class sellerwriteReviewOkContorller implements Execute {
 		// int reviewRating = 3; 
 		String reviewContent = request.getParameter("reviewContent");
 		System.out.println("reviewContent " + reviewContent);
+		
 		String itemType = request.getParameter("itemType");
 		System.out.println("itemType " + itemType);
 
@@ -74,8 +76,10 @@ public class sellerwriteReviewOkContorller implements Execute {
 		String path = "/sellerMyPage/sellerfoodPurchaseList.se";
 		if (itemType.equals("FOOD")) {
 			path = "/sellerMyPage/sellerfoodPurchaseList.se";
+			
 		} else if (itemType.equals("INGREDIENT")) {
 			path = "/sellerMyPage/selleringredientPurchaseList.se";
+			
 		}
 
 		System.out.println("[sellerwriteReviewOkContorller] 지정한 path : " + path);
