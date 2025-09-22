@@ -1,17 +1,26 @@
 @charset "UTF-8";
-
+* {
+  margin: 0;
+  padding: 0;
+}
 main{
-  background-color: #FFF5E4;
-  width: 1920px;
-  height: 1500px;
+  background-color: #FFF5E4; /* 기존 배경색 유지 */
   display: flex;
   flex-direction: row;
+  width: 1920px;
+  height: 1000px;
 }
 /* 1100px 영역 */
 .managemyposts_page{
-  background-color: #FBE3B9;
   width: 1100px;
-  margin-left: 410px;
+  padding: 30px 40px;
+  background-color: #fcfaf8;
+  box-shadow: 0 0 12px rgba(168, 6, 6, 0.438);
+  border-radius: 10px;
+  margin: 30px 10px 30px 410px;  /* 좌측 메뉴 고려 */
+  display: flex;
+  flex-direction: column;
+  min-height: 1000px;
 }
 /* 사이드메뉴바 전체 */
 .managemyposts_my_page_list{
@@ -19,7 +28,7 @@ main{
   padding: 0;
   margin: 100px 20px 0 200px;
   width: 190px;
-  height: 550px;
+  height: 600px;
   font-size: 20px;
   background-color: #a6998080;
   border-radius: 10px;
@@ -53,43 +62,59 @@ main{
   justify-content: center;
   padding: 15px 0;
 }
-/* 사이드메뉴바 현재위치 표시 */
-.managemyposts_main{
-  background-color: #ff873c8c;
-  border-radius: 10px;
+/* 사이드메뉴 현재위치 표시 */
+.active {
+  background-color: #ff873c;
+  color: white; 
+  font-weight: bold;
+}
+/* 활성화된 항목 스타일 */
+.side_bar > li.active {
+  background-color: #ff873c;  /* 배경색이 적용되도록 */
+  color: white;               /* 텍스트 색상 변경 */
+  font-weight: bold;          /* 강조된 텍스트 */
 }
 .managemyposts_side_bar > li:hover{
   width: 190px;
   background-color: #ff873c8c;
-  border-radius: 10px;
 }
+
 /* 페이지 제목 */
 .managemyposts_list{
-  margin: 100px 0 45px 70px;
-  font-size: 30px;
+  margin: 40px 0 20px 0;
+  font-size: 26px;
+  font-weight: 600;
+  color: #444;
 }
 /* 목록 제목 한줄 전체 */
 .managemyposts_top{
-  margin-left: 50px;
-  background-color: #a69980;
-  width: 1000px;
-  height: 50px;
-  font-size: 20px;
-  align-items: center;
+  background-color: #ffefcc;     /* 연한 주황 헤더 */
+  color: #444;
+  font-weight: 600;
   display: flex;
-  border: 1px solid black;
+  align-items: center;
+  padding: 14px 20px;
+  border-radius: 6px 6px 0 0;
+  border: 1px solid #eee;
+  user-select: none;
+  /* height: 50px;  기존 고정 높이는 제거 */
+  font-size: 18px;
 }
 /* 목록 예시 한줄 전체 */
 .managemyposts_comments_list{
-  margin-left: 50px;
-  background-color: white;
-  width: 1000px;
-  margin: 0 auto;
+  background-color: #ffffff;
+  color: #444;
   font-size: 16px;
-  align-items: center;
   display: flex;
-  border: 1px solid black;
-  
+  align-items: center;
+  padding: 14px 18px;
+  border: 1px solid #eee;
+  border-top: none;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.managemyposts_comments_list:hover{
+  background-color: #fff0e0;      /* 연한 주황 hover */
+  box-shadow: inset 0 0 0 1px #ffe0c2;
 }
 .managemyposts_no_data{
   display: flex;
@@ -97,21 +122,28 @@ main{
   align-items: center;
 }
 /* 게시글 구분 */
+.managemyposts_sort,
+.managemyposts_title,
+.managemyposts_date,
+.managemyposts_comments_count,
+.managemyposts_like_count{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* 게시판 제목 */
 .managemyposts_sort{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
   width: 150px;
 }
 
 /* 게시글 제목 */
 .managemyposts_title{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
   width: 480px;
 }
 /* 해당 게시글로 이동 */
@@ -125,26 +157,14 @@ main{
 }
 /* 게시글 작성일자 */
 .managemyposts_date{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
   width: 150px;
 }
 /* 내 게시글의 댓글 수 */
 .managemyposts_comments_count{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
   width: 100px;
 }
 /* 게시글 추천수 */
 .managemyposts_like_count{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50px;
   width: 100px;
 }
 /* 페이지네이션 */

@@ -8,6 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/userMyPage/writeReview.css">
+   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/userMyPage/editUserInfo.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/header.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/footer.css">
   <script defer src="${pageContext.request.contextPath}/assets/js/userMyPage/writeReview.js"></script>
@@ -21,16 +22,20 @@
 <body>
   <jsp:include page="${pageContext.request.contextPath}/header.jsp" />
   <main>
-    <div class="writereview_my_page_list">
-      <div class="writereview_my_page">마이 페이지</div>
-      <ul class="writereview_my_page">
-	      <li><a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.my">내 정보 수정</a></li>
-          <li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListOk.my">음식 구매 내역</a></li>
-          <li><a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseListOk.my">재료 구매 내역</a></li>
-          <li><a href="${pageContext.request.contextPath}/userMyPage/myPostListOk.my">내 글 관리</a></li>
-          <li><a href="${pageContext.request.contextPath}/userMyPage/myCommentsListOk.my">내 댓글 관리</a></li>
-          <li class="active"><a href="${pageContext.request.contextPath}/userMyPage/myReviewListOk.my">내 리뷰 관리</a></li>
-       </ul>   
+    <!-- 마이페이지 전체 레이아웃 영역 -->
+    <div class="my_page_list">
+      <!-- 마이페이지 제목 -->
+      <div class="my_page">마이 페이지</div>
+
+      <!-- 마이페이지 사이드 메뉴 -->
+      <ul class="side_bar">
+        <li><a href="${pageContext.request.contextPath}/userMyPage/editUserInfo.my">내 정보 수정</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/foodPurchaseListOk.my">음식 구매 내역</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/ingredientPurchaseListOk.my">재료 구매 내역</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/myPostListOk.my">내 글 관리</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/myCommentsListOk.my">내 댓글 관리</a></li>
+  		<li><a href="${pageContext.request.contextPath}/userMyPage/myReviewListOk.my">내 리뷰 관리</a></li>
+      </ul>
     </div>
     <div class="writereview_page">
       <h2 class="writereview_list">리뷰 작성</h2>
@@ -83,7 +88,7 @@
 		
 		    <div class="writereview_form_group">
 		        <label for="content">내용</label>
-		        <textarea id="content" name="reviewContent" rows="10" placeholder="내용을 입력하세요" required></textarea>
+		        <textarea id="content" name="reviewContent" rows="10" placeholder="맛, 양, 친절도, 재구매 의사 등을 자유롭게 작성해주세요." required></textarea>
 		    </div>
 		
 		    <div class="writereview_button_group">
