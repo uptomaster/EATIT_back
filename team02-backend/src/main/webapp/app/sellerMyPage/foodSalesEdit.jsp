@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,12 +70,13 @@
 				<div class="food_edit_photo_container">
 					<c:if test="${not empty itemImage}">
 					    <div class="food_image_box">
-					        <img src="${pageContext.request.contextPath}/upload/${itemImage.itemImageSystemName}" 
-					             alt="${itemImage.itemImageOriginalName}" />
+					        <img id="image-preview"
+					        		src="${pageContext.request.contextPath}/upload/${itemImage.itemImageSystemName}" 
+					            alt="${itemImage.itemImageOriginalName}" />
 					    </div>
 					</c:if>
 					<div class="image-upload-wrap">
-					<label for="food_edit_photo">음식 사진</label>
+					<label for="food_edit_photo"  class="food_edit_small_label">음식 사진</label>
 						<div class="image-upload-box">
 							<!-- <div class="upload-text">
 									이미지 업로드(<span class="cnt">0</span>/1)
@@ -85,33 +87,28 @@
 						</div> <!--  //image-upload-box -->
 						<input type="file" id="food_edit_photo" name="itemImage" />
 					</div>
-					<%-- 크게 보이는 메인 미리보기 --%>
-					<img id="image-preview" src="${pageContext.request.contextPath}/assets/img/store.jpg" alt="미리보기">
-					<ul class="file-list"><%-- (선택 파일 썸네일들 표기 영역: 선택 사항) --%></ul>
 				</div>
 				<!-- 메뉴명 -->
 				<div class="food_edit_box">
-					<label for="food_edit_menu">메뉴명</label> <input name="itemName"
+					<label for="food_edit_menu" class="food_edit_small_label">메뉴명</label> <input name="itemName"
 						type="text" id="food_edit_munu" required
 						value="<c:out value="${item.itemName}"/>">
 				</div>
 				<!-- 음식 설명 -->
 				<div class="food_edit_box">
-					<label for="food_edit_explain">음식 설명</label>
+					<label for="food_edit_explain" class="food_edit_small_label">음식 설명</label>
 					<textarea name="itemContent" id="food_edit_explain" maxlength="100"
 						placeholder="100자 이내로 입력해주세요" required>
-           <c:out value="${item.getItemContent()}" /></textarea>
+           <c:out value="${fn:trim(item.getItemContent())}" /></textarea>
 					<!-- <span id="food_edit_char_count">0/100</span> -->
 				</div>
 				<!-- 소비기한 -->
 				<div class="food_edit_box">
-					<label for="food_edit_expiry">소비기한</label> <input required
+					<label for="food_edit_expiry" class="food_edit_small_label">소비기한</label> <input required
 						name="itemExpireDate" type="date" id="food_edit_expiry"
 						value="<c:out value="${item.getItemExpireDate()}"/>"
 						placeholder="YYYY-MM-DD">
 				</div>
-				<!-- 수량 & 가격 -->
-				<div class="food_edit_box">
 					<!-- 수량 -->
 					<div class="food_edit_box">
 						<label for="food_edit_quantity" class="food_edit_small_label">수량</label>
@@ -121,15 +118,14 @@
 					</div>
 					<!-- 가격 -->
 					<div class="food_edit_box">
-						<label class="food_edit_small_label" class="food_edit_small_label">가격</label>
+						<label class="food_edit_small_label" >가격</label>
 						<input name="itemPrice" type="number" id="food_edit_price" min="0" required
 							placeholder="원단위" value="<c:out value="${item.getItemPrice()}"/>">
 						<span class="food_edit_food_count">원</span>
 					</div>
-				</div>
 				<!-- 추가된 판매 상태 라디오 버튼 영역 -->
 				<div class="food_edit_box foodsaleswrite_sellstate_container">
-					<label class="foodsaleswrite_small_label">판매상태</label>
+					<label class="food_edit_small_label" >판매상태</label>
 					<div class="foodsaleswrite_sellstate_options">
 					<label>
 					  <input type="radio" name="itemSellState" value="Y"

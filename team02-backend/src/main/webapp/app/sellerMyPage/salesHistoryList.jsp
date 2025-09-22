@@ -38,8 +38,8 @@
         <li><a href="${pageContext.request.contextPath}/sellerMyPage/myPosts.se">내 글 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/sellerMyPage/myComments.se">내 댓글 관리</a></li>
         <li><a href="${pageContext.request.contextPath}/sellerMyPage/myReviews.se">내 리뷰 관리</a></li>
-        <li class="store_info_menu_list_current"><a href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se">사업장관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/sellerMyPage/todaySaleList.se">판매 내역</a></li>
+        <li><a href="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se">사업장관리</a></li>
+        <li class="sale_history_menu_list_current"><a href="${pageContext.request.contextPath}/sellerMyPage/todaySaleList.se">판매 내역</a></li>
       </ul>
     </div>
 
@@ -102,9 +102,9 @@
 				  <c:forEach var="row" items="${saleList}">
 				    <div class="list_row">
 				      <div class="col col_order">
-				        <a href="${pageContext.request.contextPath}/sellerMyPage/orderDetail.se?ordersNumber=${row.ordersNumber}">
+				        <div href="${pageContext.request.contextPath}/sellerMyPage/orderDetail.se?ordersNumber=${row.ordersNumber}">
 				          <c:out value="${row.ordersNumber}"/>
-				        </a>
+				        </div>
 				      </div>
 				      <div class="col col_date"><c:out value="${row.ordersDate}"/></div>
 				      <div class="col col_title"><c:out value="${row.itemName}"/></div>

@@ -45,12 +45,12 @@
     </div>
 
     <!-- 내 정보 수정 (1100px 영역) -->
-    <form class="seller_edit_user_info edit_user_info"
+    <form class="seller_edit_user_info edit_user_info" id="edit_user_info_form"
           method="post"
           data-current-phone="${storeInfo.phoneNumber}" 
           data-current-password="${storeInfo.memberPassword}" 
-      		data-context-path="${pageContext.request.contextPath}">
-<%--           action="${pageContext.request.contextPath}/sellerMyPage/editSellerInfoOk.se" --%>
+      		data-context-path="${pageContext.request.contextPath}"
+           action="${pageContext.request.contextPath}/sellerMyPage/editSellerInfoOk.se">
 
       <!-- 바인딩된 데이터 없을 때 가드 -->
       <c:if test="${empty sellerInfo}">
@@ -61,10 +61,14 @@
 
       <c:if test="${not empty sellerInfo}">
         <!-- 숨은 값들: 서버에서 식별용 -->
-        <input type="hidden" name="memberNumber" value="${sellerInfo.memberNumber}">
-        <input type="hidden" name="businessNumber" value="${sellerInfo.businessNumber}">
+        <input type="hidden" id="memberNumber" name="memberNumber" value="${sellerInfo.memberNumber}">
+        <input type="hidden" id="businessNumber" name="businessNumber" value="${sellerInfo.businessNumber}">
         <input type="hidden" id="seller_password" name="password" value="${sellerInfo.memberPassword}">
         <input type="hidden" id="seller_phone" name="phone" value="${sellerInfo.sellerPhoneNumber}">
+
+				<!-- ★ 최종 전송값을 담는 hidden (맵퍼가 읽는 파라미터명에 맞춤) -->
+			  <input type="hidden" name="sellerPhoneNumber"    id="sellerPhoneNumber_final">
+				
 
         <!-- 페이지 제목 -->
         <h2 class="seller_my_info">내 정보 수정</h2>
@@ -98,7 +102,7 @@
               <div class="seller_gray_box">
                 <input id="new_password" class="seller_input_info" type="password"
                        placeholder="현재 비밀번호 확인 후 입력 가능" name="newPassword"
-                       value="${param.newPassword != null && param.newPassword != 'null' ? param.newPassword : ''}">
+                       >
               </div>
               <!-- 비밀번호 불일치시 안내글 공간  -->
               <p id="new_password_error" class="seller_notice_input_wrong_info"></p>
@@ -268,7 +272,7 @@
             </div>
           </div>
          <div class="seller_info_able_modify_area">
-         <div class="seller_info_menu">영업 시작 시간</div>
+         <div class="seller_info_menu">영업 종료 시간</div>
           <div class="seller_gray_box">
             <input name="storeCloseTime" id="store_close_time" class="seller_input_info" type="text"
                    value="<c:out value='${sellerInfo.storeCloseTime}'/>" placeholder="마감(HH:mm)">
@@ -291,7 +295,7 @@
        <!-- 전체 저장 버튼 -->
 			  <div class="bottom_btn_container">
 				  <a href="${pageContext.request.contextPath}/sellerMyPage/withdrawalAgreement.se" class="seller_agreement_buzz">회원탈퇴</a>
-				  <button type="button" class="total_info_save_buzz seller_agreement_buzz" data-member-number="${member.memberNumber}">저장</button>
+				 <button id="total_info_save_buzz" class="seller_agreement_buzz" type="submit">저장</button>
 			  </div>
 
     </form>

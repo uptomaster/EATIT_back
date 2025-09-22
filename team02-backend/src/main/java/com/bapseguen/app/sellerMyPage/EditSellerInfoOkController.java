@@ -34,28 +34,34 @@ public class EditSellerInfoOkController implements Execute{
 		//1. 세션에서 memberNumber 가져오기
 		HttpSession session = request.getSession();
 		int memberNumber = (int) session.getAttribute("memberNumber");
+		
 		String businessNumber = (String) session.getAttribute("businessNumber");
 		System.out.println("member  "+memberNumber+"businees  "+businessNumber);
 		//사용한 값 DTO에 넣기
 		//memberDTO
 		MemberDTO memberDTO = new MemberDTO();
 		String password = request.getParameter("newPassword");
+		memberDTO.setMemberNumber(memberNumber);
         memberDTO.setMemberPassword(password);
-        System.out.println(password);
+        System.out.println("password"+password);
+        
         memberDTO.setMemberType("SELLER");
         
 		//sellerDTO
         SellerMemberDTO sellerDTO = new SellerMemberDTO();
         sellerDTO.setSellerName(request.getParameter("sellerName"));
         String phoneNumber = request.getParameter("newPhone");
+        String sellerPhoneNumber = request.getParameter("sellerPhoneNumber");
+        System.out.println("phoneNumber  "+phoneNumber+"  sellerPhoneNumber  "+sellerPhoneNumber);
         sellerDTO.setSellerPhoneNumber(phoneNumber);
         sellerDTO.setSellerUpdatedDate("SYSDATE");
         
 		//storeDTO
         StoreDTO storeDTO = new StoreDTO();
         storeDTO.setBusinessNumber(businessNumber);
-//        storeDTO.setStoreOpenTime(request.getParameter("seller_input_store_zip"));
-//        storeDTO.setStoreCloseTime(request.getParameter("seller_input_store_zip"));
+        storeDTO.setStoreOpenTime(request.getParameter("storeOpenTime"));
+        storeDTO.setStoreCloseTime(request.getParameter("storeCloseTime"));
+        System.out.println(storeDTO);
 //        storeDTO.setStoreAddress(request.getParameter("seller_input_store_address"));
 //        storeDTO.setStoreAddressDetail(request.getParameter("seller_input_store_address_detail"));
 //        storeDTO.setStoreZipCode(request.getParameter("seller_input_store_zip"));
@@ -69,12 +75,12 @@ public class EditSellerInfoOkController implements Execute{
 		sellerdao.updatePassword(memberNumber,password );
 		sellerdao.updatePhone(memberNumber,phoneNumber );
 //		sellerdao.updateStoreaddress(storeDTO);
-//		sellerdao.updateStoreTime(storeDTO);
+		sellerdao.updateStoreTime(storeDTO);
 		
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<script>alert('수정이 완료되었습니다.'); location.href='" 
-		            + request.getContextPath() + "/sellerMyPage/storeInfo.se';</script>");
+		            + request.getContextPath() + "/sellerMyPage/editSellerInfo.se';</script>");
 		out.close();
 
 		
