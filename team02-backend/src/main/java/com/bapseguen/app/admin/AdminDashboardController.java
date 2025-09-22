@@ -40,6 +40,7 @@ public class AdminDashboardController implements Execute {
 		int totalReports = dao.countReports();
 		int totalGeneralMembers = dao.countGeneralMembers();
 		int totalSellerMembers = dao.countSellerMembers();
+		int todayMembers = dao.countTodayMembers(); // 오늘 가입자 수 추가
 
 		request.setAttribute("totalMembers", totalMembers);
 		request.setAttribute("totalNotices", totalNotices);
@@ -49,6 +50,7 @@ public class AdminDashboardController implements Execute {
 		request.setAttribute("totalReports", totalReports);
 		request.setAttribute("totalGeneralMembers", totalGeneralMembers);
 		request.setAttribute("totalSellerMembers", totalSellerMembers);
+		request.setAttribute("todayMembers", todayMembers); // 오늘 가입자 수 확인
 
 		// 최근 데이터 
 		List<AdminPostDTO> recentInquiries = dao.selectInquiryList(java.util.Map.of("startRow", 1, "endRow", 3));

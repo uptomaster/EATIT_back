@@ -460,34 +460,45 @@
 		SELECT ROWNUM RN, A.*
 		FROM (
 		SELECT
-		r.POST_REPORT_NUMBER AS postReportNumber,
+		r.POST_REPORT_NUMBER AS
+		postReportNumber,
 		r.POST_NUMBER AS postNumber,
-		p.POST_TITLE AS postTitle,
+		p.POST_TITLE AS
+		postTitle,
 		r.POST_REPORT_REASON AS postReportReason,
 		TO_CHAR(r.POST_REPORT_DATE,'YYYY-MM-DD') AS postReportDate,
 		r.POST_REPORT_COUNT AS postReportCount,
-		r.MEMBER_NUMBER AS memberNumber,
+		r.MEMBER_NUMBER AS
+		memberNumber,
 		reporter.MEMBER_ID AS reporterId,
-		m.MEMBER_NUMBER AS reportedNumber,
+		m.MEMBER_NUMBER AS
+		reportedNumber,
 		NVL(g.GENERAL_NAME, s.SELLER_NAME) AS reportedName,
 		m.MEMBER_TYPE AS reportedType,
 		m.MEMBER_ID AS reportedId,
-		CASE WHEN sus.MEMBER_NUMBER IS NOT NULL THEN 1 ELSE 0 END AS isSuspended,
-		CASE WHEN bl.MEMBER_NUMBER IS NOT NULL THEN 1 ELSE 0 END AS
+		CASE WHEN
+		sus.MEMBER_NUMBER IS NOT NULL THEN 1 ELSE 0 END AS isSuspended,
+		CASE
+		WHEN bl.MEMBER_NUMBER IS NOT NULL THEN 1 ELSE 0 END AS
 		isBlacklisted
 		FROM TBL_POST_REPORT r
 		JOIN TBL_POST p ON r.POST_NUMBER = p.POST_NUMBER
 		JOIN TBL_MEMBER reporter ON r.MEMBER_NUMBER = reporter.MEMBER_NUMBER
 		JOIN TBL_MEMBER m ON p.MEMBER_NUMBER = m.MEMBER_NUMBER
-		LEFT JOIN TBL_GENERAL_MEMBER g ON m.MEMBER_NUMBER = g.MEMBER_NUMBER
-		LEFT JOIN TBL_SELLER_MEMBER s ON m.MEMBER_NUMBER = s.MEMBER_NUMBER
-		LEFT JOIN TBL_MEMBER_SUSPEND sus ON m.MEMBER_NUMBER = sus.MEMBER_NUMBER
-		LEFT JOIN TBL_MEMBER_BLACKLIST bl ON m.MEMBER_NUMBER =
+		LEFT JOIN
+		TBL_GENERAL_MEMBER g ON m.MEMBER_NUMBER = g.MEMBER_NUMBER
+		LEFT JOIN
+		TBL_SELLER_MEMBER s ON m.MEMBER_NUMBER = s.MEMBER_NUMBER
+		LEFT JOIN
+		TBL_MEMBER_SUSPEND sus ON m.MEMBER_NUMBER = sus.MEMBER_NUMBER
+		LEFT JOIN
+		TBL_MEMBER_BLACKLIST bl ON m.MEMBER_NUMBER =
 		bl.MEMBER_NUMBER
 		<where>
 			<if
 				test="searchType != null and searchWord != null and searchType == 'reported'">
-				AND (NVL(g.GENERAL_NAME, s.SELLER_NAME) LIKE '%' || #{searchWord} ||
+				AND (NVL(g.GENERAL_NAME, s.SELLER_NAME) LIKE '%' ||
+				#{searchWord} ||
 				'%'
 				OR m.MEMBER_ID LIKE '%' || #{searchWord} || '%')
 			</if>
@@ -962,20 +973,21 @@
 
 	<!-- 월별 회원 가입 수 -->
 	<select id="countMonthlyMembers" resultType="map">
-		SELECT
-		TO_CHAR(NVL(g.GENERAL_JOIN_DATE, s.SELLER_JOIN_DATE), 'YYYY-MM') AS
-		month,
-		COUNT(*) AS count
-		FROM TBL_MEMBER m
-		LEFT JOIN TBL_GENERAL_MEMBER g
-		ON g.MEMBER_NUMBER = m.MEMBER_NUMBER
-		LEFT JOIN TBL_SELLER_MEMBER s ON
-		s.MEMBER_NUMBER = m.MEMBER_NUMBER
-		GROUP BY
-		TO_CHAR(NVL(g.GENERAL_JOIN_DATE, s.SELLER_JOIN_DATE), 'YYYY-MM')
-		ORDER
-		BY month
+		SELECT month, SUM(count) AS count
+		FROM (
+		SELECT TO_CHAR(g.GENERAL_JOIN_DATE, 'YYYY-MM') AS month, COUNT(*) AS count
+		FROM TBL_GENERAL_MEMBER g
+		GROUP BY TO_CHAR(g.GENERAL_JOIN_DATE, 'YYYY-MM')
+		UNION ALL
+		SELECT TO_CHAR(s.SELLER_JOIN_DATE, 'YYYY-MM') AS month, COUNT(*) AS count
+		FROM TBL_SELLER_MEMBER s
+		GROUP BY TO_CHAR(s.SELLER_JOIN_DATE, 'YYYY-MM')
+		)
+		GROUP BY month
+		ORDER BY month
 	</select>
+
+
 
 	<!-- 월별 주문/매출 -->
 	<select id="countMonthlyOrders" resultType="map">
@@ -1473,7 +1485,43 @@
 		WHERE ROWNUM &lt;= 3
 	</select>
 
+	<!-- 오늘 가입자 수 -->
+	<select id="countTodayMembers" resultType="int">
+		SELECT COUNT(*)
+		FROM
+		TBL_MEMBER m
+		LEFT JOIN TBL_GENERAL_MEMBER g ON g.MEMBER_NUMBER =
+		m.MEMBER_NUMBER
+		LEFT JOIN TBL_SELLER_MEMBER s ON s.MEMBER_NUMBER =
+		m.MEMBER_NUMBER
+		WHERE (
+		(m.MEMBER_TYPE = 'GENERAL' AND
+		g.GENERAL_JOIN_DATE >= TRUNC(SYSDATE) AND
+		g.GENERAL_JOIN_DATE &lt;
+		TRUNC(SYSDATE) + 1)
+		OR
+		(m.MEMBER_TYPE = 'SELLER' AND s.SELLER_JOIN_DATE
+		>= TRUNC(SYSDATE) AND
+		s.SELLER_JOIN_DATE &lt; TRUNC(SYSDATE) + 1)
+		)
+	</select>
 
+	<!-- 월별 + 일별 회원 가입 수 -->
+	<select id="countDailyMembers" resultType="map">
+		SELECT
+		TO_CHAR(NVL(g.GENERAL_JOIN_DATE, s.SELLER_JOIN_DATE), 'YYYY-MM-DD') AS
+		day,
+		COUNT(*) AS count
+		FROM TBL_MEMBER m
+		LEFT JOIN TBL_GENERAL_MEMBER g
+		ON g.MEMBER_NUMBER = m.MEMBER_NUMBER
+		LEFT JOIN TBL_SELLER_MEMBER s ON
+		s.MEMBER_NUMBER = m.MEMBER_NUMBER
+		GROUP BY
+		TO_CHAR(NVL(g.GENERAL_JOIN_DATE, s.SELLER_JOIN_DATE),
+		'YYYY-MM-DD')
+		ORDER BY day
+	</select>
 
 
 </mapper>
