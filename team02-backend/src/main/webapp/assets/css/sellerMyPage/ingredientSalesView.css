@@ -58,7 +58,7 @@ main {
   width: 190px;
 }
 .ingredient_edit_side_bar>li>a { text-decoration: none; color: white; }
-.ingredient_edit_side_bar>li:hover {
+.foodsalesview_side_bar>li:hover {
   width: 190px;
   background-color: #ff873ca6;
   border-radius: 10px;
