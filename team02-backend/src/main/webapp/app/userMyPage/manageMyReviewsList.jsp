@@ -49,11 +49,11 @@
           <div class="managemyreviews_grade">평점</div>
         </div>
         <c:choose>
-		    <c:when test="${empty myReviews}">
+		    <c:when test="${empty myReview}">
 		      <div class="managemyposts_no_data">작성한 리뷰가 없습니다.</div>
 		    </c:when>
 		    <c:otherwise>
-		      <c:forEach var="review" items="${myReviews}">
+		      <c:forEach var="review" items="${myReview}">
 		        <div class="managemyreviews_comments_list">
 		          <div class="managemyreviews_restaurant_name">
 					<c:out value="${review.storeName}" />

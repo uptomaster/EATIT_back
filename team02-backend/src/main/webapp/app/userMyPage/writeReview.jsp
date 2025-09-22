@@ -71,7 +71,7 @@
         
         <form action="${pageContext.request.contextPath}/userMyPage/writeReviewOk.my" method="post">		   
 		    <input type="hidden" name="ordersNumber" value="${ordersNumber}">
-		    <input type="hidden" name="businessNumber" value="${buylist[0].businessNumber}"> <!-- 첫 번째 아이템 기준 -->
+		    <input type="hidden" name="businessNumber" value="${businessNumber}"> <!-- 첫 번째 아이템 기준 -->
 		    <input type="hidden" id="reviewRating" name="reviewRating" value="">
 		   
 		    <!-- 별점 -->

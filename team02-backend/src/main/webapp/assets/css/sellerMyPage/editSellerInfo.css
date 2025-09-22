@@ -58,6 +58,7 @@ main{
   display: flex;
   justify-content: center;
 }
+.store_info_menu_list_current,
 .seller_side_bar > li:hover{
   width: 100%;
   background-color: #ff873c8c;

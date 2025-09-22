@@ -9,7 +9,7 @@ main{
   width: 1920px;
   height: 1950px;
   display: flex;
-  flex-direction: row;
+  flex-direction: row; 
 }
 
 /* 1100px 영역 */

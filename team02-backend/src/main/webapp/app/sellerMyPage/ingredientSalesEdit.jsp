@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,44 +80,42 @@
 				</div>
 				<!-- 메뉴명 -->
 				<div class="food_edit_box">
-					<label for="food_edit_menu">메뉴명</label> <input name="itemName"
+					<label for="food_edit_menu" class="food_edit_small_label">메뉴명</label> <input name="itemName"
 						type="text" id="food_edit_munu" required
 						value="<c:out value="${item.itemName}"/>">
 				</div>
 				<!-- 음식 설명 -->
 				<div class="food_edit_box">
-					<label for="food_edit_explain">음식 설명</label>
+					<label for="food_edit_explain" class="food_edit_small_label">음식 설명</label>
 					<textarea name="itemContent" id="food_edit_explain" maxlength="100"
 						placeholder="100자 이내로 입력해주세요" required>
            <c:out value="${item.getItemContent()}" /></textarea>
 					<!-- <span id="food_edit_char_count">0/100</span> -->
 				</div>
 				<!-- 소비기한 -->
-				<div class="food_edit_expiry_container">
-					<label for="food_edit_expiry">소비기한</label> <input required
+				<div class="food_edit_box">
+					<label for="food_edit_expiry" class="food_edit_small_label">소비기한</label> <input required
 						name="itemExpireDate" type="date" id="food_edit_expiry"
 						value="<c:out value="${item.getItemExpireDate()}"/>"
 						placeholder="YYYY-MM-DD">
 				</div>
 				<!-- 수량 & 가격 -->
-				<div class="food_edit_box">
 					<!-- 수량 -->
-					<div class="food_edit_quantitiy_container">
+					<div class="food_edit_box">
 						<label for="food_edit_quantity" class="food_edit_small_label">수량</label>
 						<input name="itemQuantity" type="number" id="food_edit_quantity" required
 							value="<c:out value="${item.getItemQuantity()}"/>" min="0"
 							placeholder="개수"> <span id="food_edit_food_count">개</span>
 					</div>
 					<!-- 가격 -->
-					<div class="food_edit_price_container">
+					<div class="food_edit_box">
 						<label class="food_edit_small_label">가격</label>
 						<input name="itemPrice" type="number" id="food_edit_price" min="0" required
 							placeholder="원단위" value="<c:out value="${item.getItemPrice()}"/>">
 						<span>원</span>
 					</div>
-				</div>
 				<!-- 추가된 판매 상태 라디오 버튼 영역 -->
-				<div class="foodsaleswrite_box foodsaleswrite_sellstate_container">
+				<div class="food_edit_box foodsaleswrite_sellstate_container">
 					<label class="foodsaleswrite_small_label">판매상태</label>
 					<div class="foodsaleswrite_sellstate_options">
 					<label>
