@@ -10,9 +10,9 @@
       <p class="footer_email">비회원 문의 : abcdefg@koreait.com</p>
       <div class="footer_sns">
         <ul>
-          <li><a href="#"><img src="./../../assets/img/sns_insta.png" alt=""></a></li>
-          <li><a href="#"><img src="./../../assets/img/sns_facebook.png" alt=""></a></li>
-          <li><a href="#"><img src="./../../assets/img/sns_twitter.png" alt=""></a></li>
+          <li><a href="https://www.instagram.com/hoon._03/" target="_blank" rel="noopener noreferrer"><img src="./../../assets/img/sns_insta.png" alt=""></a></li>
+          <li><a href="https://www.facebook.com/DonaldTrump/" target="_blank" rel="noopener noreferrer"><img src="./../../assets/img/sns_facebook.png" alt=""></a></li>
+          <li><a href="https://x.com/elonmusk" target="_blank" rel="noopener noreferrer"><img src="./../../assets/img/sns_twitter.png" alt=""></a></li>
         </ul>
       </div>
     </div>

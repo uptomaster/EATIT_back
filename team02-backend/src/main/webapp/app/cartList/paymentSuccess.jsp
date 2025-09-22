@@ -48,7 +48,7 @@
         <div class="btn_group">
           <a href="${pageContext.request.contextPath}/orders/storeList.or" class="buylist_btn">가게목록 보기</a>
           <a href="${pageContext.request.contextPath}/cartList/view.cl" class="buylist_btn secondary">장바구니 보기</a>
-          <a href="${pageContext.request.contextPath}/" class="buylist_btn tertiary">메인으로 가기</a>
+          <a href="${pageContext.request.contextPath}/main.ma" class="buylist_btn tertiary">메인으로 가기</a>
         </div>
       </div>
     </div>

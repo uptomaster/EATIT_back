@@ -265,6 +265,16 @@ public class AdminDAO {
 	public List<Map<String, Object>> countSalesByCategory() {
 	    return sqlSession.selectList("admin.countSalesByCategory");
 	}
+	
+	// 오늘 가입자 수
+	public int countTodayMembers() {
+	    return sqlSession.selectOne("admin.countTodayMembers");
+	}
+
+	// 차트 용 오늘 가입자 수
+	public List<Map<String, Object>> countDailyMembers() {
+	    return sqlSession.selectList("admin.countDailyMembers");
+	}
 
 	
 	/* ===================== 회원 ===================== */
