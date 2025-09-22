@@ -1,4 +1,4 @@
-@charset "UTF-8";
+/* @charset "UTF-8"; */
 
 /* =========================
    main (요청한 그대로)
@@ -234,6 +234,9 @@ main {
   gap: 10px; /* 라벨과 입력칸 사이 간격 */
   margin-bottom: 20px;
 }
+.food_edit_box > .food_edit_box{
+	margin-right : 20px;
+}
 
 /* 라벨 영역 */
 .food_edit_box label {
@@ -304,7 +307,7 @@ main {
    액션 버튼 (기존 클래스 명시 없을 때 안전범위)
 ========================= */
 /* 수정완료 (등록/저장) 버튼 - 주황색 유지 */
-.food_edit_buzz {
+.food_edit_btn {
   background: #FF873C;
   color: #fff;
   border: 0;
@@ -316,8 +319,8 @@ main {
   cursor: pointer;
   transition: background .15s ease, transform .05s ease;
 }
-.food_edit_buzz:hover { background: #ff7722; }
-.food_edit_buzz:active { transform: translateY(1px); }
+.food_edit_btn:hover { background: #ff7722; }
+.food_edit_btn:active { transform: translateY(1px); }
 
 /* 삭제 버튼 - 빨간색 */
 .food_delete_buzz {

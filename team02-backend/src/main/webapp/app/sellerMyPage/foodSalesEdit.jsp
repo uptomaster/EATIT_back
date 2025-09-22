@@ -113,7 +113,7 @@
 				<!-- 수량 & 가격 -->
 				<div class="food_edit_box">
 					<!-- 수량 -->
-					<div class="food_edit_quantitiy_container">
+					<div class="food_edit_box">
 						<label for="food_edit_quantity" class="food_edit_small_label">수량</label>
 						<input name="itemQuantity" type="number" id="food_edit_quantity" required
 							value="<c:out value="${item.getItemQuantity()}"/>" min="0"
