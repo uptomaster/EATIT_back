@@ -26,14 +26,16 @@ main{
 /* 사이드메뉴 시작 */
 /* 사이드메뉴 큰틀 */
 .ingredientpurchase_my_page_list{
-  position: fixed;
-  padding: 0;
-  margin: 100px 20px 0 200px;
-  width: 190px;
-  height: 600px;
-  font-size: 20px;
-  background-color: #a6998080;
-  border-radius: 10px;
+  background-color: #ffffff;
+  color: #444;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  border: 1px solid #eee;
+  border-top: none;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  text-align:center;
 }
 /* 사이드메뉴 제목 */
 .ingredientpurchase_my_page{
@@ -98,6 +100,7 @@ main{
   border: 1px solid #eee;
   border-top: none;
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  text-align:center;
 }
 .ingredientpurchaselist_top{
   background-color: #ffefcc;     /* 연한 주황 헤더 */
@@ -123,9 +126,7 @@ main{
 .ingredientpurchase_date_list,
 .ingredientpurchase_restaurant_name_list,
 .ingredientpurchase_menu_info_list,
-.ingredientpurchase_how_many_list,
-.ingredientpurchase_price_list,
-.ingredientpurchase_review_list{
+.ingredientpurchase_how_many_list{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -188,9 +189,14 @@ main{
 .ingredientpurchase_review_list {
   width: 80px;
   font-size: 14px;
+  align-items: center;
+  justify-content: center;
+  margin-left: 25px;
+}
+.ingredientpurchase_review_list >a{
+  text-decoration:none;
 }
 
-/* 목록 예시글 상세 끝 */
 
 /* =========================
    리뷰 버튼
@@ -217,8 +223,9 @@ main{
   border-color: #ffae42;
 }
 
-
-/* 페이지네이션 */
+/* =========================
+   페이지네이션
+   ========================= */
 .pagination {
   display: flex;
   justify-content: center;
@@ -229,22 +236,25 @@ main{
 .pagination > ul {
   display: flex;
   list-style: none;
+  gap: 10px;
 }
 
 .pagination a {
-  color: #333;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 10px;
-  margin: 0 5px;
-  border-radius: 5px;
-  border-color: #ffae42;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  width: 32px;
+  height: 32px;
+  background-color: white;
+  display: flex;
+  margin: 0 8px 0 0;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #A69980;
+  border-radius: 6px;
+  color: black;
 }
 
 .pagination a:hover {
   background-color: #ffd580;
-  color: #fff;
+  color: #4a3000;
 }
 
 .pagination .active {

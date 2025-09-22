@@ -45,8 +45,9 @@ public class MyReviewListOkController implements Execute{
         pageMap.put("memberNumber", memberNumber);
 
         // 댓글 목록 조회
-        List<ReviewWriteDTO> myReviews = userMyPageDAO.myReviewSelect(pageMap);
-        request.setAttribute("myReviews", myReviews);
+        List<ReviewWriteDTO> myReview = userMyPageDAO.myReviewSelect(pageMap);
+        System.out.println(myReview);
+        request.setAttribute("myReview", myReview);
 
         // 전체 댓글 수
         int total = userMyPageDAO.myReviewCount(memberNumber);
@@ -72,7 +73,7 @@ public class MyReviewListOkController implements Execute{
 
         System.out.println("==== 페이징정보 확인 ====");
         System.out.println("pageMap : " + pageMap);
-        System.out.println("myReviews : " + myReviews);
+        System.out.println("myReview : " + myReview);
         System.out.println("startPage : " + startPage + ", endPage : " + endPage + ", prev : " + prev + ", next : " + next);
         System.out.println("====================");
 
