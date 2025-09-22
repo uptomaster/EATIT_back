@@ -172,7 +172,7 @@
 	    </section>
 	
 	    <!-- 다크 모드 버튼 -->
-	    <button id="darkModeToggle" title="다크 모드 토글">🌓</button>
+	    <!-- <button id="darkModeToggle" title="다크 모드 토글">🌓</button> -->
 	
 	  </div> <!-- .container -->
 	</main>

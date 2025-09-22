@@ -25,32 +25,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- 현재 비밀번호 입력 시 서버 검증 ---
   if (currentPasswordInput) {
-    const checkCurrentPassword = () => {
-      const entered = currentPasswordInput.value.trim();
-      if (entered === "") {
-        currentPasswordError.textContent = "";
-        newPasswordInput.readOnly = true;
-        confirmPasswordInput.readOnly = true;
-        return;
-      }
-      fetch(`/userMyPage/checkPwOk.my?currentPassword=${encodeURIComponent(entered)}`)
-        .then(res => res.json())
-        .then(data => {
-          if (data.result === "success") {
-            currentPasswordError.textContent = "현재 비밀번호가 일치합니다.";
-            currentPasswordError.style.color = "green";
-            newPasswordInput.readOnly = false;
-            confirmPasswordInput.readOnly = false;
-          } else {
-            currentPasswordError.textContent = "*현재 비밀번호와 일치하지 않습니다.";
-            currentPasswordError.style.color = "red";
-            newPasswordInput.readOnly = true;
-            confirmPasswordInput.readOnly = true;
-            newPasswordInput.value = "";
-            confirmPasswordInput.value = "";
-          }
-        });
-    };
+	const checkCurrentPassword = () => {
+	  const entered = currentPasswordInput.value.trim();
+	  if (entered === "") {
+	    currentPasswordError.textContent = "";
+	    newPasswordInput.readOnly = true;
+	    confirmPasswordInput.readOnly = true;
+	    return;
+	  }
+	  fetch(`/userMyPage/checkPwOk.my?currentPassword=${encodeURIComponent(entered)}`)
+	    .then(res => res.json())
+	    .then(data => {
+	      if (data.result === "success") {
+	        currentPasswordError.textContent = "현재 비밀번호가 일치합니다.";
+	        currentPasswordError.style.color = "green";
+	        newPasswordInput.readOnly = false;
+	        confirmPasswordInput.readOnly = false;
+			
+
+	      } else {
+	        currentPasswordError.textContent = "*현재 비밀번호와 일치하지 않습니다.";
+	        currentPasswordError.style.color = "red";
+	        newPasswordInput.readOnly = true;
+	        confirmPasswordInput.readOnly = true;
+	        newPasswordInput.value = "";
+	        confirmPasswordInput.value = "";
+	      }
+	    });
+	};
 
     currentPasswordInput.addEventListener("keydown", e => {
       if (e.key === "Enter") {
@@ -183,6 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(result => {
         if (result.status === "success") {
           alert("저장 완료되었습니다.");
+		  window.location.reload();
         } else {
           alert("정보 수정에 실패했습니다.");
         }

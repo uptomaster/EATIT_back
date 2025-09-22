@@ -98,7 +98,7 @@ public class PostUpdateOkController implements Execute {
                         filePart.writeTo(newFile);
 
                         PostImageDTO postImageDTO = new PostImageDTO();
-                        postImageDTO.setPostImageNumber(postNumber);
+                        postImageDTO.setPostNumber(postNumber);
                         postImageDTO.setPostImageOriginalName(originalFileName);
                         postImageDTO.setPostImageSystemName(newFileName);
                         postImageDAO.insert(postImageDTO);

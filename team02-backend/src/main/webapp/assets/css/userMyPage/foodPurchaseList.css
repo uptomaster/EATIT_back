@@ -35,14 +35,16 @@ main {
    좌측 사이드 메뉴 (구조 유지)
    ========================= */
 .foodpurchaselist_my_page_list {
-  position: fixed;
-  padding: 0;
-  margin: 100px 20px 0 200px;
-  width: 190px;
-  height: 600px;
-  font-size: 20px;
-  background-color: #a6998080;
-  border-radius: 10px;
+  background-color: #ffffff;
+  color: #444;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  border: 1px solid #eee;
+  border-top: none;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  text-align:center;
 }
 
 .foodpurchaselist_my_page {
@@ -132,6 +134,7 @@ main {
   border: 1px solid #eee;
   border-top: none;
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  text-align:center;
 }
 .foodpurchase_page_list:hover{
   background-color: #fff0e0;      /* 연한 주황 hover */
@@ -214,6 +217,7 @@ main {
   width: 80px;
   font-size: 14px;
 }
+
 
 /* =========================
    리뷰 버튼
