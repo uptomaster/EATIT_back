@@ -158,7 +158,7 @@ public class CommunityFrontController extends HttpServlet {
 	            System.out.println("게시글 검색 완료 요청");
 	            new InquirySearchController().doGet(request, response);
 	            return;	
-		 case "/faqSearch":
+		 case "/community/faqSearch.co":
 			 System.out.println("게시글 검색 완료 요청");
 			 new FaqSearchController().doGet(request, response);
 			 return;	

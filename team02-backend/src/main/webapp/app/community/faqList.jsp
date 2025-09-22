@@ -148,9 +148,8 @@
 			<div class="controls_wrapper">
 				<div class="function_container">
 					<div class="search_box">
-						<input id="searchInput" class="search_text" type="text"
-							placeholder="검색어를 입력해 주세요" />
-						<button id="searchBtn" class="search_btn" type="button">
+						<input class="search_text" type="text" placeholder="검색어를 입력해 주세요" />
+						<button class="search_btn" type="button">
 							<i class="fas fa-search"></i>
 						</button>
 					</div>
