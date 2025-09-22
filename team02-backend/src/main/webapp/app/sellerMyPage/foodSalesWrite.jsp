@@ -1,6 +1,7 @@
-r<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,7 +103,7 @@ r<%@ page language="java" contentType="text/html; charset=UTF-8"
 <div class="foodsaleswrite_photo_container">
   <div class="foodsaleswrite_submit_table">
 
-    <div class="form-group photo-vertical">
+    <div class="form-group foodsaleswrite_box">
 
       <!-- 상단: 미리보기 -->
       <div class="photo-preview">
@@ -137,56 +138,51 @@ r<%@ page language="java" contentType="text/html; charset=UTF-8"
 <!-- //음식 사진 등록 끝 -->
 				
 				<div class="foodsaleswrite_box">
-					<label for="foodsaleswrite_menu">메뉴명</label> <input name="itemName"
+					<label for="foodsaleswrite_menu" class="foodsaleswrite_label">메뉴명</label> <input name="itemName"
 						type="text" id="foodsaleswrite_munu">
 					<!-- <button type="button">등록</button> -->
 				</div>
 
 				<div class="foodsaleswrite_box">
-					<label for="foodsaleswrite_explain">음식 설명</label>
+					<label for="foodsaleswrite_explain" class="foodsaleswrite_label">음식 설명</label>
 					<textarea name="itemContent" id="foodsaleswrite_explain"
 						maxlength="100" placeholder="100자 이내로 입력해주세요"></textarea>
-					<span id="foodsaleswrite_char_count">0/100</span>
-					<!-- <button type="button">등록</button> -->
+					<button type="button">등록</button>
 				</div>
 
-				<div class="foodsaleswrite_expiry_container">
-					<label for="foodsaleswrite_expiry">소비기한</label> <input
+				<div class="foodsaleswrite_box">
+					<label for="foodsaleswrite_expiry" class="foodsaleswrite_label">소비기한</label> <input
 						name="itemExpireDate" type="date" id="foodsaleswrite_expiry"
 						placeholder="YYYY-MM-DD-MIN -SS">
 					<!-- <button type="button">등록</button> -->
 				</div>
 
-				<div class="foodsaleswrite_box">
 
-					<div class="foodsaleswrite_quantitiy_container">
+					<div class="foodsaleswrite_box">
 						<label for="foodsaleswrite_quantity"
-							class="foodsaleswrite_small_label">수량</label> <input
+							class="foodsaleswrite_label">수량</label> <input
 							name="itemQuantity" type="number" id="foodsaleswrite_quantity"
 							min="0" placeholder="개수"> <span
 							id="foodsaleswrite_food_count">개</span>
 						<!-- <button type="button">등록</button> -->
 					</div>
 
-					<div class="foodsaleswrite_price_container">
+					<div class="foodsaleswrite_box">
 						<label for="foodsaleswrite_price"
-							class="foodsaleswrite_small_label">가격</label> <input
+							class="foodsaleswrite_label">가격</label> <input
 							name="itemPrice" type="number" id="foodsaleswrite_price" min="0"
 							placeholder="원단위"> <span>원</span>
 						<!-- <button type="button">등록</button> -->
 					</div>
 
-				</div>
 
 				<!-- 추가된 판매 상태 라디오 버튼 영역 -->
 				<div class="foodsaleswrite_box foodsaleswrite_sellstate_container">
-					<label class="foodsaleswrite_small_label">판매상태</label>
+					<label class="foodsaleswrite_label">판매상태</label>
 					<div class="foodsaleswrite_sellstate_options">
-						<label> <input type="radio" name="itemSellState" value="Y"
+						 <input type="radio" name="itemSellState" value="Y"
 							checked> 판매중
-						</label> <label> <input type="radio" name="itemSellState"
-							value="N"> 판매중지
-						</label>
+						 <input type="radio" name="itemSellState" value="N"> 판매중지
 					</div>
 				</div>
 				<!-- 끝 -->

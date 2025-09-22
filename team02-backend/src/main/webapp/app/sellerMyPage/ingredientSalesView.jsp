@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,46 +44,67 @@
       </ul>
     </div>
 
-    <div class="ingredientsalesview_container"> <!-- 1100px 영역-->
-      <form action="${pageContext.request.contextPath}/sellerMyPage/storeInfo.se" method="post" enctype="multipart/form-data"
-				class="ingredientsaleswrite_content_container"> <!-- 컨텐츠 영역 -->
-        <div class="ingredientsalesview_title">
-          재료 상세보기
+    <form action="${pageContext.request.contextPath}/sellerMyPage/storeIngre.se" method="get" class="foodsalesview_content_container"> <!-- 컨텐츠 영역 -->
+      <div class="foodsalesview_container"> <!-- 1100px 영역-->
+        <!-- 페이지 제목 -->
+        <div class="foodsalesview_title">
+          음식 상세보기
         </div>
-        <!-- 음식 정보 수정 -->
-        <div class="ingredientsalesview_photo_container">
-          <div class="ingredientsalesview_submit_table">
-            <div class="ingredientsalesview_box">
-              <label for="ingredientsalesview_photo">음식 사진 </label>
+        <!-- 음식 정보 등록 -->
+        <div class="foodsaleswrite_box">
+          <div class="foodsaleswrite_submit_table">
+            <div id="food_edit_image_preview">
+							<div class="foodsaleswrite_box"> 
+							<label  class="foodsaleswrite_small_label">음식 사진 </label> </div>
+							<c:if test="${not empty itemImage}">
+							    <div class="food_image_box">
+							        <img src="${pageContext.request.contextPath}/upload/${itemImage.itemImageSystemName}" 
+							             alt="${itemImage.itemImageOriginalName}" />
+							    </div>
+							</c:if>
+              <!-- <button type="button">등록</button> -->
             </div>
           </div>
         </div>
-        <div class="ingredientsalesview_box">
-          <label for="ingredientsalesview_menu">메뉴명</label>
-          <input name="itemName" type="text" id="ingredientsalesview_munu">
+        
+        <div class="foodsaleswrite_box">
+          <label for="foodsaleswrite_menu" class="foodsaleswrite_small_label">메뉴명</label>
+          <!-- <input type="text" id="foodsaleswrite_munu"> -->
+          <div id="foodsaleswrite_munu"><c:out value="${item.getItemName() }"/></div>
+          <!-- <button type="button">등록</button> -->
         </div>
-        <div class="ingredientsalesview_box">
-          <label for="ingredientsalesview_explain">음식 설명</label>
-          <textarea name="itemContent" id="ingredientsalesview_explain" maxlength="100" placeholder="100자 이내로 입력해주세요"></textarea>
-          <span id="ingredientsalesview_char_count">0/100</span>
+        
+        <div class="foodsaleswrite_box">
+          <label  class="foodsaleswrite_small_label">음식 설명</label>
+          <div id="foodsaleswrite_explain"><c:out value="${fn:trim(item.itemContent)}"/></div>
+          <!-- <textarea name="" id="foodsaleswrite_explain" maxlength="100" placeholder="100자 이내로 입력해주세요"></textarea> -->
+          <!-- <button type="button">등록</button> -->
         </div>
-        <div class="ingredientsalesview_expiry_container">
-          <label for="ingredientsalesview_expiry">소비기한</label>
-          <input name="itemExpiry" type="text" id="ingredientsalesview_expiry" placeholder="YYYY-MM-DD-MIN -SS">
+        
+        <div class="foodsaleswrite_box">
+          <label  class="foodsaleswrite_small_label" >소비기한</label>
+          <div id="foodsaleswrite_expiry"><c:out value="${item.getItemExpireDate() }"/></div>
+          <!-- <input type="text" id="foodsaleswrite_expiry" placeholder="YYYY-MM-DD-MIN -SS"> -->
+          <!-- <button type="button">등록</button> -->
         </div>
-        <div class="ingredientsalesview_box">
-          <div class="ingredientsalesview_quantitiy_container">
-            <label for="ingredientsalesview_quantity" class="ingredientsalesview_small_label">수량</label>
-            <input name="itemQuantity" type="number" id="ingredientsalesview_quantity" min="0" placeholder="개수">
-            <span id="ingredientsalesview_food_count">개</span>
+        
+        <div class="foodsaleswrite_box">
+          <div class="foodsaleswrite_box foodsaleswrite_quantitiy_container">
+            <label  class="foodsaleswrite_small_label">수량</label>
+            <div id="foodsaleswrite_quantity"><c:out value="${item.getItemQuantity() }"/></div>
+            <span id="foodsaleswrite_food_count">개</span>
+            <!-- <input type="number" id="foodsaleswrite_quantity" min="0" placeholder="개수"> -->
+            <!-- <button type="button">등록</button> -->
           </div>
-          <div class="ingredientsalesview_price_container">
-            <label for="ingredientsalesview_price" class="ingredientsalesview_small_label">가격</label>
-            <input name="itemPrice" type="number" id="ingredientsalesview_price" min="0" placeholder="원단위">
+          <div class="foodsaleswrite_box foodsaleswrite_price_container">
+            <label  class="foodsaleswrite_small_label">가격</label>
+            <div id="foodsaleswrite_price"><c:out value="${item.getItemPrice() }"/></div>
             <span>원</span>
+            <!-- <input type="number" id="foodsaleswrite_price" min="0" placeholder="원단위"> -->
+            <!-- <button type="button">등록</button> -->
           </div>
         </div>
-         <!-- 추가된 판매 상태 라디오 버튼 영역 -->
+        <!-- 추가된 판매 상태 라디오 버튼 영역 -->
 				<div class="foodsaleswrite_box foodsaleswrite_sellstate_container">
 					<label class="foodsaleswrite_small_label">판매상태</label>
 					<div class="foodsaleswrite_sellstate_options">
@@ -93,15 +116,15 @@
 					</div>
 				</div>
 				<!-- 끝 -->
-				<div class="foodsaleswrite_box foodsaleswrite_sellstate_container">
-	        <button class="foodsaleswrite_buzz" type="submit">목록으로</button>
-	        <a href="${pageContext.request.contextPath}/sellerMyPage/editIngre.se?itemNumber=${item.itemNumber}">
-						<div class="view_ingredient_edit_btn">수정</div>
-					</a>  
+				<div class="food_edit_btn_container">
+	        <button class="food_cancel_buzz" type="submit">목록으로</button>
+	        
+					<button type="button" class="food_edit_btn"
+                onclick="location.href='${pageContext.request.contextPath}/sellerMyPage/editFood.se?itemNumber=${item.itemNumber}'">
+                수정</button>
 				</div>
-         <!-- 컨텐츠 -->
-      </form> <!-- 1100px 영역 -->
-      </div>
+    </div> <!-- 컨텐츠 -->
+      </form> <!-- 1100px 영역 -->s
   </main>
   <jsp:include page="${pageContext.request.contextPath}/footer.jsp" />
 </body>

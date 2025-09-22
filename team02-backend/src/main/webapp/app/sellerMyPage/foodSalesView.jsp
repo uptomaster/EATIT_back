@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <html lang="en">
 <head>
@@ -53,7 +54,8 @@
         <div class="foodsaleswrite_box">
           <div class="foodsaleswrite_submit_table">
             <div id="food_edit_image_preview">
-							<div class="foodsaleswrite_box"> <label>음식 사진 </label> </div>
+							<div class="foodsaleswrite_box"> 
+							<label  class="foodsaleswrite_small_label">음식 사진 </label> </div>
 							<c:if test="${not empty itemImage}">
 							    <div class="food_image_box">
 							        <img src="${pageContext.request.contextPath}/upload/${itemImage.itemImageSystemName}" 
@@ -66,37 +68,36 @@
         </div>
         
         <div class="foodsaleswrite_box">
-          <label for="foodsaleswrite_menu">메뉴명</label>
+          <label for="foodsaleswrite_menu" class="foodsaleswrite_small_label">메뉴명</label>
           <!-- <input type="text" id="foodsaleswrite_munu"> -->
           <div id="foodsaleswrite_munu"><c:out value="${item.getItemName() }"/></div>
           <!-- <button type="button">등록</button> -->
         </div>
         
         <div class="foodsaleswrite_box">
-          <label >음식 설명</label>
-          <div id="foodsaleswrite_explain"><c:out value="${item.getItemContent() }"/></div>
+          <label  class="foodsaleswrite_small_label">음식 설명</label>
+          <div id="foodsaleswrite_explain"><c:out value="${fn:trim(item.itemContent)}"/></div>
           <!-- <textarea name="" id="foodsaleswrite_explain" maxlength="100" placeholder="100자 이내로 입력해주세요"></textarea> -->
-          <span id="foodsaleswrite_char_count">0/100</span>
           <!-- <button type="button">등록</button> -->
         </div>
         
         <div class="foodsaleswrite_box">
-          <label>소비기한</label>
+          <label  class="foodsaleswrite_small_label" >소비기한</label>
           <div id="foodsaleswrite_expiry"><c:out value="${item.getItemExpireDate() }"/></div>
           <!-- <input type="text" id="foodsaleswrite_expiry" placeholder="YYYY-MM-DD-MIN -SS"> -->
           <!-- <button type="button">등록</button> -->
         </div>
         
         <div class="foodsaleswrite_box">
-          <div class="foodsaleswrite_quantitiy_container">
-            <label class="foodsaleswrite_small_label">수량</label>
+          <div class="foodsaleswrite_box foodsaleswrite_quantitiy_container">
+            <label  class="foodsaleswrite_small_label">수량</label>
             <div id="foodsaleswrite_quantity"><c:out value="${item.getItemQuantity() }"/></div>
             <span id="foodsaleswrite_food_count">개</span>
             <!-- <input type="number" id="foodsaleswrite_quantity" min="0" placeholder="개수"> -->
             <!-- <button type="button">등록</button> -->
           </div>
-          <div class="foodsaleswrite_price_container">
-            <label class="foodsaleswrite_small_label">가격</label>
+          <div class="foodsaleswrite_box foodsaleswrite_price_container">
+            <label  class="foodsaleswrite_small_label">가격</label>
             <div id="foodsaleswrite_price"><c:out value="${item.getItemPrice() }"/></div>
             <span>원</span>
             <!-- <input type="number" id="foodsaleswrite_price" min="0" placeholder="원단위"> -->
@@ -116,9 +117,9 @@
 				</div>
 				<!-- 끝 -->
 				<div class="food_edit_btn_container">
-	        <button class="foodsaleswrite_buzz" type="submit">목록으로</button>
+	        <button class="food_cancel_buzz" type="submit">목록으로</button>
 	        
-					<button type="button" class="view_ingredient_edit_btn"
+					<button type="button" class="food_edit_btn"
                 onclick="location.href='${pageContext.request.contextPath}/sellerMyPage/editFood.se?itemNumber=${item.itemNumber}'">
                 수정</button>
 				</div>
