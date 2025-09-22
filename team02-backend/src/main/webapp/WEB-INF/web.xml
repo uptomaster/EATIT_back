@@ -27,10 +27,10 @@
 
 <servlet>
     <servlet-name>FaqSearchController</servlet-name>
-    <servlet-class>com.bapseguen.app.community.InquirySearchController</servlet-class>
+    <servlet-class>com.bapseguen.app.community.FaqSearchController</servlet-class>
 </servlet>
 <servlet-mapping>
-    <servlet-name>InquirySearchController</servlet-name>
+    <servlet-name>FaqSearchController</servlet-name>
     <url-pattern>/community/faqSearchOk.co</url-pattern>
 </servlet-mapping>
 

@@ -326,7 +326,7 @@ public class CommunityDAO {
 
 	// 고객센터 FAQ 목록 검색
 	public List<FaqDTO> faqSearch(String q) {
-		return sqlSession.selectList("faq.searchFaqs", q);
+	    return sqlSession.selectList("faq.searchFaq", q);
 	}
 	
 	// 문의 본문 저장

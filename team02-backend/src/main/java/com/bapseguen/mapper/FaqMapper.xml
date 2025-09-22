@@ -45,15 +45,15 @@
 	</select>
 
 	<!-- 게시글 검색 -->
-	<select id="searchFaqs" parameterType="string"
+	<select id="searchFaq" parameterType="string"
 		resultType="FaqDTO">
 		<![CDATA[
-	SELECT P.POST_NUMBER, P.POST_TITLE, P.POST_CREATED_DATE, P.POST_VIEW_COUNT, P.POST_LIKE_COUNT
-	FROM TBL_POST P
-	WHERE P.POST_TYPE = 'FAQ'
-	AND P.POST_DELETE_STATE = 'N'
-	AND P.POST_TITLE LIKE '%' || :searchKeyword || '%'
-	ORDER BY P.POST_CREATED_DATE DESC
+  SELECT P.POST_NUMBER, P.POST_TITLE, P.POST_CREATED_DATE, P.POST_VIEW_COUNT, P.POST_LIKE_COUNT
+  FROM TBL_POST P
+  WHERE P.POST_TYPE = 'FAQ'
+    AND P.POST_DELETE_STATE = 'N'
+    AND LOWER(P.POST_TITLE) LIKE '%' || LOWER(#{query}) || '%'
+  ORDER BY P.POST_CREATED_DATE DESC
 			]]>
 	</select>
 
