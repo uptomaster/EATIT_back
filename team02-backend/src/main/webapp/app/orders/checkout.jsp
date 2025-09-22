@@ -8,6 +8,7 @@
 
   // 문서용 테스트 키
   String clientKey = "여기에 넣으세요";
+
 %>
 <!DOCTYPE html>
 <html lang="ko">
