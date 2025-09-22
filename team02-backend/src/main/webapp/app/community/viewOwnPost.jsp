@@ -47,7 +47,6 @@
       <!-- 게시글 헤더 -->
 	  <article>
 	      <div class="post">
-	        <!-- 게시글 헤더 -->
 	        <div class="post_header">
 	          <div class="post_box">
 	            <!-- 작성자 -->
@@ -83,10 +82,14 @@
 	          <div class="view-content post_content">
 	            <p><c:out value="${notice.noticeContent}" /></p>
 	          </div>
+	          
 			  <!-- 첨부파일 출력 -->
-			  <c:forEach var="img" items="${noticeImages}">
+			  <div class="post_images">
+			  	<c:forEach var="img" items="${noticeImages}">
 			      <img src="${pageContext.request.contextPath}/upload/${img.adminImageSystemName}" alt="${img.adminImageOriginalName}" />
-			  </c:forEach>
+			  	</c:forEach>
+			  </div>
+			  
 				
 				
 				
@@ -117,7 +120,7 @@
 	      </div> <!-- .post -->
 	    </article>
 
-      <button id="darkModeToggle" title="다크 모드 토글">🌓</button>
+      <!-- <button id="darkModeToggle" title="다크 모드 토글">🌓</button> -->
     </div>
   </main>
 
