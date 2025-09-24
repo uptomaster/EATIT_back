@@ -60,7 +60,7 @@ public class PaymentApproveOkController implements Execute {
 		order.setOrderId(orderId);
 		order.setOrdersTotalAmount(amount);
 		order.setOrdersPaymentStatus("PAID");
-		order.setOrdersPaymentInfo("CARD:TOSS-APPROVED"); // 간단히 기록
+		order.setOrdersPaymentInfo("CARD:TOSS-APPROVED");
 		order.setBusinessNumber(cdao.selectCartBusinessNumberByCartNumber(items.get(0).getCartNumber()));
 
 		int ordersNumber = odao.insertOrder(order);

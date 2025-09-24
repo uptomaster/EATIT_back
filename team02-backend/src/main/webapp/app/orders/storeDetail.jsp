@@ -245,64 +245,77 @@
 		<c:remove var="favMessage" scope="session" />
 	</c:if>
 
-	<!-- 카카오맵 API -->
+	<!-- 카카오맵 API 불러오기 -->
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services"></script>
 	<script>
-document.addEventListener("DOMContentLoaded", () => {
-  var map = new kakao.maps.Map(document.getElementById('storeMap'), {
-      center: new kakao.maps.LatLng(37.5665, 126.9780),
-      level: 3
-  });
+	// HTML 문서가 모두 로드된 뒤 실행
+	document.addEventListener("DOMContentLoaded", () => {
+	  // 지도를 표시할 div(storeMap)를 가져와 지도 객체 생성
+	  var map = new kakao.maps.Map(document.getElementById('storeMap'), {
+	      center: new kakao.maps.LatLng(37.5665, 126.9780), // 카카오맵은 초기 중심 좌표 필요함 (서울시청 기준 좌표로 잡음)
+	      level: 3 // 지도 확대 레벨 (작을수록 확대됨)
+	  });
 
-  var geocoder = new kakao.maps.services.Geocoder();
-  var address = "${fn:replace(item.storeAddress, '서울시', '서울특별시')}";
+	  // 주소-좌표 변환 객체 생성
+	  var geocoder = new kakao.maps.services.Geocoder();
+	  // JSP에서 넘어온 가게 주소를 "서울시" → "서울특별시" 로 변환해 가독성 및 검색 정확도 개선
+	  var address = "${fn:replace(item.storeAddress, '서울시', '서울특별시')}";
 
-  geocoder.addressSearch(address, function(result, status) {
-      if (status === kakao.maps.services.Status.OK) {
-          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+	  // 주소 검색 실행
+	  geocoder.addressSearch(address, function(result, status) {
+	      // 정상적으로 검색된 경우
+	      if (status === kakao.maps.services.Status.OK) {
+	          // 검색 결과 중 첫 번째 좌표값(위도, 경도)을 kakao LatLng 객체로 변환
+	          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-          // 커스텀 마커 이미지 (고양이 3D 핀)
-          var imageSrc = "${pageContext.request.contextPath}/assets/img/pinmarker.png"; 
-          var imageSize = new kakao.maps.Size(40, 40); 
-          var imageOption = {offset: new kakao.maps.Point(20, 40)};
-          var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+	          // 커스텀 마커 이미지 (고양이 3D 핀)
+	          var imageSrc = "${pageContext.request.contextPath}/assets/img/pinmarker.png"; // 마커 이미지 경로
+	          var imageSize = new kakao.maps.Size(40, 40); // 마커 이미지 크기
+	          var imageOption = {offset: new kakao.maps.Point(20, 40)}; // 마커 기준 위치 조정
+	          var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 
-          var marker = new kakao.maps.Marker({
-              position: coords,
-              image: markerImage,
-              map: map
-          });
+	          // 마커 객체 생성
+	          var marker = new kakao.maps.Marker({
+	              position: coords, // 마커 표시 좌표
+	              image: markerImage, // 커스텀 이미지 적용
+	              map: map // 표시할 지도 객체
+	          });
 
-          map.setCenter(coords);
+	          // 지도의 중심을 검색된 좌표로 이동
+	          map.setCenter(coords);
 
-          // 상호명 라벨 (CustomOverlay)
-          var overlayContent = `
-            <div style="
-                background:#ff6347;
-                color:#fff;
-                padding:3px 8px;
-                border-radius:6px;
-                font-size:12px;
-                white-space:nowrap;
-                box-shadow:0 1px 4px rgba(0,0,0,0.3);">
-              ${item.storeName}
-            </div>
-          `;
+	          // 상호명 라벨 (커스텀 오버레이)
+	          var overlayContent = `
+	            <div style="
+	                background:#ff6347;
+	                color:#fff;
+	                padding:3px 8px;
+	                border-radius:6px;
+	                font-size:12px;
+	                white-space:nowrap;
+	                box-shadow:0 1px 4px rgba(0,0,0,0.3);">
+	              ${item.storeName}
+	            </div>
+	          `;
 
-          var overlay = new kakao.maps.CustomOverlay({
-              content: overlayContent,
-              position: coords,
-              yAnchor: 2.2 // 마커 위로 살짝 띄우기
-          });
+	          // 커스텀 오버레이 객체 생성
+	          var overlay = new kakao.maps.CustomOverlay({
+	              content: overlayContent, // 표시할 HTML 콘텐츠
+	              position: coords, // 오버레이 위치
+	              yAnchor: 2.2 // 마커 위로 띄우는 정도
+	          });
 
-          overlay.setMap(map);
-      } else {
-          console.error("주소 변환 실패:", status, address);
-      }
-  });
-});
-</script>
+	          // 오버레이를 지도에 표시
+	          overlay.setMap(map);
+	      } else {
+	          // 주소 검색 실패 시 에러 로그 출력
+	          console.error("주소 변환 실패:", status, address);
+	      }
+	  });
+	});
+	</script>
+
 
 
 
